@@ -1,0 +1,17 @@
+.. _exhale_struct_structmiso_1_1mhd_1_1HaloExchanger:
+
+Template Struct HaloExchanger
+=============================
+
+- Defined in :ref:`file__home_runner_work_MISO_MISO_miso_include_miso_mhd_halo_exchange.hpp`
+
+
+Struct Documentation
+--------------------
+
+
+.. doxygenstruct:: miso::mhd::HaloExchanger
+   :project: CPP
+   :members:
+   :protected-members:
+   :undoc-members:

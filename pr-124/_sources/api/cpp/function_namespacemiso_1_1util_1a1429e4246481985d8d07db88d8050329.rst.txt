@@ -1,0 +1,14 @@
+.. _exhale_function_namespacemiso_1_1util_1a1429e4246481985d8d07db88d8050329:
+
+Template Function miso::util::pow3
+==================================
+
+- Defined in :ref:`file__home_runner_work_MISO_MISO_miso_include_miso_utility.hpp`
+
+
+Function Documentation
+----------------------
+
+
+.. doxygenfunction:: miso::util::pow3(T)
+   :project: CPP

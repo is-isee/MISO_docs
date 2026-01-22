@@ -1,0 +1,14 @@
+.. _exhale_function_namespacemiso_1_1util_1a504dde043fb17f7b31fd2c91bd2c5c72:
+
+Template Function miso::util::max2
+==================================
+
+- Defined in :ref:`file__home_runner_work_MISO_MISO_miso_include_miso_utility.hpp`
+
+
+Function Documentation
+----------------------
+
+
+.. doxygenfunction:: miso::util::max2(T, T)
+   :project: CPP

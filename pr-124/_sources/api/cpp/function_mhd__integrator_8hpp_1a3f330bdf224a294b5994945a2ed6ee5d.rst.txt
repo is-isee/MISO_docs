@@ -1,0 +1,14 @@
+.. _exhale_function_mhd__integrator_8hpp_1a3f330bdf224a294b5994945a2ed6ee5d:
+
+Template Function miso::mhd::space_centered_4th(Array3DView<const Real>, Array3DView<const Real>, Real, int, int, int, int, int, int)
+=====================================================================================================================================
+
+- Defined in :ref:`file__home_runner_work_MISO_MISO_miso_include_miso_mhd_integrator.hpp`
+
+
+Function Documentation
+----------------------
+
+
+.. doxygenfunction:: miso::mhd::space_centered_4th(Array3DView<const Real>, Array3DView<const Real>, Real, int, int, int, int, int, int)
+   :project: CPP

@@ -1,0 +1,17 @@
+.. _exhale_struct_structmiso_1_1Grid:
+
+Template Struct Grid
+====================
+
+- Defined in :ref:`file__home_runner_work_MISO_MISO_miso_include_miso_grid.hpp`
+
+
+Struct Documentation
+--------------------
+
+
+.. doxygenstruct:: miso::Grid
+   :project: CPP
+   :members:
+   :protected-members:
+   :undoc-members:

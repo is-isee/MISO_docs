@@ -1,0 +1,14 @@
+.. _exhale_function_namespacemiso_1_1util_1a331ae28a2cb0d13084a6ecb3753f4889:
+
+Function miso::util::fmin_safe
+==============================
+
+- Defined in :ref:`file__home_runner_work_MISO_MISO_miso_include_miso_utility.hpp`
+
+
+Function Documentation
+----------------------
+
+
+.. doxygenfunction:: miso::util::fmin_safe(float, float)
+   :project: CPP

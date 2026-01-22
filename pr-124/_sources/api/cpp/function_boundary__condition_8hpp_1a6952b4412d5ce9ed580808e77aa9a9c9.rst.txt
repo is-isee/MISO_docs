@@ -1,0 +1,14 @@
+.. _exhale_function_boundary__condition_8hpp_1a6952b4412d5ce9ed580808e77aa9a9c9:
+
+Template Function miso::bnd::symmetric(Array3D<Real, backend::CUDA>&, const Grid<Real, backend::CUDA>&, Real, Direction, Side)
+==============================================================================================================================
+
+- Defined in :ref:`file__home_runner_work_MISO_MISO_miso_include_miso_boundary_condition.hpp`
+
+
+Function Documentation
+----------------------
+
+
+.. doxygenfunction:: miso::bnd::symmetric(Array3D<Real, backend::CUDA>&, const Grid<Real, backend::CUDA>&, Real, Direction, Side)
+   :project: CPP
