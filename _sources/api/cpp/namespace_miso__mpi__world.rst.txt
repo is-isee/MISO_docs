@@ -1,0 +1,26 @@
+
+.. _namespace_miso__mpi__world:
+
+Namespace miso::mpi::world
+==========================
+
+
+.. contents:: Contents
+   :local:
+   :backlinks: none
+
+
+
+
+
+Variables
+---------
+
+
+- :ref:`exhale_variable_env_8hpp_1a5b49b9de8deb9d2e6f75d533d67b172e`
+
+- :ref:`exhale_variable_env_8hpp_1a474c8bd4d11cf24b05dbe8c2dd76c32e`
+
+- :ref:`exhale_variable_env_8hpp_1ae72795201daa29a03bdaf4c6aa6b6a47`
+
+- :ref:`exhale_variable_env_8hpp_1a297e37927ae6fdb6d79f89bda8bf4faf`

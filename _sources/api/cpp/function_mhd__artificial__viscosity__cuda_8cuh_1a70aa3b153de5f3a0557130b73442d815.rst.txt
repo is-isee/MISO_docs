@@ -1,0 +1,14 @@
+.. _exhale_function_mhd__artificial__viscosity__cuda_8cuh_1a70aa3b153de5f3a0557130b73442d815:
+
+Template Function miso::mhd::impl_cuda::artificial_viscosity::update_ei_kernel
+==============================================================================
+
+- Defined in :ref:`file__home_runner_work_MISO_MISO_miso_include_miso_mhd_artificial_viscosity_cuda.cuh`
+
+
+Function Documentation
+----------------------
+
+
+.. doxygenfunction:: miso::mhd::impl_cuda::artificial_viscosity::update_ei_kernel(FieldsView<Real>, FieldsView<Real>, Array3DView<Real>, GridView<Real>, Real *, int, int, int, int, int, int, int, int, int, Real, Real, Real)
+   :project: CPP

@@ -8,19 +8,22 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Quick Start &mdash; MISO 0.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
-      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="_static/graphviz.css?v=4ae1632d" />
       <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="_static/collapsible-lists/css/tree_view.css?v=a885cde7" />
       <link rel="stylesheet" type="text/css" href="_static/custom.css" />
 
   
       <script src="_static/jquery.js?v=5d32c60e"></script>
       <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
       <script src="_static/documentation_options.js?v=837179f8"></script>
-      <script src="_static/doctools.js?v=9bcbadda"></script>
-      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
       <script src="_static/clipboard.min.js?v=a7894cd8"></script>
       <script src="_static/copybutton.js?v=f281be69"></script>
+      <script src="_static/collapsible-lists/js/CollapsibleLists.compressed.js?v=73120307"></script>
+      <script src="_static/collapsible-lists/js/apply-collapsible-lists.js?v=660e4f45"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -52,7 +55,7 @@
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Quick Start</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#installation">Installation</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#usage-cpu-version">Usage (CPU version)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#usage-gpu-version">Usage (GPU version)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#usage-cuda-version">Usage (CUDA version)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#python-module-pymiso">Python module pymiso</a></li>
 </ul>
 </li>
@@ -106,52 +109,50 @@
 </section>
 <section id="usage-cpu-version">
 <h2>Usage (CPU version)<a class="headerlink" href="#usage-cpu-version" title="Link to this heading"></a></h2>
-<p>MISOのコンパイルにはCMakeを用います。</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>MISO
-cmake<span class="w"> </span>-B<span class="w"> </span>build<span class="w"> </span>-S<span class="w"> </span>.<span class="w"> </span>-DUSE_CUDA<span class="o">=</span>OFF
-<span class="nb">cd</span><span class="w"> </span>build
-make<span class="w"> </span>-j<span class="w"> </span><span class="m">4</span>
+<p>MISOのコンパイルにはCMakeを用います。
+例えば、2D Orszag-Tang渦問題を実行してみましょう。</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>demo/mhd2d_vortex
+cmake<span class="w"> </span>-B<span class="w"> </span>build<span class="w"> </span>-DUSE_CUDA<span class="o">=</span>OFF
+make<span class="w"> </span>-C<span class="w"> </span>build
 </pre></div>
 </div>
-<p>これで、CPU版のすべてのプログラムがコンパイルされます。</p>
-<p>コンパイル後、 problem/ ディレクトリで定義された複数のターゲットが、 build/ ディレクトリで利用可能になります。例えば、2D Orszag-Tang渦問題を実行するには、 build/ ディレクトリに移動し、該当する実行ファイルを起動します。</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>build
-mpiexec<span class="w"> </span>-n<span class="w"> </span><span class="m">2</span><span class="w"> </span>./mhd_vortex_2d
+<p>これで、実行ファイル build/mhd2d_vortex が生成されます。</p>
+<p>2D Orszag-Tang渦問題は以下のように実行することができます。</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>mpiexec<span class="w"> </span>-n<span class="w"> </span><span class="m">2</span><span class="w"> </span>./build/mhd2d_vortex
 </pre></div>
 </div>
-<p>build/ ディレクトリで make を実行するとすべてのターゲットがコンパイルされますが、特定のターゲットのみをコンパイルすることも可能です。</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>build
-make<span class="w"> </span>-j<span class="w"> </span><span class="m">4</span><span class="w"> </span>mhd_vortex_2d
+<p>MPIを使用している場合、適切な環境変数・オプションを要求されることがあります。OpenMPIを使用している場合には、自動で環境変数を設定したうえで上記のコマンドを実行するシェルスクリプトが demo/mhd2d_vortex/app_run.sh に用意されています。</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>./app_run.sh
 </pre></div>
 </div>
-<p>シミュレーションパラメータは、 problems/mhd_vortex_2d/config.yaml ファイルを編集することで制御できます。例えば、格子点数は次のように変更できます。</p>
+<p>demo/mhd2d_vortex/data にシミュレーション結果が保存されます。
+途中で計算を停止した場合でも、保存されたデータから再開されます。計算を最初からやり直すには、 problems/mhd_vortex_2d/data/ ディレクトリを削除してください。以下のようにしてもデータを削除することができます。</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>make<span class="w"> </span>clean_data_mhd_vortex_2d
+</pre></div>
+</div>
+<p>シミュレーションパラメータは、 demo/mhd2d_vortex/config.yaml ファイルを編集することで制御できます。例えば、格子点数は次のように変更できます。</p>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">grid</span><span class="p">:</span>
 <span class="w">    </span><span class="nt">i_size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">256</span>
 <span class="w">    </span><span class="nt">j_size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">256</span>
 </pre></div>
 </div>
 </section>
-<section id="usage-gpu-version">
-<h2>Usage (GPU version)<a class="headerlink" href="#usage-gpu-version" title="Link to this heading"></a></h2>
-<p>GPU版をコンパイルする場合は、 以下を指定します。</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>cmake<span class="w"> </span>-B<span class="w"> </span>build<span class="w"> </span>-S<span class="w"> </span>.<span class="w"> </span>-DUSE_CUDA<span class="o">=</span>ON<span class="w"> </span><span class="c1"># Changed flag to ON</span>
+<section id="usage-cuda-version">
+<h2>Usage (CUDA version)<a class="headerlink" href="#usage-cuda-version" title="Link to this heading"></a></h2>
+<p>CUDA版の実行には、NVIDIA HPC SDKが必要です。
+CUDA版をコンパイルする場合は、CMakeのオプションで <code class="docutils literal notranslate"><span class="pre">-DUSE_CUDA=ON</span></code> を指定します。</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>demo/mhd2d_vortex
+cmake<span class="w"> </span>-B<span class="w"> </span>build<span class="w"> </span>-DUSE_CUDA<span class="o">=</span>ON
+make<span class="w"> </span>-C<span class="w"> </span>build
 </pre></div>
 </div>
-<p>GPU版の実行には、NVIDIA HPC SDKが必要です。CPU版でコンパイル済みの場合は、cmakeから再実行する必要があります。</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>MISO
-cmake<span class="w"> </span>-B<span class="w"> </span>build<span class="w"> </span>-S<span class="w"> </span>.<span class="w"> </span>-DUSE_CUDA<span class="o">=</span>ON
-<span class="nb">cd</span><span class="w"> </span>build
-make<span class="w"> </span>clean
-make<span class="w"> </span>-j<span class="w"> </span><span class="m">4</span><span class="w"> </span>mhd_vortex_2d
-mpiexec<span class="w"> </span>-n<span class="w"> </span><span class="m">2</span><span class="w"> </span>--bind-to<span class="w"> </span>none<span class="w"> </span>--mca<span class="w"> </span>pml<span class="w"> </span>ob1<span class="w"> </span>--mca<span class="w"> </span>btl<span class="w"> </span>tcp,self,vader<span class="w"> </span>--mca<span class="w"> </span>coll<span class="w"> </span>^hcoll<span class="w"> </span>--mca<span class="w"> </span>osc<span class="w"> </span>^ucx<span class="w"> </span>./mhd_vortex_2d
+<p>実行ファイル build/mhd2d_vortex やその実行方法はCPU版と同様です。
+実行時に必要なオプションや環境変数の設定方法が環境により変わる場合があるため、以下は例として参考にしてください。</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>mpiexec<span class="w"> </span>-n<span class="w"> </span><span class="m">2</span><span class="w"> </span>--bind-to<span class="w"> </span>none<span class="w"> </span>--mca<span class="w"> </span>pml<span class="w"> </span>ob1<span class="w"> </span>--mca<span class="w"> </span>btl<span class="w"> </span>tcp,self,vader<span class="w"> </span>--mca<span class="w"> </span>coll<span class="w"> </span>^hcoll<span class="w"> </span>--mca<span class="w"> </span>osc<span class="w"> </span>^ucx<span class="w"> </span>./build/mhd2d_vortex
 </pre></div>
 </div>
-<p>GPU版で複数のプロセスを使用する場合は、 “–map-by ppr:N:node” オプションを指定する必要があります (Nは1ノードあたりのプロセス数)。例えば、4プロセスで実行する場合は、次のようになります。</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>mpiexec<span class="w"> </span>-n<span class="w"> </span><span class="m">4</span><span class="w"> </span>--map-by<span class="w"> </span>ppr:3:node<span class="w"> </span>--bind-to<span class="w"> </span>none<span class="w"> </span>-x<span class="w"> </span><span class="nv">CUDA_DEVICE_ORDER</span><span class="o">=</span>PCI_BUS_ID<span class="w">   </span>-x<span class="w"> </span><span class="nv">CUDA_VISIBLE_DEVICES</span><span class="o">=</span><span class="m">0</span>,1<span class="w"> </span>--mca<span class="w"> </span>pml<span class="w"> </span>ob1<span class="w"> </span>--mca<span class="w"> </span>btl<span class="w"> </span>tcp,self,vader<span class="w"> </span>--mca<span class="w"> </span>coll<span class="w"> </span>^hcoll<span class="w"> </span>--mca<span class="w"> </span>osc<span class="w"> </span>^ucx<span class="w"> </span>./mhd_vortex_2d
-</pre></div>
-</div>
-<p>シミュレーションの出力は problems/mhd_vortex_2d/data/ ディレクトリに保存されます。途中で計算を停止した場合でも、保存されたデータから再開されます。計算を最初からやり直すには、 problems/mhd_vortex_2d/data/ ディレクトリを削除してください。以下のようにしてもデータを削除することができます。</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>make<span class="w"> </span>clean_data_mhd_vortex_2d
+<p>GPU版で複数のプロセスを使用する場合は、オプションとして “–map-by ppr:N:node” (N は 1 ノードあたりのプロセス数) や “-x CUDA_VISIBLE_DEVICES=M,L,…” (M, L, … は各ノードで利用可能とする CUDA デバイス番号) などを指定することを推奨します。例えば、 2 ノード、ノード当たり 2 プロセス、各プロセスが 1 CUDA デバイスを使用し、合計 4 プロセスで実行する場合は、次のようになります。</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>mpiexec<span class="w"> </span>-n<span class="w"> </span><span class="m">4</span><span class="w"> </span>--map-by<span class="w"> </span>ppr:2:node<span class="w"> </span>--bind-to<span class="w"> </span>none<span class="w"> </span>-x<span class="w"> </span><span class="nv">CUDA_DEVICE_ORDER</span><span class="o">=</span>PCI_BUS_ID<span class="w"> </span>-x<span class="w"> </span><span class="nv">CUDA_VISIBLE_DEVICES</span><span class="o">=</span><span class="m">0</span>,1<span class="w"> </span>--mca<span class="w"> </span>pml<span class="w"> </span>ob1<span class="w"> </span>--mca<span class="w"> </span>btl<span class="w"> </span>tcp,self,vader<span class="w"> </span>--mca<span class="w"> </span>coll<span class="w"> </span>^hcoll<span class="w"> </span>--mca<span class="w"> </span>osc<span class="w"> </span>^ucx<span class="w"> </span>./build/mhd2d_vortex
 </pre></div>
 </div>
 </section>
@@ -165,15 +166,15 @@ pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </s
 pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span>.
 
 <span class="c1"># for development</span>
-pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span><span class="s2">&quot;.[vis,dev]&quot;</span>
+pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span><span class="s2">&quot;.[vis,dev,docs]&quot;</span>
 </pre></div>
 </div>
 <p>シミュレーション結果は以下のように読み込むことができます。</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pymiso</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
 
-<span class="c1"># relative path of the data directory</span>
-<span class="n">d</span> <span class="o">=</span> <span class="n">pymiso</span><span class="o">.</span><span class="n">Data</span><span class="p">(</span><span class="s2">&quot;../problems/mhd_vortex_2d/data&quot;</span><span class="p">)</span>
+<span class="c1"># relative path to the data directory</span>
+<span class="n">d</span> <span class="o">=</span> <span class="n">pymiso</span><span class="o">.</span><span class="n">Data</span><span class="p">(</span><span class="s2">&quot;./demo/mhd2d_vortex/data&quot;</span><span class="p">)</span>
 
 <span class="n">n_step</span> <span class="o">=</span> <span class="mi">80</span>
 <span class="n">d</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">n_step</span><span class="p">)</span>
@@ -181,6 +182,12 @@ pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </s
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
+<p>各デモ問題には可視化用のスクリプトが含まれています。例えば、2D Orszag-Tang渦問題の結果を可視化するには、 demo/mhd2d_vortex/plot_data.py を実行します。</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>demo/mhd2d_vortex
+python<span class="w"> </span>plot_data.py
+</pre></div>
+</div>
+<p>実行後、シミュレーション結果の画像ファイルが demo/mhd2d_vortex/figs に保存されます。</p>
 </section>
 </section>
 

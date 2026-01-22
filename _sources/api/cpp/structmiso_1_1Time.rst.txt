@@ -1,0 +1,17 @@
+.. _exhale_struct_structmiso_1_1Time:
+
+Template Struct Time
+====================
+
+- Defined in :ref:`file__home_runner_work_MISO_MISO_miso_include_miso_time.hpp`
+
+
+Struct Documentation
+--------------------
+
+
+.. doxygenstruct:: miso::Time
+   :project: CPP
+   :members:
+   :protected-members:
+   :undoc-members:

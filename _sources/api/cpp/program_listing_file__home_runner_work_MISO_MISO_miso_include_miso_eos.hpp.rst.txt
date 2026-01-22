@@ -1,0 +1,36 @@
+
+.. _program_listing_file__home_runner_work_MISO_MISO_miso_include_miso_eos.hpp:
+
+Program Listing for File eos.hpp
+================================
+
+|exhale_lsh| :ref:`Return to documentation for file <file__home_runner_work_MISO_MISO_miso_include_miso_eos.hpp>` (``/home/runner/work/MISO/MISO/miso/include/miso/eos.hpp``)
+
+.. |exhale_lsh| unicode:: U+021B0 .. UPWARDS ARROW WITH TIP LEFTWARDS
+
+.. code-block:: cpp
+
+   #pragma once
+   
+   #include <miso/config.hpp>
+   
+   namespace miso {
+   namespace eos {
+   
+   template <typename Real> struct IdealEOS {
+     Real gm;
+   
+     explicit IdealEOS(const Config &config)
+         : gm(config["eos"]["gm"].template as<Real>()) {}
+   
+     __host__ __device__ inline Real roeitopr(Real ro, Real ei) const noexcept {
+       return (gm - 1.0) * ro * ei;
+     }
+   
+     __host__ __device__ inline Real roprtoei(Real ro, Real pr) const noexcept {
+       return pr / (gm - 1.0) / ro;
+     }
+   };
+   
+   }  // namespace eos
+   }  // namespace miso

@@ -1,0 +1,14 @@
+.. _exhale_function_namespacemiso_1_1mpi_1a0a212383552c01b0cec05ed542e05ea2:
+
+Specialized Template Function miso::mpi::data_type< float >
+===========================================================
+
+- Defined in :ref:`file__home_runner_work_MISO_MISO_miso_include_miso_mpi_util.hpp`
+
+
+Function Documentation
+----------------------
+
+
+.. doxygenfunction:: miso::mpi::data_type< float >()
+   :project: CPP

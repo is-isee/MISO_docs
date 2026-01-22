@@ -1,0 +1,17 @@
+.. _exhale_struct_structmiso_1_1cuda_1_1KernelShape3D:
+
+Struct KernelShape3D
+====================
+
+- Defined in :ref:`file__home_runner_work_MISO_MISO_miso_include_miso_cuda_util.cuh`
+
+
+Struct Documentation
+--------------------
+
+
+.. doxygenstruct:: miso::cuda::KernelShape3D
+   :project: CPP
+   :members:
+   :protected-members:
+   :undoc-members:

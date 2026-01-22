@@ -1,0 +1,14 @@
+.. _exhale_function_namespacemiso_1_1util_1ac1e76e52806c2f277316451e83441829:
+
+Template Function miso::util::min3
+==================================
+
+- Defined in :ref:`file__home_runner_work_MISO_MISO_miso_include_miso_utility.hpp`
+
+
+Function Documentation
+----------------------
+
+
+.. doxygenfunction:: miso::util::min3(T, T, T)
+   :project: CPP
