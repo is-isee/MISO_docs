@@ -1,0 +1,138 @@
+
+.. _namespace_miso:
+
+Namespace miso
+==============
+
+
+Radiative Transfer (RT) module for CPU. 
+
+
+
+
+.. contents:: Contents
+   :local:
+   :backlinks: none
+
+
+
+
+Detailed Description
+--------------------
+
+Angular quadrature for radiative transfer calculations.
+
+Implements a monochromatic RT solver for CPU-based simulations. 
+
+
+
+
+
+Namespaces
+----------
+
+
+- :ref:`namespace_miso__backend`
+
+- :ref:`namespace_miso__bnd`
+
+- :ref:`namespace_miso__cuda`
+
+- :ref:`namespace_miso__eos`
+
+- :ref:`namespace_miso__limiter`
+
+- :ref:`namespace_miso__mhd`
+
+- :ref:`namespace_miso__mpi`
+
+- :ref:`namespace_miso__rt`
+
+- :ref:`namespace_miso__util`
+
+
+Classes
+-------
+
+
+- :ref:`exhale_struct_structmiso_1_1Config`
+
+- :ref:`exhale_struct_structmiso_1_1Env`
+
+- :ref:`exhale_struct_structmiso_1_1Grid`
+
+- :ref:`exhale_struct_structmiso_1_1Grid_3_01Real_00_01backend_1_1CUDA_01_4`
+
+- :ref:`exhale_struct_structmiso_1_1Grid_3_01Real_00_01backend_1_1Host_01_4`
+
+- :ref:`exhale_struct_structmiso_1_1GridGenerator`
+
+- :ref:`exhale_struct_structmiso_1_1GridView`
+
+- :ref:`exhale_struct_structmiso_1_1Index3D`
+
+- :ref:`exhale_struct_structmiso_1_1Range1D`
+
+- :ref:`exhale_struct_structmiso_1_1Range3D`
+
+- :ref:`exhale_struct_structmiso_1_1Time`
+
+- :ref:`exhale_class_classmiso_1_1Array3D`
+
+- :ref:`exhale_class_classmiso_1_1Array3D_3_01T_00_01backend_1_1CUDA_01_4`
+
+- :ref:`exhale_class_classmiso_1_1Array3D_3_01T_00_01backend_1_1Host_01_4`
+
+- :ref:`exhale_class_classmiso_1_1Array3DView`
+
+- :ref:`exhale_class_classmiso_1_1Array4D`
+
+
+Enums
+-----
+
+
+- :ref:`exhale_enum_namespacemiso_1ad7b207364a985b5efb401fc99198b874`
+
+- :ref:`exhale_enum_namespacemiso_1ac9e7f0e92f543df3d392ab832d340b04`
+
+
+Functions
+---------
+
+
+- :ref:`exhale_function_namespacemiso_1a7fdf73db94b4c10b7055fd6926dd3253`
+
+- :ref:`exhale_function_namespacemiso_1a83d66810f9f251bcc255b0c1bd05fb8d`
+
+- :ref:`exhale_function_namespacemiso_1a26049fe04ec0d227a0c06af5d1876a98`
+
+- :ref:`exhale_function_namespacemiso_1a3b68a63c4dd234afcdc5ecdd495cec49`
+
+- :ref:`exhale_function_namespacemiso_1ae7ad61547053141bc1b3a31cbd6ed51c`
+
+- :ref:`exhale_function_namespacemiso_1ac4e29c50f204e3317b250c6276bb4cce`
+
+- :ref:`exhale_function_namespacemiso_1a7c9ac735508606039d4c8b87ee303581`
+
+- :ref:`exhale_function_namespacemiso_1a326640ac4963336ac9505fdee481eaa9`
+
+
+Typedefs
+--------
+
+
+- :ref:`exhale_typedef_namespacemiso_1a0d287e36a4da5d7729857e7a1e65eb80`
+
+
+Variables
+---------
+
+
+- :ref:`exhale_variable_namespacemiso_1ac3bcfe0908571aed5626910596b8eab8`
+
+- :ref:`exhale_variable_namespacemiso_1ae05b6969265beebfdc8ab2b93af6be1f`
+
+- :ref:`exhale_variable_namespacemiso_1ac7b160989eab0dc0ddbb5450203f6e45`
+
+- :ref:`exhale_variable_namespacemiso_1abdacae9dbf206af7025f046abebcd6e9`

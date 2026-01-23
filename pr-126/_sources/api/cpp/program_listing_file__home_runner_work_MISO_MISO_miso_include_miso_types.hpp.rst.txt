@@ -1,0 +1,23 @@
+
+.. _program_listing_file__home_runner_work_MISO_MISO_miso_include_miso_types.hpp:
+
+Program Listing for File types.hpp
+==================================
+
+|exhale_lsh| :ref:`Return to documentation for file <file__home_runner_work_MISO_MISO_miso_include_miso_types.hpp>` (``/home/runner/work/MISO/MISO/miso/include/miso/types.hpp``)
+
+.. |exhale_lsh| unicode:: U+021B0 .. UPWARDS ARROW WITH TIP LEFTWARDS
+
+.. code-block:: cpp
+
+   #pragma once
+   
+   namespace miso {
+   
+   using Real = float;
+   
+   enum class Direction { X, Y, Z };
+   
+   enum class Face { Pos, Neg };
+   
+   }  // namespace miso

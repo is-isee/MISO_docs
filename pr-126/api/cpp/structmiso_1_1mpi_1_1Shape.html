@@ -1,0 +1,303 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Struct Shape &mdash; MISO 0.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css?v=4ae1632d" />
+      <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../../_static/collapsible-lists/css/tree_view.css?v=a885cde7" />
+      <link rel="stylesheet" type="text/css" href="../../_static/custom.css" />
+
+  
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options.js?v=837179f8"></script>
+      <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../../_static/copybutton.js?v=f281be69"></script>
+      <script src="../../_static/collapsible-lists/js/CollapsibleLists.compressed.js?v=73120307"></script>
+      <script src="../../_static/collapsible-lists/js/apply-collapsible-lists.js?v=660e4f45"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Struct Range1D" href="structmiso_1_1Range1D.html" />
+    <link rel="prev" title="Struct Env" href="structmiso_1_1mpi_1_1Env.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            MISO
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../quickstart.html">Quick Start</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../problems/index.html">Test Problems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../customization/index.html">Customization</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../miso/index.html">MISO C++ documentation</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="root.html">MISO C++ API Reference</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="root.html#page-hierarchy">Page Hierarchy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="root.html#class-hierarchy">Class Hierarchy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="root.html#file-hierarchy">File Hierarchy</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="root.html#full-api">Full API</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="root.html#namespaces">Namespaces</a></li>
+<li class="toctree-l4 current"><a class="reference internal" href="root.html#classes-and-structs">Classes and Structs</a></li>
+<li class="toctree-l4"><a class="reference internal" href="root.html#enums">Enums</a></li>
+<li class="toctree-l4"><a class="reference internal" href="root.html#functions">Functions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="root.html#variables">Variables</a></li>
+<li class="toctree-l4"><a class="reference internal" href="root.html#defines">Defines</a></li>
+<li class="toctree-l4"><a class="reference internal" href="root.html#typedefs">Typedefs</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../pymiso/index.html">pymiso Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../references.html">References</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">MISO</a>
+      </nav>
+
+      <div class="wy-nav-content">
+<div id="language-links" style="margin-bottom: 1em; font-size: 100%;">
+    Language:
+    <a href="#" id="translate-link" target="_blank">English</a> |
+    <a href="#" id="original-link">日本語</a>
+</div>
+
+
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../miso/index.html">MISO C++ documentation</a></li>
+          <li class="breadcrumb-item"><a href="root.html">MISO C++ API Reference</a></li>
+      <li class="breadcrumb-item active">Struct Shape</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../_sources/api/cpp/structmiso_1_1mpi_1_1Shape.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="struct-shape">
+<span id="exhale-struct-structmiso-1-1mpi-1-1shape"></span><h1>Struct Shape<a class="headerlink" href="#struct-shape" title="Link to this heading"></a></h1>
+<ul class="simple">
+<li><p>Defined in <a class="reference internal" href="file__home_runner_work_MISO_MISO_miso_include_miso_mpi_util.hpp.html#file-home-runner-work-miso-miso-miso-include-miso-mpi-util-hpp"><span class="std std-ref">File mpi_util.hpp</span></a></p></li>
+</ul>
+<section id="struct-documentation">
+<h2>Struct Documentation<a class="headerlink" href="#struct-documentation" title="Link to this heading"></a></h2>
+<dl class="cpp struct">
+<dt class="sig sig-object cpp" id="_CPPv4N4miso3mpi5ShapeE">
+<span id="_CPPv3N4miso3mpi5ShapeE"></span><span id="_CPPv2N4miso3mpi5ShapeE"></span><span id="miso::mpi::Shape"></span><span class="target" id="structmiso_1_1mpi_1_1Shape"></span><span class="k"><span class="pre">struct</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Shape</span></span></span><a class="headerlink" href="#_CPPv4N4miso3mpi5ShapeE" title="Link to this definition"></a><br /></dt>
+<dd><p>Define Cartesian shape in MPI process topology. </p>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-functions">Public Functions</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N4miso3mpi5Shape5ShapeERK6Config">
+<span id="_CPPv3N4miso3mpi5Shape5ShapeERK6Config"></span><span id="_CPPv2N4miso3mpi5Shape5ShapeERK6Config"></span><span id="miso::mpi::Shape::Shape__ConfigCR"></span><span class="target" id="structmiso_1_1mpi_1_1Shape_1a75b62ab36f1511822c6932fe3722b106"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Shape</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="structmiso_1_1Config.html#_CPPv4N4miso6ConfigE" title="miso::Config"><span class="n"><span class="pre">Config</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">config</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4miso3mpi5Shape5ShapeERK6Config" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N4miso3mpi5ShapeD0Ev">
+<span id="_CPPv3N4miso3mpi5ShapeD0Ev"></span><span id="_CPPv2N4miso3mpi5ShapeD0Ev"></span><span id="miso::mpi::Shape::~Shape"></span><span class="target" id="structmiso_1_1mpi_1_1Shape_1aa536b13de7658093c35cad98d8e44954"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">~Shape</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4miso3mpi5ShapeD0Ev" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK4miso3mpi5Shape4saveEv">
+<span id="_CPPv3NK4miso3mpi5Shape4saveEv"></span><span id="_CPPv2NK4miso3mpi5Shape4saveEv"></span><span id="miso::mpi::Shape::saveC"></span><span class="target" id="structmiso_1_1mpi_1_1Shape_1adf5ff8751393da58fe8840da8e10f8d9"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">save</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK4miso3mpi5Shape4saveEv" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-members">Public Members</p>
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N4miso3mpi5Shape9cart_commE">
+<span id="_CPPv3N4miso3mpi5Shape9cart_commE"></span><span id="_CPPv2N4miso3mpi5Shape9cart_commE"></span><span id="miso::mpi::Shape::cart_comm__MPI_Comm"></span><span class="target" id="structmiso_1_1mpi_1_1Shape_1ac9d512822b8d5ad469b13a511ccda90f"></span><span class="n"><span class="pre">MPI_Comm</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">cart_comm</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="n"><span class="pre">MPI_COMM_NULL</span></span><a class="headerlink" href="#_CPPv4N4miso3mpi5Shape9cart_commE" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N4miso3mpi5Shape6myrankE">
+<span id="_CPPv3N4miso3mpi5Shape6myrankE"></span><span id="_CPPv2N4miso3mpi5Shape6myrankE"></span><span id="miso::mpi::Shape::myrank__i"></span><span class="target" id="structmiso_1_1mpi_1_1Shape_1a60c609556133cf5dfb649033391eafc3"></span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">myrank</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="o"><span class="pre">-</span></span><span class="m"><span class="pre">1</span></span><a class="headerlink" href="#_CPPv4N4miso3mpi5Shape6myrankE" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N4miso3mpi5Shape7n_procsE">
+<span id="_CPPv3N4miso3mpi5Shape7n_procsE"></span><span id="_CPPv2N4miso3mpi5Shape7n_procsE"></span><span id="miso::mpi::Shape::n_procs__i"></span><span class="target" id="structmiso_1_1mpi_1_1Shape_1a6434faa0a854f869f6d3352cbf0e4512"></span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">n_procs</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="o"><span class="pre">-</span></span><span class="m"><span class="pre">1</span></span><a class="headerlink" href="#_CPPv4N4miso3mpi5Shape7n_procsE" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N4miso3mpi5Shape5coordE">
+<span id="_CPPv3N4miso3mpi5Shape5coordE"></span><span id="_CPPv2N4miso3mpi5Shape5coordE"></span><span id="miso::mpi::Shape::coord__iA"></span><span class="target" id="structmiso_1_1mpi_1_1Shape_1a35402fe154fe698fe1caf4433eb53fe9"></span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">coord</span></span></span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#_CPPv4N4miso3mpi5Shape5ndimsE" title="miso::mpi::Shape::ndims"><span class="n"><span class="pre">ndims</span></span></a><span class="p"><span class="pre">]</span></span><a class="headerlink" href="#_CPPv4N4miso3mpi5Shape5coordE" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N4miso3mpi5Shape7x_procsE">
+<span id="_CPPv3N4miso3mpi5Shape7x_procsE"></span><span id="_CPPv2N4miso3mpi5Shape7x_procsE"></span><span id="miso::mpi::Shape::x_procs__i"></span><span class="target" id="structmiso_1_1mpi_1_1Shape_1ac6846b0fbd58838282d32a7c9491346c"></span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">x_procs</span></span></span><a class="headerlink" href="#_CPPv4N4miso3mpi5Shape7x_procsE" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N4miso3mpi5Shape7y_procsE">
+<span id="_CPPv3N4miso3mpi5Shape7y_procsE"></span><span id="_CPPv2N4miso3mpi5Shape7y_procsE"></span><span id="miso::mpi::Shape::y_procs__i"></span><span class="target" id="structmiso_1_1mpi_1_1Shape_1a8987d6a02b115255b64c7452220c2c2f"></span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">y_procs</span></span></span><a class="headerlink" href="#_CPPv4N4miso3mpi5Shape7y_procsE" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N4miso3mpi5Shape7z_procsE">
+<span id="_CPPv3N4miso3mpi5Shape7z_procsE"></span><span id="_CPPv2N4miso3mpi5Shape7z_procsE"></span><span id="miso::mpi::Shape::z_procs__i"></span><span class="target" id="structmiso_1_1mpi_1_1Shape_1a980714c67a8797e04c055d8909439e32"></span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">z_procs</span></span></span><a class="headerlink" href="#_CPPv4N4miso3mpi5Shape7z_procsE" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N4miso3mpi5Shape11x_procs_posE">
+<span id="_CPPv3N4miso3mpi5Shape11x_procs_posE"></span><span id="_CPPv2N4miso3mpi5Shape11x_procs_posE"></span><span id="miso::mpi::Shape::x_procs_pos__i"></span><span class="target" id="structmiso_1_1mpi_1_1Shape_1a26c52501c545b1c82b8edeb3a9797125"></span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">x_procs_pos</span></span></span><a class="headerlink" href="#_CPPv4N4miso3mpi5Shape11x_procs_posE" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N4miso3mpi5Shape11y_procs_posE">
+<span id="_CPPv3N4miso3mpi5Shape11y_procs_posE"></span><span id="_CPPv2N4miso3mpi5Shape11y_procs_posE"></span><span id="miso::mpi::Shape::y_procs_pos__i"></span><span class="target" id="structmiso_1_1mpi_1_1Shape_1aecdccda0b3453da0178eb2da2bf3205d"></span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">y_procs_pos</span></span></span><a class="headerlink" href="#_CPPv4N4miso3mpi5Shape11y_procs_posE" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N4miso3mpi5Shape11z_procs_posE">
+<span id="_CPPv3N4miso3mpi5Shape11z_procs_posE"></span><span id="_CPPv2N4miso3mpi5Shape11z_procs_posE"></span><span id="miso::mpi::Shape::z_procs_pos__i"></span><span class="target" id="structmiso_1_1mpi_1_1Shape_1a6bb7d2d176d801abe33714da1127fdcb"></span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">z_procs_pos</span></span></span><a class="headerlink" href="#_CPPv4N4miso3mpi5Shape11z_procs_posE" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N4miso3mpi5Shape11x_procs_negE">
+<span id="_CPPv3N4miso3mpi5Shape11x_procs_negE"></span><span id="_CPPv2N4miso3mpi5Shape11x_procs_negE"></span><span id="miso::mpi::Shape::x_procs_neg__i"></span><span class="target" id="structmiso_1_1mpi_1_1Shape_1a861100f9c3702ab00abd8d29c26d17b2"></span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">x_procs_neg</span></span></span><a class="headerlink" href="#_CPPv4N4miso3mpi5Shape11x_procs_negE" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N4miso3mpi5Shape11y_procs_negE">
+<span id="_CPPv3N4miso3mpi5Shape11y_procs_negE"></span><span id="_CPPv2N4miso3mpi5Shape11y_procs_negE"></span><span id="miso::mpi::Shape::y_procs_neg__i"></span><span class="target" id="structmiso_1_1mpi_1_1Shape_1ad93694cb8c0c73a015312771d4ec3b33"></span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">y_procs_neg</span></span></span><a class="headerlink" href="#_CPPv4N4miso3mpi5Shape11y_procs_negE" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N4miso3mpi5Shape11z_procs_negE">
+<span id="_CPPv3N4miso3mpi5Shape11z_procs_negE"></span><span id="_CPPv2N4miso3mpi5Shape11z_procs_negE"></span><span id="miso::mpi::Shape::z_procs_neg__i"></span><span class="target" id="structmiso_1_1mpi_1_1Shape_1a9d0e6c93818fd76a84cc61c8b7aedd25"></span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">z_procs_neg</span></span></span><a class="headerlink" href="#_CPPv4N4miso3mpi5Shape11z_procs_negE" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N4miso3mpi5Shape12mpi_save_dirE">
+<span id="_CPPv3N4miso3mpi5Shape12mpi_save_dirE"></span><span id="_CPPv2N4miso3mpi5Shape12mpi_save_dirE"></span><span id="miso::mpi::Shape::mpi_save_dir__ss"></span><span class="target" id="structmiso_1_1mpi_1_1Shape_1a20366e163820f5347d2a28d259e9593b"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">mpi_save_dir</span></span></span><a class="headerlink" href="#_CPPv4N4miso3mpi5Shape12mpi_save_dirE" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-static-attributes">Public Static Attributes</p>
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N4miso3mpi5Shape5ndimsE">
+<span id="_CPPv3N4miso3mpi5Shape5ndimsE"></span><span id="_CPPv2N4miso3mpi5Shape5ndimsE"></span><span id="miso::mpi::Shape::ndims__i"></span><span class="target" id="structmiso_1_1mpi_1_1Shape_1acc70198c1b6039bef25f3d2f558c75b7"></span><span class="k"><span class="pre">static</span></span><span class="w"> </span><span class="k"><span class="pre">constexpr</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">ndims</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">3</span></span><a class="headerlink" href="#_CPPv4N4miso3mpi5Shape5ndimsE" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+</div>
+</dd></dl>
+
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="structmiso_1_1mpi_1_1Env.html" class="btn btn-neutral float-left" title="Struct Env" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="structmiso_1_1Range1D.html" class="btn btn-neutral float-right" title="Struct Range1D" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Integrated Studies, ISEE, Nagoya University.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+ 
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        const currentUrl = window.location.href;
+        const isTranslated = currentUrl.includes(".translate.goog");
+        const translateLink = document.getElementById("translate-link");
+        const originalLink = document.getElementById("original-link");
+
+        // 翻訳URLを生成
+        const translateUrl =
+            "https://translate.google.com/translate?sl=ja&tl=en&u=" +
+            encodeURIComponent(currentUrl);
+
+        if (isTranslated) {
+            // --- 英語版(.translate.goog)にいる場合 ---
+            // English → ページを単にリロード
+            translateLink.removeAttribute("target");
+            translateLink.removeAttribute("href");
+            translateLink.addEventListener("click", (e) => {
+                e.preventDefault();
+                window.location.reload();
+            });
+
+            // 日本語 → 新タブで元URLを開く（翻訳解除）
+            const originalUrl = currentUrl.replace(
+                /^https:\/\/[^/]+\.translate\.goog/,
+                "https://is-isee.github.io"
+            );
+            originalLink.href = originalUrl;
+            originalLink.target = "_blank";
+            originalLink.rel = "noopener";
+        } else {
+            // --- 日本語版にいる場合 ---
+            translateLink.href = translateUrl;
+            translateLink.target = "_blank";
+
+            originalLink.href = currentUrl;
+            originalLink.target = "_self";
+        }
+    });
+</script>
+
+
+</body>
+</html>

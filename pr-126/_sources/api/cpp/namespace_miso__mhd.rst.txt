@@ -1,0 +1,121 @@
+
+.. _namespace_miso__mhd:
+
+Namespace miso::mhd
+===================
+
+
+.. contents:: Contents
+   :local:
+   :backlinks: none
+
+
+
+
+
+Namespaces
+----------
+
+
+- :ref:`namespace_miso__mhd__impl_cuda`
+
+- :ref:`namespace_miso__mhd__impl_host`
+
+
+Classes
+-------
+
+
+- :ref:`exhale_struct_structmiso_1_1mhd_1_1Buffers`
+
+- :ref:`exhale_struct_structmiso_1_1mhd_1_1Buffers_3_01Real_00_01backend_1_1CUDA_01_4`
+
+- :ref:`exhale_struct_structmiso_1_1mhd_1_1BuffersView`
+
+- :ref:`exhale_struct_structmiso_1_1mhd_1_1Checkpoint`
+
+- :ref:`exhale_struct_structmiso_1_1mhd_1_1ExecContext`
+
+- :ref:`exhale_struct_structmiso_1_1mhd_1_1ExecContext_3_01backend_1_1CUDA_01_4`
+
+- :ref:`exhale_struct_structmiso_1_1mhd_1_1ExecContext_3_01backend_1_1Host_01_4`
+
+- :ref:`exhale_struct_structmiso_1_1mhd_1_1Fields`
+
+- :ref:`exhale_struct_structmiso_1_1mhd_1_1Fields_3_01Real_00_01backend_1_1CUDA_01_4`
+
+- :ref:`exhale_struct_structmiso_1_1mhd_1_1Fields_3_01Real_00_01backend_1_1Host_01_4`
+
+- :ref:`exhale_struct_structmiso_1_1mhd_1_1HaloExchanger`
+
+- :ref:`exhale_struct_structmiso_1_1mhd_1_1HaloExchanger_3_01Real_00_01backend_1_1CUDA_01_4`
+
+- :ref:`exhale_struct_structmiso_1_1mhd_1_1HaloExchanger_3_01Real_00_01backend_1_1Host_01_4`
+
+- :ref:`exhale_struct_structmiso_1_1mhd_1_1Integrator`
+
+- :ref:`exhale_struct_structmiso_1_1mhd_1_1Integrator_3_01Real_00_01EOS_00_01backend_1_1CUDA_01_4`
+
+- :ref:`exhale_struct_structmiso_1_1mhd_1_1Integrator_3_01Real_00_01EOS_00_01backend_1_1Host_01_4`
+
+- :ref:`exhale_struct_structmiso_1_1mhd_1_1MHD`
+
+- :ref:`exhale_struct_structmiso_1_1mhd_1_1NoSource`
+
+- :ref:`exhale_struct_structmiso_1_1mhd_1_1TimeStepHelper`
+
+- :ref:`exhale_class_classmiso_1_1mhd_1_1FieldsView`
+
+
+Functions
+---------
+
+
+- :ref:`exhale_function_mhd__integrator__cuda_8cuh_1a91d4bedeecbf6bd2f1a0c0cdffdeddbe`
+
+- :ref:`exhale_function_mhd__integrator__cuda_8cuh_1a8ee1b126a1b8d7cfa2dde3b84e51d6d6`
+
+- :ref:`exhale_function_mhd__halo__exchange_8hpp_1a79d94ba24202590a295b900345ddd3aa`
+
+- :ref:`exhale_function_mhd__halo__exchange_8hpp_1a4f383639f856a2cb25a655014dbec4be`
+
+- :ref:`exhale_function_mhd__halo__exchange_8hpp_1a670758ee4e1ac320dfb237781db1eae2`
+
+- :ref:`exhale_function_mhd__integrator__cuda_8cuh_1a10ef9818c30d1c1961bbd77cb40703c2`
+
+- :ref:`exhale_function_mhd__integrator_8hpp_1a2564cdc11eb2716336df0f9367327979`
+
+- :ref:`exhale_function_mhd__integrator_8hpp_1a133ab68fba5738068b88b061c151b819`
+
+- :ref:`exhale_function_mhd__integrator_8hpp_1a3f330bdf224a294b5994945a2ed6ee5d`
+
+- :ref:`exhale_function_mhd__halo__exchange_8hpp_1aa1ee7f3d4f6a230d7a7354922cbf99a9`
+
+- :ref:`exhale_function_mhd__halo__exchange_8hpp_1a1bb8e625ebed502307847ddcaae4f08d`
+
+- :ref:`exhale_function_mhd__halo__exchange_8hpp_1a5325a5798e8f30a4270ea1e27a7f25d7`
+
+- :ref:`exhale_function_mhd__integrator__cuda_8cuh_1a99d015778ba410c337b189dfecb455ea`
+
+- :ref:`exhale_function_mhd__integrator__cuda_8cuh_1ae3b9f91463c2cd4b29fe197081110d03`
+
+- :ref:`exhale_function_mhd__integrator__cuda_8cuh_1a07fc21d5a2db9115b3e746b36dec0731`
+
+- :ref:`exhale_function_mhd__integrator__cuda_8cuh_1aad6b51287470f90088856c6fe24c3ed7`
+
+- :ref:`exhale_function_mhd__integrator__cuda_8cuh_1a2a087c5b44457da567f1dc803091a26d`
+
+- :ref:`exhale_function_mhd__integrator__cuda_8cuh_1ac316854d025bd3d5ef62c3c69bffd012`
+
+- :ref:`exhale_function_mhd__integrator__cuda_8cuh_1aae06941912180e26d8d34f36c0b211c5`
+
+- :ref:`exhale_function_mhd__integrator__cuda_8cuh_1aaec578c0f6c301ddf86900c637db26ef`
+
+- :ref:`exhale_function_mhd__integrator__cuda_8cuh_1a38808e2c4394954e5c8aaf804d18e782`
+
+
+Variables
+---------
+
+
+- :ref:`exhale_variable_mhd__core_8hpp_1a097d18364a2194df038644d0b2b602cb`

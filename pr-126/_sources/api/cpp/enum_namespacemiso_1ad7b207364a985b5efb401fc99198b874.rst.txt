@@ -1,0 +1,14 @@
+.. _exhale_enum_namespacemiso_1ad7b207364a985b5efb401fc99198b874:
+
+Enum Direction
+==============
+
+- Defined in :ref:`file__home_runner_work_MISO_MISO_miso_include_miso_types.hpp`
+
+
+Enum Documentation
+------------------
+
+
+.. doxygenenum:: miso::Direction
+   :project: CPP

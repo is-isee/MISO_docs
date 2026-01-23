@@ -1,0 +1,14 @@
+.. _exhale_enum_namespacemiso_1_1util_1aa4966d9510b69d74b26eab8dc5b668b9:
+
+Enum Endian
+===========
+
+- Defined in :ref:`file__home_runner_work_MISO_MISO_miso_include_miso_utility.hpp`
+
+
+Enum Documentation
+------------------
+
+
+.. doxygenenum:: miso::util::Endian
+   :project: CPP

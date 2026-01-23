@@ -1,0 +1,16 @@
+.. _dir__home_runner_work_MISO_MISO_miso:
+
+
+Directory miso
+==============
+
+
+*Directory path:* ``/home/runner/work/MISO/MISO/miso``
+
+Subdirectories
+--------------
+
+- :ref:`dir__home_runner_work_MISO_MISO_miso_include`
+
+
+

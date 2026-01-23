@@ -1,0 +1,17 @@
+.. _exhale_class_classmiso_1_1Array4D:
+
+Template Class Array4D
+======================
+
+- Defined in :ref:`file__home_runner_work_MISO_MISO_miso_include_miso_array4d.hpp`
+
+
+Class Documentation
+-------------------
+
+
+.. doxygenclass:: miso::Array4D
+   :project: CPP
+   :members:
+   :protected-members:
+   :undoc-members:

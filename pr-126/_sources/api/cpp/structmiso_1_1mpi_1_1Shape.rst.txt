@@ -1,0 +1,17 @@
+.. _exhale_struct_structmiso_1_1mpi_1_1Shape:
+
+Struct Shape
+============
+
+- Defined in :ref:`file__home_runner_work_MISO_MISO_miso_include_miso_mpi_util.hpp`
+
+
+Struct Documentation
+--------------------
+
+
+.. doxygenstruct:: miso::mpi::Shape
+   :project: CPP
+   :members:
+   :protected-members:
+   :undoc-members:
