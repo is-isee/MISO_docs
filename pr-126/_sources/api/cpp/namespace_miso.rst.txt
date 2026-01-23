@@ -77,6 +77,14 @@ Classes
 
 - :ref:`exhale_struct_structmiso_1_1Time`
 
+- :ref:`exhale_class_classmiso_1_1Array1D`
+
+- :ref:`exhale_class_classmiso_1_1Array1D_3_01T_00_01backend_1_1CUDA_01_4`
+
+- :ref:`exhale_class_classmiso_1_1Array1D_3_01T_00_01backend_1_1Host_01_4`
+
+- :ref:`exhale_class_classmiso_1_1Array1DView`
+
 - :ref:`exhale_class_classmiso_1_1Array3D`
 
 - :ref:`exhale_class_classmiso_1_1Array3D_3_01T_00_01backend_1_1CUDA_01_4`
@@ -105,13 +113,13 @@ Functions
 
 - :ref:`exhale_function_namespacemiso_1a83d66810f9f251bcc255b0c1bd05fb8d`
 
-- :ref:`exhale_function_namespacemiso_1a26049fe04ec0d227a0c06af5d1876a98`
-
 - :ref:`exhale_function_namespacemiso_1a3b68a63c4dd234afcdc5ecdd495cec49`
 
 - :ref:`exhale_function_namespacemiso_1ae7ad61547053141bc1b3a31cbd6ed51c`
 
 - :ref:`exhale_function_namespacemiso_1ac4e29c50f204e3317b250c6276bb4cce`
+
+- :ref:`exhale_function_namespacemiso_1a26049fe04ec0d227a0c06af5d1876a98`
 
 - :ref:`exhale_function_namespacemiso_1a7c9ac735508606039d4c8b87ee303581`
 
