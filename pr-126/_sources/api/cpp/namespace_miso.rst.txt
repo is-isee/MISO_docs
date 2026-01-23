@@ -109,17 +109,13 @@ Functions
 ---------
 
 
-- :ref:`exhale_function_namespacemiso_1a7fdf73db94b4c10b7055fd6926dd3253`
+- :ref:`exhale_function_namespacemiso_1a07407f9a0acb70bd244f9930799dc967`
 
-- :ref:`exhale_function_namespacemiso_1a83d66810f9f251bcc255b0c1bd05fb8d`
+- :ref:`exhale_function_namespacemiso_1a917f5afb8870f7b6c4e6f5b5e0ef54ec`
 
-- :ref:`exhale_function_namespacemiso_1a3b68a63c4dd234afcdc5ecdd495cec49`
+- :ref:`exhale_function_namespacemiso_1a52265a89a67234c07931684ecd29d166`
 
-- :ref:`exhale_function_namespacemiso_1ae7ad61547053141bc1b3a31cbd6ed51c`
-
-- :ref:`exhale_function_namespacemiso_1ac4e29c50f204e3317b250c6276bb4cce`
-
-- :ref:`exhale_function_namespacemiso_1a26049fe04ec0d227a0c06af5d1876a98`
+- :ref:`exhale_function_namespacemiso_1a0a2497280e69c02d6e9c7700c9265add`
 
 - :ref:`exhale_function_namespacemiso_1a7c9ac735508606039d4c8b87ee303581`
 

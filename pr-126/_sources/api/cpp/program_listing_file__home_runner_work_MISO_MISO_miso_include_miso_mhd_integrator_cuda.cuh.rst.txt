@@ -411,7 +411,7 @@ Program Listing for File mhd_integrator_cuda.cuh
            bb(grid.i_total, grid.j_total, grid.k_total),
            ht(grid.i_total, grid.j_total, grid.k_total),
            vb(grid.i_total, grid.j_total, grid.k_total) {
-       cfl_number = config["mhd"]["cfl_number"].template as<Real>();
+       cfl_number = config["mhd"]["cfl_number"].as<Real>();
      }
    
      template <typename Source>

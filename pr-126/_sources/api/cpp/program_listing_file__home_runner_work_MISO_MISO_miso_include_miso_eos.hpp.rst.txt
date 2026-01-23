@@ -20,8 +20,7 @@ Program Listing for File eos.hpp
    template <typename Real> struct IdealEOS {
      Real gm;
    
-     explicit IdealEOS(const Config &config)
-         : gm(config["eos"]["gm"].template as<Real>()) {}
+     explicit IdealEOS(const Config &config) : gm(config["eos"]["gm"].as<Real>()) {}
    
      __host__ __device__ inline Real roeitopr(Real ro, Real ei) const noexcept {
        return (gm - 1.0) * ro * ei;

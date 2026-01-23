@@ -196,12 +196,3 @@ Files
    :maxdepth: 5
 
    file__home_runner_work_MISO_MISO_miso_include_miso_utility.hpp.rst
-
-Pages
-*****
-
-
-.. toctree::
-   :maxdepth: 5
-
-   page_todo.rst
