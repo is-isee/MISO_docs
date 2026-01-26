@@ -2873,7 +2873,9 @@ PREDEFINED += __CUDACC__=1
 PREDEFINED += __host__=
 PREDEFINED += __device__=
 PREDEFINED += __global__=
-EXPAND_AS_DEFINED = __CUDACC__ __host__ __device__ __global__
+PREDEFINED += __shared__=
+PREDEFINED += __align__(x)=
+PREDEFINED += __launch_bounds__(t, b)=
 
 EXTRACT_DEFINE        = NO
 EXTRACT_TYPEDEFS      = NO
