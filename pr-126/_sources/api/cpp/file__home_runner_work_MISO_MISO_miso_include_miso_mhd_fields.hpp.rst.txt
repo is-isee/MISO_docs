@@ -87,7 +87,7 @@ Functions
 ---------
 
 
-- :ref:`exhale_function_mhd__fields_8hpp_1ae8a35b0840b572ba246c8e65346c6fea`
-
 - :ref:`exhale_function_mhd__fields_8hpp_1a29210876c602ab1450f2ca10cd0a453f`
+
+- :ref:`exhale_function_mhd__fields_8hpp_1ae8a35b0840b572ba246c8e65346c6fea`
 

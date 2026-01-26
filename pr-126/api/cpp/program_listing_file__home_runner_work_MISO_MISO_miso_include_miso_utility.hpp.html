@@ -101,7 +101,40 @@
 <span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;sstream&gt;</span>
 <span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;string&gt;</span>
 
+<span class="cp">#ifndef __CUDACC__</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;cmath&gt;</span>
+<span class="cp">#endif</span>
 <span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;miso/cuda_compat.hpp&gt;</span>
+
+<span class="cp">#ifdef __CUDA_ARCH__</span>
+
+<span class="cp">#define MISO_MATH_UTILS(name, namef)                                             \</span>
+<span class="cp">  __host__ __device__ inline float name(float x) { return ::namef(x); }          \</span>
+<span class="cp">  __host__ __device__ inline double name(double x) { return ::name(x); }</span>
+
+<span class="cp">#define MISO_MATH_UTILS2(name, namef)                                            \</span>
+<span class="cp">  __host__ __device__ inline float name(float x, float y) {                      \</span>
+<span class="cp">    return ::namef(x, y);                                                        \</span>
+<span class="cp">  }                                                                              \</span>
+<span class="cp">  __host__ __device__ inline double name(double x, double y) {                   \</span>
+<span class="cp">    return ::name(x, y);                                                         \</span>
+<span class="cp">  }</span>
+
+<span class="cp">#else</span>
+
+<span class="cp">#define MISO_MATH_UTILS(name, namef)                                             \</span>
+<span class="cp">  __host__ __device__ inline float name(float x) { return std::name(x); }        \</span>
+<span class="cp">  __host__ __device__ inline double name(double x) { return std::name(x); }</span>
+
+<span class="cp">#define MISO_MATH_UTILS2(name, namef)                                            \</span>
+<span class="cp">  __host__ __device__ inline float name(float x, float y) {                      \</span>
+<span class="cp">    return std::name(x, y);                                                      \</span>
+<span class="cp">  }                                                                              \</span>
+<span class="cp">  __host__ __device__ inline double name(double x, double y) {                   \</span>
+<span class="cp">    return std::name(x, y);                                                      \</span>
+<span class="cp">  }</span>
+
+<span class="cp">#endif</span>
 
 <span class="k">namespace</span><span class="w"> </span><span class="nn">miso</span><span class="w"> </span><span class="p">{</span>
 
@@ -163,6 +196,23 @@
 <span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">T</span><span class="o">&gt;</span><span class="w"> </span><span class="n">__host__</span><span class="w"> </span><span class="n">__device__</span><span class="w"> </span><span class="kr">inline</span><span class="w"> </span><span class="n">T</span><span class="w"> </span><span class="n">max3</span><span class="p">(</span><span class="n">T</span><span class="w"> </span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="n">T</span><span class="w"> </span><span class="n">b</span><span class="p">,</span><span class="w"> </span><span class="n">T</span><span class="w"> </span><span class="n">c</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
 <span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="n">fmax_safe</span><span class="p">(</span><span class="n">fmax_safe</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="n">b</span><span class="p">),</span><span class="w"> </span><span class="n">c</span><span class="p">);</span>
 <span class="p">}</span>
+
+<span class="n">MISO_MATH_UTILS</span><span class="p">(</span><span class="n">sqrt</span><span class="p">,</span><span class="w"> </span><span class="n">sqrtf</span><span class="p">)</span>
+<span class="n">MISO_MATH_UTILS</span><span class="p">(</span><span class="n">sin</span><span class="p">,</span><span class="w"> </span><span class="n">sinf</span><span class="p">)</span>
+<span class="n">MISO_MATH_UTILS</span><span class="p">(</span><span class="n">cos</span><span class="p">,</span><span class="w"> </span><span class="n">cosf</span><span class="p">)</span>
+<span class="n">MISO_MATH_UTILS</span><span class="p">(</span><span class="n">tan</span><span class="p">,</span><span class="w"> </span><span class="n">tanf</span><span class="p">)</span>
+<span class="n">MISO_MATH_UTILS</span><span class="p">(</span><span class="n">tanh</span><span class="p">,</span><span class="w"> </span><span class="n">tanhf</span><span class="p">)</span>
+<span class="n">MISO_MATH_UTILS</span><span class="p">(</span><span class="n">asin</span><span class="p">,</span><span class="w"> </span><span class="n">asinf</span><span class="p">)</span>
+<span class="n">MISO_MATH_UTILS</span><span class="p">(</span><span class="n">acos</span><span class="p">,</span><span class="w"> </span><span class="n">acosf</span><span class="p">)</span>
+<span class="n">MISO_MATH_UTILS</span><span class="p">(</span><span class="n">exp</span><span class="p">,</span><span class="w"> </span><span class="n">expf</span><span class="p">)</span>
+<span class="n">MISO_MATH_UTILS</span><span class="p">(</span><span class="n">log</span><span class="p">,</span><span class="w"> </span><span class="n">logf</span><span class="p">)</span>
+<span class="n">MISO_MATH_UTILS</span><span class="p">(</span><span class="n">log10</span><span class="p">,</span><span class="w"> </span><span class="n">log10f</span><span class="p">)</span>
+<span class="n">MISO_MATH_UTILS</span><span class="p">(</span><span class="n">fabs</span><span class="p">,</span><span class="w"> </span><span class="n">fabsf</span><span class="p">)</span>
+<span class="n">MISO_MATH_UTILS2</span><span class="p">(</span><span class="n">atan2</span><span class="p">,</span><span class="w"> </span><span class="n">atan2f</span><span class="p">)</span>
+<span class="n">MISO_MATH_UTILS2</span><span class="p">(</span><span class="n">copysign</span><span class="p">,</span><span class="w"> </span><span class="n">copysignf</span><span class="p">)</span>
+<span class="n">MISO_MATH_UTILS2</span><span class="p">(</span><span class="n">fmin</span><span class="p">,</span><span class="w"> </span><span class="n">fminf</span><span class="p">)</span>
+<span class="n">MISO_MATH_UTILS2</span><span class="p">(</span><span class="n">fmax</span><span class="p">,</span><span class="w"> </span><span class="n">fmaxf</span><span class="p">)</span>
+<span class="n">MISO_MATH_UTILS2</span><span class="p">(</span><span class="n">fmod</span><span class="p">,</span><span class="w"> </span><span class="n">fmodf</span><span class="p">)</span>
 
 <span class="c1">// data Endian checker</span>
 <span class="k">enum</span><span class="w"> </span><span class="k">class</span><span class="w"> </span><span class="nc">Endian</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">Little</span><span class="p">,</span><span class="w"> </span><span class="n">Big</span><span class="w"> </span><span class="p">};</span>

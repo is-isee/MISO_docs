@@ -1,0 +1,14 @@
+.. _exhale_enum_namespacemiso_1a72f165bf539e03f857e30e53997fcdc7:
+
+Enum Sign
+=========
+
+- Defined in :ref:`file__home_runner_work_MISO_MISO_miso_include_miso_types.hpp`
+
+
+Enum Documentation
+------------------
+
+
+.. doxygenenum:: miso::Sign
+   :project: CPP

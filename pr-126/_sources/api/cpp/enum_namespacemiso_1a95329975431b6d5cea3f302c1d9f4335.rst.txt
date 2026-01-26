@@ -1,0 +1,14 @@
+.. _exhale_enum_namespacemiso_1a95329975431b6d5cea3f302c1d9f4335:
+
+Enum Side
+=========
+
+- Defined in :ref:`file__home_runner_work_MISO_MISO_miso_include_miso_types.hpp`
+
+
+Enum Documentation
+------------------
+
+
+.. doxygenenum:: miso::Side
+   :project: CPP

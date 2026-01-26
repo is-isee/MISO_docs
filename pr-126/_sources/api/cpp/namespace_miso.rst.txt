@@ -104,18 +104,22 @@ Enums
 
 - :ref:`exhale_enum_namespacemiso_1ac9e7f0e92f543df3d392ab832d340b04`
 
+- :ref:`exhale_enum_namespacemiso_1a95329975431b6d5cea3f302c1d9f4335`
+
+- :ref:`exhale_enum_namespacemiso_1a72f165bf539e03f857e30e53997fcdc7`
+
 
 Functions
 ---------
 
-
-- :ref:`exhale_function_namespacemiso_1a07407f9a0acb70bd244f9930799dc967`
 
 - :ref:`exhale_function_namespacemiso_1a917f5afb8870f7b6c4e6f5b5e0ef54ec`
 
 - :ref:`exhale_function_namespacemiso_1a52265a89a67234c07931684ecd29d166`
 
 - :ref:`exhale_function_namespacemiso_1a0a2497280e69c02d6e9c7700c9265add`
+
+- :ref:`exhale_function_namespacemiso_1a07407f9a0acb70bd244f9930799dc967`
 
 - :ref:`exhale_function_namespacemiso_1a7c9ac735508606039d4c8b87ee303581`
 

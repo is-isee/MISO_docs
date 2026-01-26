@@ -69,9 +69,9 @@ Functions
 
 - :ref:`exhale_function_namespacemiso_1a917f5afb8870f7b6c4e6f5b5e0ef54ec`
 
-- :ref:`exhale_function_namespacemiso_1a7c9ac735508606039d4c8b87ee303581`
-
 - :ref:`exhale_function_namespacemiso_1a326640ac4963336ac9505fdee481eaa9`
+
+- :ref:`exhale_function_namespacemiso_1a7c9ac735508606039d4c8b87ee303581`
 
 
 Defines

@@ -23,22 +23,22 @@ Program Listing for File mhd_integrator.hpp
    template <typename Real, typename EOS, typename Backend> struct Integrator;
    
    template <typename Real> struct NoSource {
-     __host__ __device__ inline Real vx(FieldsView<Real const>, int, int,
+     __host__ __device__ inline Real vx(FieldsView<const Real>, int, int,
                                         int) const noexcept {
        return 0.0;
      }
    
-     __host__ __device__ inline Real vy(FieldsView<Real const>, int, int,
+     __host__ __device__ inline Real vy(FieldsView<const Real>, int, int,
                                         int) const noexcept {
        return 0.0;
      }
    
-     __host__ __device__ inline Real vz(FieldsView<Real const>, int, int,
+     __host__ __device__ inline Real vz(FieldsView<const Real>, int, int,
                                         int) const noexcept {
        return 0.0;
      }
    
-     __host__ __device__ inline Real ei(FieldsView<Real const>, int, int,
+     __host__ __device__ inline Real ei(FieldsView<const Real>, int, int,
                                         int) const noexcept {
        return 0.0;
      }

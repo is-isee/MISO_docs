@@ -32,6 +32,8 @@ Includes
 
 - ``miso/array3d.hpp`` (:ref:`file__home_runner_work_MISO_MISO_miso_include_miso_array3d.hpp`)
 
+- ``miso/backend.hpp`` (:ref:`file__home_runner_work_MISO_MISO_miso_include_miso_backend.hpp`)
+
 - ``miso/cuda_util.cuh`` (:ref:`file__home_runner_work_MISO_MISO_miso_include_miso_cuda_util.cuh`)
 
 - ``miso/grid.hpp`` (:ref:`file__home_runner_work_MISO_MISO_miso_include_miso_grid.hpp`)
@@ -58,13 +60,6 @@ Namespaces
 - :ref:`namespace_miso__bnd`
 
 
-Enums
------
-
-
-- :ref:`exhale_enum_boundary__condition_8hpp_1af296ff6d0ede8a10869d0520bc7f942e`
-
-
 Functions
 ---------
 
@@ -72,8 +67,6 @@ Functions
 - :ref:`exhale_function_boundary__condition_8hpp_1a19cae6599f3e438b826b0d045ff05120`
 
 - :ref:`exhale_function_boundary__condition_8hpp_1aa37578de7cf91a90ef55478615c588d4`
-
-- :ref:`exhale_function_boundary__condition_8hpp_1af6f7343bc9249d72fc6444bb4de022fd`
 
 - :ref:`exhale_function_boundary__condition_8hpp_1a34bcbb65e36ffc9d20d806018710563b`
 
@@ -83,11 +76,11 @@ Functions
 
 - :ref:`exhale_function_boundary__condition_8hpp_1a1ee405a935a0241b73a8c7cfc6160c0b`
 
-- :ref:`exhale_function_boundary__condition_8hpp_1a6952b4412d5ce9ed580808e77aa9a9c9`
+- :ref:`exhale_function_boundary__condition_8hpp_1a4a653be7e2cf09aa7541ddccab005fb1`
 
-- :ref:`exhale_function_boundary__condition_8hpp_1a44ee786856f109962a054384f080ab65`
+- :ref:`exhale_function_boundary__condition_8hpp_1a66b2164ac8a8fbe254eb01192ef6a38e`
 
 - :ref:`exhale_function_boundary__condition_8hpp_1aa109846cbe85953a13687a1fcfe6bc0c`
 
-- :ref:`exhale_function_boundary__condition_8hpp_1ad81625ef42e776e74a7deebf9ccaf843`
+- :ref:`exhale_function_boundary__condition_8hpp_1a5471c4188171ffc35a8eca92e330e4b0`
 
