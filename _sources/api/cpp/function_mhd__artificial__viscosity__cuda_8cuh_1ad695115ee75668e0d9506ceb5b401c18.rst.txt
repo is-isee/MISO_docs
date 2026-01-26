@@ -3,7 +3,7 @@
 Template Function miso::mhd::impl_cuda::artificial_viscosity::update_vz_kernel
 ==============================================================================
 
-- Defined in :ref:`file__home_runner_work_MISO_MISO_miso_include_miso_mhd_artificial_viscosity_cuda.cuh`
+- Defined in :ref:`file__home_runner_work_MISO_docs_MISO_docs_miso_include_miso_mhd_artificial_viscosity_cuda.cuh`
 
 
 Function Documentation

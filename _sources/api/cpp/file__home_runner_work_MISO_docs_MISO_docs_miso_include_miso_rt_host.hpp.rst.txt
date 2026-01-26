@@ -1,0 +1,84 @@
+
+.. _file__home_runner_work_MISO_docs_MISO_docs_miso_include_miso_rt_host.hpp:
+
+File rt_host.hpp
+================
+
+|exhale_lsh| :ref:`Parent directory <dir__home_runner_work_MISO_docs_MISO_docs_miso_include_miso>` (``/home/runner/work/MISO_docs/MISO_docs/miso/include/miso``)
+
+.. |exhale_lsh| unicode:: U+021B0 .. UPWARDS ARROW WITH TIP LEFTWARDS
+
+
+.. contents:: Contents
+   :local:
+   :backlinks: none
+
+Definition (``/home/runner/work/MISO_docs/MISO_docs/miso/include/miso/rt_host.hpp``)
+------------------------------------------------------------------------------------
+
+
+.. toctree::
+   :maxdepth: 1
+
+   program_listing_file__home_runner_work_MISO_docs_MISO_docs_miso_include_miso_rt_host.hpp.rst
+
+
+
+
+
+Includes
+--------
+
+
+- ``cassert``
+
+- ``cmath``
+
+- ``cstdio``
+
+- ``fstream``
+
+- ``miso/array3d.hpp`` (:ref:`file__home_runner_work_MISO_docs_MISO_docs_miso_include_miso_array3d.hpp`)
+
+- ``miso/array4d.hpp`` (:ref:`file__home_runner_work_MISO_docs_MISO_docs_miso_include_miso_array4d.hpp`)
+
+- ``miso/env.hpp`` (:ref:`file__home_runner_work_MISO_docs_MISO_docs_miso_include_miso_env.hpp`)
+
+- ``miso/grid.hpp`` (:ref:`file__home_runner_work_MISO_docs_MISO_docs_miso_include_miso_grid.hpp`)
+
+- ``miso/mpi_util.hpp`` (:ref:`file__home_runner_work_MISO_docs_MISO_docs_miso_include_miso_mpi_util.hpp`)
+
+- ``miso/rt_angular_quadrature.hpp``
+
+- ``miso/utility.hpp`` (:ref:`file__home_runner_work_MISO_docs_MISO_docs_miso_include_miso_utility.hpp`)
+
+- ``string``
+
+- ``vector``
+
+
+
+Included By
+-----------
+
+
+- :ref:`file__home_runner_work_MISO_docs_MISO_docs_miso_include_miso_rt.hpp`
+
+
+
+
+Namespaces
+----------
+
+
+- :ref:`namespace_miso`
+
+- :ref:`namespace_miso__rt`
+
+
+Classes
+-------
+
+
+- :ref:`exhale_struct_structmiso_1_1rt_1_1RT`
+

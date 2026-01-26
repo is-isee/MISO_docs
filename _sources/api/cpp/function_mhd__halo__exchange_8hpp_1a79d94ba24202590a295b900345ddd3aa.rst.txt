@@ -3,7 +3,7 @@
 Template Function miso::mhd::pack_x_send
 ========================================
 
-- Defined in :ref:`file__home_runner_work_MISO_MISO_miso_include_miso_mhd_halo_exchange.hpp`
+- Defined in :ref:`file__home_runner_work_MISO_docs_MISO_docs_miso_include_miso_mhd_halo_exchange.hpp`
 
 
 Function Documentation

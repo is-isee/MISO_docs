@@ -3,7 +3,7 @@
 Template Struct Integrator< Real, EOS, backend::Host >
 ======================================================
 
-- Defined in :ref:`file__home_runner_work_MISO_MISO_miso_include_miso_mhd_integrator_host.hpp`
+- Defined in :ref:`file__home_runner_work_MISO_docs_MISO_docs_miso_include_miso_mhd_integrator_host.hpp`
 
 
 Struct Documentation
