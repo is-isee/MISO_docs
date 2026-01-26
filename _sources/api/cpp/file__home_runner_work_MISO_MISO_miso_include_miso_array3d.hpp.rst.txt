@@ -32,7 +32,7 @@ Includes
 
 - ``algorithm``
 
-- ``array`` (:ref:`file__home_runner_work_MISO_MISO_miso_include_miso_array3d.hpp`)
+- ``array`` (:ref:`file__home_runner_work_MISO_MISO_miso_include_miso_array1d.hpp`)
 
 - ``cassert``
 

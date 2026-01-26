@@ -1,0 +1,14 @@
+.. _exhale_function_mhd__fields_8hpp_1a29210876c602ab1450f2ca10cd0a453f:
+
+Template Function miso::mhd::make_fields_view(const Fields<Real, Backend>&)
+===========================================================================
+
+- Defined in :ref:`file__home_runner_work_MISO_MISO_miso_include_miso_mhd_fields.hpp`
+
+
+Function Documentation
+----------------------
+
+
+.. doxygenfunction:: miso::mhd::make_fields_view(const Fields<Real, Backend>&)
+   :project: CPP

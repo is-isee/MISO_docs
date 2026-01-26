@@ -80,5 +80,14 @@ Classes
 
 - :ref:`exhale_struct_structmiso_1_1mhd_1_1Fields_3_01Real_00_01backend_1_1Host_01_4`
 
-- :ref:`exhale_class_classmiso_1_1mhd_1_1FieldsView`
+- :ref:`exhale_struct_structmiso_1_1mhd_1_1FieldsView`
+
+
+Functions
+---------
+
+
+- :ref:`exhale_function_mhd__fields_8hpp_1a29210876c602ab1450f2ca10cd0a453f`
+
+- :ref:`exhale_function_mhd__fields_8hpp_1ae8a35b0840b572ba246c8e65346c6fea`
 

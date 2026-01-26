@@ -115,3 +115,12 @@ Functions
 
 - :ref:`exhale_function_namespacemiso_1_1util_1a317bbfb4ed32e9f752979c38abe0b839`
 
+
+Defines
+-------
+
+
+- :ref:`exhale_define_utility_8hpp_1a175a6a3daa7c7882862f584f15539888`
+
+- :ref:`exhale_define_utility_8hpp_1ae41caad621feaef48a02acb84ce22f93`
+

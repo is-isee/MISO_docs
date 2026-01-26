@@ -57,7 +57,6 @@
 <li class="toctree-l1"><a class="reference internal" href="../../customization/index.html">Customization</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../../miso/index.html">MISO C++ documentation</a><ul class="current">
 <li class="toctree-l2 current"><a class="reference internal" href="root.html">MISO C++ API Reference</a><ul class="current">
-<li class="toctree-l3"><a class="reference internal" href="root.html#page-hierarchy">Page Hierarchy</a></li>
 <li class="toctree-l3"><a class="reference internal" href="root.html#class-hierarchy">Class Hierarchy</a></li>
 <li class="toctree-l3"><a class="reference internal" href="root.html#file-hierarchy">File Hierarchy</a></li>
 <li class="toctree-l3 current"><a class="reference internal" href="root.html#full-api">Full API</a><ul class="current">
@@ -121,8 +120,9 @@
 <li><p><a class="reference internal" href="#namespaces" id="id3">Namespaces</a></p></li>
 <li><p><a class="reference internal" href="#classes" id="id4">Classes</a></p></li>
 <li><p><a class="reference internal" href="#enums" id="id5">Enums</a></p></li>
-<li><p><a class="reference internal" href="#typedefs" id="id6">Typedefs</a></p></li>
-<li><p><a class="reference internal" href="#variables" id="id7">Variables</a></p></li>
+<li><p><a class="reference internal" href="#functions" id="id6">Functions</a></p></li>
+<li><p><a class="reference internal" href="#typedefs" id="id7">Typedefs</a></p></li>
+<li><p><a class="reference internal" href="#variables" id="id8">Variables</a></p></li>
 </ul>
 </nav>
 <section id="detailed-description">
@@ -154,7 +154,14 @@
 <li><p><a class="reference internal" href="structmiso_1_1Grid_3_01Real_00_01backend_1_1Host_01_4.html#exhale-struct-structmiso-1-1grid-3-01real-00-01backend-1-1host-01-4"><span class="std std-ref">Template Struct Grid&lt; Real, backend::Host &gt;</span></a></p></li>
 <li><p><a class="reference internal" href="structmiso_1_1GridGenerator.html#exhale-struct-structmiso-1-1gridgenerator"><span class="std std-ref">Template Struct GridGenerator</span></a></p></li>
 <li><p><a class="reference internal" href="structmiso_1_1GridView.html#exhale-struct-structmiso-1-1gridview"><span class="std std-ref">Template Struct GridView</span></a></p></li>
+<li><p><a class="reference internal" href="structmiso_1_1Index3D.html#exhale-struct-structmiso-1-1index3d"><span class="std std-ref">Struct Index3D</span></a></p></li>
+<li><p><a class="reference internal" href="structmiso_1_1Range1D.html#exhale-struct-structmiso-1-1range1d"><span class="std std-ref">Struct Range1D</span></a></p></li>
+<li><p><a class="reference internal" href="structmiso_1_1Range3D.html#exhale-struct-structmiso-1-1range3d"><span class="std std-ref">Struct Range3D</span></a></p></li>
 <li><p><a class="reference internal" href="structmiso_1_1Time.html#exhale-struct-structmiso-1-1time"><span class="std std-ref">Template Struct Time</span></a></p></li>
+<li><p><a class="reference internal" href="classmiso_1_1Array1D.html#exhale-class-classmiso-1-1array1d"><span class="std std-ref">Template Class Array1D</span></a></p></li>
+<li><p><a class="reference internal" href="classmiso_1_1Array1D_3_01T_00_01backend_1_1CUDA_01_4.html#exhale-class-classmiso-1-1array1d-3-01t-00-01backend-1-1cuda-01-4"><span class="std std-ref">Template Class Array1D&lt; T, backend::CUDA &gt;</span></a></p></li>
+<li><p><a class="reference internal" href="classmiso_1_1Array1D_3_01T_00_01backend_1_1Host_01_4.html#exhale-class-classmiso-1-1array1d-3-01t-00-01backend-1-1host-01-4"><span class="std std-ref">Template Class Array1D&lt; T, backend::Host &gt;</span></a></p></li>
+<li><p><a class="reference internal" href="classmiso_1_1Array1DView.html#exhale-class-classmiso-1-1array1dview"><span class="std std-ref">Template Class Array1DView</span></a></p></li>
 <li><p><a class="reference internal" href="classmiso_1_1Array3D.html#exhale-class-classmiso-1-1array3d"><span class="std std-ref">Template Class Array3D</span></a></p></li>
 <li><p><a class="reference internal" href="classmiso_1_1Array3D_3_01T_00_01backend_1_1CUDA_01_4.html#exhale-class-classmiso-1-1array3d-3-01t-00-01backend-1-1cuda-01-4"><span class="std std-ref">Template Class Array3D&lt; T, backend::CUDA &gt;</span></a></p></li>
 <li><p><a class="reference internal" href="classmiso_1_1Array3D_3_01T_00_01backend_1_1Host_01_4.html#exhale-class-classmiso-1-1array3d-3-01t-00-01backend-1-1host-01-4"><span class="std std-ref">Template Class Array3D&lt; T, backend::Host &gt;</span></a></p></li>
@@ -167,6 +174,19 @@
 <ul class="simple">
 <li><p><a class="reference internal" href="enum_namespacemiso_1ad7b207364a985b5efb401fc99198b874.html#exhale-enum-namespacemiso-1ad7b207364a985b5efb401fc99198b874"><span class="std std-ref">Enum Direction</span></a></p></li>
 <li><p><a class="reference internal" href="enum_namespacemiso_1ac9e7f0e92f543df3d392ab832d340b04.html#exhale-enum-namespacemiso-1ac9e7f0e92f543df3d392ab832d340b04"><span class="std std-ref">Enum Face</span></a></p></li>
+<li><p><a class="reference internal" href="enum_namespacemiso_1a95329975431b6d5cea3f302c1d9f4335.html#exhale-enum-namespacemiso-1a95329975431b6d5cea3f302c1d9f4335"><span class="std std-ref">Enum Side</span></a></p></li>
+<li><p><a class="reference internal" href="enum_namespacemiso_1a72f165bf539e03f857e30e53997fcdc7.html#exhale-enum-namespacemiso-1a72f165bf539e03f857e30e53997fcdc7"><span class="std std-ref">Enum Sign</span></a></p></li>
+</ul>
+</section>
+<section id="functions">
+<h2>Functions<a class="headerlink" href="#functions" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p><a class="reference internal" href="function_namespacemiso_1a917f5afb8870f7b6c4e6f5b5e0ef54ec.html#exhale-function-namespacemiso-1a917f5afb8870f7b6c4e6f5b5e0ef54ec"><span class="std std-ref">Template Function miso::for_each(backend::CUDA, Range3D, F)</span></a></p></li>
+<li><p><a class="reference internal" href="function_namespacemiso_1a52265a89a67234c07931684ecd29d166.html#exhale-function-namespacemiso-1a52265a89a67234c07931684ecd29d166"><span class="std std-ref">Template Function miso::for_each(backend::Host, Range1D, F)</span></a></p></li>
+<li><p><a class="reference internal" href="function_namespacemiso_1a0a2497280e69c02d6e9c7700c9265add.html#exhale-function-namespacemiso-1a0a2497280e69c02d6e9c7700c9265add"><span class="std std-ref">Template Function miso::for_each(backend::Host, Range3D, F)</span></a></p></li>
+<li><p><a class="reference internal" href="function_namespacemiso_1a07407f9a0acb70bd244f9930799dc967.html#exhale-function-namespacemiso-1a07407f9a0acb70bd244f9930799dc967"><span class="std std-ref">Template Function miso::for_each(backend::CUDA, Range1D, F)</span></a></p></li>
+<li><p><a class="reference internal" href="function_namespacemiso_1a7c9ac735508606039d4c8b87ee303581.html#exhale-function-namespacemiso-1a7c9ac735508606039d4c8b87ee303581"><span class="std std-ref">Template Function miso::for_each_kernel(Range3D, F)</span></a></p></li>
+<li><p><a class="reference internal" href="function_namespacemiso_1a326640ac4963336ac9505fdee481eaa9.html#exhale-function-namespacemiso-1a326640ac4963336ac9505fdee481eaa9"><span class="std std-ref">Template Function miso::for_each_kernel(Range1D, F)</span></a></p></li>
 </ul>
 </section>
 <section id="typedefs">

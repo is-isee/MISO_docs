@@ -54,6 +54,10 @@ Enums
 
 - :ref:`exhale_enum_namespacemiso_1ac9e7f0e92f543df3d392ab832d340b04`
 
+- :ref:`exhale_enum_namespacemiso_1a95329975431b6d5cea3f302c1d9f4335`
+
+- :ref:`exhale_enum_namespacemiso_1a72f165bf539e03f857e30e53997fcdc7`
+
 
 Typedefs
 --------
