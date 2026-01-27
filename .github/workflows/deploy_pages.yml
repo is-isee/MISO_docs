@@ -27,7 +27,7 @@ jobs:
       - name: Install Python packages
         run: |
           pip install --upgrade pip
-          pip install ".[docs]"
+          pip install -r requirements.txt
       - name: Build documentation
         run: make -C docs html
 
