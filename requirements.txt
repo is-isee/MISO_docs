@@ -1,0 +1,11 @@
+-e ./MISO
+sphinx
+sphinx-rtd-theme
+sphinx-automodapi
+sphinx-multiversion
+breathe
+exhale
+sphinx-copybutton
+sphinxcontrib-bibtex
+myst-parser
+

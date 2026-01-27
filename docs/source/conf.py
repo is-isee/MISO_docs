@@ -5,7 +5,6 @@
 
 # -- import modules
 import pymiso
-# import os
 
 # -- Project information -----------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
@@ -78,3 +77,4 @@ html_css_files = [
 
 bibtex_bibfiles = ["reference.bib"]
 bibtex_reference_style = "author_year"
+
