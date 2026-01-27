@@ -1,5 +1,7 @@
 # MISO (Mhd ISee Open source code)
 
+[![Deploy Pages](https://github.com/is-isee/MISO_docs/actions/workflows/deploy_pages.yml/badge.svg)](https://github.com/is-isee/MISO_docs/actions/workflows/deploy_pages.yml)
+
 Documents of MISO (Mhd ISee Open source code), an open-source software for performing magnetohydrodynamics (MHD) simulations.
 
 URL: <https://is-isee.github.io/MISO/>
