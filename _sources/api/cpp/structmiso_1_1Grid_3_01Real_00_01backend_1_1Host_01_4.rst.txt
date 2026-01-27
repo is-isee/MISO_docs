@@ -3,7 +3,7 @@
 Template Struct Grid< Real, backend::Host >
 ===========================================
 
-- Defined in :ref:`file__home_runner_work_MISO_docs_MISO_docs_miso_include_miso_grid.hpp`
+- Defined in :ref:`file__home_runner_work_MISO_docs_MISO_docs_MISO_miso_include_miso_grid.hpp`
 
 
 Struct Documentation

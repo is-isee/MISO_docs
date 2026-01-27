@@ -3,7 +3,7 @@
 Template Function miso::mhd::update_ro_kernel
 =============================================
 
-- Defined in :ref:`file__home_runner_work_MISO_docs_MISO_docs_miso_include_miso_mhd_integrator_cuda.cuh`
+- Defined in :ref:`file__home_runner_work_MISO_docs_MISO_docs_MISO_miso_include_miso_mhd_integrator_cuda.cuh`
 
 
 Function Documentation

@@ -3,7 +3,7 @@
 Function miso::cuda::check_error
 ================================
 
-- Defined in :ref:`file__home_runner_work_MISO_docs_MISO_docs_miso_include_miso_cuda_util.cuh`
+- Defined in :ref:`file__home_runner_work_MISO_docs_MISO_docs_MISO_miso_include_miso_cuda_util.cuh`
 
 
 Function Documentation

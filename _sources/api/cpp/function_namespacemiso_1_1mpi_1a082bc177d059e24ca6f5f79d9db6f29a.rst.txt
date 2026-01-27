@@ -3,7 +3,7 @@
 Function miso::mpi::check_error
 ===============================
 
-- Defined in :ref:`file__home_runner_work_MISO_docs_MISO_docs_miso_include_miso_mpi_util.hpp`
+- Defined in :ref:`file__home_runner_work_MISO_docs_MISO_docs_MISO_miso_include_miso_mpi_util.hpp`
 
 
 Function Documentation

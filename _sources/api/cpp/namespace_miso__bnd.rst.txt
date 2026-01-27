@@ -29,9 +29,9 @@ Functions
 
 - :ref:`exhale_function_boundary__condition_8hpp_1a1ee405a935a0241b73a8c7cfc6160c0b`
 
-- :ref:`exhale_function_boundary__condition_8hpp_1a4a653be7e2cf09aa7541ddccab005fb1`
-
 - :ref:`exhale_function_boundary__condition_8hpp_1a66b2164ac8a8fbe254eb01192ef6a38e`
+
+- :ref:`exhale_function_boundary__condition_8hpp_1a4a653be7e2cf09aa7541ddccab005fb1`
 
 - :ref:`exhale_function_boundary__condition_8hpp_1aa109846cbe85953a13687a1fcfe6bc0c`
 

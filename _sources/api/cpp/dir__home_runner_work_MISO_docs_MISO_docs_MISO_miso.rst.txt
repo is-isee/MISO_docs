@@ -1,0 +1,21 @@
+.. _dir__home_runner_work_MISO_docs_MISO_docs_MISO_miso:
+
+
+Directory miso
+==============
+
+
+|exhale_lsh| :ref:`Parent directory <dir__home_runner_work_MISO_docs_MISO_docs_MISO>` (``/home/runner/work/MISO_docs/MISO_docs/MISO``)
+
+.. |exhale_lsh| unicode:: U+021B0 .. UPWARDS ARROW WITH TIP LEFTWARDS
+
+
+*Directory path:* ``/home/runner/work/MISO_docs/MISO_docs/MISO/miso``
+
+Subdirectories
+--------------
+
+- :ref:`dir__home_runner_work_MISO_docs_MISO_docs_MISO_miso_include`
+
+
+

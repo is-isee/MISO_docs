@@ -3,7 +3,7 @@
 Function miso::bnd::side_to_string
 ==================================
 
-- Defined in :ref:`file__home_runner_work_MISO_docs_MISO_docs_miso_include_miso_boundary_condition.hpp`
+- Defined in :ref:`file__home_runner_work_MISO_docs_MISO_docs_MISO_miso_include_miso_boundary_condition.hpp`
 
 
 Function Documentation
