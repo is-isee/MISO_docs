@@ -4,8 +4,6 @@
 
 Documents of MISO (Mhd ISee Open source code), an open-source software for performing magnetohydrodynamics (MHD) simulations.
 
-URL: <https://is-isee.github.io/MISO/>
-
 ## ドキュメント生成
 
 C++のAPIドキュメントをdoxygenで、pythonのAPIドキュメントをsphinxで生成する。全体のフォーマットを揃えるためにdoxygendenではxml形式で出力し、sphinxで取り込む。
