@@ -85,7 +85,7 @@ mpiexec -n 4 --map-by ppr:2:node --bind-to none -x CUDA_DEVICE_ORDER=PCI_BUS_ID 
 
 などに配置されています。指定する場合は、実行時に
 ```shell
-mpiexec -n 1 ./build/hd1d_shocktube --config ./config/config_x.yaml
+mpiexec -n 1 ./build/hd1d_shock_tube --config ./config/config_x.yaml
 ```
 としてください。デフォルトでは`x`方向が指定されています。
 
