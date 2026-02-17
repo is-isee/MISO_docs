@@ -87,11 +87,11 @@ Functions
 
 - :ref:`exhale_function_mhd__integrator__cuda_8cuh_1a10ef9818c30d1c1961bbd77cb40703c2`
 
+- :ref:`exhale_function_mhd__integrator_8hpp_1a133ab68fba5738068b88b061c151b819`
+
 - :ref:`exhale_function_mhd__integrator_8hpp_1a3f330bdf224a294b5994945a2ed6ee5d`
 
 - :ref:`exhale_function_mhd__integrator_8hpp_1a2564cdc11eb2716336df0f9367327979`
-
-- :ref:`exhale_function_mhd__integrator_8hpp_1a133ab68fba5738068b88b061c151b819`
 
 - :ref:`exhale_function_mhd__halo__exchange_8hpp_1aa1ee7f3d4f6a230d7a7354922cbf99a9`
 

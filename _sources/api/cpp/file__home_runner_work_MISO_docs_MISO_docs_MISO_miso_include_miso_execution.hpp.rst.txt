@@ -61,13 +61,13 @@ Functions
 ---------
 
 
-- :ref:`exhale_function_namespacemiso_1a0a2497280e69c02d6e9c7700c9265add`
-
 - :ref:`exhale_function_namespacemiso_1a07407f9a0acb70bd244f9930799dc967`
 
 - :ref:`exhale_function_namespacemiso_1a52265a89a67234c07931684ecd29d166`
 
 - :ref:`exhale_function_namespacemiso_1a917f5afb8870f7b6c4e6f5b5e0ef54ec`
+
+- :ref:`exhale_function_namespacemiso_1a0a2497280e69c02d6e9c7700c9265add`
 
 - :ref:`exhale_function_namespacemiso_1a326640ac4963336ac9505fdee481eaa9`
 
