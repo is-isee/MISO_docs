@@ -147,9 +147,9 @@ Functions
 
 - :ref:`exhale_function_namespacemiso_1a9ee0239f882504c106b6452dd9b1ee65`
 
-- :ref:`exhale_function_namespacemiso_1aa23193c995c1edd5b0f0f73ff1498c37`
+- :ref:`exhale_function_namespacemiso_1a298b5c3830fcba67ed6f3663b36e4299`
 
-- :ref:`exhale_function_namespacemiso_1acfff9c2c0f9121c63e5a723e299fa84e`
+- :ref:`exhale_function_namespacemiso_1ac23ab5eaa4d2e6eb2d0536d9efcc7a55`
 
 
 Variables
