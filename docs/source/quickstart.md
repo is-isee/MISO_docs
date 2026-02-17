@@ -77,7 +77,7 @@ mpiexec -n 4 --map-by ppr:2:node --bind-to none -x CUDA_DEVICE_ORDER=PCI_BUS_ID 
 
 -----
 
-なお、設定ファイルは、`demo/mhd2d_vortex/config/config.yaml`に配置されています。1次元衝撃波管(`demo/hd1d_shock_tube`, `demo/mhd1d_shock_tube`
+なお、設定ファイルは、`demo/mhd2d_vortex/config.yaml`に配置されています。1次元衝撃波管(`demo/hd1d_shock_tube`, `demo/mhd1d_shock_tube`
 )の問題の場合は、`x`, `y`, `z`の各方向の設定ファイルはそれぞれ
 - `demo/hd1d_shock_tube/config/config_x.yaml`
 - `demo/hd1d_shock_tube/config/config_y.yaml`
@@ -85,10 +85,10 @@ mpiexec -n 4 --map-by ppr:2:node --bind-to none -x CUDA_DEVICE_ORDER=PCI_BUS_ID 
 
 などに配置されています。指定する場合は、実行時に
 ```shell
+cd demo/hd1d_shock_tube
 mpiexec -n 1 ./build/hd1d_shock_tube --config ./config/config_x.yaml
 ```
 としてください。デフォルトでは`x`方向が指定されています。
-
 
 ## Python module pymiso
 
