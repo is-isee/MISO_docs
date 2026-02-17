@@ -54,8 +54,11 @@
 <ul class="current">
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Quick Start</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#installation">Installation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#usage-cpu-version">Usage (CPU version)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#usage-cuda-version">Usage (CUDA version)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#usage">Usage</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#cpu-version">CPU version</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cuda-version">CUDA version</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="#python-module-pymiso">Python module pymiso</a></li>
 </ul>
 </li>
@@ -107,8 +110,10 @@
 </pre></div>
 </div>
 </section>
-<section id="usage-cpu-version">
-<h2>Usage (CPU version)<a class="headerlink" href="#usage-cpu-version" title="Link to this heading"></a></h2>
+<section id="usage">
+<h2>Usage<a class="headerlink" href="#usage" title="Link to this heading"></a></h2>
+<section id="cpu-version">
+<h3>CPU version<a class="headerlink" href="#cpu-version" title="Link to this heading"></a></h3>
 <p>MISOのコンパイルにはCMakeを用います。
 例えば、2D Orszag-Tang渦問題を実行してみましょう。</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>demo/mhd2d_vortex
@@ -137,8 +142,8 @@ make<span class="w"> </span>-C<span class="w"> </span>build
 </pre></div>
 </div>
 </section>
-<section id="usage-cuda-version">
-<h2>Usage (CUDA version)<a class="headerlink" href="#usage-cuda-version" title="Link to this heading"></a></h2>
+<section id="cuda-version">
+<h3>CUDA version<a class="headerlink" href="#cuda-version" title="Link to this heading"></a></h3>
 <p>CUDA版の実行には、NVIDIA HPC SDKが必要です。
 CUDA版をコンパイルする場合は、CMakeのオプションで <code class="docutils literal notranslate"><span class="pre">-DUSE_CUDA=ON</span></code> を指定します。</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>demo/mhd2d_vortex
@@ -155,6 +160,21 @@ make<span class="w"> </span>-C<span class="w"> </span>build
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>mpiexec<span class="w"> </span>-n<span class="w"> </span><span class="m">4</span><span class="w"> </span>--map-by<span class="w"> </span>ppr:2:node<span class="w"> </span>--bind-to<span class="w"> </span>none<span class="w"> </span>-x<span class="w"> </span><span class="nv">CUDA_DEVICE_ORDER</span><span class="o">=</span>PCI_BUS_ID<span class="w"> </span>-x<span class="w"> </span><span class="nv">CUDA_VISIBLE_DEVICES</span><span class="o">=</span><span class="m">0</span>,1<span class="w"> </span>--mca<span class="w"> </span>pml<span class="w"> </span>ob1<span class="w"> </span>--mca<span class="w"> </span>btl<span class="w"> </span>tcp,self,vader<span class="w"> </span>--mca<span class="w"> </span>coll<span class="w"> </span>^hcoll<span class="w"> </span>--mca<span class="w"> </span>osc<span class="w"> </span>^ucx<span class="w"> </span>./build/mhd2d_vortex
 </pre></div>
 </div>
+<hr class="docutils" />
+<p>なお、設定ファイルは、<code class="docutils literal notranslate"><span class="pre">demo/mhd2d_vortex/config.yaml</span></code>に配置されています。1次元衝撃波管(<code class="docutils literal notranslate"><span class="pre">demo/hd1d_shock_tube</span></code>, <code class="docutils literal notranslate"><span class="pre">demo/mhd1d_shock_tube</span></code>
+)の問題の場合は、<code class="docutils literal notranslate"><span class="pre">x</span></code>, <code class="docutils literal notranslate"><span class="pre">y</span></code>, <code class="docutils literal notranslate"><span class="pre">z</span></code>の各方向の設定ファイルはそれぞれ</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">demo/hd1d_shock_tube/config/config_x.yaml</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">demo/hd1d_shock_tube/config/config_y.yaml</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">demo/hd1d_shock_tube/config/config_z.yaml</span></code></p></li>
+</ul>
+<p>などに配置されています。指定する場合は、実行時に</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>demo/hd1d_shock_tube
+mpiexec<span class="w"> </span>-n<span class="w"> </span><span class="m">1</span><span class="w"> </span>./build/hd1d_shock_tube<span class="w"> </span>--config<span class="w"> </span>./config/config_x.yaml
+</pre></div>
+</div>
+<p>としてください。デフォルトでは<code class="docutils literal notranslate"><span class="pre">x</span></code>方向が指定されています。</p>
+</section>
 </section>
 <section id="python-module-pymiso">
 <h2>Python module pymiso<a class="headerlink" href="#python-module-pymiso" title="Link to this heading"></a></h2>
