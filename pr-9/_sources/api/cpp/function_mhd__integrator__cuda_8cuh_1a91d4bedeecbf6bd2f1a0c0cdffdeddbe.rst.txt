@@ -1,0 +1,14 @@
+.. _exhale_function_mhd__integrator__cuda_8cuh_1a91d4bedeecbf6bd2f1a0c0cdffdeddbe:
+
+Template Function miso::mhd::cfl_kernel
+=======================================
+
+- Defined in :ref:`file__home_runner_work_MISO_docs_MISO_docs_MISO_miso_include_miso_mhd_integrator_cuda.cuh`
+
+
+Function Documentation
+----------------------
+
+
+.. doxygenfunction:: miso::mhd::cfl_kernel(FieldsView<const Real>, GridView<const Real>, Real *, Real, Real)
+   :project: CPP

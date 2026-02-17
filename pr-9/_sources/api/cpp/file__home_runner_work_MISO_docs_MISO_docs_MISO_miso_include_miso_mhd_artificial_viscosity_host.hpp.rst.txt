@@ -1,0 +1,72 @@
+
+.. _file__home_runner_work_MISO_docs_MISO_docs_MISO_miso_include_miso_mhd_artificial_viscosity_host.hpp:
+
+File mhd_artificial_viscosity_host.hpp
+======================================
+
+|exhale_lsh| :ref:`Parent directory <dir__home_runner_work_MISO_docs_MISO_docs_MISO_miso_include_miso>` (``/home/runner/work/MISO_docs/MISO_docs/MISO/miso/include/miso``)
+
+.. |exhale_lsh| unicode:: U+021B0 .. UPWARDS ARROW WITH TIP LEFTWARDS
+
+
+.. contents:: Contents
+   :local:
+   :backlinks: none
+
+Definition (``/home/runner/work/MISO_docs/MISO_docs/MISO/miso/include/miso/mhd_artificial_viscosity_host.hpp``)
+---------------------------------------------------------------------------------------------------------------
+
+
+.. toctree::
+   :maxdepth: 1
+
+   program_listing_file__home_runner_work_MISO_docs_MISO_docs_MISO_miso_include_miso_mhd_artificial_viscosity_host.hpp.rst
+
+
+
+
+
+Includes
+--------
+
+
+- ``miso/array3d.hpp`` (:ref:`file__home_runner_work_MISO_docs_MISO_docs_MISO_miso_include_miso_array3d.hpp`)
+
+- ``miso/constants.hpp`` (:ref:`file__home_runner_work_MISO_docs_MISO_docs_MISO_miso_include_miso_constants.hpp`)
+
+- ``miso/grid.hpp`` (:ref:`file__home_runner_work_MISO_docs_MISO_docs_MISO_miso_include_miso_grid.hpp`)
+
+- ``miso/limiter.hpp`` (:ref:`file__home_runner_work_MISO_docs_MISO_docs_MISO_miso_include_miso_limiter.hpp`)
+
+- ``miso/mhd_fields.hpp`` (:ref:`file__home_runner_work_MISO_docs_MISO_docs_MISO_miso_include_miso_mhd_fields.hpp`)
+
+
+
+Included By
+-----------
+
+
+- :ref:`file__home_runner_work_MISO_docs_MISO_docs_MISO_miso_include_miso_mhd_artificial_viscosity.hpp`
+
+- :ref:`file__home_runner_work_MISO_docs_MISO_docs_MISO_miso_include_miso_mhd_integrator_host.hpp`
+
+
+
+
+Namespaces
+----------
+
+
+- :ref:`namespace_miso`
+
+- :ref:`namespace_miso__mhd`
+
+- :ref:`namespace_miso__mhd__impl_host`
+
+
+Classes
+-------
+
+
+- :ref:`exhale_struct_structmiso_1_1mhd_1_1impl__host_1_1ArtificialViscosity`
+
