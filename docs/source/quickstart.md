@@ -10,7 +10,8 @@ MISOはGitHub (<https://github.com/is-isee/MISO>) で入手できます。リポ
 git clone https://github.com/is-isee/MISO.git
 ```
 
-## Usage (CPU version)
+## Usage 
+### CPU version
 
 MISOのコンパイルにはCMakeを用います。
 例えば、2D Orszag-Tang渦問題を実行してみましょう。
@@ -50,7 +51,7 @@ grid:
     j_size: 256
 ```
 
-## Usage (CUDA version)
+### CUDA version
 
 CUDA版の実行には、NVIDIA HPC SDKが必要です。
 CUDA版をコンパイルする場合は、CMakeのオプションで `-DUSE_CUDA=ON` を指定します。
@@ -73,6 +74,21 @@ GPU版で複数のプロセスを使用する場合は、オプションとし�
 ```shell
 mpiexec -n 4 --map-by ppr:2:node --bind-to none -x CUDA_DEVICE_ORDER=PCI_BUS_ID -x CUDA_VISIBLE_DEVICES=0,1 --mca pml ob1 --mca btl tcp,self,vader --mca coll ^hcoll --mca osc ^ucx ./build/mhd2d_vortex
 ```
+
+-----
+
+なお、設定ファイルは、`demo/mhd2d_vortex/config/config.yaml`に配置されています。1次元衝撃波管(`demo/hd1d_shock_tube`, `demo/mhd1d_shock_tube`
+)の問題の場合は、`x`, `y`, `z`の各方向の設定ファイルはそれぞれ
+- `demo/shocktube_1d/config/cconfig_x.yaml`
+- `demo/shocktube_1d/config/config_y.yaml`
+- `demo/shocktube_1d/config/config_z.yaml`
+
+などに配置されています。指定する場合は、実行時に
+```shell
+mpiexec -n 1 ./build/hd1d_shocktube --config ./config/config_x.yaml
+```
+としてください。デフォルトでは`x`方向が指定されています。
+
 
 ## Python module pymiso
 
