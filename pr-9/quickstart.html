@@ -161,7 +161,7 @@ make<span class="w"> </span>-C<span class="w"> </span>build
 </pre></div>
 </div>
 <hr class="docutils" />
-<p>なお、設定ファイルは、<code class="docutils literal notranslate"><span class="pre">demo/mhd2d_vortex/config/config.yaml</span></code>に配置されています。1次元衝撃波管(<code class="docutils literal notranslate"><span class="pre">demo/hd1d_shock_tube</span></code>, <code class="docutils literal notranslate"><span class="pre">demo/mhd1d_shock_tube</span></code>
+<p>なお、設定ファイルは、<code class="docutils literal notranslate"><span class="pre">demo/mhd2d_vortex/config.yaml</span></code>に配置されています。1次元衝撃波管(<code class="docutils literal notranslate"><span class="pre">demo/hd1d_shock_tube</span></code>, <code class="docutils literal notranslate"><span class="pre">demo/mhd1d_shock_tube</span></code>
 )の問題の場合は、<code class="docutils literal notranslate"><span class="pre">x</span></code>, <code class="docutils literal notranslate"><span class="pre">y</span></code>, <code class="docutils literal notranslate"><span class="pre">z</span></code>の各方向の設定ファイルはそれぞれ</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">demo/hd1d_shock_tube/config/config_x.yaml</span></code></p></li>
@@ -169,7 +169,8 @@ make<span class="w"> </span>-C<span class="w"> </span>build
 <li><p><code class="docutils literal notranslate"><span class="pre">demo/hd1d_shock_tube/config/config_z.yaml</span></code></p></li>
 </ul>
 <p>などに配置されています。指定する場合は、実行時に</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>mpiexec<span class="w"> </span>-n<span class="w"> </span><span class="m">1</span><span class="w"> </span>./build/hd1d_shock_tube<span class="w"> </span>--config<span class="w"> </span>./config/config_x.yaml
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>demo/hd1d_shock_tube
+mpiexec<span class="w"> </span>-n<span class="w"> </span><span class="m">1</span><span class="w"> </span>./build/hd1d_shock_tube<span class="w"> </span>--config<span class="w"> </span>./config/config_x.yaml
 </pre></div>
 </div>
 <p>としてください。デフォルトでは<code class="docutils literal notranslate"><span class="pre">x</span></code>方向が指定されています。</p>
