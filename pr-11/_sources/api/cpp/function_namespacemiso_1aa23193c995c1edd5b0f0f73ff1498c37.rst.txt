@@ -1,0 +1,14 @@
+.. _exhale_function_namespacemiso_1aa23193c995c1edd5b0f0f73ff1498c37:
+
+Template Function miso::reduce_stage_array_kernel
+=================================================
+
+- Defined in :ref:`file__home_runner_work_MISO_docs_MISO_docs_MISO_miso_include_miso_execution.hpp`
+
+
+Function Documentation
+----------------------
+
+
+.. doxygenfunction:: miso::reduce_stage_array_kernel(const T *__restrict__, int, T, Op, T *__restrict__)
+   :project: CPP
