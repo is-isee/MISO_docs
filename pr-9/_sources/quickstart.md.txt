@@ -10,7 +10,7 @@ MISOはGitHub (<https://github.com/is-isee/MISO>) で入手できます。リポ
 git clone https://github.com/is-isee/MISO.git
 ```
 
-## Usage 
+## Usage
 ### CPU version
 
 MISOのコンパイルにはCMakeを用います。
