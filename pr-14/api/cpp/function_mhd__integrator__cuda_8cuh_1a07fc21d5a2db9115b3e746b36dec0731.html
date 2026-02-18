@@ -1,0 +1,200 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Template Function miso::mhd::update_bz_kernel &mdash; MISO 0.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css?v=4ae1632d" />
+      <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../../_static/collapsible-lists/css/tree_view.css?v=a885cde7" />
+      <link rel="stylesheet" type="text/css" href="../../_static/custom.css" />
+
+  
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options.js?v=837179f8"></script>
+      <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../../_static/copybutton.js?v=f281be69"></script>
+      <script src="../../_static/collapsible-lists/js/CollapsibleLists.compressed.js?v=73120307"></script>
+      <script src="../../_static/collapsible-lists/js/apply-collapsible-lists.js?v=660e4f45"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Template Function miso::mhd::update_ei_kernel" href="function_mhd__integrator__cuda_8cuh_1aad6b51287470f90088856c6fe24c3ed7.html" />
+    <link rel="prev" title="Template Function miso::mhd::update_by_kernel" href="function_mhd__integrator__cuda_8cuh_1ae3b9f91463c2cd4b29fe197081110d03.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            MISO
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../quickstart.html">Quick Start</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../demo/index.html">Test Problems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../customization/index.html">Customization</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../miso/index.html">MISO C++ documentation</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="root.html">MISO C++ API Reference</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="root.html#file-hierarchy">File Hierarchy</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="root.html#full-api">Full API</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="root.html#namespaces">Namespaces</a></li>
+<li class="toctree-l4"><a class="reference internal" href="root.html#classes-and-structs">Classes and Structs</a></li>
+<li class="toctree-l4"><a class="reference internal" href="root.html#enums">Enums</a></li>
+<li class="toctree-l4 current"><a class="reference internal" href="root.html#functions">Functions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="root.html#variables">Variables</a></li>
+<li class="toctree-l4"><a class="reference internal" href="root.html#defines">Defines</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../pymiso/index.html">pymiso Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../references.html">References</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">MISO</a>
+      </nav>
+
+      <div class="wy-nav-content">
+<div id="language-links" style="margin-bottom: 1em; font-size: 100%;">
+    Language:
+    <a href="#" id="translate-link" target="_blank">English</a> |
+    <a href="#" id="original-link">日本語</a>
+</div>
+
+
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../miso/index.html">MISO C++ documentation</a></li>
+          <li class="breadcrumb-item"><a href="root.html">MISO C++ API Reference</a></li>
+      <li class="breadcrumb-item active">Template Function miso::mhd::update_bz_kernel</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../_sources/api/cpp/function_mhd__integrator__cuda_8cuh_1a07fc21d5a2db9115b3e746b36dec0731.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="template-function-miso-mhd-update-bz-kernel">
+<span id="exhale-function-mhd-integrator-cuda-8cuh-1a07fc21d5a2db9115b3e746b36dec0731"></span><h1>Template Function miso::mhd::update_bz_kernel<a class="headerlink" href="#template-function-miso-mhd-update-bz-kernel" title="Link to this heading"></a></h1>
+<ul class="simple">
+<li><p>Defined in <a class="reference internal" href="file__home_runner_work_MISO_docs_MISO_docs_MISO_miso_include_miso_mhd_integrator_cuda.cuh.html#file-home-runner-work-miso-docs-miso-docs-miso-miso-include-miso-mhd-integrator-cuda-cuh"><span class="std std-ref">File mhd_integrator_cuda.cuh</span></a></p></li>
+</ul>
+<section id="function-documentation">
+<h2>Function Documentation<a class="headerlink" href="#function-documentation" title="Link to this heading"></a></h2>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4I0EN4miso3mhd16update_bz_kernelEv10FieldsViewIK4RealE10FieldsViewIK4RealE10FieldsViewI4RealE8GridViewIK4RealE4Real">
+<span id="_CPPv3I0EN4miso3mhd16update_bz_kernelE10FieldsViewIK4RealE10FieldsViewIK4RealE10FieldsViewI4RealE8GridViewIK4RealE4Real"></span><span id="_CPPv2I0EN4miso3mhd16update_bz_kernelE10FieldsViewIK4RealE10FieldsViewIK4RealE10FieldsViewI4RealE8GridViewIK4RealE4Real"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Real</span></span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="target" id="mhd__integrator__cuda_8cuh_1a07fc21d5a2db9115b3e746b36dec0731"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-prename descclassname"><span class="n"><span class="pre">miso</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">mhd</span></span><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">update_bz_kernel</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="structmiso_1_1mhd_1_1FieldsView.html#_CPPv4I0EN4miso3mhd10FieldsViewE" title="miso::mhd::FieldsView"><span class="n"><span class="pre">FieldsView</span></span></a><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4I0EN4miso3mhd16update_bz_kernelEv10FieldsViewIK4RealE10FieldsViewIK4RealE10FieldsViewI4RealE8GridViewIK4RealE4Real" title="miso::mhd::update_bz_kernel::Real"><span class="n"><span class="pre">Real</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">qq_orgn</span></span>, <a class="reference internal" href="structmiso_1_1mhd_1_1FieldsView.html#_CPPv4I0EN4miso3mhd10FieldsViewE" title="miso::mhd::FieldsView"><span class="n"><span class="pre">FieldsView</span></span></a><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4I0EN4miso3mhd16update_bz_kernelEv10FieldsViewIK4RealE10FieldsViewIK4RealE10FieldsViewI4RealE8GridViewIK4RealE4Real" title="miso::mhd::update_bz_kernel::Real"><span class="n"><span class="pre">Real</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">qq_argm</span></span>, <a class="reference internal" href="structmiso_1_1mhd_1_1FieldsView.html#_CPPv4I0EN4miso3mhd10FieldsViewE" title="miso::mhd::FieldsView"><span class="n"><span class="pre">FieldsView</span></span></a><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4I0EN4miso3mhd16update_bz_kernelEv10FieldsViewIK4RealE10FieldsViewIK4RealE10FieldsViewI4RealE8GridViewIK4RealE4Real" title="miso::mhd::update_bz_kernel::Real"><span class="n"><span class="pre">Real</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">qq_rslt</span></span>, <a class="reference internal" href="structmiso_1_1GridView.html#_CPPv4I0EN4miso8GridViewE" title="miso::GridView"><span class="n"><span class="pre">GridView</span></span></a><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4I0EN4miso3mhd16update_bz_kernelEv10FieldsViewIK4RealE10FieldsViewIK4RealE10FieldsViewI4RealE8GridViewIK4RealE4Real" title="miso::mhd::update_bz_kernel::Real"><span class="n"><span class="pre">Real</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">grid</span></span>, <a class="reference internal" href="#_CPPv4I0EN4miso3mhd16update_bz_kernelEv10FieldsViewIK4RealE10FieldsViewIK4RealE10FieldsViewI4RealE8GridViewIK4RealE4Real" title="miso::mhd::update_bz_kernel::Real"><span class="n"><span class="pre">Real</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">dt</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4I0EN4miso3mhd16update_bz_kernelEv10FieldsViewIK4RealE10FieldsViewIK4RealE10FieldsViewI4RealE8GridViewIK4RealE4Real" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="function_mhd__integrator__cuda_8cuh_1ae3b9f91463c2cd4b29fe197081110d03.html" class="btn btn-neutral float-left" title="Template Function miso::mhd::update_by_kernel" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="function_mhd__integrator__cuda_8cuh_1aad6b51287470f90088856c6fe24c3ed7.html" class="btn btn-neutral float-right" title="Template Function miso::mhd::update_ei_kernel" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Integrated Studies, ISEE, Nagoya University.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+ 
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        const currentUrl = window.location.href;
+        const isTranslated = currentUrl.includes(".translate.goog");
+        const translateLink = document.getElementById("translate-link");
+        const originalLink = document.getElementById("original-link");
+
+        // 翻訳URLを生成
+        const translateUrl =
+            "https://translate.google.com/translate?sl=ja&tl=en&u=" +
+            encodeURIComponent(currentUrl);
+
+        if (isTranslated) {
+            // --- 英語版(.translate.goog)にいる場合 ---
+            // English → ページを単にリロード
+            translateLink.removeAttribute("target");
+            translateLink.removeAttribute("href");
+            translateLink.addEventListener("click", (e) => {
+                e.preventDefault();
+                window.location.reload();
+            });
+
+            // 日本語 → 新タブで元URLを開く（翻訳解除）
+            const originalUrl = currentUrl.replace(
+                /^https:\/\/[^/]+\.translate\.goog/,
+                "https://is-isee.github.io"
+            );
+            originalLink.href = originalUrl;
+            originalLink.target = "_blank";
+            originalLink.rel = "noopener";
+        } else {
+            // --- 日本語版にいる場合 ---
+            translateLink.href = translateUrl;
+            translateLink.target = "_blank";
+
+            originalLink.href = currentUrl;
+            originalLink.target = "_self";
+        }
+    });
+</script>
+
+
+</body>
+</html>

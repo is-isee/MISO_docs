@@ -1,0 +1,17 @@
+.. _exhale_struct_structmiso_1_1mhd_1_1HaloExchanger_3_01Real_00_01backend_1_1CUDA_01_4:
+
+Template Struct HaloExchanger< Real, backend::CUDA >
+====================================================
+
+- Defined in :ref:`file__home_runner_work_MISO_docs_MISO_docs_MISO_miso_include_miso_mhd_halo_exchange.hpp`
+
+
+Struct Documentation
+--------------------
+
+
+.. doxygenstruct:: miso::mhd::HaloExchanger< Real, backend::CUDA >
+   :project: CPP
+   :members:
+   :protected-members:
+   :undoc-members:
