@@ -1,0 +1,14 @@
+.. _exhale_function_namespacemiso_1a52265a89a67234c07931684ecd29d166:
+
+Template Function miso::for_each(backend::Host, Range1D, F)
+===========================================================
+
+- Defined in :ref:`file__home_runner_work_MISO_docs_MISO_docs_MISO_miso_include_miso_execution.hpp`
+
+
+Function Documentation
+----------------------
+
+
+.. doxygenfunction:: miso::for_each(backend::Host, Range1D, F)
+   :project: CPP

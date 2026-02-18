@@ -1,0 +1,17 @@
+.. _exhale_struct_structmiso_1_1mhd_1_1Integrator_3_01Real_00_01backend_1_1Host_01_4:
+
+Template Struct Integrator< Real, backend::Host >
+=================================================
+
+- Defined in :ref:`file__home_runner_work_MISO_docs_MISO_docs_MISO_miso_include_miso_mhd_integrator_host.hpp`
+
+
+Struct Documentation
+--------------------
+
+
+.. doxygenstruct:: miso::mhd::Integrator< Real, backend::Host >
+   :project: CPP
+   :members:
+   :protected-members:
+   :undoc-members:

@@ -1,0 +1,25 @@
+
+.. _program_listing_file__home_runner_work_MISO_docs_MISO_docs_MISO_miso_include_miso_types.hpp:
+
+Program Listing for File types.hpp
+==================================
+
+|exhale_lsh| :ref:`Return to documentation for file <file__home_runner_work_MISO_docs_MISO_docs_MISO_miso_include_miso_types.hpp>` (``/home/runner/work/MISO_docs/MISO_docs/MISO/miso/include/miso/types.hpp``)
+
+.. |exhale_lsh| unicode:: U+021B0 .. UPWARDS ARROW WITH TIP LEFTWARDS
+
+.. code-block:: cpp
+
+   #pragma once
+   
+   namespace miso {
+   
+   enum class Sign { Pos, Neg };
+   
+   enum class Direction { X, Y, Z };
+   
+   enum class Face { Pos, Neg };
+   
+   enum class Side { INNER, OUTER };
+   
+   }  // namespace miso

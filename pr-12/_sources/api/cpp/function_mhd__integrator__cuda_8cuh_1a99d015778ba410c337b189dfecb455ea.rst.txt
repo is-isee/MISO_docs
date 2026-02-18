@@ -1,0 +1,14 @@
+.. _exhale_function_mhd__integrator__cuda_8cuh_1a99d015778ba410c337b189dfecb455ea:
+
+Template Function miso::mhd::update_bx_kernel
+=============================================
+
+- Defined in :ref:`file__home_runner_work_MISO_docs_MISO_docs_MISO_miso_include_miso_mhd_integrator_cuda.cuh`
+
+
+Function Documentation
+----------------------
+
+
+.. doxygenfunction:: miso::mhd::update_bx_kernel(FieldsView<const Real>, FieldsView<const Real>, FieldsView<Real>, GridView<const Real>, Real)
+   :project: CPP

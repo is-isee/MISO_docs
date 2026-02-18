@@ -1,0 +1,14 @@
+.. _exhale_variable_env_8hpp_1a0f2f15568047869997b3ba8bf4344a96:
+
+Variable miso::mpi::local::comm
+===============================
+
+- Defined in :ref:`file__home_runner_work_MISO_docs_MISO_docs_MISO_miso_include_miso_env.hpp`
+
+
+Variable Documentation
+----------------------
+
+
+.. doxygenvariable:: miso::mpi::local::comm
+   :project: CPP

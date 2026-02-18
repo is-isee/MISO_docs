@@ -1,0 +1,98 @@
+
+.. _file__home_runner_work_MISO_docs_MISO_docs_MISO_miso_include_miso_mpi_util.hpp:
+
+File mpi_util.hpp
+=================
+
+|exhale_lsh| :ref:`Parent directory <dir__home_runner_work_MISO_docs_MISO_docs_MISO_miso_include_miso>` (``/home/runner/work/MISO_docs/MISO_docs/MISO/miso/include/miso``)
+
+.. |exhale_lsh| unicode:: U+021B0 .. UPWARDS ARROW WITH TIP LEFTWARDS
+
+
+.. contents:: Contents
+   :local:
+   :backlinks: none
+
+Definition (``/home/runner/work/MISO_docs/MISO_docs/MISO/miso/include/miso/mpi_util.hpp``)
+------------------------------------------------------------------------------------------
+
+
+.. toctree::
+   :maxdepth: 1
+
+   program_listing_file__home_runner_work_MISO_docs_MISO_docs_MISO_miso_include_miso_mpi_util.hpp.rst
+
+
+
+
+
+Includes
+--------
+
+
+- ``config.hpp`` (:ref:`file__home_runner_work_MISO_docs_MISO_docs_MISO_miso_include_miso_config.hpp`)
+
+- ``cstdlib``
+
+- ``env.hpp`` (:ref:`file__home_runner_work_MISO_docs_MISO_docs_MISO_miso_include_miso_env.hpp`)
+
+- ``fstream``
+
+- ``iostream``
+
+
+
+Included By
+-----------
+
+
+- :ref:`file__home_runner_work_MISO_docs_MISO_docs_MISO_miso_include_miso_boundary_condition.hpp`
+
+- :ref:`file__home_runner_work_MISO_docs_MISO_docs_MISO_miso_include_miso_grid.hpp`
+
+- :ref:`file__home_runner_work_MISO_docs_MISO_docs_MISO_miso_include_miso_mhd_halo_exchange.hpp`
+
+- :ref:`file__home_runner_work_MISO_docs_MISO_docs_MISO_miso_include_miso_mhd_model_base.hpp`
+
+- :ref:`file__home_runner_work_MISO_docs_MISO_docs_MISO_miso_include_miso_rt_host.hpp`
+
+- :ref:`file__home_runner_work_MISO_docs_MISO_docs_MISO_miso_include_miso_time.hpp`
+
+
+
+
+Namespaces
+----------
+
+
+- :ref:`namespace_miso`
+
+- :ref:`namespace_miso__mpi`
+
+
+Classes
+-------
+
+
+- :ref:`exhale_struct_structmiso_1_1mpi_1_1Shape`
+
+
+Functions
+---------
+
+
+- :ref:`exhale_function_namespacemiso_1_1mpi_1a082bc177d059e24ca6f5f79d9db6f29a`
+
+- :ref:`exhale_function_namespacemiso_1_1mpi_1ad5b6d3a8f383545e2846aef73df5a951`
+
+- :ref:`exhale_function_namespacemiso_1_1mpi_1a74c729b232575163f9635b20a2dd4898`
+
+- :ref:`exhale_function_namespacemiso_1_1mpi_1a0a212383552c01b0cec05ed542e05ea2`
+
+
+Defines
+-------
+
+
+- :ref:`exhale_define_mpi__util_8hpp_1a2eb9ea009c41d4d0836e790e129f9251`
+

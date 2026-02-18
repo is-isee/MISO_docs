@@ -1,0 +1,30 @@
+
+.. _program_listing_file__home_runner_work_MISO_docs_MISO_docs_MISO_miso_include_miso_constants.hpp:
+
+Program Listing for File constants.hpp
+======================================
+
+|exhale_lsh| :ref:`Return to documentation for file <file__home_runner_work_MISO_docs_MISO_docs_MISO_miso_include_miso_constants.hpp>` (``/home/runner/work/MISO_docs/MISO_docs/MISO/miso/include/miso/constants.hpp``)
+
+.. |exhale_lsh| unicode:: U+021B0 .. UPWARDS ARROW WITH TIP LEFTWARDS
+
+.. code-block:: cpp
+
+   #pragma once
+   
+   #include <cmath>
+   
+   namespace miso {
+   
+   template <typename Real>
+   inline constexpr Real inv12 = static_cast<Real>(1.0 / 12.0);
+   
+   template <typename Real> inline constexpr Real pi = static_cast<Real>(M_PI);
+   
+   template <typename Real>
+   inline constexpr Real pii4 = static_cast<Real>(1.0 / (4.0 * M_PI));  // 1 / 4π
+   
+   template <typename Real>
+   inline constexpr Real pii8 = static_cast<Real>(1.0 / (8.0 * M_PI));  // 1 / 8π
+   
+   }  // namespace miso

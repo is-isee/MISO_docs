@@ -1,0 +1,14 @@
+.. _exhale_function_namespacemiso_1_1mpi_1a47745d4d5be914525f931a3373bbcd53:
+
+Function miso::mpi::is_root
+===========================
+
+- Defined in :ref:`file__home_runner_work_MISO_docs_MISO_docs_MISO_miso_include_miso_env.hpp`
+
+
+Function Documentation
+----------------------
+
+
+.. doxygenfunction:: miso::mpi::is_root()
+   :project: CPP
