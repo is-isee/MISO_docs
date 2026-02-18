@@ -30,7 +30,7 @@ Includes
 --------
 
 
-- ``miso/rt_host.hpp`` (:ref:`file__home_runner_work_MISO_docs_MISO_docs_MISO_miso_include_miso_rt_host.hpp`)
+- ``rt_host.hpp`` (:ref:`file__home_runner_work_MISO_docs_MISO_docs_MISO_miso_include_miso_rt_host.hpp`)
 
 
 

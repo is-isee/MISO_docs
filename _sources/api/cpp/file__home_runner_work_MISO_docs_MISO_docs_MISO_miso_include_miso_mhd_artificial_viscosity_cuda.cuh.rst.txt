@@ -30,17 +30,17 @@ Includes
 --------
 
 
-- ``miso/array3d.hpp`` (:ref:`file__home_runner_work_MISO_docs_MISO_docs_MISO_miso_include_miso_array3d.hpp`)
+- ``array3d.hpp`` (:ref:`file__home_runner_work_MISO_docs_MISO_docs_MISO_miso_include_miso_array3d.hpp`)
 
-- ``miso/constants.hpp`` (:ref:`file__home_runner_work_MISO_docs_MISO_docs_MISO_miso_include_miso_constants.hpp`)
+- ``constants.hpp`` (:ref:`file__home_runner_work_MISO_docs_MISO_docs_MISO_miso_include_miso_constants.hpp`)
 
-- ``miso/cuda_util.cuh`` (:ref:`file__home_runner_work_MISO_docs_MISO_docs_MISO_miso_include_miso_cuda_util.cuh`)
+- ``cuda_util.cuh`` (:ref:`file__home_runner_work_MISO_docs_MISO_docs_MISO_miso_include_miso_cuda_util.cuh`)
 
-- ``miso/grid.hpp`` (:ref:`file__home_runner_work_MISO_docs_MISO_docs_MISO_miso_include_miso_grid.hpp`)
+- ``grid.hpp`` (:ref:`file__home_runner_work_MISO_docs_MISO_docs_MISO_miso_include_miso_grid.hpp`)
 
-- ``miso/limiter.hpp`` (:ref:`file__home_runner_work_MISO_docs_MISO_docs_MISO_miso_include_miso_limiter.hpp`)
+- ``limiter.hpp`` (:ref:`file__home_runner_work_MISO_docs_MISO_docs_MISO_miso_include_miso_limiter.hpp`)
 
-- ``miso/mhd_fields.hpp`` (:ref:`file__home_runner_work_MISO_docs_MISO_docs_MISO_miso_include_miso_mhd_fields.hpp`)
+- ``mhd_fields.hpp`` (:ref:`file__home_runner_work_MISO_docs_MISO_docs_MISO_miso_include_miso_mhd_fields.hpp`)
 
 
 

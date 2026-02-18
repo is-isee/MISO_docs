@@ -16,8 +16,8 @@ Program Listing for File mpi_util.hpp
    #include <fstream>
    #include <iostream>
    
-   #include <miso/config.hpp>
-   #include <miso/env.hpp>
+   #include "config.hpp"
+   #include "env.hpp"
    
    // clang-format off
    #define MISO_MPI_CHECK(merr) \

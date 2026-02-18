@@ -34,11 +34,15 @@ Classes
 
 - :ref:`exhale_struct_structmiso_1_1mhd_1_1Checkpoint`
 
+- :ref:`exhale_struct_structmiso_1_1mhd_1_1EmptyBoundaryCondition`
+
+- :ref:`exhale_struct_structmiso_1_1mhd_1_1EmptySourceTerm`
+
 - :ref:`exhale_struct_structmiso_1_1mhd_1_1ExecContext`
 
-- :ref:`exhale_struct_structmiso_1_1mhd_1_1ExecContext_3_01backend_1_1CUDA_01_4`
+- :ref:`exhale_struct_structmiso_1_1mhd_1_1ExecContext_3_01Real_00_01backend_1_1CUDA_01_4`
 
-- :ref:`exhale_struct_structmiso_1_1mhd_1_1ExecContext_3_01backend_1_1Host_01_4`
+- :ref:`exhale_struct_structmiso_1_1mhd_1_1ExecContext_3_01Real_00_01backend_1_1Host_01_4`
 
 - :ref:`exhale_struct_structmiso_1_1mhd_1_1Fields`
 
@@ -54,24 +58,36 @@ Classes
 
 - :ref:`exhale_struct_structmiso_1_1mhd_1_1HaloExchanger_3_01Real_00_01backend_1_1Host_01_4`
 
+- :ref:`exhale_struct_structmiso_1_1mhd_1_1has__bc`
+
+- :ref:`exhale_struct_structmiso_1_1mhd_1_1has__bc_3_01T_00_01std_1_1void__t_3_01decltype_07_6T_1_1bc_08_4_01_4`
+
+- :ref:`exhale_struct_structmiso_1_1mhd_1_1has__eos`
+
+- :ref:`exhale_struct_structmiso_1_1mhd_1_1has__eos_3_01T_00_01std_1_1void__t_3_01decltype_07_6T_1_1eos_08_4_01_4`
+
+- :ref:`exhale_struct_structmiso_1_1mhd_1_1has__ic`
+
+- :ref:`exhale_struct_structmiso_1_1mhd_1_1has__ic_3_01T_00_01std_1_1void__t_3_01decltype_07_6T_1_1ic_08_4_01_4`
+
+- :ref:`exhale_struct_structmiso_1_1mhd_1_1has__src`
+
+- :ref:`exhale_struct_structmiso_1_1mhd_1_1has__src_3_01T_00_01std_1_1void__t_3_01decltype_07_6T_1_1src_08_4_01_4`
+
 - :ref:`exhale_struct_structmiso_1_1mhd_1_1Integrator`
 
-- :ref:`exhale_struct_structmiso_1_1mhd_1_1Integrator_3_01Real_00_01EOS_00_01backend_1_1CUDA_01_4`
+- :ref:`exhale_struct_structmiso_1_1mhd_1_1Integrator_3_01Real_00_01backend_1_1CUDA_01_4`
 
-- :ref:`exhale_struct_structmiso_1_1mhd_1_1Integrator_3_01Real_00_01EOS_00_01backend_1_1Host_01_4`
+- :ref:`exhale_struct_structmiso_1_1mhd_1_1Integrator_3_01Real_00_01backend_1_1Host_01_4`
 
 - :ref:`exhale_struct_structmiso_1_1mhd_1_1MHD`
 
-- :ref:`exhale_struct_structmiso_1_1mhd_1_1NoSource`
-
-- :ref:`exhale_struct_structmiso_1_1mhd_1_1TimeStepHelper`
+- :ref:`exhale_class_classmiso_1_1mhd_1_1ModelBase`
 
 
 Functions
 ---------
 
-
-- :ref:`exhale_function_mhd__integrator__cuda_8cuh_1a91d4bedeecbf6bd2f1a0c0cdffdeddbe`
 
 - :ref:`exhale_function_mhd__integrator__cuda_8cuh_1a8ee1b126a1b8d7cfa2dde3b84e51d6d6`
 
@@ -87,11 +103,11 @@ Functions
 
 - :ref:`exhale_function_mhd__integrator__cuda_8cuh_1a10ef9818c30d1c1961bbd77cb40703c2`
 
-- :ref:`exhale_function_mhd__integrator_8hpp_1a133ab68fba5738068b88b061c151b819`
-
 - :ref:`exhale_function_mhd__integrator_8hpp_1a3f330bdf224a294b5994945a2ed6ee5d`
 
 - :ref:`exhale_function_mhd__integrator_8hpp_1a2564cdc11eb2716336df0f9367327979`
+
+- :ref:`exhale_function_mhd__integrator_8hpp_1a133ab68fba5738068b88b061c151b819`
 
 - :ref:`exhale_function_mhd__halo__exchange_8hpp_1aa1ee7f3d4f6a230d7a7354922cbf99a9`
 

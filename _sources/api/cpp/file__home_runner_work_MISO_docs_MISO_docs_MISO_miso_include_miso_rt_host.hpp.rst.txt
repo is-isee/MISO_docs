@@ -30,29 +30,29 @@ Includes
 --------
 
 
+- ``array3d.hpp`` (:ref:`file__home_runner_work_MISO_docs_MISO_docs_MISO_miso_include_miso_array3d.hpp`)
+
+- ``array4d.hpp`` (:ref:`file__home_runner_work_MISO_docs_MISO_docs_MISO_miso_include_miso_array4d.hpp`)
+
 - ``cassert``
 
 - ``cmath``
 
 - ``cstdio``
 
+- ``env.hpp`` (:ref:`file__home_runner_work_MISO_docs_MISO_docs_MISO_miso_include_miso_env.hpp`)
+
 - ``fstream``
 
-- ``miso/array3d.hpp`` (:ref:`file__home_runner_work_MISO_docs_MISO_docs_MISO_miso_include_miso_array3d.hpp`)
+- ``grid.hpp`` (:ref:`file__home_runner_work_MISO_docs_MISO_docs_MISO_miso_include_miso_grid.hpp`)
 
-- ``miso/array4d.hpp`` (:ref:`file__home_runner_work_MISO_docs_MISO_docs_MISO_miso_include_miso_array4d.hpp`)
+- ``mpi_util.hpp`` (:ref:`file__home_runner_work_MISO_docs_MISO_docs_MISO_miso_include_miso_mpi_util.hpp`)
 
-- ``miso/env.hpp`` (:ref:`file__home_runner_work_MISO_docs_MISO_docs_MISO_miso_include_miso_env.hpp`)
-
-- ``miso/grid.hpp`` (:ref:`file__home_runner_work_MISO_docs_MISO_docs_MISO_miso_include_miso_grid.hpp`)
-
-- ``miso/mpi_util.hpp`` (:ref:`file__home_runner_work_MISO_docs_MISO_docs_MISO_miso_include_miso_mpi_util.hpp`)
-
-- ``miso/rt_angular_quadrature.hpp``
-
-- ``miso/utility.hpp`` (:ref:`file__home_runner_work_MISO_docs_MISO_docs_MISO_miso_include_miso_utility.hpp`)
+- ``rt_angular_quadrature.hpp``
 
 - ``string``
+
+- ``utility.hpp`` (:ref:`file__home_runner_work_MISO_docs_MISO_docs_MISO_miso_include_miso_utility.hpp`)
 
 - ``vector``
 

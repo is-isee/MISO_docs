@@ -30,9 +30,9 @@ Includes
 --------
 
 
-- ``miso/cuda_compat.hpp`` (:ref:`file__home_runner_work_MISO_docs_MISO_docs_MISO_miso_include_miso_cuda_compat.hpp`)
+- ``cuda_compat.hpp`` (:ref:`file__home_runner_work_MISO_docs_MISO_docs_MISO_miso_include_miso_cuda_compat.hpp`)
 
-- ``miso/utility.hpp`` (:ref:`file__home_runner_work_MISO_docs_MISO_docs_MISO_miso_include_miso_utility.hpp`)
+- ``utility.hpp`` (:ref:`file__home_runner_work_MISO_docs_MISO_docs_MISO_miso_include_miso_utility.hpp`)
 
 
 

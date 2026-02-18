@@ -30,21 +30,23 @@ Includes
 --------
 
 
-- ``miso/array3d.hpp`` (:ref:`file__home_runner_work_MISO_docs_MISO_docs_MISO_miso_include_miso_array3d.hpp`)
+- ``array3d.hpp`` (:ref:`file__home_runner_work_MISO_docs_MISO_docs_MISO_miso_include_miso_array3d.hpp`)
 
-- ``miso/constants.hpp`` (:ref:`file__home_runner_work_MISO_docs_MISO_docs_MISO_miso_include_miso_constants.hpp`)
+- ``constants.hpp`` (:ref:`file__home_runner_work_MISO_docs_MISO_docs_MISO_miso_include_miso_constants.hpp`)
 
-- ``miso/cuda_compat.hpp`` (:ref:`file__home_runner_work_MISO_docs_MISO_docs_MISO_miso_include_miso_cuda_compat.hpp`)
+- ``cuda_compat.hpp`` (:ref:`file__home_runner_work_MISO_docs_MISO_docs_MISO_miso_include_miso_cuda_compat.hpp`)
 
-- ``miso/cuda_util.cuh`` (:ref:`file__home_runner_work_MISO_docs_MISO_docs_MISO_miso_include_miso_cuda_util.cuh`)
+- ``cuda_util.cuh`` (:ref:`file__home_runner_work_MISO_docs_MISO_docs_MISO_miso_include_miso_cuda_util.cuh`)
 
-- ``miso/env.hpp`` (:ref:`file__home_runner_work_MISO_docs_MISO_docs_MISO_miso_include_miso_env.hpp`)
+- ``env.hpp`` (:ref:`file__home_runner_work_MISO_docs_MISO_docs_MISO_miso_include_miso_env.hpp`)
 
-- ``miso/mhd_artificial_viscosity_cuda.cuh`` (:ref:`file__home_runner_work_MISO_docs_MISO_docs_MISO_miso_include_miso_mhd_artificial_viscosity_cuda.cuh`)
+- ``execution.hpp`` (:ref:`file__home_runner_work_MISO_docs_MISO_docs_MISO_miso_include_miso_execution.hpp`)
 
-- ``miso/mhd_fields.hpp`` (:ref:`file__home_runner_work_MISO_docs_MISO_docs_MISO_miso_include_miso_mhd_fields.hpp`)
+- ``mhd_artificial_viscosity_cuda.cuh`` (:ref:`file__home_runner_work_MISO_docs_MISO_docs_MISO_miso_include_miso_mhd_artificial_viscosity_cuda.cuh`)
 
-- ``miso/mhd_halo_exchange.hpp`` (:ref:`file__home_runner_work_MISO_docs_MISO_docs_MISO_miso_include_miso_mhd_halo_exchange.hpp`)
+- ``mhd_fields.hpp`` (:ref:`file__home_runner_work_MISO_docs_MISO_docs_MISO_miso_include_miso_mhd_fields.hpp`)
+
+- ``mhd_halo_exchange.hpp`` (:ref:`file__home_runner_work_MISO_docs_MISO_docs_MISO_miso_include_miso_mhd_halo_exchange.hpp`)
 
 
 
@@ -70,16 +72,12 @@ Classes
 -------
 
 
-- :ref:`exhale_struct_structmiso_1_1mhd_1_1Integrator_3_01Real_00_01EOS_00_01backend_1_1CUDA_01_4`
-
-- :ref:`exhale_struct_structmiso_1_1mhd_1_1TimeStepHelper`
+- :ref:`exhale_struct_structmiso_1_1mhd_1_1Integrator_3_01Real_00_01backend_1_1CUDA_01_4`
 
 
 Functions
 ---------
 
-
-- :ref:`exhale_function_mhd__integrator__cuda_8cuh_1a91d4bedeecbf6bd2f1a0c0cdffdeddbe`
 
 - :ref:`exhale_function_mhd__integrator__cuda_8cuh_1a8ee1b126a1b8d7cfa2dde3b84e51d6d6`
 

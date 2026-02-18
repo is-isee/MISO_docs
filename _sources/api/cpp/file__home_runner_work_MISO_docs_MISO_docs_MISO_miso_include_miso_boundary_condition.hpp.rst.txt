@@ -30,21 +30,21 @@ Includes
 --------
 
 
-- ``miso/array3d.hpp`` (:ref:`file__home_runner_work_MISO_docs_MISO_docs_MISO_miso_include_miso_array3d.hpp`)
+- ``array3d.hpp`` (:ref:`file__home_runner_work_MISO_docs_MISO_docs_MISO_miso_include_miso_array3d.hpp`)
 
-- ``miso/backend.hpp`` (:ref:`file__home_runner_work_MISO_docs_MISO_docs_MISO_miso_include_miso_backend.hpp`)
+- ``backend.hpp`` (:ref:`file__home_runner_work_MISO_docs_MISO_docs_MISO_miso_include_miso_backend.hpp`)
 
-- ``miso/cuda_util.cuh`` (:ref:`file__home_runner_work_MISO_docs_MISO_docs_MISO_miso_include_miso_cuda_util.cuh`)
+- ``cuda_util.cuh`` (:ref:`file__home_runner_work_MISO_docs_MISO_docs_MISO_miso_include_miso_cuda_util.cuh`)
 
-- ``miso/grid.hpp`` (:ref:`file__home_runner_work_MISO_docs_MISO_docs_MISO_miso_include_miso_grid.hpp`)
+- ``grid.hpp`` (:ref:`file__home_runner_work_MISO_docs_MISO_docs_MISO_miso_include_miso_grid.hpp`)
 
-- ``miso/mpi_util.hpp`` (:ref:`file__home_runner_work_MISO_docs_MISO_docs_MISO_miso_include_miso_mpi_util.hpp`)
-
-- ``miso/types.hpp`` (:ref:`file__home_runner_work_MISO_docs_MISO_docs_MISO_miso_include_miso_types.hpp`)
-
-- ``miso/utility.hpp`` (:ref:`file__home_runner_work_MISO_docs_MISO_docs_MISO_miso_include_miso_utility.hpp`)
+- ``mpi_util.hpp`` (:ref:`file__home_runner_work_MISO_docs_MISO_docs_MISO_miso_include_miso_mpi_util.hpp`)
 
 - ``stdexcept``
+
+- ``types.hpp`` (:ref:`file__home_runner_work_MISO_docs_MISO_docs_MISO_miso_include_miso_types.hpp`)
+
+- ``utility.hpp`` (:ref:`file__home_runner_work_MISO_docs_MISO_docs_MISO_miso_include_miso_utility.hpp`)
 
 
 
@@ -57,30 +57,30 @@ Namespaces
 
 - :ref:`namespace_miso`
 
-- :ref:`namespace_miso__bnd`
+- :ref:`namespace_miso__boundary_condition`
 
 
 Functions
 ---------
 
 
-- :ref:`exhale_function_boundary__condition_8hpp_1a19cae6599f3e438b826b0d045ff05120`
+- :ref:`exhale_function_boundary__condition_8hpp_1aa4336bf031ef1b8d0b2ea25ad4cc67f8`
 
-- :ref:`exhale_function_boundary__condition_8hpp_1aa37578de7cf91a90ef55478615c588d4`
+- :ref:`exhale_function_boundary__condition_8hpp_1a4806239bea33098bcd2b72bf053f451d`
 
-- :ref:`exhale_function_boundary__condition_8hpp_1a34bcbb65e36ffc9d20d806018710563b`
+- :ref:`exhale_function_boundary__condition_8hpp_1a2f8f89b3bf7468f42b9dae5478c95e9c`
 
-- :ref:`exhale_function_boundary__condition_8hpp_1a74dfcc59694b2bd07125e3358c9e5471`
+- :ref:`exhale_function_boundary__condition_8hpp_1a532ae5100fd714c13970c08321481a86`
 
-- :ref:`exhale_function_boundary__condition_8hpp_1a0e08d4578f1c40a8a87e4661236d35ee`
+- :ref:`exhale_function_boundary__condition_8hpp_1a9b85adc2b59641588fb95083af821777`
 
-- :ref:`exhale_function_boundary__condition_8hpp_1a1ee405a935a0241b73a8c7cfc6160c0b`
+- :ref:`exhale_function_boundary__condition_8hpp_1abb8c4dbb4da401b1f7874404332a36a1`
 
-- :ref:`exhale_function_boundary__condition_8hpp_1a66b2164ac8a8fbe254eb01192ef6a38e`
+- :ref:`exhale_function_boundary__condition_8hpp_1a438797df25b23428daa6dbd5a35a4e61`
 
-- :ref:`exhale_function_boundary__condition_8hpp_1a4a653be7e2cf09aa7541ddccab005fb1`
+- :ref:`exhale_function_boundary__condition_8hpp_1aa5d145eba1cb7edd66bb516f96dac8a6`
 
-- :ref:`exhale_function_boundary__condition_8hpp_1aa109846cbe85953a13687a1fcfe6bc0c`
+- :ref:`exhale_function_boundary__condition_8hpp_1adca61840d4128f9c596220d9fa8ce819`
 
-- :ref:`exhale_function_boundary__condition_8hpp_1a5471c4188171ffc35a8eca92e330e4b0`
+- :ref:`exhale_function_boundary__condition_8hpp_1a63d4db6cd735692f8968d8165dfb0be0`
 

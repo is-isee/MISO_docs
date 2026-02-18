@@ -30,15 +30,15 @@ Includes
 --------
 
 
-- ``miso/array3d.hpp`` (:ref:`file__home_runner_work_MISO_docs_MISO_docs_MISO_miso_include_miso_array3d.hpp`)
+- ``array3d.hpp`` (:ref:`file__home_runner_work_MISO_docs_MISO_docs_MISO_miso_include_miso_array3d.hpp`)
 
-- ``miso/constants.hpp`` (:ref:`file__home_runner_work_MISO_docs_MISO_docs_MISO_miso_include_miso_constants.hpp`)
+- ``constants.hpp`` (:ref:`file__home_runner_work_MISO_docs_MISO_docs_MISO_miso_include_miso_constants.hpp`)
 
-- ``miso/env.hpp`` (:ref:`file__home_runner_work_MISO_docs_MISO_docs_MISO_miso_include_miso_env.hpp`)
+- ``env.hpp`` (:ref:`file__home_runner_work_MISO_docs_MISO_docs_MISO_miso_include_miso_env.hpp`)
 
-- ``miso/mhd_artificial_viscosity_host.hpp`` (:ref:`file__home_runner_work_MISO_docs_MISO_docs_MISO_miso_include_miso_mhd_artificial_viscosity_host.hpp`)
+- ``mhd_artificial_viscosity_host.hpp`` (:ref:`file__home_runner_work_MISO_docs_MISO_docs_MISO_miso_include_miso_mhd_artificial_viscosity_host.hpp`)
 
-- ``miso/mhd_fields.hpp`` (:ref:`file__home_runner_work_MISO_docs_MISO_docs_MISO_miso_include_miso_mhd_fields.hpp`)
+- ``mhd_fields.hpp`` (:ref:`file__home_runner_work_MISO_docs_MISO_docs_MISO_miso_include_miso_mhd_fields.hpp`)
 
 
 
@@ -64,5 +64,5 @@ Classes
 -------
 
 
-- :ref:`exhale_struct_structmiso_1_1mhd_1_1Integrator_3_01Real_00_01EOS_00_01backend_1_1Host_01_4`
+- :ref:`exhale_struct_structmiso_1_1mhd_1_1Integrator_3_01Real_00_01backend_1_1Host_01_4`
 

@@ -100,11 +100,6 @@ Files
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_MISO_docs_MISO_docs_MISO_miso_include_miso_grid_generator.hpp.rst
-
-.. toctree::
-   :maxdepth: 5
-
    file__home_runner_work_MISO_docs_MISO_docs_MISO_miso_include_miso_limiter.hpp.rst
 
 .. toctree::
@@ -166,6 +161,11 @@ Files
    :maxdepth: 5
 
    file__home_runner_work_MISO_docs_MISO_docs_MISO_miso_include_miso_mhd_integrator_host.hpp.rst
+
+.. toctree::
+   :maxdepth: 5
+
+   file__home_runner_work_MISO_docs_MISO_docs_MISO_miso_include_miso_mhd_model_base.hpp.rst
 
 .. toctree::
    :maxdepth: 5

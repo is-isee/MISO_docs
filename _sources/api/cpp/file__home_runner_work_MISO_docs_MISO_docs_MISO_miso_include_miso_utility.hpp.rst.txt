@@ -34,11 +34,11 @@ Includes
 
 - ``cstdint``
 
+- ``cuda_compat.hpp`` (:ref:`file__home_runner_work_MISO_docs_MISO_docs_MISO_miso_include_miso_cuda_compat.hpp`)
+
 - ``filesystem``
 
 - ``iomanip``
-
-- ``miso/cuda_compat.hpp`` (:ref:`file__home_runner_work_MISO_docs_MISO_docs_MISO_miso_include_miso_cuda_compat.hpp`)
 
 - ``sstream``
 

@@ -30,9 +30,9 @@ Includes
 --------
 
 
-- ``miso/mhd_artificial_viscosity_cuda.cuh`` (:ref:`file__home_runner_work_MISO_docs_MISO_docs_MISO_miso_include_miso_mhd_artificial_viscosity_cuda.cuh`)
+- ``mhd_artificial_viscosity_cuda.cuh`` (:ref:`file__home_runner_work_MISO_docs_MISO_docs_MISO_miso_include_miso_mhd_artificial_viscosity_cuda.cuh`)
 
-- ``miso/mhd_artificial_viscosity_host.hpp`` (:ref:`file__home_runner_work_MISO_docs_MISO_docs_MISO_miso_include_miso_mhd_artificial_viscosity_host.hpp`)
+- ``mhd_artificial_viscosity_host.hpp`` (:ref:`file__home_runner_work_MISO_docs_MISO_docs_MISO_miso_include_miso_mhd_artificial_viscosity_host.hpp`)
 
 
 

@@ -57,7 +57,6 @@
 <li class="toctree-l1"><a class="reference internal" href="../../customization/index.html">Customization</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../../miso/index.html">MISO C++ documentation</a><ul class="current">
 <li class="toctree-l2 current"><a class="reference internal" href="root.html">MISO C++ API Reference</a><ul class="current">
-<li class="toctree-l3"><a class="reference internal" href="root.html#class-hierarchy">Class Hierarchy</a></li>
 <li class="toctree-l3"><a class="reference internal" href="root.html#file-hierarchy">File Hierarchy</a></li>
 <li class="toctree-l3 current"><a class="reference internal" href="root.html#full-api">Full API</a><ul class="current">
 <li class="toctree-l4 current"><a class="reference internal" href="root.html#namespaces">Namespaces</a></li>
@@ -66,7 +65,6 @@
 <li class="toctree-l4"><a class="reference internal" href="root.html#functions">Functions</a></li>
 <li class="toctree-l4"><a class="reference internal" href="root.html#variables">Variables</a></li>
 <li class="toctree-l4"><a class="reference internal" href="root.html#defines">Defines</a></li>
-<li class="toctree-l4"><a class="reference internal" href="root.html#typedefs">Typedefs</a></li>
 </ul>
 </li>
 </ul>
@@ -121,8 +119,7 @@
 <li><p><a class="reference internal" href="#classes" id="id4">Classes</a></p></li>
 <li><p><a class="reference internal" href="#enums" id="id5">Enums</a></p></li>
 <li><p><a class="reference internal" href="#functions" id="id6">Functions</a></p></li>
-<li><p><a class="reference internal" href="#typedefs" id="id7">Typedefs</a></p></li>
-<li><p><a class="reference internal" href="#variables" id="id8">Variables</a></p></li>
+<li><p><a class="reference internal" href="#variables" id="id7">Variables</a></p></li>
 </ul>
 </nav>
 <section id="detailed-description">
@@ -134,7 +131,7 @@
 <h2>Namespaces<a class="headerlink" href="#namespaces" title="Link to this heading"></a></h2>
 <ul class="simple">
 <li><p><a class="reference internal" href="namespace_miso__backend.html#namespace-miso-backend"><span class="std std-ref">Namespace miso::backend</span></a></p></li>
-<li><p><a class="reference internal" href="namespace_miso__bnd.html#namespace-miso-bnd"><span class="std std-ref">Namespace miso::bnd</span></a></p></li>
+<li><p><a class="reference internal" href="namespace_miso__boundary_condition.html#namespace-miso-boundary-condition"><span class="std std-ref">Namespace miso::boundary_condition</span></a></p></li>
 <li><p><a class="reference internal" href="namespace_miso__cuda.html#namespace-miso-cuda"><span class="std std-ref">Namespace miso::cuda</span></a></p></li>
 <li><p><a class="reference internal" href="namespace_miso__eos.html#namespace-miso-eos"><span class="std std-ref">Namespace miso::eos</span></a></p></li>
 <li><p><a class="reference internal" href="namespace_miso__limiter.html#namespace-miso-limiter"><span class="std std-ref">Namespace miso::limiter</span></a></p></li>
@@ -147,17 +144,19 @@
 <section id="classes">
 <h2>Classes<a class="headerlink" href="#classes" title="Link to this heading"></a></h2>
 <ul class="simple">
+<li><p><a class="reference internal" href="structmiso_1_1AxisGrid.html#exhale-struct-structmiso-1-1axisgrid"><span class="std std-ref">Template Struct AxisGrid</span></a></p></li>
 <li><p><a class="reference internal" href="structmiso_1_1Config.html#exhale-struct-structmiso-1-1config"><span class="std std-ref">Struct Config</span></a></p></li>
 <li><p><a class="reference internal" href="structmiso_1_1Env.html#exhale-struct-structmiso-1-1env"><span class="std std-ref">Struct Env</span></a></p></li>
 <li><p><a class="reference internal" href="structmiso_1_1Grid.html#exhale-struct-structmiso-1-1grid"><span class="std std-ref">Template Struct Grid</span></a></p></li>
 <li><p><a class="reference internal" href="structmiso_1_1Grid_3_01Real_00_01backend_1_1CUDA_01_4.html#exhale-struct-structmiso-1-1grid-3-01real-00-01backend-1-1cuda-01-4"><span class="std std-ref">Template Struct Grid&lt; Real, backend::CUDA &gt;</span></a></p></li>
 <li><p><a class="reference internal" href="structmiso_1_1Grid_3_01Real_00_01backend_1_1Host_01_4.html#exhale-struct-structmiso-1-1grid-3-01real-00-01backend-1-1host-01-4"><span class="std std-ref">Template Struct Grid&lt; Real, backend::Host &gt;</span></a></p></li>
-<li><p><a class="reference internal" href="structmiso_1_1GridGenerator.html#exhale-struct-structmiso-1-1gridgenerator"><span class="std std-ref">Template Struct GridGenerator</span></a></p></li>
 <li><p><a class="reference internal" href="structmiso_1_1GridView.html#exhale-struct-structmiso-1-1gridview"><span class="std std-ref">Template Struct GridView</span></a></p></li>
 <li><p><a class="reference internal" href="structmiso_1_1Index3D.html#exhale-struct-structmiso-1-1index3d"><span class="std std-ref">Struct Index3D</span></a></p></li>
 <li><p><a class="reference internal" href="structmiso_1_1Range1D.html#exhale-struct-structmiso-1-1range1d"><span class="std std-ref">Struct Range1D</span></a></p></li>
 <li><p><a class="reference internal" href="structmiso_1_1Range3D.html#exhale-struct-structmiso-1-1range3d"><span class="std std-ref">Struct Range3D</span></a></p></li>
+<li><p><a class="reference internal" href="structmiso_1_1ReduceHelper.html#exhale-struct-structmiso-1-1reducehelper"><span class="std std-ref">Template Struct ReduceHelper</span></a></p></li>
 <li><p><a class="reference internal" href="structmiso_1_1Time.html#exhale-struct-structmiso-1-1time"><span class="std std-ref">Template Struct Time</span></a></p></li>
+<li><p><a class="reference internal" href="structmiso_1_1UniformAxisProvider.html#exhale-struct-structmiso-1-1uniformaxisprovider"><span class="std std-ref">Template Struct UniformAxisProvider</span></a></p></li>
 <li><p><a class="reference internal" href="classmiso_1_1Array1D.html#exhale-class-classmiso-1-1array1d"><span class="std std-ref">Template Class Array1D</span></a></p></li>
 <li><p><a class="reference internal" href="classmiso_1_1Array1D_3_01T_00_01backend_1_1CUDA_01_4.html#exhale-class-classmiso-1-1array1d-3-01t-00-01backend-1-1cuda-01-4"><span class="std std-ref">Template Class Array1D&lt; T, backend::CUDA &gt;</span></a></p></li>
 <li><p><a class="reference internal" href="classmiso_1_1Array1D_3_01T_00_01backend_1_1Host_01_4.html#exhale-class-classmiso-1-1array1d-3-01t-00-01backend-1-1host-01-4"><span class="std std-ref">Template Class Array1D&lt; T, backend::Host &gt;</span></a></p></li>
@@ -181,18 +180,23 @@
 <section id="functions">
 <h2>Functions<a class="headerlink" href="#functions" title="Link to this heading"></a></h2>
 <ul class="simple">
-<li><p><a class="reference internal" href="function_namespacemiso_1a52265a89a67234c07931684ecd29d166.html#exhale-function-namespacemiso-1a52265a89a67234c07931684ecd29d166"><span class="std std-ref">Template Function miso::for_each(backend::Host, Range1D, F)</span></a></p></li>
-<li><p><a class="reference internal" href="function_namespacemiso_1a0a2497280e69c02d6e9c7700c9265add.html#exhale-function-namespacemiso-1a0a2497280e69c02d6e9c7700c9265add"><span class="std std-ref">Template Function miso::for_each(backend::Host, Range3D, F)</span></a></p></li>
+<li><p><a class="reference internal" href="function_namespacemiso_1a72847b086b3343f8caff3639abcbe07a.html#exhale-function-namespacemiso-1a72847b086b3343f8caff3639abcbe07a"><span class="std std-ref">Template Function miso::block_reduce_shared</span></a></p></li>
 <li><p><a class="reference internal" href="function_namespacemiso_1a07407f9a0acb70bd244f9930799dc967.html#exhale-function-namespacemiso-1a07407f9a0acb70bd244f9930799dc967"><span class="std std-ref">Template Function miso::for_each(backend::CUDA, Range1D, F)</span></a></p></li>
 <li><p><a class="reference internal" href="function_namespacemiso_1a917f5afb8870f7b6c4e6f5b5e0ef54ec.html#exhale-function-namespacemiso-1a917f5afb8870f7b6c4e6f5b5e0ef54ec"><span class="std std-ref">Template Function miso::for_each(backend::CUDA, Range3D, F)</span></a></p></li>
+<li><p><a class="reference internal" href="function_namespacemiso_1a52265a89a67234c07931684ecd29d166.html#exhale-function-namespacemiso-1a52265a89a67234c07931684ecd29d166"><span class="std std-ref">Template Function miso::for_each(backend::Host, Range1D, F)</span></a></p></li>
+<li><p><a class="reference internal" href="function_namespacemiso_1a0a2497280e69c02d6e9c7700c9265add.html#exhale-function-namespacemiso-1a0a2497280e69c02d6e9c7700c9265add"><span class="std std-ref">Template Function miso::for_each(backend::Host, Range3D, F)</span></a></p></li>
 <li><p><a class="reference internal" href="function_namespacemiso_1a326640ac4963336ac9505fdee481eaa9.html#exhale-function-namespacemiso-1a326640ac4963336ac9505fdee481eaa9"><span class="std std-ref">Template Function miso::for_each_kernel(Range1D, F)</span></a></p></li>
 <li><p><a class="reference internal" href="function_namespacemiso_1a7c9ac735508606039d4c8b87ee303581.html#exhale-function-namespacemiso-1a7c9ac735508606039d4c8b87ee303581"><span class="std std-ref">Template Function miso::for_each_kernel(Range3D, F)</span></a></p></li>
-</ul>
-</section>
-<section id="typedefs">
-<h2>Typedefs<a class="headerlink" href="#typedefs" title="Link to this heading"></a></h2>
-<ul class="simple">
-<li><p><a class="reference internal" href="typedef_namespacemiso_1a0d287e36a4da5d7729857e7a1e65eb80.html#exhale-typedef-namespacemiso-1a0d287e36a4da5d7729857e7a1e65eb80"><span class="std std-ref">Typedef miso::Real</span></a></p></li>
+<li><p><a class="reference internal" href="function_namespacemiso_1a96921d8934a174e9bdb10f21087a308c.html#exhale-function-namespacemiso-1a96921d8934a174e9bdb10f21087a308c"><span class="std std-ref">Function miso::parse_config_filepath</span></a></p></li>
+<li><p><a class="reference internal" href="function_namespacemiso_1a50f0ac3415ea12a4a315aff5aaa637f1.html#exhale-function-namespacemiso-1a50f0ac3415ea12a4a315aff5aaa637f1"><span class="std std-ref">Template Function miso::reduce(backend::CUDA, Range3D, T, F, Op, cudaStream_t)</span></a></p></li>
+<li><p><a class="reference internal" href="function_namespacemiso_1aaae57bbab7373f67a6626829f47ff36d.html#exhale-function-namespacemiso-1aaae57bbab7373f67a6626829f47ff36d"><span class="std std-ref">Template Function miso::reduce(backend::CUDA, Range1D, T, F, Op, cudaStream_t)</span></a></p></li>
+<li><p><a class="reference internal" href="function_namespacemiso_1a3b222e90d66c6c7fab40853d4abdabe6.html#exhale-function-namespacemiso-1a3b222e90d66c6c7fab40853d4abdabe6"><span class="std std-ref">Template Function miso::reduce(backend::CUDA, Range, T, F, Op, ReduceHelper&lt;T&gt;&amp;, cudaStream_t)</span></a></p></li>
+<li><p><a class="reference internal" href="function_namespacemiso_1a7fb26a5285a25b5ac05cc7ce836325b7.html#exhale-function-namespacemiso-1a7fb26a5285a25b5ac05cc7ce836325b7"><span class="std std-ref">Template Function miso::reduce(backend::CUDA, Range1D, T, F, Op, ReduceHelper&lt;T&gt;&amp;, cudaStream_t)</span></a></p></li>
+<li><p><a class="reference internal" href="function_namespacemiso_1a5a8ad7275b9c93438c48737b7b71e146.html#exhale-function-namespacemiso-1a5a8ad7275b9c93438c48737b7b71e146"><span class="std std-ref">Template Function miso::reduce(backend::Host, Range1D, T, F, Op)</span></a></p></li>
+<li><p><a class="reference internal" href="function_namespacemiso_1a71ca1793fb11f93049380312534ec2ad.html#exhale-function-namespacemiso-1a71ca1793fb11f93049380312534ec2ad"><span class="std std-ref">Template Function miso::reduce(backend::CUDA, Range3D, T, F, Op, ReduceHelper&lt;T&gt;&amp;, cudaStream_t)</span></a></p></li>
+<li><p><a class="reference internal" href="function_namespacemiso_1a9ee0239f882504c106b6452dd9b1ee65.html#exhale-function-namespacemiso-1a9ee0239f882504c106b6452dd9b1ee65"><span class="std std-ref">Template Function miso::reduce(backend::Host, Range3D, T, F, Op)</span></a></p></li>
+<li><p><a class="reference internal" href="function_namespacemiso_1a298b5c3830fcba67ed6f3663b36e4299.html#exhale-function-namespacemiso-1a298b5c3830fcba67ed6f3663b36e4299"><span class="std std-ref">Template Function miso::reduce_stage_array_kernel</span></a></p></li>
+<li><p><a class="reference internal" href="function_namespacemiso_1ac23ab5eaa4d2e6eb2d0536d9efcc7a55.html#exhale-function-namespacemiso-1ac23ab5eaa4d2e6eb2d0536d9efcc7a55"><span class="std std-ref">Template Function miso::reduce_stage_kernel</span></a></p></li>
 </ul>
 </section>
 <section id="variables">

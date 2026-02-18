@@ -30,17 +30,17 @@ Includes
 --------
 
 
-- ``miso/array3d.hpp`` (:ref:`file__home_runner_work_MISO_docs_MISO_docs_MISO_miso_include_miso_array3d.hpp`)
+- ``array3d.hpp`` (:ref:`file__home_runner_work_MISO_docs_MISO_docs_MISO_miso_include_miso_array3d.hpp`)
 
-- ``miso/constants.hpp`` (:ref:`file__home_runner_work_MISO_docs_MISO_docs_MISO_miso_include_miso_constants.hpp`)
+- ``constants.hpp`` (:ref:`file__home_runner_work_MISO_docs_MISO_docs_MISO_miso_include_miso_constants.hpp`)
 
-- ``miso/cuda_compat.hpp`` (:ref:`file__home_runner_work_MISO_docs_MISO_docs_MISO_miso_include_miso_cuda_compat.hpp`)
+- ``cuda_compat.hpp`` (:ref:`file__home_runner_work_MISO_docs_MISO_docs_MISO_miso_include_miso_cuda_compat.hpp`)
 
-- ``miso/mhd_fields.hpp`` (:ref:`file__home_runner_work_MISO_docs_MISO_docs_MISO_miso_include_miso_mhd_fields.hpp`)
+- ``mhd_fields.hpp`` (:ref:`file__home_runner_work_MISO_docs_MISO_docs_MISO_miso_include_miso_mhd_fields.hpp`)
 
-- ``miso/mhd_integrator_cuda.cuh`` (:ref:`file__home_runner_work_MISO_docs_MISO_docs_MISO_miso_include_miso_mhd_integrator_cuda.cuh`)
+- ``mhd_integrator_cuda.cuh`` (:ref:`file__home_runner_work_MISO_docs_MISO_docs_MISO_miso_include_miso_mhd_integrator_cuda.cuh`)
 
-- ``miso/mhd_integrator_host.hpp`` (:ref:`file__home_runner_work_MISO_docs_MISO_docs_MISO_miso_include_miso_mhd_integrator_host.hpp`)
+- ``mhd_integrator_host.hpp`` (:ref:`file__home_runner_work_MISO_docs_MISO_docs_MISO_miso_include_miso_mhd_integrator_host.hpp`)
 
 
 
@@ -68,8 +68,6 @@ Classes
 
 - :ref:`exhale_struct_structmiso_1_1mhd_1_1Integrator`
 
-- :ref:`exhale_struct_structmiso_1_1mhd_1_1NoSource`
-
 
 Functions
 ---------
@@ -77,7 +75,7 @@ Functions
 
 - :ref:`exhale_function_mhd__integrator_8hpp_1a133ab68fba5738068b88b061c151b819`
 
-- :ref:`exhale_function_mhd__integrator_8hpp_1a2564cdc11eb2716336df0f9367327979`
-
 - :ref:`exhale_function_mhd__integrator_8hpp_1a3f330bdf224a294b5994945a2ed6ee5d`
+
+- :ref:`exhale_function_mhd__integrator_8hpp_1a2564cdc11eb2716336df0f9367327979`
 

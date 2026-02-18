@@ -12,9 +12,9 @@ Program Listing for File mhd_core.hpp
 
    #pragma once
    
-   #include <miso/backend.hpp>
+   #include "backend.hpp"
    #ifdef __CUDACC__
-   #include <miso/cuda_util.cuh>
+   #include "cuda_util.cuh"
    #endif  // __CUDACC__
    
    namespace miso {
@@ -22,9 +22,9 @@ Program Listing for File mhd_core.hpp
    
    constexpr int n_fields = 9;
    
-   template <typename Backend = backend::Host> struct ExecContext {};
+   template <typename Real, typename Backend> struct ExecContext {};
    
-   template <> struct ExecContext<backend::Host> {
+   template <typename Real> struct ExecContext<Real, backend::Host> {
      mpi::Shape &mpi_shape;
    
      ExecContext(mpi::Shape &mpi_shape_, const Grid<Real, backend::Host> &)
@@ -32,7 +32,7 @@ Program Listing for File mhd_core.hpp
    };
    
    #ifdef __CUDACC__
-   template <> struct ExecContext<backend::CUDA> {
+   template <typename Real> struct ExecContext<Real, backend::CUDA> {
      mpi::Shape &mpi_shape;
      cuda::KernelShape3D cu_shape;
    

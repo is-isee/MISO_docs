@@ -34,7 +34,9 @@ Included By
 
 - :ref:`file__home_runner_work_MISO_docs_MISO_docs_MISO_miso_include_miso_boundary_condition.hpp`
 
-- :ref:`file__home_runner_work_MISO_docs_MISO_docs_MISO_miso_include_miso_config.hpp`
+- :ref:`file__home_runner_work_MISO_docs_MISO_docs_MISO_miso_include_miso_mhd_halo_exchange.hpp`
+
+- :ref:`file__home_runner_work_MISO_docs_MISO_docs_MISO_miso_include_miso_mhd_model_base.hpp`
 
 
 
@@ -57,11 +59,4 @@ Enums
 - :ref:`exhale_enum_namespacemiso_1a95329975431b6d5cea3f302c1d9f4335`
 
 - :ref:`exhale_enum_namespacemiso_1a72f165bf539e03f857e30e53997fcdc7`
-
-
-Typedefs
---------
-
-
-- :ref:`exhale_typedef_namespacemiso_1a0d287e36a4da5d7729857e7a1e65eb80`
 
