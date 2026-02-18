@@ -11,6 +11,7 @@ git clone https://github.com/is-isee/MISO.git
 ```
 
 ## Usage
+
 ### CPU version
 
 MISOのコンパイルにはCMakeを用います。
@@ -37,7 +38,7 @@ MPIを使用している場合、適切な環境変数・オプションを要�
 ```
 
 demo/mhd2d_vortex/data にシミュレーション結果が保存されます。
-途中で計算を停止した場合でも、保存されたデータから再開されます。計算を最初からやり直すには、 problems/mhd_vortex_2d/data/ ディレクトリを削除してください。以下のようにしてもデータを削除することができます。
+途中で計算を停止した場合でも、保存されたデータから再開されます。計算を最初からやり直すには、 demo/mhd2d_vortex/data/ ディレクトリを削除してください。以下のようにしてもデータを削除することができます。
 
 ```shell
 make clean_data_mhd_vortex_2d
@@ -79,15 +80,18 @@ mpiexec -n 4 --map-by ppr:2:node --bind-to none -x CUDA_DEVICE_ORDER=PCI_BUS_ID 
 
 なお、設定ファイルは、`demo/mhd2d_vortex/config.yaml`に配置されています。1次元衝撃波管(`demo/hd1d_shock_tube`, `demo/mhd1d_shock_tube`
 )の問題の場合は、`x`, `y`, `z`の各方向の設定ファイルはそれぞれ
+
 - `demo/hd1d_shock_tube/config/config_x.yaml`
 - `demo/hd1d_shock_tube/config/config_y.yaml`
 - `demo/hd1d_shock_tube/config/config_z.yaml`
 
 などに配置されています。指定する場合は、実行時に
+
 ```shell
 cd demo/hd1d_shock_tube
 mpiexec -n 1 ./build/hd1d_shock_tube --config ./config/config_x.yaml
 ```
+
 としてください。デフォルトでは`x`方向が指定されています。
 
 ## Python module pymiso

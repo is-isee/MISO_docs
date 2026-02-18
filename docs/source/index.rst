@@ -15,10 +15,10 @@ MISO (Mhd ISee Open source code)は、磁気流体力学(MHD)シミュレーシ�
    :caption: Contents:
 
    quickstart.md
-   problems/index
+   demo/index
    customization/index
-   ./miso/index
-   ./pymiso/index
+   miso/index
+   pymiso/index
    references
 
 .. Add your content using ``reStructuredText`` syntax. See the
