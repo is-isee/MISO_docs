@@ -132,7 +132,7 @@ make<span class="w"> </span>-C<span class="w"> </span>build
 </div>
 <p>demo/mhd2d_vortex/data にシミュレーション結果が保存されます。
 途中で計算を停止した場合でも、保存されたデータから再開されます。計算を最初からやり直すには、 demo/mhd2d_vortex/data/ ディレクトリを削除してください。以下のようにしてもデータを削除することができます。</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>make<span class="w"> </span>clean_data_mhd_vortex_2d
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>./app_clean.sh
 </pre></div>
 </div>
 <p>シミュレーションパラメータは、 demo/mhd2d_vortex/config.yaml ファイルを編集することで制御できます。例えば、格子点数は次のように変更できます。</p>
@@ -161,32 +161,32 @@ make<span class="w"> </span>-C<span class="w"> </span>build
 </pre></div>
 </div>
 <hr class="docutils" />
-<p>なお、設定ファイルは、<code class="docutils literal notranslate"><span class="pre">demo/mhd2d_vortex/config.yaml</span></code>に配置されています。1次元衝撃波管(<code class="docutils literal notranslate"><span class="pre">demo/hd1d_shock_tube</span></code>, <code class="docutils literal notranslate"><span class="pre">demo/mhd1d_shock_tube</span></code>
-)の問題の場合は、<code class="docutils literal notranslate"><span class="pre">x</span></code>, <code class="docutils literal notranslate"><span class="pre">y</span></code>, <code class="docutils literal notranslate"><span class="pre">z</span></code>の各方向の設定ファイルはそれぞれ</p>
+<p>なお、設定ファイルは、<code class="docutils literal notranslate"><span class="pre">demo/mhd2d_vortex/config.yaml</span></code>に配置されています。
+1次元衝撃波管(<code class="docutils literal notranslate"><span class="pre">demo/hd1d_shock_tube</span></code>, <code class="docutils literal notranslate"><span class="pre">demo/mhd1d_shock_tube</span></code>)の問題の場合は、<code class="docutils literal notranslate"><span class="pre">x</span></code>, <code class="docutils literal notranslate"><span class="pre">y</span></code>, <code class="docutils literal notranslate"><span class="pre">z</span></code>の各方向の設定ファイルがそれぞれ以下の配置されています。</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">demo/hd1d_shock_tube/config/config_x.yaml</span></code></p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">demo/hd1d_shock_tube/config/config_y.yaml</span></code></p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">demo/hd1d_shock_tube/config/config_z.yaml</span></code></p></li>
 </ul>
-<p>などに配置されています。指定する場合は、実行時に</p>
+<p>ファイルを指定する場合は、実行時にコマンドライン引数を利用してください。</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>demo/hd1d_shock_tube
 mpiexec<span class="w"> </span>-n<span class="w"> </span><span class="m">1</span><span class="w"> </span>./build/hd1d_shock_tube<span class="w"> </span>--config<span class="w"> </span>./config/config_x.yaml
 </pre></div>
 </div>
-<p>としてください。デフォルトでは<code class="docutils literal notranslate"><span class="pre">x</span></code>方向が指定されています。</p>
+<p>デフォルトでは<code class="docutils literal notranslate"><span class="pre">x</span></code>方向が指定されています。</p>
 </section>
 </section>
 <section id="python-module-pymiso">
 <h2>Python module pymiso<a class="headerlink" href="#python-module-pymiso" title="Link to this heading"></a></h2>
 <p>MISOでは、解析のためのPythonモジュールを提供しています。リポジトリのルートディレクトリで、以下のようにしてインストールしてください。</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="c1"># for normal users</span>
-pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span><span class="s2">&quot;.[vis]&quot;</span>
+pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span><span class="s2">&quot;.[viz]&quot;</span>
 
 <span class="c1"># minimum install</span>
 pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span>.
 
-<span class="c1"># for development</span>
-pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span><span class="s2">&quot;.[vis,dev,docs]&quot;</span>
+<span class="c1"># for developers</span>
+pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span><span class="s2">&quot;.[viz,dev]&quot;</span>
 </pre></div>
 </div>
 <p>シミュレーション結果は以下のように読み込むことができます。</p>
