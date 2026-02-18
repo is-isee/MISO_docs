@@ -1,0 +1,14 @@
+.. _exhale_function_namespacemiso_1_1cuda_1a6d7258fde7b82eb916ca7d6d292c2904:
+
+Function miso::cuda::is_initialized
+===================================
+
+- Defined in :ref:`file__home_runner_work_MISO_docs_MISO_docs_MISO_miso_include_miso_env.hpp`
+
+
+Function Documentation
+----------------------
+
+
+.. doxygenfunction:: miso::cuda::is_initialized()
+   :project: CPP

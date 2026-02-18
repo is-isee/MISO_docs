@@ -1,0 +1,17 @@
+.. _exhale_struct_structmiso_1_1mhd_1_1EmptyBoundaryCondition:
+
+Template Struct EmptyBoundaryCondition
+======================================
+
+- Defined in :ref:`file__home_runner_work_MISO_docs_MISO_docs_MISO_miso_include_miso_mhd_model_base.hpp`
+
+
+Struct Documentation
+--------------------
+
+
+.. doxygenstruct:: miso::mhd::EmptyBoundaryCondition
+   :project: CPP
+   :members:
+   :protected-members:
+   :undoc-members:

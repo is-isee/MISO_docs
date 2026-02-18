@@ -1,0 +1,14 @@
+.. _exhale_function_namespacemiso_1_1mpi_1a082bc177d059e24ca6f5f79d9db6f29a:
+
+Function miso::mpi::check_error
+===============================
+
+- Defined in :ref:`file__home_runner_work_MISO_docs_MISO_docs_MISO_miso_include_miso_mpi_util.hpp`
+
+
+Function Documentation
+----------------------
+
+
+.. doxygenfunction:: miso::mpi::check_error(int, const char *, int, bool)
+   :project: CPP

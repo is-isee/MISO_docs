@@ -1,0 +1,14 @@
+.. _exhale_function_namespacemiso_1a5a8ad7275b9c93438c48737b7b71e146:
+
+Template Function miso::reduce(backend::Host, Range1D, T, F, Op)
+================================================================
+
+- Defined in :ref:`file__home_runner_work_MISO_docs_MISO_docs_MISO_miso_include_miso_execution.hpp`
+
+
+Function Documentation
+----------------------
+
+
+.. doxygenfunction:: miso::reduce(backend::Host, Range1D, T, F, Op)
+   :project: CPP

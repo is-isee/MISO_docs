@@ -1,0 +1,75 @@
+
+.. _file__home_runner_work_MISO_docs_MISO_docs_MISO_miso_include_miso_mhd_core.hpp:
+
+File mhd_core.hpp
+=================
+
+|exhale_lsh| :ref:`Parent directory <dir__home_runner_work_MISO_docs_MISO_docs_MISO_miso_include_miso>` (``/home/runner/work/MISO_docs/MISO_docs/MISO/miso/include/miso``)
+
+.. |exhale_lsh| unicode:: U+021B0 .. UPWARDS ARROW WITH TIP LEFTWARDS
+
+
+.. contents:: Contents
+   :local:
+   :backlinks: none
+
+Definition (``/home/runner/work/MISO_docs/MISO_docs/MISO/miso/include/miso/mhd_core.hpp``)
+------------------------------------------------------------------------------------------
+
+
+.. toctree::
+   :maxdepth: 1
+
+   program_listing_file__home_runner_work_MISO_docs_MISO_docs_MISO_miso_include_miso_mhd_core.hpp.rst
+
+
+
+
+
+Includes
+--------
+
+
+- ``backend.hpp`` (:ref:`file__home_runner_work_MISO_docs_MISO_docs_MISO_miso_include_miso_backend.hpp`)
+
+- ``cuda_util.cuh`` (:ref:`file__home_runner_work_MISO_docs_MISO_docs_MISO_miso_include_miso_cuda_util.cuh`)
+
+
+
+Included By
+-----------
+
+
+- :ref:`file__home_runner_work_MISO_docs_MISO_docs_MISO_miso_include_miso_mhd_buffers.hpp`
+
+- :ref:`file__home_runner_work_MISO_docs_MISO_docs_MISO_miso_include_miso_mhd_halo_exchange.hpp`
+
+
+
+
+Namespaces
+----------
+
+
+- :ref:`namespace_miso`
+
+- :ref:`namespace_miso__mhd`
+
+
+Classes
+-------
+
+
+- :ref:`exhale_struct_structmiso_1_1mhd_1_1ExecContext`
+
+- :ref:`exhale_struct_structmiso_1_1mhd_1_1ExecContext_3_01Real_00_01backend_1_1CUDA_01_4`
+
+- :ref:`exhale_struct_structmiso_1_1mhd_1_1ExecContext_3_01Real_00_01backend_1_1Host_01_4`
+
+
+Variables
+---------
+
+
+- :ref:`exhale_variable_mhd__core_8hpp_1a097d18364a2194df038644d0b2b602cb`
+
