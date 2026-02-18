@@ -1,10 +1,10 @@
-# Geomagnetosphere 3D
+# 3D MHD Test: Magnetosphere
 
 地球磁気圏に太陽風が吹き付け、地球磁気圏が変形する様子をシミュレーションします。{cite}`ogino_1986JGR....91.6791O`を参考にして、地球の中心から地球半径の3.5倍の位置にも境界を設置し、地球の双極子磁場とスムーズに接続するようにしています。
 
 ## Location
 
-`problems/geomagnetosphere_3d/`
+`demo/mhd3d_magnetosphere/`
 
 ## Normalization
 
@@ -17,7 +17,8 @@
 | Density        | $\rho_\mathrm{s}$ | $1.67 \times 10^{-20}~\mathrm{g~cm^{-3}}$                  | Typical density of ionosphere |
 
 Then the other quantities are normalized as follows.
-| Quantity       | Symbol            | Value                                           | 
+
+| Quantity       | Symbol            | Value                                           |
 |:--------------:|:-----------------:|:-----------------------------------------------:|
 | Velocity       | $V_\mathrm{s}$    | $B_{\rm{s}}/\sqrt{4\pi \rho_{\rm{s}}}=6.81\times 10^8~\rm{cm~s^{-1}}$|
 | time           | $t_\mathrm{s}$    | $R_{\rm{e}}/V_{\rm{s}}=0.935~\rm{s}$            |
@@ -31,7 +32,7 @@ Then the other quantities are normalized as follows.
 
 ## Force
 
-地球の中心に向かう重力を考慮します。`force.hpp`では以下のように設定します。
+地球の中心に向かう重力を考慮します。
 
 $$
 \begin{align*}
@@ -42,28 +43,6 @@ r^2 &= x^2 + y^2 + z^2,
 $$
 
 where $g_0=1.35\times10^{-6}$ in normalized unit.
-
-```cpp
-namespace force {
-constexpr Real g_grav = 1.35e-6;  // gravitational acceleration (simulation units)
-}
-
-... 
-  DEVICE inline Real x(MHDCoreType &qq, int i, int j, int k) {
-    return -qq.ro[grid.idx(i, j, k)] * force::g_grav * grid.x[i] /
-           util::pow3(std::sqrt(grid.x[i] * grid.x[i] + grid.y[j] * grid.y[j] +
-                                grid.z[k] * grid.z[k]));
-  }
-  DEVICE inline Real y(MHDCoreType &qq, int i, int j, int k) {
-    return -qq.ro[grid.idx(i, j, k)] * force::g_grav * grid.y[j] /
-           util::pow3(std::sqrt(grid.x[i] * grid.x[i] + grid.y[j] * grid.y[j] +
-                                grid.z[k] * grid.z[k]));
-  }
-  DEVICE inline Real z(MHDCoreType &qq, int i, int j, int k) {
-    return -qq.ro[grid.idx(i, j, k)] * force::g_grav * grid.z[k] /
-           util::pow3(std::sqrt(grid.x[i] * grid.x[i] + grid.y[j] * grid.y[j] +
-                                grid.z[k] * grid.z[k]));
-```
 
 ## Initial Conditions
 
@@ -115,11 +94,12 @@ $$
 
 ## Results
 
-用意されたpythonプログラム `geomagnetosphere_3d.py` を実行することにより、結果のプロットは `py/problems/figs/geomagnetosphere_3d/` に保存されます。
+可視化用のPythonスクリプトが用意されています。
+結果のプロットは `demo/mhd3d_magnetosphere/figs` に保存されます。
 
 ```shell
-cd py/problems/
-python geomagnetosphere_3d.py
+cd demo/mhd3d_magnetosphere
+python plot_data.py
 ```
 
-![geomagnetosphere](../_static/images/geomagnetosphere_3d.gif)
+![mhd3d_magnetosphere](../_static/images/geomagnetosphere_3d.gif)

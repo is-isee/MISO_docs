@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Geomagnetosphere 3D &mdash; MISO 0.0 documentation</title>
+  <title>3D MHD Test: Magnetosphere &mdash; MISO 0.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=4ae1632d" />
@@ -30,7 +30,7 @@
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Customization" href="../customization/index.html" />
-    <link rel="prev" title="Orszag-Tang Vortex Problem" href="mhd2d_vortex.html" /> 
+    <link rel="prev" title="2D MHD Test: Orszag-Tang Vortex" href="mhd2d_vortex.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -56,12 +56,12 @@
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../quickstart.html">Quick Start</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">Test Problems</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="hd1d_shock_tube.html">1D Hydrodynamic Shock Tube Problem</a></li>
-<li class="toctree-l2"><a class="reference internal" href="mhd1d_shock_tube.html">1D Magnetohydrodynamic Shock Tube Problem</a></li>
-<li class="toctree-l2"><a class="reference internal" href="hd2d_kelvin_helmholtz.html">Kelvin-Helmholtz Instability</a></li>
-<li class="toctree-l2"><a class="reference internal" href="hd2d_rayleigh_taylor.html">Rayleigh Taylor Instability</a></li>
-<li class="toctree-l2"><a class="reference internal" href="mhd2d_vortex.html">Orszag-Tang Vortex Problem</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">Geomagnetosphere 3D</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="hd1d_shock_tube.html">1D HD Test: Sod’s Shock Tube</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mhd1d_shock_tube.html">1D MHD Test: Magnetized Sod’s Shock Tube</a></li>
+<li class="toctree-l2"><a class="reference internal" href="hd2d_kelvin_helmholtz.html">2D HD Test: Kelvin-Helmholtz Instability</a></li>
+<li class="toctree-l2"><a class="reference internal" href="hd2d_rayleigh_taylor.html">2D HD Test: Rayleigh Taylor Instability</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mhd2d_vortex.html">2D MHD Test: Orszag-Tang Vortex</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">3D MHD Test: Magnetosphere</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#location">Location</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#normalization">Normalization</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#geometry">Geometry</a></li>
@@ -101,7 +101,7 @@
   <ul class="wy-breadcrumbs">
       <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
           <li class="breadcrumb-item"><a href="index.html">Test Problems</a></li>
-      <li class="breadcrumb-item active">Geomagnetosphere 3D</li>
+      <li class="breadcrumb-item active">3D MHD Test: Magnetosphere</li>
       <li class="wy-breadcrumbs-aside">
             <a href="../_sources/demo/mhd3d_magnetosphere.md.txt" rel="nofollow"> View page source</a>
       </li>
@@ -111,12 +111,12 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section class="tex2jax_ignore mathjax_ignore" id="geomagnetosphere-3d">
-<h1>Geomagnetosphere 3D<a class="headerlink" href="#geomagnetosphere-3d" title="Link to this heading"></a></h1>
+  <section class="tex2jax_ignore mathjax_ignore" id="d-mhd-test-magnetosphere">
+<h1>3D MHD Test: Magnetosphere<a class="headerlink" href="#d-mhd-test-magnetosphere" title="Link to this heading"></a></h1>
 <p>地球磁気圏に太陽風が吹き付け、地球磁気圏が変形する様子をシミュレーションします。<span id="id1">[<a class="reference internal" href="../references.html#id2" title="T. Ogino. A three-dimensional MHD simulation of the interaction of the solar wind with the earth's magnetosphere: The generation of field-aligned currents. \jgr , 91(A6):6791-6806, June 1986. doi:10.1029/JA091iA06p06791.">Ogino, 1986</a>]</span>を参考にして、地球の中心から地球半径の3.5倍の位置にも境界を設置し、地球の双極子磁場とスムーズに接続するようにしています。</p>
 <section id="location">
 <h2>Location<a class="headerlink" href="#location" title="Link to this heading"></a></h2>
-<p><code class="docutils literal notranslate"><span class="pre">problems/geomagnetosphere_3d/</span></code></p>
+<p><code class="docutils literal notranslate"><span class="pre">demo/mhd3d_magnetosphere/</span></code></p>
 </section>
 <section id="normalization">
 <h2>Normalization<a class="headerlink" href="#normalization" title="Link to this heading"></a></h2>
@@ -181,7 +181,7 @@
 </section>
 <section id="force">
 <h2>Force<a class="headerlink" href="#force" title="Link to this heading"></a></h2>
-<p>地球の中心に向かう重力を考慮します。<code class="docutils literal notranslate"><span class="pre">force.hpp</span></code>では以下のように設定します。</p>
+<p>地球の中心に向かう重力を考慮します。</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
 \begin{align*}
@@ -191,27 +191,6 @@ r^2 &amp;= x^2 + y^2 + z^2,
 \end{align*}
 \end{split}\]</div>
 <p>where <span class="math notranslate nohighlight">\(g_0=1.35\times10^{-6}\)</span> in normalized unit.</p>
-<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">namespace</span><span class="w"> </span><span class="nn">force</span><span class="w"> </span><span class="p">{</span>
-<span class="k">constexpr</span><span class="w"> </span><span class="n">Real</span><span class="w"> </span><span class="n">g_grav</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">1.35e-6</span><span class="p">;</span><span class="w">  </span><span class="c1">// gravitational acceleration (simulation units)</span>
-<span class="p">}</span>
-
-<span class="p">...</span><span class="w"> </span>
-<span class="w">  </span><span class="n">DEVICE</span><span class="w"> </span><span class="kr">inline</span><span class="w"> </span><span class="n">Real</span><span class="w"> </span><span class="n">x</span><span class="p">(</span><span class="n">MHDCoreType</span><span class="w"> </span><span class="o">&amp;</span><span class="n">qq</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">j</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">k</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="o">-</span><span class="n">qq</span><span class="p">.</span><span class="n">ro</span><span class="p">[</span><span class="n">grid</span><span class="p">.</span><span class="n">idx</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="w"> </span><span class="n">j</span><span class="p">,</span><span class="w"> </span><span class="n">k</span><span class="p">)]</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">force</span><span class="o">::</span><span class="n">g_grav</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">grid</span><span class="p">.</span><span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">/</span>
-<span class="w">           </span><span class="n">util</span><span class="o">::</span><span class="n">pow3</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">sqrt</span><span class="p">(</span><span class="n">grid</span><span class="p">.</span><span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">grid</span><span class="p">.</span><span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">grid</span><span class="p">.</span><span class="n">y</span><span class="p">[</span><span class="n">j</span><span class="p">]</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">grid</span><span class="p">.</span><span class="n">y</span><span class="p">[</span><span class="n">j</span><span class="p">]</span><span class="w"> </span><span class="o">+</span>
-<span class="w">                                </span><span class="n">grid</span><span class="p">.</span><span class="n">z</span><span class="p">[</span><span class="n">k</span><span class="p">]</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">grid</span><span class="p">.</span><span class="n">z</span><span class="p">[</span><span class="n">k</span><span class="p">]));</span>
-<span class="w">  </span><span class="p">}</span>
-<span class="w">  </span><span class="n">DEVICE</span><span class="w"> </span><span class="kr">inline</span><span class="w"> </span><span class="n">Real</span><span class="w"> </span><span class="n">y</span><span class="p">(</span><span class="n">MHDCoreType</span><span class="w"> </span><span class="o">&amp;</span><span class="n">qq</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">j</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">k</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="o">-</span><span class="n">qq</span><span class="p">.</span><span class="n">ro</span><span class="p">[</span><span class="n">grid</span><span class="p">.</span><span class="n">idx</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="w"> </span><span class="n">j</span><span class="p">,</span><span class="w"> </span><span class="n">k</span><span class="p">)]</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">force</span><span class="o">::</span><span class="n">g_grav</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">grid</span><span class="p">.</span><span class="n">y</span><span class="p">[</span><span class="n">j</span><span class="p">]</span><span class="w"> </span><span class="o">/</span>
-<span class="w">           </span><span class="n">util</span><span class="o">::</span><span class="n">pow3</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">sqrt</span><span class="p">(</span><span class="n">grid</span><span class="p">.</span><span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">grid</span><span class="p">.</span><span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">grid</span><span class="p">.</span><span class="n">y</span><span class="p">[</span><span class="n">j</span><span class="p">]</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">grid</span><span class="p">.</span><span class="n">y</span><span class="p">[</span><span class="n">j</span><span class="p">]</span><span class="w"> </span><span class="o">+</span>
-<span class="w">                                </span><span class="n">grid</span><span class="p">.</span><span class="n">z</span><span class="p">[</span><span class="n">k</span><span class="p">]</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">grid</span><span class="p">.</span><span class="n">z</span><span class="p">[</span><span class="n">k</span><span class="p">]));</span>
-<span class="w">  </span><span class="p">}</span>
-<span class="w">  </span><span class="n">DEVICE</span><span class="w"> </span><span class="kr">inline</span><span class="w"> </span><span class="n">Real</span><span class="w"> </span><span class="n">z</span><span class="p">(</span><span class="n">MHDCoreType</span><span class="w"> </span><span class="o">&amp;</span><span class="n">qq</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">j</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">k</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="o">-</span><span class="n">qq</span><span class="p">.</span><span class="n">ro</span><span class="p">[</span><span class="n">grid</span><span class="p">.</span><span class="n">idx</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="w"> </span><span class="n">j</span><span class="p">,</span><span class="w"> </span><span class="n">k</span><span class="p">)]</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">force</span><span class="o">::</span><span class="n">g_grav</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">grid</span><span class="p">.</span><span class="n">z</span><span class="p">[</span><span class="n">k</span><span class="p">]</span><span class="w"> </span><span class="o">/</span>
-<span class="w">           </span><span class="n">util</span><span class="o">::</span><span class="n">pow3</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">sqrt</span><span class="p">(</span><span class="n">grid</span><span class="p">.</span><span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">grid</span><span class="p">.</span><span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">grid</span><span class="p">.</span><span class="n">y</span><span class="p">[</span><span class="n">j</span><span class="p">]</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">grid</span><span class="p">.</span><span class="n">y</span><span class="p">[</span><span class="n">j</span><span class="p">]</span><span class="w"> </span><span class="o">+</span>
-<span class="w">                                </span><span class="n">grid</span><span class="p">.</span><span class="n">z</span><span class="p">[</span><span class="n">k</span><span class="p">]</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">grid</span><span class="p">.</span><span class="n">z</span><span class="p">[</span><span class="n">k</span><span class="p">]));</span>
-</pre></div>
-</div>
 </section>
 <section id="initial-conditions">
 <h2>Initial Conditions<a class="headerlink" href="#initial-conditions" title="Link to this heading"></a></h2>
@@ -259,12 +238,13 @@ x^2 + y^2 - 2z^2
 </section>
 <section id="results">
 <h2>Results<a class="headerlink" href="#results" title="Link to this heading"></a></h2>
-<p>用意されたpythonプログラム <code class="docutils literal notranslate"><span class="pre">geomagnetosphere_3d.py</span></code> を実行することにより、結果のプロットは <code class="docutils literal notranslate"><span class="pre">py/problems/figs/geomagnetosphere_3d/</span></code> に保存されます。</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>py/problems/
-python<span class="w"> </span>geomagnetosphere_3d.py
+<p>可視化用のPythonスクリプトが用意されています。
+結果のプロットは <code class="docutils literal notranslate"><span class="pre">demo/mhd3d_magnetosphere/figs</span></code> に保存されます。</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>demo/mhd3d_magnetosphere
+python<span class="w"> </span>plot_data.py
 </pre></div>
 </div>
-<p><img alt="geomagnetosphere" src="../_images/geomagnetosphere_3d.gif" /></p>
+<p><img alt="mhd3d_magnetosphere" src="../_images/geomagnetosphere_3d.gif" /></p>
 </section>
 </section>
 
@@ -272,7 +252,7 @@ python<span class="w"> </span>geomagnetosphere_3d.py
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="mhd2d_vortex.html" class="btn btn-neutral float-left" title="Orszag-Tang Vortex Problem" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="mhd2d_vortex.html" class="btn btn-neutral float-left" title="2D MHD Test: Orszag-Tang Vortex" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
         <a href="../customization/index.html" class="btn btn-neutral float-right" title="Customization" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 

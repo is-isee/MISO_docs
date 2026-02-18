@@ -1,10 +1,10 @@
-# Rayleigh Taylor Instability
+# 2D HD Test: Rayleigh Taylor Instability
 
 レイリー・テイラー不安定性問題。重力場において、密度の高い流体が密度の低い流体の上にあるときに発生する不安定性です。
 
 ## Location
 
-`problems/rayleigh_taylor/`
+`demo/hd2d_rayleigh_taylor/`
 
 ## Geometry
 
@@ -13,27 +13,11 @@
 
 ## Force
 
-負の$y$方向に一定の重力を加えます。重力加速度は$g=0.1$に設定します。`force.hpp`で以下のように設定します。
+負の$y$方向に一定の重力を加えます。重力加速度は$g=0.1$に設定します。
 
 $$
 \frac{\partial \rho v_y}{\partial t} = [...] - \rho g
 $$
-
-```cpp
-namespace force {
-constexpr Real g_grav = 0.1;  // gravitational acceleration
-}
-
-...
-
-  DEVICE inline Real y(MHDCoreType &qq, int i, int j, int k) {
-#ifdef USE_CUDA
-    return -qq.ro[grid.idx(i, j, k)] * force::g_grav;
-#else
-    return -qq.ro(i, j, k) * force::g_grav;
-#endif
-  }
-```
 
 ## Initial Conditions
 
@@ -41,53 +25,36 @@ constexpr Real g_grav = 0.1;  // gravitational acceleration
 
 ## Boundary Conditions
 
-$x$方向に周期境界条件を、$y$方向に対しては全ての物理量に対して対称境界条件を設定します。`config.yaml`では以下のように設定します。
+$x$方向に周期境界条件を、$y$方向に対しては全ての物理量に対して対称境界条件を設定します。
+ただし、$V_y$のみ$y=\pm0.5$で反対称に設定しています。
+`config.yaml`において、$x$方向の周期境界条件フラグをtrueに設定すると、対称境界条件が機能しなくなることに注意してください。
 
 ```yaml
-# config_x.yaml
-boundary_condition:
-  # please use "standard" or "custom" for boundary_type
-  boundary_type: standard
-
-  periodic:
-    x: true
-    y: false
-    z: false
-
-  ro:
-    x: [symmetric, symmetric]
-    y: [symmetric, symmetric]
-    z: [symmetric, symmetric]
-
-    ...
-```
-
-$x$方向の周期境界条件フラグをtrueに設定すると、対称境界条件が機能しなくなることに注意してください。
-
-```yaml
+domain:
   periodic:
     x: true  # when this flag is true, the symmetric boundary condition does not work
 ```  
 
 ## Results
 
-用意されたpythonプログラムを実行することにより、結果のプロットは `py/problems/figs/rayleigh_taylor/` に保存されます。
+可視化用のPythonスクリプトが用意されています。
+結果のプロットは `demo/hd2d_rayleigh_taylor/figs` に保存されます。
 
 ```shell
-cd py/problems/
-python rayleigh_taylor.py
+cd demo/hd2d_rayleigh_taylor
+python plot_data.py
 ```
 
-![rayleigh_taylor](../_static/images/rayleigh_taylor.gif)
+![hd2d_rayleigh_taylor](../_static/images/rayleigh_taylor.gif)
 
 ## 3D Version
 
-3次元に変更するのも設定ファイルを変更するだけで簡単にできます。
+3次元への拡張は、設定ファイル`config.yaml`で`k_size`を1より大きく設定するだけで実現できます。
 
 ```yaml
 # config.yaml
 grid:
-  i_size: 384
-  j_size: 1152
-  k_size: 384 # change from 1 to 384
+  i_size: 512
+  j_size: 512
+  k_size: 512 # change from 1 to 512
 ```

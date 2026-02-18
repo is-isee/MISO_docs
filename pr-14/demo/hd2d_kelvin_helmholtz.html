@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Kelvin-Helmholtz Instability &mdash; MISO 0.0 documentation</title>
+  <title>2D HD Test: Kelvin-Helmholtz Instability &mdash; MISO 0.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=4ae1632d" />
@@ -29,8 +29,8 @@
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Rayleigh Taylor Instability" href="hd2d_rayleigh_taylor.html" />
-    <link rel="prev" title="1D Magnetohydrodynamic Shock Tube Problem" href="mhd1d_shock_tube.html" /> 
+    <link rel="next" title="2D HD Test: Rayleigh Taylor Instability" href="hd2d_rayleigh_taylor.html" />
+    <link rel="prev" title="1D MHD Test: Magnetized Sod’s Shock Tube" href="mhd1d_shock_tube.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -56,9 +56,9 @@
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../quickstart.html">Quick Start</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">Test Problems</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="hd1d_shock_tube.html">1D Hydrodynamic Shock Tube Problem</a></li>
-<li class="toctree-l2"><a class="reference internal" href="mhd1d_shock_tube.html">1D Magnetohydrodynamic Shock Tube Problem</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">Kelvin-Helmholtz Instability</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="hd1d_shock_tube.html">1D HD Test: Sod’s Shock Tube</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mhd1d_shock_tube.html">1D MHD Test: Magnetized Sod’s Shock Tube</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">2D HD Test: Kelvin-Helmholtz Instability</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#location">Location</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#geometry">Geometry</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#initial-conditions">Initial Conditions</a></li>
@@ -67,9 +67,9 @@
 <li class="toctree-l3"><a class="reference internal" href="#d-version">3D Version</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="hd2d_rayleigh_taylor.html">Rayleigh Taylor Instability</a></li>
-<li class="toctree-l2"><a class="reference internal" href="mhd2d_vortex.html">Orszag-Tang Vortex Problem</a></li>
-<li class="toctree-l2"><a class="reference internal" href="mhd3d_magnetosphere.html">Geomagnetosphere 3D</a></li>
+<li class="toctree-l2"><a class="reference internal" href="hd2d_rayleigh_taylor.html">2D HD Test: Rayleigh Taylor Instability</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mhd2d_vortex.html">2D MHD Test: Orszag-Tang Vortex</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mhd3d_magnetosphere.html">3D MHD Test: Magnetosphere</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../customization/index.html">Customization</a></li>
@@ -100,7 +100,7 @@
   <ul class="wy-breadcrumbs">
       <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
           <li class="breadcrumb-item"><a href="index.html">Test Problems</a></li>
-      <li class="breadcrumb-item active">Kelvin-Helmholtz Instability</li>
+      <li class="breadcrumb-item active">2D HD Test: Kelvin-Helmholtz Instability</li>
       <li class="wy-breadcrumbs-aside">
             <a href="../_sources/demo/hd2d_kelvin_helmholtz.md.txt" rel="nofollow"> View page source</a>
       </li>
@@ -110,12 +110,12 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section class="tex2jax_ignore mathjax_ignore" id="kelvin-helmholtz-instability">
-<h1>Kelvin-Helmholtz Instability<a class="headerlink" href="#kelvin-helmholtz-instability" title="Link to this heading"></a></h1>
+  <section class="tex2jax_ignore mathjax_ignore" id="d-hd-test-kelvin-helmholtz-instability">
+<h1>2D HD Test: Kelvin-Helmholtz Instability<a class="headerlink" href="#d-hd-test-kelvin-helmholtz-instability" title="Link to this heading"></a></h1>
 <p>ケルビン・ヘルムホルツ不安定性問題。設定した境界面を挟んで、上下で異なる速度を持つ流れが接しているときに発生する不安定性です。可視化のために、上下で密度を変えています。</p>
 <section id="location">
 <h2>Location<a class="headerlink" href="#location" title="Link to this heading"></a></h2>
-<p><code class="docutils literal notranslate"><span class="pre">problems/kelvin_helmholtz/</span></code></p>
+<p><code class="docutils literal notranslate"><span class="pre">demo/hd2d_kelvin_helmholtz/</span></code></p>
 </section>
 <section id="geometry">
 <h2>Geometry<a class="headerlink" href="#geometry" title="Link to this heading"></a></h2>
@@ -153,43 +153,27 @@ v_\mathrm{L}
 </section>
 <section id="boundary-conditions">
 <h2>Boundary Conditions<a class="headerlink" href="#boundary-conditions" title="Link to this heading"></a></h2>
-<p><span class="math notranslate nohighlight">\(x\)</span>方向に周期境界条件を、<span class="math notranslate nohighlight">\(y\)</span>方向に対しては全ての物理量に対して対称境界条件を設定します。<code class="docutils literal notranslate"><span class="pre">config.yaml</span></code>では以下のように設定します。</p>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># config_x.yaml</span>
-<span class="nt">boundary_condition</span><span class="p">:</span>
-<span class="w">  </span><span class="c1"># please use &quot;standard&quot; or &quot;custom&quot; for boundary_type</span>
-<span class="w">  </span><span class="nt">boundary_type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">standard</span>
-
+<p><span class="math notranslate nohighlight">\(x\)</span>方向に周期境界条件を、<span class="math notranslate nohighlight">\(y\)</span>方向に対しては全ての物理量に対して対称境界条件を設定します。
+<code class="docutils literal notranslate"><span class="pre">config.yaml</span></code>において、<span class="math notranslate nohighlight">\(x\)</span>方向の周期境界条件フラグをtrueに設定すると、対称境界条件が機能しなくなることに注意してください。</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">domain</span><span class="p">:</span>
 <span class="w">  </span><span class="nt">periodic</span><span class="p">:</span>
-<span class="w">    </span><span class="nt">x</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
-<span class="w">    </span><span class="nt">y</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
-<span class="w">    </span><span class="nt">z</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
-
-<span class="w">  </span><span class="nt">ro</span><span class="p">:</span>
-<span class="w">    </span><span class="nt">x</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">symmetric</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">symmetric</span><span class="p p-Indicator">]</span>
-<span class="w">    </span><span class="nt">y</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">symmetric</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">symmetric</span><span class="p p-Indicator">]</span>
-<span class="w">    </span><span class="nt">z</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">symmetric</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">symmetric</span><span class="p p-Indicator">]</span>
-
-<span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">...</span>
-</pre></div>
-</div>
-<p><span class="math notranslate nohighlight">\(x\)</span>方向の周期境界条件フラグをtrueに設定すると、対称境界条件が機能しなくなることに注意してください。</p>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="w">  </span><span class="nt">periodic</span><span class="p">:</span>
 <span class="w">    </span><span class="nt">x</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span><span class="w">  </span><span class="c1"># when this flag is true, the symmetric boundary condition does not work</span>
 </pre></div>
 </div>
 </section>
 <section id="results">
 <h2>Results<a class="headerlink" href="#results" title="Link to this heading"></a></h2>
-<p>用意されたpythonプログラムを実行することにより、結果のプロットは <code class="docutils literal notranslate"><span class="pre">py/problems/figs/kelvin_helmholtz/</span></code> に保存されます。</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>py/problems/
-python<span class="w"> </span>kelvin_helmholtz.py
+<p>可視化用のPythonスクリプトが用意されています。
+結果のプロットは <code class="docutils literal notranslate"><span class="pre">demo/hd2d_kelvin_helmholtz/figs</span></code> に保存されます。</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>demo/hd2d_kelvin_helmholtz
+python<span class="w"> </span>plot_data.py
 </pre></div>
 </div>
-<p><img alt="kelvin_helmholtz" src="../_images/kelvin_helmholtz.gif" /></p>
+<p><img alt="hd2d_kelvin_helmholtz" src="../_images/kelvin_helmholtz.gif" /></p>
 </section>
 <section id="d-version">
 <h2>3D Version<a class="headerlink" href="#d-version" title="Link to this heading"></a></h2>
-<p>3次元に変更するのも設定ファイルを変更するだけで簡単にできます。</p>
+<p>3次元への拡張は、設定ファイル<code class="docutils literal notranslate"><span class="pre">config.yaml</span></code>で<code class="docutils literal notranslate"><span class="pre">k_size</span></code>を1より大きく設定するだけで実現できます。</p>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># config.yaml</span>
 <span class="nt">grid</span><span class="p">:</span>
 <span class="w">  </span><span class="nt">i_size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">512</span>
@@ -204,8 +188,8 @@ python<span class="w"> </span>kelvin_helmholtz.py
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="mhd1d_shock_tube.html" class="btn btn-neutral float-left" title="1D Magnetohydrodynamic Shock Tube Problem" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="hd2d_rayleigh_taylor.html" class="btn btn-neutral float-right" title="Rayleigh Taylor Instability" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="mhd1d_shock_tube.html" class="btn btn-neutral float-left" title="1D MHD Test: Magnetized Sod’s Shock Tube" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="hd2d_rayleigh_taylor.html" class="btn btn-neutral float-right" title="2D HD Test: Rayleigh Taylor Instability" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

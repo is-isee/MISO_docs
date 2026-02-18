@@ -1,10 +1,10 @@
-# Orszag-Tang Vortex Problem
+# 2D MHD Test: Orszag-Tang Vortex
 
-Orszag-Tang渦問題 {cite}`orszag_1979JFM....90..129O` は、磁気流体力学（MHD）コードの標準的なテスト問題です。この問題は、磁化された媒体における2つの渦流の相互作用を含み、複雑な構造と乱流の形成をもたらします。
+Orszag-Tang渦問題 {cite}`orszag_1979JFM....90..129O` は、磁気流体力学（MHD）コードの標準的なテスト問題です。この問題は、磁化された媒体における2つの渦流の相互作用を含み、複雑な構造と乱流を形成します。
 
 ## Location
 
-`problems/mhd_vortex_2d/`
+`demo/mhd2d_vortex/`
 
 ## Geometry
 
@@ -34,29 +34,14 @@ $$
 
 周期境界条件を全ての境界に対して全ての物理量に設定します。
 
-```yaml
-# config_x.yaml
-boundary_condition:
-  # please use "standard" or "custom" for boundary_type
-  boundary_type: standard
-
-  periodic:
-    x: true
-    y: true
-    z: true # it does not matter in 2D x-y problems
-
-    ...
-```
-
-$x$方向の周期境界条件フラグをtrueに設定すると、対称境界条件が機能しなくなることに注意してください。
-
 ## Results
 
-用意されたpythonプログラム `mhd_vortex_2d.py` を実行することにより、結果のプロットは `py/problems/figs/mhd_vortex_2d/` に保存されます。
+可視化用のPythonスクリプトが用意されています。
+結果のプロットは `demo/mhd2d_vortex/figs` に保存されます。
 
 ```shell
-cd py/problems/
-python mhd_vortex_2d.py
+cd demo/mhd2d_vortex
+python plot_data.py
 ```
 
-![mhd_vortex_2d](../_static/images/mhd_vortex_2d.gif)
+![mhd2d_vortex](../_static/images/mhd_vortex_2d.gif)

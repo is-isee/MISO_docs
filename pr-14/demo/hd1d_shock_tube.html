@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>1D Hydrodynamic Shock Tube Problem &mdash; MISO 0.0 documentation</title>
+  <title>1D HD Test: Sod’s Shock Tube &mdash; MISO 0.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=4ae1632d" />
@@ -29,7 +29,7 @@
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="1D Magnetohydrodynamic Shock Tube Problem" href="mhd1d_shock_tube.html" />
+    <link rel="next" title="1D MHD Test: Magnetized Sod’s Shock Tube" href="mhd1d_shock_tube.html" />
     <link rel="prev" title="Test Problems" href="index.html" /> 
 </head>
 
@@ -56,7 +56,7 @@
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../quickstart.html">Quick Start</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">Test Problems</a><ul class="current">
-<li class="toctree-l2 current"><a class="current reference internal" href="#">1D Hydrodynamic Shock Tube Problem</a><ul>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">1D HD Test: Sod’s Shock Tube</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#location">Location</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#geometry">Geometry</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#initial-conditions">Initial Conditions</a></li>
@@ -64,11 +64,11 @@
 <li class="toctree-l3"><a class="reference internal" href="#results">Results</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="mhd1d_shock_tube.html">1D Magnetohydrodynamic Shock Tube Problem</a></li>
-<li class="toctree-l2"><a class="reference internal" href="hd2d_kelvin_helmholtz.html">Kelvin-Helmholtz Instability</a></li>
-<li class="toctree-l2"><a class="reference internal" href="hd2d_rayleigh_taylor.html">Rayleigh Taylor Instability</a></li>
-<li class="toctree-l2"><a class="reference internal" href="mhd2d_vortex.html">Orszag-Tang Vortex Problem</a></li>
-<li class="toctree-l2"><a class="reference internal" href="mhd3d_magnetosphere.html">Geomagnetosphere 3D</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mhd1d_shock_tube.html">1D MHD Test: Magnetized Sod’s Shock Tube</a></li>
+<li class="toctree-l2"><a class="reference internal" href="hd2d_kelvin_helmholtz.html">2D HD Test: Kelvin-Helmholtz Instability</a></li>
+<li class="toctree-l2"><a class="reference internal" href="hd2d_rayleigh_taylor.html">2D HD Test: Rayleigh Taylor Instability</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mhd2d_vortex.html">2D MHD Test: Orszag-Tang Vortex</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mhd3d_magnetosphere.html">3D MHD Test: Magnetosphere</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../customization/index.html">Customization</a></li>
@@ -99,7 +99,7 @@
   <ul class="wy-breadcrumbs">
       <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
           <li class="breadcrumb-item"><a href="index.html">Test Problems</a></li>
-      <li class="breadcrumb-item active">1D Hydrodynamic Shock Tube Problem</li>
+      <li class="breadcrumb-item active">1D HD Test: Sod’s Shock Tube</li>
       <li class="wy-breadcrumbs-aside">
             <a href="../_sources/demo/hd1d_shock_tube.md.txt" rel="nofollow"> View page source</a>
       </li>
@@ -109,13 +109,13 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section class="tex2jax_ignore mathjax_ignore" id="d-hydrodynamic-shock-tube-problem">
-<h1>1D Hydrodynamic Shock Tube Problem<a class="headerlink" href="#d-hydrodynamic-shock-tube-problem" title="Link to this heading"></a></h1>
+  <section class="tex2jax_ignore mathjax_ignore" id="d-hd-test-sod-s-shock-tube">
+<h1>1D HD Test: Sod’s Shock Tube<a class="headerlink" href="#d-hd-test-sod-s-shock-tube" title="Link to this heading"></a></h1>
 <p>1次元の衝撃波管問題 <span id="id1">[<a class="reference internal" href="../references.html#id5" title="G. A. Sod. Review. A Survey of Several Finite Difference Methods for Systems of Nonlinear Hyperbolic Conservation Laws. Journal of Computational Physics, 27(1):1-31, April 1978. doi:10.1016/0021-9991(78)90023-2.">Sod, 1978</a>]</span> です。初期条件に不連続があるため、衝撃波、接触不連続、希薄波が発生します。この問題は、流体の方程式を解く数値スキームの検証によく用いられます。</p>
-<p>MISOで提供しているテスト問題では、<span class="math notranslate nohighlight">\(x\)</span>, <span class="math notranslate nohighlight">\(y\)</span>, <span class="math notranslate nohighlight">\(z\)</span>の各方向に1次元問題を実施しているが、本ページでは、<span class="math notranslate nohighlight">\(x\)</span>方向の問題を説明する。</p>
+<p>MISOで提供しているテスト問題では、<span class="math notranslate nohighlight">\(x\)</span>, <span class="math notranslate nohighlight">\(y\)</span>, <span class="math notranslate nohighlight">\(z\)</span>の各方向に1次元問題を実施していますが、本ページでは<span class="math notranslate nohighlight">\(x\)</span>方向の問題のみを説明します。</p>
 <section id="location">
 <h2>Location<a class="headerlink" href="#location" title="Link to this heading"></a></h2>
-<p><code class="docutils literal notranslate"><span class="pre">problems/hd_shock_tube_1d/</span></code></p>
+<p><code class="docutils literal notranslate"><span class="pre">demo/hd1d_shock_tube/</span></code></p>
 </section>
 <section id="geometry">
 <h2>Geometry<a class="headerlink" href="#geometry" title="Link to this heading"></a></h2>
@@ -136,7 +136,7 @@ v_\mathrm{L}
 \begin{pmatrix}
 1.0 \\
 1.0 \\
-0.0 
+0.0
 \end{pmatrix} \\
 \begin{pmatrix}
 \rho_\mathrm{R} \\
@@ -154,35 +154,18 @@ v_\mathrm{R}
 </section>
 <section id="boundary-conditions">
 <h2>Boundary Conditions<a class="headerlink" href="#boundary-conditions" title="Link to this heading"></a></h2>
-<p>すべての物理量について、対称境界条件を設定します。config_x.yamlで以下のように設定してあります。<span class="math notranslate nohighlight">\(y\)</span>方向と<span class="math notranslate nohighlight">\(z\)</span>方向の設定ファイルは、それぞれconfig_y.yamlとconfig_z.yamlにあります。</p>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># config_x.yaml</span>
-<span class="nt">boundary_condition</span><span class="p">:</span>
-<span class="w">  </span><span class="c1"># please use &quot;standard&quot; or &quot;custom&quot; for boundary_type</span>
-<span class="w">  </span><span class="nt">boundary_type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">standard</span>
-
-<span class="w">  </span><span class="nt">periodic</span><span class="p">:</span>
-<span class="w">    </span><span class="nt">x</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
-<span class="w">    </span><span class="nt">y</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
-<span class="w">    </span><span class="nt">z</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
-
-<span class="w">  </span><span class="nt">ro</span><span class="p">:</span>
-<span class="w">    </span><span class="nt">x</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">symmetric</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">symmetric</span><span class="p p-Indicator">]</span>
-<span class="w">    </span><span class="nt">y</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">symmetric</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">symmetric</span><span class="p p-Indicator">]</span>
-<span class="w">    </span><span class="nt">z</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">symmetric</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">symmetric</span><span class="p p-Indicator">]</span>
-
-<span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">...</span>
-</pre></div>
-</div>
+<p>すべての物理量について、対称境界条件を設定します。</p>
 </section>
 <section id="results">
 <h2>Results<a class="headerlink" href="#results" title="Link to this heading"></a></h2>
-<p>pythonプログラムを実行して、結果のプロットを生成し、<span class="math notranslate nohighlight">\(x\)</span>, <span class="math notranslate nohighlight">\(y\)</span>, <span class="math notranslate nohighlight">\(z\)</span>方向の結果を比較できます。結果のプロットは py/problems/figs/hd_shock_tube_1d.pngにあります。</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>py/problems/
-python<span class="w"> </span>hd_shock_tube_1d.py
+<p>Pythonを用いて可視化し、<span class="math notranslate nohighlight">\(x\)</span>, <span class="math notranslate nohighlight">\(y\)</span>, <span class="math notranslate nohighlight">\(z\)</span>方向の結果を比較できます。
+画像ファイルは demo/hd1d_shock_tube/figsに保存されます。</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>demo/hd1d_shock_tube
+python<span class="w"> </span>plot_data.py
 </pre></div>
 </div>
 <p>本pythonプログラムでは、解析解も計算しており、数値解と解析解の比較も行っています。</p>
-<p><img alt="hd_shock_tube_result" src="../_images/hd_shock_tube_1d.png" /></p>
+<p><img alt="hd1d_shock_tube" src="../_images/hd_shock_tube_1d.png" /></p>
 </section>
 </section>
 
@@ -191,7 +174,7 @@ python<span class="w"> </span>hd_shock_tube_1d.py
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="index.html" class="btn btn-neutral float-left" title="Test Problems" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="mhd1d_shock_tube.html" class="btn btn-neutral float-right" title="1D Magnetohydrodynamic Shock Tube Problem" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="mhd1d_shock_tube.html" class="btn btn-neutral float-right" title="1D MHD Test: Magnetized Sod’s Shock Tube" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

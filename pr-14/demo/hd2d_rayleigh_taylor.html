@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Rayleigh Taylor Instability &mdash; MISO 0.0 documentation</title>
+  <title>2D HD Test: Rayleigh Taylor Instability &mdash; MISO 0.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=4ae1632d" />
@@ -29,8 +29,8 @@
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Orszag-Tang Vortex Problem" href="mhd2d_vortex.html" />
-    <link rel="prev" title="Kelvin-Helmholtz Instability" href="hd2d_kelvin_helmholtz.html" /> 
+    <link rel="next" title="2D MHD Test: Orszag-Tang Vortex" href="mhd2d_vortex.html" />
+    <link rel="prev" title="2D HD Test: Kelvin-Helmholtz Instability" href="hd2d_kelvin_helmholtz.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -56,10 +56,10 @@
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../quickstart.html">Quick Start</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">Test Problems</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="hd1d_shock_tube.html">1D Hydrodynamic Shock Tube Problem</a></li>
-<li class="toctree-l2"><a class="reference internal" href="mhd1d_shock_tube.html">1D Magnetohydrodynamic Shock Tube Problem</a></li>
-<li class="toctree-l2"><a class="reference internal" href="hd2d_kelvin_helmholtz.html">Kelvin-Helmholtz Instability</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">Rayleigh Taylor Instability</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="hd1d_shock_tube.html">1D HD Test: Sod’s Shock Tube</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mhd1d_shock_tube.html">1D MHD Test: Magnetized Sod’s Shock Tube</a></li>
+<li class="toctree-l2"><a class="reference internal" href="hd2d_kelvin_helmholtz.html">2D HD Test: Kelvin-Helmholtz Instability</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">2D HD Test: Rayleigh Taylor Instability</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#location">Location</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#geometry">Geometry</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#force">Force</a></li>
@@ -69,8 +69,8 @@
 <li class="toctree-l3"><a class="reference internal" href="#d-version">3D Version</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="mhd2d_vortex.html">Orszag-Tang Vortex Problem</a></li>
-<li class="toctree-l2"><a class="reference internal" href="mhd3d_magnetosphere.html">Geomagnetosphere 3D</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mhd2d_vortex.html">2D MHD Test: Orszag-Tang Vortex</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mhd3d_magnetosphere.html">3D MHD Test: Magnetosphere</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../customization/index.html">Customization</a></li>
@@ -101,7 +101,7 @@
   <ul class="wy-breadcrumbs">
       <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
           <li class="breadcrumb-item"><a href="index.html">Test Problems</a></li>
-      <li class="breadcrumb-item active">Rayleigh Taylor Instability</li>
+      <li class="breadcrumb-item active">2D HD Test: Rayleigh Taylor Instability</li>
       <li class="wy-breadcrumbs-aside">
             <a href="../_sources/demo/hd2d_rayleigh_taylor.md.txt" rel="nofollow"> View page source</a>
       </li>
@@ -111,12 +111,12 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section class="tex2jax_ignore mathjax_ignore" id="rayleigh-taylor-instability">
-<h1>Rayleigh Taylor Instability<a class="headerlink" href="#rayleigh-taylor-instability" title="Link to this heading"></a></h1>
+  <section class="tex2jax_ignore mathjax_ignore" id="d-hd-test-rayleigh-taylor-instability">
+<h1>2D HD Test: Rayleigh Taylor Instability<a class="headerlink" href="#d-hd-test-rayleigh-taylor-instability" title="Link to this heading"></a></h1>
 <p>レイリー・テイラー不安定性問題。重力場において、密度の高い流体が密度の低い流体の上にあるときに発生する不安定性です。</p>
 <section id="location">
 <h2>Location<a class="headerlink" href="#location" title="Link to this heading"></a></h2>
-<p><code class="docutils literal notranslate"><span class="pre">problems/rayleigh_taylor/</span></code></p>
+<p><code class="docutils literal notranslate"><span class="pre">demo/hd2d_rayleigh_taylor/</span></code></p>
 </section>
 <section id="geometry">
 <h2>Geometry<a class="headerlink" href="#geometry" title="Link to this heading"></a></h2>
@@ -127,26 +127,11 @@
 </section>
 <section id="force">
 <h2>Force<a class="headerlink" href="#force" title="Link to this heading"></a></h2>
-<p>負の<span class="math notranslate nohighlight">\(y\)</span>方向に一定の重力を加えます。重力加速度は<span class="math notranslate nohighlight">\(g=0.1\)</span>に設定します。<code class="docutils literal notranslate"><span class="pre">force.hpp</span></code>で以下のように設定します。</p>
+<p>負の<span class="math notranslate nohighlight">\(y\)</span>方向に一定の重力を加えます。重力加速度は<span class="math notranslate nohighlight">\(g=0.1\)</span>に設定します。</p>
 <div class="math notranslate nohighlight">
 \[
 \frac{\partial \rho v_y}{\partial t} = [...] - \rho g
 \]</div>
-<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">namespace</span><span class="w"> </span><span class="nn">force</span><span class="w"> </span><span class="p">{</span>
-<span class="k">constexpr</span><span class="w"> </span><span class="n">Real</span><span class="w"> </span><span class="n">g_grav</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.1</span><span class="p">;</span><span class="w">  </span><span class="c1">// gravitational acceleration</span>
-<span class="p">}</span>
-
-<span class="p">...</span>
-
-<span class="w">  </span><span class="n">DEVICE</span><span class="w"> </span><span class="kr">inline</span><span class="w"> </span><span class="n">Real</span><span class="w"> </span><span class="n">y</span><span class="p">(</span><span class="n">MHDCoreType</span><span class="w"> </span><span class="o">&amp;</span><span class="n">qq</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">j</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">k</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="cp">#ifdef USE_CUDA</span>
-<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="o">-</span><span class="n">qq</span><span class="p">.</span><span class="n">ro</span><span class="p">[</span><span class="n">grid</span><span class="p">.</span><span class="n">idx</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="w"> </span><span class="n">j</span><span class="p">,</span><span class="w"> </span><span class="n">k</span><span class="p">)]</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">force</span><span class="o">::</span><span class="n">g_grav</span><span class="p">;</span>
-<span class="cp">#else</span>
-<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="o">-</span><span class="n">qq</span><span class="p">.</span><span class="n">ro</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="w"> </span><span class="n">j</span><span class="p">,</span><span class="w"> </span><span class="n">k</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">force</span><span class="o">::</span><span class="n">g_grav</span><span class="p">;</span>
-<span class="cp">#endif</span>
-<span class="w">  </span><span class="p">}</span>
-</pre></div>
-</div>
 </section>
 <section id="initial-conditions">
 <h2>Initial Conditions<a class="headerlink" href="#initial-conditions" title="Link to this heading"></a></h2>
@@ -154,48 +139,33 @@
 </section>
 <section id="boundary-conditions">
 <h2>Boundary Conditions<a class="headerlink" href="#boundary-conditions" title="Link to this heading"></a></h2>
-<p><span class="math notranslate nohighlight">\(x\)</span>方向に周期境界条件を、<span class="math notranslate nohighlight">\(y\)</span>方向に対しては全ての物理量に対して対称境界条件を設定します。<code class="docutils literal notranslate"><span class="pre">config.yaml</span></code>では以下のように設定します。</p>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># config_x.yaml</span>
-<span class="nt">boundary_condition</span><span class="p">:</span>
-<span class="w">  </span><span class="c1"># please use &quot;standard&quot; or &quot;custom&quot; for boundary_type</span>
-<span class="w">  </span><span class="nt">boundary_type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">standard</span>
-
+<p><span class="math notranslate nohighlight">\(x\)</span>方向に周期境界条件を、<span class="math notranslate nohighlight">\(y\)</span>方向に対しては全ての物理量に対して対称境界条件を設定します。
+ただし、<span class="math notranslate nohighlight">\(V_y\)</span>のみ<span class="math notranslate nohighlight">\(y=\pm0.5\)</span>で反対称に設定しています。
+<code class="docutils literal notranslate"><span class="pre">config.yaml</span></code>において、<span class="math notranslate nohighlight">\(x\)</span>方向の周期境界条件フラグをtrueに設定すると、対称境界条件が機能しなくなることに注意してください。</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">domain</span><span class="p">:</span>
 <span class="w">  </span><span class="nt">periodic</span><span class="p">:</span>
-<span class="w">    </span><span class="nt">x</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
-<span class="w">    </span><span class="nt">y</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
-<span class="w">    </span><span class="nt">z</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
-
-<span class="w">  </span><span class="nt">ro</span><span class="p">:</span>
-<span class="w">    </span><span class="nt">x</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">symmetric</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">symmetric</span><span class="p p-Indicator">]</span>
-<span class="w">    </span><span class="nt">y</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">symmetric</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">symmetric</span><span class="p p-Indicator">]</span>
-<span class="w">    </span><span class="nt">z</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">symmetric</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">symmetric</span><span class="p p-Indicator">]</span>
-
-<span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">...</span>
-</pre></div>
-</div>
-<p><span class="math notranslate nohighlight">\(x\)</span>方向の周期境界条件フラグをtrueに設定すると、対称境界条件が機能しなくなることに注意してください。</p>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="w">  </span><span class="nt">periodic</span><span class="p">:</span>
 <span class="w">    </span><span class="nt">x</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span><span class="w">  </span><span class="c1"># when this flag is true, the symmetric boundary condition does not work</span>
 </pre></div>
 </div>
 </section>
 <section id="results">
 <h2>Results<a class="headerlink" href="#results" title="Link to this heading"></a></h2>
-<p>用意されたpythonプログラムを実行することにより、結果のプロットは <code class="docutils literal notranslate"><span class="pre">py/problems/figs/rayleigh_taylor/</span></code> に保存されます。</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>py/problems/
-python<span class="w"> </span>rayleigh_taylor.py
+<p>可視化用のPythonスクリプトが用意されています。
+結果のプロットは <code class="docutils literal notranslate"><span class="pre">demo/hd2d_rayleigh_taylor/figs</span></code> に保存されます。</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>demo/hd2d_rayleigh_taylor
+python<span class="w"> </span>plot_data.py
 </pre></div>
 </div>
-<p><img alt="rayleigh_taylor" src="../_images/rayleigh_taylor.gif" /></p>
+<p><img alt="hd2d_rayleigh_taylor" src="../_images/rayleigh_taylor.gif" /></p>
 </section>
 <section id="d-version">
 <h2>3D Version<a class="headerlink" href="#d-version" title="Link to this heading"></a></h2>
-<p>3次元に変更するのも設定ファイルを変更するだけで簡単にできます。</p>
+<p>3次元への拡張は、設定ファイル<code class="docutils literal notranslate"><span class="pre">config.yaml</span></code>で<code class="docutils literal notranslate"><span class="pre">k_size</span></code>を1より大きく設定するだけで実現できます。</p>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># config.yaml</span>
 <span class="nt">grid</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">i_size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">384</span>
-<span class="w">  </span><span class="nt">j_size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1152</span>
-<span class="w">  </span><span class="nt">k_size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">384</span><span class="w"> </span><span class="c1"># change from 1 to 384</span>
+<span class="w">  </span><span class="nt">i_size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">512</span>
+<span class="w">  </span><span class="nt">j_size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">512</span>
+<span class="w">  </span><span class="nt">k_size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">512</span><span class="w"> </span><span class="c1"># change from 1 to 512</span>
 </pre></div>
 </div>
 </section>
@@ -205,8 +175,8 @@ python<span class="w"> </span>rayleigh_taylor.py
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="hd2d_kelvin_helmholtz.html" class="btn btn-neutral float-left" title="Kelvin-Helmholtz Instability" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="mhd2d_vortex.html" class="btn btn-neutral float-right" title="Orszag-Tang Vortex Problem" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="hd2d_kelvin_helmholtz.html" class="btn btn-neutral float-left" title="2D HD Test: Kelvin-Helmholtz Instability" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="mhd2d_vortex.html" class="btn btn-neutral float-right" title="2D MHD Test: Orszag-Tang Vortex" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

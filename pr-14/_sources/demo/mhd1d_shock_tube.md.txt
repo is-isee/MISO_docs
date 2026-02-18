@@ -1,13 +1,12 @@
-# 1D Magnetohydrodynamic Shock Tube Problem
+# 1D MHD Test: Magnetized Sod's Shock Tube
 
 1次元の磁気流体力学的衝撃波管問題 {cite}`bri_1988JCoPh..75..400B` です。この問題は、磁気流体の方程式を解く数値スキームの検証によく用いられます。
 
-MISOで提供しているテスト問題では、$x$, $y$, $z$の各方向に1次元問題を実施しているが、本ページでは、$x$方向の問題を説明する。
-
+MISOで提供しているテスト問題では、$x$, $y$, $z$の各方向に1次元問題を実施していますが、本ページでは$x$方向の問題のみを説明します。
 
 ## Location
 
-`problems/mhd_shock_tube_1d/`
+`demo/mhd1d_shock_tube/`
 
 ## Geometry
 
@@ -48,39 +47,20 @@ B_\mathrm{R}
 \end{align*}
 $$
 
-
 ここで、$B_\mathrm{L}$と$B_\mathrm{R}$は横方向の磁場（$y$方向）です。
 
 ## Boundary Conditions
 
-すべての物理量について、対称境界条件を設定します。`config_x.yaml`で以下のように設定してあります。$y$方向と$z$方向の設定ファイルは、それぞれ`config_y.yaml`と`config_z.yaml`にあります。
-
-```yaml
-# config_x.yaml
-boundary_condition:
-  # please use "standard" or "custom" for boundary_type
-  boundary_type: standard
-
-  periodic:
-    x: false
-    y: false
-    z: false
-
-  ro:
-    x: [symmetric, symmetric]
-    y: [symmetric, symmetric]
-    z: [symmetric, symmetric]
-
-    ...
-```
+すべての物理量について、対称境界条件を設定します。
 
 ## Results
 
-pythonプログラムを実行して、結果のプロットを生成し、$x$, $y$, $z$方向の結果を比較できます。結果のプロットは `py/problems/figs/mhd_shock_tube_1d.png` にあります。
+Pythonを用いて可視化し、$x$, $y$, $z$方向の結果を比較できます。
+画像ファイルは demo/mhd1d_shock_tube/figsに保存されます。
 
 ```shell
-cd py/problems/
-python mhd_shock_tube_1d.py
+cd demo/mhd1d_shock_tube
+python plot_data.py
 ```
 
-![mhd_shock_tube_result](../_static/images/mhd_shock_tube_1d.png)
+![mhd1d_shock_tube](../_static/images/mhd_shock_tube_1d.png)
