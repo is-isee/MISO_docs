@@ -96,15 +96,15 @@
 
 <span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;type_traits&gt;</span>
 
-<span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;config.hpp&quot;</span>
-<span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;env.hpp&quot;</span>
-<span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;eos.hpp&quot;</span>
-<span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;execution.hpp&quot;</span>
-<span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;grid.hpp&quot;</span>
-<span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;mhd.hpp&quot;</span>
-<span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;mpi_util.hpp&quot;</span>
-<span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;time.hpp&quot;</span>
-<span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;types.hpp&quot;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">"config.hpp"</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">"env.hpp"</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">"eos.hpp"</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">"execution.hpp"</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">"grid.hpp"</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">"mhd.hpp"</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">"mpi_util.hpp"</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">"time.hpp"</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">"types.hpp"</span>
 
 <span class="k">namespace</span><span class="w"> </span><span class="nn">miso</span><span class="w"> </span><span class="p">{</span>
 <span class="k">namespace</span><span class="w"> </span><span class="nn">mhd</span><span class="w"> </span><span class="p">{</span>
@@ -178,17 +178,17 @@
 
 <span class="w">    </span><span class="c1">// Assert that d has eos, ic, bc, and src as member variables.</span>
 <span class="w">    </span><span class="k">static_assert</span><span class="p">(</span><span class="n">has_eos</span><span class="o">&lt;</span><span class="n">Derived</span><span class="o">&gt;::</span><span class="n">value</span><span class="p">,</span>
-<span class="w">                  </span><span class="s">&quot;Derived must have member variable &#39;eos&#39;.&quot;</span><span class="p">);</span>
+<span class="w">                  </span><span class="s">"Derived must have member variable 'eos'."</span><span class="p">);</span>
 <span class="w">    </span><span class="k">static_assert</span><span class="p">(</span><span class="n">has_ic</span><span class="o">&lt;</span><span class="n">Derived</span><span class="o">&gt;::</span><span class="n">value</span><span class="p">,</span>
-<span class="w">                  </span><span class="s">&quot;Derived must have member variable &#39;ic&#39;.&quot;</span><span class="p">);</span>
+<span class="w">                  </span><span class="s">"Derived must have member variable 'ic'."</span><span class="p">);</span>
 <span class="w">    </span><span class="k">static_assert</span><span class="p">(</span><span class="n">has_bc</span><span class="o">&lt;</span><span class="n">Derived</span><span class="o">&gt;::</span><span class="n">value</span><span class="p">,</span>
-<span class="w">                  </span><span class="s">&quot;Derived must have member variable &#39;bc&#39;.&quot;</span><span class="p">);</span>
+<span class="w">                  </span><span class="s">"Derived must have member variable 'bc'."</span><span class="p">);</span>
 <span class="w">    </span><span class="k">static_assert</span><span class="p">(</span><span class="n">has_src</span><span class="o">&lt;</span><span class="n">Derived</span><span class="o">&gt;::</span><span class="n">value</span><span class="p">,</span>
-<span class="w">                  </span><span class="s">&quot;Derived must have member variable &#39;src&#39;.&quot;</span><span class="p">);</span>
+<span class="w">                  </span><span class="s">"Derived must have member variable 'src'."</span><span class="p">);</span>
 
 <span class="w">    </span><span class="n">mhd</span><span class="p">.</span><span class="n">apply_initial_condition</span><span class="p">(</span><span class="n">d</span><span class="p">.</span><span class="n">ic</span><span class="p">,</span><span class="w"> </span><span class="n">d</span><span class="p">.</span><span class="n">bc</span><span class="p">);</span>
-<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">config</span><span class="p">[</span><span class="s">&quot;base&quot;</span><span class="p">][</span><span class="s">&quot;continue&quot;</span><span class="p">].</span><span class="n">as</span><span class="o">&lt;</span><span class="kt">bool</span><span class="o">&gt;</span><span class="p">()</span><span class="w"> </span><span class="o">&amp;&amp;</span>
-<span class="w">        </span><span class="n">fs</span><span class="o">::</span><span class="n">exists</span><span class="p">(</span><span class="n">time</span><span class="p">.</span><span class="n">time_save_dir</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s">&quot;n_output.txt&quot;</span><span class="p">))</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">config</span><span class="p">[</span><span class="s">"base"</span><span class="p">][</span><span class="s">"continue"</span><span class="p">].</span><span class="n">as</span><span class="o">&lt;</span><span class="kt">bool</span><span class="o">&gt;</span><span class="p">()</span><span class="w"> </span><span class="o">&amp;&amp;</span>
+<span class="w">        </span><span class="n">fs</span><span class="o">::</span><span class="n">exists</span><span class="p">(</span><span class="n">time</span><span class="p">.</span><span class="n">time_save_dir</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s">"n_output.txt"</span><span class="p">))</span><span class="w"> </span><span class="p">{</span>
 <span class="w">      </span><span class="n">load_state</span><span class="p">();</span>
 <span class="w">    </span><span class="p">}</span>
 

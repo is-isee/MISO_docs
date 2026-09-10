@@ -172,7 +172,7 @@
 
 <span class="w">  </span><span class="c1">// Read configuration file</span>
 <span class="w">  </span><span class="k">auto</span><span class="w"> </span><span class="n">config_path</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">parse_config_filepath</span><span class="p">(</span><span class="n">argc</span><span class="p">,</span><span class="w"> </span><span class="n">argv</span><span class="p">);</span>
-<span class="w">  </span><span class="n">Config</span><span class="w"> </span><span class="n">config</span><span class="p">(</span><span class="n">config_path</span><span class="p">.</span><span class="n">value_or</span><span class="p">(</span><span class="s">&quot;./config.yaml&quot;</span><span class="p">));</span>
+<span class="w">  </span><span class="n">Config</span><span class="w"> </span><span class="n">config</span><span class="p">(</span><span class="n">config_path</span><span class="p">.</span><span class="n">value_or</span><span class="p">(</span><span class="s">"./config.yaml"</span><span class="p">));</span>
 
 <span class="w">  </span><span class="c1">// Run simulation</span>
 <span class="w">  </span><span class="n">Model</span><span class="w"> </span><span class="n">model</span><span class="p">(</span><span class="n">config</span><span class="p">);</span>

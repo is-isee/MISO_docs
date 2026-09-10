@@ -97,41 +97,41 @@
 <div class="viewcode-block" id="MPI">
 <a class="viewcode-back" href="../../api/pymiso.MPI.html#pymiso.MPI">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">MPI</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    Class for handling MPI data from the ``coords.csv`` file</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
 
 <div class="viewcode-block" id="MPI.__init__">
 <a class="viewcode-back" href="../../api/pymiso.MPI.html#pymiso.MPI.__init__">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">conf</span><span class="p">:</span> <span class="n">Conf</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Initialize the :class:`~pymiso.MPI` class instance</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
 <span class="sd">        conf : Conf</span>
 <span class="sd">            Instance of :class:`~pymiso.Conf` class</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">coords_file</span> <span class="o">=</span> <span class="n">conf</span><span class="o">.</span><span class="n">mpi_data_dir</span> <span class="o">/</span> <span class="s2">&quot;coords.csv&quot;</span>
+<span class="sd">        """</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">coords_file</span> <span class="o">=</span> <span class="n">conf</span><span class="o">.</span><span class="n">mpi_data_dir</span> <span class="o">/</span> <span class="s2">"coords.csv"</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">conf</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="MPI.load">
 <a class="viewcode-back" href="../../api/pymiso.MPI.html#pymiso.MPI.load">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">load</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">conf</span><span class="p">:</span> <span class="n">Conf</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Load the ``coords.csv`` file</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
 <span class="sd">        conf : Conf</span>
 <span class="sd">            Instance of :class:`~pymiso.Conf` class</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="k">for</span> <span class="n">group</span><span class="p">,</span> <span class="n">values</span> <span class="ow">in</span> <span class="n">conf</span><span class="o">.</span><span class="n">mpi</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
             <span class="nb">setattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">group</span><span class="p">,</span> <span class="n">values</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">n_procs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">x_procs</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">y_procs</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">z_procs</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">coords</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">genfromtxt</span><span class="p">(</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">coords_file</span><span class="p">,</span> <span class="n">delimiter</span><span class="o">=</span><span class="s2">&quot;,&quot;</span><span class="p">,</span> <span class="n">names</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">int</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">coords_file</span><span class="p">,</span> <span class="n">delimiter</span><span class="o">=</span><span class="s2">","</span><span class="p">,</span> <span class="n">names</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">int</span>
         <span class="p">)</span></div>
 </div>
 

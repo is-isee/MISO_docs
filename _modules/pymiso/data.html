@@ -100,21 +100,21 @@
 <div class="viewcode-block" id="Data">
 <a class="viewcode-back" href="../../api/pymiso.Data.html#pymiso.Data">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">Data</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    Class for handling the simulation data</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
 
 <div class="viewcode-block" id="Data.__init__">
 <a class="viewcode-back" href="../../api/pymiso.Data.html#pymiso.Data.__init__">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data_dir</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Initialize the :class:`~pymiso.Data` class instance</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
 <span class="sd">        data_dir : str</span>
 <span class="sd">            The directory where the ``config.yaml`` file is located</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">conf</span> <span class="o">=</span> <span class="n">Conf</span><span class="p">(</span><span class="n">data_dir</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">mpi</span> <span class="o">=</span> <span class="n">MPI</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">conf</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">grid</span> <span class="o">=</span> <span class="n">Grid</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">conf</span><span class="p">)</span>
@@ -124,14 +124,14 @@
 <div class="viewcode-block" id="Data.load">
 <a class="viewcode-back" href="../../api/pymiso.Data.html#pymiso.Data.load">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">load</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">n_output</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Load snapshot at a specified time index</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
 <span class="sd">        n_output : int</span>
 <span class="sd">            The output number to load the data from</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="n">shape_global</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">i_size</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">j_size</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">k_size</span><span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">time</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">n_output</span><span class="p">)</span>
@@ -145,23 +145,23 @@
 
         <span class="k">for</span> <span class="n">rank</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">mpi</span><span class="o">.</span><span class="n">n_procs</span><span class="p">):</span>
             <span class="n">filename</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">conf</span><span class="o">.</span><span class="n">mhd_data_dir</span> <span class="o">/</span> <span class="p">(</span>
-                <span class="sa">f</span><span class="s2">&quot;mhd.</span><span class="si">{</span><span class="n">n_output</span><span class="si">:</span><span class="s2">0</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">conf</span><span class="o">.</span><span class="n">time</span><span class="o">.</span><span class="n">n_output_digits</span><span class="si">}</span><span class="s2">d</span><span class="si">}</span><span class="s2">&quot;</span>
-                <span class="sa">f</span><span class="s2">&quot;.</span><span class="si">{</span><span class="n">rank</span><span class="si">:</span><span class="s2">0</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">conf</span><span class="o">.</span><span class="n">mhd</span><span class="o">.</span><span class="n">n_output_digits</span><span class="si">}</span><span class="s2">d</span><span class="si">}</span><span class="s2">.bin&quot;</span>
+                <span class="sa">f</span><span class="s2">"mhd.</span><span class="si">{</span><span class="n">n_output</span><span class="si">:</span><span class="s2">0</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">conf</span><span class="o">.</span><span class="n">time</span><span class="o">.</span><span class="n">n_output_digits</span><span class="si">}</span><span class="s2">d</span><span class="si">}</span><span class="s2">"</span>
+                <span class="sa">f</span><span class="s2">".</span><span class="si">{</span><span class="n">rank</span><span class="si">:</span><span class="s2">0</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">conf</span><span class="o">.</span><span class="n">mhd</span><span class="o">.</span><span class="n">n_output_digits</span><span class="si">}</span><span class="s2">d</span><span class="si">}</span><span class="s2">.bin"</span>
             <span class="p">)</span>
 
             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">mpi</span><span class="o">.</span><span class="n">n_procs</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
                 <span class="n">ijk_global</span> <span class="o">=</span> <span class="p">(</span>
                     <span class="nb">slice</span><span class="p">(</span>
-                        <span class="bp">self</span><span class="o">.</span><span class="n">mpi</span><span class="o">.</span><span class="n">coords</span><span class="p">[</span><span class="s2">&quot;x&quot;</span><span class="p">][</span><span class="n">rank</span><span class="p">]</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">i_size_local</span><span class="p">,</span>
-                        <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">mpi</span><span class="o">.</span><span class="n">coords</span><span class="p">[</span><span class="s2">&quot;x&quot;</span><span class="p">][</span><span class="n">rank</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">i_size_local</span><span class="p">,</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">mpi</span><span class="o">.</span><span class="n">coords</span><span class="p">[</span><span class="s2">"x"</span><span class="p">][</span><span class="n">rank</span><span class="p">]</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">i_size_local</span><span class="p">,</span>
+                        <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">mpi</span><span class="o">.</span><span class="n">coords</span><span class="p">[</span><span class="s2">"x"</span><span class="p">][</span><span class="n">rank</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">i_size_local</span><span class="p">,</span>
                     <span class="p">),</span>
                     <span class="nb">slice</span><span class="p">(</span>
-                        <span class="bp">self</span><span class="o">.</span><span class="n">mpi</span><span class="o">.</span><span class="n">coords</span><span class="p">[</span><span class="s2">&quot;y&quot;</span><span class="p">][</span><span class="n">rank</span><span class="p">]</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">j_size_local</span><span class="p">,</span>
-                        <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">mpi</span><span class="o">.</span><span class="n">coords</span><span class="p">[</span><span class="s2">&quot;y&quot;</span><span class="p">][</span><span class="n">rank</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">j_size_local</span><span class="p">,</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">mpi</span><span class="o">.</span><span class="n">coords</span><span class="p">[</span><span class="s2">"y"</span><span class="p">][</span><span class="n">rank</span><span class="p">]</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">j_size_local</span><span class="p">,</span>
+                        <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">mpi</span><span class="o">.</span><span class="n">coords</span><span class="p">[</span><span class="s2">"y"</span><span class="p">][</span><span class="n">rank</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">j_size_local</span><span class="p">,</span>
                     <span class="p">),</span>
                     <span class="nb">slice</span><span class="p">(</span>
-                        <span class="bp">self</span><span class="o">.</span><span class="n">mpi</span><span class="o">.</span><span class="n">coords</span><span class="p">[</span><span class="s2">&quot;z&quot;</span><span class="p">][</span><span class="n">rank</span><span class="p">]</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">k_size_local</span><span class="p">,</span>
-                        <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">mpi</span><span class="o">.</span><span class="n">coords</span><span class="p">[</span><span class="s2">&quot;z&quot;</span><span class="p">][</span><span class="n">rank</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">k_size_local</span><span class="p">,</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">mpi</span><span class="o">.</span><span class="n">coords</span><span class="p">[</span><span class="s2">"z"</span><span class="p">][</span><span class="n">rank</span><span class="p">]</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">k_size_local</span><span class="p">,</span>
+                        <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">mpi</span><span class="o">.</span><span class="n">coords</span><span class="p">[</span><span class="s2">"z"</span><span class="p">][</span><span class="n">rank</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">k_size_local</span><span class="p">,</span>
                     <span class="p">),</span>
                 <span class="p">)</span>
             <span class="k">else</span><span class="p">:</span>
@@ -177,14 +177,14 @@
                 <span class="nb">slice</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">k_margin</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">k_total_local</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">k_margin</span><span class="p">),</span>
             <span class="p">)</span>
 
-            <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s2">&quot;rb&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
-                <span class="n">elem_size</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">fromfile</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">conf</span><span class="o">.</span><span class="n">endian</span> <span class="o">+</span> <span class="s2">&quot;u4&quot;</span><span class="p">,</span> <span class="n">count</span><span class="o">=</span><span class="mi">1</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s2">"rb"</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+                <span class="n">elem_size</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">fromfile</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">conf</span><span class="o">.</span><span class="n">endian</span> <span class="o">+</span> <span class="s2">"u4"</span><span class="p">,</span> <span class="n">count</span><span class="o">=</span><span class="mi">1</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
                 <span class="k">if</span> <span class="n">elem_size</span> <span class="o">==</span> <span class="mi">4</span><span class="p">:</span>
-                    <span class="n">elem_base</span> <span class="o">=</span> <span class="s2">&quot;f4&quot;</span>
+                    <span class="n">elem_base</span> <span class="o">=</span> <span class="s2">"f4"</span>
                 <span class="k">elif</span> <span class="n">elem_size</span> <span class="o">==</span> <span class="mi">8</span><span class="p">:</span>
-                    <span class="n">elem_base</span> <span class="o">=</span> <span class="s2">&quot;f8&quot;</span>
+                    <span class="n">elem_base</span> <span class="o">=</span> <span class="s2">"f8"</span>
                 <span class="k">else</span><span class="p">:</span>
-                    <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Unexpected element size: </span><span class="si">{</span><span class="n">elem_size</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+                    <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Unexpected element size: </span><span class="si">{</span><span class="n">elem_size</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
                 <span class="n">nvar</span> <span class="o">=</span> <span class="mi">9</span>  <span class="c1"># ro, vx, vy, vz, bx, by, bz, ei, ph</span>
 
                 <span class="k">if</span> <span class="n">rank</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
@@ -200,7 +200,7 @@
 
                 <span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">fromfile</span><span class="p">(</span>
                     <span class="n">f</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">conf</span><span class="o">.</span><span class="n">endian</span> <span class="o">+</span> <span class="n">elem_base</span><span class="p">,</span> <span class="n">count</span><span class="o">=</span><span class="n">nvar</span> <span class="o">*</span> <span class="n">count</span>
-                <span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">((</span><span class="n">nvar</span><span class="p">,</span> <span class="o">*</span><span class="n">shape</span><span class="p">),</span> <span class="n">order</span><span class="o">=</span><span class="s2">&quot;C&quot;</span><span class="p">)</span>
+                <span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">((</span><span class="n">nvar</span><span class="p">,</span> <span class="o">*</span><span class="n">shape</span><span class="p">),</span> <span class="n">order</span><span class="o">=</span><span class="s2">"C"</span><span class="p">)</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">ro</span><span class="p">[</span><span class="n">ijk_global</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="n">ijk_local</span><span class="p">]</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">vx</span><span class="p">[</span><span class="n">ijk_global</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="n">ijk_local</span><span class="p">]</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">vy</span><span class="p">[</span><span class="n">ijk_global</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="mi">2</span><span class="p">][</span><span class="n">ijk_local</span><span class="p">]</span>
@@ -227,7 +227,7 @@
 <div class="viewcode-block" id="Data.write_scalar_vtk">
 <a class="viewcode-back" href="../../api/pymiso.Data.html#pymiso.Data.write_scalar_vtk">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">write_scalar_vtk</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">n_output</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">var</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">output_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Write a scalar variable to a VTK file for visualization using PyVista.</span>
 
 <span class="sd">        Parameters</span>
@@ -235,29 +235,29 @@
 <span class="sd">        n_output : int</span>
 <span class="sd">            The output number to load the data from.</span>
 <span class="sd">        var : str</span>
-<span class="sd">            The variable name to write (e.g., &#39;ro&#39;, &#39;vx&#39;, &#39;vy&#39;, &#39;vz&#39;, &#39;bx&#39;, &#39;by&#39;, &#39;bz&#39;, &#39;ei&#39;, &#39;ph&#39;).</span>
+<span class="sd">            The variable name to write (e.g., 'ro', 'vx', 'vy', 'vz', 'bx', 'by', 'bz', 'ei', 'ph').</span>
 <span class="sd">        output_path : str</span>
 <span class="sd">            The path to save the VTK file.</span>
 
 <span class="sd">        Notes</span>
 <span class="sd">        -----</span>
 <span class="sd">        In this version, uniform grid is assumed.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="kn">import</span><span class="w"> </span><span class="nn">pyvista</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pv</span>
 
         <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">n_output</span><span class="p">,</span> <span class="nb">int</span><span class="p">):</span>
-            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;n_output must be an integer&quot;</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">"n_output must be an integer"</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">output_path</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
-            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;output_path must be a string&quot;</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">"output_path must be a string"</span><span class="p">)</span>
 
-        <span class="k">if</span> <span class="n">var</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;ro&quot;</span><span class="p">,</span> <span class="s2">&quot;vx&quot;</span><span class="p">,</span> <span class="s2">&quot;vy&quot;</span><span class="p">,</span> <span class="s2">&quot;vz&quot;</span><span class="p">,</span> <span class="s2">&quot;bx&quot;</span><span class="p">,</span> <span class="s2">&quot;by&quot;</span><span class="p">,</span> <span class="s2">&quot;bz&quot;</span><span class="p">,</span> <span class="s2">&quot;ei&quot;</span><span class="p">,</span> <span class="s2">&quot;ph&quot;</span><span class="p">]:</span>
+        <span class="k">if</span> <span class="n">var</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">"ro"</span><span class="p">,</span> <span class="s2">"vx"</span><span class="p">,</span> <span class="s2">"vy"</span><span class="p">,</span> <span class="s2">"vz"</span><span class="p">,</span> <span class="s2">"bx"</span><span class="p">,</span> <span class="s2">"by"</span><span class="p">,</span> <span class="s2">"bz"</span><span class="p">,</span> <span class="s2">"ei"</span><span class="p">,</span> <span class="s2">"ph"</span><span class="p">]:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-                <span class="s2">&quot;var must be one of &#39;ro&#39;, &#39;vx&#39;, &#39;vy&#39;, &#39;vz&#39;, &#39;bx&#39;, &#39;by&#39;, &#39;bz&#39;, &#39;ei&#39;, &#39;ph&#39;&quot;</span>
+                <span class="s2">"var must be one of 'ro', 'vx', 'vy', 'vz', 'bx', 'by', 'bz', 'ei', 'ph'"</span>
             <span class="p">)</span>
 
         <span class="n">read_flag</span> <span class="o">=</span> <span class="kc">True</span>
-        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;load_n_output&quot;</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">"load_n_output"</span><span class="p">):</span>
             <span class="k">if</span> <span class="n">n_output</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">load_n_output</span><span class="p">:</span>
                 <span class="n">read_flag</span> <span class="o">=</span> <span class="kc">False</span>
         <span class="k">if</span> <span class="n">read_flag</span><span class="p">:</span>
@@ -275,7 +275,7 @@
         <span class="c1"># pv_grid = pv.RectilinearGrid(</span>
         <span class="c1">#     self.grid.x_edge, self.grid.y_edge, self.grid.z_edge</span>
         <span class="c1"># )</span>
-        <span class="n">pv_grid</span><span class="o">.</span><span class="n">cell_data</span><span class="p">[</span><span class="s2">&quot;scalar&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">var</span><span class="p">)</span><span class="o">.</span><span class="n">flatten</span><span class="p">(</span><span class="n">order</span><span class="o">=</span><span class="s2">&quot;F&quot;</span><span class="p">)</span>
+        <span class="n">pv_grid</span><span class="o">.</span><span class="n">cell_data</span><span class="p">[</span><span class="s2">"scalar"</span><span class="p">]</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">var</span><span class="p">)</span><span class="o">.</span><span class="n">flatten</span><span class="p">(</span><span class="n">order</span><span class="o">=</span><span class="s2">"F"</span><span class="p">)</span>
         <span class="n">pv_grid</span> <span class="o">=</span> <span class="n">pv_grid</span><span class="o">.</span><span class="n">cell_data_to_point_data</span><span class="p">()</span>
 
         <span class="n">pv_grid</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">output_path</span><span class="p">)</span></div>
@@ -284,7 +284,7 @@
 <div class="viewcode-block" id="Data.write_vector_vtk">
 <a class="viewcode-back" href="../../api/pymiso.Data.html#pymiso.Data.write_vector_vtk">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">write_vector_vtk</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">n_output</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">var</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">output_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Write a vector variable to a VTK file for visualization using PyVista.</span>
 
 <span class="sd">        Parameters</span>
@@ -292,27 +292,27 @@
 <span class="sd">        n_output : int</span>
 <span class="sd">            The output number to load the data from.</span>
 <span class="sd">        var : str</span>
-<span class="sd">            The variable name to write (&#39;v&#39; for velocity, &#39;b&#39; for magnetic field).</span>
+<span class="sd">            The variable name to write ('v' for velocity, 'b' for magnetic field).</span>
 <span class="sd">        output_path : str</span>
 <span class="sd">            The path to save the VTK file.</span>
 
 <span class="sd">        Notes</span>
 <span class="sd">        -----</span>
 <span class="sd">        In this version, uniform grid is assumed.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="kn">import</span><span class="w"> </span><span class="nn">pyvista</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pv</span>
 
         <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">n_output</span><span class="p">,</span> <span class="nb">int</span><span class="p">):</span>
-            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;n_output must be an integer&quot;</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">"n_output must be an integer"</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">output_path</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
-            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;output_path must be a string&quot;</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">"output_path must be a string"</span><span class="p">)</span>
 
-        <span class="k">if</span> <span class="n">var</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;v&quot;</span><span class="p">,</span> <span class="s2">&quot;b&quot;</span><span class="p">]:</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;var must be &#39;v&#39; or &#39;b&#39;&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">var</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">"v"</span><span class="p">,</span> <span class="s2">"b"</span><span class="p">]:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">"var must be 'v' or 'b'"</span><span class="p">)</span>
 
         <span class="n">read_flag</span> <span class="o">=</span> <span class="kc">True</span>
-        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;load_n_output&quot;</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">"load_n_output"</span><span class="p">):</span>
             <span class="k">if</span> <span class="n">n_output</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">load_n_output</span><span class="p">:</span>
                 <span class="n">read_flag</span> <span class="o">=</span> <span class="kc">False</span>
         <span class="k">if</span> <span class="n">read_flag</span><span class="p">:</span>
@@ -327,11 +327,11 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">z</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">z</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
         <span class="p">)</span>
 
-        <span class="n">pv_grid</span><span class="o">.</span><span class="n">cell_data</span><span class="p">[</span><span class="s2">&quot;vector&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">stack</span><span class="p">(</span>
+        <span class="n">pv_grid</span><span class="o">.</span><span class="n">cell_data</span><span class="p">[</span><span class="s2">"vector"</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">stack</span><span class="p">(</span>
             <span class="p">(</span>
-                <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">var</span> <span class="o">+</span> <span class="s2">&quot;x&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">flatten</span><span class="p">(</span><span class="n">order</span><span class="o">=</span><span class="s2">&quot;F&quot;</span><span class="p">),</span>
-                <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">var</span> <span class="o">+</span> <span class="s2">&quot;y&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">flatten</span><span class="p">(</span><span class="n">order</span><span class="o">=</span><span class="s2">&quot;F&quot;</span><span class="p">),</span>
-                <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">var</span> <span class="o">+</span> <span class="s2">&quot;z&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">flatten</span><span class="p">(</span><span class="n">order</span><span class="o">=</span><span class="s2">&quot;F&quot;</span><span class="p">),</span>
+                <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">var</span> <span class="o">+</span> <span class="s2">"x"</span><span class="p">)</span><span class="o">.</span><span class="n">flatten</span><span class="p">(</span><span class="n">order</span><span class="o">=</span><span class="s2">"F"</span><span class="p">),</span>
+                <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">var</span> <span class="o">+</span> <span class="s2">"y"</span><span class="p">)</span><span class="o">.</span><span class="n">flatten</span><span class="p">(</span><span class="n">order</span><span class="o">=</span><span class="s2">"F"</span><span class="p">),</span>
+                <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">var</span> <span class="o">+</span> <span class="s2">"z"</span><span class="p">)</span><span class="o">.</span><span class="n">flatten</span><span class="p">(</span><span class="n">order</span><span class="o">=</span><span class="s2">"F"</span><span class="p">),</span>
             <span class="p">),</span>
             <span class="n">axis</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span>
         <span class="p">)</span>
@@ -341,9 +341,9 @@
 
 
     <span class="k">def</span><span class="w"> </span><span class="fm">__getattr__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        When an attribute is not found, it is searched in grid, time, and mpi.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="k">for</span> <span class="n">obj</span> <span class="ow">in</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">grid</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">time</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">mpi</span><span class="p">]:</span>
             <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
                 <span class="c1"># Only when the attribute is not a function, return it</span>
@@ -351,7 +351,7 @@
                     <span class="k">return</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
 
         <span class="k">raise</span> <span class="ne">AttributeError</span><span class="p">(</span>
-            <span class="sa">f</span><span class="s2">&quot;&#39;</span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2">&#39; object has no attribute &#39;</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">&#39;&quot;</span>
+            <span class="sa">f</span><span class="s2">"'</span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2">' object has no attribute '</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">'"</span>
         <span class="p">)</span></div>
 
 </pre></div>

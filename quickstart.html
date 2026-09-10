@@ -180,13 +180,13 @@ mpiexec<span class="w"> </span>-n<span class="w"> </span><span class="m">1</span
 <h2>Python module pymiso<a class="headerlink" href="#python-module-pymiso" title="Link to this heading"></a></h2>
 <p>MISOでは、解析のためのPythonモジュールを提供しています。リポジトリのルートディレクトリで、以下のようにしてインストールしてください。</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="c1"># for normal users</span>
-pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span><span class="s2">&quot;.[viz]&quot;</span>
+pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span><span class="s2">".[viz]"</span>
 
 <span class="c1"># minimum install</span>
 pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span>.
 
 <span class="c1"># for developers</span>
-pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span><span class="s2">&quot;.[viz,dev]&quot;</span>
+pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span><span class="s2">".[viz,dev]"</span>
 </pre></div>
 </div>
 <p>シミュレーション結果は以下のように読み込むことができます。</p>
@@ -194,7 +194,7 @@ pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </s
 <span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
 
 <span class="c1"># relative path to the data directory</span>
-<span class="n">d</span> <span class="o">=</span> <span class="n">pymiso</span><span class="o">.</span><span class="n">Data</span><span class="p">(</span><span class="s2">&quot;./demo/mhd2d_vortex/data&quot;</span><span class="p">)</span>
+<span class="n">d</span> <span class="o">=</span> <span class="n">pymiso</span><span class="o">.</span><span class="n">Data</span><span class="p">(</span><span class="s2">"./demo/mhd2d_vortex/data"</span><span class="p">)</span>
 
 <span class="n">n_step</span> <span class="o">=</span> <span class="mi">80</span>
 <span class="n">d</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">n_step</span><span class="p">)</span>

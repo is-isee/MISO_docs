@@ -97,61 +97,61 @@
 <div class="viewcode-block" id="Grid">
 <a class="viewcode-back" href="../../api/pymiso.Grid.html#pymiso.Grid">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">Grid</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    Class for handling simulation grids from the ``grid.bin`` file</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
 
 <div class="viewcode-block" id="Grid.__init__">
 <a class="viewcode-back" href="../../api/pymiso.Grid.html#pymiso.Grid.__init__">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">conf</span><span class="p">:</span> <span class="n">Conf</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Initialize the :class:`~pymiso.Grid` class instance</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
 <span class="sd">        conf : Conf</span>
 <span class="sd">            Instance of :class:`~pymiso.Conf` class</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">grid_file</span> <span class="o">=</span> <span class="n">conf</span><span class="o">.</span><span class="n">data_dir</span> <span class="o">/</span> <span class="s2">&quot;grid.bin&quot;</span>
+<span class="sd">        """</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">grid_file</span> <span class="o">=</span> <span class="n">conf</span><span class="o">.</span><span class="n">data_dir</span> <span class="o">/</span> <span class="s2">"grid.bin"</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">conf</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="Grid.load">
 <a class="viewcode-back" href="../../api/pymiso.Grid.html#pymiso.Grid.load">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">load</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">conf</span><span class="p">:</span> <span class="n">Conf</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Load the ``grid.bin`` file and set the grid points as attributes</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
 <span class="sd">        conf : Conf</span>
 <span class="sd">            Instance of :class:`~pymiso.Conf` class</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="k">for</span> <span class="n">group</span><span class="p">,</span> <span class="n">values</span> <span class="ow">in</span> <span class="n">conf</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
             <span class="nb">setattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">group</span><span class="p">,</span> <span class="n">values</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">set_ijk_params</span><span class="p">(</span><span class="n">conf</span><span class="p">)</span>
 
-        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">grid_file</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">mode</span><span class="o">=</span><span class="s2">&quot;rb&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
-            <span class="n">elem_size</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">fromfile</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">conf</span><span class="o">.</span><span class="n">endian</span> <span class="o">+</span> <span class="s2">&quot;u4&quot;</span><span class="p">,</span> <span class="n">count</span><span class="o">=</span><span class="mi">1</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">grid_file</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">mode</span><span class="o">=</span><span class="s2">"rb"</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+            <span class="n">elem_size</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">fromfile</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">conf</span><span class="o">.</span><span class="n">endian</span> <span class="o">+</span> <span class="s2">"u4"</span><span class="p">,</span> <span class="n">count</span><span class="o">=</span><span class="mi">1</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
             <span class="k">if</span> <span class="n">elem_size</span> <span class="o">==</span> <span class="mi">4</span><span class="p">:</span>
-                <span class="n">base</span> <span class="o">=</span> <span class="s2">&quot;f4&quot;</span>
+                <span class="n">base</span> <span class="o">=</span> <span class="s2">"f4"</span>
             <span class="k">elif</span> <span class="n">elem_size</span> <span class="o">==</span> <span class="mi">8</span><span class="p">:</span>
-                <span class="n">base</span> <span class="o">=</span> <span class="s2">&quot;f8&quot;</span>
+                <span class="n">base</span> <span class="o">=</span> <span class="s2">"f8"</span>
             <span class="k">else</span><span class="p">:</span>
-                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Unexpected element size: </span><span class="si">{</span><span class="n">elem_size</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Unexpected element size: </span><span class="si">{</span><span class="n">elem_size</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
             <span class="n">dtype</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dtype</span><span class="p">(</span>
                 <span class="p">[</span>
-                    <span class="p">(</span><span class="s2">&quot;x&quot;</span><span class="p">,</span> <span class="n">conf</span><span class="o">.</span><span class="n">endian</span> <span class="o">+</span> <span class="n">base</span><span class="p">,</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">i_total</span><span class="p">,)),</span>
-                    <span class="p">(</span><span class="s2">&quot;y&quot;</span><span class="p">,</span> <span class="n">conf</span><span class="o">.</span><span class="n">endian</span> <span class="o">+</span> <span class="n">base</span><span class="p">,</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">j_total</span><span class="p">,)),</span>
-                    <span class="p">(</span><span class="s2">&quot;z&quot;</span><span class="p">,</span> <span class="n">conf</span><span class="o">.</span><span class="n">endian</span> <span class="o">+</span> <span class="n">base</span><span class="p">,</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">k_total</span><span class="p">,)),</span>
+                    <span class="p">(</span><span class="s2">"x"</span><span class="p">,</span> <span class="n">conf</span><span class="o">.</span><span class="n">endian</span> <span class="o">+</span> <span class="n">base</span><span class="p">,</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">i_total</span><span class="p">,)),</span>
+                    <span class="p">(</span><span class="s2">"y"</span><span class="p">,</span> <span class="n">conf</span><span class="o">.</span><span class="n">endian</span> <span class="o">+</span> <span class="n">base</span><span class="p">,</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">j_total</span><span class="p">,)),</span>
+                    <span class="p">(</span><span class="s2">"z"</span><span class="p">,</span> <span class="n">conf</span><span class="o">.</span><span class="n">endian</span> <span class="o">+</span> <span class="n">base</span><span class="p">,</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">k_total</span><span class="p">,)),</span>
                 <span class="p">]</span>
             <span class="p">)</span>
             <span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">fromfile</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">dtype</span><span class="p">,</span> <span class="n">count</span><span class="o">=</span><span class="mi">1</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
 
             <span class="c1"># geometry is defined at cell center</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;x&quot;</span><span class="p">][</span><span class="bp">self</span><span class="o">.</span><span class="n">margin</span> <span class="p">:</span> <span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">margin</span><span class="p">]</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;y&quot;</span><span class="p">][</span><span class="bp">self</span><span class="o">.</span><span class="n">margin</span> <span class="p">:</span> <span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">margin</span><span class="p">]</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">z</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;z&quot;</span><span class="p">][</span><span class="bp">self</span><span class="o">.</span><span class="n">margin</span> <span class="p">:</span> <span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">margin</span><span class="p">]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s2">"x"</span><span class="p">][</span><span class="bp">self</span><span class="o">.</span><span class="n">margin</span> <span class="p">:</span> <span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">margin</span><span class="p">]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s2">"y"</span><span class="p">][</span><span class="bp">self</span><span class="o">.</span><span class="n">margin</span> <span class="p">:</span> <span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">margin</span><span class="p">]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">z</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s2">"z"</span><span class="p">][</span><span class="bp">self</span><span class="o">.</span><span class="n">margin</span> <span class="p">:</span> <span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">margin</span><span class="p">]</span>
 
             <span class="c1"># geometry at cell edge</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">x_edge</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">i_size</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span>
@@ -173,14 +173,14 @@
 <div class="viewcode-block" id="Grid.set_ijk_params">
 <a class="viewcode-back" href="../../api/pymiso.Grid.html#pymiso.Grid.set_ijk_params">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">set_ijk_params</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">conf</span><span class="p">:</span> <span class="n">Conf</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Set start, end, margin, size, etc. for each direction</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
 <span class="sd">        conf : Conf</span>
 <span class="sd">            Instance of :class:`~pymiso.Conf` class</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">i_stride</span> <span class="o">=</span> <span class="mi">1</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">i_size</span> <span class="o">&gt;</span> <span class="mi">1</span> <span class="k">else</span> <span class="mi">0</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">j_stride</span> <span class="o">=</span> <span class="mi">1</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">j_size</span> <span class="o">&gt;</span> <span class="mi">1</span> <span class="k">else</span> <span class="mi">0</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">k_stride</span> <span class="o">=</span> <span class="mi">1</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">k_size</span> <span class="o">&gt;</span> <span class="mi">1</span> <span class="k">else</span> <span class="mi">0</span>
