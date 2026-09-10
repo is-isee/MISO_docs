@@ -1,0 +1,17 @@
+.. _exhale_class_classmiso_1_1mhd_1_1ModelBase:
+
+Template Class ModelBase
+========================
+
+- Defined in :ref:`file__home_runner_work_MISO_docs_MISO_docs_MISO_miso_include_miso_mhd_model_base.hpp`
+
+
+Class Documentation
+-------------------
+
+
+.. doxygenclass:: miso::mhd::ModelBase
+   :project: CPP
+   :members:
+   :protected-members:
+   :undoc-members:

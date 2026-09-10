@@ -1,0 +1,17 @@
+MPI
+===
+
+.. currentmodule:: pymiso
+
+.. autoclass:: MPI
+   :show-inheritance:
+
+   .. rubric:: Methods Summary
+
+   .. autosummary::
+
+      ~MPI.load
+
+   .. rubric:: Methods Documentation
+
+   .. automethod:: load

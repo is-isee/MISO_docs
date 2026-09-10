@@ -1,0 +1,17 @@
+Conf
+====
+
+.. currentmodule:: pymiso
+
+.. autoclass:: Conf
+   :show-inheritance:
+
+   .. rubric:: Methods Summary
+
+   .. autosummary::
+
+      ~Conf.load
+
+   .. rubric:: Methods Documentation
+
+   .. automethod:: load
