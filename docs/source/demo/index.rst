@@ -15,3 +15,4 @@ Test Problems
    hd2d_rayleigh_taylor.md
    mhd2d_vortex.md
    mhd3d_magnetosphere.md
+   rt2d_searchlight.md
