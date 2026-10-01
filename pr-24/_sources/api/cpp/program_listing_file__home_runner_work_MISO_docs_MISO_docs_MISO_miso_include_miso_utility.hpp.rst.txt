@@ -70,6 +70,10 @@ Program Listing for File utility.hpp
      return oss.str();
    }
    
+   template <class T> __host__ __device__ inline T clamp(T v, T lo, T hi) noexcept {
+     return v < lo ? lo : (v > hi ? hi : v);
+   }
+   
    template <typename T> __host__ __device__ inline T pow2(T x) { return x * x; }
    template <typename T> __host__ __device__ inline T pow3(T x) { return x * x * x; }
    template <typename T> __host__ __device__ inline T pow4(T x) {

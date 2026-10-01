@@ -13,6 +13,7 @@ Program Listing for File time.hpp
    #pragma once
    #include <cassert>
    #include <filesystem>
+   #include <stdexcept>
    
    // header for std::cout, std::fixed, std::setprecision, std::setw
    #include <iomanip>
@@ -33,6 +34,7 @@ Program Listing for File time.hpp
      int n_output;
      int n_output_digits;
      std::string time_save_dir;
+     bool io_enabled;
    
      void initialize() {
        time = 0;
@@ -43,15 +45,33 @@ Program Listing for File time.hpp
      Time(const Config &config)
          : tend(config["time"]["tend"].as<Real>()),
            dt_output(config["time"]["dt_output"].as<Real>()),
-           n_output_digits(config["time"]["n_output_digits"].as<int>()) {
-       assert(tend > 0);
-       assert(dt_output > 0);
+           n_output_digits(config["io"]["n_output_digits"].as<int>()),
+           io_enabled(config.yaml_obj["io"]["enabled"].as<bool>()) {
+       if (!(tend > 0)) {
+         throw std::runtime_error("time.tend must be positive.");
+       }
+       if (!(dt_output > 0)) {
+         throw std::runtime_error("time.dt_output must be positive.");
+       }
    
        initialize();
    
-       time_save_dir =
-           config.save_dir + config["time"]["time_save_dir"].as<std::string>();
-       util::create_directories(time_save_dir);
+       time_save_dir = (fs::path(config.save_dir) /
+                        config["io"]["time_save_dir"].as<std::string>())
+                           .string();
+       if (io_enabled) {
+         util::create_directories(time_save_dir);
+       }
+     }
+   
+     std::string time_filepath(int n_output_) const {
+       return (fs::path(time_save_dir) /
+               ("time." + util::zfill(n_output_, n_output_digits) + ".txt"))
+           .string();
+     }
+   
+     std::string n_output_filepath() const {
+       return (fs::path(time_save_dir) / "n_output.txt").string();
      }
    
      void update(const Real dt) {
@@ -60,38 +80,59 @@ Program Listing for File time.hpp
      };
    
      void save() const {
+       if (!io_enabled) {
+         return;
+       }
        if (mpi::is_root()) {
-         std::ostringstream fname;
-         fname << time_save_dir << "/time." << util::zfill(n_output, n_output_digits)
-               << ".txt";
-         std::ofstream ofs(fname.str());
-         assert(ofs.is_open());
+         const std::string fname = time_filepath(n_output);
+         std::ofstream ofs(fname);
+         if (!ofs.is_open()) {
+           throw std::runtime_error("Failed to open file: " + fname);
+         }
          ofs << time << "\n";
          ofs << n_output << "\n";
          ofs << n_step << "\n";
+         // 時刻ファイルの書き出しを確かめてから n_output.txt を進める
+         // (壊れたチェックポイントを指さないように)
+         ofs.close();
+         if (!ofs) {
+           throw std::runtime_error("Failed to write file: " + fname);
+         }
    
-         std::ofstream ofs_step(time_save_dir + "/n_output.txt");
-         assert(ofs_step.is_open());
+         std::ofstream ofs_step(n_output_filepath());
+         if (!ofs_step.is_open()) {
+           throw std::runtime_error("Failed to open file: " + n_output_filepath());
+         }
          ofs_step << n_output << "\n";
+         ofs_step.close();
+         if (!ofs_step) {
+           throw std::runtime_error("Failed to write file: " + n_output_filepath());
+         }
        }
      }
    
      void load() {
+       if (!io_enabled) {
+         return;
+       }
        if (mpi::is_root()) {
-         std::ifstream ifs_step(time_save_dir + "/n_output.txt");
-         ifs_step >> n_output;
-   
-         std::ostringstream fname;
-         fname << time_save_dir << "/time." << util::zfill(n_output, n_output_digits)
-               << ".txt";
-         std::ifstream ifs(fname.str());
-         if (!ifs.is_open()) {
-           throw std::runtime_error("Failed to open time file: " + fname.str());
+         std::ifstream ifs_step(n_output_filepath());
+         if (!ifs_step.is_open()) {
+           throw std::runtime_error("Failed to open file: " + n_output_filepath());
+         }
+         if (!(ifs_step >> n_output)) {
+           throw std::runtime_error("Failed to read file: " + n_output_filepath());
          }
    
-         ifs >> time;
-         ifs >> n_output;
-         ifs >> n_step;
+         const std::string fname = time_filepath(n_output);
+         std::ifstream ifs(fname);
+         if (!ifs.is_open()) {
+           throw std::runtime_error("Failed to open time file: " + fname);
+         }
+   
+         if (!(ifs >> time) || !(ifs >> n_output) || !(ifs >> n_step)) {
+           throw std::runtime_error("Failed to read time file: " + fname);
+         }
        }
    
        MPI_Bcast(&time, 1, mpi::data_type<Real>(), 0, mpi::comm());
@@ -100,6 +141,9 @@ Program Listing for File time.hpp
      }
    
      void log() const {
+       if (!io_enabled) {
+         return;
+       }
        if (mpi::is_root()) {
          std::cout << std::fixed << std::setprecision(2) << "time = " << std::setw(6)
                    << time << ";  n_step = " << std::setw(8) << n_step

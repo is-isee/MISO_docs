@@ -14,6 +14,7 @@ Program Listing for File grid.hpp
    
    #include <cassert>
    #include <exception>
+   #include <stdexcept>
    #include <utility>
    #include <vector>
    
@@ -334,6 +335,10 @@ Program Listing for File grid.hpp
    
      void save(const Config &config) const {
        if (mpi::is_root()) {
+         if (!config.yaml_obj["io"]["enabled"].as<bool>()) {
+           return;
+         }
+   
          // Generate global grid for saving
          const int margin = config["grid"]["margin"].as<int>();
          const int i_size_g = config["grid"]["i_size"].as<int>();
@@ -349,8 +354,12 @@ Program Listing for File grid.hpp
          auto z_grid = AxisGrid<Real>(k_size_g, margin, 0, z_provider);
    
          // Save global grid to a binary file
-         std::ofstream ofs(config.save_dir + "/grid.bin", std::ios::binary);
-         assert(ofs.is_open());
+         const std::string filename =
+             (fs::path(config.save_dir) / "grid.bin").string();
+         std::ofstream ofs(filename, std::ios::binary);
+         if (!ofs.is_open()) {
+           throw std::runtime_error("Failed to open file: " + filename);
+         }
    
          constexpr std::uint32_t elem_size = sizeof(Real);
          ofs.write(reinterpret_cast<const char *>(&elem_size),
@@ -363,6 +372,10 @@ Program Listing for File grid.hpp
          write_array(x_grid.s);
          write_array(y_grid.s);
          write_array(z_grid.s);
+         ofs.close();
+         if (!ofs) {
+           throw std::runtime_error("Failed to write file: " + filename);
+         }
        }
      }
    

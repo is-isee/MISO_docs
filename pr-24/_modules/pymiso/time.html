@@ -115,6 +115,7 @@
             <span class="nb">setattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">group</span><span class="p">,</span> <span class="n">values</span><span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">time_data_dir</span> <span class="o">=</span> <span class="n">conf</span><span class="o">.</span><span class="n">time_data_dir</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">n_output_digits</span> <span class="o">=</span> <span class="n">conf</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">n_output_digits</span>
         <span class="k">with</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">time_data_dir</span> <span class="o">/</span> <span class="s2">"n_output.txt"</span><span class="p">)</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s2">"r"</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">n_output</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">readline</span><span class="p">())</span></div>
 

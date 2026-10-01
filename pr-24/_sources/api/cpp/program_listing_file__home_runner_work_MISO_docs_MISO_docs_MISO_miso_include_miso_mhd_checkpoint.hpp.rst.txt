@@ -12,6 +12,8 @@ Program Listing for File mhd_checkpoint.hpp
 
    #pragma once
    
+   #include <stdexcept>
+   
    #include "array3d.hpp"
    #include "env.hpp"
    #include "grid.hpp"
@@ -27,26 +29,36 @@ Program Listing for File mhd_checkpoint.hpp
      int n_output_digits;
      std::string mhd_save_dir;
    
-     Checkpoint(Config &config, Grid<Real, backend::Host> &grid) : qq(grid) {
-       n_output_digits = config["mhd"]["n_output_digits"].as<int>();
-       mhd_save_dir =
-           config.save_dir + config["mhd"]["mhd_save_dir"].as<std::string>();
+     bool io_enabled;
+   
+     Checkpoint(Config &config, Grid<Real, backend::Host> &grid)
+         : qq(grid), io_enabled(config.yaml_obj["io"]["enabled"].as<bool>()) {
+       n_output_digits = config["io"]["n_output_digits"].as<int>();
+       mhd_save_dir = (fs::path(config.save_dir) /
+                       config["io"]["mhd_save_dir"].as<std::string>())
+                          .string();
      }
    
      std::string get_filename(const Time<Real> &time) const {
-       return mhd_save_dir + "mhd." +
-              util::zfill(time.n_output, time.n_output_digits) + "." +
-              util::zfill(mpi::rank(), n_output_digits) + ".bin";
+       return (fs::path(mhd_save_dir) /
+               ("mhd." + util::zfill(time.n_output, time.n_output_digits) + "." +
+                util::zfill(mpi::rank(), n_output_digits) + ".bin"))
+           .string();
      }
    
      template <typename Backend>
      void save(const Time<Real> &time, const Fields<Real, Backend> &qq_) {
+       if (!io_enabled) {
+         return;
+       }
        qq.copy_from(qq_);
    
        util::create_directories(mhd_save_dir);
        std::string filename = get_filename(time);
        std::ofstream ofs(filename, std::ios::binary);
-       assert(ofs.is_open());
+       if (!ofs.is_open()) {
+         throw std::runtime_error("Failed to open file: " + filename);
+       }
    
        constexpr std::uint32_t elem_size = sizeof(Real);
        ofs.write(reinterpret_cast<const char *>(&elem_size), sizeof(std::uint32_t));
@@ -64,16 +76,28 @@ Program Listing for File mhd_checkpoint.hpp
        write_array(qq.bz);
        write_array(qq.ei);
        write_array(qq.ph);
+       ofs.close();
+       if (!ofs) {
+         throw std::runtime_error("Failed to write file: " + filename);
+       }
      };
    
      template <typename Backend>
      void load(const Time<Real> &time, Fields<Real, Backend> &qq_) {
+       if (!io_enabled) {
+         return;
+       }
        std::string filename = get_filename(time);
        std::ifstream ifs(filename, std::ios::binary);
-       assert(ifs.is_open());
+       if (!ifs.is_open()) {
+         throw std::runtime_error("Failed to open file: " + filename);
+       }
    
-       std::uint32_t elem_size;
+       std::uint32_t elem_size = 0;
        ifs.read(reinterpret_cast<char *>(&elem_size), sizeof(std::uint32_t));
+       if (!ifs) {
+         throw std::runtime_error("Failed to read file: " + filename);
+       }
        if (elem_size != sizeof(Real)) {
          throw std::runtime_error(
              "Checkpoint file element size does not match Real type size.");
@@ -91,6 +115,9 @@ Program Listing for File mhd_checkpoint.hpp
        read_array(qq.bz);
        read_array(qq.ei);
        read_array(qq.ph);
+       if (!ifs) {
+         throw std::runtime_error("Failed to read file: " + filename);
+       }
    
        qq_.copy_from(qq);
      };

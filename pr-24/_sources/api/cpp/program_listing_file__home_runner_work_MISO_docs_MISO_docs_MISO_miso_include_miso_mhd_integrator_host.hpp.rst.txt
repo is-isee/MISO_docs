@@ -32,6 +32,7 @@ Program Listing for File mhd_integrator_host.hpp
      Array3D<Real, backend::Host> bb;
      Array3D<Real, backend::Host> ht;
      Array3D<Real, backend::Host> vb;
+     Array3D<Real, backend::Host> cs;
    
      Real cfl_number;
      Real ch_divb;
@@ -44,7 +45,8 @@ Program Listing for File mhd_integrator_host.hpp
            artdiff(config, grid), pr(grid.i_total, grid.j_total, grid.k_total),
            bb(grid.i_total, grid.j_total, grid.k_total),
            ht(grid.i_total, grid.j_total, grid.k_total),
-           vb(grid.i_total, grid.j_total, grid.k_total) {
+           vb(grid.i_total, grid.j_total, grid.k_total),
+           cs(grid.i_total, grid.j_total, grid.k_total) {
        cfl_number = config["mhd"]["cfl_number"].as<Real>();
      }
    
@@ -52,12 +54,13 @@ Program Listing for File mhd_integrator_host.hpp
      void update_sc4(const Real dt, const EOS &eos, const Source &src,
                      const Fields<Real> &qq_orgn, const Fields<Real> &qq_argm,
                      Fields<Real> &qq_rslt) {
+       // gas pressure
+       eos.gas_pressure(backend::Host{}, qq_argm.const_view(), pr.view());
+   
        for (int i = 0; i < grid.i_total; ++i) {
          for (int j = 0; j < grid.j_total; ++j) {
            for (int k = 0; k < grid.k_total; ++k) {
              // clang-format off
-             // gas pressure
-             pr(i, j, k) = qq_argm.ro(i,j,k)*qq_argm.ei(i,j,k)*(eos.gm - 1.0);
              // squared magnetic strength
              bb(i, j, k) = qq_argm.bx(i,j,k)*qq_argm.bx(i,j,k)
                          + qq_argm.by(i,j,k)*qq_argm.by(i,j,k)
@@ -109,6 +112,7 @@ Program Listing for File mhd_integrator_host.hpp
              -space_centered_4th(c_ro, c_vx, dxi, i, j, k, grid.is, 0, 0)
              -space_centered_4th(c_ro, c_vy, dyi, i, j, k, 0, grid.js, 0)
              -space_centered_4th(c_ro, c_vz, dzi, i, j, k, 0, 0, grid.ks)
+             +source_ro(src, c_qq, i, j, k)
              );
    
              // x equation of motion
@@ -124,7 +128,7 @@ Program Listing for File mhd_integrator_host.hpp
                      +space_centered_4th(c_bx, c_by, dyi, i, j, k, 0, grid.js, 0)
                      +space_centered_4th(c_bx, c_bz, dzi, i, j, k, 0, 0, grid.ks)
                      )
-                 +src.vx(c_qq, i, j, k)
+                 +source_vx(src, c_qq, i, j, k)
                  )
              )/qq_rslt.ro(i, j, k);
    
@@ -141,7 +145,7 @@ Program Listing for File mhd_integrator_host.hpp
                      +space_centered_4th(c_by, c_by, dyi, i, j, k, 0, grid.js, 0)
                      +space_centered_4th(c_by, c_bz, dzi, i, j, k, 0, 0, grid.ks)
                      )
-                 +src.vy(c_qq, i, j, k)
+                 +source_vy(src, c_qq, i, j, k)
                  )
              )/qq_rslt.ro(i, j, k);
    
@@ -158,7 +162,7 @@ Program Listing for File mhd_integrator_host.hpp
                      +space_centered_4th(c_bz, c_by, dyi, i, j, k, 0, grid.js, 0)
                      +space_centered_4th(c_bz, c_bz, dzi, i, j, k, 0, 0, grid.ks)
                      )
-                 +src.vz(c_qq, i, j, k)
+                 +source_vz(src, c_qq, i, j, k)
                  )
              )/qq_rslt.ro(i, j, k);
    
@@ -169,6 +173,7 @@ Program Listing for File mhd_integrator_host.hpp
                  +space_centered_4th(c_vx, c_by, dyi, i, j, k, 0, grid.js, 0)
                  +space_centered_4th(c_vx, c_bz, dzi, i, j, k, 0, 0, grid.ks)
                  -space_centered_4th(c_ph, dxi, i, j, k, grid.is, 0, 0)
+                 +source_bx(src, c_qq, i, j, k)
              );
    
              // y magnetic induction
@@ -178,6 +183,7 @@ Program Listing for File mhd_integrator_host.hpp
                  +space_centered_4th(c_vy, c_bx, dxi, i, j, k, grid.is, 0, 0)
                  +space_centered_4th(c_vy, c_bz, dzi, i, j, k, 0, 0, grid.ks)
                  -space_centered_4th(c_ph, dyi, i, j, k, 0, grid.js, 0)
+                 +source_by(src, c_qq, i, j, k)
              );
    
              // z magnetic induction
@@ -187,6 +193,7 @@ Program Listing for File mhd_integrator_host.hpp
                  +space_centered_4th(c_vz, c_bx, dxi, i, j, k, grid.is, 0, 0)
                  +space_centered_4th(c_vz, c_by, dyi, i, j, k, 0, grid.js, 0)
                  -space_centered_4th(c_ph, dzi, i, j, k, 0, 0, grid.ks)
+                 +source_bz(src, c_qq, i, j, k)
              );
    
              // div B factor
@@ -196,7 +203,7 @@ Program Listing for File mhd_integrator_host.hpp
                  -space_centered_4th(c_by, dyi, i, j, k, 0, grid.js, 0)
                  -space_centered_4th(c_bz, dzi, i, j, k, 0, 0, grid.ks)
                  )
-             )*std::exp(-dt/tau_divb);
+             )*util::exp(-dt/tau_divb);
    
              // Et: total energy per unit volume
              // ei: is the internal energy per unit mass
@@ -231,7 +238,7 @@ Program Listing for File mhd_integrator_host.hpp
                      + qq_rslt.bx(i, j, k)*qq_rslt.bx(i, j, k)
                      + qq_rslt.by(i, j, k)*qq_rslt.by(i, j, k)
                      + qq_rslt.bz(i, j, k)*qq_rslt.bz(i, j, k) )
-                 + src.ei(c_qq, i, j, k)
+                 + dt * source_ei(src, c_qq, i, j, k)
              )/qq_rslt.ro(i, j, k);
              // clang-format on
            }
@@ -290,28 +297,28 @@ Program Listing for File mhd_integrator_host.hpp
      }
    
      template <typename EOS>
-     Real cfl(const Fields<Real, backend::Host> &qq, const EOS &eos) const {
+     Real cfl(const Fields<Real, backend::Host> &qq, const EOS &eos) {
        Real dt = 1.e10;
+       eos.sound_speed(backend::Host{}, qq.const_view(), cs.view());
        for (int i = grid.i_margin; i < grid.i_total - grid.i_margin; ++i) {
          for (int j = grid.j_margin; j < grid.j_total - grid.j_margin; ++j) {
            for (int k = grid.k_margin; k < grid.k_total - grid.k_margin; ++k) {
              // clang-format off
              // cs: sound speed, vv: fluid velocity, ca: Alfvén speed
-             Real cs = std::sqrt(eos.gm*(eos.gm-1.0)*qq.ei(i,j,k));
-             Real vv = std::sqrt(
+             Real vv = util::sqrt(
                + qq.vx(i,j,k)*qq.vx(i,j,k)
                + qq.vy(i,j,k)*qq.vy(i,j,k)
                + qq.vz(i,j,k)*qq.vz(i,j,k)
              );
-             Real ca = std::sqrt( (
+             Real ca = util::sqrt((
                + qq.bx(i,j,k)*qq.bx(i,j,k)
                + qq.by(i,j,k)*qq.by(i,j,k)
                + qq.bz(i,j,k)*qq.bz(i,j,k)
              )/qq.ro(i,j,k)*pii4<Real>);
    
-             Real total_vel = cs + vv + ca;
-             dt = std::min(dt, cfl_number
-               * std::min<Real>({grid.dx[i], grid.dy[j], grid.dz[k]})/total_vel);
+             Real total_vel = cs(i, j, k) + vv + ca;
+             dt = util::min2(dt, cfl_number
+               * util::min3<Real>(grid.dx[i], grid.dy[j], grid.dz[k])/total_vel);
              // clang-format on
            }
          }

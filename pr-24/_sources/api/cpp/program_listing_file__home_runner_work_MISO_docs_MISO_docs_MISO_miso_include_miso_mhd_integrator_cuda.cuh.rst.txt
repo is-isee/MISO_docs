@@ -26,10 +26,10 @@ Program Listing for File mhd_integrator_cuda.cuh
    namespace mhd {
    
    template <typename Real>
-   __global__ void pr_bb_ht_vb_kernel(FieldsView<const Real> qq_argm,
-                                      Array3DView<Real> pr, Array3DView<Real> bb,
-                                      Array3DView<Real> ht, Array3DView<Real> vb,
-                                      GridView<const Real> grid, Real eos_gm) {
+   __global__ void bb_ht_vb_kernel(FieldsView<const Real> qq_argm,
+                                   Array3DView<Real> pr, Array3DView<Real> bb,
+                                   Array3DView<Real> ht, Array3DView<Real> vb,
+                                   GridView<const Real> grid) {
      int i = blockIdx.x * blockDim.x + threadIdx.x;
      int j = blockIdx.y * blockDim.y + threadIdx.y;
      int k = blockIdx.z * blockDim.z + threadIdx.z;
@@ -38,8 +38,6 @@ Program Listing for File mhd_integrator_cuda.cuh
          k >= grid.k_total)
        return;
    
-     // gas pressure
-     pr(i, j, k) = qq_argm.ro(i, j, k) * qq_argm.ei(i, j, k) * (eos_gm - 1.0);
      // squared magnetic strength
      bb(i, j, k) = qq_argm.bx(i, j, k) * qq_argm.bx(i, j, k) +
                    qq_argm.by(i, j, k) * qq_argm.by(i, j, k) +
@@ -74,10 +72,11 @@ Program Listing for File mhd_integrator_cuda.cuh
               k < grid.k_margin || k >= grid.k_total - grid.k_margin);
    }
    
-   template <typename Real>
-   __global__ void
-   update_ro_kernel(FieldsView<const Real> qq_orgn, FieldsView<const Real> qq_argm,
-                    FieldsView<Real> qq_rslt, GridView<const Real> grid, Real dt) {
+   template <typename Real, typename Source>
+   __global__ void update_ro_kernel(FieldsView<const Real> qq_orgn,
+                                    FieldsView<const Real> qq_argm,
+                                    FieldsView<Real> qq_rslt, Source src,
+                                    GridView<const Real> grid, Real dt) {
      int i, j, k;
      if (!compute_index_within_margin(i, j, k, grid))
        return;
@@ -87,7 +86,8 @@ Program Listing for File mhd_integrator_cuda.cuh
      qq_rslt.ro(i, j, k) = qq_orgn.ro(i, j, k) + dt * (
          - space_centered_4th(qq_argm.ro, qq_argm.vx, grid.dxi[i], i, j, k, grid.is, 0, 0)
          - space_centered_4th(qq_argm.ro, qq_argm.vy, grid.dyi[j], i, j, k, 0, grid.js, 0)
-         - space_centered_4th(qq_argm.ro, qq_argm.vz, grid.dzi[k], i, j, k, 0, 0, grid.ks));
+         - space_centered_4th(qq_argm.ro, qq_argm.vz, grid.dzi[k], i, j, k, 0, 0, grid.ks)
+         + source_ro(src, qq_argm, i, j, k));
      // clang-format on
    }
    
@@ -114,7 +114,7 @@ Program Listing for File mhd_integrator_cuda.cuh
                + pii4<Real> * (+ space_centered_4th(qq_argm.bx, qq_argm.bx, grid.dxi[i], i, j, k, grid.is, 0, 0)
                                + space_centered_4th(qq_argm.bx, qq_argm.by, grid.dyi[j], i, j, k, 0, grid.js, 0)
                                + space_centered_4th(qq_argm.bx, qq_argm.bz, grid.dzi[k], i, j, k, 0, 0, grid.ks))
-               + src.vx(qq_argm, i, j, k)
+               + source_vx(src, qq_argm, i, j, k)
                )) / qq_rslt.ro(i, j, k);
      // clang-format on
    }
@@ -142,7 +142,7 @@ Program Listing for File mhd_integrator_cuda.cuh
                + pii4<Real> * (+ space_centered_4th(qq_argm.by, qq_argm.bx, grid.dxi[i], i, j, k, grid.is, 0, 0)
                                + space_centered_4th(qq_argm.by, qq_argm.by, grid.dyi[j], i, j, k, 0, grid.js, 0)
                                + space_centered_4th(qq_argm.by, qq_argm.bz, grid.dzi[k], i, j, k, 0, 0, grid.ks))
-               + src.vy(qq_argm, i, j, k)
+               + source_vy(src, qq_argm, i, j, k)
                )) / qq_rslt.ro(i, j, k);
      // clang-format on
    }
@@ -170,15 +170,16 @@ Program Listing for File mhd_integrator_cuda.cuh
                 + pii4<Real> * (+ space_centered_4th(qq_argm.bz, qq_argm.bx, grid.dxi[i], i, j, k, grid.is, 0, 0)
                                 + space_centered_4th(qq_argm.bz, qq_argm.by, grid.dyi[j], i, j, k, 0, grid.js, 0)
                                 + space_centered_4th(qq_argm.bz, qq_argm.bz, grid.dzi[k], i, j, k, 0, 0, grid.ks))
-                + src.vz(qq_argm, i, j, k)
+                + source_vz(src, qq_argm, i, j, k)
              )) / qq_rslt.ro(i, j, k);
      // clang-format on
    }
    
-   template <typename Real>
-   __global__ void
-   update_bx_kernel(FieldsView<const Real> qq_orgn, FieldsView<const Real> qq_argm,
-                    FieldsView<Real> qq_rslt, GridView<const Real> grid, Real dt) {
+   template <typename Real, typename Source>
+   __global__ void update_bx_kernel(FieldsView<const Real> qq_orgn,
+                                    FieldsView<const Real> qq_argm,
+                                    FieldsView<Real> qq_rslt, Source src,
+                                    GridView<const Real> grid, Real dt) {
      int i, j, k;
      if (!compute_index_within_margin(i, j, k, grid))
        return;
@@ -191,14 +192,16 @@ Program Listing for File mhd_integrator_cuda.cuh
                - space_centered_4th(qq_argm.vz, qq_argm.bx, grid.dzi[k], i, j, k, 0, 0, grid.ks)
                + space_centered_4th(qq_argm.vx, qq_argm.by, grid.dyi[j], i, j, k, 0, grid.js, 0)
                + space_centered_4th(qq_argm.vx, qq_argm.bz, grid.dzi[k], i, j, k, 0, 0, grid.ks)
-               - space_centered_4th(qq_argm.ph, grid.dxi[i], i, j, k, grid.is, 0, 0));
+               - space_centered_4th(qq_argm.ph, grid.dxi[i], i, j, k, grid.is, 0, 0)
+               + source_bx(src, qq_argm, i, j, k));
      // clang-format on
    }
    
-   template <typename Real>
-   __global__ void
-   update_by_kernel(FieldsView<const Real> qq_orgn, FieldsView<const Real> qq_argm,
-                    FieldsView<Real> qq_rslt, GridView<const Real> grid, Real dt) {
+   template <typename Real, typename Source>
+   __global__ void update_by_kernel(FieldsView<const Real> qq_orgn,
+                                    FieldsView<const Real> qq_argm,
+                                    FieldsView<Real> qq_rslt, Source src,
+                                    GridView<const Real> grid, Real dt) {
      int i, j, k;
      if (!compute_index_within_margin(i, j, k, grid))
        return;
@@ -211,14 +214,16 @@ Program Listing for File mhd_integrator_cuda.cuh
                - space_centered_4th(qq_argm.vz, qq_argm.by, grid.dzi[k], i, j, k, 0, 0, grid.ks)
                + space_centered_4th(qq_argm.vy, qq_argm.bx, grid.dxi[i], i, j, k, grid.is, 0, 0)
                + space_centered_4th(qq_argm.vy, qq_argm.bz, grid.dzi[k], i, j, k, 0, 0, grid.ks)
-               - space_centered_4th(qq_argm.ph, grid.dyi[j], i, j, k, 0, grid.js, 0));
+               - space_centered_4th(qq_argm.ph, grid.dyi[j], i, j, k, 0, grid.js, 0)
+               + source_by(src, qq_argm, i, j, k));
      // clang-format on
    }
    
-   template <typename Real>
-   __global__ void
-   update_bz_kernel(FieldsView<const Real> qq_orgn, FieldsView<const Real> qq_argm,
-                    FieldsView<Real> qq_rslt, GridView<const Real> grid, Real dt) {
+   template <typename Real, typename Source>
+   __global__ void update_bz_kernel(FieldsView<const Real> qq_orgn,
+                                    FieldsView<const Real> qq_argm,
+                                    FieldsView<Real> qq_rslt, Source src,
+                                    GridView<const Real> grid, Real dt) {
      int i, j, k;
      if (!compute_index_within_margin(i, j, k, grid))
        return;
@@ -231,7 +236,8 @@ Program Listing for File mhd_integrator_cuda.cuh
                - space_centered_4th(qq_argm.vy, qq_argm.bz, grid.dyi[j], i, j, k, 0, grid.js, 0)
                + space_centered_4th(qq_argm.vz, qq_argm.bx, grid.dxi[i], i, j, k, grid.is, 0, 0)
                + space_centered_4th(qq_argm.vz, qq_argm.by, grid.dyi[j], i, j, k, 0, grid.js, 0)
-               - space_centered_4th(qq_argm.ph, grid.dzi[k], i, j, k, 0, 0, grid.ks));
+               - space_centered_4th(qq_argm.ph, grid.dzi[k], i, j, k, 0, 0, grid.ks)
+               + source_bz(src, qq_argm, i, j, k));
      // clang-format on
    }
    
@@ -297,7 +303,7 @@ Program Listing for File mhd_integrator_cuda.cuh
               (+ qq_rslt.bx(i, j, k) * qq_rslt.bx(i, j, k)
                + qq_rslt.by(i, j, k) * qq_rslt.by(i, j, k)
                + qq_rslt.bz(i, j, k) * qq_rslt.bz(i, j, k))
-          + src.ei(qq_argm, i, j, k)
+          + dt * source_ei(src, qq_argm, i, j, k)
          ) / qq_rslt.ro(i, j, k);
      // clang-format on
    }
@@ -317,6 +323,7 @@ Program Listing for File mhd_integrator_cuda.cuh
      Array3D<Real, backend::CUDA> bb;
      Array3D<Real, backend::CUDA> ht;
      Array3D<Real, backend::CUDA> vb;
+     Array3D<Real, backend::CUDA> cs;
    
      Real cfl_number;
      Real ch_divb;
@@ -330,7 +337,8 @@ Program Listing for File mhd_integrator_cuda.cuh
            pr(grid.i_total, grid.j_total, grid.k_total),
            bb(grid.i_total, grid.j_total, grid.k_total),
            ht(grid.i_total, grid.j_total, grid.k_total),
-           vb(grid.i_total, grid.j_total, grid.k_total) {
+           vb(grid.i_total, grid.j_total, grid.k_total),
+           cs(grid.i_total, grid.j_total, grid.k_total) {
        cfl_number = config["mhd"]["cfl_number"].as<Real>();
      }
    
@@ -341,13 +349,13 @@ Program Listing for File mhd_integrator_cuda.cuh
                      Fields<Real, backend::CUDA> &qq_rslt) {
        const auto &cgrid = grid.const_view();
    
-       pr_bb_ht_vb_kernel<Real><<<cu_shape.grid_dim, cu_shape.block_dim>>>(
-           qq_argm.view(), pr.view(), bb.view(), ht.view(), vb.view(), cgrid,
-           eos.gm);
+       eos.gas_pressure(backend::CUDA{}, qq_argm.const_view(), pr.view());
+       bb_ht_vb_kernel<Real><<<cu_shape.grid_dim, cu_shape.block_dim>>>(
+           qq_argm.view(), pr.view(), bb.view(), ht.view(), vb.view(), cgrid);
        MISO_CUDA_CHECK(cudaGetLastError());
    
        update_ro_kernel<Real><<<cu_shape.grid_dim, cu_shape.block_dim>>>(
-           qq_orgn.view(), qq_argm.view(), qq_rslt.view(), cgrid, dt);
+           qq_orgn.view(), qq_argm.view(), qq_rslt.view(), src, cgrid, dt);
        MISO_CUDA_CHECK(cudaGetLastError());
    
        update_vx_kernel<Real><<<cu_shape.grid_dim, cu_shape.block_dim>>>(
@@ -366,15 +374,15 @@ Program Listing for File mhd_integrator_cuda.cuh
        MISO_CUDA_CHECK(cudaGetLastError());
    
        update_bx_kernel<Real><<<cu_shape.grid_dim, cu_shape.block_dim>>>(
-           qq_orgn.view(), qq_argm.view(), qq_rslt.view(), cgrid, dt);
+           qq_orgn.view(), qq_argm.view(), qq_rslt.view(), src, cgrid, dt);
        MISO_CUDA_CHECK(cudaGetLastError());
    
        update_by_kernel<Real><<<cu_shape.grid_dim, cu_shape.block_dim>>>(
-           qq_orgn.view(), qq_argm.view(), qq_rslt.view(), cgrid, dt);
+           qq_orgn.view(), qq_argm.view(), qq_rslt.view(), src, cgrid, dt);
        MISO_CUDA_CHECK(cudaGetLastError());
    
        update_bz_kernel<Real><<<cu_shape.grid_dim, cu_shape.block_dim>>>(
-           qq_orgn.view(), qq_argm.view(), qq_rslt.view(), cgrid, dt);
+           qq_orgn.view(), qq_argm.view(), qq_rslt.view(), src, cgrid, dt);
        MISO_CUDA_CHECK(cudaGetLastError());
    
        update_ph_kernel<Real><<<cu_shape.grid_dim, cu_shape.block_dim>>>(
@@ -443,12 +451,15 @@ Program Listing for File mhd_integrator_cuda.cuh
      Real cfl(const Fields<Real, backend::CUDA> &qq, const EOS &eos) {
        auto qq_v = qq.const_view();
        auto grid_v = grid.const_view();
+       auto cs_v = cs.view();
+       // device lambdas must not capture `this`
+       const Real cfl_number_ = cfl_number;
    
+       eos.sound_speed(backend::CUDA{}, qq_v, cs_v);
        Range3D range{{grid.i_margin, grid.i_total - grid.i_margin},
                      {grid.j_margin, grid.j_total - grid.j_margin},
                      {grid.k_margin, grid.k_total - grid.k_margin}};
        const auto f = MISO_LAMBDA(int i, int j, int k) {
-         Real cs = util::sqrt(eos.gm * (eos.gm - 1.0) * qq_v.ei(i, j, k));
          Real vv = util::sqrt(qq_v.vx(i, j, k) * qq_v.vx(i, j, k) +
                               qq_v.vy(i, j, k) * qq_v.vy(i, j, k) +
                               qq_v.vz(i, j, k) * qq_v.vz(i, j, k));
@@ -456,9 +467,9 @@ Program Listing for File mhd_integrator_cuda.cuh
                                qq_v.by(i, j, k) * qq_v.by(i, j, k) +
                                qq_v.bz(i, j, k) * qq_v.bz(i, j, k)) /
                               qq_v.ro(i, j, k) * pii4<Real>);
-         Real total_vel = (cs + vv + ca);
+         Real total_vel = cs_v(i, j, k) + vv + ca;
          Real dxyz = util::min3(grid_v.dx[i], grid_v.dy[j], grid_v.dz[k]);
-         return cfl_number * dxyz / total_vel;
+         return cfl_number_ * dxyz / total_vel;
        };
        const auto op = MISO_LAMBDA(Real a, Real b) { return util::min2(a, b); };
        const Real dt_max = 1.e10;

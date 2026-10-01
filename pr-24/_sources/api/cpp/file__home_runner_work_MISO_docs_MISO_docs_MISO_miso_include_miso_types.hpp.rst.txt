@@ -34,6 +34,8 @@ Included By
 
 - :ref:`file__home_runner_work_MISO_docs_MISO_docs_MISO_miso_include_miso_boundary_condition.hpp`
 
+- :ref:`file__home_runner_work_MISO_docs_MISO_docs_MISO_miso_include_miso_core.hpp`
+
 - :ref:`file__home_runner_work_MISO_docs_MISO_docs_MISO_miso_include_miso_mhd_halo_exchange.hpp`
 
 - :ref:`file__home_runner_work_MISO_docs_MISO_docs_MISO_miso_include_miso_mhd_model_base.hpp`

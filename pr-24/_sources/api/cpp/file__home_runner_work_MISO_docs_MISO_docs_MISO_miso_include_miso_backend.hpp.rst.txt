@@ -34,9 +34,15 @@ Included By
 
 - :ref:`file__home_runner_work_MISO_docs_MISO_docs_MISO_miso_include_miso_array1d.hpp`
 
+- :ref:`file__home_runner_work_MISO_docs_MISO_docs_MISO_miso_include_miso_array2d.hpp`
+
 - :ref:`file__home_runner_work_MISO_docs_MISO_docs_MISO_miso_include_miso_array3d.hpp`
 
+- :ref:`file__home_runner_work_MISO_docs_MISO_docs_MISO_miso_include_miso_array4d.hpp`
+
 - :ref:`file__home_runner_work_MISO_docs_MISO_docs_MISO_miso_include_miso_boundary_condition.hpp`
+
+- :ref:`file__home_runner_work_MISO_docs_MISO_docs_MISO_miso_include_miso_core.hpp`
 
 - :ref:`file__home_runner_work_MISO_docs_MISO_docs_MISO_miso_include_miso_execution.hpp`
 

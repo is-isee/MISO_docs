@@ -64,10 +64,17 @@ Program Listing for File mpi_util.hpp
      int x_procs_neg, y_procs_neg, z_procs_neg;
      std::string mpi_save_dir;
    
+     bool io_enabled;
+   
      Shape(const Config &config) {
-       mpi_save_dir =
-           config.save_dir + config["mpi"]["mpi_save_dir"].as<std::string>();
-       util::create_directories(mpi_save_dir);
+   
+       mpi_save_dir = (fs::path(config.save_dir) /
+                       config["io"]["mpi_save_dir"].as<std::string>())
+                          .string();
+       io_enabled = config.yaml_obj["io"]["enabled"].as<bool>();
+       if (io_enabled) {
+         util::create_directories(mpi_save_dir);
+       }
    
        x_procs = config["mpi"]["x_procs"].as<int>();
        y_procs = config["mpi"]["y_procs"].as<int>();
@@ -112,11 +119,14 @@ Program Listing for File mpi_util.hpp
      }
    
      void save() const {
+       if (!io_enabled) {
+         return;
+       }
        int all_coords[ndims * n_procs];
        MPI_Gather(coord, ndims, MPI_INT, all_coords, ndims, MPI_INT, 0, cart_comm);
    
        if (mpi::is_root()) {
-         std::ofstream ofs(mpi_save_dir + "/coords.csv");
+         std::ofstream ofs((fs::path(mpi_save_dir) / "coords.csv").string());
          ofs << "rank,x,y,z\n";
          for (int rank = 0; rank < n_procs; ++rank) {
            ofs << rank << "," << all_coords[rank * 3 + 0] << ","
