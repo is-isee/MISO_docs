@@ -27,7 +27,7 @@
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="Template Class ModelBase" href="classmiso_1_1mhd_1_1ModelBase.html" />
+    <link rel="next" title="Template Class Array4D&lt; T, backend::CUDA &gt;" href="classmiso_1_1Array4D_3_01T_00_01backend_1_1CUDA_01_4.html" />
     <link rel="prev" title="Template Class Array3DView" href="classmiso_1_1Array3DView.html" /> 
 </head>
 
@@ -116,126 +116,9 @@
 <section id="class-documentation">
 <h2>Class Documentation<a class="headerlink" href="#class-documentation" title="Link to this heading"></a></h2>
 <dl class="cpp class">
-<dt class="sig sig-object cpp" id="_CPPv4I0EN4miso7Array4DE">
-<span id="_CPPv3I0EN4miso7Array4DE"></span><span id="_CPPv2I0EN4miso7Array4DE"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">T</span></span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="target" id="classmiso_1_1Array4D"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Array4D</span></span></span><a class="headerlink" href="#_CPPv4I0EN4miso7Array4DE" title="Link to this definition"></a><br /></dt>
-<dd><p>4D array class </p>
-<dl class="field-list simple">
-<dt class="field-odd">Template Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>T</strong> – Type of the array elements </p>
-</dd>
-</dl>
-<div class="breathe-sectiondef docutils container">
-<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-functions">Public Functions</p>
-<dl class="cpp function">
-<dt class="sig sig-object cpp" id="_CPPv4N4miso7Array4D7Array4DEiiii">
-<span id="_CPPv3N4miso7Array4D7Array4DEiiii"></span><span id="_CPPv2N4miso7Array4D7Array4DEiiii"></span><span id="miso::Array4D::Array4D__i.i.i.i"></span><span class="target" id="classmiso_1_1Array4D_1a80d814b27b4fb3c24de35977e477ce51"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Array4D</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">i_total_</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">j_total_</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">k_total_</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">l_total_</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4miso7Array4D7Array4DEiiii" title="Link to this definition"></a><br /></dt>
-<dd><p>Constructor. </p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>i_total_</strong> – Total size in x direction including margin </p></li>
-<li><p><strong>j_total_</strong> – Total size in y direction including margin </p></li>
-<li><p><strong>k_total_</strong> – Total size in z direction including margin </p></li>
-<li><p><strong>l_total_</strong> – Total size in w direction </p></li>
-</ul>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="cpp function">
-<dt class="sig sig-object cpp" id="_CPPv4N4miso7Array4DclEiiii">
-<span id="_CPPv3N4miso7Array4DclEiiii"></span><span id="_CPPv2N4miso7Array4DclEiiii"></span><span id="miso::Array4D::call-operator__i.i.i.i"></span><span class="target" id="classmiso_1_1Array4D_1aea68ac2ef4f0b6e5b93aca24048a2631"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4I0EN4miso7Array4DE" title="miso::Array4D::T"><span class="n"><span class="pre">T</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="o"><span class="pre">()</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">i</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">j</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">k</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">l</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4miso7Array4DclEiiii" title="Link to this definition"></a><br /></dt>
-<dd><p>overload function for accessing the 4D array elements </p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>i</strong> – i index </p></li>
-<li><p><strong>j</strong> – j index </p></li>
-<li><p><strong>k</strong> – k index </p></li>
-<li><p><strong>l</strong> – l index </p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>Reference to the element at (i, j, k, l) </p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="cpp function">
-<dt class="sig sig-object cpp" id="_CPPv4NK4miso7Array4DclEiiii">
-<span id="_CPPv3NK4miso7Array4DclEiiii"></span><span id="_CPPv2NK4miso7Array4DclEiiii"></span><span id="miso::Array4D::call-operator__i.i.i.iC"></span><span class="target" id="classmiso_1_1Array4D_1af013f065cc1ba7bd5c900676f02e9149"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4I0EN4miso7Array4DE" title="miso::Array4D::T"><span class="n"><span class="pre">T</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="o"><span class="pre">()</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">i</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">j</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">k</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">l</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK4miso7Array4DclEiiii" title="Link to this definition"></a><br /></dt>
-<dd><p>overload function for accessing the 4D array elements (const version) </p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>i</strong> – i index </p></li>
-<li><p><strong>j</strong> – j index </p></li>
-<li><p><strong>k</strong> – k index </p></li>
-<li><p><strong>l</strong> – l index </p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p></p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="cpp function">
-<dt class="sig sig-object cpp" id="_CPPv4N4miso7Array4D4dataEv">
-<span id="_CPPv3N4miso7Array4D4dataEv"></span><span id="_CPPv2N4miso7Array4D4dataEv"></span><span id="miso::Array4D::data"></span><span class="target" id="classmiso_1_1Array4D_1a512ea903e9d4e3e7c1bf599044d36560"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4I0EN4miso7Array4DE" title="miso::Array4D::T"><span class="n"><span class="pre">T</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">data</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4miso7Array4D4dataEv" title="Link to this definition"></a><br /></dt>
-<dd><p>overload function for accessing the 4D array elements </p>
-</dd></dl>
-
-<dl class="cpp function">
-<dt class="sig sig-object cpp" id="_CPPv4NK4miso7Array4D4dataEv">
-<span id="_CPPv3NK4miso7Array4D4dataEv"></span><span id="_CPPv2NK4miso7Array4D4dataEv"></span><span id="miso::Array4D::dataC"></span><span class="target" id="classmiso_1_1Array4D_1a02eef703222f7bc63f028c6f576baec8"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4I0EN4miso7Array4DE" title="miso::Array4D::T"><span class="n"><span class="pre">T</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">data</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK4miso7Array4D4dataEv" title="Link to this definition"></a><br /></dt>
-<dd><p>overload function for accessing the 4D array elements (const version) </p>
-</dd></dl>
-
-<dl class="cpp function">
-<dt class="sig sig-object cpp" id="_CPPv4NK4miso7Array4D6size_xEv">
-<span id="_CPPv3NK4miso7Array4D6size_xEv"></span><span id="_CPPv2NK4miso7Array4D6size_xEv"></span><span id="miso::Array4D::size_xC"></span><span class="target" id="classmiso_1_1Array4D_1a5695efd4ceac6fedbca3a542beb17ec5"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">size_x</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK4miso7Array4D6size_xEv" title="Link to this definition"></a><br /></dt>
-<dd><p>Get size in x direction. </p>
-</dd></dl>
-
-<dl class="cpp function">
-<dt class="sig sig-object cpp" id="_CPPv4NK4miso7Array4D6size_yEv">
-<span id="_CPPv3NK4miso7Array4D6size_yEv"></span><span id="_CPPv2NK4miso7Array4D6size_yEv"></span><span id="miso::Array4D::size_yC"></span><span class="target" id="classmiso_1_1Array4D_1a60bbb052e4ffbb3e2c0eb57ae0d89f1d"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">size_y</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK4miso7Array4D6size_yEv" title="Link to this definition"></a><br /></dt>
-<dd><p>Get size in y direction. </p>
-</dd></dl>
-
-<dl class="cpp function">
-<dt class="sig sig-object cpp" id="_CPPv4NK4miso7Array4D6size_zEv">
-<span id="_CPPv3NK4miso7Array4D6size_zEv"></span><span id="_CPPv2NK4miso7Array4D6size_zEv"></span><span id="miso::Array4D::size_zC"></span><span class="target" id="classmiso_1_1Array4D_1aaeec9e3f690078a39cd43bf9ebbac313"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">size_z</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK4miso7Array4D6size_zEv" title="Link to this definition"></a><br /></dt>
-<dd><p>Get size in z direction. </p>
-</dd></dl>
-
-<dl class="cpp function">
-<dt class="sig sig-object cpp" id="_CPPv4NK4miso7Array4D6size_wEv">
-<span id="_CPPv3NK4miso7Array4D6size_wEv"></span><span id="_CPPv2NK4miso7Array4D6size_wEv"></span><span id="miso::Array4D::size_wC"></span><span class="target" id="classmiso_1_1Array4D_1a8aaa654469c0b433ecbf141d1c432f6a"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">size_w</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK4miso7Array4D6size_wEv" title="Link to this definition"></a><br /></dt>
-<dd><p>Get size in type direction. </p>
-</dd></dl>
-
-<dl class="cpp function">
-<dt class="sig sig-object cpp" id="_CPPv4NK4miso7Array4D4sizeEv">
-<span id="_CPPv3NK4miso7Array4D4sizeEv"></span><span id="_CPPv2NK4miso7Array4D4sizeEv"></span><span id="miso::Array4D::sizeC"></span><span class="target" id="classmiso_1_1Array4D_1a31ba01cde3d2f6f1c8315167f27ea3b3"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">size</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK4miso7Array4D4sizeEv" title="Link to this definition"></a><br /></dt>
-<dd><p>Get total size of the array. </p>
-</dd></dl>
-
-<dl class="cpp function">
-<dt class="sig sig-object cpp" id="_CPPv4N4miso7Array4D9copy_fromERK7Array4D">
-<span id="_CPPv3N4miso7Array4D9copy_fromERK7Array4D"></span><span id="_CPPv2N4miso7Array4D9copy_fromERK7Array4D"></span><span id="miso::Array4D::copy_from__Array4DCR"></span><span class="target" id="classmiso_1_1Array4D_1a7ded5677419a728fcb73b07c6f022417"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">copy_from</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4I0EN4miso7Array4DE" title="miso::Array4D"><span class="n"><span class="pre">Array4D</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">other</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4miso7Array4D9copy_fromERK7Array4D" title="Link to this definition"></a><br /></dt>
-<dd><p>Copy elements from another <a class="reference internal" href="#classmiso_1_1Array4D"><span class="std std-ref">Array4D</span></a> object. </p>
-<p>
-The dimensions of the other array must match the current array. </p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>other</strong> – copy source array</p>
-</dd>
-</dl>
-</dd></dl>
-
-</div>
+<dt class="sig sig-object cpp" id="_CPPv4I00EN4miso7Array4DE">
+<span id="_CPPv3I00EN4miso7Array4DE"></span><span id="_CPPv2I00EN4miso7Array4DE"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">T</span></span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Backend</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="n"><span class="pre">backend</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="structmiso_1_1backend_1_1Host.html#_CPPv4N4miso7backend4HostE" title="miso::backend::Host"><span class="n"><span class="pre">Host</span></span></a><span class="p"><span class="pre">&gt;</span></span><br /><span class="target" id="classmiso_1_1Array4D"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Array4D</span></span></span><a class="headerlink" href="#_CPPv4I00EN4miso7Array4DE" title="Link to this definition"></a><br /></dt>
+<dd><p>4D Array in general execution/memory space. </p>
 </dd></dl>
 
 </section>
@@ -246,7 +129,7 @@ The dimensions of the other array must match the current array. </p>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="classmiso_1_1Array3DView.html" class="btn btn-neutral float-left" title="Template Class Array3DView" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="classmiso_1_1mhd_1_1ModelBase.html" class="btn btn-neutral float-right" title="Template Class ModelBase" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="classmiso_1_1Array4D_3_01T_00_01backend_1_1CUDA_01_4.html" class="btn btn-neutral float-right" title="Template Class Array4D&lt; T, backend::CUDA &gt;" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

@@ -12,14 +12,17 @@ Program Listing for File mhd_model_base.hpp
 
    #pragma once
    
+   #include <algorithm>
+   #include <stdexcept>
    #include <type_traits>
+   #include <utility>
    
    #include "config.hpp"
    #include "env.hpp"
    #include "eos.hpp"
    #include "execution.hpp"
    #include "grid.hpp"
-   #include "mhd.hpp"
+   #include "mhd_solver.hpp"
    #include "mpi_util.hpp"
    #include "time.hpp"
    #include "types.hpp"
@@ -44,6 +47,17 @@ Program Listing for File mhd_model_base.hpp
    template <class T>
    struct has_src<T, std::void_t<decltype(&T::src)>> : std::true_type {};
    
+   // Optional time step limit of the source term: Real dt_limit() const
+   template <class T, class = void> struct has_dt_limit : std::false_type {};
+   template <class T>
+   struct has_dt_limit<T,
+                       std::void_t<decltype(std::declval<const T &>().dt_limit())>>
+       : std::true_type {};
+   template <class T, class = void> struct has_member_dt_limit : std::false_type {};
+   template <class T>
+   struct has_member_dt_limit<T, std::void_t<decltype(&T::dt_limit)>>
+       : std::true_type {};
+   
    template <class Derived, class Real, class Backend> class ModelBase {
    public:
      Config &config;
@@ -60,7 +74,30 @@ Program Listing for File mhd_model_base.hpp
    
      void update() {
        auto &d = derived();
-       const auto dt = mhd.cfl(derived().eos);
+       using Source = decltype(d.src);
+       static_assert(!has_member_dt_limit<Source>::value ||
+                         has_dt_limit<Source>::value,
+                     "Source::dt_limit must be callable as dt_limit() const");
+       auto dt = mhd.cfl(d.eos);
+       if constexpr (has_dt_limit<Source>::value) {
+         // dt_limit() returns the limit of this rank: take the global minimum.
+         // A non-positive (or NaN) value means that the source term is in an
+         // invalid state; it is reported on every rank, so that no rank is left
+         // waiting in a collective communication.
+         Real dt_src = static_cast<Real>(d.src.dt_limit());
+         if (!(dt_src > Real(0))) {
+           dt_src = Real(-1);
+         }
+         Real dt_src_g;
+         MPI_Allreduce(&dt_src, &dt_src_g, 1, mpi::data_type<Real>(), MPI_MIN,
+                       mpi::comm());
+         if (dt_src_g <= Real(0)) {
+           throw std::runtime_error(
+               "ModelBase::update: dt_limit() of the source term is not "
+               "positive on some rank.");
+         }
+         dt = std::min(dt, dt_src_g);
+       }
        mhd.update(dt, d.eos, d.bc, d.src);
        time.update(dt);
      }
@@ -105,8 +142,8 @@ Program Listing for File mhd_model_base.hpp
                      "Derived must have member variable 'src'.");
    
        mhd.apply_initial_condition(d.ic, d.bc);
-       if (config["base"]["continue"].as<bool>() &&
-           fs::exists(time.time_save_dir + "n_output.txt")) {
+       if (config["io"]["continue"].template as<bool>() &&
+           fs::exists(time.n_output_filepath())) {
          load_state();
        }
    
@@ -127,27 +164,7 @@ Program Listing for File mhd_model_base.hpp
      void apply(mhd::FieldsView<Real>, GridView<const Real>) const {}
    };
    
-   template <typename Real> struct EmptySourceTerm {
-     __host__ __device__ inline Real vx(FieldsView<const Real>, int, int,
-                                        int) const noexcept {
-       return 0.0;
-     }
-   
-     __host__ __device__ inline Real vy(FieldsView<const Real>, int, int,
-                                        int) const noexcept {
-       return 0.0;
-     }
-   
-     __host__ __device__ inline Real vz(FieldsView<const Real>, int, int,
-                                        int) const noexcept {
-       return 0.0;
-     }
-   
-     __host__ __device__ inline Real ei(FieldsView<const Real>, int, int,
-                                        int) const noexcept {
-       return 0.0;
-     }
-   };
+   template <typename Real> struct EmptySourceTerm {};
    
    }  // namespace mhd
    }  // namespace miso

@@ -3,7 +3,7 @@
 Template Struct MHD
 ===================
 
-- Defined in :ref:`file__home_runner_work_MISO_docs_MISO_docs_MISO_miso_include_miso_mhd.hpp`
+- Defined in :ref:`file__home_runner_work_MISO_docs_MISO_docs_MISO_miso_include_miso_mhd_solver.hpp`
 
 
 Struct Documentation

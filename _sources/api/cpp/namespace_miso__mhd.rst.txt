@@ -21,6 +21,8 @@ Namespaces
 
 - :ref:`namespace_miso__mhd__impl_host`
 
+- :ref:`namespace_miso__mhd__impl_resistivity`
+
 
 Classes
 -------
@@ -62,6 +64,10 @@ Classes
 
 - :ref:`exhale_struct_structmiso_1_1mhd_1_1has__bc_3_01T_00_01std_1_1void__t_3_01decltype_07_6T_1_1bc_08_4_01_4`
 
+- :ref:`exhale_struct_structmiso_1_1mhd_1_1has__dt__limit`
+
+- :ref:`exhale_struct_structmiso_1_1mhd_1_1has__dt__limit_3_01T_00_01std_1_1void__t_3_01decltype_07std_1_1declval_3_015ac192160144283bf79710d10172aac5`
+
 - :ref:`exhale_struct_structmiso_1_1mhd_1_1has__eos`
 
 - :ref:`exhale_struct_structmiso_1_1mhd_1_1has__eos_3_01T_00_01std_1_1void__t_3_01decltype_07_6T_1_1eos_08_4_01_4`
@@ -69,6 +75,10 @@ Classes
 - :ref:`exhale_struct_structmiso_1_1mhd_1_1has__ic`
 
 - :ref:`exhale_struct_structmiso_1_1mhd_1_1has__ic_3_01T_00_01std_1_1void__t_3_01decltype_07_6T_1_1ic_08_4_01_4`
+
+- :ref:`exhale_struct_structmiso_1_1mhd_1_1has__member__dt__limit`
+
+- :ref:`exhale_struct_structmiso_1_1mhd_1_1has__member__dt__limit_3_01T_00_01std_1_1void__t_3_01decltype_07_6T_1_1dt__limit_08_4_01_4`
 
 - :ref:`exhale_struct_structmiso_1_1mhd_1_1has__src`
 
@@ -82,12 +92,16 @@ Classes
 
 - :ref:`exhale_struct_structmiso_1_1mhd_1_1MHD`
 
+- :ref:`exhale_struct_structmiso_1_1mhd_1_1ResistiveSource`
+
 - :ref:`exhale_class_classmiso_1_1mhd_1_1ModelBase`
 
 
 Functions
 ---------
 
+
+- :ref:`exhale_function_mhd__integrator__cuda_8cuh_1aae5028661ee007ad507085e158fc8dff`
 
 - :ref:`exhale_function_mhd__integrator__cuda_8cuh_1a8ee1b126a1b8d7cfa2dde3b84e51d6d6`
 
@@ -101,13 +115,13 @@ Functions
 
 - :ref:`exhale_function_mhd__halo__exchange_8hpp_1a670758ee4e1ac320dfb237781db1eae2`
 
-- :ref:`exhale_function_mhd__integrator__cuda_8cuh_1a10ef9818c30d1c1961bbd77cb40703c2`
-
-- :ref:`exhale_function_mhd__integrator_8hpp_1a3f330bdf224a294b5994945a2ed6ee5d`
+- :ref:`exhale_function_mhd__resistivity_8hpp_1aad96b52d68ed0667ce60313d53b4c830`
 
 - :ref:`exhale_function_mhd__integrator_8hpp_1a2564cdc11eb2716336df0f9367327979`
 
 - :ref:`exhale_function_mhd__integrator_8hpp_1a133ab68fba5738068b88b061c151b819`
+
+- :ref:`exhale_function_mhd__integrator_8hpp_1a3f330bdf224a294b5994945a2ed6ee5d`
 
 - :ref:`exhale_function_mhd__halo__exchange_8hpp_1aa1ee7f3d4f6a230d7a7354922cbf99a9`
 
@@ -115,17 +129,17 @@ Functions
 
 - :ref:`exhale_function_mhd__halo__exchange_8hpp_1a5325a5798e8f30a4270ea1e27a7f25d7`
 
-- :ref:`exhale_function_mhd__integrator__cuda_8cuh_1a99d015778ba410c337b189dfecb455ea`
+- :ref:`exhale_function_mhd__integrator__cuda_8cuh_1a595c9a4277423a3c2848a9561c35e648`
 
-- :ref:`exhale_function_mhd__integrator__cuda_8cuh_1ae3b9f91463c2cd4b29fe197081110d03`
+- :ref:`exhale_function_mhd__integrator__cuda_8cuh_1a4b9192474b9288e5d4e01f7063289271`
 
-- :ref:`exhale_function_mhd__integrator__cuda_8cuh_1a07fc21d5a2db9115b3e746b36dec0731`
+- :ref:`exhale_function_mhd__integrator__cuda_8cuh_1a016eb3b13adcf948d8f6e5ad3f671b11`
 
 - :ref:`exhale_function_mhd__integrator__cuda_8cuh_1aad6b51287470f90088856c6fe24c3ed7`
 
 - :ref:`exhale_function_mhd__integrator__cuda_8cuh_1a2a087c5b44457da567f1dc803091a26d`
 
-- :ref:`exhale_function_mhd__integrator__cuda_8cuh_1ac316854d025bd3d5ef62c3c69bffd012`
+- :ref:`exhale_function_mhd__integrator__cuda_8cuh_1a26d09a8fbf38f758f1a2ea38885a5845`
 
 - :ref:`exhale_function_mhd__integrator__cuda_8cuh_1aae06941912180e26d8d34f36c0b211c5`
 

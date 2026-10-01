@@ -1,0 +1,17 @@
+.. _exhale_class_classmiso_1_1Array4D_3_01T_00_01backend_1_1CUDA_01_4:
+
+Template Class Array4D< T, backend::CUDA >
+==========================================
+
+- Defined in :ref:`file__home_runner_work_MISO_docs_MISO_docs_MISO_miso_include_miso_array4d.hpp`
+
+
+Class Documentation
+-------------------
+
+
+.. doxygenclass:: miso::Array4D< T, backend::CUDA >
+   :project: CPP
+   :members:
+   :protected-members:
+   :undoc-members:

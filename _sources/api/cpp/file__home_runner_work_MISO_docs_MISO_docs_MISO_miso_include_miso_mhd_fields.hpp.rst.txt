@@ -42,8 +42,6 @@ Included By
 -----------
 
 
-- :ref:`file__home_runner_work_MISO_docs_MISO_docs_MISO_miso_include_miso_mhd.hpp`
-
 - :ref:`file__home_runner_work_MISO_docs_MISO_docs_MISO_miso_include_miso_mhd_artificial_viscosity_cuda.cuh`
 
 - :ref:`file__home_runner_work_MISO_docs_MISO_docs_MISO_miso_include_miso_mhd_artificial_viscosity_host.hpp`
@@ -57,6 +55,10 @@ Included By
 - :ref:`file__home_runner_work_MISO_docs_MISO_docs_MISO_miso_include_miso_mhd_integrator_cuda.cuh`
 
 - :ref:`file__home_runner_work_MISO_docs_MISO_docs_MISO_miso_include_miso_mhd_integrator_host.hpp`
+
+- :ref:`file__home_runner_work_MISO_docs_MISO_docs_MISO_miso_include_miso_mhd_resistivity.hpp`
+
+- :ref:`file__home_runner_work_MISO_docs_MISO_docs_MISO_miso_include_miso_mhd_solver.hpp`
 
 
 
@@ -87,7 +89,7 @@ Functions
 ---------
 
 
-- :ref:`exhale_function_mhd__fields_8hpp_1ae8a35b0840b572ba246c8e65346c6fea`
-
 - :ref:`exhale_function_mhd__fields_8hpp_1a29210876c602ab1450f2ca10cd0a453f`
+
+- :ref:`exhale_function_mhd__fields_8hpp_1ae8a35b0840b572ba246c8e65346c6fea`
 

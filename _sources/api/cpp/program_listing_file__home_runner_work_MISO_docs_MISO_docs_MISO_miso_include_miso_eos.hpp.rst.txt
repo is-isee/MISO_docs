@@ -13,6 +13,9 @@ Program Listing for File eos.hpp
    #pragma once
    
    #include "config.hpp"
+   #include "execution.hpp"
+   #include "mhd_solver.hpp"
+   #include "utility.hpp"
    
    namespace miso {
    namespace eos {
@@ -22,12 +25,27 @@ Program Listing for File eos.hpp
    
      explicit IdealEOS(const Config &config) : gm(config["eos"]["gm"].as<Real>()) {}
    
-     __host__ __device__ inline Real roeitopr(Real ro, Real ei) const noexcept {
-       return (gm - 1.0) * ro * ei;
+     explicit IdealEOS(Real gm) : gm(gm) {}
+   
+     template <typename Backend>
+     void gas_pressure(Backend btag, mhd::FieldsView<const Real> qq,
+                       Array3DView<Real> pr) const {
+       const Real gm_ = gm;  // device lambdas must not capture `this`
+       Range1D range{0, qq.size()};
+       for_each(
+           btag, range,
+           MISO_LAMBDA(int i) { pr[i] = (gm_ - Real(1)) * qq.ro[i] * qq.ei[i]; });
      }
    
-     __host__ __device__ inline Real roprtoei(Real ro, Real pr) const noexcept {
-       return pr / (gm - 1.0) / ro;
+     template <typename Backend>
+     void sound_speed(Backend btag, mhd::FieldsView<const Real> qq,
+                      Array3DView<Real> cs) const {
+       const Real gm_ = gm;  // device lambdas must not capture `this`
+       Range1D range{0, qq.size()};
+       for_each(
+           btag, range, MISO_LAMBDA(int i) {
+             cs[i] = util::sqrt(gm_ * (gm_ - Real(1)) * qq.ei[i]);
+           });
      }
    };
    

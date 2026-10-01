@@ -52,7 +52,7 @@ Included By
 
 - :ref:`file__home_runner_work_MISO_docs_MISO_docs_MISO_miso_include_miso_boundary_condition.hpp`
 
-- :ref:`file__home_runner_work_MISO_docs_MISO_docs_MISO_miso_include_miso_mhd.hpp`
+- :ref:`file__home_runner_work_MISO_docs_MISO_docs_MISO_miso_include_miso_core.hpp`
 
 - :ref:`file__home_runner_work_MISO_docs_MISO_docs_MISO_miso_include_miso_mhd_artificial_viscosity_cuda.cuh`
 
@@ -70,7 +70,13 @@ Included By
 
 - :ref:`file__home_runner_work_MISO_docs_MISO_docs_MISO_miso_include_miso_mhd_integrator_host.hpp`
 
+- :ref:`file__home_runner_work_MISO_docs_MISO_docs_MISO_miso_include_miso_mhd_resistivity.hpp`
+
+- :ref:`file__home_runner_work_MISO_docs_MISO_docs_MISO_miso_include_miso_mhd_solver.hpp`
+
 - :ref:`file__home_runner_work_MISO_docs_MISO_docs_MISO_miso_include_miso_rt_host.hpp`
+
+- :ref:`file__home_runner_work_MISO_docs_MISO_docs_MISO_miso_include_miso_table_interpolator.hpp`
 
 
 

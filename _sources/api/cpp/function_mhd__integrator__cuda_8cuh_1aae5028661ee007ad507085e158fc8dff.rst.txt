@@ -1,0 +1,14 @@
+.. _exhale_function_mhd__integrator__cuda_8cuh_1aae5028661ee007ad507085e158fc8dff:
+
+Template Function miso::mhd::bb_ht_vb_kernel
+============================================
+
+- Defined in :ref:`file__home_runner_work_MISO_docs_MISO_docs_MISO_miso_include_miso_mhd_integrator_cuda.cuh`
+
+
+Function Documentation
+----------------------
+
+
+.. doxygenfunction:: miso::mhd::bb_ht_vb_kernel(FieldsView<const Real>, Array3DView<Real>, Array3DView<Real>, Array3DView<Real>, Array3DView<Real>, GridView<const Real>)
+   :project: CPP

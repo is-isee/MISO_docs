@@ -44,6 +44,8 @@ Includes
 
 - ``mpi_util.hpp`` (:ref:`file__home_runner_work_MISO_docs_MISO_docs_MISO_miso_include_miso_mpi_util.hpp`)
 
+- ``stdexcept``
+
 - ``utility.hpp`` (:ref:`file__home_runner_work_MISO_docs_MISO_docs_MISO_miso_include_miso_utility.hpp`)
 
 
@@ -52,11 +54,13 @@ Included By
 -----------
 
 
-- :ref:`file__home_runner_work_MISO_docs_MISO_docs_MISO_miso_include_miso_mhd.hpp`
+- :ref:`file__home_runner_work_MISO_docs_MISO_docs_MISO_miso_include_miso_core.hpp`
 
 - :ref:`file__home_runner_work_MISO_docs_MISO_docs_MISO_miso_include_miso_mhd_checkpoint.hpp`
 
 - :ref:`file__home_runner_work_MISO_docs_MISO_docs_MISO_miso_include_miso_mhd_model_base.hpp`
+
+- :ref:`file__home_runner_work_MISO_docs_MISO_docs_MISO_miso_include_miso_mhd_solver.hpp`
 
 
 

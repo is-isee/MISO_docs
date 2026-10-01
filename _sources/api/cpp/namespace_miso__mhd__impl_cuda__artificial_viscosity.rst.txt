@@ -17,7 +17,7 @@ Functions
 ---------
 
 
-- :ref:`exhale_function_mhd__artificial__viscosity__cuda_8cuh_1a473094be66d7ec22b13aa8503aadfb09`
+- :ref:`exhale_function_mhd__artificial__viscosity__cuda_8cuh_1a9e6b3c157d948be1df84cde118a0b1b8`
 
 - :ref:`exhale_function_mhd__artificial__viscosity__cuda_8cuh_1aa49d1d6f1ce184e1ff2caeb499dda21a`
 

@@ -1,0 +1,309 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>2D MHD Test: Petschek Reconnection &mdash; MISO 0.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=4ae1632d" />
+      <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../_static/collapsible-lists/css/tree_view.css?v=a885cde7" />
+      <link rel="stylesheet" type="text/css" href="../_static/custom.css" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=837179f8"></script>
+      <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../_static/copybutton.js?v=f281be69"></script>
+      <script src="../_static/collapsible-lists/js/CollapsibleLists.compressed.js?v=73120307"></script>
+      <script src="../_static/collapsible-lists/js/apply-collapsible-lists.js?v=660e4f45"></script>
+      <script>window.MathJax = {"tex": {"macros": {"bm": ["{\\boldsymbol{#1}}", 1]}}, "options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+      <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="3D MHD Test: Magnetosphere" href="mhd3d_magnetosphere.html" />
+    <link rel="prev" title="2D MHD Test: Orszag-Tang Vortex" href="mhd2d_vortex.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            MISO
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../quickstart.html">Quick Start</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Test Problems</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="hd1d_shock_tube.html">1D HD Test: Sod’s Shock Tube</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mhd1d_shock_tube.html">1D MHD Test: Magnetized Sod’s Shock Tube</a></li>
+<li class="toctree-l2"><a class="reference internal" href="hd2d_kelvin_helmholtz.html">2D HD Test: Kelvin-Helmholtz Instability</a></li>
+<li class="toctree-l2"><a class="reference internal" href="hd2d_rayleigh_taylor.html">2D HD Test: Rayleigh Taylor Instability</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mhd2d_vortex.html">2D MHD Test: Orszag-Tang Vortex</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">2D MHD Test: Petschek Reconnection</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#location">Location</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#geometry">Geometry</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#initial-conditions">Initial Conditions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#boundary-conditions">Boundary Conditions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#results">Results</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="mhd3d_magnetosphere.html">3D MHD Test: Magnetosphere</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rt2d_searchlight.html">2D RT Test: Searchlight Beam</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../customization/index.html">Customization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../miso/index.html">MISO C++ documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../pymiso/index.html">pymiso Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../references.html">References</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">MISO</a>
+      </nav>
+
+      <div class="wy-nav-content">
+<div id="language-links" style="margin-bottom: 1em; font-size: 100%;">
+    Language:
+    <a href="#" id="translate-link" target="_blank">English</a> |
+    <a href="#" id="original-link">日本語</a>
+</div>
+
+
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">Test Problems</a></li>
+      <li class="breadcrumb-item active">2D MHD Test: Petschek Reconnection</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/demo/mhd2d_reconnection.md.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section class="tex2jax_ignore mathjax_ignore" id="d-mhd-test-petschek-reconnection">
+<h1>2D MHD Test: Petschek Reconnection<a class="headerlink" href="#d-mhd-test-petschek-reconnection" title="Link to this heading"></a></h1>
+<p>低ベータプラズマ中の磁気リコネクションで、アウトフロー (ジェット) の先端にできるプラズモイドのショック構造を調べる問題です。<span class="bibtex-citation" id="id1">[<a class="reference internal" href="../references.html#id7" title="S. Zenitani. Magnetohydrodynamic structure of a plasmoid in fast reconnection in low-beta plasmas: Shock-shock interactions. Physics of Plasmas, 22(3):032114, 2015. doi:10.1063/1.4916104.">Zenitani, 2015</a>]</span> の run 2 (<span class="math notranslate nohighlight">\(\beta_\mathrm{up} = 0.2\)</span>) の設定を使います。</p>
+<p>X 点の近くだけ電気抵抗を大きくすると、ペチェック型の速いリコネクションが起き、X 点から斜めに伸びるペチェックのスローショックに挟まれたアウトフローができます。このアウトフローがプラズマとリコネクションした磁力線を掃き集めて、ジェットの先端に1つの大きなプラズモイドを作ります。低ベータでは、プラズモイドを押すアウトフローの速さ (上流のアルフベン速度程度) が音速を超えるので、プラズモイドの周りにいくつものショックができます。これらのショックや不連続面を捉えられるかが、このテスト問題の見どころです。</p>
+<p>抵抗はソース項 <code class="docutils literal notranslate"><span class="pre">mhd::ResistiveSource</span></code> で与えます。誘導方程式に抵抗による拡散項が、全エネルギー<span class="math notranslate nohighlight">\(e\)</span>の式にそれに対応するエネルギー流束が加わります (ガウス単位系)。ジュール加熱の分は内部エネルギーに入ります。</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align*}
+\frac{\partial \bm{B}}{\partial t} &amp;= [...] - \nabla \times \left(\eta \nabla \times \bm{B}\right), \\
+\frac{\partial e}{\partial t} &amp;= [...] - \nabla \cdot \left[\frac{\eta}{4\pi} \left(\nabla \times \bm{B}\right) \times \bm{B}\right]
+\end{align*}
+\end{split}\]</div>
+<section id="location">
+<h2>Location<a class="headerlink" href="#location" title="Link to this heading"></a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">demo/mhd2d_reconnection/</span></code></p>
+</section>
+<section id="geometry">
+<h2>Geometry<a class="headerlink" href="#geometry" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(0 \leq x \leq 150\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(0 \leq z \leq 30\)</span></p></li>
+</ul>
+<p>論文と同じく<span class="math notranslate nohighlight">\(x\)</span>-<span class="math notranslate nohighlight">\(z\)</span>面で解きます (<span class="math notranslate nohighlight">\(x\)</span>: アウトフロー方向、<span class="math notranslate nohighlight">\(z\)</span>: インフロー方向、<span class="math notranslate nohighlight">\(y\)</span>: 面外方向)。X 点を原点に置き、対称性を使って第1象限だけを計算します。既定の格子は <span class="math notranslate nohighlight">\(1500 \times 300\)</span> (格子幅 <span class="math notranslate nohighlight">\(0.1\)</span>) です。論文は <span class="math notranslate nohighlight">\([0, 200] \times [0, 150]\)</span> の領域を <span class="math notranslate nohighlight">\(12000 \times 9000\)</span> 格子 (格子幅 <span class="math notranslate nohighlight">\(1/60\)</span>) で計算しているので、それよりも領域は小さく、解像度も低い設定です。</p>
+</section>
+<section id="initial-conditions">
+<h2>Initial Conditions<a class="headerlink" href="#initial-conditions" title="Link to this heading"></a></h2>
+<p>以下の式は論文の単位で書いています。MISOはガウス単位系を使うので、コードの中では磁場を<span class="math notranslate nohighlight">\(\sqrt{4\pi}\)</span>倍しています。比熱比は<span class="math notranslate nohighlight">\(\gamma = 5/3\)</span>とします。</p>
+<p>初期状態はハリス電流シートです。</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align*}
+\rho &amp;= 1 + \frac{\cosh^{-2} z}{\beta_\mathrm{up}}, \\
+p &amp;= \frac{1}{2}\left(\beta_\mathrm{up} + \cosh^{-2} z\right), \\
+\bm{v} &amp;= 0, \\
+B_x &amp;= \tanh z,
+\end{align*}
+\end{split}\]</div>
+<p>ここで<span class="math notranslate nohighlight">\(\beta_\mathrm{up} = 0.2\)</span>は上流のプラズマベータです。リコネクションを始めるために、ベクトルポテンシャル<span class="math notranslate nohighlight">\(A_y\)</span>に摂動</p>
+<div class="math notranslate nohighlight">
+\[
+\delta A_y = -a \exp\left(-\frac{x^2 + z^2}{4}\right)
+\]</div>
+<p>を加えます (<span class="math notranslate nohighlight">\(a = 0.06\)</span>)。<span class="math notranslate nohighlight">\(\delta \bm{B} = \nabla \times (\delta A_y \bm{e}_y)\)</span> より</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align*}
+\delta B_x &amp;= -\frac{a}{2} z \exp\left(-\frac{x^2 + z^2}{4}\right), \\
+\delta B_z &amp;= \frac{a}{2} x \exp\left(-\frac{x^2 + z^2}{4}\right).
+\end{align*}
+\end{split}\]</div>
+<p>電気抵抗は原点付近に局在させます。</p>
+<div class="math notranslate nohighlight">
+\[
+\eta = \eta_0 + \left(\eta_1 - \eta_0\right) \cosh^{-2} \sqrt{x^2 + z^2}
+\]</div>
+<p>ここで<span class="math notranslate nohighlight">\(\eta_0 = 1/1000\)</span>、<span class="math notranslate nohighlight">\(\eta_1 = 1/60\)</span>です。<span class="math notranslate nohighlight">\(\beta_\mathrm{up}\)</span>、<span class="math notranslate nohighlight">\(\eta_0\)</span>、<span class="math notranslate nohighlight">\(\eta_1\)</span>、<span class="math notranslate nohighlight">\(a\)</span>は <code class="docutils literal notranslate"><span class="pre">config.yaml</span></code> の <code class="docutils literal notranslate"><span class="pre">reconnection</span></code> セクションで変更できます。</p>
+</section>
+<section id="boundary-conditions">
+<h2>Boundary Conditions<a class="headerlink" href="#boundary-conditions" title="Link to this heading"></a></h2>
+<p>すべての境界で、密度と内部エネルギーは対称 (偶) とします。ほかの物理量の偶奇は、下の表のとおりです。</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(x = 0\)</span>、<span class="math notranslate nohighlight">\(x = 150\)</span>、<span class="math notranslate nohighlight">\(z = 0\)</span>: 鏡映対称な境界。境界に垂直な速度、境界に平行な磁場 (擬ベクトル)、GLMのポテンシャル<span class="math notranslate nohighlight">\(\psi\)</span> (<span class="math notranslate nohighlight">\(\nabla \cdot \bm{B}\)</span>に比例) を反対称 (奇) にします。</p></li>
+<li><p><span class="math notranslate nohighlight">\(z = 30\)</span>: 完全導体の壁。境界に垂直な速度と磁場を反対称にします。</p></li>
+</ul>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head text-center"><p>Boundary</p></th>
+<th class="head text-center"><p><span class="math notranslate nohighlight">\(v_x\)</span></p></th>
+<th class="head text-center"><p><span class="math notranslate nohighlight">\(v_y\)</span></p></th>
+<th class="head text-center"><p><span class="math notranslate nohighlight">\(v_z\)</span></p></th>
+<th class="head text-center"><p><span class="math notranslate nohighlight">\(B_x\)</span></p></th>
+<th class="head text-center"><p><span class="math notranslate nohighlight">\(B_y\)</span></p></th>
+<th class="head text-center"><p><span class="math notranslate nohighlight">\(B_z\)</span></p></th>
+<th class="head text-center"><p><span class="math notranslate nohighlight">\(\psi\)</span></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-center"><p><span class="math notranslate nohighlight">\(x = 0\)</span>, <span class="math notranslate nohighlight">\(x = 150\)</span></p></td>
+<td class="text-center"><p>odd</p></td>
+<td class="text-center"><p>even</p></td>
+<td class="text-center"><p>even</p></td>
+<td class="text-center"><p>even</p></td>
+<td class="text-center"><p>odd</p></td>
+<td class="text-center"><p>odd</p></td>
+<td class="text-center"><p>odd</p></td>
+</tr>
+<tr class="row-odd"><td class="text-center"><p><span class="math notranslate nohighlight">\(z = 0\)</span></p></td>
+<td class="text-center"><p>even</p></td>
+<td class="text-center"><p>even</p></td>
+<td class="text-center"><p>odd</p></td>
+<td class="text-center"><p>odd</p></td>
+<td class="text-center"><p>odd</p></td>
+<td class="text-center"><p>even</p></td>
+<td class="text-center"><p>odd</p></td>
+</tr>
+<tr class="row-even"><td class="text-center"><p><span class="math notranslate nohighlight">\(z = 30\)</span></p></td>
+<td class="text-center"><p>even</p></td>
+<td class="text-center"><p>even</p></td>
+<td class="text-center"><p>odd</p></td>
+<td class="text-center"><p>even</p></td>
+<td class="text-center"><p>even</p></td>
+<td class="text-center"><p>odd</p></td>
+<td class="text-center"><p>even</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="results">
+<h2>Results<a class="headerlink" href="#results" title="Link to this heading"></a></h2>
+<p>可視化用のPythonスクリプトが用意されています。
+結果の動画と最終時刻の図は <code class="docutils literal notranslate"><span class="pre">demo/mhd2d_reconnection/figs</span></code> に保存されます。</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>demo/mhd2d_reconnection
+python<span class="w"> </span>plot_data.py
+</pre></div>
+</div>
+<p><span class="bibtex-citation" id="id2">[<a class="reference internal" href="../references.html#id7" title="S. Zenitani. Magnetohydrodynamic structure of a plasmoid in fast reconnection in low-beta plasmas: Shock-shock interactions. Physics of Plasmas, 22(3):032114, 2015. doi:10.1063/1.4916104.">Zenitani, 2015</a>]</span> の Fig. 1 と同じく、上半分 (<span class="math notranslate nohighlight">\(z &gt; 0\)</span>) に<span class="math notranslate nohighlight">\(v_x\)</span>、下半分に<span class="math notranslate nohighlight">\(z\)</span>を反転させて<span class="math notranslate nohighlight">\(\nabla \cdot \bm{v}\)</span>を描きます。見やすくするため、<span class="math notranslate nohighlight">\(z\)</span>方向を2倍に引き伸ばしています。ショックは圧縮する層なので、<span class="math notranslate nohighlight">\(\nabla \cdot \bm{v} &lt; 0\)</span> (青) の線として見えます。論文では、ペチェックのスローショック、プラズモイドの後ろ側にできる逆向きのファストショック、プラズモイドの後ろ側と前側にできる縦向きのスローショックが示されています。</p>
+<p>下の動画は、格子幅を既定の 1/3 (<span class="math notranslate nohighlight">\(0.033\)</span>、<span class="math notranslate nohighlight">\(4500 \times 900\)</span> 格子) にして計算した <span class="math notranslate nohighlight">\(t = 0\)</span> から <span class="math notranslate nohighlight">\(250\)</span> までの時間発展です。ショックの幅は格子 3〜4 個分なので、既定の解像度 (格子幅 <span class="math notranslate nohighlight">\(0.1\)</span>) ではもっと太く見えます。論文 (格子幅 <span class="math notranslate nohighlight">\(1/60\)</span>) はさらに細かい計算です。</p>
+<p><img alt="mhd2d_reconnection" src="../_images/reconnection.gif" /></p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="mhd2d_vortex.html" class="btn btn-neutral float-left" title="2D MHD Test: Orszag-Tang Vortex" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="mhd3d_magnetosphere.html" class="btn btn-neutral float-right" title="3D MHD Test: Magnetosphere" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Integrated Studies, ISEE, Nagoya University.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+ 
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        const currentUrl = window.location.href;
+        const isTranslated = currentUrl.includes(".translate.goog");
+        const translateLink = document.getElementById("translate-link");
+        const originalLink = document.getElementById("original-link");
+
+        // 翻訳URLを生成
+        const translateUrl =
+            "https://translate.google.com/translate?sl=ja&tl=en&u=" +
+            encodeURIComponent(currentUrl);
+
+        if (isTranslated) {
+            // --- 英語版(.translate.goog)にいる場合 ---
+            // English → ページを単にリロード
+            translateLink.removeAttribute("target");
+            translateLink.removeAttribute("href");
+            translateLink.addEventListener("click", (e) => {
+                e.preventDefault();
+                window.location.reload();
+            });
+
+            // 日本語 → 新タブで元URLを開く（翻訳解除）
+            const originalUrl = currentUrl.replace(
+                /^https:\/\/[^/]+\.translate\.goog/,
+                "https://is-isee.github.io"
+            );
+            originalLink.href = originalUrl;
+            originalLink.target = "_blank";
+            originalLink.rel = "noopener";
+        } else {
+            // --- 日本語版にいる場合 ---
+            translateLink.href = translateUrl;
+            translateLink.target = "_blank";
+
+            originalLink.href = currentUrl;
+            originalLink.target = "_self";
+        }
+    });
+</script>
+
+
+</body>
+</html>
