@@ -14,5 +14,6 @@ Test Problems
    hd2d_kelvin_helmholtz.md
    hd2d_rayleigh_taylor.md
    mhd2d_vortex.md
+   mhd2d_reconnection.md
    mhd3d_magnetosphere.md
    rt2d_searchlight.md
