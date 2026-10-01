@@ -115,11 +115,14 @@
 <h1>2D MHD Test: Petschek Reconnection<a class="headerlink" href="#d-mhd-test-petschek-reconnection" title="Link to this heading"></a></h1>
 <p>低ベータプラズマ中の磁気リコネクションで、アウトフロー (ジェット) の先端にできるプラズモイドのショック構造を調べる問題です。<span class="bibtex-citation" id="id1">[<a class="reference internal" href="../references.html#id7" title="S. Zenitani. Magnetohydrodynamic structure of a plasmoid in fast reconnection in low-beta plasmas: Shock-shock interactions. Physics of Plasmas, 22(3):032114, 2015. doi:10.1063/1.4916104.">Zenitani, 2015</a>]</span> の run 2 (<span class="math notranslate nohighlight">\(\beta_\mathrm{up} = 0.2\)</span>) の設定を使います。</p>
 <p>X 点の近くだけ電気抵抗を大きくすると、ペチェック型の速いリコネクションが起き、X 点から斜めに伸びるペチェックのスローショックに挟まれたアウトフローができます。このアウトフローがプラズマとリコネクションした磁力線を掃き集めて、ジェットの先端に1つの大きなプラズモイドを作ります。低ベータでは、プラズモイドを押すアウトフローの速さ (上流のアルフベン速度程度) が音速を超えるので、プラズモイドの周りにいくつものショックができます。これらのショックや不連続面を捉えられるかが、このテスト問題の見どころです。</p>
-<p>抵抗はソース項 <code class="docutils literal notranslate"><span class="pre">mhd::ResistiveSource</span></code> で与えます。誘導方程式に抵抗による拡散項が加わります。</p>
+<p>抵抗はソース項 <code class="docutils literal notranslate"><span class="pre">mhd::ResistiveSource</span></code> で与えます。誘導方程式に抵抗による拡散項が、全エネルギー<span class="math notranslate nohighlight">\(e\)</span>の式にそれに対応するエネルギー流束が加わります (ガウス単位系)。ジュール加熱の分は内部エネルギーに入ります。</p>
 <div class="math notranslate nohighlight">
-\[
-\frac{\partial \bm{B}}{\partial t} = \nabla \times \left(\bm{v} \times \bm{B}\right) - \nabla \times \left(\eta \nabla \times \bm{B}\right)
-\]</div>
+\[\begin{split}
+\begin{align*}
+\frac{\partial \bm{B}}{\partial t} &amp;= [...] - \nabla \times \left(\eta \nabla \times \bm{B}\right), \\
+\frac{\partial e}{\partial t} &amp;= [...] - \nabla \cdot \left[\frac{\eta}{4\pi} \left(\nabla \times \bm{B}\right) \times \bm{B}\right]
+\end{align*}
+\end{split}\]</div>
 <section id="location">
 <h2>Location<a class="headerlink" href="#location" title="Link to this heading"></a></h2>
 <p><code class="docutils literal notranslate"><span class="pre">demo/mhd2d_reconnection/</span></code></p>
@@ -224,7 +227,7 @@ python<span class="w"> </span>plot_data.py
 </pre></div>
 </div>
 <p><span class="bibtex-citation" id="id2">[<a class="reference internal" href="../references.html#id7" title="S. Zenitani. Magnetohydrodynamic structure of a plasmoid in fast reconnection in low-beta plasmas: Shock-shock interactions. Physics of Plasmas, 22(3):032114, 2015. doi:10.1063/1.4916104.">Zenitani, 2015</a>]</span> の Fig. 1 と同じく、上半分 (<span class="math notranslate nohighlight">\(z &gt; 0\)</span>) に<span class="math notranslate nohighlight">\(v_x\)</span>、下半分に<span class="math notranslate nohighlight">\(z\)</span>を反転させて<span class="math notranslate nohighlight">\(\nabla \cdot \bm{v}\)</span>を描きます。見やすくするため、<span class="math notranslate nohighlight">\(z\)</span>方向を2倍に引き伸ばしています。ショックは圧縮する層なので、<span class="math notranslate nohighlight">\(\nabla \cdot \bm{v} &lt; 0\)</span> (青) の線として見えます。論文では、ペチェックのスローショック、プラズモイドの後ろ側にできる逆向きのファストショック、プラズモイドの後ろ側と前側にできる縦向きのスローショックが示されています。</p>
-<p>下の動画は格子幅を既定の 1/3 (<span class="math notranslate nohighlight">\(0.033\)</span>、<span class="math notranslate nohighlight">\(4500 \times 900\)</span> 格子) にして計算したものです。ショックの幅は格子 3〜4 個分なので、既定の解像度 (格子幅 <span class="math notranslate nohighlight">\(0.1\)</span>) ではもっと太く見えます。論文 (格子幅 <span class="math notranslate nohighlight">\(1/60\)</span>) はさらに細かい計算です。</p>
+<p>下の動画は、格子幅を既定の 1/3 (<span class="math notranslate nohighlight">\(0.033\)</span>、<span class="math notranslate nohighlight">\(4500 \times 900\)</span> 格子) にして計算した <span class="math notranslate nohighlight">\(t = 0\)</span> から <span class="math notranslate nohighlight">\(250\)</span> までの時間発展です。ショックの幅は格子 3〜4 個分なので、既定の解像度 (格子幅 <span class="math notranslate nohighlight">\(0.1\)</span>) ではもっと太く見えます。論文 (格子幅 <span class="math notranslate nohighlight">\(1/60\)</span>) はさらに細かい計算です。</p>
 <p><img alt="mhd2d_reconnection" src="../_images/reconnection.gif" /></p>
 </section>
 </section>
