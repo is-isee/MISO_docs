@@ -1,0 +1,14 @@
+.. _exhale_variable_namespacemiso_1ae05b6969265beebfdc8ab2b93af6be1f:
+
+Variable miso::pi
+=================
+
+- Defined in :ref:`file__home_runner_work_MISO_docs_MISO_docs_MISO_miso_include_miso_constants.hpp`
+
+
+Variable Documentation
+----------------------
+
+
+.. doxygenvariable:: miso::pi
+   :project: CPP

@@ -1,0 +1,89 @@
+# 2D MHD Test: Petschek Reconnection
+
+低ベータプラズマ中の磁気リコネクションで、アウトフロー (ジェット) の先端にできるプラズモイドのショック構造を調べる問題です。{cite}`zenitani_2015PhPl...22c2114Z` の run 2 ($\beta_\mathrm{up} = 0.2$) の設定を使います。
+
+X 点の近くだけ電気抵抗を大きくすると、ペチェック型の速いリコネクションが起き、X 点から斜めに伸びるペチェックのスローショックに挟まれたアウトフローができます。このアウトフローがプラズマとリコネクションした磁力線を掃き集めて、ジェットの先端に1つの大きなプラズモイドを作ります。低ベータでは、プラズモイドを押すアウトフローの速さ (上流のアルフベン速度程度) が音速を超えるので、プラズモイドの周りにいくつものショックができます。これらのショックや不連続面を捉えられるかが、このテスト問題の見どころです。
+
+抵抗はソース項 `mhd::ResistiveSource` で与えます。誘導方程式に抵抗による拡散項が加わります。
+
+$$
+\frac{\partial \bm{B}}{\partial t} = \nabla \times \left(\bm{v} \times \bm{B}\right) - \nabla \times \left(\eta \nabla \times \bm{B}\right)
+$$
+
+## Location
+
+`demo/mhd2d_reconnection/`
+
+## Geometry
+
+- $0 \leq x \leq 150$
+- $0 \leq z \leq 30$
+
+論文と同じく$x$-$z$面で解きます ($x$: アウトフロー方向、$z$: インフロー方向、$y$: 面外方向)。X 点を原点に置き、対称性を使って第1象限だけを計算します。既定の格子は $1500 \times 300$ (格子幅 $0.1$) です。論文は $[0, 200] \times [0, 150]$ の領域を $12000 \times 9000$ 格子 (格子幅 $1/60$) で計算しているので、それよりも領域は小さく、解像度も低い設定です。
+
+## Initial Conditions
+
+以下の式は論文の単位で書いています。MISOはガウス単位系を使うので、コードの中では磁場を$\sqrt{4\pi}$倍しています。比熱比は$\gamma = 5/3$とします。
+
+初期状態はハリス電流シートです。
+
+$$
+\begin{align*}
+\rho &= 1 + \frac{\cosh^{-2} z}{\beta_\mathrm{up}}, \\
+p &= \frac{1}{2}\left(\beta_\mathrm{up} + \cosh^{-2} z\right), \\
+\bm{v} &= 0, \\
+B_x &= \tanh z,
+\end{align*}
+$$
+
+ここで$\beta_\mathrm{up} = 0.2$は上流のプラズマベータです。リコネクションを始めるために、ベクトルポテンシャル$A_y$に摂動
+
+$$
+\delta A_y = -a \exp\left(-\frac{x^2 + z^2}{4}\right)
+$$
+
+を加えます ($a = 0.06$)。$\delta \bm{B} = \nabla \times (\delta A_y \bm{e}_y)$ より
+
+$$
+\begin{align*}
+\delta B_x &= -\frac{a}{2} z \exp\left(-\frac{x^2 + z^2}{4}\right), \\
+\delta B_z &= \frac{a}{2} x \exp\left(-\frac{x^2 + z^2}{4}\right).
+\end{align*}
+$$
+
+電気抵抗は原点付近に局在させます。
+
+$$
+\eta = \eta_0 + \left(\eta_1 - \eta_0\right) \cosh^{-2} \sqrt{x^2 + z^2}
+$$
+
+ここで$\eta_0 = 1/1000$、$\eta_1 = 1/60$です。$\beta_\mathrm{up}$、$\eta_0$、$\eta_1$、$a$は `config.yaml` の `reconnection` セクションで変更できます。
+
+## Boundary Conditions
+
+すべての境界で、密度と内部エネルギーは対称 (偶) とします。ほかの物理量の偶奇は、下の表のとおりです。
+
+- $x = 0$、$x = 150$、$z = 0$: 鏡映対称な境界。境界に垂直な速度、境界に平行な磁場 (擬ベクトル)、GLMのポテンシャル$\psi$ ($\nabla \cdot \bm{B}$に比例) を反対称 (奇) にします。
+- $z = 30$: 完全導体の壁。境界に垂直な速度と磁場を反対称にします。
+
+| Boundary | $v_x$ | $v_y$ | $v_z$ | $B_x$ | $B_y$ | $B_z$ | $\psi$ |
+|:--------:|:-----:|:-----:|:-----:|:-----:|:-----:|:-----:|:------:|
+| $x = 0$, $x = 150$ | odd  | even | even | even | odd  | odd  | odd  |
+| $z = 0$            | even | even | odd  | odd  | odd  | even | odd  |
+| $z = 30$           | even | even | odd  | even | even | odd  | even |
+
+## Results
+
+可視化用のPythonスクリプトが用意されています。
+結果の動画と最終時刻の図は `demo/mhd2d_reconnection/figs` に保存されます。
+
+```shell
+cd demo/mhd2d_reconnection
+python plot_data.py
+```
+
+{cite}`zenitani_2015PhPl...22c2114Z` の Fig. 1 と同じく、上半分 ($z > 0$) に$v_x$、下半分に$z$を反転させて$\nabla \cdot \bm{v}$を描きます。見やすくするため、$z$方向を2倍に引き伸ばしています。ショックは圧縮する層なので、$\nabla \cdot \bm{v} < 0$ (青) の線として見えます。論文では、ペチェックのスローショック、プラズモイドの後ろ側にできる逆向きのファストショック、プラズモイドの後ろ側と前側にできる縦向きのスローショックが示されています。
+
+下の動画は格子幅を既定の 1/3 ($0.033$、$4500 \times 900$ 格子) にして計算したものです。ショックの幅は格子 3〜4 個分なので、既定の解像度 (格子幅 $0.1$) ではもっと太く見えます。論文 (格子幅 $1/60$) はさらに細かい計算です。
+
+![mhd2d_reconnection](../_static/images/reconnection.gif)

@@ -1,0 +1,14 @@
+.. _exhale_function_boundary__condition_8hpp_1a9b85adc2b59641588fb95083af821777:
+
+Function miso::boundary_condition::string_to_direction
+======================================================
+
+- Defined in :ref:`file__home_runner_work_MISO_docs_MISO_docs_MISO_miso_include_miso_boundary_condition.hpp`
+
+
+Function Documentation
+----------------------
+
+
+.. doxygenfunction:: miso::boundary_condition::string_to_direction(const std::string&)
+   :project: CPP
