@@ -1,0 +1,328 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>03. GPU 版：配列とループを GPU へ移す &mdash; MISO 0.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/graphviz.css?v=4ae1632d" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/collapsible-lists/css/tree_view.css?v=a885cde7" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/custom.css" />
+
+  
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options.js?v=837179f8"></script>
+      <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../../../_static/copybutton.js?v=f281be69"></script>
+      <script src="../../../_static/collapsible-lists/js/CollapsibleLists.compressed.js?v=73120307"></script>
+      <script src="../../../_static/collapsible-lists/js/apply-collapsible-lists.js?v=660e4f45"></script>
+      <script>window.MathJax = {"tex": {"macros": {"bm": ["{\\boldsymbol{#1}}", 1]}}, "options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+      <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="参考資料" href="../../reference/index.html" />
+    <link rel="prev" title="02. MPI 版：領域を分けて解く" href="02_mpi.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            MISO
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../../quickstart.html">Quick Start</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../demo/index.html">Test Problems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../customization/index.html">Customization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../miso/index.html">MISO C++ documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../pymiso/index.html">pymiso Documentation</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../index.html">MISO education</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../../index.html#id1">本文</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../../index.html#id2">必要なときに参照する資料</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../../01_environment_setup.html">1. 開発環境と CMake</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../02_cpp_basics.html">2. 変数・関数・制御文</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../03_references_and_pointers.html">3. 参照・ポインタと寿命</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../04_classes_and_structs.html">4. クラス・構造体</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../05_inheritance.html">5. 継承と CRTP</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../06_templates.html">6. テンプレート</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../07_arrays_and_parallel.html">7. 配列・ラムダと CPU での並列ループ</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../08_mpi.html">8. MPI による領域分割</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../09_gpu.html">9. GPU（CUDA）での計算とデータ転送</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../10_heat1d.html">10. 熱伝導の計算</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../11_reading_miso.html">11. MISO の時間発展を読む</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="../index.html">実習一覧</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="../execution/index.html">配列と並列ループの実習</a></li>
+<li class="toctree-l4 current"><a class="reference internal" href="index.html">実習 heat1d：熱伝導の計算</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference/index.html">参考資料</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../references.html">References</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">MISO</a>
+      </nav>
+
+      <div class="wy-nav-content">
+<div id="language-links" style="margin-bottom: 1em; font-size: 100%;">
+    Language:
+    <a href="#" id="translate-link" target="_blank">English</a> |
+    <a href="#" id="original-link">日本語</a>
+</div>
+
+
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">MISO education</a></li>
+          <li class="breadcrumb-item"><a href="../index.html">実習一覧</a></li>
+          <li class="breadcrumb-item"><a href="index.html">実習 heat1d：熱伝導の計算</a></li>
+      <li class="breadcrumb-item active">03. GPU 版：配列とループを GPU へ移す</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../../_sources/education/practice/heat1d/03_gpu.md.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section class="tex2jax_ignore mathjax_ignore" id="gpu-gpu">
+<span id="edu-practice-heat1d-03"></span><h1>03. GPU 版：配列とループを GPU へ移す<a class="headerlink" href="#gpu-gpu" title="Link to this heading"></a></h1>
+<p><a class="reference internal" href="02_mpi.html#edu-practice-heat1d-02"><span class="std std-ref">02. MPI 版</span></a> のプログラムを、GPU でも CPU でもビルドできる <code class="docutils literal notranslate"><span class="pre">heat1d_gpu</span></code> に書き換えます。
+GPU のメモリ、<code class="docutils literal notranslate"><span class="pre">MISO_LAMBDA</span></code>、<code class="docutils literal notranslate"><span class="pre">this</span></code> の取り込みは <a class="reference internal" href="../../09_gpu.html#edu-ch09"><span class="std std-ref">第 9 章</span></a>、この課題での注意点は <a class="reference internal" href="../../10_heat1d.html#edu-ch10"><span class="std std-ref">第 10 章</span></a> で説明しています。
+MPI 版のソースをコピーして <code class="docutils literal notranslate"><span class="pre">03_gpu.cpp</span></code> とし、そこから書き換えます。</p>
+<section id="id1">
+<h2>作るもの<a class="headerlink" href="#id1" title="Link to this heading"></a></h2>
+<section id="id2">
+<h3>計算場所の切り替え<a class="headerlink" href="#id2" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>ソースの先頭で、<code class="docutils literal notranslate"><span class="pre">__CUDACC__</span></code> が定義されていれば <code class="docutils literal notranslate"><span class="pre">using</span> <span class="pre">Backend</span> <span class="pre">=</span> <span class="pre">backend::CUDA;</span></code>、そうでなければ <code class="docutils literal notranslate"><span class="pre">using</span> <span class="pre">Backend</span> <span class="pre">=</span> <span class="pre">backend::Host;</span></code> とします。</p></li>
+<li><p>計算に使う配列を <code class="docutils literal notranslate"><span class="pre">Array1D&lt;Real,</span> <span class="pre">Backend&gt;</span></code> に、<code class="docutils literal notranslate"><span class="pre">for_each</span></code>・<code class="docutils literal notranslate"><span class="pre">reduce</span></code> の第 1 引数を <code class="docutils literal notranslate"><span class="pre">Backend{}</span></code> に変えます。</p></li>
+<li><p>ラムダはすべて <code class="docutils literal notranslate"><span class="pre">MISO_LAMBDA</span></code> で書き、数学関数は <code class="docutils literal notranslate"><span class="pre">util::sin</span></code> などを使います（<code class="docutils literal notranslate"><span class="pre">std::sin</span></code> は GPU で使えません）。</p></li>
+</ul>
+</section>
+<section id="id3">
+<h3>ゴーストセルの交換<a class="headerlink" href="#id3" title="Link to this heading"></a></h3>
+<p>交換をまとめた構造体 <code class="docutils literal notranslate"><span class="pre">Halo</span></code> を作ります。メンバは次のとおりです。</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>メンバ</p></th>
+<th class="head"><p>役割</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">int</span> <span class="pre">n</span></code></p></td>
+<td><p>このランクの物理セル数</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">int</span> <span class="pre">left,</span> <span class="pre">right</span></code></p></td>
+<td><p>左右の隣のランク（なければ <code class="docutils literal notranslate"><span class="pre">MPI_PROC_NULL</span></code>）</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">MPI_Comm</span> <span class="pre">comm</span></code></p></td>
+<td><p>通信に使うコミュニケータ</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Array1D&lt;Real,</span> <span class="pre">Backend&gt;</span> <span class="pre">send,</span> <span class="pre">recv</span></code></p></td>
+<td><p>計算する側の送受信用の配列（2 要素。<code class="docutils literal notranslate"><span class="pre">[0]</span></code> が左側、<code class="docutils literal notranslate"><span class="pre">[1]</span></code> が右側）</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Array1D&lt;Real&gt;</span> <span class="pre">h_send,</span> <span class="pre">h_recv</span></code></p></td>
+<td><p>ホストの送受信用の配列（2 要素）</p></td>
+</tr>
+</tbody>
+</table>
+<p>配列はコンストラクタの初期化子リストで確保し（<a class="reference internal" href="../../04_classes_and_structs.html#edu-ch04"><span class="std std-ref">第 4 章</span></a>）、ステップごとに確保し直しません。</p>
+<p>メンバ関数 <code class="docutils literal notranslate"><span class="pre">void</span> <span class="pre">apply(Array1D&lt;Real,</span> <span class="pre">Backend&gt;</span> <span class="pre">&amp;u)</span></code> は、次の順に処理します。</p>
+<ol class="arabic simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">for_each</span></code>（<code class="docutils literal notranslate"><span class="pre">Range1D{0,</span> <span class="pre">1}</span></code>）で、<code class="docutils literal notranslate"><span class="pre">u[1]</span></code> を <code class="docutils literal notranslate"><span class="pre">send[0]</span></code> に、<code class="docutils literal notranslate"><span class="pre">u[n]</span></code> を <code class="docutils literal notranslate"><span class="pre">send[1]</span></code> に詰めます。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">h_send.copy_from(send);</span></code> でホストへ写します。</p></li>
+<li><p>MPI 版と同じ 2 回の <code class="docutils literal notranslate"><span class="pre">MPI_Sendrecv</span></code> を、<code class="docutils literal notranslate"><span class="pre">h_send</span></code> と <code class="docutils literal notranslate"><span class="pre">h_recv</span></code> で行います。
+1 回目は <code class="docutils literal notranslate"><span class="pre">h_send[0]</span></code> を左隣へ送り、右隣から <code class="docutils literal notranslate"><span class="pre">h_recv[1]</span></code> に受け取ります。2 回目は <code class="docutils literal notranslate"><span class="pre">h_send[1]</span></code> を右隣へ送り、左隣から <code class="docutils literal notranslate"><span class="pre">h_recv[0]</span></code> に受け取ります。
+アドレスは <code class="docutils literal notranslate"><span class="pre">h_send.data()</span></code>、<code class="docutils literal notranslate"><span class="pre">h_send.data()</span> <span class="pre">+</span> <span class="pre">1</span></code> のように渡せます。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">recv.copy_from(h_recv);</span></code> で計算する側へ写します。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">for_each</span></code>（<code class="docutils literal notranslate"><span class="pre">Range1D{0,</span> <span class="pre">1}</span></code>）で、左隣があれば <code class="docutils literal notranslate"><span class="pre">u[0]</span> <span class="pre">=</span> <span class="pre">recv[0]</span></code>、なければ <code class="docutils literal notranslate"><span class="pre">u[0]</span> <span class="pre">=</span> <span class="pre">-u[1]</span></code> とし、右側も同様にします。</p></li>
+</ol>
+<p><strong>ラムダの中でメンバ変数（<code class="docutils literal notranslate"><span class="pre">n</span></code>、<code class="docutils literal notranslate"><span class="pre">left</span></code>、<code class="docutils literal notranslate"><span class="pre">right</span></code> など）を使わないでください。</strong>
+ラムダの前で <code class="docutils literal notranslate"><span class="pre">const</span> <span class="pre">int</span> <span class="pre">n_</span> <span class="pre">=</span> <span class="pre">n;</span></code>、<code class="docutils literal notranslate"><span class="pre">const</span> <span class="pre">bool</span> <span class="pre">has_left</span> <span class="pre">=</span> <span class="pre">(left</span> <span class="pre">!=</span> <span class="pre">MPI_PROC_NULL);</span></code> のようにローカル変数にコピーし、ラムダの中ではそれを使います。</p>
+</section>
+<section id="id4">
+<h3>誤差と出力<a class="headerlink" href="#id4" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>誤差は <code class="docutils literal notranslate"><span class="pre">reduce(Backend{},</span> <span class="pre">...)</span></code> で求めます。戻り値はホストの値なので、そのまま <code class="docutils literal notranslate"><span class="pre">MPI_Allreduce</span></code> に渡せます。</p></li>
+<li><p>書き出す前に、<code class="docutils literal notranslate"><span class="pre">Array1D&lt;Real&gt;</span> <span class="pre">u_host(n</span> <span class="pre">+</span> <span class="pre">2);</span></code> を作り、<code class="docutils literal notranslate"><span class="pre">u_host.copy_from(u);</span></code> でホストへ写してから <code class="docutils literal notranslate"><span class="pre">MPI_Gather</span></code> します。</p></li>
+<li><p>表示の 1 行目の先頭に、GPU 用のビルドなら <code class="docutils literal notranslate"><span class="pre">[gpu]</span></code>、CPU 用なら <code class="docutils literal notranslate"><span class="pre">[cpu]</span></code> を付けます。
+ファイル名も <code class="docutils literal notranslate"><span class="pre">result_N64_P2_gpu.txt</span></code> / <code class="docutils literal notranslate"><span class="pre">result_N64_P2_cpu.txt</span></code> のように区別します。</p></li>
+</ul>
+</section>
+</section>
+<section id="id5">
+<h2>ビルドの設定<a class="headerlink" href="#id5" title="Link to this heading"></a></h2>
+<p>CPU 用には、MPI 版と同じく <code class="docutils literal notranslate"><span class="pre">heat1d_gpu</span></code> を <code class="docutils literal notranslate"><span class="pre">03_gpu.cpp</span></code> から作り、<code class="docutils literal notranslate"><span class="pre">MISO::MISO</span></code> をリンクするだけです。</p>
+<p>GPU 用には、<code class="docutils literal notranslate"><span class="pre">cmake</span></code> に <code class="docutils literal notranslate"><span class="pre">-DMISO_USE_CUDA=ON</span></code> を与えたとき、次の 2 つが行われるように <code class="docutils literal notranslate"><span class="pre">CMakeLists.txt</span></code> に書き足します。</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">add_subdirectory</span></code> で MISO を取り込む<strong>前に</strong>、CUDA を使えるようにする（<code class="docutils literal notranslate"><span class="pre">enable_language(CUDA)</span></code>）。
+その前に、対象の GPU の世代 <code class="docutils literal notranslate"><span class="pre">CMAKE_CUDA_ARCHITECTURES</span></code> を決めておきます（指定がなければ <code class="docutils literal notranslate"><span class="pre">native</span></code>）。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">03_gpu.cpp</span></code> を CUDA のソースとしてコンパイルさせる（<code class="docutils literal notranslate"><span class="pre">set_source_files_properties(03_gpu.cpp</span> <span class="pre">PROPERTIES</span> <span class="pre">LANGUAGE</span> <span class="pre">CUDA)</span></code>）。</p></li>
+</ul>
+<p>書き足す部分は、たとえば次の形になります。</p>
+<div class="highlight-cmake notranslate"><div class="highlight"><pre><span></span><span class="nb">option</span><span class="p">(</span><span class="s">MISO_USE_CUDA</span><span class="w"> </span><span class="s2">"Enable CUDA support"</span><span class="w"> </span><span class="s">OFF</span><span class="p">)</span>
+<span class="nb">if</span><span class="p">(</span><span class="s">MISO_USE_CUDA</span><span class="p">)</span>
+<span class="w">    </span><span class="nb">if</span><span class="p">(</span><span class="s">NOT</span><span class="w"> </span><span class="s">DEFINED</span><span class="w"> </span><span class="s">CMAKE_CUDA_ARCHITECTURES</span><span class="p">)</span>
+<span class="w">        </span><span class="nb">set</span><span class="p">(</span><span class="s">CMAKE_CUDA_ARCHITECTURES</span><span class="w"> </span><span class="s">native</span><span class="w"> </span><span class="s">CACHE</span><span class="w"> </span><span class="s">STRING</span><span class="w"> </span><span class="s2">"CUDA architectures"</span><span class="p">)</span>
+<span class="w">    </span><span class="nb">endif</span><span class="p">()</span>
+<span class="w">    </span><span class="nb">enable_language</span><span class="p">(</span><span class="s">CUDA</span><span class="p">)</span>
+<span class="w">    </span><span class="nb">set</span><span class="p">(</span><span class="s">CMAKE_CUDA_STANDARD</span><span class="w"> </span><span class="s">17</span><span class="p">)</span>
+<span class="w">    </span><span class="nb">set</span><span class="p">(</span><span class="s">CMAKE_CUDA_STANDARD_REQUIRED</span><span class="w"> </span><span class="s">ON</span><span class="p">)</span>
+<span class="nb">endif</span><span class="p">()</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">MISO_USE_CUDA</span></code> は MISO の <code class="docutils literal notranslate"><span class="pre">miso/CMakeLists.txt</span></code> の設定と同じ名前なので、MISO 側でも CUDA が有効になり、<code class="docutils literal notranslate"><span class="pre">--expt-extended-lambda</span></code> などが付きます。
+GPU 用のビルドは、CPU 用とは別のフォルダに作ります。</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>cmake<span class="w"> </span>-B<span class="w"> </span>build-gpu<span class="w"> </span>-S<span class="w"> </span>.<span class="w"> </span>-DMISO_DIR<span class="o">=</span>/path/to/MISO<span class="w"> </span>-DMISO_USE_CUDA<span class="o">=</span>ON
+cmake<span class="w"> </span>--build<span class="w"> </span>build-gpu<span class="w"> </span>-j
+</pre></div>
+</div>
+</section>
+<section id="id6">
+<h2>確かめること<a class="headerlink" href="#id6" title="Link to this heading"></a></h2>
+<section id="cpu-gpu">
+<h3>CPU 用のビルド（GPU がなくてもできます）<a class="headerlink" href="#cpu-gpu" title="Link to this heading"></a></h3>
+<ol class="arabic simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">mpiexec</span> <span class="pre">-np</span> <span class="pre">P</span> <span class="pre">./build/heat1d_gpu</span> <span class="pre">64</span></code>（<span class="math notranslate nohighlight">\(P = 1, 2, 4\)</span>）の結果が、MPI 版の <code class="docutils literal notranslate"><span class="pre">result_N64_P&lt;P&gt;.txt</span></code> とビット単位で一致することを <code class="docutils literal notranslate"><span class="pre">cmp</span></code> で確かめます。
+一致すれば、<code class="docutils literal notranslate"><span class="pre">Backend</span></code> への書き換えと、送受信用の配列を経由する交換が正しく書けています。</p></li>
+</ol>
+</section>
+<section id="gpu">
+<h3>GPU 用のビルド<a class="headerlink" href="#gpu" title="Link to this heading"></a></h3>
+<ol class="arabic" start="2">
+<li><p><strong>誤差</strong>：<span class="math notranslate nohighlight">\(N = 32, 64, 128, 256, 512\)</span> を 1 ランクで実行し、<code class="docutils literal notranslate"><span class="pre">max</span> <span class="pre">error</span> <span class="pre">(exact)</span></code> が <a class="reference internal" href="01_serial.html#edu-practice-heat1d-01"><span class="std std-ref">逐次版</span></a> の表と 4〜5 桁目まで一致すること、
+<code class="docutils literal notranslate"><span class="pre">max</span> <span class="pre">error</span> <span class="pre">(discrete)</span></code> が <span class="math notranslate nohighlight">\(10^{-11}\)</span> 以下であることを確かめます。</p></li>
+<li><p><strong>ランク数</strong>：<span class="math notranslate nohighlight">\(P = 1, 2, 4\)</span> で実行し、GPU 用のビルドどうしでファイルがビット単位で一致することを確かめます。
+GPU が 1 枚でも、複数のランクで同じ GPU を共有して実行できます（<code class="docutils literal notranslate"><span class="pre">miso::Env</span></code> が、ノード内のランク番号から使う GPU を選びます）。</p></li>
+<li><p><strong>CPU との比較</strong>：同じ <span class="math notranslate nohighlight">\(N\)</span>・<span class="math notranslate nohighlight">\(P\)</span> の CPU の結果と、全セルの最大の差を求めます。</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>paste<span class="w"> </span>result_N64_P1_cpu.txt<span class="w"> </span>result_N64_P1_gpu.txt<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span><span class="p">|</span><span class="w"> </span>awk<span class="w"> </span><span class="s1">'{d = $2 - $4; if (d &lt; 0) d = -d; if (d &gt; m) m = d} END {print m}'</span>
+</pre></div>
+</div>
+<p>最大の差が <span class="math notranslate nohighlight">\(10^{-12}\)</span> 程度以下なら一致とみなします。
+FMA や数学関数の実装の違いで最後の桁が違うことがあるので、ビット単位の一致は求めません（一致することもあります）。
+<code class="docutils literal notranslate"><span class="pre">max</span> <span class="pre">error</span> <span class="pre">(discrete)</span></code> の表示も、CPU と最後の桁が違うことがあります（たとえば <code class="docutils literal notranslate"><span class="pre">1.249e-14</span></code> と <code class="docutils literal notranslate"><span class="pre">1.247e-14</span></code>）。</p>
+</li>
+</ol>
+<p>実行時に <code class="docutils literal notranslate"><span class="pre">an</span> <span class="pre">illegal</span> <span class="pre">memory</span> <span class="pre">access</span> <span class="pre">was</span> <span class="pre">encountered</span></code> と表示されたら、まずラムダの中にメンバ変数や、ホストの配列（<code class="docutils literal notranslate"><span class="pre">Array1D&lt;Real&gt;</span></code>）のビューがないかを調べます。
+その他のエラーは <a class="reference internal" href="../../reference/gpu_troubleshooting.html#edu-ref-gpu-troubleshooting"><span class="std std-ref">参考資料「GPU で困ったとき」</span></a> を参照してください。</p>
+</section>
+</section>
+<section id="id7">
+<h2>次へ進む目安<a class="headerlink" href="#id7" title="Link to this heading"></a></h2>
+<p>CPU 用のビルドで MPI 版と一致し、GPU を使える場合は GPU 用のビルドで上の 2〜4 を確かめたら、熱伝導の実習は完了です。
+<a class="reference internal" href="../../11_reading_miso.html#edu-ch11"><span class="std std-ref">第 11 章</span></a> へ進み、MISO 本体の時間発展を読みます。</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="02_mpi.html" class="btn btn-neutral float-left" title="02. MPI 版：領域を分けて解く" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../../reference/index.html" class="btn btn-neutral float-right" title="参考資料" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Integrated Studies, ISEE, Nagoya University.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+ 
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        const currentUrl = window.location.href;
+        const isTranslated = currentUrl.includes(".translate.goog");
+        const translateLink = document.getElementById("translate-link");
+        const originalLink = document.getElementById("original-link");
+
+        // 翻訳URLを生成
+        const translateUrl =
+            "https://translate.google.com/translate?sl=ja&tl=en&u=" +
+            encodeURIComponent(currentUrl);
+
+        if (isTranslated) {
+            // --- 英語版(.translate.goog)にいる場合 ---
+            // English → ページを単にリロード
+            translateLink.removeAttribute("target");
+            translateLink.removeAttribute("href");
+            translateLink.addEventListener("click", (e) => {
+                e.preventDefault();
+                window.location.reload();
+            });
+
+            // 日本語 → 新タブで元URLを開く（翻訳解除）
+            const originalUrl = currentUrl.replace(
+                /^https:\/\/[^/]+\.translate\.goog/,
+                "https://is-isee.github.io"
+            );
+            originalLink.href = originalUrl;
+            originalLink.target = "_blank";
+            originalLink.rel = "noopener";
+        } else {
+            // --- 日本語版にいる場合 ---
+            translateLink.href = translateUrl;
+            translateLink.target = "_blank";
+
+            originalLink.href = currentUrl;
+            originalLink.target = "_self";
+        }
+    });
+</script>
+
+
+</body>
+</html>

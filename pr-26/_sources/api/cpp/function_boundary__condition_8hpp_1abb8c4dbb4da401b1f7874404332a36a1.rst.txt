@@ -1,0 +1,14 @@
+.. _exhale_function_boundary__condition_8hpp_1abb8c4dbb4da401b1f7874404332a36a1:
+
+Function miso::boundary_condition::string_to_side
+=================================================
+
+- Defined in :ref:`file__home_runner_work_MISO_docs_MISO_docs_MISO_miso_include_miso_boundary_condition.hpp`
+
+
+Function Documentation
+----------------------
+
+
+.. doxygenfunction:: miso::boundary_condition::string_to_side(const std::string&)
+   :project: CPP

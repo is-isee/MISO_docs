@@ -1,0 +1,95 @@
+
+.. _file__home_runner_work_MISO_docs_MISO_docs_MISO_miso_include_miso_mhd_fields.hpp:
+
+File mhd_fields.hpp
+===================
+
+|exhale_lsh| :ref:`Parent directory <dir__home_runner_work_MISO_docs_MISO_docs_MISO_miso_include_miso>` (``/home/runner/work/MISO_docs/MISO_docs/MISO/miso/include/miso``)
+
+.. |exhale_lsh| unicode:: U+021B0 .. UPWARDS ARROW WITH TIP LEFTWARDS
+
+
+.. contents:: Contents
+   :local:
+   :backlinks: none
+
+Definition (``/home/runner/work/MISO_docs/MISO_docs/MISO/miso/include/miso/mhd_fields.hpp``)
+--------------------------------------------------------------------------------------------
+
+
+.. toctree::
+   :maxdepth: 1
+
+   program_listing_file__home_runner_work_MISO_docs_MISO_docs_MISO_miso_include_miso_mhd_fields.hpp.rst
+
+
+
+
+
+Includes
+--------
+
+
+- ``array3d.hpp`` (:ref:`file__home_runner_work_MISO_docs_MISO_docs_MISO_miso_include_miso_array3d.hpp`)
+
+- ``backend.hpp`` (:ref:`file__home_runner_work_MISO_docs_MISO_docs_MISO_miso_include_miso_backend.hpp`)
+
+- ``cuda_util.cuh`` (:ref:`file__home_runner_work_MISO_docs_MISO_docs_MISO_miso_include_miso_cuda_util.cuh`)
+
+
+
+Included By
+-----------
+
+
+- :ref:`file__home_runner_work_MISO_docs_MISO_docs_MISO_miso_include_miso_mhd_artificial_viscosity_cuda.cuh`
+
+- :ref:`file__home_runner_work_MISO_docs_MISO_docs_MISO_miso_include_miso_mhd_artificial_viscosity_host.hpp`
+
+- :ref:`file__home_runner_work_MISO_docs_MISO_docs_MISO_miso_include_miso_mhd_checkpoint.hpp`
+
+- :ref:`file__home_runner_work_MISO_docs_MISO_docs_MISO_miso_include_miso_mhd_halo_exchange.hpp`
+
+- :ref:`file__home_runner_work_MISO_docs_MISO_docs_MISO_miso_include_miso_mhd_integrator.hpp`
+
+- :ref:`file__home_runner_work_MISO_docs_MISO_docs_MISO_miso_include_miso_mhd_integrator_cuda.cuh`
+
+- :ref:`file__home_runner_work_MISO_docs_MISO_docs_MISO_miso_include_miso_mhd_integrator_host.hpp`
+
+- :ref:`file__home_runner_work_MISO_docs_MISO_docs_MISO_miso_include_miso_mhd_resistivity.hpp`
+
+- :ref:`file__home_runner_work_MISO_docs_MISO_docs_MISO_miso_include_miso_mhd_solver.hpp`
+
+
+
+
+Namespaces
+----------
+
+
+- :ref:`namespace_miso`
+
+- :ref:`namespace_miso__mhd`
+
+
+Classes
+-------
+
+
+- :ref:`exhale_struct_structmiso_1_1mhd_1_1Fields`
+
+- :ref:`exhale_struct_structmiso_1_1mhd_1_1Fields_3_01Real_00_01backend_1_1CUDA_01_4`
+
+- :ref:`exhale_struct_structmiso_1_1mhd_1_1Fields_3_01Real_00_01backend_1_1Host_01_4`
+
+- :ref:`exhale_struct_structmiso_1_1mhd_1_1FieldsView`
+
+
+Functions
+---------
+
+
+- :ref:`exhale_function_mhd__fields_8hpp_1ae8a35b0840b572ba246c8e65346c6fea`
+
+- :ref:`exhale_function_mhd__fields_8hpp_1a29210876c602ab1450f2ca10cd0a453f`
+

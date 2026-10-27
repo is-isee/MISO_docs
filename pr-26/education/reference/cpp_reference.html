@@ -1,0 +1,785 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>記号の早見表 &mdash; MISO 0.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css?v=4ae1632d" />
+      <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../../_static/collapsible-lists/css/tree_view.css?v=a885cde7" />
+      <link rel="stylesheet" type="text/css" href="../../_static/custom.css" />
+
+  
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options.js?v=837179f8"></script>
+      <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../../_static/copybutton.js?v=f281be69"></script>
+      <script src="../../_static/collapsible-lists/js/CollapsibleLists.compressed.js?v=73120307"></script>
+      <script src="../../_static/collapsible-lists/js/apply-collapsible-lists.js?v=660e4f45"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="テストと計算結果の比較" href="testing.html" />
+    <link rel="prev" title="Fortran との対応表" href="fortran_map.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            MISO
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../quickstart.html">Quick Start</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../demo/index.html">Test Problems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../customization/index.html">Customization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../miso/index.html">MISO C++ documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../pymiso/index.html">pymiso Documentation</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">MISO education</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../index.html#id1">本文</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../index.html#id2">必要なときに参照する資料</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../01_environment_setup.html">1. 開発環境と CMake</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../02_cpp_basics.html">2. 変数・関数・制御文</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../03_references_and_pointers.html">3. 参照・ポインタと寿命</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../04_classes_and_structs.html">4. クラス・構造体</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../05_inheritance.html">5. 継承と CRTP</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../06_templates.html">6. テンプレート</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../07_arrays_and_parallel.html">7. 配列・ラムダと CPU での並列ループ</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../08_mpi.html">8. MPI による領域分割</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../09_gpu.html">9. GPU（CUDA）での計算とデータ転送</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../10_heat1d.html">10. 熱伝導の計算</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../11_reading_miso.html">11. MISO の時間発展を読む</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../practice/index.html">実習一覧</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="index.html">参考資料</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="glossary.html">用語集</a></li>
+<li class="toctree-l4"><a class="reference internal" href="fortran_map.html">Fortran との対応表</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">記号の早見表</a></li>
+<li class="toctree-l4"><a class="reference internal" href="testing.html">テストと計算結果の比較</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gpu_troubleshooting.html">GPU で困ったとき</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../references.html">References</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">MISO</a>
+      </nav>
+
+      <div class="wy-nav-content">
+<div id="language-links" style="margin-bottom: 1em; font-size: 100%;">
+    Language:
+    <a href="#" id="translate-link" target="_blank">English</a> |
+    <a href="#" id="original-link">日本語</a>
+</div>
+
+
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">MISO education</a></li>
+          <li class="breadcrumb-item"><a href="index.html">参考資料</a></li>
+      <li class="breadcrumb-item active">記号の早見表</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../_sources/education/reference/cpp_reference.md.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section class="tex2jax_ignore mathjax_ignore" id="edu-ref-cpp">
+<span id="id1"></span><h1>記号の早見表<a class="headerlink" href="#edu-ref-cpp" title="Link to this heading"></a></h1>
+<p>C++ の第 2〜6 章と、第 7〜9 章で MISO のコードを読みながら、記号やキーワードの意味を確かめるための表です。
+通読する必要はありません。各行の「詳しい説明」から本文の章へ戻れます。</p>
+<section id="id2">
+<h2>目次<a class="headerlink" href="#id2" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p><a class="reference internal" href="#edu-ref-cpp-basics"><span class="std std-ref">読み方の基本：宣言か式か</span></a></p></li>
+<li><p><a class="reference internal" href="#edu-ref-cpp-star-amp"><span class="std std-ref">* と &amp; と &amp;&amp;</span></a></p></li>
+<li><p><a class="reference internal" href="#edu-ref-cpp-scope"><span class="std std-ref">名前とメンバを指す記号（:: . -&gt;）</span></a></p></li>
+<li><p><a class="reference internal" href="#edu-ref-cpp-brackets"><span class="std std-ref">括弧（山括弧・角括弧・丸括弧・波括弧）</span></a></p></li>
+<li><p><a class="reference internal" href="#edu-ref-cpp-operators"><span class="std std-ref">その他の演算子</span></a></p></li>
+<li><p><a class="reference internal" href="#edu-ref-cpp-preprocessor"><span class="std std-ref">プリプロセッサの記号（#）</span></a></p></li>
+<li><p><a class="reference internal" href="#edu-ref-cpp-keywords"><span class="std std-ref">キーワード</span></a></p></li>
+<li><p><a class="reference internal" href="#edu-ref-cpp-miso"><span class="std std-ref">MISO と CUDA の記号</span></a></p></li>
+<li><p><a class="reference internal" href="#edu-ref-cpp-reading"><span class="std std-ref">宣言を読むときの確認順序</span></a></p></li>
+</ul>
+</section>
+<section id="edu-ref-cpp-basics">
+<span id="id3"></span><h2>読み方の基本：宣言か式か<a class="headerlink" href="#edu-ref-cpp-basics" title="Link to this heading"></a></h2>
+<p>C++ では、同じ記号が<strong>宣言</strong>（新しい名前を作る文）と<strong>式</strong>（すでにある名前を使う計算）で別の意味になります。
+記号に迷ったら、まずその行が名前を作っているのか、使っているのかを確かめます。</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">double</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">1.0</span><span class="p">;</span>
+<span class="kt">double</span><span class="w"> </span><span class="o">*</span><span class="n">p</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&amp;</span><span class="n">a</span><span class="p">;</span><span class="w">  </span><span class="c1">// 宣言の * : p は「double を指すポインタ」。式の &amp; : a のアドレス</span>
+<span class="o">*</span><span class="n">p</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">2.0</span><span class="p">;</span><span class="w">        </span><span class="c1">// 式の * : p の指す先（a）に 2.0 を書きます</span>
+<span class="kt">double</span><span class="w"> </span><span class="o">&amp;</span><span class="n">r</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">a</span><span class="p">;</span><span class="w">   </span><span class="c1">// 宣言の &amp; : r は a の別名（参照）</span>
+</pre></div>
+</div>
+<p>以下の表では、<code class="docutils literal notranslate"><span class="pre">a</span></code>・<code class="docutils literal notranslate"><span class="pre">b</span></code> を <code class="docutils literal notranslate"><span class="pre">double</span></code> の変数、<code class="docutils literal notranslate"><span class="pre">p</span></code> を <code class="docutils literal notranslate"><span class="pre">double</span> <span class="pre">*</span></code> 型のポインタ、<code class="docutils literal notranslate"><span class="pre">T</span></code> をテンプレート引数の型として読みます。</p>
+</section>
+<section id="edu-ref-cpp-star-amp">
+<span id="id4"></span><h2>* と &amp; と &amp;&amp;<a class="headerlink" href="#edu-ref-cpp-star-amp" title="Link to this heading"></a></h2>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>見かけた形</p></th>
+<th class="head"><p>宣言か式か</p></th>
+<th class="head"><p>意味</p></th>
+<th class="head"><p>詳しい説明</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">double</span> <span class="pre">*p</span> <span class="pre">=</span> <span class="pre">&amp;a;</span></code></p></td>
+<td><p>宣言</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">p</span></code> は <code class="docutils literal notranslate"><span class="pre">double</span></code> を指すポインタです。<code class="docutils literal notranslate"><span class="pre">double*</span> <span class="pre">p</span></code> と書いても同じです</p></td>
+<td><p><a class="reference internal" href="../03_references_and_pointers.html#edu-ch03"><span class="std std-ref">第 3 章</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">*p</span></code>、<code class="docutils literal notranslate"><span class="pre">*p</span> <span class="pre">=</span> <span class="pre">5.0;</span></code></p></td>
+<td><p>式</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">p</span></code> の指す先の値を読み書きします</p></td>
+<td><p><a class="reference internal" href="../03_references_and_pointers.html#edu-ch03"><span class="std std-ref">第 3 章</span></a></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">a</span> <span class="pre">*</span> <span class="pre">b</span></code></p></td>
+<td><p>式</p></td>
+<td><p>掛け算です</p></td>
+<td><p><a class="reference internal" href="../02_cpp_basics.html#edu-ch02"><span class="std std-ref">第 2 章</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">double</span> <span class="pre">&amp;r</span> <span class="pre">=</span> <span class="pre">a;</span></code></p></td>
+<td><p>宣言</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">r</span></code> は <code class="docutils literal notranslate"><span class="pre">a</span></code> の別名（参照）です。<code class="docutils literal notranslate"><span class="pre">r</span></code> への代入は <code class="docutils literal notranslate"><span class="pre">a</span></code> を変えます</p></td>
+<td><p><a class="reference internal" href="../03_references_and_pointers.html#edu-ch03"><span class="std std-ref">第 3 章</span></a></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">void</span> <span class="pre">f(double</span> <span class="pre">&amp;x)</span></code></p></td>
+<td><p>宣言（引数）</p></td>
+<td><p>参照渡しです。関数の中で <code class="docutils literal notranslate"><span class="pre">x</span></code> を変えると、呼び出し元の変数が変わります</p></td>
+<td><p><a class="reference internal" href="../03_references_and_pointers.html#edu-ch03"><span class="std std-ref">第 3 章</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">const</span> <span class="pre">Config</span> <span class="pre">&amp;config</span></code></p></td>
+<td><p>宣言（引数）</p></td>
+<td><p>読むだけの参照渡しです。コピーせず、変更もしません</p></td>
+<td><p><a class="reference internal" href="../03_references_and_pointers.html#edu-ch03"><span class="std std-ref">第 3 章</span></a></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">&amp;a</span></code></p></td>
+<td><p>式</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">a</span></code> のアドレスを取り出します</p></td>
+<td><p><a class="reference internal" href="../03_references_and_pointers.html#edu-ch03"><span class="std std-ref">第 3 章</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">&amp;T::gm</span></code></p></td>
+<td><p>式</p></td>
+<td><p>クラス <code class="docutils literal notranslate"><span class="pre">T</span></code> のメンバ <code class="docutils literal notranslate"><span class="pre">gm</span></code> を指す式です。MISO では「<code class="docutils literal notranslate"><span class="pre">gm</span></code> があるか」の検査に使います</p></td>
+<td><p><a class="reference internal" href="../06_templates.html#edu-ch06"><span class="std std-ref">第 6 章</span></a></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">x</span> <span class="pre">&amp;&amp;</span> <span class="pre">y</span></code></p></td>
+<td><p>式</p></td>
+<td><p>論理積（かつ）です。Fortran の <code class="docutils literal notranslate"><span class="pre">.and.</span></code> です</p></td>
+<td><p><a class="reference internal" href="../02_cpp_basics.html#edu-ch02"><span class="std std-ref">第 2 章</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Array3D(Array3D</span> <span class="pre">&amp;&amp;other)</span></code></p></td>
+<td><p>宣言（引数）</p></td>
+<td><p>右辺値参照です。ムーブ（中身の移し替え）を受け取るときに使います</p></td>
+<td><p><a class="reference internal" href="../04_classes_and_structs.html#edu-ch04"><span class="std std-ref">第 4 章</span></a></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">const</span> <span class="pre">double</span> <span class="pre">*p</span></code></p></td>
+<td><p>宣言</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">*p</span></code> を通した変更を禁止します。<code class="docutils literal notranslate"><span class="pre">p</span></code> の指す先は切り替えられます</p></td>
+<td><p><a class="reference internal" href="../03_references_and_pointers.html#edu-ch03"><span class="std std-ref">第 3 章</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">double</span> <span class="pre">*const</span> <span class="pre">p</span></code></p></td>
+<td><p>宣言</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">p</span></code> の指す先の切り替えを禁止します。<code class="docutils literal notranslate"><span class="pre">*p</span></code> を通した変更はできます</p></td>
+<td><p><a class="reference internal" href="../03_references_and_pointers.html#edu-ch03"><span class="std std-ref">第 3 章</span></a></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">T</span> <span class="pre">*data_</span></code></p></td>
+<td><p>宣言（メンバ）</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">Array3DView</span></code> などが持つ、配列の先頭を指すポインタです</p></td>
+<td><p><a class="reference internal" href="../04_classes_and_structs.html#edu-ch04"><span class="std std-ref">第 4 章</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">char</span> <span class="pre">**argv</span></code></p></td>
+<td><p>宣言（引数）</p></td>
+<td><p>ポインタを指すポインタです。<code class="docutils literal notranslate"><span class="pre">main</span></code> のコマンドライン引数で見かけます</p></td>
+<td><p><a class="reference internal" href="../03_references_and_pointers.html#edu-ch03"><span class="std std-ref">第 3 章</span></a></p></td>
+</tr>
+</tbody>
+</table>
+<p>MISO のソースは <code class="docutils literal notranslate"><span class="pre">double</span> <span class="pre">*p</span></code> のように <code class="docutils literal notranslate"><span class="pre">*</span></code> と <code class="docutils literal notranslate"><span class="pre">&amp;</span></code> を名前の側に付けて書きます（<code class="docutils literal notranslate"><span class="pre">.clang-format</span></code> の設定）。
+<code class="docutils literal notranslate"><span class="pre">double*</span> <span class="pre">p</span></code> と <code class="docutils literal notranslate"><span class="pre">double</span> <span class="pre">*p</span></code> は同じ意味です。</p>
+</section>
+<section id="edu-ref-cpp-scope">
+<span id="id5"></span><h2>名前とメンバを指す記号（:: . -&gt;）<a class="headerlink" href="#edu-ref-cpp-scope" title="Link to this heading"></a></h2>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>見かけた形</p></th>
+<th class="head"><p>意味</p></th>
+<th class="head"><p>詳しい説明</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">std::cout</span></code>、<code class="docutils literal notranslate"><span class="pre">miso::mhd::MHD</span></code></p></td>
+<td><p>名前空間の中の名前です。<code class="docutils literal notranslate"><span class="pre">miso::mhd::</span></code> は「<code class="docutils literal notranslate"><span class="pre">miso</span></code> の中の <code class="docutils literal notranslate"><span class="pre">mhd</span></code> の中」です</p></td>
+<td><p><a class="reference internal" href="../02_cpp_basics.html#edu-ch02"><span class="std std-ref">第 2 章</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">backend::Host</span></code></p></td>
+<td><p>名前空間 <code class="docutils literal notranslate"><span class="pre">miso::backend</span></code> の中の型です。<code class="docutils literal notranslate"><span class="pre">using</span> <span class="pre">namespace</span> <span class="pre">miso;</span></code> の後では <code class="docutils literal notranslate"><span class="pre">miso::</span></code> を省けます</p></td>
+<td><p><a class="reference internal" href="../02_cpp_basics.html#edu-ch02"><span class="std std-ref">第 2 章</span></a>、<a class="reference internal" href="../06_templates.html#edu-ch06"><span class="std std-ref">第 6 章</span></a></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">::sinf(x)</span></code></p></td>
+<td><p>先頭の <code class="docutils literal notranslate"><span class="pre">::</span></code> は、名前空間の外（一番外側）の名前を指します</p></td>
+<td><p><a class="reference internal" href="../02_cpp_basics.html#edu-ch02"><span class="std std-ref">第 2 章</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Shape::ndims</span></code>、<code class="docutils literal notranslate"><span class="pre">std::true_type::value</span></code></p></td>
+<td><p>クラスに属する名前（<code class="docutils literal notranslate"><span class="pre">static</span></code> なメンバ）です。実体を作らずに使えます</p></td>
+<td><p><a class="reference internal" href="../04_classes_and_structs.html#edu-ch04"><span class="std std-ref">第 4 章</span></a>、<a class="reference internal" href="../06_templates.html#edu-ch06"><span class="std std-ref">第 6 章</span></a></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">T::gm</span></code></p></td>
+<td><p>テンプレート引数 <code class="docutils literal notranslate"><span class="pre">T</span></code> のメンバです</p></td>
+<td><p><a class="reference internal" href="../06_templates.html#edu-ch06"><span class="std std-ref">第 6 章</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">grid.i_total</span></code>、<code class="docutils literal notranslate"><span class="pre">qq.ro(i,</span> <span class="pre">j,</span> <span class="pre">k)</span></code></p></td>
+<td><p>実体（または参照）のメンバを使います</p></td>
+<td><p><a class="reference internal" href="../04_classes_and_structs.html#edu-ch04"><span class="std std-ref">第 4 章</span></a></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">p-&gt;x</span></code></p></td>
+<td><p>ポインタ <code class="docutils literal notranslate"><span class="pre">p</span></code> の指す先のメンバを使います。<code class="docutils literal notranslate"><span class="pre">(*p).x</span></code> と同じです</p></td>
+<td><p><a class="reference internal" href="../04_classes_and_structs.html#edu-ch04"><span class="std std-ref">第 4 章</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">this-&gt;config</span></code></p></td>
+<td><p>メンバ関数の中で、自分自身を指すポインタ <code class="docutils literal notranslate"><span class="pre">this</span></code> からメンバを使います。ふつうは <code class="docutils literal notranslate"><span class="pre">this-&gt;</span></code> を省きます</p></td>
+<td><p><a class="reference internal" href="../04_classes_and_structs.html#edu-ch04"><span class="std std-ref">第 4 章</span></a></p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="edu-ref-cpp-brackets">
+<span id="id6"></span><h2>括弧（&lt;&gt; [] () {}）<a class="headerlink" href="#edu-ref-cpp-brackets" title="Link to this heading"></a></h2>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>見かけた形</p></th>
+<th class="head"><p>意味</p></th>
+<th class="head"><p>詳しい説明</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">#include</span> <span class="pre">&lt;vector&gt;</span></code></p></td>
+<td><p>標準ライブラリなど、決まった場所にあるヘッダを読み込みます</p></td>
+<td><p><a class="reference internal" href="../01_environment_setup.html#edu-ch01"><span class="std std-ref">第 1 章</span></a>、<a class="reference internal" href="../02_cpp_basics.html#edu-ch02"><span class="std std-ref">第 2 章</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">#include</span> <span class="pre">&quot;array3d.hpp&quot;</span></code></p></td>
+<td><p>自分のファイルからの相対位置でヘッダを探して読み込みます</p></td>
+<td><p><a class="reference internal" href="../02_cpp_basics.html#edu-ch02"><span class="std std-ref">第 2 章</span></a></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">a</span> <span class="pre">&lt;</span> <span class="pre">b</span></code>、<code class="docutils literal notranslate"><span class="pre">n</span> <span class="pre">&lt;&lt;</span> <span class="pre">1</span></code>、<code class="docutils literal notranslate"><span class="pre">std::cout</span> <span class="pre">&lt;&lt;</span> <span class="pre">x</span></code></p></td>
+<td><p>比較、ビットのずらし、出力です</p></td>
+<td><p><a class="reference internal" href="../02_cpp_basics.html#edu-ch02"><span class="std std-ref">第 2 章</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">std::vector&lt;double&gt;</span></code>、<code class="docutils literal notranslate"><span class="pre">Array3D&lt;Real,</span> <span class="pre">Backend&gt;</span></code></p></td>
+<td><p>テンプレート引数です。山括弧まで含めて 1 つの型の名前になります</p></td>
+<td><p><a class="reference internal" href="../06_templates.html#edu-ch06"><span class="std std-ref">第 6 章</span></a></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">template</span> <span class="pre">&lt;typename</span> <span class="pre">Real&gt;</span></code></p></td>
+<td><p>後から決める型の名前を宣言します</p></td>
+<td><p><a class="reference internal" href="../06_templates.html#edu-ch06"><span class="std std-ref">第 6 章</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">template</span> <span class="pre">&lt;&gt;</span></code></p></td>
+<td><p>完全な特殊化です（すべてのテンプレート引数を決めた定義）</p></td>
+<td><p><a class="reference internal" href="../06_templates.html#edu-ch06"><span class="std std-ref">第 6 章</span></a></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">pi&lt;Real&gt;</span></code>、<code class="docutils literal notranslate"><span class="pre">mpi::data_type&lt;Real&gt;()</span></code></p></td>
+<td><p>変数テンプレート・関数テンプレートに型を指定して使います</p></td>
+<td><p><a class="reference internal" href="../06_templates.html#edu-ch06"><span class="std std-ref">第 6 章</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">static_cast&lt;Real&gt;(x)</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">x</span></code> を <code class="docutils literal notranslate"><span class="pre">Real</span></code> 型に変換します</p></td>
+<td><p><a class="reference internal" href="../02_cpp_basics.html#edu-ch02"><span class="std std-ref">第 2 章</span></a></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">kernel&lt;&lt;&lt;grid,</span> <span class="pre">block&gt;&gt;&gt;(...)</span></code></p></td>
+<td><p>CUDA のカーネルの起動です。C++ の記号ではありません</p></td>
+<td><p><a class="reference internal" href="../09_gpu.html#edu-ch09"><span class="std std-ref">第 9 章</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">x[i]</span></code>、<code class="docutils literal notranslate"><span class="pre">grid.x[i]</span></code></p></td>
+<td><p>配列や <code class="docutils literal notranslate"><span class="pre">std::vector</span></code> の要素です。<strong>0 始まり</strong>です</p></td>
+<td><p><a class="reference internal" href="../02_cpp_basics.html#edu-ch02"><span class="std std-ref">第 2 章</span></a>、<a class="reference internal" href="../07_arrays_and_parallel.html#edu-ch07"><span class="std std-ref">第 7 章</span></a></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">double</span> <span class="pre">x[3];</span></code>、<code class="docutils literal notranslate"><span class="pre">int</span> <span class="pre">shape_[3]</span></code></p></td>
+<td><p>宣言の <code class="docutils literal notranslate"><span class="pre">[]</span></code> は、要素数の決まった配列を作ります</p></td>
+<td><p><a class="reference internal" href="../03_references_and_pointers.html#edu-ch03"><span class="std std-ref">第 3 章</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">new</span> <span class="pre">T[n]</span></code>、<code class="docutils literal notranslate"><span class="pre">delete[]</span> <span class="pre">data_</span></code></p></td>
+<td><p>配列の確保と解放です</p></td>
+<td><p><a class="reference internal" href="../03_references_and_pointers.html#edu-ch03"><span class="std std-ref">第 3 章</span></a>、<a class="reference internal" href="../04_classes_and_structs.html#edu-ch04"><span class="std std-ref">第 4 章</span></a></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">T</span> <span class="pre">&amp;operator[](int</span> <span class="pre">idx)</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">a[idx]</span></code> と書けるようにする演算子の定義です</p></td>
+<td><p><a class="reference internal" href="../04_classes_and_structs.html#edu-ch04"><span class="std std-ref">第 4 章</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">[=]</span></code>、<code class="docutils literal notranslate"><span class="pre">[&amp;]</span></code>、<code class="docutils literal notranslate"><span class="pre">MISO_LAMBDA(int</span> <span class="pre">i)</span> <span class="pre">{</span> <span class="pre">...</span> <span class="pre">}</span></code></p></td>
+<td><p>ラムダ式（名前のない関数）の始まりです。<code class="docutils literal notranslate"><span class="pre">[=]</span></code> は値のコピー、<code class="docutils literal notranslate"><span class="pre">[&amp;]</span></code> は参照で外の変数を取り込みます</p></td>
+<td><p><a class="reference internal" href="../07_arrays_and_parallel.html#edu-ch07"><span class="std std-ref">第 7 章</span></a></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">f(x)</span></code>、<code class="docutils literal notranslate"><span class="pre">square&lt;double&gt;(1.5)</span></code></p></td>
+<td><p>関数の呼び出しです</p></td>
+<td><p><a class="reference internal" href="../02_cpp_basics.html#edu-ch02"><span class="std std-ref">第 2 章</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">double</span> <span class="pre">f(double</span> <span class="pre">x);</span></code></p></td>
+<td><p>宣言の <code class="docutils literal notranslate"><span class="pre">()</span></code> は引数の並びです</p></td>
+<td><p><a class="reference internal" href="../02_cpp_basics.html#edu-ch02"><span class="std std-ref">第 2 章</span></a></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">qq.ro(i,</span> <span class="pre">j,</span> <span class="pre">k)</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">operator()</span></code> による、配列の要素の読み書きです。Fortran の <code class="docutils literal notranslate"><span class="pre">ro(i,</span> <span class="pre">j,</span> <span class="pre">k)</span></code> に似せた書き方です</p></td>
+<td><p><a class="reference internal" href="../04_classes_and_structs.html#edu-ch04"><span class="std std-ref">第 4 章</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">T</span> <span class="pre">&amp;operator()(int</span> <span class="pre">i0,</span> <span class="pre">int</span> <span class="pre">i1,</span> <span class="pre">int</span> <span class="pre">i2)</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">a(i,</span> <span class="pre">j,</span> <span class="pre">k)</span></code> と書けるようにする演算子の定義です</p></td>
+<td><p><a class="reference internal" href="../04_classes_and_structs.html#edu-ch04"><span class="std std-ref">第 4 章</span></a></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Array3D&lt;Real&gt;</span> <span class="pre">pr(nx,</span> <span class="pre">ny,</span> <span class="pre">nz);</span></code></p></td>
+<td><p>宣言の後の <code class="docutils literal notranslate"><span class="pre">()</span></code> は、コンストラクタに渡す値です</p></td>
+<td><p><a class="reference internal" href="../04_classes_and_structs.html#edu-ch04"><span class="std std-ref">第 4 章</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">(a</span> <span class="pre">+</span> <span class="pre">b)</span> <span class="pre">*</span> <span class="pre">c</span></code></p></td>
+<td><p>計算の順序を決める括弧です</p></td>
+<td><p><a class="reference internal" href="../02_cpp_basics.html#edu-ch02"><span class="std std-ref">第 2 章</span></a></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">if</span> <span class="pre">(...)</span> <span class="pre">{</span> <span class="pre">...</span> <span class="pre">}</span></code>、<code class="docutils literal notranslate"><span class="pre">for</span> <span class="pre">(...)</span> <span class="pre">{</span> <span class="pre">...</span> <span class="pre">}</span></code></p></td>
+<td><p>処理のまとまり（ブロック）です。中で宣言した変数は <code class="docutils literal notranslate"><span class="pre">}</span></code> で寿命が終わります</p></td>
+<td><p><a class="reference internal" href="../02_cpp_basics.html#edu-ch02"><span class="std std-ref">第 2 章</span></a>、<a class="reference internal" href="../03_references_and_pointers.html#edu-ch03"><span class="std std-ref">第 3 章</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">struct</span> <span class="pre">Host</span> <span class="pre">{};</span></code></p></td>
+<td><p>クラスの本体です。<code class="docutils literal notranslate"><span class="pre">{}</span></code> は中身が空であることを表します</p></td>
+<td><p><a class="reference internal" href="../04_classes_and_structs.html#edu-ch04"><span class="std std-ref">第 4 章</span></a>、<a class="reference internal" href="../06_templates.html#edu-ch06"><span class="std std-ref">第 6 章</span></a></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">int</span> <span class="pre">n{3};</span></code>、<code class="docutils literal notranslate"><span class="pre">Range1D</span> <span class="pre">range{0,</span> <span class="pre">n};</span></code></p></td>
+<td><p>波括弧による初期化です</p></td>
+<td><p><a class="reference internal" href="../02_cpp_basics.html#edu-ch02"><span class="std std-ref">第 2 章</span></a>、<a class="reference internal" href="../04_classes_and_structs.html#edu-ch04"><span class="std std-ref">第 4 章</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">backend::Host{}</span></code>、<code class="docutils literal notranslate"><span class="pre">Backend{}</span></code></p></td>
+<td><p>型の値を初期値なしで作る式です。タグ型を関数に渡すときに使います</p></td>
+<td><p><a class="reference internal" href="../06_templates.html#edu-ch06"><span class="std std-ref">第 6 章</span></a></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">:</span> <span class="pre">grid(grid),</span> <span class="pre">qq(grid)</span></code></p></td>
+<td><p>コンストラクタの初期化子リストです（<code class="docutils literal notranslate"><span class="pre">)</span></code> と <code class="docutils literal notranslate"><span class="pre">{</span></code> の間に書きます）</p></td>
+<td><p><a class="reference internal" href="../04_classes_and_structs.html#edu-ch04"><span class="std std-ref">第 4 章</span></a></p></td>
+</tr>
+</tbody>
+</table>
+<p><code class="docutils literal notranslate"><span class="pre">&lt;...&gt;</span></code> と <code class="docutils literal notranslate"><span class="pre">(...)</span></code> の区別が大切です。<code class="docutils literal notranslate"><span class="pre">Array3D&lt;float&gt;</span> <span class="pre">a(4,</span> <span class="pre">4,</span> <span class="pre">4);</span></code> の <code class="docutils literal notranslate"><span class="pre">float</span></code> は型の指定、<code class="docutils literal notranslate"><span class="pre">4,</span> <span class="pre">4,</span> <span class="pre">4</span></code> はコンストラクタへ渡す値です。</p>
+</section>
+<section id="edu-ref-cpp-operators">
+<span id="id7"></span><h2>その他の演算子<a class="headerlink" href="#edu-ref-cpp-operators" title="Link to this heading"></a></h2>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>見かけた形</p></th>
+<th class="head"><p>意味</p></th>
+<th class="head"><p>詳しい説明</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">a</span> <span class="pre">=</span> <span class="pre">b</span></code></p></td>
+<td><p>代入です。比較は <code class="docutils literal notranslate"><span class="pre">==</span></code> です</p></td>
+<td><p><a class="reference internal" href="../02_cpp_basics.html#edu-ch02"><span class="std std-ref">第 2 章</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">a</span> <span class="pre">==</span> <span class="pre">b</span></code>、<code class="docutils literal notranslate"><span class="pre">a</span> <span class="pre">!=</span> <span class="pre">b</span></code></p></td>
+<td><p>等しい・等しくない（Fortran の <code class="docutils literal notranslate"><span class="pre">==</span></code>・<code class="docutils literal notranslate"><span class="pre">/=</span></code>）</p></td>
+<td><p><a class="reference internal" href="../02_cpp_basics.html#edu-ch02"><span class="std std-ref">第 2 章</span></a></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">x</span> <span class="pre">||</span> <span class="pre">y</span></code>、<code class="docutils literal notranslate"><span class="pre">!x</span></code></p></td>
+<td><p>論理和（または）、否定（Fortran の <code class="docutils literal notranslate"><span class="pre">.or.</span></code>、<code class="docutils literal notranslate"><span class="pre">.not.</span></code>）</p></td>
+<td><p><a class="reference internal" href="../02_cpp_basics.html#edu-ch02"><span class="std std-ref">第 2 章</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">i</span> <span class="pre">%</span> <span class="pre">n</span></code></p></td>
+<td><p>整数の割り算の余り（Fortran の <code class="docutils literal notranslate"><span class="pre">mod(i,</span> <span class="pre">n)</span></code>）</p></td>
+<td><p><a class="reference internal" href="../02_cpp_basics.html#edu-ch02"><span class="std std-ref">第 2 章</span></a></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">++i</span></code>、<code class="docutils literal notranslate"><span class="pre">i++</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">i</span></code> を 1 増やします</p></td>
+<td><p><a class="reference internal" href="../02_cpp_basics.html#edu-ch02"><span class="std std-ref">第 2 章</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">a</span> <span class="pre">+=</span> <span class="pre">b</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">a</span> <span class="pre">=</span> <span class="pre">a</span> <span class="pre">+</span> <span class="pre">b</span></code> と同じです。<code class="docutils literal notranslate"><span class="pre">-=</span></code>、<code class="docutils literal notranslate"><span class="pre">*=</span></code>、<code class="docutils literal notranslate"><span class="pre">/=</span></code> もあります</p></td>
+<td><p><a class="reference internal" href="../02_cpp_basics.html#edu-ch02"><span class="std std-ref">第 2 章</span></a></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">c</span> <span class="pre">?</span> <span class="pre">a</span> <span class="pre">:</span> <span class="pre">b</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">c</span></code> が真なら <code class="docutils literal notranslate"><span class="pre">a</span></code>、偽なら <code class="docutils literal notranslate"><span class="pre">b</span></code> です</p></td>
+<td><p><a class="reference internal" href="../02_cpp_basics.html#edu-ch02"><span class="std std-ref">第 2 章</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">~Array3D()</span></code></p></td>
+<td><p>デストラクタ（後片付けの関数）の名前です</p></td>
+<td><p><a class="reference internal" href="../04_classes_and_structs.html#edu-ch04"><span class="std std-ref">第 4 章</span></a></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">=</span> <span class="pre">default</span></code>、<code class="docutils literal notranslate"><span class="pre">=</span> <span class="pre">delete</span></code></p></td>
+<td><p>関数の本体の代わりに書く指定です。コンパイラに用意させる・使えなくする</p></td>
+<td><p><a class="reference internal" href="../04_classes_and_structs.html#edu-ch04"><span class="std std-ref">第 4 章</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">:</span> <span class="pre">public</span> <span class="pre">ModelBase&lt;...&gt;</span></code></p></td>
+<td><p>クラスの宣言での <code class="docutils literal notranslate"><span class="pre">:</span></code> は継承です</p></td>
+<td><p><a class="reference internal" href="../05_inheritance.html#edu-ch05"><span class="std std-ref">第 5 章</span></a></p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="edu-ref-cpp-preprocessor">
+<span id="id8"></span><h2>プリプロセッサの記号（#）<a class="headerlink" href="#edu-ref-cpp-preprocessor" title="Link to this heading"></a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">#</span></code> で始まる行は、コンパイルの前にプリプロセッサが処理します。C++ の文法とは別の、テキストの置き換えです。</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>見かけた形</p></th>
+<th class="head"><p>意味</p></th>
+<th class="head"><p>詳しい説明</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">#include</span></code></p></td>
+<td><p>ファイルの中身をその場所に読み込みます</p></td>
+<td><p><a class="reference internal" href="../01_environment_setup.html#edu-ch01"><span class="std std-ref">第 1 章</span></a>、<a class="reference internal" href="../02_cpp_basics.html#edu-ch02"><span class="std std-ref">第 2 章</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">#pragma</span> <span class="pre">once</span></code></p></td>
+<td><p>同じヘッダを 2 回読み込まないようにします</p></td>
+<td><p><a class="reference internal" href="../02_cpp_basics.html#edu-ch02"><span class="std std-ref">第 2 章</span></a></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">#define</span> <span class="pre">NAME</span> <span class="pre">値</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">NAME</span></code> を後ろの文字列に置き換えるマクロを定義します</p></td>
+<td><p><a class="reference internal" href="../02_cpp_basics.html#edu-ch02"><span class="std std-ref">第 2 章</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">#ifdef</span> <span class="pre">USE_CUDA</span></code> 〜 <code class="docutils literal notranslate"><span class="pre">#else</span></code> 〜 <code class="docutils literal notranslate"><span class="pre">#endif</span></code></p></td>
+<td><p>マクロが定義されているかで、コンパイルする部分を選びます。Fortran の <code class="docutils literal notranslate"><span class="pre">#ifdef</span></code> と同じです</p></td>
+<td><p><a class="reference internal" href="../02_cpp_basics.html#edu-ch02"><span class="std std-ref">第 2 章</span></a></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">#ifdef</span> <span class="pre">__CUDACC__</span></code></p></td>
+<td><p>CUDA のコンパイラ（nvcc）でビルドしているときだけ有効な部分です</p></td>
+<td><p><a class="reference internal" href="../06_templates.html#edu-ch06"><span class="std std-ref">第 6 章</span></a>、<a class="reference internal" href="../09_gpu.html#edu-ch09"><span class="std std-ref">第 9 章</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">#undef</span> <span class="pre">NAME</span></code></p></td>
+<td><p>マクロの定義を取り消します</p></td>
+<td><p><a class="reference internal" href="../06_templates.html#edu-ch06"><span class="std std-ref">第 6 章</span></a></p></td>
+</tr>
+<tr class="row-even"><td><p>行末の <code class="docutils literal notranslate"><span class="pre">\</span></code></p></td>
+<td><p>マクロの定義を次の行へ続けます</p></td>
+<td><p><a class="reference internal" href="../06_templates.html#edu-ch06"><span class="std std-ref">第 6 章</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p>マクロの中の <code class="docutils literal notranslate"><span class="pre">##</span></code></p></td>
+<td><p>前後をつないで 1 つの名前にします（<code class="docutils literal notranslate"><span class="pre">has_##name</span></code> → <code class="docutils literal notranslate"><span class="pre">has_vx</span></code>）</p></td>
+<td><p><a class="reference internal" href="../06_templates.html#edu-ch06"><span class="std std-ref">第 6 章</span></a></p></td>
+</tr>
+<tr class="row-even"><td><p>マクロの中の <code class="docutils literal notranslate"><span class="pre">#name</span></code></p></td>
+<td><p>引数を文字列にします（<code class="docutils literal notranslate"><span class="pre">#name</span></code> → <code class="docutils literal notranslate"><span class="pre">&quot;vx&quot;</span></code>）</p></td>
+<td><p><a class="reference internal" href="../06_templates.html#edu-ch06"><span class="std std-ref">第 6 章</span></a></p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="edu-ref-cpp-keywords">
+<span id="id9"></span><h2>キーワード<a class="headerlink" href="#edu-ref-cpp-keywords" title="Link to this heading"></a></h2>
+<p>宣言の中の位置によって意味が変わるものを中心にまとめます。</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>キーワード</p></th>
+<th class="head"><p>見かけた形と意味</p></th>
+<th class="head"><p>詳しい説明</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">const</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">const</span> <span class="pre">Real</span> <span class="pre">gm_</span> <span class="pre">=</span> <span class="pre">gm;</span></code>：値を変えられない変数です</p></td>
+<td><p><a class="reference internal" href="../02_cpp_basics.html#edu-ch02"><span class="std std-ref">第 2 章</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">const</span> <span class="pre">T</span> <span class="pre">&amp;x</span></code>：読むだけの参照です</p></td>
+<td><p><a class="reference internal" href="../03_references_and_pointers.html#edu-ch03"><span class="std std-ref">第 3 章</span></a></p></td>
+</tr>
+<tr class="row-even"><td><p></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">const</span> <span class="pre">T</span> <span class="pre">*p</span></code> と <code class="docutils literal notranslate"><span class="pre">T</span> <span class="pre">*const</span> <span class="pre">p</span></code>：<code class="docutils literal notranslate"><span class="pre">*</span></code> の左なら指す先、右ならポインタ自身を固定します</p></td>
+<td><p><a class="reference internal" href="../03_references_and_pointers.html#edu-ch03"><span class="std std-ref">第 3 章</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">int</span> <span class="pre">size()</span> <span class="pre">const</span></code>：メンバ変数を変えないメンバ関数です</p></td>
+<td><p><a class="reference internal" href="../04_classes_and_structs.html#edu-ch04"><span class="std std-ref">第 4 章</span></a></p></td>
+</tr>
+<tr class="row-even"><td><p></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">Array3DView&lt;const</span> <span class="pre">Real&gt;</span></code>：要素を読むだけの View です</p></td>
+<td><p><a class="reference internal" href="../04_classes_and_structs.html#edu-ch04"><span class="std std-ref">第 4 章</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">constexpr</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">constexpr</span> <span class="pre">int</span> <span class="pre">n_fields</span> <span class="pre">=</span> <span class="pre">9;</span></code>：コンパイル時に値が決まる定数です</p></td>
+<td><p><a class="reference internal" href="../02_cpp_basics.html#edu-ch02"><span class="std std-ref">第 2 章</span></a></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">auto</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">auto</span> <span class="pre">dt</span> <span class="pre">=</span> <span class="pre">mhd.cfl(d.eos);</span></code>：初期値から型を決めます。<code class="docutils literal notranslate"><span class="pre">auto</span> <span class="pre">&amp;d</span> <span class="pre">=</span> <span class="pre">derived();</span></code> は参照になります</p></td>
+<td><p><a class="reference internal" href="../02_cpp_basics.html#edu-ch02"><span class="std std-ref">第 2 章</span></a>、<a class="reference internal" href="../03_references_and_pointers.html#edu-ch03"><span class="std std-ref">第 3 章</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">using</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">using</span> <span class="pre">Real</span> <span class="pre">=</span> <span class="pre">float;</span></code>：型の別名です</p></td>
+<td><p><a class="reference internal" href="../02_cpp_basics.html#edu-ch02"><span class="std std-ref">第 2 章</span></a></p></td>
+</tr>
+<tr class="row-even"><td><p></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">using</span> <span class="pre">namespace</span> <span class="pre">miso;</span></code>：名前空間の名前を <code class="docutils literal notranslate"><span class="pre">miso::</span></code> なしで使えるようにします</p></td>
+<td><p><a class="reference internal" href="../02_cpp_basics.html#edu-ch02"><span class="std std-ref">第 2 章</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">using</span> <span class="pre">Source</span> <span class="pre">=</span> <span class="pre">decltype(d.src);</span></code>：テンプレートの中で、求めた型に別名を付けます</p></td>
+<td><p><a class="reference internal" href="../06_templates.html#edu-ch06"><span class="std std-ref">第 6 章</span></a></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">template</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">template</span> <span class="pre">&lt;typename</span> <span class="pre">T&gt;</span> <span class="pre">...</span></code>：テンプレートの宣言です</p></td>
+<td><p><a class="reference internal" href="../06_templates.html#edu-ch06"><span class="std std-ref">第 6 章</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">template</span> <span class="pre">&lt;&gt;</span> <span class="pre">...</span></code>：完全な特殊化です</p></td>
+<td><p><a class="reference internal" href="../06_templates.html#edu-ch06"><span class="std std-ref">第 6 章</span></a></p></td>
+</tr>
+<tr class="row-even"><td><p></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">x.template</span> <span class="pre">as&lt;bool&gt;()</span></code>：この後の名前がテンプレートであることを示す印です</p></td>
+<td><p><a class="reference internal" href="../06_templates.html#edu-ch06"><span class="std std-ref">第 6 章</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">typename</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">template</span> <span class="pre">&lt;typename</span> <span class="pre">T&gt;</span></code>：<code class="docutils literal notranslate"><span class="pre">T</span></code> が型の名前であることを示します。<code class="docutils literal notranslate"><span class="pre">class</span></code> と書いても同じです</p></td>
+<td><p><a class="reference internal" href="../06_templates.html#edu-ch06"><span class="std std-ref">第 6 章</span></a></p></td>
+</tr>
+<tr class="row-even"><td><p></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">typename</span> <span class="pre">T::value_type</span></code>：テンプレート引数に属する名前が型であることを示します</p></td>
+<td><p><a class="reference internal" href="../06_templates.html#edu-ch06"><span class="std std-ref">第 6 章</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">inline</span></code></p></td>
+<td><p>ヘッダに定義を置く通常の関数や変数に付けます。速くする指定ではありません</p></td>
+<td><p><a class="reference internal" href="../02_cpp_basics.html#edu-ch02"><span class="std std-ref">第 2 章</span></a>、<a class="reference internal" href="../06_templates.html#edu-ch06"><span class="std std-ref">第 6 章</span></a></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">static</span></code></p></td>
+<td><p>クラスの中では、実体によらずクラスに属するメンバです</p></td>
+<td><p><a class="reference internal" href="../04_classes_and_structs.html#edu-ch04"><span class="std std-ref">第 4 章</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">explicit</span></code></p></td>
+<td><p>コンストラクタによる暗黙の型変換を禁止します</p></td>
+<td><p><a class="reference internal" href="../04_classes_and_structs.html#edu-ch04"><span class="std std-ref">第 4 章</span></a></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">noexcept</span></code></p></td>
+<td><p>関数が例外を外へ出さないことを表します</p></td>
+<td><p><a class="reference internal" href="../04_classes_and_structs.html#edu-ch04"><span class="std std-ref">第 4 章</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">virtual</span></code></p></td>
+<td><p>実行時に派生クラスの関数を選ぶ仮想関数です。MISO では使っていません</p></td>
+<td><p><a class="reference internal" href="../05_inheritance.html#edu-ch05"><span class="std std-ref">第 5 章</span></a></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">decltype(式)</span></code></p></td>
+<td><p>式を実行せずに、その型を求めます</p></td>
+<td><p><a class="reference internal" href="../06_templates.html#edu-ch06"><span class="std std-ref">第 6 章</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">if</span> <span class="pre">constexpr</span></code></p></td>
+<td><p>条件がコンパイル時に決まる分岐です。選ばれない側は組み込まれません</p></td>
+<td><p><a class="reference internal" href="../06_templates.html#edu-ch06"><span class="std std-ref">第 6 章</span></a></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">static_assert</span></code></p></td>
+<td><p>条件が偽ならコンパイルエラーにします</p></td>
+<td><p><a class="reference internal" href="../06_templates.html#edu-ch06"><span class="std std-ref">第 6 章</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">nullptr</span></code></p></td>
+<td><p>どこも指していないポインタです</p></td>
+<td><p><a class="reference internal" href="../03_references_and_pointers.html#edu-ch03"><span class="std std-ref">第 3 章</span></a></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">this</span></code></p></td>
+<td><p>メンバ関数の中で、自分自身を指すポインタです。ラムダの中で使うと GPU で問題になります</p></td>
+<td><p><a class="reference internal" href="../04_classes_and_structs.html#edu-ch04"><span class="std std-ref">第 4 章</span></a>、<a class="reference internal" href="../07_arrays_and_parallel.html#edu-ch07"><span class="std std-ref">第 7 章</span></a>、<a class="reference internal" href="../09_gpu.html#edu-ch09"><span class="std std-ref">第 9 章</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">struct</span></code>、<code class="docutils literal notranslate"><span class="pre">class</span></code></p></td>
+<td><p>クラスの宣言です。<code class="docutils literal notranslate"><span class="pre">struct</span></code> は既定で <code class="docutils literal notranslate"><span class="pre">public</span></code>、<code class="docutils literal notranslate"><span class="pre">class</span></code> は既定で <code class="docutils literal notranslate"><span class="pre">private</span></code> です</p></td>
+<td><p><a class="reference internal" href="../04_classes_and_structs.html#edu-ch04"><span class="std std-ref">第 4 章</span></a></p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="miso-cuda">
+<span id="edu-ref-cpp-miso"></span><h2>MISO と CUDA の記号<a class="headerlink" href="#miso-cuda" title="Link to this heading"></a></h2>
+<p>C++ のキーワードではなく、MISO や CUDA が用意する名前です。</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>見かけた形</p></th>
+<th class="head"><p>意味</p></th>
+<th class="head"><p>詳しい説明</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Real</span></code></p></td>
+<td><p>demo で <code class="docutils literal notranslate"><span class="pre">using</span> <span class="pre">Real</span> <span class="pre">=</span> <span class="pre">float;</span></code> と決める浮動小数点の型です。ライブラリ側ではテンプレート引数です</p></td>
+<td><p><a class="reference internal" href="../02_cpp_basics.html#edu-ch02"><span class="std std-ref">第 2 章</span></a>、<a class="reference internal" href="../06_templates.html#edu-ch06"><span class="std std-ref">第 6 章</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Backend</span></code>、<code class="docutils literal notranslate"><span class="pre">backend::Host</span></code>、<code class="docutils literal notranslate"><span class="pre">backend::CUDA</span></code></p></td>
+<td><p>計算とメモリの場所を表すタグ型です（<code class="docutils literal notranslate"><span class="pre">miso/include/miso/backend.hpp</span></code>）</p></td>
+<td><p><a class="reference internal" href="../06_templates.html#edu-ch06"><span class="std std-ref">第 6 章</span></a></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">MISO_LAMBDA</span></code></p></td>
+<td><p>ラムダ式の始まりを表すマクロです。CPU のビルドでは <code class="docutils literal notranslate"><span class="pre">[=]</span></code>、CUDA のビルドでは <code class="docutils literal notranslate"><span class="pre">[=]</span> <span class="pre">__host__</span> <span class="pre">__device__</span></code> になります（<code class="docutils literal notranslate"><span class="pre">miso/include/miso/execution.hpp</span></code>）</p></td>
+<td><p><a class="reference internal" href="../07_arrays_and_parallel.html#edu-ch07"><span class="std std-ref">第 7 章</span></a>、<a class="reference internal" href="../09_gpu.html#edu-ch09"><span class="std std-ref">第 9 章</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">__host__</span></code>、<code class="docutils literal notranslate"><span class="pre">__device__</span></code></p></td>
+<td><p>関数を CPU・GPU のどちらから呼べるかの指定です。CPU だけのビルドでは空になります（<code class="docutils literal notranslate"><span class="pre">miso/include/miso/cuda_compat.hpp</span></code>）</p></td>
+<td><p><a class="reference internal" href="../09_gpu.html#edu-ch09"><span class="std std-ref">第 9 章</span></a></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">__global__</span></code></p></td>
+<td><p>GPU で動くカーネル関数の指定です</p></td>
+<td><p><a class="reference internal" href="../09_gpu.html#edu-ch09"><span class="std std-ref">第 9 章</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">MPI_Comm</span></code>、<code class="docutils literal notranslate"><span class="pre">MPI_Allreduce</span></code> など</p></td>
+<td><p>MPI のライブラリの型と関数です</p></td>
+<td><p><a class="reference internal" href="../08_mpi.html#edu-ch08"><span class="std std-ref">第 8 章</span></a></p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="edu-ref-cpp-reading">
+<span id="id10"></span><h2>宣言を読むときの確認順序<a class="headerlink" href="#edu-ref-cpp-reading" title="Link to this heading"></a></h2>
+<p>長い宣言は、次の順に分けて読みます。</p>
+<ol class="arabic simple">
+<li><p><strong>名前を見つけます。</strong> 変数・関数・型のどれを宣言しているかを確かめます。</p></li>
+<li><p><strong>型を読みます。</strong> <code class="docutils literal notranslate"><span class="pre">&lt;...&gt;</span></code> まで含めて 1 つの型です。<code class="docutils literal notranslate"><span class="pre">template</span> <span class="pre">&lt;...&gt;</span></code> が前にあれば、山括弧の中の名前は後から決まる型です。</p></li>
+<li><p><strong>値・参照・ポインタを区別します。</strong> 名前に <code class="docutils literal notranslate"><span class="pre">&amp;</span></code> や <code class="docutils literal notranslate"><span class="pre">*</span></code> が付いているかを見ます。</p></li>
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">const</span></code> の対象を確かめます。</strong> 値、指す先、ポインタ自身、メンバ関数のどれかを区別します。</p></li>
+<li><p><strong>作り方と寿命を確かめます。</strong> 初期値、引数、戻り値がどの実体を使い、いつまで使えるかを追います。</p></li>
+</ol>
+<p>例として、<code class="docutils literal notranslate"><span class="pre">miso/include/miso/mhd_integrator.hpp</span></code> の宣言を分けて読みます。</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">Real</span><span class="p">,</span><span class="w"> </span><span class="k">typename</span><span class="w"> </span><span class="nc">Source</span><span class="o">&gt;</span>
+<span class="n">__host__</span><span class="w"> </span><span class="n">__device__</span><span class="w"> </span><span class="kr">inline</span><span class="w"> </span><span class="n">Real</span><span class="w"> </span><span class="n">source_vx</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">Source</span><span class="w"> </span><span class="o">&amp;</span><span class="n">src</span><span class="p">,</span>
+<span class="w">                                          </span><span class="k">const</span><span class="w"> </span><span class="n">FieldsView</span><span class="o">&lt;</span><span class="k">const</span><span class="w"> </span><span class="n">Real</span><span class="o">&gt;</span><span class="w"> </span><span class="o">&amp;</span><span class="n">qq</span><span class="p">,</span>
+<span class="w">                                          </span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">j</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">k</span><span class="p">);</span>
+</pre></div>
+</div>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>部分</p></th>
+<th class="head"><p>読み方</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">template</span> <span class="pre">&lt;typename</span> <span class="pre">Real,</span> <span class="pre">typename</span> <span class="pre">Source&gt;</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">Real</span></code> と <code class="docutils literal notranslate"><span class="pre">Source</span></code> は後から決まる型です</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">__host__</span> <span class="pre">__device__</span></code></p></td>
+<td><p>CPU からも GPU からも呼べる関数です</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">inline</span></code></p></td>
+<td><p>ヘッダに置く関数です</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Real</span> <span class="pre">source_vx(...)</span></code></p></td>
+<td><p>名前は <code class="docutils literal notranslate"><span class="pre">source_vx</span></code>、戻り値の型は <code class="docutils literal notranslate"><span class="pre">Real</span></code> です</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">const</span> <span class="pre">Source</span> <span class="pre">&amp;src</span></code></p></td>
+<td><p>ソース項の実体を、読むだけの参照で受け取ります</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">const</span> <span class="pre">FieldsView&lt;const</span> <span class="pre">Real&gt;</span> <span class="pre">&amp;qq</span></code></p></td>
+<td><p>要素を読むだけの View（<code class="docutils literal notranslate"><span class="pre">FieldsView&lt;const</span> <span class="pre">Real&gt;</span></code>）を、読むだけの参照で受け取ります</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">int</span> <span class="pre">i,</span> <span class="pre">int</span> <span class="pre">j,</span> <span class="pre">int</span> <span class="pre">k</span></code></p></td>
+<td><p>格子点の添字を値で受け取ります</p></td>
+</tr>
+</tbody>
+</table>
+<p>文法の詳細は、C++17 規格草案 N4659 の
+<a class="reference external" href="https://timsong-cpp.github.io/cppwp/n4659/dcl.ref">参照の宣言</a>、
+<a class="reference external" href="https://timsong-cpp.github.io/cppwp/n4659/dcl.type.cv"><code class="docutils literal notranslate"><span class="pre">const</span></code> の規則</a>、
+<a class="reference external" href="https://timsong-cpp.github.io/cppwp/n4659/temp">テンプレート</a>で確認できます。</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="fortran_map.html" class="btn btn-neutral float-left" title="Fortran との対応表" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="testing.html" class="btn btn-neutral float-right" title="テストと計算結果の比較" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Integrated Studies, ISEE, Nagoya University.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+ 
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        const currentUrl = window.location.href;
+        const isTranslated = currentUrl.includes(".translate.goog");
+        const translateLink = document.getElementById("translate-link");
+        const originalLink = document.getElementById("original-link");
+
+        // 翻訳URLを生成
+        const translateUrl =
+            "https://translate.google.com/translate?sl=ja&tl=en&u=" +
+            encodeURIComponent(currentUrl);
+
+        if (isTranslated) {
+            // --- 英語版(.translate.goog)にいる場合 ---
+            // English → ページを単にリロード
+            translateLink.removeAttribute("target");
+            translateLink.removeAttribute("href");
+            translateLink.addEventListener("click", (e) => {
+                e.preventDefault();
+                window.location.reload();
+            });
+
+            // 日本語 → 新タブで元URLを開く（翻訳解除）
+            const originalUrl = currentUrl.replace(
+                /^https:\/\/[^/]+\.translate\.goog/,
+                "https://is-isee.github.io"
+            );
+            originalLink.href = originalUrl;
+            originalLink.target = "_blank";
+            originalLink.rel = "noopener";
+        } else {
+            // --- 日本語版にいる場合 ---
+            translateLink.href = translateUrl;
+            translateLink.target = "_blank";
+
+            originalLink.href = currentUrl;
+            originalLink.target = "_self";
+        }
+    });
+</script>
+
+
+</body>
+</html>

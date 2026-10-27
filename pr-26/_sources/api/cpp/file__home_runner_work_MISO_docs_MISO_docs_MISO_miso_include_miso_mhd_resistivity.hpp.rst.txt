@@ -1,0 +1,81 @@
+
+.. _file__home_runner_work_MISO_docs_MISO_docs_MISO_miso_include_miso_mhd_resistivity.hpp:
+
+File mhd_resistivity.hpp
+========================
+
+|exhale_lsh| :ref:`Parent directory <dir__home_runner_work_MISO_docs_MISO_docs_MISO_miso_include_miso>` (``/home/runner/work/MISO_docs/MISO_docs/MISO/miso/include/miso``)
+
+.. |exhale_lsh| unicode:: U+021B0 .. UPWARDS ARROW WITH TIP LEFTWARDS
+
+
+.. contents:: Contents
+   :local:
+   :backlinks: none
+
+Definition (``/home/runner/work/MISO_docs/MISO_docs/MISO/miso/include/miso/mhd_resistivity.hpp``)
+-------------------------------------------------------------------------------------------------
+
+
+.. toctree::
+   :maxdepth: 1
+
+   program_listing_file__home_runner_work_MISO_docs_MISO_docs_MISO_miso_include_miso_mhd_resistivity.hpp.rst
+
+
+
+
+
+Includes
+--------
+
+
+- ``array3d.hpp`` (:ref:`file__home_runner_work_MISO_docs_MISO_docs_MISO_miso_include_miso_array3d.hpp`)
+
+- ``config.hpp`` (:ref:`file__home_runner_work_MISO_docs_MISO_docs_MISO_miso_include_miso_config.hpp`)
+
+- ``constants.hpp`` (:ref:`file__home_runner_work_MISO_docs_MISO_docs_MISO_miso_include_miso_constants.hpp`)
+
+- ``execution.hpp`` (:ref:`file__home_runner_work_MISO_docs_MISO_docs_MISO_miso_include_miso_execution.hpp`)
+
+- ``grid.hpp`` (:ref:`file__home_runner_work_MISO_docs_MISO_docs_MISO_miso_include_miso_grid.hpp`)
+
+- ``memory``
+
+- ``mhd_fields.hpp`` (:ref:`file__home_runner_work_MISO_docs_MISO_docs_MISO_miso_include_miso_mhd_fields.hpp`)
+
+- ``stdexcept``
+
+
+
+
+
+
+Namespaces
+----------
+
+
+- :ref:`namespace_miso`
+
+- :ref:`namespace_miso__mhd`
+
+- :ref:`namespace_miso__mhd__impl_resistivity`
+
+
+Classes
+-------
+
+
+- :ref:`exhale_struct_structmiso_1_1mhd_1_1impl__resistivity_1_1ReduceWorkspace`
+
+- :ref:`exhale_struct_structmiso_1_1mhd_1_1impl__resistivity_1_1ReduceWorkspace_3_01Real_00_01backend_1_1CUDA_01_4`
+
+- :ref:`exhale_struct_structmiso_1_1mhd_1_1ResistiveSource`
+
+
+Functions
+---------
+
+
+- :ref:`exhale_function_mhd__resistivity_8hpp_1aad96b52d68ed0667ce60313d53b4c830`
+

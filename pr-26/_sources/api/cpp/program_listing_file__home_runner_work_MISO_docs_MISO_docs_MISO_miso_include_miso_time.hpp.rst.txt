@@ -1,0 +1,155 @@
+
+.. _program_listing_file__home_runner_work_MISO_docs_MISO_docs_MISO_miso_include_miso_time.hpp:
+
+Program Listing for File time.hpp
+=================================
+
+|exhale_lsh| :ref:`Return to documentation for file <file__home_runner_work_MISO_docs_MISO_docs_MISO_miso_include_miso_time.hpp>` (``/home/runner/work/MISO_docs/MISO_docs/MISO/miso/include/miso/time.hpp``)
+
+.. |exhale_lsh| unicode:: U+021B0 .. UPWARDS ARROW WITH TIP LEFTWARDS
+
+.. code-block:: cpp
+
+   #pragma once
+   #include <cassert>
+   #include <filesystem>
+   #include <stdexcept>
+   
+   // header for std::cout, std::fixed, std::setprecision, std::setw
+   #include <iomanip>
+   #include <iostream>
+   
+   #include "config.hpp"
+   #include "env.hpp"
+   #include "mpi_util.hpp"
+   #include "utility.hpp"
+   
+   namespace miso {
+   
+   template <typename Real> struct Time {
+     Real time;
+     Real tend;
+     Real dt_output;
+     int n_step;
+     int n_output;
+     int n_output_digits;
+     std::string time_save_dir;
+     bool io_enabled;
+   
+     void initialize() {
+       time = 0;
+       n_step = 0;
+       n_output = 0;
+     }
+   
+     Time(const Config &config)
+         : tend(config["time"]["tend"].as<Real>()),
+           dt_output(config["time"]["dt_output"].as<Real>()),
+           n_output_digits(config["io"]["n_output_digits"].as<int>()),
+           io_enabled(config.yaml_obj["io"]["enabled"].as<bool>()) {
+       if (!(tend > 0)) {
+         throw std::runtime_error("time.tend must be positive.");
+       }
+       if (!(dt_output > 0)) {
+         throw std::runtime_error("time.dt_output must be positive.");
+       }
+   
+       initialize();
+   
+       time_save_dir = (fs::path(config.save_dir) /
+                        config["io"]["time_save_dir"].as<std::string>())
+                           .string();
+       if (io_enabled) {
+         util::create_directories(time_save_dir);
+       }
+     }
+   
+     std::string time_filepath(int n_output_) const {
+       return (fs::path(time_save_dir) /
+               ("time." + util::zfill(n_output_, n_output_digits) + ".txt"))
+           .string();
+     }
+   
+     std::string n_output_filepath() const {
+       return (fs::path(time_save_dir) / "n_output.txt").string();
+     }
+   
+     void update(const Real dt) {
+       time += dt;
+       n_step++;
+     };
+   
+     void save() const {
+       if (!io_enabled) {
+         return;
+       }
+       if (mpi::is_root()) {
+         const std::string fname = time_filepath(n_output);
+         std::ofstream ofs(fname);
+         if (!ofs.is_open()) {
+           throw std::runtime_error("Failed to open file: " + fname);
+         }
+         ofs << time << "\n";
+         ofs << n_output << "\n";
+         ofs << n_step << "\n";
+         // 時刻ファイルの書き出しを確かめてから n_output.txt を進める
+         // (壊れたチェックポイントを指さないように)
+         ofs.close();
+         if (!ofs) {
+           throw std::runtime_error("Failed to write file: " + fname);
+         }
+   
+         std::ofstream ofs_step(n_output_filepath());
+         if (!ofs_step.is_open()) {
+           throw std::runtime_error("Failed to open file: " + n_output_filepath());
+         }
+         ofs_step << n_output << "\n";
+         ofs_step.close();
+         if (!ofs_step) {
+           throw std::runtime_error("Failed to write file: " + n_output_filepath());
+         }
+       }
+     }
+   
+     void load() {
+       if (!io_enabled) {
+         return;
+       }
+       if (mpi::is_root()) {
+         std::ifstream ifs_step(n_output_filepath());
+         if (!ifs_step.is_open()) {
+           throw std::runtime_error("Failed to open file: " + n_output_filepath());
+         }
+         if (!(ifs_step >> n_output)) {
+           throw std::runtime_error("Failed to read file: " + n_output_filepath());
+         }
+   
+         const std::string fname = time_filepath(n_output);
+         std::ifstream ifs(fname);
+         if (!ifs.is_open()) {
+           throw std::runtime_error("Failed to open time file: " + fname);
+         }
+   
+         if (!(ifs >> time) || !(ifs >> n_output) || !(ifs >> n_step)) {
+           throw std::runtime_error("Failed to read time file: " + fname);
+         }
+       }
+   
+       MPI_Bcast(&time, 1, mpi::data_type<Real>(), 0, mpi::comm());
+       MPI_Bcast(&n_output, 1, MPI_INT, 0, mpi::comm());
+       MPI_Bcast(&n_step, 1, MPI_INT, 0, mpi::comm());
+     }
+   
+     void log() const {
+       if (!io_enabled) {
+         return;
+       }
+       if (mpi::is_root()) {
+         std::cout << std::fixed << std::setprecision(2) << "time = " << std::setw(6)
+                   << time << ";  n_step = " << std::setw(8) << n_step
+                   << ";  n_output = " << std::setw(8) << n_output << std::endl;
+       }
+     }
+   };
+   
+   }  // namespace miso

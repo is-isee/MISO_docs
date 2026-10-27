@@ -1,0 +1,277 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Template Struct ArtificialViscosity &mdash; MISO 0.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css?v=4ae1632d" />
+      <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../../_static/collapsible-lists/css/tree_view.css?v=a885cde7" />
+      <link rel="stylesheet" type="text/css" href="../../_static/custom.css" />
+
+  
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options.js?v=837179f8"></script>
+      <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../../_static/copybutton.js?v=f281be69"></script>
+      <script src="../../_static/collapsible-lists/js/CollapsibleLists.compressed.js?v=73120307"></script>
+      <script src="../../_static/collapsible-lists/js/apply-collapsible-lists.js?v=660e4f45"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Template Struct ReduceWorkspace" href="structmiso_1_1mhd_1_1impl__resistivity_1_1ReduceWorkspace.html" />
+    <link rel="prev" title="Template Struct ArtificialViscosity" href="structmiso_1_1mhd_1_1impl__cuda_1_1ArtificialViscosity.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            MISO
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../quickstart.html">Quick Start</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../demo/index.html">Test Problems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../customization/index.html">Customization</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../miso/index.html">MISO C++ documentation</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="root.html">MISO C++ API Reference</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="root.html#file-hierarchy">File Hierarchy</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="root.html#full-api">Full API</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="root.html#namespaces">Namespaces</a></li>
+<li class="toctree-l4 current"><a class="reference internal" href="root.html#classes-and-structs">Classes and Structs</a></li>
+<li class="toctree-l4"><a class="reference internal" href="root.html#enums">Enums</a></li>
+<li class="toctree-l4"><a class="reference internal" href="root.html#functions">Functions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="root.html#variables">Variables</a></li>
+<li class="toctree-l4"><a class="reference internal" href="root.html#defines">Defines</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../pymiso/index.html">pymiso Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../education/index.html">MISO education</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../references.html">References</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">MISO</a>
+      </nav>
+
+      <div class="wy-nav-content">
+<div id="language-links" style="margin-bottom: 1em; font-size: 100%;">
+    Language:
+    <a href="#" id="translate-link" target="_blank">English</a> |
+    <a href="#" id="original-link">日本語</a>
+</div>
+
+
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../miso/index.html">MISO C++ documentation</a></li>
+          <li class="breadcrumb-item"><a href="root.html">MISO C++ API Reference</a></li>
+      <li class="breadcrumb-item active">Template Struct ArtificialViscosity</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../_sources/api/cpp/structmiso_1_1mhd_1_1impl__host_1_1ArtificialViscosity.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="template-struct-artificialviscosity">
+<span id="exhale-struct-structmiso-1-1mhd-1-1impl-host-1-1artificialviscosity"></span><h1>Template Struct ArtificialViscosity<a class="headerlink" href="#template-struct-artificialviscosity" title="Link to this heading"></a></h1>
+<ul class="simple">
+<li><p>Defined in <a class="reference internal" href="file__home_runner_work_MISO_docs_MISO_docs_MISO_miso_include_miso_mhd_artificial_viscosity_host.hpp.html#file-home-runner-work-miso-docs-miso-docs-miso-miso-include-miso-mhd-artificial-viscosity-host-hpp"><span class="std std-ref">File mhd_artificial_viscosity_host.hpp</span></a></p></li>
+</ul>
+<section id="struct-documentation">
+<h2>Struct Documentation<a class="headerlink" href="#struct-documentation" title="Link to this heading"></a></h2>
+<dl class="cpp struct">
+<dt class="sig sig-object cpp" id="_CPPv4I0EN4miso3mhd9impl_host19ArtificialViscosityE">
+<span id="_CPPv3I0EN4miso3mhd9impl_host19ArtificialViscosityE"></span><span id="_CPPv2I0EN4miso3mhd9impl_host19ArtificialViscosityE"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Real</span></span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="target" id="structmiso_1_1mhd_1_1impl__host_1_1ArtificialViscosity"></span><span class="k"><span class="pre">struct</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">ArtificialViscosity</span></span></span><a class="headerlink" href="#_CPPv4I0EN4miso3mhd9impl_host19ArtificialViscosityE" title="Link to this definition"></a><br /></dt>
+<dd><p>Artificial viscosity class for mhd simulations. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Template Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>T</strong> – Type of the data (Real) </p>
+</dd>
+</dl>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-functions">Public Functions</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N4miso3mhd9impl_host19ArtificialViscosity19ArtificialViscosityER6ConfigR4GridI4RealN7backend4HostEE">
+<span id="_CPPv3N4miso3mhd9impl_host19ArtificialViscosity19ArtificialViscosityER6ConfigR4GridI4RealN7backend4HostEE"></span><span id="_CPPv2N4miso3mhd9impl_host19ArtificialViscosity19ArtificialViscosityER6ConfigR4GridI4RealN7backend4HostEE"></span><span id="miso::mhd::impl_host::ArtificialViscosity::ArtificialViscosity__ConfigR.Grid:Real.backend::Host:R"></span><span class="target" id="structmiso_1_1mhd_1_1impl__host_1_1ArtificialViscosity_1a1037b64399223c528102d4e7410082ef"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">ArtificialViscosity</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="structmiso_1_1Config.html#_CPPv4N4miso6ConfigE" title="miso::Config"><span class="n"><span class="pre">Config</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">config</span></span>, <a class="reference internal" href="structmiso_1_1Grid.html#_CPPv4I00EN4miso4GridE" title="miso::Grid"><span class="n"><span class="pre">Grid</span></span></a><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4I0EN4miso3mhd9impl_host19ArtificialViscosityE" title="miso::mhd::impl_host::ArtificialViscosity::Real"><span class="n"><span class="pre">Real</span></span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="n"><span class="pre">backend</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="structmiso_1_1backend_1_1Host.html#_CPPv4N4miso7backend4HostE" title="miso::backend::Host"><span class="n"><span class="pre">Host</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">grid</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4miso3mhd9impl_host19ArtificialViscosity19ArtificialViscosityER6ConfigR4GridI4RealN7backend4HostEE" title="Link to this definition"></a><br /></dt>
+<dd><p>Constructor for <a class="reference internal" href="#structmiso_1_1mhd_1_1impl__host_1_1ArtificialViscosity"><span class="std std-ref">ArtificialViscosity</span></a>. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4I0EN4miso3mhd9impl_host19ArtificialViscosity28characteristic_velocity_evalEvRK6FieldsI4RealERK3EOS">
+<span id="_CPPv3I0EN4miso3mhd9impl_host19ArtificialViscosity28characteristic_velocity_evalERK6FieldsI4RealERK3EOS"></span><span id="_CPPv2I0EN4miso3mhd9impl_host19ArtificialViscosity28characteristic_velocity_evalERK6FieldsI4RealERK3EOS"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">EOS</span></span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="target" id="structmiso_1_1mhd_1_1impl__host_1_1ArtificialViscosity_1a8c485d1ab5fe5e58b9d96c79c3a96c9c"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">characteristic_velocity_eval</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="structmiso_1_1mhd_1_1Fields.html#_CPPv4I00EN4miso3mhd6FieldsE" title="miso::mhd::Fields"><span class="n"><span class="pre">Fields</span></span></a><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4I0EN4miso3mhd9impl_host19ArtificialViscosityE" title="miso::mhd::impl_host::ArtificialViscosity::Real"><span class="n"><span class="pre">Real</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">qq</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4I0EN4miso3mhd9impl_host19ArtificialViscosity28characteristic_velocity_evalEvRK6FieldsI4RealERK3EOS" title="miso::mhd::impl_host::ArtificialViscosity::characteristic_velocity_eval::EOS"><span class="n"><span class="pre">EOS</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">eos</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4I0EN4miso3mhd9impl_host19ArtificialViscosity28characteristic_velocity_evalEvRK6FieldsI4RealERK3EOS" title="Link to this definition"></a><br /></dt>
+<dd><p>Evaluate the characteristic velocity. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N4miso3mhd9impl_host19ArtificialViscosity6updateER6FieldsI4RealER6FieldsI4RealE9DirectionK4Real">
+<span id="_CPPv3N4miso3mhd9impl_host19ArtificialViscosity6updateER6FieldsI4RealER6FieldsI4RealE9DirectionK4Real"></span><span id="_CPPv2N4miso3mhd9impl_host19ArtificialViscosity6updateER6FieldsI4RealER6FieldsI4RealE9DirectionK4Real"></span><span id="miso::mhd::impl_host::ArtificialViscosity::update__Fields:Real:R.Fields:Real:R.Direction.RealC"></span><span class="target" id="structmiso_1_1mhd_1_1impl__host_1_1ArtificialViscosity_1a87f85f042b9e1110372db8c23ce788b3"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">update</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="structmiso_1_1mhd_1_1Fields.html#_CPPv4I00EN4miso3mhd6FieldsE" title="miso::mhd::Fields"><span class="n"><span class="pre">Fields</span></span></a><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4I0EN4miso3mhd9impl_host19ArtificialViscosityE" title="miso::mhd::impl_host::ArtificialViscosity::Real"><span class="n"><span class="pre">Real</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">qq</span></span>, <a class="reference internal" href="structmiso_1_1mhd_1_1Fields.html#_CPPv4I00EN4miso3mhd6FieldsE" title="miso::mhd::Fields"><span class="n"><span class="pre">Fields</span></span></a><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4I0EN4miso3mhd9impl_host19ArtificialViscosityE" title="miso::mhd::impl_host::ArtificialViscosity::Real"><span class="n"><span class="pre">Real</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">qq_rslt</span></span>, <a class="reference internal" href="enum_namespacemiso_1ad7b207364a985b5efb401fc99198b874.html#_CPPv4N4miso9DirectionE" title="miso::Direction"><span class="n"><span class="pre">Direction</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">direction</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4I0EN4miso3mhd9impl_host19ArtificialViscosityE" title="miso::mhd::impl_host::ArtificialViscosity::Real"><span class="n"><span class="pre">Real</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">dt</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4miso3mhd9impl_host19ArtificialViscosity6updateER6FieldsI4RealER6FieldsI4RealE9DirectionK4Real" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-members">Public Members</p>
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N4miso3mhd9impl_host19ArtificialViscosity4gridE">
+<span id="_CPPv3N4miso3mhd9impl_host19ArtificialViscosity4gridE"></span><span id="_CPPv2N4miso3mhd9impl_host19ArtificialViscosity4gridE"></span><span id="miso::mhd::impl_host::ArtificialViscosity::grid__Grid:Real.backend::Host:R"></span><span class="target" id="structmiso_1_1mhd_1_1impl__host_1_1ArtificialViscosity_1a7b998b6e293f770fa205479baa2fffb6"></span><a class="reference internal" href="structmiso_1_1Grid.html#_CPPv4I00EN4miso4GridE" title="miso::Grid"><span class="n"><span class="pre">Grid</span></span></a><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4I0EN4miso3mhd9impl_host19ArtificialViscosityE" title="miso::mhd::impl_host::ArtificialViscosity::Real"><span class="n"><span class="pre">Real</span></span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="n"><span class="pre">backend</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="structmiso_1_1backend_1_1Host.html#_CPPv4N4miso7backend4HostE" title="miso::backend::Host"><span class="n"><span class="pre">Host</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-name descname"><span class="n"><span class="pre">grid</span></span></span><a class="headerlink" href="#_CPPv4N4miso3mhd9impl_host19ArtificialViscosity4gridE" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N4miso3mhd9impl_host19ArtificialViscosity2ccE">
+<span id="_CPPv3N4miso3mhd9impl_host19ArtificialViscosity2ccE"></span><span id="_CPPv2N4miso3mhd9impl_host19ArtificialViscosity2ccE"></span><span id="miso::mhd::impl_host::ArtificialViscosity::cc__Array3D:Real.backend::Host:"></span><span class="target" id="structmiso_1_1mhd_1_1impl__host_1_1ArtificialViscosity_1a7a0f378384a9ff33824fcbb0b8381b76"></span><a class="reference internal" href="classmiso_1_1Array3D.html#_CPPv4I00EN4miso7Array3DE" title="miso::Array3D"><span class="n"><span class="pre">Array3D</span></span></a><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4I0EN4miso3mhd9impl_host19ArtificialViscosityE" title="miso::mhd::impl_host::ArtificialViscosity::Real"><span class="n"><span class="pre">Real</span></span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="n"><span class="pre">backend</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="structmiso_1_1backend_1_1Host.html#_CPPv4N4miso7backend4HostE" title="miso::backend::Host"><span class="n"><span class="pre">Host</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">cc</span></span></span><a class="headerlink" href="#_CPPv4N4miso3mhd9impl_host19ArtificialViscosity2ccE" title="Link to this definition"></a><br /></dt>
+<dd><p>Characteristic velocity cs_fac*cs + ca_fac*ca + vv_fac*vv. </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N4miso3mhd9impl_host19ArtificialViscosity2csE">
+<span id="_CPPv3N4miso3mhd9impl_host19ArtificialViscosity2csE"></span><span id="_CPPv2N4miso3mhd9impl_host19ArtificialViscosity2csE"></span><span id="miso::mhd::impl_host::ArtificialViscosity::cs__Array3D:Real.backend::Host:"></span><span class="target" id="structmiso_1_1mhd_1_1impl__host_1_1ArtificialViscosity_1ac36dc7622510fd150378c30e29045360"></span><a class="reference internal" href="classmiso_1_1Array3D.html#_CPPv4I00EN4miso7Array3DE" title="miso::Array3D"><span class="n"><span class="pre">Array3D</span></span></a><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4I0EN4miso3mhd9impl_host19ArtificialViscosityE" title="miso::mhd::impl_host::ArtificialViscosity::Real"><span class="n"><span class="pre">Real</span></span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="n"><span class="pre">backend</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="structmiso_1_1backend_1_1Host.html#_CPPv4N4miso7backend4HostE" title="miso::backend::Host"><span class="n"><span class="pre">Host</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">cs</span></span></span><a class="headerlink" href="#_CPPv4N4miso3mhd9impl_host19ArtificialViscosity2csE" title="Link to this definition"></a><br /></dt>
+<dd><p>Speed of sound. </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N4miso3mhd9impl_host19ArtificialViscosity2epE">
+<span id="_CPPv3N4miso3mhd9impl_host19ArtificialViscosity2epE"></span><span id="_CPPv2N4miso3mhd9impl_host19ArtificialViscosity2epE"></span><span id="miso::mhd::impl_host::ArtificialViscosity::ep__Real"></span><span class="target" id="structmiso_1_1mhd_1_1impl__host_1_1ArtificialViscosity_1a5c98227826165182cd4d1745250c7ada"></span><a class="reference internal" href="#_CPPv4I0EN4miso3mhd9impl_host19ArtificialViscosityE" title="miso::mhd::impl_host::ArtificialViscosity::Real"><span class="n"><span class="pre">Real</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">ep</span></span></span><a class="headerlink" href="#_CPPv4N4miso3mhd9impl_host19ArtificialViscosity2epE" title="Link to this definition"></a><br /></dt>
+<dd><p>Parameters for generalized minmod limiter. </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N4miso3mhd9impl_host19ArtificialViscosity2fhE">
+<span id="_CPPv3N4miso3mhd9impl_host19ArtificialViscosity2fhE"></span><span id="_CPPv2N4miso3mhd9impl_host19ArtificialViscosity2fhE"></span><span id="miso::mhd::impl_host::ArtificialViscosity::fh__Real"></span><span class="target" id="structmiso_1_1mhd_1_1impl__host_1_1ArtificialViscosity_1acb89f00f26ad431223ea6c0c91bdde7b"></span><a class="reference internal" href="#_CPPv4I0EN4miso3mhd9impl_host19ArtificialViscosityE" title="miso::mhd::impl_host::ArtificialViscosity::Real"><span class="n"><span class="pre">Real</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">fh</span></span></span><a class="headerlink" href="#_CPPv4N4miso3mhd9impl_host19ArtificialViscosity2fhE" title="Link to this definition"></a><br /></dt>
+<dd><p>Parameters for amplitude of artificial viscosity flux. </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N4miso3mhd9impl_host19ArtificialViscosity6cs_facE">
+<span id="_CPPv3N4miso3mhd9impl_host19ArtificialViscosity6cs_facE"></span><span id="_CPPv2N4miso3mhd9impl_host19ArtificialViscosity6cs_facE"></span><span id="miso::mhd::impl_host::ArtificialViscosity::cs_fac__Real"></span><span class="target" id="structmiso_1_1mhd_1_1impl__host_1_1ArtificialViscosity_1ac7b650462497f86be3a58eb56ba17a15"></span><a class="reference internal" href="#_CPPv4I0EN4miso3mhd9impl_host19ArtificialViscosityE" title="miso::mhd::impl_host::ArtificialViscosity::Real"><span class="n"><span class="pre">Real</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">cs_fac</span></span></span><a class="headerlink" href="#_CPPv4N4miso3mhd9impl_host19ArtificialViscosity6cs_facE" title="Link to this definition"></a><br /></dt>
+<dd><p>Characteristic velocity factor for sound speed. </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N4miso3mhd9impl_host19ArtificialViscosity6ca_facE">
+<span id="_CPPv3N4miso3mhd9impl_host19ArtificialViscosity6ca_facE"></span><span id="_CPPv2N4miso3mhd9impl_host19ArtificialViscosity6ca_facE"></span><span id="miso::mhd::impl_host::ArtificialViscosity::ca_fac__Real"></span><span class="target" id="structmiso_1_1mhd_1_1impl__host_1_1ArtificialViscosity_1a59e31e38c968cb44c1ff1d532db85fa9"></span><a class="reference internal" href="#_CPPv4I0EN4miso3mhd9impl_host19ArtificialViscosityE" title="miso::mhd::impl_host::ArtificialViscosity::Real"><span class="n"><span class="pre">Real</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">ca_fac</span></span></span><a class="headerlink" href="#_CPPv4N4miso3mhd9impl_host19ArtificialViscosity6ca_facE" title="Link to this definition"></a><br /></dt>
+<dd><p>Characteristic velocity factor for Alfvén speed. </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N4miso3mhd9impl_host19ArtificialViscosity6vv_facE">
+<span id="_CPPv3N4miso3mhd9impl_host19ArtificialViscosity6vv_facE"></span><span id="_CPPv2N4miso3mhd9impl_host19ArtificialViscosity6vv_facE"></span><span id="miso::mhd::impl_host::ArtificialViscosity::vv_fac__Real"></span><span class="target" id="structmiso_1_1mhd_1_1impl__host_1_1ArtificialViscosity_1a85dad37b32a345f4d8976e13fe623b93"></span><a class="reference internal" href="#_CPPv4I0EN4miso3mhd9impl_host19ArtificialViscosityE" title="miso::mhd::impl_host::ArtificialViscosity::Real"><span class="n"><span class="pre">Real</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">vv_fac</span></span></span><a class="headerlink" href="#_CPPv4N4miso3mhd9impl_host19ArtificialViscosity6vv_facE" title="Link to this definition"></a><br /></dt>
+<dd><p>Characteristic velocity factor for fluid velocity. </p>
+</dd></dl>
+
+</div>
+</dd></dl>
+
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="structmiso_1_1mhd_1_1impl__cuda_1_1ArtificialViscosity.html" class="btn btn-neutral float-left" title="Template Struct ArtificialViscosity" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="structmiso_1_1mhd_1_1impl__resistivity_1_1ReduceWorkspace.html" class="btn btn-neutral float-right" title="Template Struct ReduceWorkspace" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Integrated Studies, ISEE, Nagoya University.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+ 
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        const currentUrl = window.location.href;
+        const isTranslated = currentUrl.includes(".translate.goog");
+        const translateLink = document.getElementById("translate-link");
+        const originalLink = document.getElementById("original-link");
+
+        // 翻訳URLを生成
+        const translateUrl =
+            "https://translate.google.com/translate?sl=ja&tl=en&u=" +
+            encodeURIComponent(currentUrl);
+
+        if (isTranslated) {
+            // --- 英語版(.translate.goog)にいる場合 ---
+            // English → ページを単にリロード
+            translateLink.removeAttribute("target");
+            translateLink.removeAttribute("href");
+            translateLink.addEventListener("click", (e) => {
+                e.preventDefault();
+                window.location.reload();
+            });
+
+            // 日本語 → 新タブで元URLを開く（翻訳解除）
+            const originalUrl = currentUrl.replace(
+                /^https:\/\/[^/]+\.translate\.goog/,
+                "https://is-isee.github.io"
+            );
+            originalLink.href = originalUrl;
+            originalLink.target = "_blank";
+            originalLink.rel = "noopener";
+        } else {
+            // --- 日本語版にいる場合 ---
+            translateLink.href = translateUrl;
+            translateLink.target = "_blank";
+
+            originalLink.href = currentUrl;
+            originalLink.target = "_self";
+        }
+    });
+</script>
+
+
+</body>
+</html>
