@@ -19,6 +19,7 @@ MISO (Mhd ISee Open source code)は、磁気流体力学(MHD)シミュレーシ�
    customization/index
    miso/index
    pymiso/index
+   education/index
    references
 
 .. Add your content using ``reStructuredText`` syntax. See the
