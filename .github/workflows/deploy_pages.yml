@@ -44,7 +44,7 @@ jobs:
           keep_files: true
           disable_nojekyll: false
 
-      # Preview: https://is-isee.github.io/MISO/pr-${pr}/
+      # Preview: https://is-isee.github.io/MISO_docs/pr-${pr}/
       - name: Deploy PR preview to gh-pages/pr-<num>/
         if: github.event_name == 'pull_request'
           && github.event.action != 'closed'

@@ -32,5 +32,5 @@ make -C docs html
 
 として引用する。
 
-GitHub Pagesで公開する場合は、`.github/workflows/deploy_pages.yml`を利用する。mainブランチにpushすると、`gh-pages`ブランチに自動的にデプロイされる。正式版は<https://is-isee.github.io/MISO/>、PR版は<https://is-isee.github.io/MISO/pr-${pr}/>からアクセス出来る。
+GitHub Pagesで公開する場合は、`.github/workflows/deploy_pages.yml`を利用する。mainブランチにpushすると、`gh-pages`ブランチに自動的にデプロイされる。正式版は<https://is-isee.github.io/MISO_docs/>、PR版は<https://is-isee.github.io/MISO_docs/pr-${pr}/>からアクセス出来る。
 
