@@ -1,0 +1,112 @@
+
+.. _file__home_runner_work_MISO_docs_MISO_docs_MISO_miso_include_miso_mhd_model_base.hpp:
+
+File mhd_model_base.hpp
+=======================
+
+|exhale_lsh| :ref:`Parent directory <dir__home_runner_work_MISO_docs_MISO_docs_MISO_miso_include_miso>` (``/home/runner/work/MISO_docs/MISO_docs/MISO/miso/include/miso``)
+
+.. |exhale_lsh| unicode:: U+021B0 .. UPWARDS ARROW WITH TIP LEFTWARDS
+
+
+.. contents:: Contents
+   :local:
+   :backlinks: none
+
+Definition (``/home/runner/work/MISO_docs/MISO_docs/MISO/miso/include/miso/mhd_model_base.hpp``)
+------------------------------------------------------------------------------------------------
+
+
+.. toctree::
+   :maxdepth: 1
+
+   program_listing_file__home_runner_work_MISO_docs_MISO_docs_MISO_miso_include_miso_mhd_model_base.hpp.rst
+
+
+
+
+
+Includes
+--------
+
+
+- ``algorithm``
+
+- ``config.hpp`` (:ref:`file__home_runner_work_MISO_docs_MISO_docs_MISO_miso_include_miso_config.hpp`)
+
+- ``env.hpp`` (:ref:`file__home_runner_work_MISO_docs_MISO_docs_MISO_miso_include_miso_env.hpp`)
+
+- ``eos.hpp`` (:ref:`file__home_runner_work_MISO_docs_MISO_docs_MISO_miso_include_miso_eos.hpp`)
+
+- ``execution.hpp`` (:ref:`file__home_runner_work_MISO_docs_MISO_docs_MISO_miso_include_miso_execution.hpp`)
+
+- ``grid.hpp`` (:ref:`file__home_runner_work_MISO_docs_MISO_docs_MISO_miso_include_miso_grid.hpp`)
+
+- ``mhd_solver.hpp`` (:ref:`file__home_runner_work_MISO_docs_MISO_docs_MISO_miso_include_miso_mhd_solver.hpp`)
+
+- ``mpi_util.hpp`` (:ref:`file__home_runner_work_MISO_docs_MISO_docs_MISO_miso_include_miso_mpi_util.hpp`)
+
+- ``stdexcept``
+
+- ``time.hpp`` (:ref:`file__home_runner_work_MISO_docs_MISO_docs_MISO_miso_include_miso_time.hpp`)
+
+- ``type_traits``
+
+- ``types.hpp`` (:ref:`file__home_runner_work_MISO_docs_MISO_docs_MISO_miso_include_miso_types.hpp`)
+
+- ``utility`` (:ref:`file__home_runner_work_MISO_docs_MISO_docs_MISO_miso_include_miso_utility.hpp`)
+
+
+
+Included By
+-----------
+
+
+- :ref:`file__home_runner_work_MISO_docs_MISO_docs_MISO_miso_include_miso_mhd.hpp`
+
+
+
+
+Namespaces
+----------
+
+
+- :ref:`namespace_miso`
+
+- :ref:`namespace_miso__mhd`
+
+
+Classes
+-------
+
+
+- :ref:`exhale_struct_structmiso_1_1mhd_1_1EmptyBoundaryCondition`
+
+- :ref:`exhale_struct_structmiso_1_1mhd_1_1EmptySourceTerm`
+
+- :ref:`exhale_struct_structmiso_1_1mhd_1_1has__bc`
+
+- :ref:`exhale_struct_structmiso_1_1mhd_1_1has__bc_3_01T_00_01std_1_1void__t_3_01decltype_07_6T_1_1bc_08_4_01_4`
+
+- :ref:`exhale_struct_structmiso_1_1mhd_1_1has__dt__limit`
+
+- :ref:`exhale_struct_structmiso_1_1mhd_1_1has__dt__limit_3_01T_00_01std_1_1void__t_3_01decltype_07std_1_1declval_3_015ac192160144283bf79710d10172aac5`
+
+- :ref:`exhale_struct_structmiso_1_1mhd_1_1has__eos`
+
+- :ref:`exhale_struct_structmiso_1_1mhd_1_1has__eos_3_01T_00_01std_1_1void__t_3_01decltype_07_6T_1_1eos_08_4_01_4`
+
+- :ref:`exhale_struct_structmiso_1_1mhd_1_1has__ic`
+
+- :ref:`exhale_struct_structmiso_1_1mhd_1_1has__ic_3_01T_00_01std_1_1void__t_3_01decltype_07_6T_1_1ic_08_4_01_4`
+
+- :ref:`exhale_struct_structmiso_1_1mhd_1_1has__member__dt__limit`
+
+- :ref:`exhale_struct_structmiso_1_1mhd_1_1has__member__dt__limit_3_01T_00_01std_1_1void__t_3_01decltype_07_6T_1_1dt__limit_08_4_01_4`
+
+- :ref:`exhale_struct_structmiso_1_1mhd_1_1has__src`
+
+- :ref:`exhale_struct_structmiso_1_1mhd_1_1has__src_3_01T_00_01std_1_1void__t_3_01decltype_07_6T_1_1src_08_4_01_4`
+
+- :ref:`exhale_class_classmiso_1_1mhd_1_1ModelBase`
+

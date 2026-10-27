@@ -1,0 +1,14 @@
+.. _exhale_function_rt__host_8hpp_1a702ea05ed269736d0cc357cd9ea5d261:
+
+Template Function miso::rt::set_incoming_boundary_on_physical_faces
+===================================================================
+
+- Defined in :ref:`file__home_runner_work_MISO_docs_MISO_docs_MISO_miso_include_miso_rt_host.hpp`
+
+
+Function Documentation
+----------------------
+
+
+.. doxygenfunction:: miso::rt::set_incoming_boundary_on_physical_faces(RT<Real>&, const Grid<Real>&, const mpi::Shape&, Direction, Side, ValueFn&&)
+   :project: CPP

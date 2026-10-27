@@ -1,0 +1,20 @@
+
+.. _program_listing_file__home_runner_work_MISO_docs_MISO_docs_MISO_miso_include_miso_mhd.hpp:
+
+Program Listing for File mhd.hpp
+================================
+
+|exhale_lsh| :ref:`Return to documentation for file <file__home_runner_work_MISO_docs_MISO_docs_MISO_miso_include_miso_mhd.hpp>` (``/home/runner/work/MISO_docs/MISO_docs/MISO/miso/include/miso/mhd.hpp``)
+
+.. |exhale_lsh| unicode:: U+021B0 .. UPWARDS ARROW WITH TIP LEFTWARDS
+
+.. code-block:: cpp
+
+   #pragma once
+   
+   // Umbrella header for MHD. Include this together with <miso/core.hpp>:
+   //   #include <miso/core.hpp>
+   //   #include <miso/mhd.hpp>
+   
+   #include "eos.hpp"
+   #include "mhd_model_base.hpp"
