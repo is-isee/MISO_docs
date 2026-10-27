@@ -1,0 +1,1026 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>1. 開発環境と CMake &mdash; MISO 0.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=4ae1632d" />
+      <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../_static/collapsible-lists/css/tree_view.css?v=a885cde7" />
+      <link rel="stylesheet" type="text/css" href="../_static/custom.css" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=837179f8"></script>
+      <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../_static/copybutton.js?v=f281be69"></script>
+      <script src="../_static/collapsible-lists/js/CollapsibleLists.compressed.js?v=73120307"></script>
+      <script src="../_static/collapsible-lists/js/apply-collapsible-lists.js?v=660e4f45"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="2. 変数・関数・制御文" href="02_cpp_basics.html" />
+    <link rel="prev" title="MISO education" href="index.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            MISO
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../quickstart.html">Quick Start</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../demo/index.html">Test Problems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../customization/index.html">Customization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../miso/index.html">MISO C++ documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../pymiso/index.html">pymiso Documentation</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">MISO education</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="index.html#id1">本文</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html#id2">必要なときに参照する資料</a><ul class="current">
+<li class="toctree-l3 current"><a class="current reference internal" href="#">1. 開発環境と CMake</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#edu-ch01-tools">必要な道具</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ubuntu">Ubuntu での準備</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mac">Mac での準備</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#miso">MISO を取得する</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#edu-ch01-compile">コンパイルとリンク</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#edu-ch01-cmake">CMake の仕組み</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#edu-ch01-miso-build">MISO のビルドとユニットテスト</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#edu-ch01-demo">デモの実行と出力の読み込み</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#edu-ch01-own-project">自分のプログラムから MISO を使う</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#edu-ch01-trouble">うまくいかないとき</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#gpu">GPU を使う段階になったら</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id24">次に読むところ</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="02_cpp_basics.html">2. 変数・関数・制御文</a></li>
+<li class="toctree-l3"><a class="reference internal" href="03_references_and_pointers.html">3. 参照・ポインタと寿命</a></li>
+<li class="toctree-l3"><a class="reference internal" href="04_classes_and_structs.html">4. クラス・構造体</a></li>
+<li class="toctree-l3"><a class="reference internal" href="05_inheritance.html">5. 継承と CRTP</a></li>
+<li class="toctree-l3"><a class="reference internal" href="06_templates.html">6. テンプレート</a></li>
+<li class="toctree-l3"><a class="reference internal" href="07_arrays_and_parallel.html">7. 配列・ラムダと CPU での並列ループ</a></li>
+<li class="toctree-l3"><a class="reference internal" href="08_mpi.html">8. MPI による領域分割</a></li>
+<li class="toctree-l3"><a class="reference internal" href="09_gpu.html">9. GPU（CUDA）での計算とデータ転送</a></li>
+<li class="toctree-l3"><a class="reference internal" href="10_heat1d.html">10. 熱伝導の計算</a></li>
+<li class="toctree-l3"><a class="reference internal" href="11_reading_miso.html">11. MISO の時間発展を読む</a></li>
+<li class="toctree-l3"><a class="reference internal" href="practice/index.html">実習一覧</a></li>
+<li class="toctree-l3"><a class="reference internal" href="reference/index.html">参考資料</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../references.html">References</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">MISO</a>
+      </nav>
+
+      <div class="wy-nav-content">
+<div id="language-links" style="margin-bottom: 1em; font-size: 100%;">
+    Language:
+    <a href="#" id="translate-link" target="_blank">English</a> |
+    <a href="#" id="original-link">日本語</a>
+</div>
+
+
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">MISO education</a></li>
+      <li class="breadcrumb-item active">1. 開発環境と CMake</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/education/01_environment_setup.md.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section class="tex2jax_ignore mathjax_ignore" id="cmake">
+<span id="edu-ch01"></span><h1>1. 開発環境と CMake<a class="headerlink" href="#cmake" title="Link to this heading"></a></h1>
+<p>この章では、手元の計算機で C++ のプログラムをコンパイルして動かし、MISO をビルドして実行できるようにします。
+Ubuntu と Mac で道具を揃え、コンパイルとリンクの仕組み、CMake の使い方、MISO のビルド・テスト・デモの実行、
+自分のプログラムから MISO を使う設定までを順に確かめます。
+C++ の文法は <a class="reference internal" href="02_cpp_basics.html#edu-ch02"><span class="std std-ref">第 2 章</span></a> から学びます。この章のプログラムは、文法を気にせずそのまま保存して構いません。</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#edu-ch01-tools"><span class="std std-ref">必要な道具</span></a></p></li>
+<li><p><a class="reference internal" href="#edu-ch01-ubuntu"><span class="std std-ref">Ubuntu での準備</span></a></p></li>
+<li><p><a class="reference internal" href="#edu-ch01-mac"><span class="std std-ref">Mac での準備</span></a></p></li>
+<li><p><a class="reference internal" href="#edu-ch01-get-miso"><span class="std std-ref">MISO を取得する</span></a></p></li>
+<li><p><a class="reference internal" href="#edu-ch01-compile"><span class="std std-ref">コンパイルとリンク</span></a></p></li>
+<li><p><a class="reference internal" href="#edu-ch01-cmake"><span class="std std-ref">CMake の仕組み</span></a></p></li>
+<li><p><a class="reference internal" href="#edu-ch01-miso-build"><span class="std std-ref">MISO のビルドとユニットテスト</span></a></p></li>
+<li><p><a class="reference internal" href="#edu-ch01-demo"><span class="std std-ref">デモの実行と出力の読み込み</span></a></p></li>
+<li><p><a class="reference internal" href="#edu-ch01-own-project"><span class="std std-ref">自分のプログラムから MISO を使う</span></a></p></li>
+<li><p><a class="reference internal" href="#edu-ch01-trouble"><span class="std std-ref">うまくいかないとき</span></a></p></li>
+<li><p><a class="reference internal" href="#edu-ch01-gpu"><span class="std std-ref">GPU を使う段階になったら</span></a></p></li>
+</ul>
+<section id="edu-ch01-tools">
+<span id="id1"></span><h2>必要な道具<a class="headerlink" href="#edu-ch01-tools" title="Link to this heading"></a></h2>
+<p>この教材は CPU だけで進められます。GPU がなくても、C++ の練習、MISO の配列と並列ループ、MPI による領域分割、
+1 次元熱伝導の実習、MISO のデモの実行まで行えます。</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>道具</p></th>
+<th class="head"><p>この教材での役割</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>C++ コンパイラ（<code class="docutils literal notranslate"><span class="pre">g++</span></code> または <code class="docutils literal notranslate"><span class="pre">clang++</span></code>）</p></td>
+<td><p>C++ のソースを機械語に翻訳します。MISO は C++17 を使います</p></td>
+</tr>
+<tr class="row-odd"><td><p>CMake</p></td>
+<td><p>作るもの・使うソース・必要なライブラリを <code class="docutils literal notranslate"><span class="pre">CMakeLists.txt</span></code> から読み、ビルドの手順を作ります。MISO は 3.18 以上を求めます</p></td>
+</tr>
+<tr class="row-even"><td><p>MPI（Open MPI）</p></td>
+<td><p>複数のプロセスでデータをやり取りするライブラリと、実行コマンド <code class="docutils literal notranslate"><span class="pre">mpiexec</span></code> です</p></td>
+</tr>
+<tr class="row-odd"><td><p>yaml-cpp</p></td>
+<td><p>設定ファイル <code class="docutils literal notranslate"><span class="pre">config.yaml</span></code>（YAML 形式）を読むライブラリです</p></td>
+</tr>
+<tr class="row-even"><td><p>git</p></td>
+<td><p>MISO を取得し、更新を取り込みます</p></td>
+</tr>
+<tr class="row-odd"><td><p>Python と pymiso</p></td>
+<td><p>計算結果を読み込んで図にします。pymiso は MISO に含まれる Python パッケージです</p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>MPI</strong>（Message Passing Interface）は、同じプログラムを複数のプロセスで動かし、プロセスの間でデータを送受信するための規格です。
+MISO は計算領域を分けて各プロセスに担当させるために MPI を使います。詳しくは <a class="reference internal" href="08_mpi.html#edu-ch08"><span class="std std-ref">第 8 章</span></a> で説明します。
+1 台の計算機の中で複数のプロセスを起動して練習できます。</p>
+</section>
+<section id="ubuntu">
+<span id="edu-ch01-ubuntu"></span><h2>Ubuntu での準備<a class="headerlink" href="#ubuntu" title="Link to this heading"></a></h2>
+<p>Ubuntu 24.04 LTS を基準に説明します。「端末」を開き、次を実行してください。</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>apt<span class="w"> </span>update
+sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>build-essential<span class="w"> </span>cmake<span class="w"> </span>git<span class="w"> </span>openmpi-bin<span class="w"> </span>libopenmpi-dev<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>libyaml-cpp-dev<span class="w"> </span>python3<span class="w"> </span>python3-venv
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">sudo</span></code> は、管理者の権限でソフトウェアを入れるためのコマンドです。パスワードを入力しても画面には文字が出ません。
+共有の計算機でインストールの権限がない場合は、管理者が用意した同等の環境を使います。</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>パッケージ</p></th>
+<th class="head"><p>入るもの</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">build-essential</span></code></p></td>
+<td><p>C++ コンパイラ GCC（<code class="docutils literal notranslate"><span class="pre">g++</span></code>）と、ビルドに使う <code class="docutils literal notranslate"><span class="pre">make</span></code> など</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">cmake</span></code></p></td>
+<td><p>CMake</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">git</span></code></p></td>
+<td><p>git</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">openmpi-bin</span></code>・<code class="docutils literal notranslate"><span class="pre">libopenmpi-dev</span></code></p></td>
+<td><p>MPI の実行コマンド（<code class="docutils literal notranslate"><span class="pre">mpiexec</span></code>）と、コンパイルに必要なヘッダ・ライブラリ</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">libyaml-cpp-dev</span></code></p></td>
+<td><p>yaml-cpp のヘッダとライブラリ</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">python3</span></code>・<code class="docutils literal notranslate"><span class="pre">python3-venv</span></code></p></td>
+<td><p>Python と、Python の仮想環境（後述）を作る機能</p></td>
+</tr>
+</tbody>
+</table>
+<p>入ったことを確かめます。</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>g++<span class="w"> </span>--version
+cmake<span class="w"> </span>--version
+mpiexec<span class="w"> </span>--version
+</pre></div>
+</div>
+<p>GCC、CMake、Open MPI のバージョンが表示されれば準備完了です。</p>
+</section>
+<section id="mac">
+<span id="edu-ch01-mac"></span><h2>Mac での準備<a class="headerlink" href="#mac" title="Link to this heading"></a></h2>
+<p>Homebrew が対応している macOS を使います。Apple Silicon と Intel Mac では Homebrew の保存先が違うため、
+以下では <code class="docutils literal notranslate"><span class="pre">brew</span> <span class="pre">--prefix</span></code> で自分の環境の場所を調べます。</p>
+<section id="id2">
+<h3>コマンドライン開発ツール<a class="headerlink" href="#id2" title="Link to this heading"></a></h3>
+<p>「ターミナル」を開き、次を実行します。画面の案内に沿ってインストールを終えます。
+「すでにインストールされています」と表示された場合は、そのまま次へ進めます。</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>xcode-select<span class="w"> </span>--install
+</pre></div>
+</div>
+<p>これで Apple の C++ コンパイラ（Clang、コマンド名 <code class="docutils literal notranslate"><span class="pre">clang++</span></code>。<code class="docutils literal notranslate"><span class="pre">c++</span></code> や <code class="docutils literal notranslate"><span class="pre">g++</span></code> という名前でも呼べます）が入ります。
+MISO の CPU 版は、このコンパイラでビルドします。</p>
+</section>
+<section id="homebrew">
+<h3>Homebrew で道具を入れる<a class="headerlink" href="#homebrew" title="Link to this heading"></a></h3>
+<p>Homebrew は、開発用のソフトウェアをまとめて入れ・更新する道具です。<code class="docutils literal notranslate"><span class="pre">brew</span> <span class="pre">--version</span></code> が動かない場合は、
+<a class="reference external" href="https://brew.sh/">Homebrew 公式サイト</a> に掲載されているインストールコマンドを実行し、
+終了時に表示される <strong>Next steps</strong> のコマンドも実行してください（ターミナルから <code class="docutils literal notranslate"><span class="pre">brew</span></code> を見つけられるようにする設定です）。
+その後、次を実行します。</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>brew<span class="w"> </span>install<span class="w"> </span>git<span class="w"> </span>cmake<span class="w"> </span>open-mpi<span class="w"> </span>yaml-cpp<span class="w"> </span>python
+</pre></div>
+</div>
+<p>入ったことを確かめます。</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>clang++<span class="w"> </span>--version
+cmake<span class="w"> </span>--version
+mpiexec<span class="w"> </span>--version
+brew<span class="w"> </span>--prefix<span class="w"> </span>yaml-cpp
+</pre></div>
+</div>
+<p>Homebrew で入れたライブラリは <code class="docutils literal notranslate"><span class="pre">brew</span> <span class="pre">--prefix</span></code> が表示する場所（Apple Silicon では通常 <code class="docutils literal notranslate"><span class="pre">/opt/homebrew</span></code>）の下にあります。
+CMake は、<code class="docutils literal notranslate"><span class="pre">PATH</span></code> に入っている Homebrew の <code class="docutils literal notranslate"><span class="pre">bin</span></code> から、この場所も探します。</p>
+</section>
+</section>
+<section id="miso">
+<span id="edu-ch01-get-miso"></span><h2>MISO を取得する<a class="headerlink" href="#miso" title="Link to this heading"></a></h2>
+<p>作業用のフォルダを決め、MISO を取得します。以下では <code class="docutils literal notranslate"><span class="pre">$HOME/miso-work</span></code> を使いますが、別の場所でも構いません。</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>mkdir<span class="w"> </span>-p<span class="w"> </span><span class="s2">"</span><span class="nv">$HOME</span><span class="s2">/miso-work"</span>
+<span class="nb">cd</span><span class="w"> </span><span class="s2">"</span><span class="nv">$HOME</span><span class="s2">/miso-work"</span>
+git<span class="w"> </span>clone<span class="w"> </span>https://github.com/is-isee/MISO.git
+</pre></div>
+</div>
+<p>これで <code class="docutils literal notranslate"><span class="pre">$HOME/miso-work/MISO</span></code> ができます。この教材では、MISO を置いたフォルダを <code class="docutils literal notranslate"><span class="pre">/path/to/MISO</span></code> と書きます。
+コマンドを入力するときは、自分の保存先の<strong>絶対パス</strong>（<code class="docutils literal notranslate"><span class="pre">/</span></code> で始まるパス。この例では <code class="docutils literal notranslate"><span class="pre">$HOME/miso-work/MISO</span></code>）に置き換えてください。</p>
+<p>MISO のフォルダの主な中身は次のとおりです。</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>場所</p></th>
+<th class="head"><p>中身</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">miso/include/miso/</span></code></p></td>
+<td><p>MISO 本体のヘッダファイル（<code class="docutils literal notranslate"><span class="pre">.hpp</span></code>）。計算の部品はすべてここにあります</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">miso/CMakeLists.txt</span></code></p></td>
+<td><p>MISO 本体と、そのユニットテストのビルド設定</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">miso/tests/</span></code></p></td>
+<td><p>ユニットテスト（<code class="docutils literal notranslate"><span class="pre">serial/</span></code> は 1 プロセス、<code class="docutils literal notranslate"><span class="pre">parallel/</span></code> は MPI の複数プロセス）</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">demo/</span></code></p></td>
+<td><p>デモ問題。<code class="docutils literal notranslate"><span class="pre">demo/mhd2d_vortex/</span></code> などの問題ごとのフォルダに、<code class="docutils literal notranslate"><span class="pre">src/main.cpp</span></code> と <code class="docutils literal notranslate"><span class="pre">config.yaml</span></code> があります</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">pymiso/</span></code></p></td>
+<td><p>計算結果を読む Python パッケージ</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">dev/notes/</span></code></p></td>
+<td><p>開発のルールと手順</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="edu-ch01-compile">
+<span id="id3"></span><h2>コンパイルとリンク<a class="headerlink" href="#edu-ch01-compile" title="Link to this heading"></a></h2>
+<section id="id4">
+<h3>コンパイラで実行ファイルを作る<a class="headerlink" href="#id4" title="Link to this heading"></a></h3>
+<p>Fortran と同じく、C++ のソースはコンパイラで<strong>実行ファイル</strong>に変換してから動かします。
+作業用のフォルダを作り、次の内容を <code class="docutils literal notranslate"><span class="pre">hello.cpp</span></code> という名前で保存してください。</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>mkdir<span class="w"> </span>-p<span class="w"> </span><span class="s2">"</span><span class="nv">$HOME</span><span class="s2">/miso-work/hello"</span>
+<span class="nb">cd</span><span class="w"> </span><span class="s2">"</span><span class="nv">$HOME</span><span class="s2">/miso-work/hello"</span>
+</pre></div>
+</div>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;cmath&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;iostream&gt;</span>
+
+<span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">const</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">2.0</span><span class="p">;</span>
+<span class="w">  </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">"sqrt("</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">") = "</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">sqrt</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="sc">'\n'</span><span class="p">;</span>
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">main</span></code> はプログラムの入口となる関数で、Fortran の <code class="docutils literal notranslate"><span class="pre">program</span></code> に当たります。
+コンパイルして実行します（Mac では <code class="docutils literal notranslate"><span class="pre">g++</span></code> を <code class="docutils literal notranslate"><span class="pre">clang++</span></code> に置き換えます）。</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>g++<span class="w"> </span>-std<span class="o">=</span>c++17<span class="w"> </span>-O2<span class="w"> </span>hello.cpp<span class="w"> </span>-o<span class="w"> </span>hello
+./hello
+</pre></div>
+</div>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>sqrt(2) = 1.41421
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">-std=c++17</span></code> は C++17 の規格で翻訳する指定、<code class="docutils literal notranslate"><span class="pre">-O2</span></code> は最適化の強さ、<code class="docutils literal notranslate"><span class="pre">-o</span> <span class="pre">hello</span></code> は実行ファイルの名前です。</p>
+</section>
+<section id="id5">
+<h3>コンパイルとリンクの 2 段階<a class="headerlink" href="#id5" title="Link to this heading"></a></h3>
+<p>上のコマンドは、実際には 2 つの段階をまとめて行っています。</p>
+<ol class="arabic simple">
+<li><p><strong>コンパイル</strong>：<code class="docutils literal notranslate"><span class="pre">.cpp</span></code> を 1 つずつ翻訳し、<strong>オブジェクトファイル</strong>（<code class="docutils literal notranslate"><span class="pre">.o</span></code>）を作ります。</p></li>
+<li><p><strong>リンク</strong>：オブジェクトファイルと、使っているライブラリの中身を結び付け、実行ファイルを作ります。</p></li>
+</ol>
+<p>段階を分けて実行することもできます。<code class="docutils literal notranslate"><span class="pre">-c</span></code> は「コンパイルだけを行う」指定です。</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>g++<span class="w"> </span>-std<span class="o">=</span>c++17<span class="w"> </span>-O2<span class="w"> </span>-c<span class="w"> </span>hello.cpp<span class="w"> </span>-o<span class="w"> </span>hello.o<span class="w">   </span><span class="c1"># コンパイル：hello.o ができる</span>
+g++<span class="w"> </span>hello.o<span class="w"> </span>-o<span class="w"> </span>hello<span class="w">                          </span><span class="c1"># リンク：hello ができる</span>
+</pre></div>
+</div>
+<p>ここでの「オブジェクトファイル」はコンパイル結果のファイルを指す用語で、クラスの実体（オブジェクト）とは別の意味です。</p>
+</section>
+<section id="include">
+<h3>ヘッダと <code class="docutils literal notranslate"><span class="pre">#include</span></code><a class="headerlink" href="#include" title="Link to this heading"></a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">#include</span> <span class="pre">&lt;cmath&gt;</span></code> は、<code class="docutils literal notranslate"><span class="pre">cmath</span></code> という<strong>ヘッダファイル</strong>の中身をその場所に読み込む指示です。
+ヘッダには、関数や型の<strong>宣言</strong>（名前と引数の型など、使い方の情報）が書かれています。
+コンパイラは宣言を見て、<code class="docutils literal notranslate"><span class="pre">std::sqrt(x)</span></code> の呼び出しが正しいかを確かめます。
+Fortran で <code class="docutils literal notranslate"><span class="pre">use</span></code> したモジュールの情報を見て引数を確かめるのに近い役割です。</p>
+<p>ヘッダは決まったフォルダから探されます。標準ライブラリのヘッダはコンパイラが場所を知っていますが、
+それ以外のヘッダは <code class="docutils literal notranslate"><span class="pre">-I</span> <span class="pre">フォルダ</span></code> で探す場所を足します。たとえば MISO のヘッダは <code class="docutils literal notranslate"><span class="pre">#include</span> <span class="pre">&lt;miso/core.hpp&gt;</span></code> のように書くので、
+<code class="docutils literal notranslate"><span class="pre">/path/to/MISO/miso/include</span></code> を <code class="docutils literal notranslate"><span class="pre">-I</span></code> で渡すと <code class="docutils literal notranslate"><span class="pre">miso/core.hpp</span></code> が見つかります。</p>
+<p>宣言だけでは、関数の<strong>実体</strong>（計算の中身）はありません。実体がライブラリの中にある場合は、リンクの段階でそのライブラリを指定します。
+yaml-cpp を使う短いプログラムで確かめます。次を <code class="docutils literal notranslate"><span class="pre">yaml_check.cpp</span></code> として保存してください。</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;iostream&gt;</span>
+
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;yaml-cpp/yaml.h&gt;</span>
+
+<span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">const</span><span class="w"> </span><span class="n">YAML</span><span class="o">::</span><span class="n">Node</span><span class="w"> </span><span class="n">node</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">YAML</span><span class="o">::</span><span class="n">Load</span><span class="p">(</span><span class="s">"grid: {i_size: 128}"</span><span class="p">);</span>
+<span class="w">  </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">"i_size = "</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">node</span><span class="p">[</span><span class="s">"grid"</span><span class="p">][</span><span class="s">"i_size"</span><span class="p">].</span><span class="n">as</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">()</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="sc">'\n'</span><span class="p">;</span>
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">-lyaml-cpp</span></code> は「リンクのときに <code class="docutils literal notranslate"><span class="pre">libyaml-cpp</span></code> というライブラリを使う」指定です。</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>g++<span class="w"> </span>-std<span class="o">=</span>c++17<span class="w"> </span>yaml_check.cpp<span class="w"> </span>-o<span class="w"> </span>yaml_check<span class="w"> </span>-lyaml-cpp
+./yaml_check
+</pre></div>
+</div>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>i_size = 128
+</pre></div>
+</div>
+<p>Mac では Homebrew の場所を <code class="docutils literal notranslate"><span class="pre">-I</span></code> と <code class="docutils literal notranslate"><span class="pre">-L</span></code>（ライブラリを探すフォルダ）で教えます。</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>clang++<span class="w"> </span>-std<span class="o">=</span>c++17<span class="w"> </span>yaml_check.cpp<span class="w"> </span>-o<span class="w"> </span>yaml_check<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-I<span class="s2">"</span><span class="k">$(</span>brew<span class="w"> </span>--prefix<span class="k">)</span><span class="s2">/include"</span><span class="w"> </span>-L<span class="s2">"</span><span class="k">$(</span>brew<span class="w"> </span>--prefix<span class="k">)</span><span class="s2">/lib"</span><span class="w"> </span>-lyaml-cpp
+</pre></div>
+</div>
+<p>MISO は<strong>ヘッダオンリー</strong>のライブラリです。計算の部品はすべてヘッダ（<code class="docutils literal notranslate"><span class="pre">miso/include/miso/*.hpp</span></code>）に実体ごと書かれていて、
+MISO 自身を前もってライブラリにコンパイルしておく必要はありません。
+ただし、MISO が使う MPI と yaml-cpp は、ヘッダの場所とリンクするライブラリの指定が必要です。
+MPI については、Open MPI が用意する <code class="docutils literal notranslate"><span class="pre">mpicxx</span></code> というコマンドが、MPI のヘッダとライブラリの指定を足して <code class="docutils literal notranslate"><span class="pre">g++</span></code>（Mac では <code class="docutils literal notranslate"><span class="pre">clang++</span></code>）を呼びます。
+<code class="docutils literal notranslate"><span class="pre">mpicxx</span> <span class="pre">--showme</span></code> で、足される指定を表示できます（Open MPI の場合）。</p>
+</section>
+<section id="id6">
+<h3>練習 1-1<a class="headerlink" href="#id6" title="Link to this heading"></a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">yaml_check.cpp</span></code> を、<code class="docutils literal notranslate"><span class="pre">-lyaml-cpp</span></code> を付けずにビルドしてください。
+エラーがコンパイルとリンクのどちらの段階で起きたかを、表示から判断して説明してください。</p>
+<details>
+<summary>解答・解説</summary>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>g++<span class="w"> </span>-std<span class="o">=</span>c++17<span class="w"> </span>yaml_check.cpp<span class="w"> </span>-o<span class="w"> </span>yaml_check
+</pre></div>
+</div>
+<p>Ubuntu では次のような表示が出ます（一部を抜粋）。</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>yaml_check.cpp:(.text+0x34): undefined reference to `YAML::Load(char const*)'
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">undefined</span> <span class="pre">reference</span></code>（未定義の参照）は<strong>リンク</strong>の段階のエラーです。
+<code class="docutils literal notranslate"><span class="pre">#include</span> <span class="pre">&lt;yaml-cpp/yaml.h&gt;</span></code> で宣言は見えているので、コンパイルは通ります。
+リンクのときに <code class="docutils literal notranslate"><span class="pre">YAML::Load</span></code> の実体を持つライブラリが指定されていないため、実行ファイルを作れません。
+Mac の Clang では <code class="docutils literal notranslate"><span class="pre">Undefined</span> <span class="pre">symbols</span> <span class="pre">for</span> <span class="pre">architecture</span> <span class="pre">...</span></code> と表示されます。これもリンクのエラーです。</p>
+<p>一方、ヘッダが見つからないときは <code class="docutils literal notranslate"><span class="pre">fatal</span> <span class="pre">error:</span> <span class="pre">yaml-cpp/yaml.h:</span> <span class="pre">No</span> <span class="pre">such</span> <span class="pre">file</span> <span class="pre">or</span> <span class="pre">directory</span></code> のように表示されます。
+これはコンパイルの段階のエラーで、<code class="docutils literal notranslate"><span class="pre">-I</span></code> の指定かパッケージのインストールを確かめます。</p>
+</details>
+</section>
+</section>
+<section id="edu-ch01-cmake">
+<span id="id7"></span><h2>CMake の仕組み<a class="headerlink" href="#edu-ch01-cmake" title="Link to this heading"></a></h2>
+<section id="id8">
+<h3>設定・ビルド・実行の 3 段階<a class="headerlink" href="#id8" title="Link to this heading"></a></h3>
+<p>ソースやライブラリが増えると、コンパイルとリンクのコマンドを手で書くのは大変です。
+Fortran でも使われる <code class="docutils literal notranslate"><span class="pre">make</span></code> は、<code class="docutils literal notranslate"><span class="pre">Makefile</span></code> に書かれた手順に従ってビルドします。
+<strong>CMake</strong> は、作るもの・使うソース・必要なライブラリを <code class="docutils literal notranslate"><span class="pre">CMakeLists.txt</span></code> に書くと、その計算機に合った <code class="docutils literal notranslate"><span class="pre">Makefile</span></code> などを生成します。
+CMake はビルドの手順を組み立てる道具で、C++ の翻訳そのものは GCC や Clang が行います。</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>段階</p></th>
+<th class="head"><p>コマンドの形</p></th>
+<th class="head"><p>行うこと</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>設定・生成</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">cmake</span> <span class="pre">-S</span> <span class="pre">.</span> <span class="pre">-B</span> <span class="pre">build</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">CMakeLists.txt</span></code> を読み、コンパイラやライブラリを探し、ビルドの手順を <code class="docutils literal notranslate"><span class="pre">build/</span></code> に生成します</p></td>
+</tr>
+<tr class="row-odd"><td><p>ビルド</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">cmake</span> <span class="pre">--build</span> <span class="pre">build</span></code></p></td>
+<td><p>生成した手順でコンパイルとリンクを行います</p></td>
+</tr>
+<tr class="row-even"><td><p>実行</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">./build/hello</span></code></p></td>
+<td><p>できた実行ファイルを動かします</p></td>
+</tr>
+</tbody>
+</table>
+<p><code class="docutils literal notranslate"><span class="pre">-S</span> <span class="pre">.</span></code> は「ソース（<code class="docutils literal notranslate"><span class="pre">CMakeLists.txt</span></code>）は今いるフォルダにある」、<code class="docutils literal notranslate"><span class="pre">-B</span> <span class="pre">build</span></code> は「生成物は <code class="docutils literal notranslate"><span class="pre">build/</span></code> に置く」という指定です。
+生成物をソースと別のフォルダに置くので、<code class="docutils literal notranslate"><span class="pre">build/</span></code> を消せばいつでもやり直せます。
+設定の結果は <code class="docutils literal notranslate"><span class="pre">build/CMakeCache.txt</span></code> に記録され、次のビルドでも使われます。</p>
+</section>
+<section id="cmakelists-txt">
+<h3>最小の <code class="docutils literal notranslate"><span class="pre">CMakeLists.txt</span></code><a class="headerlink" href="#cmakelists-txt" title="Link to this heading"></a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">hello.cpp</span></code> と <code class="docutils literal notranslate"><span class="pre">yaml_check.cpp</span></code> を保存したフォルダに、次の <code class="docutils literal notranslate"><span class="pre">CMakeLists.txt</span></code> を保存します。</p>
+<div class="highlight-cmake notranslate"><div class="highlight"><pre><span></span><span class="nb">cmake_minimum_required</span><span class="p">(</span><span class="s">VERSION</span><span class="w"> </span><span class="s">3.18</span><span class="p">)</span>
+<span class="nb">project</span><span class="p">(</span><span class="s">hello</span><span class="w"> </span><span class="s">LANGUAGES</span><span class="w"> </span><span class="s">CXX</span><span class="p">)</span>
+
+<span class="nb">find_package</span><span class="p">(</span><span class="s">yaml-cpp</span><span class="w"> </span><span class="s">REQUIRED</span><span class="p">)</span>
+
+<span class="nb">add_executable</span><span class="p">(</span><span class="s">hello</span><span class="w"> </span><span class="s">hello.cpp</span><span class="p">)</span>
+<span class="nb">target_compile_features</span><span class="p">(</span><span class="s">hello</span><span class="w"> </span><span class="s">PRIVATE</span><span class="w"> </span><span class="s">cxx_std_17</span><span class="p">)</span>
+
+<span class="nb">add_executable</span><span class="p">(</span><span class="s">yaml_check</span><span class="w"> </span><span class="s">yaml_check.cpp</span><span class="p">)</span>
+<span class="nb">target_compile_features</span><span class="p">(</span><span class="s">yaml_check</span><span class="w"> </span><span class="s">PRIVATE</span><span class="w"> </span><span class="s">cxx_std_17</span><span class="p">)</span>
+<span class="nb">target_link_libraries</span><span class="p">(</span><span class="s">yaml_check</span><span class="w"> </span><span class="s">PRIVATE</span><span class="w"> </span><span class="s">yaml-cpp::yaml-cpp</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">CMakeLists.txt</span></code> は CMake 用の言語で、<code class="docutils literal notranslate"><span class="pre">命令(引数</span> <span class="pre">...)</span></code> の形で書きます。</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>命令</p></th>
+<th class="head"><p>役割</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">cmake_minimum_required</span></code></p></td>
+<td><p>必要な CMake の最低バージョンを指定します</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">project(...</span> <span class="pre">LANGUAGES</span> <span class="pre">CXX)</span></code></p></td>
+<td><p>プロジェクトに名前を付け、C++ のコンパイラを使うことを伝えます</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">find_package(yaml-cpp</span> <span class="pre">REQUIRED)</span></code></p></td>
+<td><p>yaml-cpp を探し、その使い方（ヘッダの場所、ライブラリ）を取り込みます。<code class="docutils literal notranslate"><span class="pre">REQUIRED</span></code> は「見つからなければ止める」指定です</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">add_executable(hello</span> <span class="pre">hello.cpp)</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">hello.cpp</span></code> から実行ファイル <code class="docutils literal notranslate"><span class="pre">hello</span></code> を作る<strong>ターゲット</strong>を定義します</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">target_compile_features(...</span> <span class="pre">cxx_std_17)</span></code></p></td>
+<td><p>このターゲットに C++17 以上が必要だと伝えます</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">target_link_libraries(yaml_check</span> <span class="pre">PRIVATE</span> <span class="pre">yaml-cpp::yaml-cpp)</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">yaml_check</span></code> に yaml-cpp を結び付けます</p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>ターゲット</strong>（target）は、実行ファイルやライブラリなど、ビルドで作るものに付ける名前です。
+ソースや設定をターゲットごとにまとめるので、1 つの <code class="docutils literal notranslate"><span class="pre">CMakeLists.txt</span></code> で複数のプログラムを区別して作れます。</p>
+<p><code class="docutils literal notranslate"><span class="pre">yaml-cpp::yaml-cpp</span></code> は <code class="docutils literal notranslate"><span class="pre">find_package</span></code> が用意するターゲットで、ライブラリの場所だけでなく、ヘッダの場所などの情報も持っています。
+このため <code class="docutils literal notranslate"><span class="pre">target_link_libraries</span></code> は、リンクの指定に加えて、コンパイルに必要な <code class="docutils literal notranslate"><span class="pre">-I</span></code> などもまとめて伝えます。
+手で <code class="docutils literal notranslate"><span class="pre">-I</span></code> や <code class="docutils literal notranslate"><span class="pre">-l</span></code> を並べる必要がなくなるのが、CMake を使う大きな利点です。</p>
+<p><code class="docutils literal notranslate"><span class="pre">PRIVATE</span></code> は、その設定をこのターゲット自身だけに使う指定です。
+ライブラリ側のターゲットで <code class="docutils literal notranslate"><span class="pre">PUBLIC</span></code> や <code class="docutils literal notranslate"><span class="pre">INTERFACE</span></code> を使うと、そのライブラリを使う側のターゲットにも設定が伝わります（MISO はこの仕組みを使います）。
+C++ のクラスの <code class="docutils literal notranslate"><span class="pre">private</span></code>・<code class="docutils literal notranslate"><span class="pre">public</span></code>（<a class="reference internal" href="04_classes_and_structs.html#edu-ch04"><span class="std std-ref">第 4 章</span></a>）とは別のものです。</p>
+<p>設定・ビルド・実行します。</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>cmake<span class="w"> </span>-S<span class="w"> </span>.<span class="w"> </span>-B<span class="w"> </span>build
+cmake<span class="w"> </span>--build<span class="w"> </span>build<span class="w"> </span>--parallel<span class="w"> </span><span class="m">4</span>
+./build/hello
+./build/yaml_check
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">--parallel</span> <span class="pre">4</span></code> はコンパイルを最大 4 つ同時に進める指定で、計算を実行するときのプロセス数とは関係ありません。
+<code class="docutils literal notranslate"><span class="pre">cmake</span> <span class="pre">--build</span> <span class="pre">build</span> <span class="pre">--verbose</span></code> とすると、CMake が実際に呼んだコンパイラのコマンドが表示されます。</p>
+</section>
+<section id="id9">
+<h3>ビルド種別<a class="headerlink" href="#id9" title="Link to this heading"></a></h3>
+<p><strong>ビルド種別</strong>（build type）は、最適化やデバッグ情報の付け方をまとめて選ぶ設定です。設定の段階で <code class="docutils literal notranslate"><span class="pre">-D</span></code> を使って渡します。</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>cmake<span class="w"> </span>-S<span class="w"> </span>.<span class="w"> </span>-B<span class="w"> </span>build_debug<span class="w"> </span>-DCMAKE_BUILD_TYPE<span class="o">=</span>Debug
+</pre></div>
+</div>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>種別</p></th>
+<th class="head"><p>GCC・Clang に渡る主な指定</p></th>
+<th class="head"><p>使う場面</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Release</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">-O3</span> <span class="pre">-DNDEBUG</span></code></p></td>
+<td><p>計算の実行。速さを優先します</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Debug</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">-g</span></code></p></td>
+<td><p>不具合を調べるとき。最適化をせず、デバッガで変数を見られるようにします</p></td>
+</tr>
+</tbody>
+</table>
+<p><code class="docutils literal notranslate"><span class="pre">-D名前=値</span></code> は、CMake の設定項目（<strong>キャッシュ変数</strong>）に値を渡す書き方です。
+ビルド種別を何も指定しないと、上の <code class="docutils literal notranslate"><span class="pre">hello</span></code> のような CMake のプロジェクトは最適化の指定なしでビルドされます。
+MISO とデモの <code class="docutils literal notranslate"><span class="pre">CMakeLists.txt</span></code> は、指定がなければ <code class="docutils literal notranslate"><span class="pre">Release</span></code> を選ぶように書かれています。</p>
+<p><code class="docutils literal notranslate"><span class="pre">-DNDEBUG</span></code> が付くと、C++ の <code class="docutils literal notranslate"><span class="pre">assert</span></code>（条件が成り立たなければ止める確認）は取り除かれます。
+MISO の既定は <code class="docutils literal notranslate"><span class="pre">Release</span></code> なので、<code class="docutils literal notranslate"><span class="pre">assert</span></code> による確認は既定のビルドでは働きません。</p>
+<p>種別やコンパイラを変えるときは、<code class="docutils literal notranslate"><span class="pre">build_debug</span></code> のように別のビルドフォルダを使います。
+同じフォルダで設定を変えると、前の設定が <code class="docutils literal notranslate"><span class="pre">CMakeCache.txt</span></code> に残って混ざることがあります。</p>
+</section>
+<section id="id10">
+<h3>ソースを変更したときのビルド<a class="headerlink" href="#id10" title="Link to this heading"></a></h3>
+<p>ソースを編集したら、<code class="docutils literal notranslate"><span class="pre">cmake</span> <span class="pre">--build</span> <span class="pre">build</span></code> をもう一度実行します。
+変更されたファイルと、それを <code class="docutils literal notranslate"><span class="pre">#include</span></code> しているファイルだけが翻訳し直されます。
+<code class="docutils literal notranslate"><span class="pre">CMakeLists.txt</span></code> を変更した場合も、次の <code class="docutils literal notranslate"><span class="pre">cmake</span> <span class="pre">--build</span></code> のときに CMake が自動で設定をやり直します。
+生成された <code class="docutils literal notranslate"><span class="pre">build/Makefile</span></code> を手で直すことはありません。</p>
+</section>
+</section>
+<section id="edu-ch01-miso-build">
+<span id="id11"></span><h2>MISO のビルドとユニットテスト<a class="headerlink" href="#edu-ch01-miso-build" title="Link to this heading"></a></h2>
+<section id="miso-cmakelists-txt">
+<h3><code class="docutils literal notranslate"><span class="pre">miso/CMakeLists.txt</span></code> の中身<a class="headerlink" href="#miso-cmakelists-txt" title="Link to this heading"></a></h3>
+<p>MISO 本体のビルド設定は <code class="docutils literal notranslate"><span class="pre">miso/CMakeLists.txt</span></code> にあります。主な部分を抜粋します（説明のため一部を省略しています）。</p>
+<div class="highlight-cmake notranslate"><div class="highlight"><pre><span></span><span class="c"># CUDA</span>
+<span class="nb">option</span><span class="p">(</span><span class="s">MISO_USE_CUDA</span><span class="w"> </span><span class="s2">"Enable CUDA support"</span><span class="w"> </span><span class="s">OFF</span><span class="p">)</span>
+
+<span class="c"># MISO as a header-only library</span>
+<span class="nb">add_library</span><span class="p">(</span><span class="s">MISO</span><span class="w"> </span><span class="s">INTERFACE</span><span class="p">)</span>
+<span class="nb">add_library</span><span class="p">(</span><span class="s">MISO::MISO</span><span class="w"> </span><span class="s">ALIAS</span><span class="w"> </span><span class="s">MISO</span><span class="p">)</span>
+<span class="nb">target_include_directories</span><span class="p">(</span><span class="s">MISO</span><span class="w"> </span><span class="s">INTERFACE</span><span class="w"> </span><span class="o">${</span><span class="nv">CMAKE_CURRENT_SOURCE_DIR</span><span class="o">}</span><span class="s">/include</span><span class="p">)</span>
+
+<span class="c"># MPI</span>
+<span class="nb">find_package</span><span class="p">(</span><span class="s">MPI</span><span class="w"> </span><span class="s">REQUIRED</span><span class="p">)</span>
+<span class="nb">target_link_libraries</span><span class="p">(</span><span class="s">MISO</span><span class="w"> </span><span class="s">INTERFACE</span><span class="w"> </span><span class="s">MPI::MPI_CXX</span><span class="p">)</span>
+
+<span class="c"># yaml-cpp</span>
+<span class="nb">find_package</span><span class="p">(</span><span class="s">yaml-cpp</span><span class="w"> </span><span class="s">QUIET</span><span class="p">)</span>
+<span class="nb">if</span><span class="p">(</span><span class="s">NOT</span><span class="w"> </span><span class="s">yaml-cpp_FOUND</span><span class="p">)</span>
+<span class="w">    </span><span class="nb">message</span><span class="p">(</span><span class="s">STATUS</span><span class="w"> </span><span class="s2">"yaml-cpp not found; fetching with FetchContent"</span><span class="p">)</span>
+<span class="w">    </span><span class="nb">include</span><span class="p">(</span><span class="s">FetchContent</span><span class="p">)</span>
+<span class="w">    </span><span class="nb">FetchContent_Declare</span><span class="p">(</span>
+<span class="w">        </span><span class="s">yaml-cpp</span>
+<span class="w">        </span><span class="s">GIT_REPOSITORY</span><span class="w"> </span><span class="s">https://github.com/jbeder/yaml-cpp.git</span>
+<span class="w">        </span><span class="s">GIT_TAG</span><span class="w"> </span><span class="s">0.8.0</span><span class="p">)</span>
+<span class="w">    </span><span class="nb">FetchContent_MakeAvailable</span><span class="p">(</span><span class="s">yaml-cpp</span><span class="p">)</span>
+<span class="nb">endif</span><span class="p">(</span><span class="s">NOT</span><span class="w"> </span><span class="s">yaml-cpp_FOUND</span><span class="p">)</span>
+<span class="nb">target_link_libraries</span><span class="p">(</span><span class="s">MISO</span><span class="w"> </span><span class="s">INTERFACE</span><span class="w"> </span><span class="s">yaml-cpp::yaml-cpp</span><span class="p">)</span>
+
+<span class="c"># Unit tests</span>
+<span class="nb">option</span><span class="p">(</span><span class="s">ENABLE_TESTING</span><span class="w"> </span><span class="s2">"Enable Testing"</span><span class="w"> </span><span class="s">ON</span><span class="p">)</span>
+<span class="nb">if</span><span class="p">(</span><span class="s">ENABLE_TESTING</span><span class="p">)</span>
+<span class="w">    </span><span class="nb">enable_testing</span><span class="p">()</span>
+<span class="w">    </span><span class="nb">add_subdirectory</span><span class="p">(</span><span class="s">tests</span><span class="p">)</span>
+<span class="nb">endif</span><span class="p">(</span><span class="s">ENABLE_TESTING</span><span class="p">)</span>
+</pre></div>
+</div>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>設定</p></th>
+<th class="head"><p>意味</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">add_library(MISO</span> <span class="pre">INTERFACE)</span></code></p></td>
+<td><p>中身をコンパイルしないライブラリのターゲット <code class="docutils literal notranslate"><span class="pre">MISO</span></code> を作ります。ヘッダオンリーなので、コンパイルするものがありません</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">add_library(MISO::MISO</span> <span class="pre">ALIAS</span> <span class="pre">MISO)</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">MISO</span></code> に <code class="docutils literal notranslate"><span class="pre">MISO::MISO</span></code> という別名を付けます。使う側はこの名前でリンクします</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">target_include_directories(MISO</span> <span class="pre">INTERFACE</span> <span class="pre">.../include)</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">MISO::MISO</span></code> を使うターゲットに、<code class="docutils literal notranslate"><span class="pre">miso/include</span></code> を <code class="docutils literal notranslate"><span class="pre">-I</span></code> で渡します</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">target_link_libraries(MISO</span> <span class="pre">INTERFACE</span> <span class="pre">MPI::MPI_CXX)</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">MISO::MISO</span></code> を使うターゲットに、MPI のヘッダとライブラリも伝えます</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">find_package(yaml-cpp</span> <span class="pre">QUIET)</span></code> と <code class="docutils literal notranslate"><span class="pre">FetchContent</span></code></p></td>
+<td><p>計算機に yaml-cpp があればそれを使い、なければ GitHub から取得して一緒にビルドします</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">option(MISO_USE_CUDA</span> <span class="pre">...</span> <span class="pre">OFF)</span></code></p></td>
+<td><p>GPU（CUDA）を使うかどうかの切り替えです。既定は使いません</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">option(ENABLE_TESTING</span> <span class="pre">...</span> <span class="pre">ON)</span></code></p></td>
+<td><p>ユニットテストもビルドするかどうかの切り替えです。既定はビルドします</p></td>
+</tr>
+</tbody>
+</table>
+<p><code class="docutils literal notranslate"><span class="pre">INTERFACE</span></code> は「<code class="docutils literal notranslate"><span class="pre">MISO::MISO</span></code> を使う側のターゲットに伝える」という指定です。
+このため、<code class="docutils literal notranslate"><span class="pre">target_link_libraries(自分のプログラム</span> <span class="pre">PRIVATE</span> <span class="pre">MISO::MISO)</span></code> と 1 行書くだけで、
+MISO のヘッダの場所、MPI、yaml-cpp の指定がまとめて自分のプログラムに伝わります。</p>
+<p><strong>FetchContent</strong> は、必要なソースを CMake の設定の段階でインターネットから取得する仕組みです。
+yaml-cpp を入れていない場合や、ユニットテスト用の doctest（<a class="reference internal" href="reference/testing.html#edu-ref-testing"><span class="std std-ref">テストと計算結果の比較</span></a> で説明します）を取得する場合に使われるので、
+最初の設定にはインターネットへの接続が必要です。</p>
+</section>
+<section id="id12">
+<h3>ビルドとテストの実行<a class="headerlink" href="#id12" title="Link to this heading"></a></h3>
+<p>ビルドフォルダは MISO のフォルダの外に作っても構いません。ここでは <code class="docutils literal notranslate"><span class="pre">$HOME/miso-work/build_miso</span></code> を使います。</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span><span class="s2">"</span><span class="nv">$HOME</span><span class="s2">/miso-work"</span>
+cmake<span class="w"> </span>-S<span class="w"> </span>/path/to/MISO/miso<span class="w"> </span>-B<span class="w"> </span>build_miso<span class="w"> </span>-DMISO_USE_CUDA<span class="o">=</span>OFF
+cmake<span class="w"> </span>--build<span class="w"> </span>build_miso<span class="w"> </span>--parallel<span class="w"> </span><span class="m">4</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">-S</span></code> には <code class="docutils literal notranslate"><span class="pre">miso/CMakeLists.txt</span></code> のあるフォルダ（<code class="docutils literal notranslate"><span class="pre">/path/to/MISO/miso</span></code>）を渡します。
+テストの実行ファイルがいくつも作られ、数分かかることがあります。</p>
+<p>ビルドが終わったら、<strong>ユニットテスト</strong>を実行します。ユニットテストは、配列や並列ループなどの部品ごとに、期待どおりに動くかを確かめるプログラムです。
+<strong>ctest</strong> は、CMake に登録されたテストをまとめて実行する道具です。</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>build_miso
+<span class="nv">OMPI_MCA_btl_vader_single_copy_mechanism</span><span class="o">=</span>none<span class="w"> </span><span class="se">\</span>
+<span class="nv">OMPI_MCA_rmaps_base_oversubscribe</span><span class="o">=</span>yes<span class="w"> </span><span class="se">\</span>
+ctest<span class="w"> </span>--output-on-failure
+</pre></div>
+</div>
+<p>最後に次のように表示されれば成功です（テストの数は MISO の版によって変わります）。</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>100% tests passed, 0 tests failed out of 15
+</pre></div>
+</div>
+<p>先頭の 2 行は、このコマンドの間だけ Open MPI の動作を変える<strong>環境変数</strong>です。
+テストの一部は MPI の 2 プロセスで動くため、CPU のコア数が少ない計算機やコンテナでも実行できるようにしています。
+意味と、テストの読み方、テストを絞って実行する方法は <a class="reference internal" href="reference/testing.html#edu-ref-testing"><span class="std std-ref">テストと計算結果の比較</span></a> にまとめています。</p>
+</section>
+</section>
+<section id="edu-ch01-demo">
+<span id="id13"></span><h2>デモの実行と出力の読み込み<a class="headerlink" href="#edu-ch01-demo" title="Link to this heading"></a></h2>
+<section id="id14">
+<h3>デモをビルドして実行する<a class="headerlink" href="#id14" title="Link to this heading"></a></h3>
+<p>MISO の <code class="docutils literal notranslate"><span class="pre">demo/</span></code> には、問題ごとのデモがあります。2 次元の Orszag–Tang 渦（<code class="docutils literal notranslate"><span class="pre">demo/mhd2d_vortex</span></code>）を動かします。
+デモの <code class="docutils literal notranslate"><span class="pre">CMakeLists.txt</span></code> は、MISO 本体（<code class="docutils literal notranslate"><span class="pre">../../miso</span></code>）を取り込んで <code class="docutils literal notranslate"><span class="pre">src/main.cpp</span></code> から実行ファイルを作ります。</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>/path/to/MISO/demo/mhd2d_vortex
+cmake<span class="w"> </span>-S<span class="w"> </span>.<span class="w"> </span>-B<span class="w"> </span>build<span class="w"> </span>-DUSE_CUDA<span class="o">=</span>OFF
+cmake<span class="w"> </span>--build<span class="w"> </span>build<span class="w"> </span>--parallel<span class="w"> </span><span class="m">4</span>
+./app_run.sh
+</pre></div>
+</div>
+<p>デモでは GPU の切り替えを <code class="docutils literal notranslate"><span class="pre">USE_CUDA</span></code> という名前で渡します（MISO 本体の <code class="docutils literal notranslate"><span class="pre">MISO_USE_CUDA</span></code> とは名前が違います）。
+<code class="docutils literal notranslate"><span class="pre">app_run.sh</span></code> は、Open MPI 用の環境変数を <code class="docutils literal notranslate"><span class="pre">demo/shared/openmpi_config.env</span></code> から読み込み、2 プロセスで計算を実行するスクリプトです。
+実行するコマンドを表示してから計算を始めます。</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>+ mpiexec -np 2 /path/to/MISO/demo/mhd2d_vortex/build/mhd2d_vortex --config=/path/to/MISO/demo/mhd2d_vortex/config.yaml
+time =   0.00;  n_step =        0;  n_output =        0
+time =   0.01;  n_step =        4;  n_output =        1
+...
+time =   0.80;  n_step =      354;  n_output =       80
+</pre></div>
+</div>
+<p>計算の条件は <code class="docutils literal notranslate"><span class="pre">demo/mhd2d_vortex/config.yaml</span></code> に書かれています。格子点数、終了時刻（<code class="docutils literal notranslate"><span class="pre">time.tend</span></code>）、出力の間隔（<code class="docutils literal notranslate"><span class="pre">time.dt_output</span></code>）、
+MPI での分割数（<code class="docutils literal notranslate"><span class="pre">mpi.x_procs</span></code> など）を変えられます。</p>
+</section>
+<section id="id15">
+<h3>出力されるファイル<a class="headerlink" href="#id15" title="Link to this heading"></a></h3>
+<p>結果は <code class="docutils literal notranslate"><span class="pre">config.yaml</span></code> と同じフォルダの <code class="docutils literal notranslate"><span class="pre">data/</span></code> に書かれます（<code class="docutils literal notranslate"><span class="pre">config.yaml</span></code> の <code class="docutils literal notranslate"><span class="pre">io.save_dir</span></code> で変えられます）。</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>ファイル</p></th>
+<th class="head"><p>中身</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">data/config.yaml</span></code></p></td>
+<td><p>既定値を補った、実際に使った設定</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">data/grid.bin</span></code></p></td>
+<td><p>全体の格子の座標</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">data/mpi/coords.csv</span></code></p></td>
+<td><p>各プロセス（ランク）が担当する領域の位置</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">data/time/time.NNNNNNNN.txt</span></code></p></td>
+<td><p>各出力の時刻、出力番号、ステップ数</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">data/mhd/mhd.&lt;出力番号&gt;.&lt;ランク&gt;.bin</span></code></p></td>
+<td><p>各プロセスが担当する領域の MHD の変数（密度、速度、磁場など 9 つ）</p></td>
+</tr>
+</tbody>
+</table>
+<p><code class="docutils literal notranslate"><span class="pre">mhd.*.bin</span></code> はプロセスごとに分かれたバイナリファイルです。
+<code class="docutils literal notranslate"><span class="pre">config.yaml</span></code> の <code class="docutils literal notranslate"><span class="pre">io.continue:</span> <span class="pre">true</span></code> により、<code class="docutils literal notranslate"><span class="pre">data/</span></code> に結果があると、そこから計算を続けます。
+最初からやり直すときは <code class="docutils literal notranslate"><span class="pre">./app_clean.sh</span></code> で <code class="docutils literal notranslate"><span class="pre">build/</span></code>、<code class="docutils literal notranslate"><span class="pre">data/</span></code>、<code class="docutils literal notranslate"><span class="pre">figs/</span></code> を消してから、ビルドと実行をやり直します。</p>
+</section>
+<section id="pymiso">
+<h3>pymiso で読み込む<a class="headerlink" href="#pymiso" title="Link to this heading"></a></h3>
+<p>pymiso は、プロセスごとのファイルをつなげて全体の配列として読み込む Python パッケージです。
+Python のパッケージは、MISO 用の<strong>仮想環境</strong>（その中に入れたパッケージだけを使う、独立した Python の環境）に入れます。</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python3<span class="w"> </span>-m<span class="w"> </span>venv<span class="w"> </span><span class="s2">"</span><span class="nv">$HOME</span><span class="s2">/miso-work/venv"</span>
+<span class="nb">source</span><span class="w"> </span><span class="s2">"</span><span class="nv">$HOME</span><span class="s2">/miso-work/venv/bin/activate"</span>
+<span class="nb">cd</span><span class="w"> </span>/path/to/MISO
+pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span><span class="s2">".[viz]"</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">source</span> <span class="pre">.../activate</span></code> は、このターミナルで仮想環境の Python を使うようにするコマンドです。
+新しいターミナルを開いたら、もう一度実行します。
+<code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">-e</span> <span class="pre">&quot;.[viz]&quot;</span></code> は、MISO のフォルダにある pymiso と、図を描くための matplotlib などを入れます。</p>
+<p>デモには図を描くスクリプト <code class="docutils literal notranslate"><span class="pre">plot_data.py</span></code> があります。</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>/path/to/MISO/demo/mhd2d_vortex
+python<span class="w"> </span>plot_data.py
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">figs/</span></code> に、各時刻の密度の図（<code class="docutils literal notranslate"><span class="pre">py_00000000.png</span></code> など）が保存されます。
+<code class="docutils literal notranslate"><span class="pre">plot_data.py</span></code> の中では、次のように結果を読み込んでいます（<code class="docutils literal notranslate"><span class="pre">demo/mhd2d_vortex/plot_data.py</span></code> から抜粋。<code class="docutils literal notranslate"><span class="pre">...</span></code> は省略した部分です）。</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">d</span> <span class="o">=</span> <span class="n">pymiso</span><span class="o">.</span><span class="n">Data</span><span class="p">(</span><span class="n">data_dir</span><span class="o">=</span><span class="n">this_dir</span> <span class="o">/</span> <span class="s2">"data"</span><span class="p">)</span>
+<span class="o">...</span>
+<span class="n">d</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">pcolormesh</span><span class="p">(</span><span class="n">d</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">d</span><span class="o">.</span><span class="n">y</span><span class="p">,</span> <span class="n">d</span><span class="o">.</span><span class="n">ro</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">shading</span><span class="o">=</span><span class="s2">"auto"</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="mf">2.5</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s2">"inferno"</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">pymiso.Data</span></code> に <code class="docutils literal notranslate"><span class="pre">data/</span></code> の場所を渡し、<code class="docutils literal notranslate"><span class="pre">d.load(n)</span></code> で出力番号 <code class="docutils literal notranslate"><span class="pre">n</span></code> の結果を読みます。
+<code class="docutils literal notranslate"><span class="pre">d.ro</span></code> が密度、<code class="docutils literal notranslate"><span class="pre">d.x</span></code>・<code class="docutils literal notranslate"><span class="pre">d.y</span></code> が座標の NumPy 配列です。
+ほかのデモ、設定の変え方、GPU 版の実行方法は、MISO_docs の <a class="reference internal" href="../quickstart.html"><span class="doc">Quick Start</span></a> にまとめられています。</p>
+</section>
+</section>
+<section id="edu-ch01-own-project">
+<span id="id16"></span><h2>自分のプログラムから MISO を使う<a class="headerlink" href="#edu-ch01-own-project" title="Link to this heading"></a></h2>
+<p>第 7 章と第 10 章の実習では、MISO のフォルダの外に自分のフォルダを作り、MISO の部品を使うプログラムを書きます。
+そのための最小の CMake の設定を作り、MISO が使えることを確かめます。</p>
+<section id="id17">
+<h3>作るもの<a class="headerlink" href="#id17" title="Link to this heading"></a></h3>
+<p>MISO のフォルダの外に、作業用のフォルダを作ります。</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>mkdir<span class="w"> </span>-p<span class="w"> </span><span class="s2">"</span><span class="nv">$HOME</span><span class="s2">/miso-work/miso_check"</span>
+<span class="nb">cd</span><span class="w"> </span><span class="s2">"</span><span class="nv">$HOME</span><span class="s2">/miso-work/miso_check"</span>
+</pre></div>
+</div>
+<p>このフォルダに、確認用のプログラム <code class="docutils literal notranslate"><span class="pre">main.cpp</span></code> と <code class="docutils literal notranslate"><span class="pre">CMakeLists.txt</span></code> を保存します。</p>
+<p><code class="docutils literal notranslate"><span class="pre">main.cpp</span></code> は、MPI を始め、MISO の配列に 0〜99 を入れて合計を求めるプログラムです。
+<code class="docutils literal notranslate"><span class="pre">miso::Array1D</span></code>、<code class="docutils literal notranslate"><span class="pre">miso::for_each</span></code>、<code class="docutils literal notranslate"><span class="pre">miso::reduce</span></code>、<code class="docutils literal notranslate"><span class="pre">MISO_LAMBDA</span></code> は <a class="reference internal" href="07_arrays_and_parallel.html#edu-ch07"><span class="std std-ref">第 7 章</span></a> で説明します。ここではそのまま保存してください。</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;iostream&gt;</span>
+
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;miso/core.hpp&gt;</span>
+
+<span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">argc</span><span class="p">,</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">**</span><span class="n">argv</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="n">miso</span><span class="o">::</span><span class="n">Env</span><span class="w"> </span><span class="n">env</span><span class="p">(</span><span class="n">argc</span><span class="p">,</span><span class="w"> </span><span class="n">argv</span><span class="p">);</span><span class="w">  </span><span class="c1">// MPI を始め、終わりに片付ける</span>
+
+<span class="w">  </span><span class="k">const</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">100</span><span class="p">;</span>
+<span class="w">  </span><span class="n">miso</span><span class="o">::</span><span class="n">Array1D</span><span class="o">&lt;</span><span class="kt">float</span><span class="p">,</span><span class="w"> </span><span class="n">miso</span><span class="o">::</span><span class="n">backend</span><span class="o">::</span><span class="n">Host</span><span class="o">&gt;</span><span class="w"> </span><span class="n">a</span><span class="p">(</span><span class="n">n</span><span class="p">);</span>
+<span class="w">  </span><span class="k">auto</span><span class="w"> </span><span class="n">av</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="n">view</span><span class="p">();</span>
+<span class="w">  </span><span class="n">miso</span><span class="o">::</span><span class="n">for_each</span><span class="p">(</span><span class="n">miso</span><span class="o">::</span><span class="n">backend</span><span class="o">::</span><span class="n">Host</span><span class="p">{},</span><span class="w"> </span><span class="n">miso</span><span class="o">::</span><span class="n">Range1D</span><span class="p">{</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="n">n</span><span class="p">},</span>
+<span class="w">                 </span><span class="n">MISO_LAMBDA</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">av</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kt">float</span><span class="p">(</span><span class="n">i</span><span class="p">);</span><span class="w"> </span><span class="p">});</span>
+
+<span class="w">  </span><span class="k">const</span><span class="w"> </span><span class="kt">float</span><span class="w"> </span><span class="n">sum</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">miso</span><span class="o">::</span><span class="n">reduce</span><span class="p">(</span>
+<span class="w">      </span><span class="n">miso</span><span class="o">::</span><span class="n">backend</span><span class="o">::</span><span class="n">Host</span><span class="p">{},</span><span class="w"> </span><span class="n">miso</span><span class="o">::</span><span class="n">Range1D</span><span class="p">{</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="n">n</span><span class="p">},</span><span class="w"> </span><span class="mf">0.0f</span><span class="p">,</span>
+<span class="w">      </span><span class="n">MISO_LAMBDA</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">av</span><span class="p">[</span><span class="n">i</span><span class="p">];</span><span class="w"> </span><span class="p">},</span>
+<span class="w">      </span><span class="n">MISO_LAMBDA</span><span class="p">(</span><span class="kt">float</span><span class="w"> </span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="kt">float</span><span class="w"> </span><span class="n">y</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">y</span><span class="p">;</span><span class="w"> </span><span class="p">});</span>
+
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">miso</span><span class="o">::</span><span class="n">mpi</span><span class="o">::</span><span class="n">is_root</span><span class="p">())</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">"MPI processes: "</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">miso</span><span class="o">::</span><span class="n">mpi</span><span class="o">::</span><span class="n">size</span><span class="p">()</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="sc">'\n'</span>
+<span class="w">              </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">"sum of 0..99: "</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">sum</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">" (expected 4950)</span><span class="se">\n</span><span class="s">"</span><span class="p">;</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">#include</span> <span class="pre">&lt;miso/core.hpp&gt;</span></code> は、配列・並列ループ・MPI の環境など、MISO の共通の部品をまとめて読み込むヘッダ（<code class="docutils literal notranslate"><span class="pre">miso/include/miso/core.hpp</span></code>）です。</p>
+</section>
+<section id="id18">
+<h3><code class="docutils literal notranslate"><span class="pre">CMakeLists.txt</span></code><a class="headerlink" href="#id18" title="Link to this heading"></a></h3>
+<div class="highlight-cmake notranslate"><div class="highlight"><pre><span></span><span class="nb">cmake_minimum_required</span><span class="p">(</span><span class="s">VERSION</span><span class="w"> </span><span class="s">3.18</span><span class="p">)</span>
+<span class="nb">project</span><span class="p">(</span><span class="s">miso_check</span><span class="w"> </span><span class="s">LANGUAGES</span><span class="w"> </span><span class="s">CXX</span><span class="p">)</span>
+
+<span class="nb">set</span><span class="p">(</span><span class="s">MISO_DIR</span><span class="w"> </span><span class="s2">""</span><span class="w"> </span><span class="s">CACHE</span><span class="w"> </span><span class="s">PATH</span><span class="w"> </span><span class="s2">"Root of the MISO repository"</span><span class="p">)</span>
+<span class="nb">if</span><span class="p">(</span><span class="s">NOT</span><span class="w"> </span><span class="s">EXISTS</span><span class="w"> </span><span class="s2">"${MISO_DIR}/miso/CMakeLists.txt"</span><span class="p">)</span>
+<span class="w">  </span><span class="nb">message</span><span class="p">(</span><span class="s">FATAL_ERROR</span><span class="w"> </span><span class="s2">"Set -DMISO_DIR=/path/to/MISO"</span><span class="p">)</span>
+<span class="nb">endif</span><span class="p">()</span>
+
+<span class="nb">set</span><span class="p">(</span><span class="s">ENABLE_TESTING</span><span class="w"> </span><span class="s">OFF</span><span class="w"> </span><span class="s">CACHE</span><span class="w"> </span><span class="s">BOOL</span><span class="w"> </span><span class="s2">"Build the unit tests of MISO"</span><span class="p">)</span>
+<span class="nb">add_subdirectory</span><span class="p">(</span><span class="s2">"${MISO_DIR}/miso"</span><span class="w"> </span><span class="s">miso</span><span class="p">)</span>
+
+<span class="nb">add_executable</span><span class="p">(</span><span class="s">miso_check</span><span class="w"> </span><span class="s">main.cpp</span><span class="p">)</span>
+<span class="nb">target_compile_features</span><span class="p">(</span><span class="s">miso_check</span><span class="w"> </span><span class="s">PRIVATE</span><span class="w"> </span><span class="s">cxx_std_17</span><span class="p">)</span>
+<span class="nb">target_link_libraries</span><span class="p">(</span><span class="s">miso_check</span><span class="w"> </span><span class="s">PRIVATE</span><span class="w"> </span><span class="s">MISO::MISO</span><span class="p">)</span>
+</pre></div>
+</div>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>設定</p></th>
+<th class="head"><p>役割</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">set(MISO_DIR</span> <span class="pre">&quot;&quot;</span> <span class="pre">CACHE</span> <span class="pre">PATH</span> <span class="pre">...)</span></code></p></td>
+<td><p>MISO を置いた場所を入れる設定項目 <code class="docutils literal notranslate"><span class="pre">MISO_DIR</span></code> を用意します。値は設定のときに <code class="docutils literal notranslate"><span class="pre">-DMISO_DIR=...</span></code> で渡します。<code class="docutils literal notranslate"><span class="pre">${MISO_DIR}</span></code> は変数の値を取り出す書き方です</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">if(NOT</span> <span class="pre">EXISTS</span> <span class="pre">...)</span></code> と <code class="docutils literal notranslate"><span class="pre">message(FATAL_ERROR</span> <span class="pre">...)</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">MISO_DIR</span></code> の下に <code class="docutils literal notranslate"><span class="pre">miso/CMakeLists.txt</span></code> がなければ、説明を表示して止めます</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">set(ENABLE_TESTING</span> <span class="pre">OFF</span> <span class="pre">CACHE</span> <span class="pre">BOOL</span> <span class="pre">...)</span></code></p></td>
+<td><p>MISO のユニットテストをビルドしないようにします。<code class="docutils literal notranslate"><span class="pre">add_subdirectory</span></code> より前に書きます</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">add_subdirectory(&quot;${MISO_DIR}/miso&quot;</span> <span class="pre">miso)</span></code></p></td>
+<td><p>MISO の <code class="docutils literal notranslate"><span class="pre">miso/CMakeLists.txt</span></code> を読み込み、<code class="docutils literal notranslate"><span class="pre">MISO::MISO</span></code> を使えるようにします。2 つ目の <code class="docutils literal notranslate"><span class="pre">miso</span></code> は、MISO 用の生成物を置く <code class="docutils literal notranslate"><span class="pre">build/</span></code> の中のフォルダ名です</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">add_executable(miso_check</span> <span class="pre">main.cpp)</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">main.cpp</span></code> から実行ファイル <code class="docutils literal notranslate"><span class="pre">miso_check</span></code> を作ります</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">target_link_libraries(miso_check</span> <span class="pre">PRIVATE</span> <span class="pre">MISO::MISO)</span></code></p></td>
+<td><p>MISO のヘッダの場所、MPI、yaml-cpp をまとめて <code class="docutils literal notranslate"><span class="pre">miso_check</span></code> に伝えます</p></td>
+</tr>
+</tbody>
+</table>
+<p><code class="docutils literal notranslate"><span class="pre">add_subdirectory</span></code> は、別のフォルダの <code class="docutils literal notranslate"><span class="pre">CMakeLists.txt</span></code> を、自分のプロジェクトの一部として読み込む命令です。
+MISO のフォルダがプロジェクトの外にあるときは、2 つ目の引数（生成物の置き場）が必要です。</p>
+<p><code class="docutils literal notranslate"><span class="pre">ENABLE_TESTING</span></code> を <code class="docutils literal notranslate"><span class="pre">OFF</span></code> にするのは、自分のプログラムだけを速くビルドするためです。
+MISO のユニットテストは、<a class="reference internal" href="#edu-ch01-miso-build"><span class="std std-ref">前の節</span></a> のように MISO 単独のビルドで実行します。
+<code class="docutils literal notranslate"><span class="pre">option(ENABLE_TESTING</span> <span class="pre">...)</span></code> は、同じ名前の設定項目がすでにあればその値を使うので、先に <code class="docutils literal notranslate"><span class="pre">OFF</span></code> を入れておくとテストが外れます。</p>
+<p>ビルド種別を指定しなければ、MISO の <code class="docutils literal notranslate"><span class="pre">CMakeLists.txt</span></code> が <code class="docutils literal notranslate"><span class="pre">Release</span></code> を選びます。</p>
+</section>
+<section id="id19">
+<h3>ビルドと実行<a class="headerlink" href="#id19" title="Link to this heading"></a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">/path/to/MISO</span></code> を、MISO を置いた場所の絶対パスに置き換えて設定します。</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>cmake<span class="w"> </span>-S<span class="w"> </span>.<span class="w"> </span>-B<span class="w"> </span>build<span class="w"> </span>-DMISO_DIR<span class="o">=</span>/path/to/MISO
+cmake<span class="w"> </span>--build<span class="w"> </span>build<span class="w"> </span>--parallel<span class="w"> </span><span class="m">4</span>
+mpiexec<span class="w"> </span>-np<span class="w"> </span><span class="m">2</span><span class="w"> </span>./build/miso_check
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">mpiexec</span> <span class="pre">-np</span> <span class="pre">2</span></code> は、同じプログラムを 2 つのプロセスで起動するコマンドです。次の表示が出れば準備完了です。</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>MPI processes: 2
+sum of 0..99: 4950 (expected 4950)
+</pre></div>
+</div>
+<p>どちらのプロセスも同じ計算をしますが、表示は 1 つのプロセス（ランク 0）だけが行います。</p>
+<p>MISO のデモの <code class="docutils literal notranslate"><span class="pre">CMakeLists.txt</span></code> は、<code class="docutils literal notranslate"><span class="pre">add_subdirectory</span></code> の代わりに <code class="docutils literal notranslate"><span class="pre">FetchContent_Declare(MISO</span> <span class="pre">SOURCE_DIR</span> <span class="pre">...)</span></code> と <code class="docutils literal notranslate"><span class="pre">FetchContent_MakeAvailable(MISO)</span></code> で MISO を取り込んでいます。
+手元のフォルダを指定する使い方では、どちらも <code class="docutils literal notranslate"><span class="pre">miso/CMakeLists.txt</span></code> を読み込んで <code class="docutils literal notranslate"><span class="pre">MISO::MISO</span></code> を作る点は同じです。</p>
+</section>
+<section id="id20">
+<h3>練習 1-2<a class="headerlink" href="#id20" title="Link to this heading"></a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">-DMISO_DIR=...</span></code> を付けずに、新しいビルドフォルダ <code class="docutils literal notranslate"><span class="pre">build_nodir</span></code> で設定してください。
+表示されたメッセージを確かめ、設定・ビルド・実行のどの段階で止まったかと、その理由を <code class="docutils literal notranslate"><span class="pre">CMakeLists.txt</span></code> の行と対応づけて説明してください。</p>
+<details>
+<summary>解答・解説</summary>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>cmake<span class="w"> </span>-S<span class="w"> </span>.<span class="w"> </span>-B<span class="w"> </span>build_nodir
+</pre></div>
+</div>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>CMake Error at CMakeLists.txt:6 (message):
+  Set -DMISO_DIR=/path/to/MISO
+</pre></div>
+</div>
+<p><strong>設定</strong>の段階で止まります。<code class="docutils literal notranslate"><span class="pre">MISO_DIR</span></code> の値は空のままなので、<code class="docutils literal notranslate"><span class="pre">&quot;${MISO_DIR}/miso/CMakeLists.txt&quot;</span></code> は <code class="docutils literal notranslate"><span class="pre">/miso/CMakeLists.txt</span></code> になり、
+<code class="docutils literal notranslate"><span class="pre">if(NOT</span> <span class="pre">EXISTS</span> <span class="pre">...)</span></code> の条件が成り立ちます。その中の <code class="docutils literal notranslate"><span class="pre">message(FATAL_ERROR</span> <span class="pre">...)</span></code> が説明を表示して設定を止めます。
+この確認がないと、<code class="docutils literal notranslate"><span class="pre">add_subdirectory</span></code> が「フォルダがない」という分かりにくいエラーを出します。
+確かめたら、<code class="docutils literal notranslate"><span class="pre">build_nodir</span></code> は消して構いません。</p>
+</details>
+</section>
+<section id="id21">
+<h3>練習 1-3<a class="headerlink" href="#id21" title="Link to this heading"></a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">miso_check</span></code> を <code class="docutils literal notranslate"><span class="pre">Debug</span></code> 種別で、<code class="docutils literal notranslate"><span class="pre">build_debug</span></code> という別のビルドフォルダに作ってください。
+<code class="docutils literal notranslate"><span class="pre">cmake</span> <span class="pre">-L</span> <span class="pre">-N</span> <span class="pre">build_debug</span></code> で設定項目の一覧を表示し、<code class="docutils literal notranslate"><span class="pre">CMAKE_BUILD_TYPE</span></code>、<code class="docutils literal notranslate"><span class="pre">MISO_DIR</span></code>、<code class="docutils literal notranslate"><span class="pre">ENABLE_TESTING</span></code>、<code class="docutils literal notranslate"><span class="pre">MISO_USE_CUDA</span></code> の値を確かめてください。</p>
+<details>
+<summary>解答・解説</summary>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>cmake<span class="w"> </span>-S<span class="w"> </span>.<span class="w"> </span>-B<span class="w"> </span>build_debug<span class="w"> </span>-DMISO_DIR<span class="o">=</span>/path/to/MISO<span class="w"> </span>-DCMAKE_BUILD_TYPE<span class="o">=</span>Debug
+cmake<span class="w"> </span>--build<span class="w"> </span>build_debug<span class="w"> </span>--parallel<span class="w"> </span><span class="m">4</span>
+cmake<span class="w"> </span>-L<span class="w"> </span>-N<span class="w"> </span>build_debug<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-E<span class="w"> </span><span class="s2">"BUILD_TYPE|MISO|ENABLE_TESTING"</span>
+</pre></div>
+</div>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>CMAKE_BUILD_TYPE:STRING=Debug
+ENABLE_TESTING:BOOL=OFF
+MISO_DIR:PATH=/path/to/MISO
+MISO_USE_CUDA:BOOL=OFF
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">-L</span></code> は設定項目の一覧を表示し、<code class="docutils literal notranslate"><span class="pre">-N</span></code> は設定をやり直さずに <code class="docutils literal notranslate"><span class="pre">CMakeCache.txt</span></code> を読むだけにする指定です。
+<code class="docutils literal notranslate"><span class="pre">MISO_USE_CUDA</span></code> は <code class="docutils literal notranslate"><span class="pre">MISO</span></code> 側の <code class="docutils literal notranslate"><span class="pre">option</span></code> が既定値 <code class="docutils literal notranslate"><span class="pre">OFF</span></code> で作った項目です。
+<code class="docutils literal notranslate"><span class="pre">cmake</span> <span class="pre">--build</span> <span class="pre">build_debug</span> <span class="pre">--verbose</span></code> で、コンパイルのコマンドに <code class="docutils literal notranslate"><span class="pre">-g</span></code> が付き、<code class="docutils literal notranslate"><span class="pre">-O3</span></code> が付いていないことも確かめられます。
+<code class="docutils literal notranslate"><span class="pre">build</span></code>（Release）と <code class="docutils literal notranslate"><span class="pre">build_debug</span></code>（Debug）はフォルダが別なので、互いの設定は混ざりません。</p>
+</details>
+</section>
+<section id="id22">
+<h3>手でコンパイルする場合との対応<a class="headerlink" href="#id22" title="Link to this heading"></a></h3>
+<p>CMake が行っていることを、手で書いたコマンドと比べておきます。Ubuntu では次のコマンドでも <code class="docutils literal notranslate"><span class="pre">miso_check</span></code> を作れます。</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>mpicxx<span class="w"> </span>-std<span class="o">=</span>c++17<span class="w"> </span>-O2<span class="w"> </span>-I/path/to/MISO/miso/include<span class="w"> </span>main.cpp<span class="w"> </span>-o<span class="w"> </span>miso_check_manual<span class="w"> </span>-lyaml-cpp
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">mpicxx</span></code> が MPI の指定を足し、<code class="docutils literal notranslate"><span class="pre">-I</span></code> が MISO のヘッダの場所、<code class="docutils literal notranslate"><span class="pre">-lyaml-cpp</span></code> が yaml-cpp を指定します。
+<code class="docutils literal notranslate"><span class="pre">MISO::MISO</span></code> をリンクすると、これらを CMake がまとめて指定します。
+GPU 用のビルドや計算機ごとの違いがあっても <code class="docutils literal notranslate"><span class="pre">CMakeLists.txt</span></code> を変えずに済むので、この教材では CMake を使います。</p>
+</section>
+</section>
+<section id="edu-ch01-trouble">
+<span id="id23"></span><h2>うまくいかないとき<a class="headerlink" href="#edu-ch01-trouble" title="Link to this heading"></a></h2>
+<p>最初のエラーから順に確かめます。設定が成功してからビルドし、ビルドが成功してから実行します。</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>表示・症状</p></th>
+<th class="head"><p>確かめること</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Could</span> <span class="pre">NOT</span> <span class="pre">find</span> <span class="pre">MPI</span></code></p></td>
+<td><p>Ubuntu では <code class="docutils literal notranslate"><span class="pre">libopenmpi-dev</span></code>、Mac では <code class="docutils literal notranslate"><span class="pre">open-mpi</span></code> が入っているかを確かめます。Mac では <code class="docutils literal notranslate"><span class="pre">-DMPI_CXX_COMPILER=&quot;$(brew</span> <span class="pre">--prefix</span> <span class="pre">open-mpi)/bin/mpicxx&quot;</span></code> を設定のコマンドに足すと、使う MPI を明示できます</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">yaml-cpp</span> <span class="pre">not</span> <span class="pre">found;</span> <span class="pre">fetching</span> <span class="pre">with</span> <span class="pre">FetchContent</span></code> の後に取得の失敗</p></td>
+<td><p>yaml-cpp が見つからず、インターネットから取得しようとしています。yaml-cpp を入れる（Ubuntu は <code class="docutils literal notranslate"><span class="pre">libyaml-cpp-dev</span></code>、Mac は <code class="docutils literal notranslate"><span class="pre">yaml-cpp</span></code>）か、ネットワークの接続を確かめます</p></td>
+</tr>
+<tr class="row-even"><td><p>ユニットテストの設定で doctest の取得に失敗する</p></td>
+<td><p>doctest はいつもインターネットから取得します。接続を確かめます</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">fatal</span> <span class="pre">error:</span> <span class="pre">miso/core.hpp:</span> <span class="pre">No</span> <span class="pre">such</span> <span class="pre">file</span> <span class="pre">or</span> <span class="pre">directory</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">MISO::MISO</span></code> をリンクしているか、<code class="docutils literal notranslate"><span class="pre">-DMISO_DIR</span></code> が MISO のフォルダの根（<code class="docutils literal notranslate"><span class="pre">miso/</span></code> を含むフォルダ）を指しているかを確かめます</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">fatal</span> <span class="pre">error:</span> <span class="pre">mpi.h:</span> <span class="pre">No</span> <span class="pre">such</span> <span class="pre">file</span> <span class="pre">or</span> <span class="pre">directory</span></code></p></td>
+<td><p>手でコンパイルするときは <code class="docutils literal notranslate"><span class="pre">g++</span></code> ではなく <code class="docutils literal notranslate"><span class="pre">mpicxx</span></code> を使います。CMake では <code class="docutils literal notranslate"><span class="pre">MISO::MISO</span></code> が MPI の指定を伝えます</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">undefined</span> <span class="pre">reference</span> <span class="pre">to</span> <span class="pre">'YAML::...'</span></code></p></td>
+<td><p>yaml-cpp がリンクされていません。手でコンパイルするときは <code class="docutils literal notranslate"><span class="pre">-lyaml-cpp</span></code> を付けます</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">There</span> <span class="pre">are</span> <span class="pre">not</span> <span class="pre">enough</span> <span class="pre">slots</span> <span class="pre">available</span></code></p></td>
+<td><p>CPU のコア数より多いプロセスを起動しようとしています。動作確認だけなら <code class="docutils literal notranslate"><span class="pre">mpiexec</span> <span class="pre">--oversubscribe</span> <span class="pre">-np</span> <span class="pre">2</span> <span class="pre">...</span></code> とします</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">CMakeLists.txt</span></code> が見つからない</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">pwd</span></code> と <code class="docutils literal notranslate"><span class="pre">ls</span></code> で、ファイルを保存したフォルダにいるかを確かめます</p></td>
+</tr>
+<tr class="row-even"><td><p>コンパイラを変えたのに前のコンパイラが使われる</p></td>
+<td><p>前の設定が <code class="docutils literal notranslate"><span class="pre">CMakeCache.txt</span></code> に残っています。別のビルドフォルダで設定し直します</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="gpu">
+<span id="edu-ch01-gpu"></span><h2>GPU を使う段階になったら<a class="headerlink" href="#gpu" title="Link to this heading"></a></h2>
+<p>MISO は NVIDIA の GPU で計算する CUDA 版も作れます。
+MISO 本体では <code class="docutils literal notranslate"><span class="pre">-DMISO_USE_CUDA=ON</span></code>、デモでは <code class="docutils literal notranslate"><span class="pre">-DUSE_CUDA=ON</span></code> を設定のときに渡します。
+CUDA の開発環境（CUDA Toolkit と対応するドライバ）が必要で、Mac の GPU では動きません。
+GPU 用のビルドと、自分のプログラムを GPU で動かす設定は <a class="reference internal" href="09_gpu.html#edu-ch09"><span class="std std-ref">第 9 章</span></a> で説明します。</p>
+</section>
+<section id="id24">
+<h2>次に読むところ<a class="headerlink" href="#id24" title="Link to this heading"></a></h2>
+<p>準備ができたら、<a class="reference internal" href="02_cpp_basics.html#edu-ch02"><span class="std std-ref">第 2 章：変数・関数・制御文</span></a> へ進みます。
+この章で作った <code class="docutils literal notranslate"><span class="pre">miso_check</span></code> のフォルダと <code class="docutils literal notranslate"><span class="pre">CMakeLists.txt</span></code> の形は、<a class="reference internal" href="07_arrays_and_parallel.html#edu-ch07"><span class="std std-ref">第 7 章</span></a> と <a class="reference internal" href="10_heat1d.html#edu-ch10"><span class="std std-ref">第 10 章</span></a> の実習で使います。</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="index.html" class="btn btn-neutral float-left" title="MISO education" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="02_cpp_basics.html" class="btn btn-neutral float-right" title="2. 変数・関数・制御文" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Integrated Studies, ISEE, Nagoya University.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+ 
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        const currentUrl = window.location.href;
+        const isTranslated = currentUrl.includes(".translate.goog");
+        const translateLink = document.getElementById("translate-link");
+        const originalLink = document.getElementById("original-link");
+
+        // 翻訳URLを生成
+        const translateUrl =
+            "https://translate.google.com/translate?sl=ja&tl=en&u=" +
+            encodeURIComponent(currentUrl);
+
+        if (isTranslated) {
+            // --- 英語版(.translate.goog)にいる場合 ---
+            // English → ページを単にリロード
+            translateLink.removeAttribute("target");
+            translateLink.removeAttribute("href");
+            translateLink.addEventListener("click", (e) => {
+                e.preventDefault();
+                window.location.reload();
+            });
+
+            // 日本語 → 新タブで元URLを開く（翻訳解除）
+            const originalUrl = currentUrl.replace(
+                /^https:\/\/[^/]+\.translate\.goog/,
+                "https://is-isee.github.io"
+            );
+            originalLink.href = originalUrl;
+            originalLink.target = "_blank";
+            originalLink.rel = "noopener";
+        } else {
+            // --- 日本語版にいる場合 ---
+            translateLink.href = translateUrl;
+            translateLink.target = "_blank";
+
+            originalLink.href = currentUrl;
+            originalLink.target = "_self";
+        }
+    });
+</script>
+
+
+</body>
+</html>

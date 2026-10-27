@@ -1,0 +1,368 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GPU で困ったとき &mdash; MISO 0.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css?v=4ae1632d" />
+      <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../../_static/collapsible-lists/css/tree_view.css?v=a885cde7" />
+      <link rel="stylesheet" type="text/css" href="../../_static/custom.css" />
+
+  
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options.js?v=837179f8"></script>
+      <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../../_static/copybutton.js?v=f281be69"></script>
+      <script src="../../_static/collapsible-lists/js/CollapsibleLists.compressed.js?v=73120307"></script>
+      <script src="../../_static/collapsible-lists/js/apply-collapsible-lists.js?v=660e4f45"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="References" href="../../references.html" />
+    <link rel="prev" title="テストと計算結果の比較" href="testing.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            MISO
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../quickstart.html">Quick Start</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../demo/index.html">Test Problems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../customization/index.html">Customization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../miso/index.html">MISO C++ documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../pymiso/index.html">pymiso Documentation</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">MISO education</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../index.html#id1">本文</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../index.html#id2">必要なときに参照する資料</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../01_environment_setup.html">1. 開発環境と CMake</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../02_cpp_basics.html">2. 変数・関数・制御文</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../03_references_and_pointers.html">3. 参照・ポインタと寿命</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../04_classes_and_structs.html">4. クラス・構造体</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../05_inheritance.html">5. 継承と CRTP</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../06_templates.html">6. テンプレート</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../07_arrays_and_parallel.html">7. 配列・ラムダと CPU での並列ループ</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../08_mpi.html">8. MPI による領域分割</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../09_gpu.html">9. GPU（CUDA）での計算とデータ転送</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../10_heat1d.html">10. 熱伝導の計算</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../11_reading_miso.html">11. MISO の時間発展を読む</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../practice/index.html">実習一覧</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="index.html">参考資料</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="glossary.html">用語集</a></li>
+<li class="toctree-l4"><a class="reference internal" href="fortran_map.html">Fortran との対応表</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cpp_reference.html">記号の早見表</a></li>
+<li class="toctree-l4"><a class="reference internal" href="testing.html">テストと計算結果の比較</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">GPU で困ったとき</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../references.html">References</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">MISO</a>
+      </nav>
+
+      <div class="wy-nav-content">
+<div id="language-links" style="margin-bottom: 1em; font-size: 100%;">
+    Language:
+    <a href="#" id="translate-link" target="_blank">English</a> |
+    <a href="#" id="original-link">日本語</a>
+</div>
+
+
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">MISO education</a></li>
+          <li class="breadcrumb-item"><a href="index.html">参考資料</a></li>
+      <li class="breadcrumb-item active">GPU で困ったとき</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../_sources/education/reference/gpu_troubleshooting.md.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section class="tex2jax_ignore mathjax_ignore" id="gpu">
+<span id="edu-ref-gpu-troubleshooting"></span><h1>GPU で困ったとき<a class="headerlink" href="#gpu" title="Link to this heading"></a></h1>
+<p>GPU 向けのコードの基本は <a class="reference internal" href="../09_gpu.html#edu-ch09"><span class="std std-ref">第 9 章</span></a> で説明しています。
+ここでは、ビルドや実行で問題が起きたときに確かめることをまとめます。
+ソースのパスは、MISO を clone したフォルダからのパスです。
+エラーの文面は CUDA 12.9 の <code class="docutils literal notranslate"><span class="pre">nvcc</span></code> と RTX 4090 で確かめたもので、版によって少し変わることがあります。</p>
+<section id="cmake">
+<h2>1. CMake の設定で止まる<a class="headerlink" href="#cmake" title="Link to this heading"></a></h2>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>症状</p></th>
+<th class="head"><p>確かめること</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">No</span> <span class="pre">CMAKE_CUDA_COMPILER</span> <span class="pre">could</span> <span class="pre">be</span> <span class="pre">found</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">nvcc</span></code> に PATH が通っているか（<code class="docutils literal notranslate"><span class="pre">nvcc</span> <span class="pre">--version</span></code>）。通っていなければ <code class="docutils literal notranslate"><span class="pre">-DCMAKE_CUDA_COMPILER=/path/to/nvcc</span></code> で指定する</p></td>
+</tr>
+<tr class="row-odd"><td><p>CPU 版から切り替えたら設定が反映されない</p></td>
+<td><p>同じビルドフォルダを使い回していないか。CPU 用と GPU 用でフォルダを分けるか、フォルダを消して作り直す</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">CMAKE_CUDA_ARCHITECTURES</span></code> を指定したのに別の値になる</p></td>
+<td><p>自分の <code class="docutils literal notranslate"><span class="pre">CMakeLists.txt</span></code> で、<code class="docutils literal notranslate"><span class="pre">enable_language(CUDA)</span></code> より前にこの値を決めているか（第 9 章 4.4 節）</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">native</span></code> で GPU が見つからないというエラー</p></td>
+<td><p>ビルドする計算機に GPU がない（ログインノードなど）。使う GPU の値（<code class="docutils literal notranslate"><span class="pre">89</span></code> など）を明示する</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="id1">
+<h2>2. コンパイルできない<a class="headerlink" href="#id1" title="Link to this heading"></a></h2>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>エラーの文面（抜粋）</p></th>
+<th class="head"><p>原因と対処</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">__host__</span> <span class="pre">or</span> <span class="pre">__device__</span> <span class="pre">annotation</span> <span class="pre">on</span> <span class="pre">lambda</span> <span class="pre">requires</span> <span class="pre">--extended-lambda</span> <span class="pre">nvcc</span> <span class="pre">flag</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">MISO_LAMBDA</span></code> には <code class="docutils literal notranslate"><span class="pre">nvcc</span></code> の <code class="docutils literal notranslate"><span class="pre">--expt-extended-lambda</span></code>（<code class="docutils literal notranslate"><span class="pre">--extended-lambda</span></code> と同じ）が必要。<code class="docutils literal notranslate"><span class="pre">MISO::MISO</span></code> をリンクしているか、MISO の <code class="docutils literal notranslate"><span class="pre">MISO_USE_CUDA</span></code> を ON にしているかを確かめる</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">The</span> <span class="pre">enclosing</span> <span class="pre">parent</span> <span class="pre">function</span> <span class="pre">(&quot;work&quot;)</span> <span class="pre">for</span> <span class="pre">an</span> <span class="pre">extended</span> <span class="pre">__host__</span> <span class="pre">__device__</span> <span class="pre">lambda</span> <span class="pre">cannot</span> <span class="pre">have</span> <span class="pre">private</span> <span class="pre">or</span> <span class="pre">protected</span> <span class="pre">access</span> <span class="pre">within</span> <span class="pre">its</span> <span class="pre">class</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">MISO_LAMBDA</span></code> を <code class="docutils literal notranslate"><span class="pre">private</span></code>・<code class="docutils literal notranslate"><span class="pre">protected</span></code> のメンバ関数の中に書いている。<code class="docutils literal notranslate"><span class="pre">public</span></code> の関数か、クラスの外の関数へ移す</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">...</span> <span class="pre">cannot</span> <span class="pre">be</span> <span class="pre">referenced</span> <span class="pre">--</span> <span class="pre">it</span> <span class="pre">is</span> <span class="pre">a</span> <span class="pre">deleted</span> <span class="pre">function</span></code>（<code class="docutils literal notranslate"><span class="pre">Array1D</span></code> などのコピー）</p></td>
+<td><p>ラムダの中で、所有する配列（<code class="docutils literal notranslate"><span class="pre">Array1D</span></code> など）を使っている。ラムダの前で <code class="docutils literal notranslate"><span class="pre">view()</span></code> を取り出し、View を使う</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">calling</span> <span class="pre">a</span> <span class="pre">__host__</span> <span class="pre">function(&quot;...&quot;)</span> <span class="pre">from</span> <span class="pre">a</span> <span class="pre">__host__</span> <span class="pre">__device__</span> <span class="pre">function(&quot;...&quot;)</span> <span class="pre">is</span> <span class="pre">not</span> <span class="pre">allowed</span></code>（警告 #20011）</p></td>
+<td><p>ラムダやカーネルから、<code class="docutils literal notranslate"><span class="pre">__device__</span></code> の付いていない関数を呼んでいる。警告でもそのままにしない。自分の関数には <code class="docutils literal notranslate"><span class="pre">__host__</span> <span class="pre">__device__</span></code> を付け、数学関数は <code class="docutils literal notranslate"><span class="pre">util::sqrt</span></code> などを使う（<code class="docutils literal notranslate"><span class="pre">miso/include/miso/utility.hpp</span></code>）</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">declaration</span> <span class="pre">is</span> <span class="pre">incompatible</span> <span class="pre">with</span> <span class="pre">previous</span> <span class="pre">&quot;s&quot;</span></code></p></td>
+<td><p>テンプレートのカーネルで <code class="docutils literal notranslate"><span class="pre">extern</span> <span class="pre">__shared__</span> <span class="pre">T</span> <span class="pre">s[];</span></code> と型付きで宣言している。MISO の <code class="docutils literal notranslate"><span class="pre">reduce_shared_memory</span></code> のように、バイト列で 1 回だけ宣言して読み替える（第 9 章のコラム、MISO issue #190）</p></td>
+</tr>
+<tr class="row-odd"><td><p>g++ が <code class="docutils literal notranslate"><span class="pre">'__global__'</span> <span class="pre">does</span> <span class="pre">not</span> <span class="pre">name</span> <span class="pre">a</span> <span class="pre">type</span></code> を出す</p></td>
+<td><p>カーネルを <code class="docutils literal notranslate"><span class="pre">#ifdef</span> <span class="pre">__CUDACC__</span></code> の外に書いているか、<code class="docutils literal notranslate"><span class="pre">.cpp</span></code> を <code class="docutils literal notranslate"><span class="pre">nvcc</span></code> に渡していない。CMake の <code class="docutils literal notranslate"><span class="pre">set_source_files_properties(...</span> <span class="pre">LANGUAGE</span> <span class="pre">CUDA)</span></code> を確かめる</p></td>
+</tr>
+</tbody>
+</table>
+<p>拡張ラムダ（<code class="docutils literal notranslate"><span class="pre">__host__</span> <span class="pre">__device__</span></code> を付けたラムダ）には、ここに挙げた以外にも置き場所や取り込み方の制約があります。
+利用している版の NVIDIA CUDA C++ Programming Guide（<a class="reference external" href="https://docs.nvidia.com/cuda/cuda-c-programming-guide/index.html">https://docs.nvidia.com/cuda/cuda-c-programming-guide/index.html</a>）の extended lambda の節を確かめてください。</p>
+</section>
+<section id="id2">
+<h2>3. 実行時に止まる<a class="headerlink" href="#id2" title="Link to this heading"></a></h2>
+<section id="id3">
+<h3>3.1 よくあるエラー<a class="headerlink" href="#id3" title="Link to this heading"></a></h3>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>表示</p></th>
+<th class="head"><p>原因の候補</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">CUDA</span> <span class="pre">Error:</span> <span class="pre">an</span> <span class="pre">illegal</span> <span class="pre">memory</span> <span class="pre">access</span> <span class="pre">was</span> <span class="pre">encountered</span></code></p></td>
+<td><p>ラムダが <code class="docutils literal notranslate"><span class="pre">this</span></code> を取り込んでいる（メンバ変数を直接使っている）。ホストの配列の View を CUDA 版の <code class="docutils literal notranslate"><span class="pre">for_each</span></code> に渡している。添字が配列の範囲外</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">no</span> <span class="pre">kernel</span> <span class="pre">image</span> <span class="pre">is</span> <span class="pre">available</span> <span class="pre">for</span> <span class="pre">execution</span> <span class="pre">on</span> <span class="pre">the</span> <span class="pre">device</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">CMAKE_CUDA_ARCHITECTURES</span></code>（<code class="docutils literal notranslate"><span class="pre">nvcc</span> <span class="pre">-arch</span></code>）が使う GPU より新しい世代を指している。GPU の compute capability（<code class="docutils literal notranslate"><span class="pre">nvidia-smi</span> <span class="pre">--query-gpu=compute_cap</span> <span class="pre">--format=csv</span></code>）に合わせてビルドし直す</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">CUDA</span> <span class="pre">driver</span> <span class="pre">version</span> <span class="pre">is</span> <span class="pre">insufficient</span> <span class="pre">for</span> <span class="pre">CUDA</span> <span class="pre">runtime</span> <span class="pre">version</span></code></p></td>
+<td><p>CUDA Toolkit がドライバより新しい。ドライバが対応する版の CUDA Toolkit を使う（<code class="docutils literal notranslate"><span class="pre">nvidia-smi</span></code> の右上に、ドライバが対応する CUDA の版が出る）</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">No</span> <span class="pre">CUDA-capable</span> <span class="pre">devices</span> <span class="pre">were</span> <span class="pre">detected.</span></code></p></td>
+<td><p>MISO の <code class="docutils literal notranslate"><span class="pre">cuda::Env</span></code> が GPU を見つけられない。<code class="docutils literal notranslate"><span class="pre">nvidia-smi</span></code> で GPU が見えるか、環境変数 <code class="docutils literal notranslate"><span class="pre">CUDA_VISIBLE_DEVICES</span></code> で隠していないかを確かめる</p></td>
+</tr>
+</tbody>
+</table>
+<p><code class="docutils literal notranslate"><span class="pre">illegal</span> <span class="pre">memory</span> <span class="pre">access</span></code> の中で最も見つけにくいのは <code class="docutils literal notranslate"><span class="pre">this</span></code> の取り込みです。
+CPU ビルドでは正しく動き、HMM が有効な一部の GPU 環境でも偶然動くためです（MISO issue #170）。
+ラムダの中で使っている名前が、ローカル変数か引数かを、宣言まで戻って確かめてください（第 9 章 5 節）。</p>
+</section>
+<section id="id4">
+<h3>3.2 エラーの場所を突き止める<a class="headerlink" href="#id4" title="Link to this heading"></a></h3>
+<p>カーネルの起動は非同期なので、<code class="docutils literal notranslate"><span class="pre">MISO_CUDA_CHECK</span></code> が表示するファイルと行は、エラーに<strong>気づいた</strong>場所です。
+エラーが<strong>起きた</strong>カーネルは、それより前に起動したものです（第 9 章 7 節）。</p>
+<p><strong>環境変数 <code class="docutils literal notranslate"><span class="pre">CUDA_LAUNCH_BLOCKING=1</span></code></strong> を付けて実行すると、カーネルの起動が終了まで待つようになり、
+起動直後の <code class="docutils literal notranslate"><span class="pre">MISO_CUDA_CHECK(cudaGetLastError())</span></code> でエラーが報告されます。
+第 9 章 5.1 の例では、表示が次のように変わりました。</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span># そのまま実行
+CUDA Error: an illegal memory access was encountered .../miso/include/miso/array1d.hpp 109
+# CUDA_LAUNCH_BLOCKING=1 を付けて実行
+CUDA Error: an illegal memory access was encountered .../miso/include/miso/execution.hpp 91
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">array1d.hpp</span></code> は後の <code class="docutils literal notranslate"><span class="pre">copy_from</span></code> の中、<code class="docutils literal notranslate"><span class="pre">execution.hpp</span></code> は CUDA 版 <code class="docutils literal notranslate"><span class="pre">for_each</span></code> の起動直後の検査です。
+さらに、<code class="docutils literal notranslate"><span class="pre">for_each</span></code> を呼んだ場所を調べるには、自分のコードの <code class="docutils literal notranslate"><span class="pre">for_each</span></code> の直後に <code class="docutils literal notranslate"><span class="pre">MISO_CUDA_CHECK(cudaDeviceSynchronize());</span></code> を一時的に足して範囲を狭めます。</p>
+<p><strong><code class="docutils literal notranslate"><span class="pre">compute-sanitizer</span></code></strong>（CUDA Toolkit に含まれる）で実行すると、不正な読み書きをしたカーネルとスレッドが表示されます。</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>compute-sanitizer<span class="w"> </span>./this_capture
+mpiexec<span class="w"> </span>-np<span class="w"> </span><span class="m">2</span><span class="w"> </span>compute-sanitizer<span class="w"> </span>./build/mhd2d_vortex<span class="w"> </span>--config<span class="o">=</span>config.yaml<span class="w">   </span><span class="c1"># MPI の場合</span>
+</pre></div>
+</div>
+<p>第 9 章 5.1 の例での表示（抜粋）です。</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>========= Invalid __global__ read of size 4 bytes
+=========     at void miso::for_each_kernel&lt;Scaler::apply_wrong(miso::Array1DView&lt;float&gt;) const::[lambda(int) (instance 1)]&gt;(miso::Range1D, T1)+0xd0
+=========     by thread (0,0,0) in block (0,0,0)
+=========     Access to 0x7fff1107e0a4 is out of bounds
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">apply_wrong</span></code> の中のラムダを実行する <code class="docutils literal notranslate"><span class="pre">for_each_kernel</span></code> が、4 バイト（<code class="docutils literal notranslate"><span class="pre">float</span></code> のメンバ <code class="docutils literal notranslate"><span class="pre">factor</span></code>）を読もうとしたことが分かります。
+<code class="docutils literal notranslate"><span class="pre">0x7fff...</span></code> で始まる番地は、Linux ではホストのスタック（ローカル変数を置く場所）によく使われる番地で、ホストのオブジェクトを読もうとした手がかりになります。
+<code class="docutils literal notranslate"><span class="pre">compute-sanitizer</span></code> の下では実行がかなり遅くなるので、格子を小さくし、時間ステップ数を減らして試します。</p>
+</section>
+</section>
+<section id="mpi">
+<h2>4. MPI と組み合わせたとき<a class="headerlink" href="#mpi" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p><strong>CUDA-aware MPI を使っているか。</strong> MISO の CUDA 版のハロー交換は、デバイスのバッファの番地をそのまま <code class="docutils literal notranslate"><span class="pre">MPI_Isend</span></code>・<code class="docutils literal notranslate"><span class="pre">MPI_Irecv</span></code> に渡します（<code class="docutils literal notranslate"><span class="pre">miso/include/miso/mhd_halo_exchange.hpp</span></code>）。
+CUDA に対応していない MPI では、通信の中で止まるか、誤った値を受け取ります。NVIDIA HPC SDK に含まれる Open MPI など、CUDA に対応した MPI を使います。</p></li>
+<li><p><strong>ランクと GPU の対応。</strong> MISO はノード内のランク番号を GPU の数で割った余りで GPU を選びます（<code class="docutils literal notranslate"><span class="pre">miso/include/miso/env.hpp</span></code> の <code class="docutils literal notranslate"><span class="pre">cuda::Env</span></code>）。
+ランク数が GPU の数より多いと、1 つの GPU を複数のランクで分け合います。</p></li>
+<li><p><strong>完了待ちの順序。</strong> GPU のカーネルが書いたバッファを MPI へ渡す前に <code class="docutils literal notranslate"><span class="pre">cudaDeviceSynchronize</span></code> で待ちます。
+受信した値をカーネルで使う前には <code class="docutils literal notranslate"><span class="pre">MPI_Waitall</span></code> で待ちます。2 つの完了待ちは別のものです。</p></li>
+<li><p><strong>コンテナの中で実行するとき。</strong> MISO の demo は <code class="docutils literal notranslate"><span class="pre">demo/shared/openmpi_config.env</span></code> の環境変数を読み込んでから <code class="docutils literal notranslate"><span class="pre">mpiexec</span></code> を実行します。</p></li>
+</ul>
+</section>
+<section id="cpu-gpu">
+<h2>5. CPU と GPU で数値が違うとき<a class="headerlink" href="#cpu-gpu" title="Link to this heading"></a></h2>
+<p>まず、入力（<code class="docutils literal notranslate"><span class="pre">config.yaml</span></code>）、格子、MPI の分割、<code class="docutils literal notranslate"><span class="pre">Real</span></code> の型（<code class="docutils literal notranslate"><span class="pre">float</span></code>/<code class="docutils literal notranslate"><span class="pre">double</span></code>）を揃えます。
+そのうえで、差の大きさと場所を調べます。</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>差の様子</p></th>
+<th class="head"><p>確かめること</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>総和・平均などの縮約値の最後の数桁</p></td>
+<td><p>加算の順序の違い（Host 版は前から順、CUDA 版はブロック内のトーナメント）。誤りではない</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">reduce</span></code> の結果が大きく違う</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">init</span></code> が <code class="docutils literal notranslate"><span class="pre">op</span></code> の単位元か（合計なら 0、最小値なら十分大きな値）。CUDA 版では範囲外のスレッドが <code class="docutils literal notranslate"><span class="pre">init</span></code> を縮約に加える（第 9 章 6.4 節）</p></td>
+</tr>
+<tr class="row-even"><td><p>格子点ごとの値が丸め誤差程度に違う</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">nvcc</span></code> は掛け算と足し算を 1 命令（FMA）にまとめることがあり、丸めが CPU と変わる。数学関数の実装も CPU と GPU で違う</p></td>
+</tr>
+<tr class="row-odd"><td><p>境界の近くだけ違う</p></td>
+<td><p>境界条件、ゴーストセルの更新、ハロー交換</p></td>
+</tr>
+<tr class="row-even"><td><p>特定の軸に沿ってずれる</p></td>
+<td><p>添字の順序、<code class="docutils literal notranslate"><span class="pre">Range3D</span></code> の範囲、配列の大きさ</p></td>
+</tr>
+<tr class="row-odd"><td><p>最初のステップから大きく違う</p></td>
+<td><p>初期条件がデバイスへ写っているか（<code class="docutils literal notranslate"><span class="pre">copy_from</span></code> の向き）、<code class="docutils literal notranslate"><span class="pre">this</span></code> の取り込み</p></td>
+</tr>
+</tbody>
+</table>
+<p>比較の方法と許す誤差の決め方は <a class="reference internal" href="testing.html#edu-ref-testing"><span class="std std-ref">テストと計算結果の比較</span></a> を参照してください。
+CPU と GPU の結果がビット単位で一致することは前提にしません。</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="testing.html" class="btn btn-neutral float-left" title="テストと計算結果の比較" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../../references.html" class="btn btn-neutral float-right" title="References" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Integrated Studies, ISEE, Nagoya University.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+ 
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        const currentUrl = window.location.href;
+        const isTranslated = currentUrl.includes(".translate.goog");
+        const translateLink = document.getElementById("translate-link");
+        const originalLink = document.getElementById("original-link");
+
+        // 翻訳URLを生成
+        const translateUrl =
+            "https://translate.google.com/translate?sl=ja&tl=en&u=" +
+            encodeURIComponent(currentUrl);
+
+        if (isTranslated) {
+            // --- 英語版(.translate.goog)にいる場合 ---
+            // English → ページを単にリロード
+            translateLink.removeAttribute("target");
+            translateLink.removeAttribute("href");
+            translateLink.addEventListener("click", (e) => {
+                e.preventDefault();
+                window.location.reload();
+            });
+
+            // 日本語 → 新タブで元URLを開く（翻訳解除）
+            const originalUrl = currentUrl.replace(
+                /^https:\/\/[^/]+\.translate\.goog/,
+                "https://is-isee.github.io"
+            );
+            originalLink.href = originalUrl;
+            originalLink.target = "_blank";
+            originalLink.rel = "noopener";
+        } else {
+            // --- 日本語版にいる場合 ---
+            translateLink.href = translateUrl;
+            translateLink.target = "_blank";
+
+            originalLink.href = currentUrl;
+            originalLink.target = "_self";
+        }
+    });
+</script>
+
+
+</body>
+</html>
