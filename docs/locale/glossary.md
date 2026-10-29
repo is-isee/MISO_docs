@@ -2,6 +2,10 @@
 
 `locale/en/LC_MESSAGES/*.po` を訳すときに使う。訳す人（人でも LLM でも）にこのファイルを渡す。
 
+**LLM で訳すときは、必ず Claude Sonnet か、それより安いモデル（Haiku）を使う。** Opus などの上位モデルでは訳さない。
+Claude Code の上位モデルで作業しているときも、訳はサブエージェント（model に sonnet 以下を指定）に任せる。
+上位モデルがしてよいのは、`.po` の準備・ビルド・訳の点検まで。
+
 ## 訳語の出典
 
 1. **`source/education/reference/glossary.md` の「英語」の列**（C++・並列計算・数値計算の語、約 150 語）。

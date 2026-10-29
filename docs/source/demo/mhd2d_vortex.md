@@ -28,7 +28,7 @@ B_z & = 0,
 \end{align*}
 $$
 
-ここで$v_0 = 1$、$B_0 = \sqrt{4\pi}/\gammaです。
+ここで$v_0 = 1$、$B_0 = \sqrt{4\pi}/\gamma$です。
 
 ## Boundary Conditions
 

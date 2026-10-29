@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MISO \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-10-29 09:37+0900\n"
+"POT-Creation-Date: 2026-10-29 13:15+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: en\n"
@@ -63,7 +63,7 @@ msgid ""
 msgstr ""
 
 #, python-brace-format
-msgid "ここで$v_0 = 1$、$B_0 = \\sqrt{4\\pi}/\\gammaです。"
+msgid "ここで$v_0 = 1$、$B_0 = \\sqrt{4\\pi}/\\gamma$です。"
 msgstr ""
 
 msgid "Boundary Conditions"
@@ -83,4 +83,7 @@ msgstr ""
 
 msgid "mhd2d_vortex"
 msgstr ""
+
+#~ msgid "ここで$v_0 = 1$、$B_0 = \\sqrt{4\\pi}/\\gammaです。"
+#~ msgstr ""
 
