@@ -118,7 +118,7 @@
              
   <section class="tex2jax_ignore mathjax_ignore" id="d-hd-test-rayleigh-taylor-instability">
 <h1>2D HD Test: Rayleigh Taylor Instability<a class="headerlink" href="#d-hd-test-rayleigh-taylor-instability" title="Link to this heading"></a></h1>
-<p>レイリー・テイラー不安定性問題。重力場において、密度の高い流体が密度の低い流体の上にあるときに発生する不安定性です。</p>
+<p>The Rayleigh-Taylor instability problem. This instability occurs in a gravitational field when a dense fluid lies above a less dense fluid.</p>
 <section id="location">
 <h2>Location<a class="headerlink" href="#location" title="Link to this heading"></a></h2>
 <p><code class="docutils literal notranslate"><span class="pre">demo/hd2d_rayleigh_taylor/</span></code></p>
@@ -132,7 +132,7 @@
 </section>
 <section id="force">
 <h2>Force<a class="headerlink" href="#force" title="Link to this heading"></a></h2>
-<p>負の<span class="math notranslate nohighlight">\(y\)</span>方向に一定の重力を加えます。重力加速度は<span class="math notranslate nohighlight">\(g=0.1\)</span>に設定します。</p>
+<p>A constant gravity is applied in the negative <span class="math notranslate nohighlight">\(y\)</span> direction. The gravitational acceleration is set to <span class="math notranslate nohighlight">\(g=0.1\)</span>.</p>
 <div class="math notranslate nohighlight">
 \[
 \frac{\partial \rho v_y}{\partial t} = [...] - \rho g
@@ -140,13 +140,11 @@
 </section>
 <section id="initial-conditions">
 <h2>Initial Conditions<a class="headerlink" href="#initial-conditions" title="Link to this heading"></a></h2>
-<p>初期条件は、<span class="math notranslate nohighlight">\(y=0.0\)</span>で分離された上側と下側の状態で記述されます。上側領域（<span class="math notranslate nohighlight">\(y \geq 0\)</span>）では密度<span class="math notranslate nohighlight">\(\rho = 2\)</span>、下側領域（<span class="math notranslate nohighlight">\(y &lt; 0\)</span>）では密度<span class="math notranslate nohighlight">\(\rho =1\)</span>です。圧力は<span class="math notranslate nohighlight">\(p =p_0 - \rho g y\)</span>とします。比熱比は<span class="math notranslate nohighlight">\(\gamma = 1.4\)</span>とします。</p>
+<p>The initial condition is described by the upper and lower states separated at <span class="math notranslate nohighlight">\(y=0.0\)</span>. The density is <span class="math notranslate nohighlight">\(\rho = 2\)</span> in the upper region (<span class="math notranslate nohighlight">\(y \geq 0\)</span>) and <span class="math notranslate nohighlight">\(\rho =1\)</span> in the lower region (<span class="math notranslate nohighlight">\(y &lt; 0\)</span>). The pressure is <span class="math notranslate nohighlight">\(p =p_0 - \rho g y\)</span>. The ratio of specific heats is <span class="math notranslate nohighlight">\(\gamma = 1.4\)</span>.</p>
 </section>
 <section id="boundary-conditions">
 <h2>Boundary Conditions<a class="headerlink" href="#boundary-conditions" title="Link to this heading"></a></h2>
-<p><span class="math notranslate nohighlight">\(x\)</span>方向に周期境界条件を、<span class="math notranslate nohighlight">\(y\)</span>方向に対しては全ての物理量に対して対称境界条件を設定します。
-ただし、<span class="math notranslate nohighlight">\(V_y\)</span>のみ<span class="math notranslate nohighlight">\(y=\pm0.5\)</span>で反対称に設定しています。
-<code class="docutils literal notranslate"><span class="pre">config.yaml</span></code>において、<span class="math notranslate nohighlight">\(x\)</span>方向の周期境界条件フラグをtrueに設定すると、対称境界条件が機能しなくなることに注意してください。</p>
+<p>A periodic boundary condition is imposed in the <span class="math notranslate nohighlight">\(x\)</span> direction, and a symmetric boundary condition is imposed on all variables in the <span class="math notranslate nohighlight">\(y\)</span> direction. Only <span class="math notranslate nohighlight">\(V_y\)</span> is set antisymmetric at <span class="math notranslate nohighlight">\(y=\pm0.5\)</span>. Note that if you set the periodic boundary flag in the <span class="math notranslate nohighlight">\(x\)</span> direction to true in <code class="docutils literal notranslate"><span class="pre">config.yaml</span></code>, the symmetric boundary condition no longer works.</p>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">domain</span><span class="p">:</span>
 <span class="w">  </span><span class="nt">periodic</span><span class="p">:</span>
 <span class="w">    </span><span class="nt">x</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span><span class="w">  </span><span class="c1"># when this flag is true, the symmetric boundary condition does not work</span>
@@ -155,8 +153,7 @@
 </section>
 <section id="results">
 <h2>Results<a class="headerlink" href="#results" title="Link to this heading"></a></h2>
-<p>可視化用のPythonスクリプトが用意されています。
-結果のプロットは <code class="docutils literal notranslate"><span class="pre">demo/hd2d_rayleigh_taylor/figs</span></code> に保存されます。</p>
+<p>A Python script for visualization is provided. The plots of the results are saved in <code class="docutils literal notranslate"><span class="pre">demo/hd2d_rayleigh_taylor/figs</span></code>.</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>demo/hd2d_rayleigh_taylor
 python<span class="w"> </span>plot_data.py
 </pre></div>
@@ -165,7 +162,7 @@ python<span class="w"> </span>plot_data.py
 </section>
 <section id="d-version">
 <h2>3D Version<a class="headerlink" href="#d-version" title="Link to this heading"></a></h2>
-<p>3次元への拡張は、設定ファイル<code class="docutils literal notranslate"><span class="pre">config.yaml</span></code>で<code class="docutils literal notranslate"><span class="pre">k_size</span></code>を1より大きく設定するだけで実現できます。</p>
+<p>The extension to 3D is achieved simply by setting <code class="docutils literal notranslate"><span class="pre">k_size</span></code> to a value larger than 1 in the configuration file <code class="docutils literal notranslate"><span class="pre">config.yaml</span></code>.</p>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># config.yaml</span>
 <span class="nt">grid</span><span class="p">:</span>
 <span class="w">  </span><span class="nt">i_size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">512</span>

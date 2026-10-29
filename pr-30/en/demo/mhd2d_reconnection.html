@@ -116,9 +116,9 @@
              
   <section class="tex2jax_ignore mathjax_ignore" id="d-mhd-test-petschek-reconnection">
 <h1>2D MHD Test: Petschek Reconnection<a class="headerlink" href="#d-mhd-test-petschek-reconnection" title="Link to this heading"></a></h1>
-<p>低ベータプラズマ中の磁気リコネクションで、アウトフロー (ジェット) の先端にできるプラズモイドのショック構造を調べる問題です。<span class="bibtex-citation" id="id1">[<a class="reference internal" href="../references.html#id7" title="S. Zenitani. Magnetohydrodynamic structure of a plasmoid in fast reconnection in low-beta plasmas: Shock-shock interactions. Physics of Plasmas, 22(3):032114, 2015. doi:10.1063/1.4916104.">Zenitani, 2015</a>]</span> の run 2 (<span class="math notranslate nohighlight">\(\beta_\mathrm{up} = 0.2\)</span>) の設定を使います。</p>
-<p>X 点の近くだけ電気抵抗を大きくすると、ペチェック型の速いリコネクションが起き、X 点から斜めに伸びるペチェックのスローショックに挟まれたアウトフローができます。このアウトフローがプラズマとリコネクションした磁力線を掃き集めて、ジェットの先端に1つの大きなプラズモイドを作ります。低ベータでは、プラズモイドを押すアウトフローの速さ (上流のアルフベン速度程度) が音速を超えるので、プラズモイドの周りにいくつものショックができます。これらのショックや不連続面を捉えられるかが、このテスト問題の見どころです。</p>
-<p>抵抗はソース項 <code class="docutils literal notranslate"><span class="pre">mhd::ResistiveSource</span></code> で与えます。誘導方程式に抵抗による拡散項が、全エネルギー<span class="math notranslate nohighlight">\(e\)</span>の式にそれに対応するエネルギー流束が加わります (ガウス単位系)。ジュール加熱の分は内部エネルギーに入ります。</p>
+<p>This problem investigates the shock structure of the plasmoid that forms at the tip of the outflow (jet) in magnetic reconnection in a low-beta plasma. We use the setup of run 2 (<span class="math notranslate nohighlight">\(\beta_\mathrm{up} = 0.2\)</span>) in <span class="bibtex-citation" id="id1">[<a class="reference internal" href="../references.html#id7" title="S. Zenitani. Magnetohydrodynamic structure of a plasmoid in fast reconnection in low-beta plasmas: Shock-shock interactions. Physics of Plasmas, 22(3):032114, 2015. doi:10.1063/1.4916104.">Zenitani, 2015</a>]</span>.</p>
+<p>When the resistivity is increased only near the X-point, Petschek-type fast reconnection occurs, and an outflow forms between the Petschek slow shocks extending obliquely from the X-point. This outflow sweeps up the plasma and the reconnected magnetic field lines, and forms one large plasmoid at the tip of the jet. At low beta, the speed of the outflow pushing the plasmoid (about the upstream Alfvén speed) exceeds the sound speed, so several shocks form around the plasmoid. Whether these shocks and discontinuities can be captured is the highlight of this test problem.</p>
+<p>The resistivity is given by the source term <code class="docutils literal notranslate"><span class="pre">mhd::ResistiveSource</span></code>. A diffusion term due to the resistivity is added to the induction equation, and the corresponding energy flux is added to the equation for the total energy <span class="math notranslate nohighlight">\(e\)</span> (in Gaussian units). The Joule heating goes into the internal energy.</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
 \begin{align*}
@@ -136,12 +136,12 @@
 <li><p><span class="math notranslate nohighlight">\(0 \leq x \leq 150\)</span></p></li>
 <li><p><span class="math notranslate nohighlight">\(0 \leq z \leq 30\)</span></p></li>
 </ul>
-<p>論文と同じく<span class="math notranslate nohighlight">\(x\)</span>-<span class="math notranslate nohighlight">\(z\)</span>面で解きます (<span class="math notranslate nohighlight">\(x\)</span>: アウトフロー方向、<span class="math notranslate nohighlight">\(z\)</span>: インフロー方向、<span class="math notranslate nohighlight">\(y\)</span>: 面外方向)。X 点を原点に置き、対称性を使って第1象限だけを計算します。既定の格子は <span class="math notranslate nohighlight">\(1500 \times 300\)</span> (格子幅 <span class="math notranslate nohighlight">\(0.1\)</span>) です。論文は <span class="math notranslate nohighlight">\([0, 200] \times [0, 150]\)</span> の領域を <span class="math notranslate nohighlight">\(12000 \times 9000\)</span> 格子 (格子幅 <span class="math notranslate nohighlight">\(1/60\)</span>) で計算しているので、それよりも領域は小さく、解像度も低い設定です。</p>
+<p>As in the paper, we solve in the <span class="math notranslate nohighlight">\(x\)</span>-<span class="math notranslate nohighlight">\(z\)</span> plane (<span class="math notranslate nohighlight">\(x\)</span>: outflow direction, <span class="math notranslate nohighlight">\(z\)</span>: inflow direction, <span class="math notranslate nohighlight">\(y\)</span>: out-of-plane direction). We place the X-point at the origin and, using symmetry, compute only the first quadrant. The default grid is <span class="math notranslate nohighlight">\(1500 \times 300\)</span> (grid spacing <span class="math notranslate nohighlight">\(0.1\)</span>). The paper computes the region <span class="math notranslate nohighlight">\([0, 200] \times [0, 150]\)</span> with <span class="math notranslate nohighlight">\(12000 \times 9000\)</span> grid points (grid spacing <span class="math notranslate nohighlight">\(1/60\)</span>), so our domain is smaller and the resolution is lower.</p>
 </section>
 <section id="initial-conditions">
 <h2>Initial Conditions<a class="headerlink" href="#initial-conditions" title="Link to this heading"></a></h2>
-<p>以下の式は論文の単位で書いています。MISOはガウス単位系を使うので、コードの中では磁場を<span class="math notranslate nohighlight">\(\sqrt{4\pi}\)</span>倍しています。比熱比は<span class="math notranslate nohighlight">\(\gamma = 5/3\)</span>とします。</p>
-<p>初期状態はハリス電流シートです。</p>
+<p>The equations below are written in the units of the paper. MISO uses Gaussian units, so the magnetic field is multiplied by <span class="math notranslate nohighlight">\(\sqrt{4\pi}\)</span> in the code. The ratio of specific heats is <span class="math notranslate nohighlight">\(\gamma = 5/3\)</span>.</p>
+<p>The initial state is a Harris current sheet.</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
 \begin{align*}
@@ -151,12 +151,12 @@ p &amp;= \frac{1}{2}\left(\beta_\mathrm{up} + \cosh^{-2} z\right), \\
 B_x &amp;= \tanh z,
 \end{align*}
 \end{split}\]</div>
-<p>ここで<span class="math notranslate nohighlight">\(\beta_\mathrm{up} = 0.2\)</span>は上流のプラズマベータです。リコネクションを始めるために、ベクトルポテンシャル<span class="math notranslate nohighlight">\(A_y\)</span>に摂動</p>
+<p>Here <span class="math notranslate nohighlight">\(\beta_\mathrm{up} = 0.2\)</span> is the upstream plasma beta. To start the reconnection, we add the following perturbation to the vector potential <span class="math notranslate nohighlight">\(A_y\)</span>:</p>
 <div class="math notranslate nohighlight">
 \[
 \delta A_y = -a \exp\left(-\frac{x^2 + z^2}{4}\right)
 \]</div>
-<p>を加えます (<span class="math notranslate nohighlight">\(a = 0.06\)</span>)。<span class="math notranslate nohighlight">\(\delta \bm{B} = \nabla \times (\delta A_y \bm{e}_y)\)</span> より</p>
+<p>where <span class="math notranslate nohighlight">\(a = 0.06\)</span>. From <span class="math notranslate nohighlight">\(\delta \bm{B} = \nabla \times (\delta A_y \bm{e}_y)\)</span>, we obtain</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
 \begin{align*}
@@ -164,19 +164,19 @@ B_x &amp;= \tanh z,
 \delta B_z &amp;= \frac{a}{2} x \exp\left(-\frac{x^2 + z^2}{4}\right).
 \end{align*}
 \end{split}\]</div>
-<p>電気抵抗は原点付近に局在させます。</p>
+<p>The resistivity is localized near the origin.</p>
 <div class="math notranslate nohighlight">
 \[
 \eta = \eta_0 + \left(\eta_1 - \eta_0\right) \cosh^{-2} \sqrt{x^2 + z^2}
 \]</div>
-<p>ここで<span class="math notranslate nohighlight">\(\eta_0 = 1/1000\)</span>、<span class="math notranslate nohighlight">\(\eta_1 = 1/60\)</span>です。<span class="math notranslate nohighlight">\(\beta_\mathrm{up}\)</span>、<span class="math notranslate nohighlight">\(\eta_0\)</span>、<span class="math notranslate nohighlight">\(\eta_1\)</span>、<span class="math notranslate nohighlight">\(a\)</span>は <code class="docutils literal notranslate"><span class="pre">config.yaml</span></code> の <code class="docutils literal notranslate"><span class="pre">reconnection</span></code> セクションで変更できます。</p>
+<p>Here <span class="math notranslate nohighlight">\(\eta_0 = 1/1000\)</span> and <span class="math notranslate nohighlight">\(\eta_1 = 1/60\)</span>. <span class="math notranslate nohighlight">\(\beta_\mathrm{up}\)</span>, <span class="math notranslate nohighlight">\(\eta_0\)</span>, <span class="math notranslate nohighlight">\(\eta_1\)</span>, and <span class="math notranslate nohighlight">\(a\)</span> can be changed in the <code class="docutils literal notranslate"><span class="pre">reconnection</span></code> section of <code class="docutils literal notranslate"><span class="pre">config.yaml</span></code>.</p>
 </section>
 <section id="boundary-conditions">
 <h2>Boundary Conditions<a class="headerlink" href="#boundary-conditions" title="Link to this heading"></a></h2>
-<p>すべての境界で、密度と内部エネルギーは対称 (偶) とします。ほかの物理量の偶奇は、下の表のとおりです。</p>
+<p>At all boundaries, the density and internal energy are symmetric (even). The parity of the other variables is given in the table below.</p>
 <ul class="simple">
-<li><p><span class="math notranslate nohighlight">\(x = 0\)</span>、<span class="math notranslate nohighlight">\(x = 150\)</span>、<span class="math notranslate nohighlight">\(z = 0\)</span>: 鏡映対称な境界。境界に垂直な速度、境界に平行な磁場 (擬ベクトル)、GLMのポテンシャル<span class="math notranslate nohighlight">\(\psi\)</span> (<span class="math notranslate nohighlight">\(\nabla \cdot \bm{B}\)</span>に比例) を反対称 (奇) にします。</p></li>
-<li><p><span class="math notranslate nohighlight">\(z = 30\)</span>: 完全導体の壁。境界に垂直な速度と磁場を反対称にします。</p></li>
+<li><p><span class="math notranslate nohighlight">\(x = 0\)</span>, <span class="math notranslate nohighlight">\(x = 150\)</span>, <span class="math notranslate nohighlight">\(z = 0\)</span>: mirror-symmetric boundaries. The velocity normal to the boundary, the magnetic field parallel to the boundary (a pseudovector), and the GLM potential <span class="math notranslate nohighlight">\(\psi\)</span> (proportional to <span class="math notranslate nohighlight">\(\nabla \cdot \bm{B}\)</span>) are antisymmetric (odd).</p></li>
+<li><p><span class="math notranslate nohighlight">\(z = 30\)</span>: a perfectly conducting wall. The velocity and magnetic field normal to the boundary are antisymmetric.</p></li>
 </ul>
 <table class="docutils align-default">
 <thead>
@@ -223,14 +223,13 @@ B_x &amp;= \tanh z,
 </section>
 <section id="results">
 <h2>Results<a class="headerlink" href="#results" title="Link to this heading"></a></h2>
-<p>可視化用のPythonスクリプトが用意されています。
-結果の動画と最終時刻の図は <code class="docutils literal notranslate"><span class="pre">demo/mhd2d_reconnection/figs</span></code> に保存されます。</p>
+<p>A Python script for visualization is provided. The movie of the results and the figure at the final time are saved in <code class="docutils literal notranslate"><span class="pre">demo/mhd2d_reconnection/figs</span></code>.</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>demo/mhd2d_reconnection
 python<span class="w"> </span>plot_data.py
 </pre></div>
 </div>
-<p><span class="bibtex-citation" id="id2">[<a class="reference internal" href="../references.html#id7" title="S. Zenitani. Magnetohydrodynamic structure of a plasmoid in fast reconnection in low-beta plasmas: Shock-shock interactions. Physics of Plasmas, 22(3):032114, 2015. doi:10.1063/1.4916104.">Zenitani, 2015</a>]</span> の Fig. 1 と同じく、上半分 (<span class="math notranslate nohighlight">\(z &gt; 0\)</span>) に<span class="math notranslate nohighlight">\(v_x\)</span>、下半分に<span class="math notranslate nohighlight">\(z\)</span>を反転させて<span class="math notranslate nohighlight">\(\nabla \cdot \bm{v}\)</span>を描きます。見やすくするため、<span class="math notranslate nohighlight">\(z\)</span>方向を2倍に引き伸ばしています。ショックは圧縮する層なので、<span class="math notranslate nohighlight">\(\nabla \cdot \bm{v} &lt; 0\)</span> (青) の線として見えます。論文では、ペチェックのスローショック、プラズモイドの後ろ側にできる逆向きのファストショック、プラズモイドの後ろ側と前側にできる縦向きのスローショックが示されています。</p>
-<p>下の動画は、格子幅を既定の 1/3 (<span class="math notranslate nohighlight">\(0.033\)</span>、<span class="math notranslate nohighlight">\(4500 \times 900\)</span> 格子) にして計算した <span class="math notranslate nohighlight">\(t = 0\)</span> から <span class="math notranslate nohighlight">\(250\)</span> までの時間発展です。ショックの幅は格子 3〜4 個分なので、既定の解像度 (格子幅 <span class="math notranslate nohighlight">\(0.1\)</span>) ではもっと太く見えます。論文 (格子幅 <span class="math notranslate nohighlight">\(1/60\)</span>) はさらに細かい計算です。</p>
+<p>As in Fig. 1 of <span class="bibtex-citation" id="id2">[<a class="reference internal" href="../references.html#id7" title="S. Zenitani. Magnetohydrodynamic structure of a plasmoid in fast reconnection in low-beta plasmas: Shock-shock interactions. Physics of Plasmas, 22(3):032114, 2015. doi:10.1063/1.4916104.">Zenitani, 2015</a>]</span>, we plot <span class="math notranslate nohighlight">\(v_x\)</span> in the upper half (<span class="math notranslate nohighlight">\(z &gt; 0\)</span>) and <span class="math notranslate nohighlight">\(\nabla \cdot \bm{v}\)</span> in the lower half with <span class="math notranslate nohighlight">\(z\)</span> flipped. For readability, the <span class="math notranslate nohighlight">\(z\)</span> direction is stretched by a factor of 2. Shocks are compressive layers, so they appear as lines of <span class="math notranslate nohighlight">\(\nabla \cdot \bm{v} &lt; 0\)</span> (blue). The paper shows the Petschek slow shocks, the reverse fast shocks behind the plasmoid, and the vertical slow shocks behind and in front of the plasmoid.</p>
+<p>The movie below shows the time evolution from <span class="math notranslate nohighlight">\(t = 0\)</span> to <span class="math notranslate nohighlight">\(250\)</span>, computed with the grid spacing reduced to 1/3 of the default (<span class="math notranslate nohighlight">\(0.033\)</span>, <span class="math notranslate nohighlight">\(4500 \times 900\)</span> grid points). The shock width is 3 to 4 grid cells, so at the default resolution (grid spacing <span class="math notranslate nohighlight">\(0.1\)</span>) the shocks look thicker. The paper (grid spacing <span class="math notranslate nohighlight">\(1/60\)</span>) uses an even finer grid.</p>
 <p><img alt="mhd2d_reconnection" src="../_images/reconnection.gif" /></p>
 </section>
 </section>

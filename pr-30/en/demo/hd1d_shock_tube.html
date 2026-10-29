@@ -116,8 +116,8 @@
              
   <section class="tex2jax_ignore mathjax_ignore" id="d-hd-test-sod-s-shock-tube">
 <h1>1D HD Test: Sod’s Shock Tube<a class="headerlink" href="#d-hd-test-sod-s-shock-tube" title="Link to this heading"></a></h1>
-<p>1次元の衝撃波管問題 <span class="bibtex-citation" id="id1">[<a class="reference internal" href="../references.html#id5" title="G. A. Sod. Review. A Survey of Several Finite Difference Methods for Systems of Nonlinear Hyperbolic Conservation Laws. Journal of Computational Physics, 27(1):1-31, April 1978. doi:10.1016/0021-9991(78)90023-2.">Sod, 1978</a>]</span> です。初期条件に不連続があるため、衝撃波、接触不連続、希薄波が発生します。この問題は、流体の方程式を解く数値スキームの検証によく用いられます。</p>
-<p>MISOで提供しているテスト問題では、<span class="math notranslate nohighlight">\(x\)</span>, <span class="math notranslate nohighlight">\(y\)</span>, <span class="math notranslate nohighlight">\(z\)</span>の各方向に1次元問題を実施していますが、本ページでは<span class="math notranslate nohighlight">\(x\)</span>方向の問題のみを説明します。</p>
+<p>This is the 1D shock tube problem <span class="bibtex-citation" id="id1">[<a class="reference internal" href="../references.html#id5" title="G. A. Sod. Review. A Survey of Several Finite Difference Methods for Systems of Nonlinear Hyperbolic Conservation Laws. Journal of Computational Physics, 27(1):1-31, April 1978. doi:10.1016/0021-9991(78)90023-2.">Sod, 1978</a>]</span>. Because the initial condition has a discontinuity, a shock wave, a contact discontinuity, and a rarefaction wave are generated. This problem is often used to verify numerical schemes that solve the fluid equations.</p>
+<p>The test problems provided in MISO run the 1D problem in each of the <span class="math notranslate nohighlight">\(x\)</span>, <span class="math notranslate nohighlight">\(y\)</span>, and <span class="math notranslate nohighlight">\(z\)</span> directions, but this page describes only the problem in the <span class="math notranslate nohighlight">\(x\)</span> direction.</p>
 <section id="location">
 <h2>Location<a class="headerlink" href="#location" title="Link to this heading"></a></h2>
 <p><code class="docutils literal notranslate"><span class="pre">demo/hd1d_shock_tube/</span></code></p>
@@ -128,7 +128,7 @@
 </section>
 <section id="initial-conditions">
 <h2>Initial Conditions<a class="headerlink" href="#initial-conditions" title="Link to this heading"></a></h2>
-<p>初期条件は、<span class="math notranslate nohighlight">\(x=0.5\)</span>で分離された左側と右側の状態で記述されます。比熱比は<span class="math notranslate nohighlight">\(\gamma = 1.4\)</span>とします。</p>
+<p>The initial condition is described by the left and right states separated at <span class="math notranslate nohighlight">\(x=0.5\)</span>. The ratio of specific heats is <span class="math notranslate nohighlight">\(\gamma = 1.4\)</span>.</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
 \begin{align*}
@@ -159,17 +159,16 @@ v_\mathrm{R}
 </section>
 <section id="boundary-conditions">
 <h2>Boundary Conditions<a class="headerlink" href="#boundary-conditions" title="Link to this heading"></a></h2>
-<p>すべての物理量について、対称境界条件を設定します。</p>
+<p>A symmetric boundary condition is imposed on all variables.</p>
 </section>
 <section id="results">
 <h2>Results<a class="headerlink" href="#results" title="Link to this heading"></a></h2>
-<p>Pythonを用いて可視化し、<span class="math notranslate nohighlight">\(x\)</span>, <span class="math notranslate nohighlight">\(y\)</span>, <span class="math notranslate nohighlight">\(z\)</span>方向の結果を比較できます。
-画像ファイルは<code class="docutils literal notranslate"><span class="pre">demo/hd1d_shock_tube/figs</span></code>に保存されます。</p>
+<p>You can visualize the results with Python and compare the results in the <span class="math notranslate nohighlight">\(x\)</span>, <span class="math notranslate nohighlight">\(y\)</span>, and <span class="math notranslate nohighlight">\(z\)</span> directions. The image files are saved in <code class="docutils literal notranslate"><span class="pre">demo/hd1d_shock_tube/figs</span></code>.</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>demo/hd1d_shock_tube
 python<span class="w"> </span>plot_data.py
 </pre></div>
 </div>
-<p>本pythonプログラムでは、解析解も計算しており、数値解と解析解の比較も行っています。</p>
+<p>This Python program also computes the analytical solution and compares it with the numerical solution.</p>
 <p><img alt="hd1d_shock_tube" src="../_images/hd_shock_tube_1d.png" /></p>
 </section>
 </section>

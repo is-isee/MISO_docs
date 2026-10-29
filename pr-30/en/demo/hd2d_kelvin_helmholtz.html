@@ -117,7 +117,7 @@
              
   <section class="tex2jax_ignore mathjax_ignore" id="d-hd-test-kelvin-helmholtz-instability">
 <h1>2D HD Test: Kelvin-Helmholtz Instability<a class="headerlink" href="#d-hd-test-kelvin-helmholtz-instability" title="Link to this heading"></a></h1>
-<p>ケルビン・ヘルムホルツ不安定性問題。設定した境界面を挟んで、上下で異なる速度を持つ流れが接しているときに発生する不安定性です。可視化のために、上下で密度を変えています。</p>
+<p>The Kelvin-Helmholtz instability problem. This instability occurs when flows with different velocities above and below a given interface are in contact. For visualization, the density is different above and below.</p>
 <section id="location">
 <h2>Location<a class="headerlink" href="#location" title="Link to this heading"></a></h2>
 <p><code class="docutils literal notranslate"><span class="pre">demo/hd2d_kelvin_helmholtz/</span></code></p>
@@ -131,7 +131,7 @@
 </section>
 <section id="initial-conditions">
 <h2>Initial Conditions<a class="headerlink" href="#initial-conditions" title="Link to this heading"></a></h2>
-<p>初期条件は、<span class="math notranslate nohighlight">\(y=0.0\)</span>で分離された上側と下側の状態と一定の圧力<span class="math notranslate nohighlight">\(p=2.5\)</span>で記述されます。比熱比は<span class="math notranslate nohighlight">\(\gamma = 1.4\)</span>とします。</p>
+<p>The initial condition is described by the upper and lower states separated at <span class="math notranslate nohighlight">\(y=0.0\)</span> and a uniform pressure <span class="math notranslate nohighlight">\(p=2.5\)</span>. The ratio of specific heats is <span class="math notranslate nohighlight">\(\gamma = 1.4\)</span>.</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
 \begin{align*}
@@ -158,8 +158,7 @@ v_\mathrm{L}
 </section>
 <section id="boundary-conditions">
 <h2>Boundary Conditions<a class="headerlink" href="#boundary-conditions" title="Link to this heading"></a></h2>
-<p><span class="math notranslate nohighlight">\(x\)</span>方向に周期境界条件を、<span class="math notranslate nohighlight">\(y\)</span>方向に対しては全ての物理量に対して対称境界条件を設定します。
-<code class="docutils literal notranslate"><span class="pre">config.yaml</span></code>において、<span class="math notranslate nohighlight">\(x\)</span>方向の周期境界条件フラグをtrueに設定すると、対称境界条件が機能しなくなることに注意してください。</p>
+<p>A periodic boundary condition is imposed in the <span class="math notranslate nohighlight">\(x\)</span> direction, and a symmetric boundary condition is imposed on all variables in the <span class="math notranslate nohighlight">\(y\)</span> direction. Note that if you set the periodic boundary flag in the <span class="math notranslate nohighlight">\(x\)</span> direction to true in <code class="docutils literal notranslate"><span class="pre">config.yaml</span></code>, the symmetric boundary condition no longer works.</p>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">domain</span><span class="p">:</span>
 <span class="w">  </span><span class="nt">periodic</span><span class="p">:</span>
 <span class="w">    </span><span class="nt">x</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span><span class="w">  </span><span class="c1"># when this flag is true, the symmetric boundary condition does not work</span>
@@ -168,8 +167,7 @@ v_\mathrm{L}
 </section>
 <section id="results">
 <h2>Results<a class="headerlink" href="#results" title="Link to this heading"></a></h2>
-<p>可視化用のPythonスクリプトが用意されています。
-結果のプロットは <code class="docutils literal notranslate"><span class="pre">demo/hd2d_kelvin_helmholtz/figs</span></code> に保存されます。</p>
+<p>A Python script for visualization is provided. The plots of the results are saved in <code class="docutils literal notranslate"><span class="pre">demo/hd2d_kelvin_helmholtz/figs</span></code>.</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>demo/hd2d_kelvin_helmholtz
 python<span class="w"> </span>plot_data.py
 </pre></div>
@@ -178,7 +176,7 @@ python<span class="w"> </span>plot_data.py
 </section>
 <section id="d-version">
 <h2>3D Version<a class="headerlink" href="#d-version" title="Link to this heading"></a></h2>
-<p>3次元への拡張は、設定ファイル<code class="docutils literal notranslate"><span class="pre">config.yaml</span></code>で<code class="docutils literal notranslate"><span class="pre">k_size</span></code>を1より大きく設定するだけで実現できます。</p>
+<p>The extension to 3D is achieved simply by setting <code class="docutils literal notranslate"><span class="pre">k_size</span></code> to a value larger than 1 in the configuration file <code class="docutils literal notranslate"><span class="pre">config.yaml</span></code>.</p>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># config.yaml</span>
 <span class="nt">grid</span><span class="p">:</span>
 <span class="w">  </span><span class="nt">i_size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">512</span>

@@ -116,8 +116,8 @@
              
   <section class="tex2jax_ignore mathjax_ignore" id="d-mhd-test-magnetized-sod-s-shock-tube">
 <h1>1D MHD Test: Magnetized Sod’s Shock Tube<a class="headerlink" href="#d-mhd-test-magnetized-sod-s-shock-tube" title="Link to this heading"></a></h1>
-<p>1次元の磁気流体力学的衝撃波管問題 <span class="bibtex-citation" id="id1">[<a class="reference internal" href="../references.html#id4" title="M. Brio and C. C. Wu. An Upwind Differencing Scheme for the Equations of Ideal Magnetohydrodynamics. Journal of Computational Physics, 75(2):400-422, April 1988. doi:10.1016/0021-9991(88)90120-9.">Brio and Wu, 1988</a>]</span> です。この問題は、磁気流体の方程式を解く数値スキームの検証によく用いられます。</p>
-<p>MISOで提供しているテスト問題では、<span class="math notranslate nohighlight">\(x\)</span>, <span class="math notranslate nohighlight">\(y\)</span>, <span class="math notranslate nohighlight">\(z\)</span>の各方向に1次元問題を実施していますが、本ページでは<span class="math notranslate nohighlight">\(x\)</span>方向の問題のみを説明します。</p>
+<p>This is the 1D magnetohydrodynamic shock tube problem <span class="bibtex-citation" id="id1">[<a class="reference internal" href="../references.html#id4" title="M. Brio and C. C. Wu. An Upwind Differencing Scheme for the Equations of Ideal Magnetohydrodynamics. Journal of Computational Physics, 75(2):400-422, April 1988. doi:10.1016/0021-9991(88)90120-9.">Brio and Wu, 1988</a>]</span>. This problem is often used to verify numerical schemes that solve the magnetohydrodynamic equations.</p>
+<p>The test problems provided in MISO run the 1D problem in each of the <span class="math notranslate nohighlight">\(x\)</span>, <span class="math notranslate nohighlight">\(y\)</span>, and <span class="math notranslate nohighlight">\(z\)</span> directions, but this page describes only the problem in the <span class="math notranslate nohighlight">\(x\)</span> direction.</p>
 <section id="location">
 <h2>Location<a class="headerlink" href="#location" title="Link to this heading"></a></h2>
 <p><code class="docutils literal notranslate"><span class="pre">demo/mhd1d_shock_tube/</span></code></p>
@@ -128,7 +128,7 @@
 </section>
 <section id="initial-conditions">
 <h2>Initial Conditions<a class="headerlink" href="#initial-conditions" title="Link to this heading"></a></h2>
-<p>初期条件は、 <span class="math notranslate nohighlight">\(x=0.5\)</span> で分離された左側と右側の状態と<span class="math notranslate nohighlight">\(B_x=0.75\sqrt{4\pi}\)</span>の軸方向の磁場で記述されます。比熱比は<span class="math notranslate nohighlight">\(\gamma = 2\)</span>とします。</p>
+<p>The initial condition is described by the left and right states separated at <span class="math notranslate nohighlight">\(x=0.5\)</span> and an axial magnetic field <span class="math notranslate nohighlight">\(B_x=0.75\sqrt{4\pi}\)</span>. The ratio of specific heats is <span class="math notranslate nohighlight">\(\gamma = 2\)</span>.</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
 \begin{align*}
@@ -160,16 +160,15 @@ B_\mathrm{R}
 \end{pmatrix} \\
 \end{align*}
 \end{split}\]</div>
-<p>ここで、<span class="math notranslate nohighlight">\(B_\mathrm{L}\)</span>と<span class="math notranslate nohighlight">\(B_\mathrm{R}\)</span>は横方向の磁場（<span class="math notranslate nohighlight">\(y\)</span>方向）です。</p>
+<p>Here, <span class="math notranslate nohighlight">\(B_\mathrm{L}\)</span> and <span class="math notranslate nohighlight">\(B_\mathrm{R}\)</span> are the transverse magnetic field (in the <span class="math notranslate nohighlight">\(y\)</span> direction).</p>
 </section>
 <section id="boundary-conditions">
 <h2>Boundary Conditions<a class="headerlink" href="#boundary-conditions" title="Link to this heading"></a></h2>
-<p>すべての物理量について、対称境界条件を設定します。</p>
+<p>A symmetric boundary condition is imposed on all variables.</p>
 </section>
 <section id="results">
 <h2>Results<a class="headerlink" href="#results" title="Link to this heading"></a></h2>
-<p>Pythonを用いて可視化し、<span class="math notranslate nohighlight">\(x\)</span>, <span class="math notranslate nohighlight">\(y\)</span>, <span class="math notranslate nohighlight">\(z\)</span>方向の結果を比較できます。
-画像ファイルは<code class="docutils literal notranslate"><span class="pre">demo/mhd1d_shock_tube/figs</span></code>に保存されます。</p>
+<p>You can visualize the results with Python and compare the results in the <span class="math notranslate nohighlight">\(x\)</span>, <span class="math notranslate nohighlight">\(y\)</span>, and <span class="math notranslate nohighlight">\(z\)</span> directions. The image files are saved in <code class="docutils literal notranslate"><span class="pre">demo/mhd1d_shock_tube/figs</span></code>.</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>demo/mhd1d_shock_tube
 python<span class="w"> </span>plot_data.py
 </pre></div>

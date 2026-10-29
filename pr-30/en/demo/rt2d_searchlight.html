@@ -116,13 +116,13 @@
              
   <section class="tex2jax_ignore mathjax_ignore" id="d-rt-test-searchlight-beam">
 <h1>2D RT Test: Searchlight Beam<a class="headerlink" href="#d-rt-test-searchlight-beam" title="Link to this heading"></a></h1>
-<p>サーチライト問題は、輻射輸送 (RT) ソルバの標準的なテスト問題です。境界の一部から細い光束 (サーチライト) を計算領域に入射させ、光束がどの程度広がらずに伝わるかを見ることで、短特性法(short characteristics) <span class="bibtex-citation" id="id1">[<a class="reference internal" href="../references.html#id6" title="P. Kunasz and L. H. Auer. Short characteristic integration of radiative transfer problems. Journal of Quantitative Spectroscopy and Radiative Transfer, 39(1):67-79, January 1988. doi:10.1016/0022-4073(88)90021-0.">Kunasz and Auer, 1988</a>]</span> の数値拡散の大きさを確認します。</p>
-<p>MISOのRTソルバは、離散化した方向ごとに輻射輸送方程式</p>
+<p>The searchlight problem is a standard test problem for radiative transfer (RT) solvers. A thin beam of light (the searchlight) is injected into the computational domain from part of the boundary, and we check the amount of numerical diffusion of the short characteristics method <span class="bibtex-citation" id="id1">[<a class="reference internal" href="../references.html#id6" title="P. Kunasz and L. H. Auer. Short characteristic integration of radiative transfer problems. Journal of Quantitative Spectroscopy and Radiative Transfer, 39(1):67-79, January 1988. doi:10.1016/0022-4073(88)90021-0.">Kunasz and Auer, 1988</a>]</span> by seeing how little the beam spreads as it propagates.</p>
+<p>The RT solver of MISO integrates the radiative transfer equation</p>
 <div class="math notranslate nohighlight">
 \[
 \frac{dI}{ds} = -\kappa \left(I - S\right)
 \]</div>
-<p>を短特性法で積分します。ここで<span class="math notranslate nohighlight">\(I\)</span>は輻射強度、<span class="math notranslate nohighlight">\(s\)</span>は光線に沿った距離、<span class="math notranslate nohighlight">\(\kappa\)</span>は吸収係数、<span class="math notranslate nohighlight">\(S\)</span>は源泉関数です。角度積分にはCarlsonのA4求積 (24方向) を用います。</p>
+<p>for each discretized direction with the short characteristics method. Here <span class="math notranslate nohighlight">\(I\)</span> is the intensity, <span class="math notranslate nohighlight">\(s\)</span> is the distance along the ray, <span class="math notranslate nohighlight">\(\kappa\)</span> is the absorption coefficient, and <span class="math notranslate nohighlight">\(S\)</span> is the source function. For the angular integration we use Carlson’s A4 quadrature (24 directions).</p>
 <section id="location">
 <h2>Location<a class="headerlink" href="#location" title="Link to this heading"></a></h2>
 <p><code class="docutils literal notranslate"><span class="pre">demo/rt2d_searchlight/</span></code></p>
@@ -133,30 +133,30 @@
 <li><p><span class="math notranslate nohighlight">\(-0.5 \leq x \leq 0.5\)</span></p></li>
 <li><p><span class="math notranslate nohighlight">\(-0.5 \leq y \leq 0.5\)</span></p></li>
 </ul>
-<p><span class="math notranslate nohighlight">\(z\)</span>方向は1格子点のみで、2次元問題として扱います。</p>
+<p>There is only one grid point in the <span class="math notranslate nohighlight">\(z\)</span> direction, so the problem is treated as a 2D problem.</p>
 </section>
 <section id="setup">
 <h2>Setup<a class="headerlink" href="#setup" title="Link to this heading"></a></h2>
-<p>計算領域全体で吸収係数と源泉関数を一様に</p>
+<p>We set the absorption coefficient and the source function uniformly over the whole computational domain to</p>
 <div class="math notranslate nohighlight">
 \[
 \kappa = 1, \quad S = 0.5
 \]</div>
-<p>とします。<code class="docutils literal notranslate"><span class="pre">config.yaml</span></code> の <code class="docutils literal notranslate"><span class="pre">searchlight</span></code> セクションで変更できます。</p>
+<p>They can be changed in the <code class="docutils literal notranslate"><span class="pre">searchlight</span></code> section of <code class="docutils literal notranslate"><span class="pre">config.yaml</span></code>.</p>
 </section>
 <section id="boundary-conditions">
 <h2>Boundary Conditions<a class="headerlink" href="#boundary-conditions" title="Link to this heading"></a></h2>
-<p><span class="math notranslate nohighlight">\(x\)</span>方向内側の境界 (<span class="math notranslate nohighlight">\(x = -0.5\)</span>) のうち <span class="math notranslate nohighlight">\(\sqrt{y^2 + z^2} \leq 0.2\)</span> の範囲から、内向きの全方向に強度 <span class="math notranslate nohighlight">\(I = 1\)</span> の輻射を入射させます。それ以外の境界からの入射強度は <span class="math notranslate nohighlight">\(0\)</span> です。<span class="math notranslate nohighlight">\(y\)</span>方向と<span class="math notranslate nohighlight">\(z\)</span>方向は周期境界条件です。</p>
-<p>入射させる境界面 (<code class="docutils literal notranslate"><span class="pre">boundary_face</span></code>)、半径 (<code class="docutils literal notranslate"><span class="pre">radius</span></code>)、入射強度 (<code class="docutils literal notranslate"><span class="pre">incoming_intensity</span></code>) は <code class="docutils literal notranslate"><span class="pre">config.yaml</span></code> で変更できます。</p>
+<p>From the part of the inner boundary in the <span class="math notranslate nohighlight">\(x\)</span> direction (<span class="math notranslate nohighlight">\(x = -0.5\)</span>) with <span class="math notranslate nohighlight">\(\sqrt{y^2 + z^2} \leq 0.2\)</span>, radiation of intensity <span class="math notranslate nohighlight">\(I = 1\)</span> is injected in all inward directions. The incident intensity from the other boundaries is <span class="math notranslate nohighlight">\(0\)</span>. The <span class="math notranslate nohighlight">\(y\)</span> and <span class="math notranslate nohighlight">\(z\)</span> directions have periodic boundary conditions.</p>
+<p>The boundary face of incidence (<code class="docutils literal notranslate"><span class="pre">boundary_face</span></code>), the radius (<code class="docutils literal notranslate"><span class="pre">radius</span></code>), and the incident intensity (<code class="docutils literal notranslate"><span class="pre">incoming_intensity</span></code>) can be changed in <code class="docutils literal notranslate"><span class="pre">config.yaml</span></code>.</p>
 </section>
 <section id="results">
 <h2>Results<a class="headerlink" href="#results" title="Link to this heading"></a></h2>
-<p>このデモは時間発展を行わず、輻射場が収束するまで反復して1回だけ出力します。可視化用のPythonスクリプトが用意されています。結果のプロットは <code class="docutils literal notranslate"><span class="pre">demo/rt2d_searchlight/figs</span></code> に保存されます。</p>
+<p>This demo does not evolve in time; it iterates until the radiation field converges and writes the output only once. A Python script for visualization is provided. The plots of the results are saved in <code class="docutils literal notranslate"><span class="pre">demo/rt2d_searchlight/figs</span></code>.</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>demo/rt2d_searchlight
 python<span class="w"> </span>plot_data.py
 </pre></div>
 </div>
-<p>平均強度 <span class="math notranslate nohighlight">\(J = \sum_r w_r I_r\)</span> と輻射流束 <span class="math notranslate nohighlight">\(\bm{F} = 4\pi \sum_r w_r \bm{\mu}_r I_r\)</span> の3成分を<span class="math notranslate nohighlight">\(x\)</span>-<span class="math notranslate nohighlight">\(y\)</span>面に描きます。ここで<span class="math notranslate nohighlight">\(w_r\)</span>、<span class="math notranslate nohighlight">\(\bm{\mu}_r\)</span>はそれぞれ方向<span class="math notranslate nohighlight">\(r\)</span>の重みと方向余弦です。境界から入った光束が、離散化した方向に沿って分かれて進む様子と、吸収によって減衰しながら源泉関数の値 <span class="math notranslate nohighlight">\(S = 0.5\)</span> に近づく様子が見えます。2次元問題なので <span class="math notranslate nohighlight">\(F_z\)</span> は丸め誤差程度の値になります。</p>
+<p>We plot the mean intensity <span class="math notranslate nohighlight">\(J = \sum_r w_r I_r\)</span> and the three components of the radiative flux <span class="math notranslate nohighlight">\(\bm{F} = 4\pi \sum_r w_r \bm{\mu}_r I_r\)</span> in the <span class="math notranslate nohighlight">\(x\)</span>-<span class="math notranslate nohighlight">\(y\)</span> plane. Here <span class="math notranslate nohighlight">\(w_r\)</span> and <span class="math notranslate nohighlight">\(\bm{\mu}_r\)</span> are the weight and the direction cosine of direction <span class="math notranslate nohighlight">\(r\)</span>, respectively. You can see the beam entering from the boundary split and travel along the discretized directions, and approach the source function value <span class="math notranslate nohighlight">\(S = 0.5\)</span> while being attenuated by absorption. Because this is a 2D problem, <span class="math notranslate nohighlight">\(F_z\)</span> is at the level of rounding error.</p>
 <p><img alt="rt2d_searchlight" src="../_images/rt_searchlight_2d.png" /></p>
 </section>
 </section>

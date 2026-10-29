@@ -118,14 +118,14 @@
              
   <section class="tex2jax_ignore mathjax_ignore" id="d-mhd-test-magnetosphere">
 <h1>3D MHD Test: Magnetosphere<a class="headerlink" href="#d-mhd-test-magnetosphere" title="Link to this heading"></a></h1>
-<p>地球磁気圏に太陽風が吹き付け、地球磁気圏が変形する様子をシミュレーションします。<span class="bibtex-citation" id="id1">[<a class="reference internal" href="../references.html#id2" title="T. Ogino. A three-dimensional MHD simulation of the interaction of the solar wind with the earth's magnetosphere: The generation of field-aligned currents. \jgr , 91(A6):6791-6806, June 1986. doi:10.1029/JA091iA06p06791.">Ogino, 1986</a>]</span>を参考にして、地球の中心から地球半径の3.5倍の位置にも境界を設置し、地球の双極子磁場とスムーズに接続するようにしています。</p>
+<p>This simulates how the solar wind blows against Earth’s magnetosphere and deforms it. Following <span class="bibtex-citation" id="id1">[<a class="reference internal" href="../references.html#id2" title="T. Ogino. A three-dimensional MHD simulation of the interaction of the solar wind with the earth's magnetosphere: The generation of field-aligned currents. \jgr , 91(A6):6791-6806, June 1986. doi:10.1029/JA091iA06p06791.">Ogino, 1986</a>]</span>, we also place a boundary at 3.5 Earth radii from the center of the Earth and connect it smoothly to the Earth’s dipole magnetic field.</p>
 <section id="location">
 <h2>Location<a class="headerlink" href="#location" title="Link to this heading"></a></h2>
 <p><code class="docutils literal notranslate"><span class="pre">demo/mhd3d_magnetosphere/</span></code></p>
 </section>
 <section id="normalization">
 <h2>Normalization<a class="headerlink" href="#normalization" title="Link to this heading"></a></h2>
-<p>物理量は以下の代表値で規格化しています。<span class="bibtex-citation" id="id2">[<a class="reference internal" href="../references.html#id2" title="T. Ogino. A three-dimensional MHD simulation of the interaction of the solar wind with the earth's magnetosphere: The generation of field-aligned currents. \jgr , 91(A6):6791-6806, June 1986. doi:10.1029/JA091iA06p06791.">Ogino, 1986</a>]</span>ではMKS単位系が使われていますが、本シミュレーションではcgs単位系を使用していることに注意してください。</p>
+<p>The variables are normalized by the following typical values. Note that <span class="bibtex-citation" id="id2">[<a class="reference internal" href="../references.html#id2" title="T. Ogino. A three-dimensional MHD simulation of the interaction of the solar wind with the earth's magnetosphere: The generation of field-aligned currents. \jgr , 91(A6):6791-6806, June 1986. doi:10.1029/JA091iA06p06791.">Ogino, 1986</a>]</span> uses MKS units, whereas this simulation uses cgs units.</p>
 <table class="docutils align-default">
 <thead>
 <tr class="row-odd"><th class="head text-center"><p>Quantity</p></th>
@@ -186,7 +186,7 @@
 </section>
 <section id="force">
 <h2>Force<a class="headerlink" href="#force" title="Link to this heading"></a></h2>
-<p>地球の中心に向かう重力を考慮します。</p>
+<p>We take into account gravity directed toward the center of the Earth.</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
 \begin{align*}
@@ -199,8 +199,8 @@ r^2 &amp;= x^2 + y^2 + z^2,
 </section>
 <section id="initial-conditions">
 <h2>Initial Conditions<a class="headerlink" href="#initial-conditions" title="Link to this heading"></a></h2>
-<p>初期条件は、磁気圏と太陽風の組み合わせで記述されます。比熱比は<span class="math notranslate nohighlight">\(\gamma = 5/3\)</span>とします。</p>
-<p>密度</p>
+<p>The initial condition is described by a combination of the magnetosphere and the solar wind. The ratio of specific heats is <span class="math notranslate nohighlight">\(\gamma = 5/3\)</span>.</p>
+<p>Density</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
 \begin{align*}
@@ -211,7 +211,7 @@ r^2 &amp;= x^2 + y^2 + z^2,
 \end{cases}
 \end{align*}
 \end{split}\]</div>
-<p>圧力</p>
+<p>Pressure</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
 \begin{align*}
@@ -222,7 +222,7 @@ p_\mathrm{sw} &amp; p_0/r^2 &lt; p_\mathrm{sw}
 \end{cases}
 \end{align*}
 \end{split}\]</div>
-<p>双極子磁場</p>
+<p>Dipole magnetic field</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
 \begin{align*}
@@ -234,17 +234,15 @@ x^2 + y^2 - 2z^2
 \end{pmatrix}
 \end{align*}
 \end{split}\]</div>
-<p>ここで<span class="math notranslate nohighlight">\(p_0 = 5.4\times10^{-7}\)</span>。
-太陽風のパラメータは、<span class="math notranslate nohighlight">\(\rho_\mathrm{sw}=5\times10^{-4}\)</span>、<span class="math notranslate nohighlight">\(p_\mathrm{sw}=3.56\times10^{-8}\)</span>、<span class="math notranslate nohighlight">\(v_\mathrm{sw}=0.05\)</span>、<span class="math notranslate nohighlight">\(B_\mathrm{sw}=-1.5\times10^{-4}\)</span>です。</p>
+<p>Here <span class="math notranslate nohighlight">\(p_0 = 5.4\times10^{-7}\)</span>. The solar wind parameters are <span class="math notranslate nohighlight">\(\rho_\mathrm{sw}=5\times10^{-4}\)</span>, <span class="math notranslate nohighlight">\(p_\mathrm{sw}=3.56\times10^{-8}\)</span>, <span class="math notranslate nohighlight">\(v_\mathrm{sw}=0.05\)</span>, and <span class="math notranslate nohighlight">\(B_\mathrm{sw}=-1.5\times10^{-4}\)</span>.</p>
 </section>
 <section id="boundary-conditions">
 <h2>Boundary Conditions<a class="headerlink" href="#boundary-conditions" title="Link to this heading"></a></h2>
-<p>すべての境界に対して、<span class="math notranslate nohighlight">\(x = -44.8\)</span>境界を除き、全ての物理量に対して対称境界条件を設定します。<span class="math notranslate nohighlight">\(x = -44.8\)</span>境界では、上記の太陽風のパラメータを固定境界条件として設定します。<code class="docutils literal notranslate"><span class="pre">config.yaml</span></code>では以下のように設定します。加えて、地球周辺(<span class="math notranslate nohighlight">\(r = 3.5R_\mathrm{E}\)</span>)に境界のような条件を設定し、双極子磁場とスムーズに接続するようにしています。</p>
+<p>A symmetric boundary condition is imposed on all variables at all boundaries except the <span class="math notranslate nohighlight">\(x = -44.8\)</span> boundary. At the <span class="math notranslate nohighlight">\(x = -44.8\)</span> boundary, the solar wind parameters above are imposed as a fixed boundary condition. This is set in <code class="docutils literal notranslate"><span class="pre">config.yaml</span></code> as follows. In addition, a boundary-like condition is imposed around the Earth (<span class="math notranslate nohighlight">\(r = 3.5R_\mathrm{E}\)</span>) so that it connects smoothly to the dipole magnetic field.</p>
 </section>
 <section id="results">
 <h2>Results<a class="headerlink" href="#results" title="Link to this heading"></a></h2>
-<p>可視化用のPythonスクリプトが用意されています。
-結果のプロットは <code class="docutils literal notranslate"><span class="pre">demo/mhd3d_magnetosphere/figs</span></code> に保存されます。</p>
+<p>A Python script for visualization is provided. The plots of the results are saved in <code class="docutils literal notranslate"><span class="pre">demo/mhd3d_magnetosphere/figs</span></code>.</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>demo/mhd3d_magnetosphere
 python<span class="w"> </span>plot_data.py
 </pre></div>
