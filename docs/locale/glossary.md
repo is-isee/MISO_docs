@@ -70,4 +70,4 @@
 | 可視化用のスクリプト | visualization script | |
 | 計算を再開する | restart (a run) | |
 | 名古屋大学宇宙地球環境研究所（ISEE） | Institute for Space-Earth Environmental Research (ISEE), Nagoya University | |
-| 総合解析研究部 | Integrated Studies Division | |
+| 総合解析研究部 | Division of Integrated Studies | |
