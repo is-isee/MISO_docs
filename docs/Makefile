@@ -12,7 +12,7 @@ BUILDDIR      = _build
 help:
 	@$(SPHINXBUILD) -M help "$(SOURCEDIR)" "$(BUILDDIR)" $(SPHINXOPTS) $(O)
 
-.PHONY: help Makefile html-en update-po
+.PHONY: help Makefile html-en update-po po-todo
 
 # 英語版。先に make html で Doxygen の XML と source/api を作っておく。
 # 出力は $(BUILDDIR)/html/en（公開先は /MISO_docs/en/）。
@@ -44,3 +44,7 @@ update-po: gettext
 
 clean:
 	rm -rf _build source/api doxygen/_build
+
+# 訳し直しが要る項目（fuzzy と、日本語を含むのに訳が空の項目）を並べる。なければ何も出さない。
+po-todo:
+	@python locale/po_todo.py
