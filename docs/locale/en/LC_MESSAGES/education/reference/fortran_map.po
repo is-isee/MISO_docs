@@ -1,0 +1,1133 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2025, Integrated Studies, ISEE, Nagoya University
+# This file is distributed under the same license as the MISO package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: MISO \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-10-29 09:37+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: en\n"
+"Language-Team: en <LL@li.org>\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.18.0\n"
+
+msgid "Fortran との対応表"
+msgstr ""
+
+msgid "Fortran で書いていた処理を、C++ と MISO でどう書くかを引くための表です。 左の列で Fortran の書き方を探し、右の列の書き方と、説明している章へ進んでください。 表の対応は「同じ目的に使う書き方」の対応で、意味が完全に同じとは限りません。違いがある行には注意を書いています。 ソースのパスは、MISO を clone したフォルダからの相対パスです。"
+msgstr ""
+
+msgid "目次"
+msgstr ""
+
+#, python-brace-format
+msgid "{ref}`1. プログラムの構成 <edu-ref-fortran-map-program>`"
+msgstr ""
+
+#, python-brace-format
+msgid "{ref}`2. 型・宣言・定数 <edu-ref-fortran-map-types>`"
+msgstr ""
+
+#, python-brace-format
+msgid "{ref}`3. 演算子と組み込み関数 <edu-ref-fortran-map-operators>`"
+msgstr ""
+
+#, python-brace-format
+msgid "{ref}`4. 制御文 <edu-ref-fortran-map-control>`"
+msgstr ""
+
+#, python-brace-format
+msgid "{ref}`5. 配列 <edu-ref-fortran-map-arrays>`"
+msgstr ""
+
+#, python-brace-format
+msgid "{ref}`6. 手続き（subroutine・function） <edu-ref-fortran-map-procedures>`"
+msgstr ""
+
+#, python-brace-format
+msgid "{ref}`7. module と use <edu-ref-fortran-map-modules>`"
+msgstr ""
+
+#, python-brace-format
+msgid "{ref}`8. 派生型 <edu-ref-fortran-map-derived-types>`"
+msgstr ""
+
+#, python-brace-format
+msgid "{ref}`9. pointer と allocatable <edu-ref-fortran-map-pointers>`"
+msgstr ""
+
+#, python-brace-format
+msgid "{ref}`10. 入出力とエラー処理 <edu-ref-fortran-map-io>`"
+msgstr ""
+
+#, python-brace-format
+msgid "{ref}`11. MPI <edu-ref-fortran-map-mpi>`"
+msgstr ""
+
+#, python-brace-format
+msgid "{ref}`12. 並列化の指示文とビルド <edu-ref-fortran-map-parallel>`"
+msgstr ""
+
+msgid "1. プログラムの構成"
+msgstr ""
+
+msgid "Fortran"
+msgstr ""
+
+msgid "C++・MISO"
+msgstr ""
+
+msgid "注意"
+msgstr ""
+
+msgid "説明"
+msgstr ""
+
+msgid "`program main` 〜 `end program`"
+msgstr ""
+
+#, python-brace-format
+msgid "`int main(int argc, char **argv) { ... }`"
+msgstr ""
+
+msgid "`argc`, `argv` はコマンド行の引数です"
+msgstr ""
+
+#, python-brace-format
+msgid "{ref}`第 2 章 <edu-ch02>`"
+msgstr ""
+
+msgid "`implicit none`"
+msgstr ""
+
+msgid "不要"
+msgstr ""
+
+msgid "C++ では、すべての変数を宣言してから使います。暗黙の型はありません"
+msgstr ""
+
+msgid "`! コメント`"
+msgstr ""
+
+msgid "`// コメント`、`/* ... */`"
+msgstr ""
+
+msgid "行の継続 `&`"
+msgstr ""
+
+msgid "文は `;` で終わります。改行は文の区切りになりません"
+msgstr ""
+
+msgid "大文字と小文字を区別しない"
+msgstr ""
+
+msgid "区別する"
+msgstr ""
+
+msgid "`Real` と `real` は別の名前です"
+msgstr ""
+
+msgid "`end do`, `end if`"
+msgstr ""
+
+msgid "`}`"
+msgstr ""
+
+#, python-brace-format
+msgid "`{ }` で囲んだ範囲がブロックです"
+msgstr ""
+
+msgid "`include 'file.inc'`"
+msgstr ""
+
+msgid "`#include \"file.hpp\"`"
+msgstr ""
+
+msgid "`#include` はファイルの中身をその場所に展開します"
+msgstr ""
+
+msgid "ソースファイル `.F90`（プリプロセッサあり）"
+msgstr ""
+
+msgid "ヘッダ `.hpp` と実装 `.cpp`。MISO はヘッダだけ（ヘッダオンリー）"
+msgstr ""
+
+msgid "ヘッダの中のテンプレートでない関数には `inline` を付けます"
+msgstr ""
+
+msgid "初期化の `call xxx_init` を順に並べる"
+msgstr ""
+
+msgid "オブジェクトを作るとコンストラクタが動く（`Model model(config);`）"
+msgstr ""
+
+msgid "後片付けはデストラクタが自動で行います"
+msgstr ""
+
+#, python-brace-format
+msgid "{ref}`第 4 章 <edu-ch04>`、{ref}`第 11 章 <edu-ch11>`"
+msgstr ""
+
+msgid "2. 型・宣言・定数"
+msgstr ""
+
+msgid "`integer :: n`"
+msgstr ""
+
+msgid "`int n;`"
+msgstr ""
+
+msgid "関数の中の `int n;` は値が決まりません。`int n = 0;` のように初期化します"
+msgstr ""
+
+msgid "`real :: x`（単精度）"
+msgstr ""
+
+msgid "`float x;`"
+msgstr ""
+
+msgid "`real(8) :: x`、`double precision :: x`"
+msgstr ""
+
+msgid "`double x;`"
+msgstr ""
+
+msgid "`integer, parameter :: dp = kind(1.0d0)` と `real(dp) :: x`"
+msgstr ""
+
+msgid "`using Real = double;` と `Real x;`"
+msgstr ""
+
+msgid "MISO のデモは `using Real = float;` です。MISO の部品は `Real` をテンプレート引数で受け取ります"
+msgstr ""
+
+#, python-brace-format
+msgid "{ref}`第 2 章 <edu-ch02>`、{ref}`第 6 章 <edu-ch06>`"
+msgstr ""
+
+msgid "`1.0`（既定は単精度）、`1.0d0`、`1.0_dp`"
+msgstr ""
+
+msgid "`1.0f`（`float`）、`1.0`（`double`）、`Real(1.0)`"
+msgstr ""
+
+msgid "**C++ の `1.0` は倍精度です**。`Real` が `float` の計算に `0.5` を混ぜると倍精度で計算されるので、MISO では `Real(0.5)` と書きます"
+msgstr ""
+
+msgid "`logical :: f = .true.`"
+msgstr ""
+
+msgid "`bool f = true;`"
+msgstr ""
+
+msgid "`character(len=*) :: s`、`//`（連結）"
+msgstr ""
+
+msgid "`std::string s;`、`+`"
+msgstr ""
+
+msgid "長さは自動で決まり、`trim` は不要です"
+msgstr ""
+
+msgid "`real, parameter :: pi = 3.14159`"
+msgstr ""
+
+msgid "`constexpr double pi = 3.14159;`、`const`"
+msgstr ""
+
+msgid "MISO の $\\pi$ は `pi<Real>`（変数テンプレート、`miso/include/miso/constants.hpp`）"
+msgstr ""
+
+msgid "`real(x)`、`dble(n)`（型変換）"
+msgstr ""
+
+msgid "`Real(x)`、`static_cast<double>(n)`"
+msgstr ""
+
+msgid "`int(x)`"
+msgstr ""
+
+msgid "`static_cast<int>(x)`"
+msgstr ""
+
+msgid "どちらも 0 の方向へ切り捨てます"
+msgstr ""
+
+msgid "型を書かずに右辺から決める書き方はない"
+msgstr ""
+
+msgid "`auto x = ...;`"
+msgstr ""
+
+msgid "右辺の型がそのまま変数の型になります"
+msgstr ""
+
+msgid "3. 演算子と組み込み関数"
+msgstr ""
+
+msgid "`x**2`、`x**3`"
+msgstr ""
+
+msgid "`util::pow2(x)`、`util::pow3(x)`（`miso/include/miso/utility.hpp`）、`std::pow(x, y)`"
+msgstr ""
+
+msgid "C++ にべき乗の演算子はありません。`^` は排他的論理和です"
+msgstr ""
+
+msgid "`7 / 2`（整数の割り算）"
+msgstr ""
+
+msgid "`7 / 2`"
+msgstr ""
+
+msgid "どちらも結果は 3 です"
+msgstr ""
+
+msgid "`mod(a, b)`"
+msgstr ""
+
+msgid "`a % b`（整数）、`std::fmod(a, b)`（浮動小数点）"
+msgstr ""
+
+msgid "負の数でも符号の規則は同じです（割られる数の符号）"
+msgstr ""
+
+msgid "`==`、`/=`、`.eq.`、`.ne.`"
+msgstr ""
+
+msgid "`==`、`!=`"
+msgstr ""
+
+msgid "`/=` は C++ では「割って代入」です"
+msgstr ""
+
+msgid "`.and.`、`.or.`、`.not.`"
+msgstr ""
+
+msgid "`&&`、`||`、`!`"
+msgstr ""
+
+msgid "`x = x + 1`"
+msgstr ""
+
+msgid "`x = x + 1;`、`x += 1;`、`++x;`"
+msgstr ""
+
+msgid "`sqrt`、`exp`、`sin`、`abs`"
+msgstr ""
+
+msgid "`util::sqrt`、`util::exp`、`util::sin`、`util::fabs`"
+msgstr ""
+
+msgid "`util::` の関数は `float` と `double` の両方に対応し、GPU でも呼べます"
+msgstr ""
+
+#, python-brace-format
+msgid "{ref}`第 2 章 <edu-ch02>`、{ref}`第 9 章 <edu-ch09>`"
+msgstr ""
+
+msgid "`max(a, b)`、`min(a, b, c)`"
+msgstr ""
+
+msgid "`util::max2(a, b)`、`util::min3(a, b, c)`"
+msgstr ""
+
+msgid "`sign(a, b)`"
+msgstr ""
+
+msgid "`util::copysign(a, b)`"
+msgstr ""
+
+msgid "`write(str, '(i8.8)') n`（0 で埋める）"
+msgstr ""
+
+msgid "`util::zfill(n, 8)`"
+msgstr ""
+
+msgid "出力ファイル名に使います"
+msgstr ""
+
+msgid "4. 制御文"
+msgstr ""
+
+msgid "`if (c) then` 〜 `else if` 〜 `else` 〜 `end if`"
+msgstr ""
+
+#, python-brace-format
+msgid "`if (c) { } else if (c2) { } else { }`"
+msgstr ""
+
+msgid "条件は `( )` で囲みます"
+msgstr ""
+
+msgid "`do i = 1, n`"
+msgstr ""
+
+msgid "`for (int i = 0; i < n; ++i)`"
+msgstr ""
+
+msgid "**0 から始まり、上限 `n` を含みません**。回数は同じ `n` 回です"
+msgstr ""
+
+msgid "`do i = n, 1, -1`"
+msgstr ""
+
+msgid "`for (int i = n - 1; i >= 0; --i)`"
+msgstr ""
+
+msgid "`do while (t < tend)`"
+msgstr ""
+
+#, python-brace-format
+msgid "`while (t < tend) { }`"
+msgstr ""
+
+msgid "MISO の時間ループは `ModelBase::run` の `while (time.time < time.tend)`"
+msgstr ""
+
+#, python-brace-format
+msgid "{ref}`第 2 章 <edu-ch02>`、{ref}`第 11 章 <edu-ch11>`"
+msgstr ""
+
+msgid "`exit`、`cycle`"
+msgstr ""
+
+msgid "`break`、`continue`"
+msgstr ""
+
+msgid "**C++ の `continue` は「次の回へ進む」で、Fortran の `continue` 文（何もしない）とは別物です**"
+msgstr ""
+
+msgid "`select case (d)` 〜 `case (1)`"
+msgstr ""
+
+#, python-brace-format
+msgid "`switch (d) { case Direction::X: ...; break; }`"
+msgstr ""
+
+msgid "各 `case` の最後に `break` がないと、次の `case` も実行されます"
+msgstr ""
+
+msgid "`#ifdef` で処理を選ぶ（コンパイル時）"
+msgstr ""
+
+msgid "`#ifdef`、または `if constexpr`"
+msgstr ""
+
+msgid "`if constexpr` は型や定数で選び、選ばれなかった側はコンパイルされません"
+msgstr ""
+
+msgid "5. 配列"
+msgstr ""
+
+msgid "5.1 宣言と確保"
+msgstr ""
+
+msgid "`real, allocatable :: a(:,:,:)` と `allocate(a(nx, ny, nz))`"
+msgstr ""
+
+msgid "`Array3D<Real> a(nx, ny, nz);`"
+msgstr ""
+
+msgid "宣言と確保が同時です。`Array3D<Real, backend::CUDA>` なら GPU 上に確保します"
+msgstr ""
+
+#, python-brace-format
+msgid "{ref}`第 7 章 <edu-ch07>`"
+msgstr ""
+
+msgid "`deallocate(a)`"
+msgstr ""
+
+msgid "`a` の寿命が終わるとデストラクタが解放します"
+msgstr ""
+
+#, python-brace-format
+msgid "{ref}`第 4 章 <edu-ch04>`、{ref}`第 7 章 <edu-ch07>`"
+msgstr ""
+
+msgid "`real :: a(n)`（1 次元）"
+msgstr ""
+
+msgid "`Array1D<Real> a(n);`、`std::vector<Real> a(n);`"
+msgstr ""
+
+#, python-brace-format
+msgid "{ref}`第 2 章 <edu-ch02>`、{ref}`第 7 章 <edu-ch07>`"
+msgstr ""
+
+msgid "`real :: q(nx, ny, nz, 9)`（変数を 4 番目の添字に並べる）"
+msgstr ""
+
+msgid "`Fields` の 9 つのメンバ `ro`, `vx`, ... `ph`（それぞれ `Array3D`）"
+msgstr ""
+
+msgid "MISO は変数ごとに別の配列を持ちます（`miso/include/miso/mhd_fields.hpp`）"
+msgstr ""
+
+msgid "`size(a)`、`size(a, 1)`"
+msgstr ""
+
+msgid "`a.size()`、`a.extent(0)`"
+msgstr ""
+
+msgid "次元の番号も 0 から数えます"
+msgstr ""
+
+msgid "5.2 添字の始まりとゴーストセル"
+msgstr ""
+
+msgid "`a(1)` が最初の要素"
+msgstr ""
+
+msgid "`a(0)` が最初の要素"
+msgstr ""
+
+msgid "`real :: a(1-m:nx+m)`（下限を決めてゴーストセルを持つ）"
+msgstr ""
+
+msgid "添字は常に `0` から `i_total - 1`。内部の格子点は `i_margin` から `i_total - i_margin - 1`"
+msgstr ""
+
+msgid "MISO の配列は下限を変えられません。`i_total = i_size + 2 * i_margin` です（`miso/include/miso/grid.hpp`）"
+msgstr ""
+
+#, python-brace-format
+msgid "{ref}`第 8 章 <edu-ch08>`"
+msgstr ""
+
+msgid "`do i = 1, nx`（内部の格子点）"
+msgstr ""
+
+msgid "`for (int i = grid.i_margin; i < grid.i_total - grid.i_margin; ++i)`"
+msgstr ""
+
+#, python-brace-format
+msgid "{ref}`第 8 章 <edu-ch08>`、{ref}`第 11 章 <edu-ch11>`"
+msgstr ""
+
+msgid "5.3 メモリ上の並び"
+msgstr ""
+
+msgid "**Fortran は最初の添字が連続（列優先、column-major）、MISO の `Array3D` は最後の添字が連続（行優先、row-major）です。** 同じ `a(i, j, k)` と書いても、メモリ上で隣にある要素が違います。"
+msgstr ""
+
+msgid "Fortran の `a(i, j, k)`"
+msgstr ""
+
+msgid "MISO の `a(i, j, k)`"
+msgstr ""
+
+msgid "メモリ上で隣の要素"
+msgstr ""
+
+msgid "`a(i+1, j, k)`"
+msgstr ""
+
+msgid "`a(i, j, k+1)`"
+msgstr ""
+
+msgid "速く回すループ（最も内側）"
+msgstr ""
+
+msgid "`i`"
+msgstr ""
+
+msgid "`k`"
+msgstr ""
+
+msgid "要素の位置（`a(nx, ny, nz)`）"
+msgstr ""
+
+msgid "`i + nx*(j + ny*k)`（0 始まりに直した場合）"
+msgstr ""
+
+msgid "`(i*ny + j)*nz + k`"
+msgstr ""
+
+msgid "次の短いプログラムは、MISO の `Array3D` で要素がメモリの先頭から何番目にあるかを表示します（説明用の例）。"
+msgstr ""
+
+msgid "`k` を 1 増やすと隣（1 番目）、`j` を 1 増やすと 4 個先、`i` を 1 増やすと $3 \\times 4 = 12$ 個先です。 Fortran で同じ大きさの配列 `a(2, 3, 4)` を作ると、`a(2, 1, 1)` が先頭から 2 番目（1 始まり）になり、`i` の方向が連続します。 MISO の出力ファイル（`mhd/mhd.*.bin`）もこの並びで書かれるので、Fortran や NumPy で読むときは添字の順に注意します。"
+msgstr ""
+
+msgid "5.4 配列の式と部分配列"
+msgstr ""
+
+msgid "`a = 0.0`（配列全体への代入）"
+msgstr ""
+
+msgid "ループ、または `for_each`"
+msgstr ""
+
+msgid "C++ の配列型に、配列全体の演算の書き方はありません"
+msgstr ""
+
+msgid "`a(:,:,:) = b(:,:,:)`"
+msgstr ""
+
+msgid "`a.copy_from(b);`"
+msgstr ""
+
+msgid "CPU と GPU の間のコピーにも使います"
+msgstr ""
+
+#, python-brace-format
+msgid "{ref}`第 7 章 <edu-ch07>`、{ref}`第 9 章 <edu-ch09>`"
+msgstr ""
+
+msgid "`maxval(a)`、`minval(a)`、`sum(a)`"
+msgstr ""
+
+msgid "`reduce(btag, range, init, map, op)`"
+msgstr ""
+
+msgid "最小値なら `op` に `util::min2` を使います"
+msgstr ""
+
+msgid "`where (a < 0) a = 0`"
+msgstr ""
+
+msgid "ループの中の `if`"
+msgstr ""
+
+msgid "部分配列を引数に渡す `call s(a(:, :, k))`"
+msgstr ""
+
+msgid "View（`Array3DView` など）を渡すか、添字の範囲を引数で渡す"
+msgstr ""
+
+msgid "MISO の View は配列全体を指す軽い窓です。部分配列を切り出す機能はありません"
+msgstr ""
+
+msgid "6. 手続き（subroutine・function）"
+msgstr ""
+
+msgid "`subroutine s(a, b)` と `call s(a, b)`"
+msgstr ""
+
+#, python-brace-format
+msgid "`void s(T a, U b) { }` と `s(a, b);`"
+msgstr ""
+
+msgid "戻り値のない関数です"
+msgstr ""
+
+msgid "`function f(x) result(y)`"
+msgstr ""
+
+#, python-brace-format
+msgid "`Real f(Real x) { return y; }`"
+msgstr ""
+
+msgid "戻り値の型を名前の前に書き、`return` で返します"
+msgstr ""
+
+msgid "引数は参照で渡す（既定）"
+msgstr ""
+
+msgid "**引数は値で渡す（既定）**。参照で渡すには `T &a`"
+msgstr ""
+
+msgid "`void s(Real a)` の中で `a` を変えても、呼び出し側の変数は変わりません"
+msgstr ""
+
+#, python-brace-format
+msgid "{ref}`第 3 章 <edu-ch03>`"
+msgstr ""
+
+msgid "`intent(in)`"
+msgstr ""
+
+msgid "小さな値は値渡し（`Real x`）、大きなものは `const T &x`"
+msgstr ""
+
+msgid "`const` の付いた参照は、コピーせず、書き換えも禁止します"
+msgstr ""
+
+msgid "`intent(out)`、`intent(inout)`"
+msgstr ""
+
+msgid "`T &x`"
+msgstr ""
+
+msgid "`optional` と `present(x)`"
+msgstr ""
+
+msgid "既定の引数 `void s(int n = 1)`、`std::optional<T>` と `has_value()`、`value_or()`"
+msgstr ""
+
+msgid "`parse_config_filepath` は `std::optional<std::string>` を返します（`miso/include/miso/config.hpp`）"
+msgstr ""
+
+#, python-brace-format
+msgid "{ref}`第 2 章 <edu-ch02>`、{ref}`第 4 章 <edu-ch04>`"
+msgstr ""
+
+msgid "`interface` で同じ名前に複数の手続きを束ねる（総称名）"
+msgstr ""
+
+msgid "同じ名前で引数の型が違う関数を定義する（オーバーロード）、テンプレート"
+msgstr ""
+
+msgid "`space_centered_4th` は配列 1〜3 個の 3 通りがあります（`miso/include/miso/mhd_integrator.hpp`）"
+msgstr ""
+
+msgid "`interface` で外部手続きの引数の形を書く（明示的引用仕様）"
+msgstr ""
+
+msgid "関数の宣言（ヘッダに書く）"
+msgstr ""
+
+msgid "`real` 版と `real(8)` 版を別々に書く"
+msgstr ""
+
+msgid "関数テンプレート `template <typename Real> Real f(Real x)`"
+msgstr ""
+
+msgid "1 つの定義から型ごとの関数が作られます"
+msgstr ""
+
+#, python-brace-format
+msgid "{ref}`第 6 章 <edu-ch06>`"
+msgstr ""
+
+msgid "`pure`、`elemental`"
+msgstr ""
+
+msgid "`__host__ __device__ inline` の関数を `for_each` の中で呼ぶ"
+msgstr ""
+
+msgid "GPU から呼ぶ関数には `__host__ __device__` を付けます"
+msgstr ""
+
+msgid "`recursive`"
+msgstr ""
+
+msgid "C++ の関数は、そのまま自分を呼べます（`merge_yaml`）"
+msgstr ""
+
+#, python-brace-format
+msgid "{ref}`第 11 章 <edu-ch11>`"
+msgstr ""
+
+msgid "`contains` の内部手続き"
+msgstr ""
+
+#, python-brace-format
+msgid "ラムダ式 `[=](int i) { ... }`、MISO では `MISO_LAMBDA(int i) { ... }`"
+msgstr ""
+
+msgid "周りの変数をコピーして持ち込みます（キャプチャ）"
+msgstr ""
+
+msgid "手続きを引数に渡す（`external`、手続き仮引数）"
+msgstr ""
+
+msgid "関数オブジェクトやラムダを引数に渡す（`for_each(btag, range, f)`）"
+msgstr ""
+
+msgid "7. module と use"
+msgstr ""
+
+msgid "`module m` 〜 `contains` 〜 `end module`"
+msgstr ""
+
+#, python-brace-format
+msgid "ヘッダファイルと `namespace miso { ... }`"
+msgstr ""
+
+msgid "名前の衝突を避ける役割は名前空間、中身を共有する役割は `#include` が担います"
+msgstr ""
+
+msgid "`use m`"
+msgstr ""
+
+msgid "`#include <miso/core.hpp>` と `using namespace miso;`"
+msgstr ""
+
+msgid "`using namespace` を書かなければ `miso::Config` のように名前空間付きで書きます"
+msgstr ""
+
+msgid "`use m, only: f`"
+msgstr ""
+
+msgid "`using miso::limiter::dqq_eval;`"
+msgstr ""
+
+msgid "1 つの名前だけを使えるようにします（`miso/include/miso/mhd_artificial_viscosity_host.hpp`）"
+msgstr ""
+
+msgid "サブモジュールや入れ子の分類"
+msgstr ""
+
+msgid "入れ子の名前空間 `miso::mhd`、`miso::util`"
+msgstr ""
+
+msgid "`private`（module の中だけで使う）"
+msgstr ""
+
+msgid "慣習として `impl_host` などの名前空間に置く"
+msgstr ""
+
+msgid "名前空間には `private` がありません。クラスのメンバには `private` があります"
+msgstr ""
+
+msgid "module 変数（プログラム全体で 1 つ）"
+msgstr ""
+
+msgid "名前空間の `inline` 変数"
+msgstr ""
+
+msgid "MPI のランクは `mpi::world::rank`（`miso/include/miso/env.hpp`）"
+msgstr ""
+
+#, python-brace-format
+msgid "{ref}`第 2 章 <edu-ch02>`、{ref}`第 8 章 <edu-ch08>`"
+msgstr ""
+
+msgid "`save` 属性の局所変数"
+msgstr ""
+
+msgid "`static` の局所変数"
+msgstr ""
+
+msgid "8. 派生型"
+msgstr ""
+
+msgid "`type :: t` 〜 `real :: x` 〜 `end type`"
+msgstr ""
+
+#, python-brace-format
+msgid "`struct T { Real x; };`"
+msgstr ""
+
+#, python-brace-format
+msgid "{ref}`第 4 章 <edu-ch04>`"
+msgstr ""
+
+#, python-format
+msgid "`type(t) :: a` と `a%x`"
+msgstr ""
+
+msgid "`T a;` と `a.x`"
+msgstr ""
+
+msgid "成分の参照は `%` ではなく `.` です。ポインタ経由なら `p->x`"
+msgstr ""
+
+msgid "構造体構成子 `a = t(1.0)`"
+msgstr ""
+
+msgid "コンストラクタ `T a(1.0);`"
+msgstr ""
+
+msgid "初期化子リスト `: x(x_)` でメンバを初期化します"
+msgstr ""
+
+msgid "型束縛手続き `procedure :: apply` と `call a%apply()`"
+msgstr ""
+
+msgid "メンバ関数 `void apply() const;` と `a.apply();`"
+msgstr ""
+
+msgid "`const` メンバ関数はメンバを書き換えません"
+msgstr ""
+
+msgid "`final` 手続き"
+msgstr ""
+
+msgid "デストラクタ `~T()`"
+msgstr ""
+
+msgid "寿命の終わりに自動で呼ばれます"
+msgstr ""
+
+msgid "`extends(t)`（型の拡張）"
+msgstr ""
+
+#, python-brace-format
+msgid "継承 `struct U : public T { };`"
+msgstr ""
+
+#, python-brace-format
+msgid "{ref}`第 5 章 <edu-ch05>`"
+msgstr ""
+
+msgid "`class(t)` の多態と `deferred` 手続き"
+msgstr ""
+
+msgid "仮想関数 `virtual`、または CRTP"
+msgstr ""
+
+msgid "MISO は仮想関数を使わず、`ModelBase<Model, Real, Backend>` の CRTP で派生クラスの部品を呼びます"
+msgstr ""
+
+msgid "パラメータ化派生型 `type t(k)`"
+msgstr ""
+
+msgid "クラステンプレート `template <typename Real> struct T`"
+msgstr ""
+
+msgid "9. pointer と allocatable"
+msgstr ""
+
+msgid "仮引数の別名（引数で受けた配列を書き換える）"
+msgstr ""
+
+msgid "参照 `T &r = a;`"
+msgstr ""
+
+msgid "参照は作ったときに指す先が決まり、付け替えられません"
+msgstr ""
+
+msgid "`real, pointer :: p` と `p => x`（`target` 属性）"
+msgstr ""
+
+msgid "`Real *p = &x;` と `*p`"
+msgstr ""
+
+msgid "`&x` はアドレス、`*p` は指す先の値。宣言と式で `*`, `&` の意味が変わります"
+msgstr ""
+
+msgid "`nullify(p)`、`associated(p)`"
+msgstr ""
+
+msgid "`p = nullptr;`、`p != nullptr`"
+msgstr ""
+
+msgid "配列ポインタで配列を指して渡す"
+msgstr ""
+
+msgid "View（`a.view()`、`a.const_view()`）"
+msgstr ""
+
+msgid "View は確保・解放をしない軽い窓で、ラムダにコピーして GPU にも渡せます"
+msgstr ""
+
+msgid "`allocatable` の成分を持つ派生型"
+msgstr ""
+
+msgid "`Array3D` などをメンバに持つ構造体（`Fields`）"
+msgstr ""
+
+msgid "コピーは禁止または明示（`copy_from`）です"
+msgstr ""
+
+msgid "`allocate` した pointer の `deallocate` 忘れ"
+msgstr ""
+
+msgid "`new`/`delete` を直接書かず、`Array3D` や `std::unique_ptr` に持たせる"
+msgstr ""
+
+msgid "10. 入出力とエラー処理"
+msgstr ""
+
+msgid "`print *, x`、`write(*,*) x`"
+msgstr ""
+
+msgid "`std::cout << x << \"\\n\";`"
+msgstr ""
+
+msgid "`namelist` で設定を読む"
+msgstr ""
+
+msgid "YAML の設定ファイルと `Config`（`config[\"time\"][\"tend\"].as<Real>()`）"
+msgstr ""
+
+msgid "書かなかった値は `config_defaults.hpp` の既定値で補います"
+msgstr ""
+
+msgid "`open(..., form='unformatted', access='stream')` と `write(u) a`"
+msgstr ""
+
+msgid "`std::ofstream ofs(name, std::ios::binary);` と `ofs.write(...)`"
+msgstr ""
+
+msgid "MISO の出力は `miso/include/miso/mhd_checkpoint.hpp`"
+msgstr ""
+
+msgid "`iostat` で失敗を調べる"
+msgstr ""
+
+msgid "`if (!ofs.is_open())`、`if (!ofs)`"
+msgstr ""
+
+msgid "`stop`、`error stop`"
+msgstr ""
+
+msgid "`throw std::runtime_error(\"...\")`、MPI 全体を止めるなら `MPI_Abort`"
+msgstr ""
+
+msgid "MISO では、実行時のエラーを例外で知らせます"
+msgstr ""
+
+msgid "ファイル名を文字列で連結する"
+msgstr ""
+
+msgid "`std::filesystem::path` と `/`"
+msgstr ""
+
+msgid "`fs::path(dir) / \"config.yaml\"` のように書きます"
+msgstr ""
+
+msgid "11. MPI"
+msgstr ""
+
+msgid "`use mpi`、`include 'mpif.h'`"
+msgstr ""
+
+msgid "`#include <mpi.h>`"
+msgstr ""
+
+msgid "`call MPI_Init(ierr)` 〜 `call MPI_Finalize(ierr)`"
+msgstr ""
+
+msgid "`Env env(argc, argv);`（`MPI_Init(&argc, &argv)` を呼び、寿命の終わりに `MPI_Finalize`）"
+msgstr ""
+
+msgid "最後の引数 `ierr`"
+msgstr ""
+
+msgid "関数の戻り値"
+msgstr ""
+
+msgid "C++ では `ierr` を引数に書きません"
+msgstr ""
+
+msgid "`MPI_COMM_WORLD`"
+msgstr ""
+
+msgid "`MPI_COMM_WORLD`、MISO では `mpi::comm()`"
+msgstr ""
+
+msgid "`MPI_REAL`、`MPI_DOUBLE_PRECISION`"
+msgstr ""
+
+msgid "`MPI_FLOAT`、`MPI_DOUBLE`。MISO では `mpi::data_type<Real>()`"
+msgstr ""
+
+msgid "`Real` に合わせて選ばれます（`miso/include/miso/mpi_util.hpp`）"
+msgstr ""
+
+#, python-brace-format
+msgid "{ref}`第 6 章 <edu-ch06>`、{ref}`第 8 章 <edu-ch08>`"
+msgstr ""
+
+msgid "`call MPI_Allreduce(dt, dtg, 1, MPI_REAL, MPI_MIN, MPI_COMM_WORLD, ierr)`"
+msgstr ""
+
+msgid "`MPI_Allreduce(&dt, &dtg, 1, mpi::data_type<Real>(), MPI_MIN, mpi::comm());`"
+msgstr ""
+
+msgid "スカラーは `&dt` でアドレスを渡し、配列は `a.data()` で先頭のアドレスを渡します"
+msgstr ""
+
+#, python-brace-format
+msgid "{ref}`第 3 章 <edu-ch03>`、{ref}`第 8 章 <edu-ch08>`"
+msgstr ""
+
+msgid "`integer :: req(12)`、`MPI_STATUSES_IGNORE`"
+msgstr ""
+
+msgid "`MPI_Request reqs[12];`、`MPI_STATUSES_IGNORE`"
+msgstr ""
+
+msgid "`use mpi_f08` の `type(MPI_Comm)`"
+msgstr ""
+
+msgid "`MPI_Comm`"
+msgstr ""
+
+msgid "ランク番号、`MPI_Cart_coords` の座標"
+msgstr ""
+
+msgid "同じ"
+msgstr ""
+
+msgid "**ランクと座標は Fortran でも 0 から始まります**"
+msgstr ""
+
+msgid "`MPI_Cart_create`、`MPI_Cart_shift`、`MPI_PROC_NULL`"
+msgstr ""
+
+msgid "同じ関数（`mpi::Shape`）"
+msgstr ""
+
+msgid "周期境界の方向では、端の隣が反対側の端になります"
+msgstr ""
+
+msgid "12. 並列化の指示文とビルド"
+msgstr ""
+
+msgid "`!$omp parallel do`"
+msgstr ""
+
+#, python-brace-format
+msgid "`for_each(backend::Host{}, range, f)`"
+msgstr ""
+
+msgid "MISO は OpenMP を使いません。CPU 版の `for_each` はふつうの `for` 文です"
+msgstr ""
+
+msgid "`!$omp parallel do reduction(min:dt)`"
+msgstr ""
+
+msgid "`!$acc parallel loop`、CUDA Fortran のカーネル"
+msgstr ""
+
+#, python-brace-format
+msgid "`for_each(backend::CUDA{}, range, f)` と `MISO_LAMBDA`"
+msgstr ""
+
+msgid "同じラムダが CPU と GPU の両方で動きます"
+msgstr ""
+
+#, python-brace-format
+msgid "{ref}`第 9 章 <edu-ch09>`"
+msgstr ""
+
+msgid "`!$acc data copyin(a)`、`update host(a)`"
+msgstr ""
+
+msgid "`Array3D<Real, backend::CUDA>` と `copy_from`"
+msgstr ""
+
+msgid "`-DUSE_CUDA` などのマクロ"
+msgstr ""
+
+msgid "同じ（`#ifdef USE_CUDA`）。CMake では `target_compile_definitions`"
+msgstr ""
+
+#, python-brace-format
+msgid "{ref}`第 1 章 <edu-ch01>`、{ref}`第 2 章 <edu-ch02>`"
+msgstr ""
+
+msgid "Makefile"
+msgstr ""
+
+msgid "`CMakeLists.txt` と `cmake -B build -S .`、`cmake --build build`"
+msgstr ""
+
+#, python-brace-format
+msgid "{ref}`第 1 章 <edu-ch01>`"
+msgstr ""
+
+msgid "`mpif90`"
+msgstr ""
+
+msgid "`mpicxx`（CMake では `find_package(MPI)`）"
+msgstr ""
+
+#, python-brace-format
+msgid "ここまでの書き方を組み合わせた計算は、{ref}`第 10 章 <edu-ch10>` の熱伝導で自分で書き、{ref}`第 11 章 <edu-ch11>` で MISO 本体の時間発展として読みます。"
+msgstr ""
+

@@ -1,0 +1,106 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2025, Integrated Studies, ISEE, Nagoya University
+# This file is distributed under the same license as the MISO package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: MISO \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-10-29 09:37+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: en\n"
+"Language-Team: en <LL@li.org>\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.18.0\n"
+
+msgid "03. 1 次元移流と周期境界"
+msgstr ""
+
+msgid "解く方程式"
+msgstr ""
+
+#, python-brace-format
+msgid "\\frac{\\partial u}{\\partial t} + a \\frac{\\partial u}{\\partial x} = 0, \\quad a > 0 \\text{ は定数}"
+msgstr ""
+
+msgid "時間積分：陽的オイラー法"
+msgstr ""
+
+msgid "空間離散化：1 次精度の風上差分。`a > 0` なので、左隣との差を使います。"
+msgstr ""
+
+#, python-brace-format
+msgid "u_i^{n+1} = u_i^n - \\frac{a \\Delta t}{\\Delta x}\\left(u_i^n - u_{i-1}^n\\right)"
+msgstr ""
+
+msgid "時間刻みは、クーラン数 $C = a \\Delta t / \\Delta x$ が 0 より大きく 1 以下になるように選びます。 ここでは $C = 0.37$ を使います。"
+msgstr ""
+
+msgid "格子とゴーストセル"
+msgstr ""
+
+msgid "物理セル `NX` 個の左右に、1 点ずつゴーストセルを置きます。 風上差分は左隣 `u[i-1]` しか読まないので左の 1 点で足りますが、MISO と同じく左右対称に置きます。 周期境界では、毎ステップ、ゴーストセルを反対側の物理セルの値で埋めてから更新します。"
+msgstr ""
+
+msgid "実装する内容"
+msgstr ""
+
+msgid "長さ `NX + 2` の配列 `u` と `u_new` を、それぞれ `Array1D<double, Backend>` として確保します。"
+msgstr ""
+
+msgid "物理セルの初期値は周期的なガウシアンとします。 $L = 1$、$x_0 = 0.5$、$\\sigma = 0.05$ とし、物理セル `i` の座標を `x = (i - 1) * L / NX` とします。 $d = x - x_0$ を周期の幅 $L$ で折り返して $-L/2 \\le d \\le L/2$ にしてから、$\\exp(-d^2 / 2\\sigma^2)$ を計算します。 折り返しには `util::fmod(d, L)`（`d` を `L` で割った余り。結果は `-L` と `L` の間）を使い、余りが `L/2` より大きければ `L` を引き、`-L/2` より小さければ `L` を足します。"
+msgstr ""
+
+msgid "この初期値の式は、厳密解との比較でも使うので関数にします。 ラムダ式の中から呼ぶので、`__host__ __device__ inline double gaussian(double x)` のように `__host__ __device__` を付けておきます（CPU ビルドでは何もしない指定です）。"
+msgstr ""
+
+#, python-brace-format
+msgid "各ステップの前に、左のゴーストセル `u[0]` へ最後の物理セル `u[NX]` を、右のゴーストセル `u[NX + 1]` へ最初の物理セル `u[1]` を写します。 この処理も、`Range1D{0, 1}`（1 回だけ実行する範囲）の `for_each` で書きます。"
+msgstr ""
+
+#, python-brace-format
+msgid "物理セルの範囲 `Range1D{1, NX + 1}` の `for_each` で、更新前の `u` を読み、更新後の値を `u_new` へ書きます。"
+msgstr ""
+
+msgid "ステップの最後に `std::swap(u, u_new)` で 2 つの配列の役割を入れ替えます。 `std::swap` には `<utility>` を読み込みます。"
+msgstr ""
+
+#, python-brace-format
+msgid "`Array1D` はコピーできませんが、ムーブはできます（{ref}`第 4 章 <edu-ch04>`）。 `std::swap` はムーブを使って中身のポインタを入れ替えるので、要素はコピーしません。 入れ替えの後、`u` という名前の変数は前の `u_new` のメモリを持っています。 **View は取り出したときのポインタを持ち続けるので、入れ替えの後は `u.view()` で View を取り直します。** ゴーストセルを埋める処理と更新の処理を、それぞれ配列を引数に取る関数にして、関数の中で View を取り出すと、取り直しを忘れません。"
+msgstr ""
+
+#, python-brace-format
+msgid "更新前の配列へ途中で書き込まないので、各セルは同じ時刻の隣の値を読めます（{ref}`第 7 章 <edu-ch07>`の「実行順に頼らない」）。"
+msgstr ""
+
+msgid "結果の確認"
+msgstr ""
+
+msgid "まず `NX = 256` で 1 ステップだけ計算し、同じ入力とゴーストセルからホスト側の `for` 文で求めた値と比べます。 初期の振幅 1 を基準に、最大絶対誤差が `1e-14` 以下であることを確かめます。"
+msgstr ""
+
+msgid "次に時間を進め、初期分布を距離 $a t$ だけ平行移動した厳密解と比べます。 厳密解は、初期値の式の $x$ を $x - a t$ に置き換え、同じ周期の折り返しを使って求めます。 相対 L2 誤差は、物理セルだけで次のように求めます。"
+msgstr ""
+
+msgid "E = \\sqrt{\\frac{\\sum_i (u_i-u_{\\mathrm{exact},i})^2}{\\sum_i u_{\\mathrm{exact},i}^2}}"
+msgstr ""
+
+msgid "分子と分母の和は、前の課題の `reduce` で求められます（`reduce` を 2 回呼びます）。 `NX` を 256、512、1024 と増やし、$C$ と終了時刻を揃えて誤差の変化を調べます。 たとえばステップ数を 200、400、800 とすれば、同じ時刻まで進みます。 この方法は 1 次精度なので、十分細かい格子では、格子幅を半分にすると誤差もおよそ半分になります。"
+msgstr ""
+
+#, python-brace-format
+msgid "CPU で 1 ステップの比較と時間発展を確かめたら、{ref}`第 8 章 <edu-ch08>`の MPI へ進めます。 GPU で同じ計算を動かす準備は、{ref}`第 9 章 <edu-ch09>`で学びます。"
+msgstr ""
+
+msgid "GPU で実行する段階"
+msgstr ""
+
+msgid "CUDA でも同じ入力で、1 ステップの比較と時間発展を行います。 ラムダ式の中から呼ぶ `gaussian` には `__host__ __device__` が必要です。 FMA などにより、CPU と GPU では丸めが異なる場合があります。 完全一致を一律に求めず、上の許容誤差と、格子を細かくしたときの誤差の変化で確かめます。"
+msgstr ""
+

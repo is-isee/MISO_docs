@@ -83,3 +83,6 @@ make.bat
 # doxygen files
 docs/doxygen/cpu
 docs/doxygen/gpu
+
+# gettext compiled catalogs (built from .po by Sphinx)
+*.mo

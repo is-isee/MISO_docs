@@ -1,0 +1,102 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2025, Integrated Studies, ISEE, Nagoya University
+# This file is distributed under the same license as the MISO package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: MISO \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-10-29 09:37+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: en\n"
+"Language-Team: en <LL@li.org>\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.18.0\n"
+
+msgid "Quick Start"
+msgstr ""
+
+msgid "本セクションでは、MISOのインストール方法と使用方法の概要を説明します。"
+msgstr ""
+
+msgid "Installation"
+msgstr ""
+
+msgid "MISOはGitHub (<https://github.com/is-isee/MISO>) で入手できます。リポジトリをクローンするには、次のコマンドを使用します。"
+msgstr ""
+
+msgid "Usage"
+msgstr ""
+
+msgid "CPU version"
+msgstr ""
+
+msgid "MISOのコンパイルにはCMakeを用います。 例えば、2D Orszag-Tang渦問題を実行してみましょう。"
+msgstr ""
+
+msgid "これで、実行ファイル build/mhd2d_vortex が生成されます。"
+msgstr ""
+
+msgid "2D Orszag-Tang渦問題は以下のように実行することができます。"
+msgstr ""
+
+msgid "MPIを使用している場合、適切な環境変数・オプションを要求されることがあります。OpenMPIを使用している場合には、自動で環境変数を設定したうえで上記のコマンドを実行するシェルスクリプトが demo/mhd2d_vortex/app_run.sh に用意されています。"
+msgstr ""
+
+msgid "demo/mhd2d_vortex/data にシミュレーション結果が保存されます。 途中で計算を停止した場合でも、保存されたデータから再開されます。計算を最初からやり直すには、 demo/mhd2d_vortex/data/ ディレクトリを削除してください。以下のようにしてもデータを削除することができます。"
+msgstr ""
+
+msgid "シミュレーションパラメータは、 demo/mhd2d_vortex/config.yaml ファイルを編集することで制御できます。例えば、格子点数は次のように変更できます。"
+msgstr ""
+
+msgid "CUDA version"
+msgstr ""
+
+msgid "CUDA版の実行には、NVIDIA HPC SDKが必要です。 CUDA版をコンパイルする場合は、CMakeのオプションで `-DUSE_CUDA=ON` を指定します。"
+msgstr ""
+
+msgid "実行ファイル build/mhd2d_vortex やその実行方法はCPU版と同様です。 実行時に必要なオプションや環境変数の設定方法が環境により変わる場合があるため、以下は例として参考にしてください。"
+msgstr ""
+
+msgid "GPU版で複数のプロセスを使用する場合は、オプションとして \"--map-by ppr:N:node\" (N は 1 ノードあたりのプロセス数) や \"-x CUDA_VISIBLE_DEVICES=M,L,...\" (M, L, ... は各ノードで利用可能とする CUDA デバイス番号) などを指定することを推奨します。例えば、 2 ノード、ノード当たり 2 プロセス、各プロセスが 1 CUDA デバイスを使用し、合計 4 プロセスで実行する場合は、次のようになります。"
+msgstr ""
+
+msgid "なお、設定ファイルは、`demo/mhd2d_vortex/config.yaml`に配置されています。 1次元衝撃波管(`demo/hd1d_shock_tube`, `demo/mhd1d_shock_tube`)の問題の場合は、`x`, `y`, `z`の各方向の設定ファイルがそれぞれ以下の配置されています。"
+msgstr ""
+
+msgid "`demo/hd1d_shock_tube/config/config_x.yaml`"
+msgstr ""
+
+msgid "`demo/hd1d_shock_tube/config/config_y.yaml`"
+msgstr ""
+
+msgid "`demo/hd1d_shock_tube/config/config_z.yaml`"
+msgstr ""
+
+msgid "ファイルを指定する場合は、実行時にコマンドライン引数を利用してください。"
+msgstr ""
+
+msgid "デフォルトでは`x`方向が指定されています。"
+msgstr ""
+
+msgid "Python module pymiso"
+msgstr ""
+
+msgid "MISOでは、解析のためのPythonモジュールを提供しています。リポジトリのルートディレクトリで、以下のようにしてインストールしてください。"
+msgstr ""
+
+msgid "シミュレーション結果は以下のように読み込むことができます。"
+msgstr ""
+
+msgid "各デモ問題には可視化用のスクリプトが含まれています。例えば、2D Orszag-Tang渦問題の結果を可視化するには、 demo/mhd2d_vortex/plot_data.py を実行します。"
+msgstr ""
+
+msgid "実行後、シミュレーション結果の画像ファイルが demo/mhd2d_vortex/figs に保存されます。"
+msgstr ""
+

@@ -32,5 +32,20 @@ make -C docs html
 
 として引用する。
 
-GitHub Pagesで公開する場合は、`.github/workflows/deploy_pages.yml`を利用する。mainブランチにpushすると、`gh-pages`ブランチに自動的にデプロイされる。正式版は<https://is-isee.github.io/MISO_docs/>、PR版は<https://is-isee.github.io/MISO_docs/pr-${pr}/>からアクセス出来る。
+## 英語版（翻訳）
+
+原文は日本語で書き、英語版は Sphinx の gettext で別にビルドする。訳は `docs/locale/en/LC_MESSAGES/*.po` に置き、git で管理する。
+`api/`（Doxygen と automodapi の出力）は訳さない。訳がない段落は日本語のまま出る。
+
+```shell
+pip install sphinx-intl
+make -C docs html          # 日本語版（Doxygen の XML と source/api もここで作る）
+make -C docs update-po     # 原文の変更を .po に反映する
+make -C docs html-en       # 英語版を docs/_build/html/en に作る
+```
+
+原文を直したあとに `make -C docs update-po` を実行すると、変わった段落の訳は fuzzy（`#, fuzzy` の印がつく）か未訳（`msgstr ""`）になる。
+その段落だけを訳し直し、`#, fuzzy` の行を消す。fuzzy の訳はビルドで使われない。
+
+GitHub Pagesで公開する場合は、`.github/workflows/deploy_pages.yml`を利用する。mainブランチにpushすると、`gh-pages`ブランチに自動的にデプロイされる。正式版は<https://is-isee.github.io/MISO_docs/>（英語版は<https://is-isee.github.io/MISO_docs/en/>）、PR版は<https://is-isee.github.io/MISO_docs/pr-${pr}/>からアクセス出来る。
 

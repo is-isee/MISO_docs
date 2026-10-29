@@ -1,0 +1,213 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2025, Integrated Studies, ISEE, Nagoya University
+# This file is distributed under the same license as the MISO package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: MISO \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-10-29 09:37+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: en\n"
+"Language-Team: en <LL@li.org>\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.18.0\n"
+
+msgid "01. 逐次版：CPU で熱伝導を解く"
+msgstr ""
+
+#, python-brace-format
+msgid "{ref}`共通の設定 <edu-practice-heat1d>` の問題を、1 プロセスの CPU で解くプログラム `heat1d_serial` を書きます。 式と確かめ方は {ref}`第 10 章 <edu-ch10>` で説明しています。"
+msgstr ""
+
+msgid "使うもの"
+msgstr ""
+
+msgid "もの"
+msgstr ""
+
+msgid "ヘッダ"
+msgstr ""
+
+msgid "`miso::Array1D<Real>`（ホストの配列）"
+msgstr ""
+
+msgid "`miso/array1d.hpp`"
+msgstr ""
+
+msgid "`miso::for_each`、`miso::reduce`、`miso::Range1D`、`MISO_LAMBDA`、`miso::backend::Host`"
+msgstr ""
+
+msgid "`miso/execution.hpp`"
+msgstr ""
+
+msgid "`miso::pi<Real>`"
+msgstr ""
+
+msgid "`miso/constants.hpp`"
+msgstr ""
+
+msgid "`miso::util::sin`、`util::exp`、`util::fabs`"
+msgstr ""
+
+msgid "`miso/utility.hpp`"
+msgstr ""
+
+msgid "`#include <miso/array1d.hpp>` のように、`miso/` を付けて読み込みます。"
+msgstr ""
+
+msgid "作るもの"
+msgstr ""
+
+msgid "配列"
+msgstr ""
+
+msgid "物理セル数 $N$ に両端のゴーストセルを足して、`Array1D<Real> u(N + 2)` と、更新先の `u_new(N + 2)` を確保します。"
+msgstr ""
+
+#, python-brace-format
+msgid "物理セル $j$（$j = 0, \\dots, N-1$）は配列の添字 `j + 1` に入ります。物理セルの範囲は `Range1D{1, N + 1}` です。"
+msgstr ""
+
+msgid "手順"
+msgstr ""
+
+msgid "**初期条件**：`for_each` で、物理セルに $\\sin(\\pi x_j)$ を入れます。"
+msgstr ""
+
+#, python-brace-format
+msgid "**時間積分**：$n_\\mathrm{steps}$ 回、次を繰り返します。"
+msgstr ""
+
+#, python-brace-format
+msgid "ゴーストセルに境界条件の値を入れます：`u[0] = -u[1]`、`u[N+1] = -u[N]`。 後で GPU に移せるよう、`for_each(backend::Host{}, Range1D{0, 1}, ...)` の中で書きます。"
+msgstr ""
+
+msgid "`for_each` で、物理セルについて次の式を計算します。`u` を読み、`u_new` に書きます。"
+msgstr ""
+
+msgid "`2` は `Real(2)` と書きます。$r = \\kappa\\Delta t/\\Delta x^2$ です。"
+msgstr ""
+
+msgid "`std::swap(u, u_new);` で配列を入れ替えます。"
+msgstr ""
+
+msgid "**誤差**：`reduce` で、離散解との最大の差と、解析解との最大の差を求めます。"
+msgstr ""
+
+#, python-brace-format
+msgid "**出力**：{ref}`共通の設定 <edu-practice-heat1d>` の 3 行を表示し、結果を `result_N<N>_serial.txt`（$N = 64$ なら `result_N64_serial.txt`）に書き出します。"
+msgstr ""
+
+msgid "気をつけること"
+msgstr ""
+
+msgid "ラムダの中では `Array1D` ではなくビュー（`auto uv = u.view();`）を使います。"
+msgstr ""
+
+msgid "`std::swap` の後は、ビューが入れ替え前のデータを指しています。ビューはステップのループの中で毎回取り直します。"
+msgstr ""
+
+#, python-brace-format
+msgid "`reduce` の最大値の演算は `MISO_LAMBDA(Real a, Real b) { return a > b ? a : b; }` と書きます。初期値は `Real(0)` です（差の絶対値は 0 以上なので、`Real(0)` が最大値の単位元の代わりになります）。"
+msgstr ""
+
+msgid "離散解の係数 $G^{n_\\mathrm{steps}}$ は、ホストで `std::pow(G, n_steps)`（`<cmath>`）として 1 回だけ計算し、ラムダに取り込みます。"
+msgstr ""
+
+msgid "確かめること"
+msgstr ""
+
+msgid "**初期条件**：時間積分を 0 ステップにして（または初期条件の直後に）書き出し、$u_j = \\sin(\\pi x_j)$ になっていることを確かめます。"
+msgstr ""
+
+#, python-brace-format
+msgid "**1 ステップ**：$n_\\mathrm{steps}$ の代わりに 1 ステップだけ進め、離散解 $G\\sin(\\pi x_j)$ との最大の差が $10^{-15}$ 程度であることを確かめます。"
+msgstr ""
+
+msgid "**既定の入力**（$N = 64$）：次の値になることを確かめます。"
+msgstr ""
+
+#, python-brace-format
+msgid "`max error (discrete)` は丸め誤差なので、コンパイラや書き方によって変わります。$10^{-12}$ より十分小さければ問題ありません。 `max error (exact)` は 4〜5 桁目まで一致するはずです。"
+msgstr ""
+
+#, python-brace-format
+msgid "**収束次数**：$N = 32, 64, 128, 256, 512$ で実行し、`max error (exact)` を表にして、隣どうしの比と収束次数 $p = \\log_2(E_N/E_{2N})$ を求めます。"
+msgstr ""
+
+msgid "$N$"
+msgstr ""
+
+msgid "steps"
+msgstr ""
+
+msgid "`max error (exact)`"
+msgstr ""
+
+msgid "32"
+msgstr ""
+
+msgid "256"
+msgstr ""
+
+msgid "4.136835e-04"
+msgstr ""
+
+msgid "64"
+msgstr ""
+
+msgid "1024"
+msgstr ""
+
+msgid "1.034113e-04"
+msgstr ""
+
+msgid "128"
+msgstr ""
+
+msgid "4096"
+msgstr ""
+
+msgid "2.585224e-05"
+msgstr ""
+
+msgid "16384"
+msgstr ""
+
+msgid "6.463023e-06"
+msgstr ""
+
+msgid "512"
+msgstr ""
+
+msgid "65536"
+msgstr ""
+
+msgid "1.615753e-06"
+msgstr ""
+
+#, python-brace-format
+msgid "$p$ がどれも 2.000 に近くなります。`max error (discrete)` は、どの $N$ でも $10^{-11}$ 以下です。"
+msgstr ""
+
+msgid "**安定条件**（任意）：`./heat1d_serial 64 0.6` を実行し、誤差が非常に大きくなる（計算が壊れる）ことを確かめます。 `./heat1d_serial 64 0.5` では壊れないことも確かめます。"
+msgstr ""
+
+#, python-brace-format
+msgid "離散解との差が大きいときは、ゴーストセルの値、物理セルの範囲（`Range1D` の上限は含まない）、$x_j$ の式（$+1/2$ と添字のずれ）を順に調べます。 離散解とは合うのに解析解との差が表と違うときは、$\\Delta t$、$n_\\mathrm{steps}$、$t_\\mathrm{end}$ を調べます。"
+msgstr ""
+
+msgid "次へ進む目安"
+msgstr ""
+
+#, python-brace-format
+msgid "上の 3 と 4 の値が得られたら、{ref}`02. MPI 版 <edu-practice-heat1d-02>` へ進みます。 書き出した `result_N64_serial.txt` などは、MPI 版との比較に使うので残しておきます。"
+msgstr ""
+

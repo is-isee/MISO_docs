@@ -1,0 +1,777 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2025, Integrated Studies, ISEE, Nagoya University
+# This file is distributed under the same license as the MISO package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: MISO \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-10-29 09:37+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: en\n"
+"Language-Team: en <LL@li.org>\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.18.0\n"
+
+msgid "8. MPI による領域分割"
+msgstr ""
+
+msgid "Fortran の数値計算コードでは、計算領域をいくつかに分け、各プロセスが自分の部分を計算し、境界の値だけを MPI で受け渡す書き方が広く使われています。 MISO も同じ考え方で並列計算をします。この章では、MPI の基本の呼び出しを短い確認プログラムで動かしてから、MISO が領域をどう分け、隣と値をどう交換し、時間刻みをどう揃えるかを読みます。"
+msgstr ""
+
+msgid "第 7 章で見たとおり、MISO の `for_each` の Host 版はただの `for` 文で、OpenMP も使っていません。 CPU で MISO を並列に動かす手段は、この章で扱う MPI だけです。 この章の内容は CPU だけで試せます。GPU を使う場合の通信は第 9 章で扱います。"
+msgstr ""
+
+msgid "目次"
+msgstr ""
+
+#, python-brace-format
+msgid "{ref}`1. プロセスとランク <edu-ch08-ranks>`"
+msgstr ""
+
+#, python-brace-format
+msgid "{ref}`2. MISO の Env：MPI の開始と終了 <edu-ch08-env>`"
+msgstr ""
+
+#, python-brace-format
+msgid "{ref}`3. ランクの並びと隣のランク：mpi::Shape <edu-ch08-shape>`"
+msgstr ""
+
+#, python-brace-format
+msgid "{ref}`4. 全体格子とランクごとの格子 <edu-ch08-grid>`"
+msgstr ""
+
+#, python-brace-format
+msgid "{ref}`5. 隣との値の交換：MPI_Sendrecv <edu-ch08-sendrecv>`"
+msgstr ""
+
+#, python-brace-format
+msgid "{ref}`6. 通信を始めてから完了を待つ：MPI_Isend と MPI_Irecv <edu-ch08-nonblocking>`"
+msgstr ""
+
+#, python-brace-format
+msgid "{ref}`7. MISO のハロー交換 <edu-ch08-halo>`"
+msgstr ""
+
+#, python-brace-format
+msgid "{ref}`8. 物理境界と内部境界 <edu-ch08-physical-boundary>`"
+msgstr ""
+
+#, python-brace-format
+msgid "{ref}`9. 全ランクで値をまとめる：MPI_Allreduce <edu-ch08-allreduce>`"
+msgstr ""
+
+#, python-brace-format
+msgid "{ref}`10. MISO のデモを MPI で動かす <edu-ch08-run>`"
+msgstr ""
+
+#, python-brace-format
+msgid "{ref}`11. まとめ <edu-ch08-summary>`"
+msgstr ""
+
+msgid "1. プロセスとランク"
+msgstr ""
+
+msgid "同じプログラムを複数のプロセスで動かす"
+msgstr ""
+
+msgid "`mpiexec -np 4 ./program` は、同じプログラム `./program` を 4 つの**プロセス**として同時に起動します。 各プロセスは自分の変数と配列を持ちます。あるプロセスが配列を書き換えても、他のプロセスの配列は変わりません。 他のプロセスの値が必要なときは、MPI の関数で明示的に送り、受け取ります。 同じ計算機の中で動かす場合も、この区別は変わりません。"
+msgstr ""
+
+msgid "通信に参加するプロセスの集まりを**コミュニケータ**（communicator）と呼びます。 `MPI_COMM_WORLD` は、`mpiexec` で起動した全プロセスの集まりです。 コミュニケータの中で各プロセスに付く 0 始まりの番号が**ランク**（rank）です。 4 プロセスなら、ランクは 0, 1, 2, 3 です。"
+msgstr ""
+
+msgid "各プロセスは同じプログラムを実行しますが、自分のランクを調べて、担当する領域や処理を変えます。 この形を SPMD（Single Program, Multiple Data）と呼びます。"
+msgstr ""
+
+msgid "確認プログラム：ランク番号の表示"
+msgstr ""
+
+msgid "次のプログラムは、各プロセスが自分のランクと全体のプロセス数を表示します。 `hello_mpi.cpp` として保存します。"
+msgstr ""
+
+msgid "`#include <mpi.h>` で MPI の関数の宣言を読み込みます。 MPI の関数は `MPI_Init` の後、`MPI_Finalize` の前で呼びます。 `&rank` は第 3 章で学んだ変数のアドレスです。`MPI_Comm_rank` はそのアドレスへランク番号を書き込みます。"
+msgstr ""
+
+msgid "C++ からは、MPI の C 言語用の関数を呼びます。Fortran との違いは次のとおりです。"
+msgstr ""
+
+msgid "Fortran"
+msgstr ""
+
+msgid "C++（C 用の関数）"
+msgstr ""
+
+msgid "初期化"
+msgstr ""
+
+msgid "`call MPI_Init(ierr)`"
+msgstr ""
+
+msgid "`MPI_Init(&argc, &argv);`"
+msgstr ""
+
+msgid "ランク"
+msgstr ""
+
+msgid "`call MPI_Comm_rank(MPI_COMM_WORLD, rank, ierr)`"
+msgstr ""
+
+msgid "`MPI_Comm_rank(MPI_COMM_WORLD, &rank);`"
+msgstr ""
+
+msgid "エラーコード"
+msgstr ""
+
+msgid "最後の引数 `ierr` に返る"
+msgstr ""
+
+msgid "関数の戻り値（`int`）として返る"
+msgstr ""
+
+msgid "型の指定"
+msgstr ""
+
+msgid "`MPI_DOUBLE_PRECISION`, `MPI_REAL`"
+msgstr ""
+
+msgid "`MPI_DOUBLE`, `MPI_FLOAT`"
+msgstr ""
+
+msgid "Fortran の引数は参照渡しなので `rank` をそのまま渡しますが、C の関数に書き込んでもらうにはアドレス `&rank` を渡します。 戻り値のエラーコードは、使わなければ受け取らなくてかまいません。"
+msgstr ""
+
+msgid "第 1 章で入れた OpenMPI の `mpicxx` でコンパイルし、`mpiexec` で起動します。 `mpicxx` は、MPI のヘッダとライブラリの場所を補って `g++` を呼ぶコマンドです。"
+msgstr ""
+
+msgid "4 プロセスで動かした出力の例です。"
+msgstr ""
+
+#, python-brace-format
+msgid "行の順番は実行のたびに変わることがあります。各プロセスが別々に画面へ書き込むからです。 `-np` に計算機のコア数より大きい数を指定すると、OpenMPI は既定では起動を拒みます。 練習で少ないコアの計算機を使うときは、環境変数 `OMPI_MCA_rmaps_base_oversubscribe=yes` を付けて起動します（{ref}`10 節 <edu-ch08-run>`）。"
+msgstr ""
+
+msgid "2. MISO の Env：MPI の開始と終了"
+msgstr ""
+
+msgid "MISO のデモの `main` は、最初に `Env` を作ります（`demo/mhd2d_vortex/src/main.cpp`）。"
+msgstr ""
+
+msgid "`MPI_Init` も `MPI_Finalize` も、ここには現れません。 どちらも `Env` が受け持ちます（`miso/include/miso/env.hpp`）。 MPI の部分は `miso::mpi::Env` です。抜粋します。 この章の抜粋で `// ...（説明）` の形のコメントは、省いた部分を示すためにこの教材で足したものです。"
+msgstr ""
+
+msgid "コンストラクタで `MPI_Init` を呼び、デストラクタで `MPI_Finalize` を呼びます。 第 4 章で学んだ RAII の形です。`main` の最後で `env` の寿命が終わるとデストラクタが動くので、`MPI_Finalize` を書き忘れることがありません。 `MPI_Initialized` で「すでに初期化済みか」を調べ、自分が初期化したとき（`owns_mpi`）だけ終了処理をします。 テストのように、別の場所で MPI を始めた場合にも使えるようにするためです。"
+msgstr ""
+
+msgid "ランク番号は、同じファイルの名前空間 `mpi::world` に `inline int rank = -1;` のように宣言した変数に保存します。 関数の外に置いた変数は、プログラムの始めから終わりまで残ります（Fortran のモジュール変数に近いものです）。 `inline` は、複数のファイルから読み込まれても変数が 1 つにまとまるようにする指定です（第 2 章の `inline` 関数と同じ理由です）。"
+msgstr ""
+
+msgid "MISO の他の場所では、これらの変数を直接読まず、次の関数を使います。"
+msgstr ""
+
+msgid "関数"
+msgstr ""
+
+msgid "返す値"
+msgstr ""
+
+msgid "`mpi::rank()`"
+msgstr ""
+
+msgid "`MPI_COMM_WORLD` での自分のランク"
+msgstr ""
+
+msgid "`mpi::size()`"
+msgstr ""
+
+msgid "全体のランク数"
+msgstr ""
+
+msgid "`mpi::is_root()`"
+msgstr ""
+
+msgid "ランク 0 なら `true`（出力や表示をランク 0 だけで行うときに使う）"
+msgstr ""
+
+msgid "`mpi::comm()`"
+msgstr ""
+
+msgid "全体のコミュニケータ（`MPI_COMM_WORLD`）"
+msgstr ""
+
+msgid "どの関数も、`Env` を作る前に呼ぶと例外 `std::runtime_error` を投げます。 「`Env` を `main` の最初に作る」という約束を守らなかったことを、実行時に知らせるためです。"
+msgstr ""
+
+msgid "`main` で使う `miso::Env` は、`mpi::Env` と、CUDA ビルドのときだけ `cuda::Env`（使う GPU の選択）をまとめたものです。 CPU ビルドでは `mpi::Env` だけが動きます。`cuda::Env` は第 9 章で扱います。"
+msgstr ""
+
+msgid "3. ランクの並びと隣のランク：mpi::Shape"
+msgstr ""
+
+msgid "config.yaml の mpi セクション"
+msgstr ""
+
+msgid "MISO は 3 次元の格子を、x, y, z の各方向に何個ずつ分けるかを設定ファイルで指定します。 `demo/mhd2d_vortex/config.yaml` の該当部分です。"
+msgstr ""
+
+msgid "`x_procs: 2` は x 方向に 2 つに分けることを表します。 `x_procs * y_procs * z_procs` が、`mpiexec -np` で指定するプロセス数と等しくなければなりません。 `mpi` セクションには既定値がない（`miso/include/miso/config_defaults.hpp` に `mpi` の項目がない）ので、どのデモの設定ファイルにも書かれています。 他のデモでは、`demo/hd2d_rayleigh_taylor/config.yaml` が y 方向に 2 分割（`y_procs: 2`）、1 次元の衝撃波管のデモ（`demo/hd1d_shock_tube/config/config_x.yaml` など）は分割なし（すべて 1）です。"
+msgstr ""
+
+msgid "MPI_Cart_create と MPI_Cart_shift"
+msgstr ""
+
+msgid "この設定を読んでランクの並びを作るのが `mpi::Shape` です（`miso/include/miso/mpi_util.hpp`）。 コンストラクタの中心部分を抜粋します。"
+msgstr ""
+
+msgid "使っている MPI の関数の役割は次のとおりです。"
+msgstr ""
+
+msgid "`MPI_Cart_create`：全プロセスを `dims` の形（ここでは $2 \\times 1 \\times 1$）の格子に並べた新しいコミュニケータ `cart_comm` を作ります。`periods` の方向は端と端がつながります（周期境界）。5 番目の引数 `0` は「ランク番号を並べ替えない」指定です。"
+msgstr ""
+
+msgid "`MPI_Cart_coords`：自分のランクが格子のどこにあるか（`coord[0]`, `coord[1]`, `coord[2]`）を求めます。"
+msgstr ""
+
+msgid "`MPI_Cart_shift`：指定した方向（0 が x）に 1 つずれた隣のランクを求めます。負の側が `x_procs_neg`、正の側が `x_procs_pos` に入ります。"
+msgstr ""
+
+msgid "周期でない方向の端には隣がありません。そのとき隣のランクとして `MPI_PROC_NULL` が入ります。 `MPI_PROC_NULL` は「相手なし」を表す特別な値で、これを相手にした送受信は何もせずに終わります。 MISO はこの値を、後の節で見るハロー交換と物理境界の判定に使います。"
+msgstr ""
+
+msgid "`MISO_MPI_CHECK` は、MPI の関数の戻り値（エラーコード）が成功でなければ、エラーの説明を表示して `MPI_Abort` で全プロセスを止めるマクロです（同じファイルの `check_error`）。"
+msgstr ""
+
+msgid "コンストラクタの「プロセス数の確認」は、`x_procs * y_procs * z_procs` と実際のプロセス数が違うときに説明を表示して止める処理です。 ただし OpenMPI 4.1 で確かめると、数が違う場合はその前の `MPI_Cart_create`（または直後の `MPI_Comm_rank`）が MPI のエラーで止まり、この説明は表示されません。 `MPI_Cart_create` や `MPI_Comm_rank` のエラーが出たら、まず `mpi` セクションと `-np` の数が合っているかを確かめてください。"
+msgstr ""
+
+msgid "ランク番号の並び"
+msgstr ""
+
+msgid "`MPI_Cart_create` は、ランク番号を「最後の次元（z）がいちばん速く変わる」順に並べます。 x 方向 2 つ、y 方向 2 つに分けた場合、ランクと位置の対応は次のとおりです。"
+msgstr ""
+
+msgid "第 7 章で学んだ C++ の配列の並び（最後の添字が連続）と同じ規則です。Fortran の配列の並びとは逆なので注意してください。 MISO は実行の最初に、この対応を `io.save_dir` の下の `mpi/coords.csv` に書き出します（`Shape::save`）。 $2 \\times 2$ に分けたときの中身は次のとおりです。"
+msgstr ""
+
+msgid "`pymiso` はこのファイルを読み、ランクごとの出力をつなげて全体の配列を作ります。"
+msgstr ""
+
+msgid "4. 全体格子とランクごとの格子"
+msgstr ""
+
+msgid "担当するセルとゴーストセル"
+msgstr ""
+
+msgid "1 次元で考えます。全体 16 セルを 2 ランクで分けると、各ランクは 8 セルを担当します。"
+msgstr ""
+
+msgid "MISO の空間微分は 4 次の中心差分で、セル `i` の微分に `i-2` から `i+2` までの値を使います。 担当範囲の端のセルでは、隣のランクが持つ値が 2 つ必要です。 そこで、配列の両端に余分なセルを `margin` 個ずつ用意し、隣から受け取った値を置きます。 これを**ゴーストセル**（ghost cell）または**のりしろ**と呼びます。隣から値を受け取って埋める処理を**ハロー交換**（halo exchange）と呼びます。"
+msgstr ""
+
+msgid "`margin: 2` のとき、ランク 1 の x 方向の配列は次のようになります。"
+msgstr ""
+
+#, python-brace-format
+msgid "右端のゴーストの全体の添字 16, 17 は、周期境界ならランク 0 の 0, 1 にあたります。 周期でない端（物理境界）のゴーストは、隣から受け取らず、境界条件で埋めます（{ref}`8 節 <edu-ch08-physical-boundary>`）。"
+msgstr ""
+
+msgid "Grid の各ランクでの値"
+msgstr ""
+
+msgid "MISO の `Grid<Real, backend::Host>`（`miso/include/miso/grid.hpp`）は、**自分のランクの**格子を持ちます。 全体の格子ではありません。コンストラクタの抜粋です。"
+msgstr ""
+
+msgid "設定ファイルの `i_size` は全体のセル数で、`Grid` のメンバ `i_size` は 1 ランクが担当するセル数です。 名前は同じでも意味が違うので、コードでは全体の数に `_g`（global）を付けて区別しています。 `i_offset` は、このランクの最初の担当セルが全体で何番目かを表します。"
+msgstr ""
+
+msgid "1 方向ぶんの格子 `AxisGrid` のコンストラクタでは、次の値が決まります。"
+msgstr ""
+
+msgid "`Grid` はこれを `i_total`（ゴースト込みのセル数）、`i_margin`（ゴーストの数）として持ちます。 担当するセルのローカルの添字は `i_margin` 以上 `i_total - i_margin` 未満です。 第 7 章の `Integrator::cfl` などで、ループが `grid.i_margin` から始まっていたのはこのためです。"
+msgstr ""
+
+msgid "`size` が 1 の方向（2 次元計算の z 方向など）は `stride` が 0 になり、`margin` も 0 になります。 その方向にはゴーストセルを作らず、分割もしません。"
+msgstr ""
+
+msgid "座標 `s[i]` は、ローカルの添字 `i` を全体の添字 `ig` に直してから計算します。 ゴーストセルの `ig` は担当範囲の外（負の値や全体のセル数以上）になることがありますが、等間隔の格子の式でそのまま座標を求めます。"
+msgstr ""
+
+msgid "全体のセル数が分割数で割り切れないときは、`check_divisibility` が例外を投げて止まります。 MISO は、全ランクが同じ数のセルを担当する分け方だけを扱います。"
+msgstr ""
+
+msgid "確認プログラム：MISO の Shape と Grid"
+msgstr ""
+
+msgid "MISO のヘッダを使って、各ランクの位置・隣のランク・格子の値を表示します。 第 1 章で作った「自分のプログラムから MISO を使う」CMake 設定（`add_subdirectory` で `MISO::MISO` をリンク）を使い、次の `main.cpp` をビルドします。"
+msgstr ""
+
+#, python-brace-format
+msgid "`MPI_Barrier` は、全ランクがここに来るまで待つ関数です。ランク 0 から順に表示させるために使っています。 `is_physical_boundary` は {ref}`8 節 <edu-ch08-physical-boundary>` で説明します。"
+msgstr ""
+
+msgid "設定ファイル `shape_check.yaml` は、実行するフォルダに置きます。x 方向は周期、y 方向は周期でない設定です。 `io.enabled: false` で、ファイルの出力をしないようにしています。"
+msgstr ""
+
+msgid "4 プロセスで動かした出力です（`build` の下に実行ファイルができた場合）。"
+msgstr ""
+
+msgid "読み取れることをまとめます。"
+msgstr ""
+
+#, python-brace-format
+msgid "ランクの位置は {ref}`3 節 <edu-ch08-shape>` の図のとおりです（ランク 1 が `(0, 1)`）。"
+msgstr ""
+
+msgid "x 方向は周期で 2 つに分けたので、左右の隣は同じランクです（ランク 0 の左右はどちらもランク 2）。"
+msgstr ""
+
+msgid "y 方向は周期でないので、下端のランク 0, 2 の `y_neg` と、上端のランク 1, 3 の `y_pos` が `-2` です。`-2` は、この OpenMPI での `MPI_PROC_NULL` の値です（値は MPI の実装によって違うので、コードでは必ず `MPI_PROC_NULL` と比べます）。"
+msgstr ""
+
+msgid "全体 8 セルを 2 つに分けたので `i_size = 4`、両側に 2 個ずつゴーストを足して `i_total = 8` です。"
+msgstr ""
+
+msgid "最初の担当セルの中心の座標は、ランクの位置に応じて $0.5/8 = 0.0625$ と $4.5/8 = 0.5625$ です。"
+msgstr ""
+
+msgid "`mpiexec -np 2` で動かすと、`x_procs * y_procs * z_procs = 4` と合わないので、`MPI_Cart_create` のエラーで止まります。"
+msgstr ""
+
+msgid "練習 1：ランクごとの格子の値"
+msgstr ""
+
+msgid "`demo/mhd2d_vortex/config.yaml`（`i_size: 128`, `margin: 2`, `x_min: 0.0`, `x_max: 1.0`, `x_procs: 2`）で、`coord[0] = 1` のランクの `grid.i_size`、`grid.i_total`、`i_offset` を求めてください。 さらに、そのランクのローカルの添字 `i = 2` と `i = 0` のセルについて、全体の添字 `ig` と座標 `grid.x[i]` を求めてください。"
+msgstr ""
+
+msgid "`i_size = 128 / 2 = 64`、`i_total = 64 + 2 * 2 = 68`、`i_offset = 1 * 64 = 64` です。"
+msgstr ""
+
+msgid "`AxisGrid` の `ig = i - begin + offset` で、`begin = margin = 2` です。 `i = 2` は `ig = 2 - 2 + 64 = 64` で、最初の担当セルです。座標は $(64 + 0.5) \\times (1/128) = 0.50390625$ です。 `i = 0` は `ig = 62` で、左のゴーストセルです。ランク 0 の最後から 2 番目の担当セルにあたり、座標は $(62 + 0.5)/128 = 0.48828125$ です。"
+msgstr ""
+
+msgid "5. 隣との値の交換：MPI_Sendrecv"
+msgstr ""
+
+msgid "送信と受信の対応"
+msgstr ""
+
+msgid "1 対 1 の通信では、送る側と受け取る側がそれぞれ次のものを指定します。"
+msgstr ""
+
+msgid "引数"
+msgstr ""
+
+msgid "意味"
+msgstr ""
+
+msgid "置き場所"
+msgstr ""
+
+msgid "送る値・受け取る場所の先頭のアドレス（`&u[0]` など）"
+msgstr ""
+
+msgid "個数"
+msgstr ""
+
+msgid "要素の数"
+msgstr ""
+
+msgid "型"
+msgstr ""
+
+msgid "`MPI_DOUBLE`（C++ の `double`）、`MPI_FLOAT`（`float`）など"
+msgstr ""
+
+msgid "相手"
+msgstr ""
+
+msgid "相手のランク"
+msgstr ""
+
+msgid "タグ"
+msgstr ""
+
+msgid "通信を区別する整数"
+msgstr ""
+
+msgid "コミュニケータ"
+msgstr ""
+
+msgid "どのプロセスの集まりの中での通信か"
+msgstr ""
+
+msgid "受け取る側が指定した「相手」と「タグ」が、送る側のランクとタグに一致したとき、その送信と受信が対応します。 同じ相手から 2 種類の値を受け取るとき、タグで区別できます。"
+msgstr ""
+
+msgid "確認プログラム：周期境界での隣との交換"
+msgstr ""
+
+msgid "1 次元で各ランクが 4 セルを担当し、両端に 1 個ずつゴーストセルを持つ場合を作ります。 各セルに、その全体の添字を値として入れ、左右の隣と交換します。`sendrecv.cpp` として保存します。"
+msgstr ""
+
+msgid "`MPI_Sendrecv` は、1 回の呼び出しで「送る」と「受け取る」を同時に行います。 前半の 5 つの引数が送信、次の 5 つが受信、最後がコミュニケータと受信の詳しい情報の置き場所です。 `MPI_STATUS_IGNORE` は「詳しい情報は要らない」という指定です。"
+msgstr ""
+
+#, python-format
+msgid "`% size` は割り算の余りで、ランク 0 の左を最後のランクに、最後のランクの右をランク 0 につなぎます（周期境界）。 `(rank - 1 + size)` と `size` を足しているのは、C++ では負の数の余りが負になる（`-1 % 4` は `-1`）からです。"
+msgstr ""
+
+msgid "(1) では、全ランクが「右へ送り、左から受け取る」を同時に行います。 ランク 1 が右へ送った値は、ランク 2 が「左から受け取る」として受け取ります。両方ともタグ 100 なので対応します。 (2) は向きを逆にした交換です。"
+msgstr ""
+
+msgid "4 プロセスの出力です（ランクの順に並べ替えています）。"
+msgstr ""
+
+msgid "各ランクの左のゴーストに左隣の最後のセルの値、右のゴーストに右隣の最初のセルの値が入っています。 ランク 0 の左には、周期境界で最後のランクの値 15 が入りました。"
+msgstr ""
+
+msgid "送信と受信を別々に書く場合の注意"
+msgstr ""
+
+msgid "`MPI_Send`（送る）と `MPI_Recv`（受け取る）を別々に書くこともできます。 このとき、全ランクが先に `MPI_Send` を呼ぶと、送る値が大きい場合に、全員が「相手が受け取るまで待つ」状態になって先へ進めなくなることがあります。 この状態を**デッドロック**（deadlock）と呼びます。 `MPI_Sendrecv` は送受信をまとめて MPI に任せるので、この形の待ち合いを避けられます。"
+msgstr ""
+
+msgid "練習 2：ゴーストセルに入る値"
+msgstr ""
+
+msgid "上の `sendrecv` を 2 プロセスで動かすと、ランク 0 の左右のゴーストに入る値はいくつになるか、それぞれどのランクからどのタグで届くかを説明してください。 さらに、1 プロセス（`mpiexec -np 1`）で動かしたときの出力を予想し、実行して確かめてください。"
+msgstr ""
+
+msgid "2 プロセスでは、ランク 0 が全体の 0〜3、ランク 1 が 4〜7 を担当します。 ランク 0 の左隣も右隣もランク 1 です。 左のゴーストには、ランク 1 が (1) で右へ送った最後のセル 7 がタグ 100 で届きます。 右のゴーストには、ランク 1 が (2) で左へ送った最初のセル 4 がタグ 200 で届きます。 相手が同じランクでも、(1) と (2) は別の呼び出しで、タグも違うので取り違えません。"
+msgstr ""
+
+msgid "1 プロセスでは `left` も `right` も自分自身（0）になり、自分に送って自分で受け取ります。"
+msgstr ""
+
+#, python-brace-format
+msgid "自分の右端の値 3 が左のゴーストに、左端の値 0 が右のゴーストに入ります。 これは周期境界条件そのものです。{ref}`7 節 <edu-ch08-halo>` で見るとおり、MISO は分割しない方向の周期境界も、この「自分との交換」で処理します。"
+msgstr ""
+
+msgid "6. 通信を始めてから完了を待つ：MPI_Isend と MPI_Irecv"
+msgstr ""
+
+msgid "MISO のハロー交換は `MPI_Sendrecv` ではなく、`MPI_Isend`、`MPI_Irecv`、`MPI_Waitall` を使います。 `MPI_Isend` と `MPI_Irecv` は、通信を**始める**だけで、完了を待たずに戻ります。 この形を**ノンブロッキング通信**（non-blocking communication）と呼びます（名前の `I` は immediate の頭文字です）。 戻るときに、後で完了を確かめるための札を `MPI_Request` 型の変数に書き込みます。 `MPI_Waitall` は、渡した札の通信がすべて完了するまで待ちます。"
+msgstr ""
+
+msgid "前節の (1) と (2) を、ノンブロッキング通信で書き直すと次のようになります。"
+msgstr ""
+
+msgid "`sendrecv.cpp` の 2 つの `MPI_Sendrecv` をこれに置き換えても、出力は同じになります。"
+msgstr ""
+
+msgid "4 つの通信を始めてからまとめて待つので、送受信の順番による待ち合いが起きません。 守る約束は 2 つです。"
+msgstr ""
+
+msgid "送信が完了するまで、送る値（`u[n]`, `u[1]`）を書き換えません。"
+msgstr ""
+
+msgid "受信が完了するまで、受け取る場所（`u[0]`, `u[n + 1]`）を読み書きしません。"
+msgstr ""
+
+msgid "`MPI_Waitall` の後なら、ゴーストセルの値を使って差分計算を始められます。"
+msgstr ""
+
+msgid "7. MISO のハロー交換"
+msgstr ""
+
+msgid "HaloExchanger の全体の形"
+msgstr ""
+
+msgid "MHD の 9 つの変数のハロー交換は、`miso/include/miso/mhd_halo_exchange.hpp` の `HaloExchanger` が行います。 第 6 章で学んだ部分特殊化で、`backend::Host` 用と `backend::CUDA` 用が別々に書かれています。 ここでは Host 版を読みます。CUDA 版は、値をバッファへ詰める処理を GPU のカーネルで行う点が違います。第 9 章で扱います。"
+msgstr ""
+
+msgid "Host 版は、送受信用のバッファを方向と向きごとに持ちます。"
+msgstr ""
+
+msgid "x 方向のバッファの形は `(i_margin, j_total, k_total, n_fields)` です。 x 方向に送るのは端の `i_margin` 枚の面で、それを 9 つの変数（`n_fields = 9`）ぶんまとめて 1 つの配列に詰めます。 変数ごとに 9 回通信するより、まとめて 1 回送る方が通信の回数が減ります。"
+msgstr ""
+
+msgid "値を詰めて送る"
+msgstr ""
+
+msgid "`apply` の x 方向・正の向きの部分です。"
+msgstr ""
+
+msgid "読み方を順に説明します。"
+msgstr ""
+
+msgid "`vars` は、`apply` の最初で作る 9 つの変数（`ro`, `vx`, ..., `ph`）へのポインタの配列です。`(*vars[v])(i, j, k)` は `v` 番目の変数の `(i, j, k)` の値です。"
+msgstr ""
+
+msgid "正の側の隣がいて（`MPI_PROC_NULL` でない）、x 方向が 1 セルでない（`i_size > 1`）ときだけ交換します。"
+msgstr ""
+
+msgid "詰めるのは `i_total - 2 * i_margin` から `i_total - i_margin - 1` まで、つまり担当範囲の右端の `i_margin` 枚です。"
+msgstr ""
+
+msgid "`send_x_pos.data()` はバッファの先頭のポインタ、`send_x_pos.size()` は要素数です。"
+msgstr ""
+
+msgid "`mpi::data_type<Real>()` は、`Real` が `float` なら `MPI_FLOAT`、`double` なら `MPI_DOUBLE` を返す関数テンプレートです（`miso/include/miso/mpi_util.hpp`。第 6 章の特殊化の例）。"
+msgstr ""
+
+msgid "正の側へはタグ 100 で送り、正の側からはタグ 200 で受け取ります。"
+msgstr ""
+
+msgid "負の向きの部分は、詰める範囲が `i_margin` からの `i_margin` 枚（担当範囲の左端）で、負の側へタグ 200 で送り、負の側からタグ 100 で受け取ります。 タグ 100 は「正の向きへ送った値」、タグ 200 は「負の向きへ送った値」を表します。 あるランクが正の側へタグ 100 で送った値は、受け取る側から見ると負の側から届く値なので、`recv_x_neg` がタグ 100 で受け取ります。 前節の確認プログラムの (1)（右へ送るタグ 100）と (2)（左へ送るタグ 200）と同じ対応です。"
+msgstr ""
+
+msgid "`req_count++` は、今の `req_count` を添字に使ってから 1 増やす書き方です。始めた通信の札が `reqs[0]`, `reqs[1]`, ... と順に入ります。"
+msgstr ""
+
+msgid "完了を待って配列へ戻す"
+msgstr ""
+
+msgid "両方の向きの通信を始めたら、`MPI_Waitall` で完了を待ち、受け取った値をゴーストセルへ戻します。"
+msgstr ""
+
+msgid "正の側から受け取った値は、右端のゴースト（`i_total - i_margin` から `i_total - 1`）へ入ります。 負の側から受け取った値は、左端のゴースト（`0` から `i_margin - 1`）へ入ります。"
+msgstr ""
+
+msgid "値をバッファへ詰める処理を**パック**（pack）、バッファから配列へ戻す処理を**アンパック**（unpack）と呼びます。 CUDA 版の `pack_x_send`, `unpack_x_recv` という名前は、この処理を表しています。"
+msgstr ""
+
+msgid "x, y, z の順に 1 方向ずつ交換する理由"
+msgstr ""
+
+msgid "`apply` は、x 方向の交換を完了させてから y 方向、その後に z 方向を交換します。 y 方向のバッファは `(i_total, j_margin, k_total, n_fields)` の形で、x 方向については**ゴーストも含めた**全体（`i_total`）を送ります。 x 方向の交換で埋まったゴーストの値が、y 方向の交換で斜めの隣のランクへ届くので、角（x と y の両方でゴーストになるセル）にも正しい値が入ります。 コードの冒頭のコメント（`Exchange one direction at a time ...`）は、このことを述べています。"
+msgstr ""
+
+msgid "周期境界と分割しない方向"
+msgstr ""
+
+#, python-brace-format
+msgid "{ref}`3 節 <edu-ch08-shape>` で見たとおり、周期境界の方向では、端のランクの隣は反対側の端のランクです。 その方向を分割しない（`x_procs: 1`）場合、隣は自分自身になり、ハロー交換は自分との交換になります（練習 2 の 1 プロセスの場合と同じです）。 このため MISO では、周期境界条件を境界条件の関数ではなく、ハロー交換で実現しています。 `demo/mhd2d_vortex` が `mhd::EmptyBoundaryCondition`（何もしない境界条件）を使っているのは、x, y とも周期境界で、ゴーストセルがすべてハロー交換で埋まるからです。"
+msgstr ""
+
+msgid "輻射輸送（RT）の計算には、別のハロー交換（`miso/include/miso/rt_host.hpp` の `mpi_exchange_halo`）があります。考え方は同じです。"
+msgstr ""
+
+msgid "練習 3：送る範囲と受け取る範囲"
+msgstr ""
+
+msgid "`i_total = 68`, `i_margin = 2` のランクを考えます。 このランクが x の正の側へ送るのはローカルの添字 `i` がいくつのセルか、それを受け取った正の側の隣のランクはどの添字のセルへ値を入れるかを答えてください。 また、受け取る側がタグ 100 を指定するのは `recv_x_pos` と `recv_x_neg` のどちらかを、理由とともに説明してください。"
+msgstr ""
+
+msgid "送るのは `i_total - 2 * i_margin + i`（`i = 0, 1`）、つまり `i = 64, 65` です。担当範囲（2〜65）の右端の 2 枚です。"
+msgstr ""
+
+msgid "正の側の隣のランクから見ると、この値は負の側から届きます。 `recv_x_neg` で受け取り、左端のゴースト `i = 0, 1` へ入れます。 こちらのランクの 64, 65 が、隣のランクの 0, 1 になるので、隣の担当範囲の最初のセル（2）のすぐ左に、こちらの最後の 2 セルが並びます。"
+msgstr ""
+
+msgid "正の側へ送るときのタグは 100 です。その値を受け取るのは、受け取る側にとって負の側との通信なので、タグ 100 を指定するのは `recv_x_neg` です。 送り手は「正の向きへ送る」、受け手は「負の側から受け取る」と、同じ通信を逆の立場から見ています。"
+msgstr ""
+
+msgid "8. 物理境界と内部境界"
+msgstr ""
+
+msgid "ゴーストセルには 2 種類あります。"
+msgstr ""
+
+msgid "**内部境界**：隣にランクがいる境界。ゴーストは隣のランクの値で埋めます（ハロー交換）。周期境界の端もこちらに入ります。"
+msgstr ""
+
+msgid "**物理境界**：計算領域そのものの端で、周期でない境界。隣のランクはいない（`MPI_PROC_NULL`）ので、ゴーストは境界条件（対称・反対称など）で埋めます。"
+msgstr ""
+
+msgid "分割したとき、物理境界に面しているのは端のランクだけです。 内側のランクが境界条件の関数でゴーストを書き換えると、隣から受け取るべき値を壊してしまいます。 そこで、境界条件を適用する前に、自分の面が物理境界かどうかを調べます。 その判定が `boundary_condition::is_physical_boundary` です（`miso/include/miso/boundary_condition.hpp`）。"
+msgstr ""
+
+msgid "`Side::INNER` は座標の小さい側（負の側）、`Side::OUTER` は大きい側（正の側）です。 その側の隣が `MPI_PROC_NULL` なら物理境界です。 `条件 ? A : B` は、条件が真なら `A`、偽なら `B` を値とする式です。"
+msgstr ""
+
+msgid "y 方向が周期でない `demo/hd2d_kelvin_helmholtz/src/main.cpp` の境界条件は、次のように使っています（抜粋）。"
+msgstr ""
+
+msgid "`namespace bc = miso::boundary_condition;` は、長い名前空間に短い別名 `bc` を付ける書き方です。 x 方向は周期境界なので、x 方向の境界条件は書かれていません。"
+msgstr ""
+
+msgid "境界条件とハロー交換を呼ぶ順番は、`miso/include/miso/mhd_integrator_host.hpp` の `apply_boundary_condition` で決まっています。"
+msgstr ""
+
+msgid "先に物理境界のゴーストを境界条件で埋め、次にハロー交換で内部境界のゴーストを埋めます。 y 方向の物理境界で埋めた値は、x 方向のハロー交換（`j_total` 全体を送る）で隣のランクにも届きます。 この関数が時間発展のどこで呼ばれるかは、第 11 章で読みます。"
+msgstr ""
+
+#, python-brace-format
+msgid "{ref}`4 節 <edu-ch08-grid>` の確認プログラムの出力で、`y inner = 1` になったのは y 方向の下端のランク 0 と 2 だけでした。 x 方向は周期境界なので、どのランクでも `x inner = 0` です。"
+msgstr ""
+
+msgid "9. 全ランクで値をまとめる：MPI_Allreduce"
+msgstr ""
+
+msgid "集団通信"
+msgstr ""
+
+msgid "各ランクが自分の領域で時間刻みの候補 `dt` を求めても、ランクごとに違う `dt` で進むと時刻がずれてしまいます。 全ランクの候補の最小値を求め、全員がそれを使う必要があります。 このように、コミュニケータの全プロセスが参加する通信を**集団通信**（collective communication）と呼びます。 `MPI_Allreduce` は、全ランクの値を演算（最小値、合計など）でまとめ、結果を全ランクに配ります。"
+msgstr ""
+
+msgid "確認プログラム：最小値と合計"
+msgstr ""
+
+msgid "`allreduce.cpp` として保存します。"
+msgstr ""
+
+msgid "引数は、送る値のアドレス、結果を受け取るアドレス、個数、型、演算、コミュニケータの順です。 `MPI_MIN` を `MPI_SUM` に替えると合計になります。2 つ目の呼び出しでは、各ランクの 1 を合計して、ランク数を数えています。"
+msgstr ""
+
+msgid "`dt_local` はランクごとに違いますが、`dt_global` は全ランクで同じ最小値になりました。"
+msgstr ""
+
+msgid "Integrator::cfl の dt"
+msgstr ""
+
+msgid "第 7 章で読んだ `Integrator::cfl`（`miso/include/miso/mhd_integrator_host.hpp`）は、自分の担当範囲のセルだけで CFL 条件の `dt` を求め、最後に全ランクの最小値をとります。"
+msgstr ""
+
+msgid "第 7 章の `reduce` は 1 つのプロセスの中の配列の値をまとめ、`MPI_Allreduce` はプロセスごとの結果をさらにまとめます。 2 段階で全体の値を求めると考えると読みやすくなります。"
+msgstr ""
+
+msgid "全ランクが同じ順序で呼ぶ"
+msgstr ""
+
+msgid "集団通信は、コミュニケータの**全ランクが、同じ順序で**呼ぶ必要があります。 1 つのランクだけが呼ばなかったり、別の集団通信を先に呼んだりすると、他のランクは来ない相手を待ち続けて止まります。"
+msgstr ""
+
+msgid "`miso/include/miso/mhd_model_base.hpp` の `ModelBase::update` には、この約束を守るための工夫があります。 ソース項が時間刻みの上限 `dt_limit()` を持つ場合の処理です。"
+msgstr ""
+
+msgid "あるランクで `dt_limit()` が正でない（不正な）値を返しても、そのランクはすぐに例外を投げず、`-1` にして `MPI_Allreduce` に参加します。 最小値をとると全ランクが `-1` を受け取るので、全ランクが同時に例外を投げます。 1 つのランクだけが先に止まって、他のランクが `MPI_Allreduce` で待ち続けることを防いでいます。"
+msgstr ""
+
+msgid "MISO では他に、`Config` のコンストラクタ（`miso/include/miso/config.hpp`）が `MPI_Bcast`（ランク 0 が読んだ設定ファイルの内容を全ランクへ配る）を、`Shape::save` が `MPI_Gather`（全ランクの `coord` をランク 0 に集める）を使っています。"
+msgstr ""
+
+msgid "練習 4：集団通信を呼ぶ条件"
+msgstr ""
+
+#, python-brace-format
+msgid "`Integrator::cfl` の `MPI_Allreduce` を、`if (mpi::is_root()) { ... }` の中に移したとします。 2 プロセスで動かしたとき何が起きるかを説明してください（実際に書き換えて動かす必要はありません）。"
+msgstr ""
+
+msgid "ランク 0 だけが `MPI_Allreduce` を呼び、ランク 1 は呼びません。 ランク 0 はランク 1 の値が届くのを待ち続け、計算が先へ進みません。 ランク 1 は初期化されていない `dt_global` を返して先へ進み、次のハロー交換や集団通信で、ランク 0 と対応しない通信を待つことになります。 どちらにしても、全ランクが同じ集団通信を同じ順序で呼ぶという約束が破れ、プログラムは止まるか、正しくない結果になります。"
+msgstr ""
+
+msgid "ランク 0 だけで行ってよいのは、ファイルへの書き出しや画面への表示のように、通信を含まない処理です。"
+msgstr ""
+
+msgid "10. MISO のデモを MPI で動かす"
+msgstr ""
+
+msgid "app_run.sh と OpenMPI の環境変数"
+msgstr ""
+
+msgid "デモのビルドと実行の基本は第 1 章で扱いました。 `demo/mhd2d_vortex/app_run.sh` の実行部分を見ると、MPI での起動の仕方が分かります（抜粋）。"
+msgstr ""
+
+msgid "`NUM_PROCS=2` は、`config.yaml` の `x_procs: 2`, `y_procs: 1`, `z_procs: 1` の積と一致しています。 設定ファイルの分割を変えたら、この数も合わせて変えます。"
+msgstr ""
+
+msgid "`set -a` から `set +a` の間で読み込んだ変数は、環境変数として `mpiexec` に引き継がれます。 読み込むファイル `demo/shared/openmpi_config.env` の中身は次のとおりです。"
+msgstr ""
+
+msgid "`OMPI_MCA_` で始まる環境変数は、OpenMPI の内部の部品（MCA：Modular Component Architecture）の選び方を指定します。 コメントにあるとおり、コンテナの中など、特定の通信ライブラリが使えない環境でのエラーを避けるための設定です。 `pml` と `btl` は 1 対 1 通信の層と経路（TCP、自分自身、同じ計算機内の共有メモリ `vader`）、`coll` は集団通信、`osc` は片側通信の部品の指定で、`^` は「除く」を表します。 最後の行は、プロセスを特定の CPU コアに固定しない指定です。"
+msgstr ""
+
+msgid "環境によっては、次の 2 つも必要になります。MISO のユニットテストを `ctest` で動かすときに付けるのはこのためです。"
+msgstr ""
+
+msgid "`OMPI_MCA_btl_vader_single_copy_mechanism=none`：同じ計算機内のプロセス間でメモリを直接コピーする機能が使えない環境（コンテナなど）で、その警告やエラーを避けます。"
+msgstr ""
+
+msgid "`OMPI_MCA_rmaps_base_oversubscribe=yes`：計算機のコア数より多いプロセスを起動できるようにします。"
+msgstr ""
+
+msgid "いずれも OpenMPI だけの設定で、他の MPI（MPICH など）では効果がありません。 各部品の詳しい説明は、OpenMPI の文書（[Open MPI 4.1 の FAQ](https://www.open-mpi.org/faq/?category=tuning)）にあります。"
+msgstr ""
+
+msgid "手で起動する"
+msgstr ""
+
+msgid "`app_run.sh` を使わずに、手で起動することもできます。 デモをビルドした後、MISO のフォルダで次のように実行します。"
+msgstr ""
+
+msgid "`--config=` で設定ファイルを指定します。出力先 `io.save_dir`（既定は `data/`）は設定ファイルのあるフォルダからの相対パスなので、`demo/mhd2d_vortex/data/` に書かれます。 短く試すときは、設定ファイルを別のフォルダに写して `time.tend` を小さくし（例：`0.02`）、そのファイルを `--config=` に渡します。出力は写したフォルダの `data/` に書かれます。 `tend: 0.02` で動かしたときの画面の表示です。"
+msgstr ""
+
+msgid "表示はランク 0 だけが行います。"
+msgstr ""
+
+msgid "出力ファイルとランク"
+msgstr ""
+
+#, python-brace-format
+msgid "`data/` の下の `mhd/mhd.<出力番号>.<ランク>.bin`（例：`mhd.00000001.00000000.bin`）は、ランクごとの MHD 変数です。各ランクは自分の配列（ゴーストセル込み）だけを書きます。 `grid.bin` は全体の格子で、ランク 0 だけが書きます。 `mpi/coords.csv` は、{ref}`3 節 <edu-ch08-shape>` で見たランクと位置の対応で、`x_procs: 2` なら `0,0,0,0` と `1,1,0,0` の 2 行が並びます。 `pymiso.Data` は `coords.csv` と各ランクのファイルを読み、ゴーストを除いて全体の配列（`ro` など）を組み立てます。 読み手は分割の仕方を意識せずに解析できます。"
+msgstr ""
+
+msgid "分割の仕方を変えて結果を比べる"
+msgstr ""
+
+msgid "領域分割は計算の手順を変えないので、分割の仕方を変えても結果は変わらないはずです。 これは、MPI の部分を書き換えたときの確かめ方としても使えます。 `demo/mhd2d_vortex` を `tend: 0.02` にして、`mpi` セクションを $1 \\times 1$（`-np 1`）、$2 \\times 1$（`-np 2`）、$2 \\times 2$（`-np 4`）の 3 通りにして、別々のフォルダで動かしたとします。 `pymiso` で出力番号 2 の値の差を調べます。"
+msgstr ""
+
+msgid "`run_1x1` などは、それぞれの設定ファイルを置いたフォルダです。 確かめた結果では、どの変数も差は `0.0` で、ビット単位で同じでした。 ハロー交換は値をそのまま写すだけで、`MPI_MIN` による最小値も計算の順序によらず同じ値になるからです。 `MPI_SUM` で浮動小数点数の合計をとる処理があると、足す順序が分割によって変わるので、丸め誤差程度の差が出ることがあります。"
+msgstr ""
+
+msgid "練習 5：y 方向に分割して動かす"
+msgstr ""
+
+msgid "`demo/mhd2d_vortex` の設定ファイルを写し、`tend` を `0.02` に、`mpi` セクションを `x_procs: 1`, `y_procs: 2` に変えて、2 プロセスで動かしてください。 `data/mpi/coords.csv` の中身を確かめ、`x_procs: 2`, `y_procs: 1` で動かした結果と、上の方法で比べてください。 また、ランクごとの出力ファイル `mhd.00000000.00000000.bin` の大きさ（バイト数）を計算で求め、実際の大きさと比べてください。 ファイルは、先頭に要素の大きさを表す 4 バイトの整数があり、その後に 9 変数のゴースト込みの値が `Real = float`（4 バイト）で続きます。"
+msgstr ""
+
+msgid "`coords.csv` は次のようになります。y 方向に並ぶので、ランク 1 の y 座標が 1 です。"
+msgstr ""
+
+msgid "`x_procs: 2` の結果との差は、どの変数も `0.0` になります。"
+msgstr ""
+
+msgid "1 ランクの格子は、x 方向が分割なしで `i_total = 128 + 2 * 2 = 132`、y 方向が `j_total = 64 + 2 * 2 = 68`、z 方向は `k_size = 1` なのでゴーストがなく `k_total = 1` です。"
+msgstr ""
+
+#, python-brace-format
+msgid ""
+"\n"
+"4 + 9 \\times 132 \\times 68 \\times 1 \\times 4 = 323140 \\ \\text{バイト}\n"
+msgstr ""
+
+msgid "`ls -l data/mhd` で表示される大きさと一致します。 `x_procs: 2` のときは `i_total = 68`, `j_total = 132` なので、同じ大きさになります。"
+msgstr ""
+
+msgid "MPI は、特定のソフトウェアの名前ではなく、関数の名前・引数・動作を定めた規格です。 規格は MPI Forum が定めていて、最新の文書は [MPI Forum の Web ページ](https://www.mpi-forum.org/docs/) で公開されています。 OpenMPI や MPICH は、この規格を実装したライブラリです。 規格に書かれた関数（`MPI_Sendrecv`, `MPI_Allreduce` など）の意味はどの実装でも同じですが、`MPI_PROC_NULL` の具体的な値や、`OMPI_MCA_` のような実行時の設定は実装ごとに違います。 この章の出力で `MPI_PROC_NULL` が `-2` と表示されたのは、OpenMPI 4.1 での値です。"
+msgstr ""
+
+msgid "C++ から使う関数は C 言語用のものです。MPI 2.x の規格には C++ 用の関数（`MPI::COMM_WORLD.Get_rank()` など）もありましたが、MPI 3.0 で削除されました。 現在の C++ のプログラムは、MISO と同じように C 用の関数を呼びます。"
+msgstr ""
+
+msgid "11. まとめ"
+msgstr ""
+
+msgid "MPI は同じプログラムを複数のプロセスで動かし、プロセスはランクで区別します。プロセスの間では、値を明示的に送受信します。"
+msgstr ""
+
+msgid "MISO では `Env` のコンストラクタとデストラクタが `MPI_Init` と `MPI_Finalize` を受け持ちます。ランクは `mpi::rank()` で調べます。"
+msgstr ""
+
+msgid "`config.yaml` の `mpi` セクションで分割数を決め、`mpi::Shape` が `MPI_Cart_create` と `MPI_Cart_shift` でランクの並びと隣のランクを求めます。隣がいなければ `MPI_PROC_NULL` です。"
+msgstr ""
+
+msgid "`Grid` は自分のランクの格子です。担当するセルの両側に `i_margin` 個のゴーストセルを持ち、ゴースト込みの数が `i_total` です。"
+msgstr ""
+
+msgid "`HaloExchanger` は 9 変数をバッファに詰め、`MPI_Isend`/`MPI_Irecv`/`MPI_Waitall` で隣と交換し、x, y, z の順に 1 方向ずつゴーストを埋めます。周期境界もこの交換で処理します。"
+msgstr ""
+
+msgid "物理境界かどうかは `is_physical_boundary` で調べ、物理境界のゴーストだけを境界条件で埋めます。"
+msgstr ""
+
+msgid "時間刻みは `MPI_Allreduce`（`MPI_MIN`）で全ランクの最小値に揃えます。集団通信は全ランクが同じ順序で呼びます。"
+msgstr ""
+
+msgid "GPU を使う場合のハロー交換と、ランクと GPU の対応づけは第 9 章で扱います。 CPU だけで進める場合は、第 10 章の熱伝導の実習で、この章の 1 次元のハロー交換と `MPI_Allreduce` を自分で書きます。"
+msgstr ""
+

@@ -1,0 +1,47 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2025, Integrated Studies, ISEE, Nagoya University
+# This file is distributed under the same license as the MISO package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: MISO \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-10-29 09:37+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: en\n"
+"Language-Team: en <LL@li.org>\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.18.0\n"
+
+msgid "参考資料"
+msgstr ""
+
+msgid "本文を読みながら、必要なときに参照する資料です。先に通読する必要はありません。"
+msgstr ""
+
+#, python-brace-format
+msgid "{ref}`用語集 <edu-ref-glossary>` — 本文に出てくる用語の説明と英語。"
+msgstr ""
+
+#, python-brace-format
+msgid "{ref}`Fortran との対応表 <edu-ref-fortran-map>` — Fortran の書き方と C++・MISO の書き方の対応。"
+msgstr ""
+
+#, python-brace-format
+msgid "{ref}`記号の早見表 <edu-ref-cpp>` — `*`・`&`・`::`・`<>` などの意味と、本文の説明へのリンク。"
+msgstr ""
+
+#, python-brace-format
+msgid "{ref}`テストと計算結果の比較 <edu-ref-testing>` — MISO のユニットテストと、出力を比べる方法。"
+msgstr ""
+
+#, python-brace-format
+msgid "{ref}`GPU で困ったとき <edu-ref-gpu-troubleshooting>` — GPU での実行時によく出る問題と対処。"
+msgstr ""
+

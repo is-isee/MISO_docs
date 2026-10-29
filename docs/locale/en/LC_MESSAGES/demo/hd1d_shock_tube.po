@@ -1,0 +1,99 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2025, Integrated Studies, ISEE, Nagoya University
+# This file is distributed under the same license as the MISO package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: MISO \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-10-29 09:37+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: en\n"
+"Language-Team: en <LL@li.org>\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.18.0\n"
+
+msgid "1D HD Test: Sod's Shock Tube"
+msgstr ""
+
+#, python-brace-format
+msgid "1次元の衝撃波管問題 {cite}`sod_1978JCoPh..27....1S` です。初期条件に不連続があるため、衝撃波、接触不連続、希薄波が発生します。この問題は、流体の方程式を解く数値スキームの検証によく用いられます。"
+msgstr ""
+
+msgid "MISOで提供しているテスト問題では、$x$, $y$, $z$の各方向に1次元問題を実施していますが、本ページでは$x$方向の問題のみを説明します。"
+msgstr ""
+
+msgid "Location"
+msgstr ""
+
+msgid "`demo/hd1d_shock_tube/`"
+msgstr ""
+
+msgid "Geometry"
+msgstr ""
+
+msgid "$0 \\leq x \\leq 1$."
+msgstr ""
+
+msgid "Initial Conditions"
+msgstr ""
+
+msgid "初期条件は、$x=0.5$で分離された左側と右側の状態で記述されます。比熱比は$\\gamma = 1.4$とします。"
+msgstr ""
+
+#, python-brace-format
+msgid ""
+"\n"
+"\\begin{align*}\n"
+"\\begin{pmatrix}\n"
+"\\rho_\\mathrm{L} \\\\\n"
+"p_\\mathrm{L} \\\\\n"
+"v_\\mathrm{L}\n"
+"\\end{pmatrix}\n"
+"&=\n"
+"\\begin{pmatrix}\n"
+"1.0 \\\\\n"
+"1.0 \\\\\n"
+"0.0\n"
+"\\end{pmatrix} \\\\\n"
+"\\begin{pmatrix}\n"
+"\\rho_\\mathrm{R} \\\\\n"
+"p_\\mathrm{R} \\\\\n"
+"v_\\mathrm{R}\n"
+"\\end{pmatrix}\n"
+"&=\n"
+"\\begin{pmatrix}\n"
+"0.125 \\\\\n"
+"0.1 \\\\\n"
+"0.0\n"
+"\\end{pmatrix}\n"
+"\\end{align*}\n"
+msgstr ""
+
+msgid "Boundary Conditions"
+msgstr ""
+
+msgid "すべての物理量について、対称境界条件を設定します。"
+msgstr ""
+
+msgid "Results"
+msgstr ""
+
+msgid "Pythonを用いて可視化し、$x$, $y$, $z$方向の結果を比較できます。 画像ファイルは demo/hd1d_shock_tube/figsに保存されます。"
+msgstr ""
+
+msgid "本pythonプログラムでは、解析解も計算しており、数値解と解析解の比較も行っています。"
+msgstr ""
+
+msgid "![hd1d_shock_tube](../_static/images/hd_shock_tube_1d.png)"
+msgstr ""
+
+msgid "hd1d_shock_tube"
+msgstr ""
+

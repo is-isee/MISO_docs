@@ -1,0 +1,840 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2025, Integrated Studies, ISEE, Nagoya University
+# This file is distributed under the same license as the MISO package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: MISO \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-10-29 09:37+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: en\n"
+"Language-Team: en <LL@li.org>\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.18.0\n"
+
+msgid "1. 開発環境と CMake"
+msgstr ""
+
+#, python-brace-format
+msgid "この章では、手元の計算機で C++ のプログラムをコンパイルして動かし、MISO をビルドして実行できるようにします。 Ubuntu と Mac で道具を揃え、コンパイルとリンクの仕組み、CMake の使い方、MISO のビルド・テスト・デモの実行、 自分のプログラムから MISO を使う設定までを順に確かめます。 C++ の文法は {ref}`第 2 章 <edu-ch02>` から学びます。この章のプログラムは、文法を気にせずそのまま保存して構いません。"
+msgstr ""
+
+#, python-brace-format
+msgid "{ref}`必要な道具 <edu-ch01-tools>`"
+msgstr ""
+
+#, python-brace-format
+msgid "{ref}`Ubuntu での準備 <edu-ch01-ubuntu>`"
+msgstr ""
+
+#, python-brace-format
+msgid "{ref}`Mac での準備 <edu-ch01-mac>`"
+msgstr ""
+
+#, python-brace-format
+msgid "{ref}`MISO を取得する <edu-ch01-get-miso>`"
+msgstr ""
+
+#, python-brace-format
+msgid "{ref}`コンパイルとリンク <edu-ch01-compile>`"
+msgstr ""
+
+#, python-brace-format
+msgid "{ref}`CMake の仕組み <edu-ch01-cmake>`"
+msgstr ""
+
+#, python-brace-format
+msgid "{ref}`MISO のビルドとユニットテスト <edu-ch01-miso-build>`"
+msgstr ""
+
+#, python-brace-format
+msgid "{ref}`デモの実行と出力の読み込み <edu-ch01-demo>`"
+msgstr ""
+
+#, python-brace-format
+msgid "{ref}`自分のプログラムから MISO を使う <edu-ch01-own-project>`"
+msgstr ""
+
+#, python-brace-format
+msgid "{ref}`うまくいかないとき <edu-ch01-trouble>`"
+msgstr ""
+
+#, python-brace-format
+msgid "{ref}`GPU を使う段階になったら <edu-ch01-gpu>`"
+msgstr ""
+
+msgid "必要な道具"
+msgstr ""
+
+msgid "この教材は CPU だけで進められます。GPU がなくても、C++ の練習、MISO の配列と並列ループ、MPI による領域分割、 1 次元熱伝導の実習、MISO のデモの実行まで行えます。"
+msgstr ""
+
+msgid "道具"
+msgstr ""
+
+msgid "この教材での役割"
+msgstr ""
+
+msgid "C++ コンパイラ（`g++` または `clang++`）"
+msgstr ""
+
+msgid "C++ のソースを機械語に翻訳します。MISO は C++17 を使います"
+msgstr ""
+
+msgid "CMake"
+msgstr ""
+
+msgid "作るもの・使うソース・必要なライブラリを `CMakeLists.txt` から読み、ビルドの手順を作ります。MISO は 3.18 以上を求めます"
+msgstr ""
+
+msgid "MPI（Open MPI）"
+msgstr ""
+
+msgid "複数のプロセスでデータをやり取りするライブラリと、実行コマンド `mpiexec` です"
+msgstr ""
+
+msgid "yaml-cpp"
+msgstr ""
+
+msgid "設定ファイル `config.yaml`（YAML 形式）を読むライブラリです"
+msgstr ""
+
+msgid "git"
+msgstr ""
+
+msgid "MISO を取得し、更新を取り込みます"
+msgstr ""
+
+msgid "Python と pymiso"
+msgstr ""
+
+msgid "計算結果を読み込んで図にします。pymiso は MISO に含まれる Python パッケージです"
+msgstr ""
+
+#, python-brace-format
+msgid "**MPI**（Message Passing Interface）は、同じプログラムを複数のプロセスで動かし、プロセスの間でデータを送受信するための規格です。 MISO は計算領域を分けて各プロセスに担当させるために MPI を使います。詳しくは {ref}`第 8 章 <edu-ch08>` で説明します。 1 台の計算機の中で複数のプロセスを起動して練習できます。"
+msgstr ""
+
+msgid "Ubuntu での準備"
+msgstr ""
+
+msgid "Ubuntu 24.04 LTS を基準に説明します。「端末」を開き、次を実行してください。"
+msgstr ""
+
+msgid "`sudo` は、管理者の権限でソフトウェアを入れるためのコマンドです。パスワードを入力しても画面には文字が出ません。 共有の計算機でインストールの権限がない場合は、管理者が用意した同等の環境を使います。"
+msgstr ""
+
+msgid "パッケージ"
+msgstr ""
+
+msgid "入るもの"
+msgstr ""
+
+msgid "`build-essential`"
+msgstr ""
+
+msgid "C++ コンパイラ GCC（`g++`）と、ビルドに使う `make` など"
+msgstr ""
+
+msgid "`cmake`"
+msgstr ""
+
+msgid "`git`"
+msgstr ""
+
+msgid "`openmpi-bin`・`libopenmpi-dev`"
+msgstr ""
+
+msgid "MPI の実行コマンド（`mpiexec`）と、コンパイルに必要なヘッダ・ライブラリ"
+msgstr ""
+
+msgid "`libyaml-cpp-dev`"
+msgstr ""
+
+msgid "yaml-cpp のヘッダとライブラリ"
+msgstr ""
+
+msgid "`python3`・`python3-venv`"
+msgstr ""
+
+msgid "Python と、Python の仮想環境（後述）を作る機能"
+msgstr ""
+
+msgid "入ったことを確かめます。"
+msgstr ""
+
+msgid "GCC、CMake、Open MPI のバージョンが表示されれば準備完了です。"
+msgstr ""
+
+msgid "Mac での準備"
+msgstr ""
+
+msgid "Homebrew が対応している macOS を使います。Apple Silicon と Intel Mac では Homebrew の保存先が違うため、 以下では `brew --prefix` で自分の環境の場所を調べます。"
+msgstr ""
+
+msgid "コマンドライン開発ツール"
+msgstr ""
+
+msgid "「ターミナル」を開き、次を実行します。画面の案内に沿ってインストールを終えます。 「すでにインストールされています」と表示された場合は、そのまま次へ進めます。"
+msgstr ""
+
+msgid "これで Apple の C++ コンパイラ（Clang、コマンド名 `clang++`。`c++` や `g++` という名前でも呼べます）が入ります。 MISO の CPU 版は、このコンパイラでビルドします。"
+msgstr ""
+
+msgid "Homebrew で道具を入れる"
+msgstr ""
+
+msgid "Homebrew は、開発用のソフトウェアをまとめて入れ・更新する道具です。`brew --version` が動かない場合は、 [Homebrew 公式サイト](https://brew.sh/) に掲載されているインストールコマンドを実行し、 終了時に表示される **Next steps** のコマンドも実行してください（ターミナルから `brew` を見つけられるようにする設定です）。 その後、次を実行します。"
+msgstr ""
+
+msgid "Homebrew で入れたライブラリは `brew --prefix` が表示する場所（Apple Silicon では通常 `/opt/homebrew`）の下にあります。 CMake は、`PATH` に入っている Homebrew の `bin` から、この場所も探します。"
+msgstr ""
+
+msgid "MISO を取得する"
+msgstr ""
+
+msgid "作業用のフォルダを決め、MISO を取得します。以下では `$HOME/miso-work` を使いますが、別の場所でも構いません。"
+msgstr ""
+
+msgid "これで `$HOME/miso-work/MISO` ができます。この教材では、MISO を置いたフォルダを `/path/to/MISO` と書きます。 コマンドを入力するときは、自分の保存先の**絶対パス**（`/` で始まるパス。この例では `$HOME/miso-work/MISO`）に置き換えてください。"
+msgstr ""
+
+msgid "MISO のフォルダの主な中身は次のとおりです。"
+msgstr ""
+
+msgid "場所"
+msgstr ""
+
+msgid "中身"
+msgstr ""
+
+msgid "`miso/include/miso/`"
+msgstr ""
+
+msgid "MISO 本体のヘッダファイル（`.hpp`）。計算の部品はすべてここにあります"
+msgstr ""
+
+msgid "`miso/CMakeLists.txt`"
+msgstr ""
+
+msgid "MISO 本体と、そのユニットテストのビルド設定"
+msgstr ""
+
+msgid "`miso/tests/`"
+msgstr ""
+
+msgid "ユニットテスト（`serial/` は 1 プロセス、`parallel/` は MPI の複数プロセス）"
+msgstr ""
+
+msgid "`demo/`"
+msgstr ""
+
+msgid "デモ問題。`demo/mhd2d_vortex/` などの問題ごとのフォルダに、`src/main.cpp` と `config.yaml` があります"
+msgstr ""
+
+msgid "`pymiso/`"
+msgstr ""
+
+msgid "計算結果を読む Python パッケージ"
+msgstr ""
+
+msgid "`dev/notes/`"
+msgstr ""
+
+msgid "開発のルールと手順"
+msgstr ""
+
+msgid "コンパイルとリンク"
+msgstr ""
+
+msgid "コンパイラで実行ファイルを作る"
+msgstr ""
+
+msgid "Fortran と同じく、C++ のソースはコンパイラで**実行ファイル**に変換してから動かします。 作業用のフォルダを作り、次の内容を `hello.cpp` という名前で保存してください。"
+msgstr ""
+
+msgid "`main` はプログラムの入口となる関数で、Fortran の `program` に当たります。 コンパイルして実行します（Mac では `g++` を `clang++` に置き換えます）。"
+msgstr ""
+
+msgid "`-std=c++17` は C++17 の規格で翻訳する指定、`-O2` は最適化の強さ、`-o hello` は実行ファイルの名前です。"
+msgstr ""
+
+msgid "コンパイルとリンクの 2 段階"
+msgstr ""
+
+msgid "上のコマンドは、実際には 2 つの段階をまとめて行っています。"
+msgstr ""
+
+msgid "**コンパイル**：`.cpp` を 1 つずつ翻訳し、**オブジェクトファイル**（`.o`）を作ります。"
+msgstr ""
+
+msgid "**リンク**：オブジェクトファイルと、使っているライブラリの中身を結び付け、実行ファイルを作ります。"
+msgstr ""
+
+msgid "段階を分けて実行することもできます。`-c` は「コンパイルだけを行う」指定です。"
+msgstr ""
+
+msgid "ここでの「オブジェクトファイル」はコンパイル結果のファイルを指す用語で、クラスの実体（オブジェクト）とは別の意味です。"
+msgstr ""
+
+msgid "ヘッダと `#include`"
+msgstr ""
+
+msgid "`#include <cmath>` は、`cmath` という**ヘッダファイル**の中身をその場所に読み込む指示です。 ヘッダには、関数や型の**宣言**（名前と引数の型など、使い方の情報）が書かれています。 コンパイラは宣言を見て、`std::sqrt(x)` の呼び出しが正しいかを確かめます。 Fortran で `use` したモジュールの情報を見て引数を確かめるのに近い役割です。"
+msgstr ""
+
+msgid "ヘッダは決まったフォルダから探されます。標準ライブラリのヘッダはコンパイラが場所を知っていますが、 それ以外のヘッダは `-I フォルダ` で探す場所を足します。たとえば MISO のヘッダは `#include <miso/core.hpp>` のように書くので、 `/path/to/MISO/miso/include` を `-I` で渡すと `miso/core.hpp` が見つかります。"
+msgstr ""
+
+msgid "宣言だけでは、関数の**実体**（計算の中身）はありません。実体がライブラリの中にある場合は、リンクの段階でそのライブラリを指定します。 yaml-cpp を使う短いプログラムで確かめます。次を `yaml_check.cpp` として保存してください。"
+msgstr ""
+
+msgid "`-lyaml-cpp` は「リンクのときに `libyaml-cpp` というライブラリを使う」指定です。"
+msgstr ""
+
+msgid "Mac では Homebrew の場所を `-I` と `-L`（ライブラリを探すフォルダ）で教えます。"
+msgstr ""
+
+msgid "MISO は**ヘッダオンリー**のライブラリです。計算の部品はすべてヘッダ（`miso/include/miso/*.hpp`）に実体ごと書かれていて、 MISO 自身を前もってライブラリにコンパイルしておく必要はありません。 ただし、MISO が使う MPI と yaml-cpp は、ヘッダの場所とリンクするライブラリの指定が必要です。 MPI については、Open MPI が用意する `mpicxx` というコマンドが、MPI のヘッダとライブラリの指定を足して `g++`（Mac では `clang++`）を呼びます。 `mpicxx --showme` で、足される指定を表示できます（Open MPI の場合）。"
+msgstr ""
+
+msgid "練習 1-1"
+msgstr ""
+
+msgid "`yaml_check.cpp` を、`-lyaml-cpp` を付けずにビルドしてください。 エラーがコンパイルとリンクのどちらの段階で起きたかを、表示から判断して説明してください。"
+msgstr ""
+
+msgid "Ubuntu では次のような表示が出ます（一部を抜粋）。"
+msgstr ""
+
+msgid "`undefined reference`（未定義の参照）は**リンク**の段階のエラーです。 `#include <yaml-cpp/yaml.h>` で宣言は見えているので、コンパイルは通ります。 リンクのときに `YAML::Load` の実体を持つライブラリが指定されていないため、実行ファイルを作れません。 Mac の Clang では `Undefined symbols for architecture ...` と表示されます。これもリンクのエラーです。"
+msgstr ""
+
+msgid "一方、ヘッダが見つからないときは `fatal error: yaml-cpp/yaml.h: No such file or directory` のように表示されます。 これはコンパイルの段階のエラーで、`-I` の指定かパッケージのインストールを確かめます。"
+msgstr ""
+
+msgid "CMake の仕組み"
+msgstr ""
+
+msgid "設定・ビルド・実行の 3 段階"
+msgstr ""
+
+msgid "ソースやライブラリが増えると、コンパイルとリンクのコマンドを手で書くのは大変です。 Fortran でも使われる `make` は、`Makefile` に書かれた手順に従ってビルドします。 **CMake** は、作るもの・使うソース・必要なライブラリを `CMakeLists.txt` に書くと、その計算機に合った `Makefile` などを生成します。 CMake はビルドの手順を組み立てる道具で、C++ の翻訳そのものは GCC や Clang が行います。"
+msgstr ""
+
+msgid "段階"
+msgstr ""
+
+msgid "コマンドの形"
+msgstr ""
+
+msgid "行うこと"
+msgstr ""
+
+msgid "設定・生成"
+msgstr ""
+
+msgid "`cmake -S . -B build`"
+msgstr ""
+
+msgid "`CMakeLists.txt` を読み、コンパイラやライブラリを探し、ビルドの手順を `build/` に生成します"
+msgstr ""
+
+msgid "ビルド"
+msgstr ""
+
+msgid "`cmake --build build`"
+msgstr ""
+
+msgid "生成した手順でコンパイルとリンクを行います"
+msgstr ""
+
+msgid "実行"
+msgstr ""
+
+msgid "`./build/hello`"
+msgstr ""
+
+msgid "できた実行ファイルを動かします"
+msgstr ""
+
+msgid "`-S .` は「ソース（`CMakeLists.txt`）は今いるフォルダにある」、`-B build` は「生成物は `build/` に置く」という指定です。 生成物をソースと別のフォルダに置くので、`build/` を消せばいつでもやり直せます。 設定の結果は `build/CMakeCache.txt` に記録され、次のビルドでも使われます。"
+msgstr ""
+
+msgid "最小の `CMakeLists.txt`"
+msgstr ""
+
+msgid "`hello.cpp` と `yaml_check.cpp` を保存したフォルダに、次の `CMakeLists.txt` を保存します。"
+msgstr ""
+
+msgid "`CMakeLists.txt` は CMake 用の言語で、`命令(引数 ...)` の形で書きます。"
+msgstr ""
+
+msgid "命令"
+msgstr ""
+
+msgid "役割"
+msgstr ""
+
+msgid "`cmake_minimum_required`"
+msgstr ""
+
+msgid "必要な CMake の最低バージョンを指定します"
+msgstr ""
+
+msgid "`project(... LANGUAGES CXX)`"
+msgstr ""
+
+msgid "プロジェクトに名前を付け、C++ のコンパイラを使うことを伝えます"
+msgstr ""
+
+msgid "`find_package(yaml-cpp REQUIRED)`"
+msgstr ""
+
+msgid "yaml-cpp を探し、その使い方（ヘッダの場所、ライブラリ）を取り込みます。`REQUIRED` は「見つからなければ止める」指定です"
+msgstr ""
+
+msgid "`add_executable(hello hello.cpp)`"
+msgstr ""
+
+msgid "`hello.cpp` から実行ファイル `hello` を作る**ターゲット**を定義します"
+msgstr ""
+
+msgid "`target_compile_features(... cxx_std_17)`"
+msgstr ""
+
+msgid "このターゲットに C++17 以上が必要だと伝えます"
+msgstr ""
+
+msgid "`target_link_libraries(yaml_check PRIVATE yaml-cpp::yaml-cpp)`"
+msgstr ""
+
+msgid "`yaml_check` に yaml-cpp を結び付けます"
+msgstr ""
+
+msgid "**ターゲット**（target）は、実行ファイルやライブラリなど、ビルドで作るものに付ける名前です。 ソースや設定をターゲットごとにまとめるので、1 つの `CMakeLists.txt` で複数のプログラムを区別して作れます。"
+msgstr ""
+
+msgid "`yaml-cpp::yaml-cpp` は `find_package` が用意するターゲットで、ライブラリの場所だけでなく、ヘッダの場所などの情報も持っています。 このため `target_link_libraries` は、リンクの指定に加えて、コンパイルに必要な `-I` などもまとめて伝えます。 手で `-I` や `-l` を並べる必要がなくなるのが、CMake を使う大きな利点です。"
+msgstr ""
+
+#, python-brace-format
+msgid "`PRIVATE` は、その設定をこのターゲット自身だけに使う指定です。 ライブラリ側のターゲットで `PUBLIC` や `INTERFACE` を使うと、そのライブラリを使う側のターゲットにも設定が伝わります（MISO はこの仕組みを使います）。 C++ のクラスの `private`・`public`（{ref}`第 4 章 <edu-ch04>`）とは別のものです。"
+msgstr ""
+
+msgid "設定・ビルド・実行します。"
+msgstr ""
+
+msgid "`--parallel 4` はコンパイルを最大 4 つ同時に進める指定で、計算を実行するときのプロセス数とは関係ありません。 `cmake --build build --verbose` とすると、CMake が実際に呼んだコンパイラのコマンドが表示されます。"
+msgstr ""
+
+msgid "ビルド種別"
+msgstr ""
+
+msgid "**ビルド種別**（build type）は、最適化やデバッグ情報の付け方をまとめて選ぶ設定です。設定の段階で `-D` を使って渡します。"
+msgstr ""
+
+msgid "種別"
+msgstr ""
+
+msgid "GCC・Clang に渡る主な指定"
+msgstr ""
+
+msgid "使う場面"
+msgstr ""
+
+msgid "`Release`"
+msgstr ""
+
+msgid "`-O3 -DNDEBUG`"
+msgstr ""
+
+msgid "計算の実行。速さを優先します"
+msgstr ""
+
+msgid "`Debug`"
+msgstr ""
+
+msgid "`-g`"
+msgstr ""
+
+msgid "不具合を調べるとき。最適化をせず、デバッガで変数を見られるようにします"
+msgstr ""
+
+msgid "`-D名前=値` は、CMake の設定項目（**キャッシュ変数**）に値を渡す書き方です。 ビルド種別を何も指定しないと、上の `hello` のような CMake のプロジェクトは最適化の指定なしでビルドされます。 MISO とデモの `CMakeLists.txt` は、指定がなければ `Release` を選ぶように書かれています。"
+msgstr ""
+
+msgid "`-DNDEBUG` が付くと、C++ の `assert`（条件が成り立たなければ止める確認）は取り除かれます。 MISO の既定は `Release` なので、`assert` による確認は既定のビルドでは働きません。"
+msgstr ""
+
+msgid "種別やコンパイラを変えるときは、`build_debug` のように別のビルドフォルダを使います。 同じフォルダで設定を変えると、前の設定が `CMakeCache.txt` に残って混ざることがあります。"
+msgstr ""
+
+msgid "ソースを変更したときのビルド"
+msgstr ""
+
+msgid "ソースを編集したら、`cmake --build build` をもう一度実行します。 変更されたファイルと、それを `#include` しているファイルだけが翻訳し直されます。 `CMakeLists.txt` を変更した場合も、次の `cmake --build` のときに CMake が自動で設定をやり直します。 生成された `build/Makefile` を手で直すことはありません。"
+msgstr ""
+
+msgid "MISO のビルドとユニットテスト"
+msgstr ""
+
+msgid "`miso/CMakeLists.txt` の中身"
+msgstr ""
+
+msgid "MISO 本体のビルド設定は `miso/CMakeLists.txt` にあります。主な部分を抜粋します（説明のため一部を省略しています）。"
+msgstr ""
+
+msgid "設定"
+msgstr ""
+
+msgid "意味"
+msgstr ""
+
+msgid "`add_library(MISO INTERFACE)`"
+msgstr ""
+
+msgid "中身をコンパイルしないライブラリのターゲット `MISO` を作ります。ヘッダオンリーなので、コンパイルするものがありません"
+msgstr ""
+
+msgid "`add_library(MISO::MISO ALIAS MISO)`"
+msgstr ""
+
+msgid "`MISO` に `MISO::MISO` という別名を付けます。使う側はこの名前でリンクします"
+msgstr ""
+
+msgid "`target_include_directories(MISO INTERFACE .../include)`"
+msgstr ""
+
+msgid "`MISO::MISO` を使うターゲットに、`miso/include` を `-I` で渡します"
+msgstr ""
+
+msgid "`target_link_libraries(MISO INTERFACE MPI::MPI_CXX)`"
+msgstr ""
+
+msgid "`MISO::MISO` を使うターゲットに、MPI のヘッダとライブラリも伝えます"
+msgstr ""
+
+msgid "`find_package(yaml-cpp QUIET)` と `FetchContent`"
+msgstr ""
+
+msgid "計算機に yaml-cpp があればそれを使い、なければ GitHub から取得して一緒にビルドします"
+msgstr ""
+
+msgid "`option(MISO_USE_CUDA ... OFF)`"
+msgstr ""
+
+msgid "GPU（CUDA）を使うかどうかの切り替えです。既定は使いません"
+msgstr ""
+
+msgid "`option(ENABLE_TESTING ... ON)`"
+msgstr ""
+
+msgid "ユニットテストもビルドするかどうかの切り替えです。既定はビルドします"
+msgstr ""
+
+msgid "`INTERFACE` は「`MISO::MISO` を使う側のターゲットに伝える」という指定です。 このため、`target_link_libraries(自分のプログラム PRIVATE MISO::MISO)` と 1 行書くだけで、 MISO のヘッダの場所、MPI、yaml-cpp の指定がまとめて自分のプログラムに伝わります。"
+msgstr ""
+
+#, python-brace-format
+msgid "**FetchContent** は、必要なソースを CMake の設定の段階でインターネットから取得する仕組みです。 yaml-cpp を入れていない場合や、ユニットテスト用の doctest（{ref}`テストと計算結果の比較 <edu-ref-testing>` で説明します）を取得する場合に使われるので、 最初の設定にはインターネットへの接続が必要です。"
+msgstr ""
+
+msgid "ビルドとテストの実行"
+msgstr ""
+
+msgid "ビルドフォルダは MISO のフォルダの外に作っても構いません。ここでは `$HOME/miso-work/build_miso` を使います。"
+msgstr ""
+
+msgid "`-S` には `miso/CMakeLists.txt` のあるフォルダ（`/path/to/MISO/miso`）を渡します。 テストの実行ファイルがいくつも作られ、数分かかることがあります。"
+msgstr ""
+
+msgid "ビルドが終わったら、**ユニットテスト**を実行します。ユニットテストは、配列や並列ループなどの部品ごとに、期待どおりに動くかを確かめるプログラムです。 **ctest** は、CMake に登録されたテストをまとめて実行する道具です。"
+msgstr ""
+
+msgid "最後に次のように表示されれば成功です（テストの数は MISO の版によって変わります）。"
+msgstr ""
+
+#, python-brace-format
+msgid "先頭の 2 行は、このコマンドの間だけ Open MPI の動作を変える**環境変数**です。 テストの一部は MPI の 2 プロセスで動くため、CPU のコア数が少ない計算機やコンテナでも実行できるようにしています。 意味と、テストの読み方、テストを絞って実行する方法は {ref}`テストと計算結果の比較 <edu-ref-testing>` にまとめています。"
+msgstr ""
+
+msgid "デモの実行と出力の読み込み"
+msgstr ""
+
+msgid "デモをビルドして実行する"
+msgstr ""
+
+msgid "MISO の `demo/` には、問題ごとのデモがあります。2 次元の Orszag–Tang 渦（`demo/mhd2d_vortex`）を動かします。 デモの `CMakeLists.txt` は、MISO 本体（`../../miso`）を取り込んで `src/main.cpp` から実行ファイルを作ります。"
+msgstr ""
+
+msgid "デモでは GPU の切り替えを `USE_CUDA` という名前で渡します（MISO 本体の `MISO_USE_CUDA` とは名前が違います）。 `app_run.sh` は、Open MPI 用の環境変数を `demo/shared/openmpi_config.env` から読み込み、2 プロセスで計算を実行するスクリプトです。 実行するコマンドを表示してから計算を始めます。"
+msgstr ""
+
+msgid "計算の条件は `demo/mhd2d_vortex/config.yaml` に書かれています。格子点数、終了時刻（`time.tend`）、出力の間隔（`time.dt_output`）、 MPI での分割数（`mpi.x_procs` など）を変えられます。"
+msgstr ""
+
+msgid "出力されるファイル"
+msgstr ""
+
+msgid "結果は `config.yaml` と同じフォルダの `data/` に書かれます（`config.yaml` の `io.save_dir` で変えられます）。"
+msgstr ""
+
+msgid "ファイル"
+msgstr ""
+
+msgid "`data/config.yaml`"
+msgstr ""
+
+msgid "既定値を補った、実際に使った設定"
+msgstr ""
+
+msgid "`data/grid.bin`"
+msgstr ""
+
+msgid "全体の格子の座標"
+msgstr ""
+
+msgid "`data/mpi/coords.csv`"
+msgstr ""
+
+msgid "各プロセス（ランク）が担当する領域の位置"
+msgstr ""
+
+msgid "`data/time/time.NNNNNNNN.txt`"
+msgstr ""
+
+msgid "各出力の時刻、出力番号、ステップ数"
+msgstr ""
+
+msgid "`data/mhd/mhd.<出力番号>.<ランク>.bin`"
+msgstr ""
+
+msgid "各プロセスが担当する領域の MHD の変数（密度、速度、磁場など 9 つ）"
+msgstr ""
+
+msgid "`mhd.*.bin` はプロセスごとに分かれたバイナリファイルです。 `config.yaml` の `io.continue: true` により、`data/` に結果があると、そこから計算を続けます。 最初からやり直すときは `./app_clean.sh` で `build/`、`data/`、`figs/` を消してから、ビルドと実行をやり直します。"
+msgstr ""
+
+msgid "pymiso で読み込む"
+msgstr ""
+
+msgid "pymiso は、プロセスごとのファイルをつなげて全体の配列として読み込む Python パッケージです。 Python のパッケージは、MISO 用の**仮想環境**（その中に入れたパッケージだけを使う、独立した Python の環境）に入れます。"
+msgstr ""
+
+msgid "`source .../activate` は、このターミナルで仮想環境の Python を使うようにするコマンドです。 新しいターミナルを開いたら、もう一度実行します。 `pip install -e \".[viz]\"` は、MISO のフォルダにある pymiso と、図を描くための matplotlib などを入れます。"
+msgstr ""
+
+msgid "デモには図を描くスクリプト `plot_data.py` があります。"
+msgstr ""
+
+msgid "`figs/` に、各時刻の密度の図（`py_00000000.png` など）が保存されます。 `plot_data.py` の中では、次のように結果を読み込んでいます（`demo/mhd2d_vortex/plot_data.py` から抜粋。`...` は省略した部分です）。"
+msgstr ""
+
+#, python-brace-format
+msgid "`pymiso.Data` に `data/` の場所を渡し、`d.load(n)` で出力番号 `n` の結果を読みます。 `d.ro` が密度、`d.x`・`d.y` が座標の NumPy 配列です。 ほかのデモ、設定の変え方、GPU 版の実行方法は、MISO_docs の {doc}`Quick Start </quickstart>` にまとめられています。"
+msgstr ""
+
+msgid "自分のプログラムから MISO を使う"
+msgstr ""
+
+msgid "第 7 章と第 10 章の実習では、MISO のフォルダの外に自分のフォルダを作り、MISO の部品を使うプログラムを書きます。 そのための最小の CMake の設定を作り、MISO が使えることを確かめます。"
+msgstr ""
+
+msgid "作るもの"
+msgstr ""
+
+msgid "MISO のフォルダの外に、作業用のフォルダを作ります。"
+msgstr ""
+
+msgid "このフォルダに、確認用のプログラム `main.cpp` と `CMakeLists.txt` を保存します。"
+msgstr ""
+
+#, python-brace-format
+msgid "`main.cpp` は、MPI を始め、MISO の配列に 0〜99 を入れて合計を求めるプログラムです。 `miso::Array1D`、`miso::for_each`、`miso::reduce`、`MISO_LAMBDA` は {ref}`第 7 章 <edu-ch07>` で説明します。ここではそのまま保存してください。"
+msgstr ""
+
+msgid "`#include <miso/core.hpp>` は、配列・並列ループ・MPI の環境など、MISO の共通の部品をまとめて読み込むヘッダ（`miso/include/miso/core.hpp`）です。"
+msgstr ""
+
+msgid "`CMakeLists.txt`"
+msgstr ""
+
+msgid "`set(MISO_DIR \"\" CACHE PATH ...)`"
+msgstr ""
+
+#, python-brace-format
+msgid "MISO を置いた場所を入れる設定項目 `MISO_DIR` を用意します。値は設定のときに `-DMISO_DIR=...` で渡します。`${MISO_DIR}` は変数の値を取り出す書き方です"
+msgstr ""
+
+msgid "`if(NOT EXISTS ...)` と `message(FATAL_ERROR ...)`"
+msgstr ""
+
+msgid "`MISO_DIR` の下に `miso/CMakeLists.txt` がなければ、説明を表示して止めます"
+msgstr ""
+
+msgid "`set(ENABLE_TESTING OFF CACHE BOOL ...)`"
+msgstr ""
+
+msgid "MISO のユニットテストをビルドしないようにします。`add_subdirectory` より前に書きます"
+msgstr ""
+
+#, python-brace-format
+msgid "`add_subdirectory(\"${MISO_DIR}/miso\" miso)`"
+msgstr ""
+
+msgid "MISO の `miso/CMakeLists.txt` を読み込み、`MISO::MISO` を使えるようにします。2 つ目の `miso` は、MISO 用の生成物を置く `build/` の中のフォルダ名です"
+msgstr ""
+
+msgid "`add_executable(miso_check main.cpp)`"
+msgstr ""
+
+msgid "`main.cpp` から実行ファイル `miso_check` を作ります"
+msgstr ""
+
+msgid "`target_link_libraries(miso_check PRIVATE MISO::MISO)`"
+msgstr ""
+
+msgid "MISO のヘッダの場所、MPI、yaml-cpp をまとめて `miso_check` に伝えます"
+msgstr ""
+
+msgid "`add_subdirectory` は、別のフォルダの `CMakeLists.txt` を、自分のプロジェクトの一部として読み込む命令です。 MISO のフォルダがプロジェクトの外にあるときは、2 つ目の引数（生成物の置き場）が必要です。"
+msgstr ""
+
+#, python-brace-format
+msgid "`ENABLE_TESTING` を `OFF` にするのは、自分のプログラムだけを速くビルドするためです。 MISO のユニットテストは、{ref}`前の節 <edu-ch01-miso-build>` のように MISO 単独のビルドで実行します。 `option(ENABLE_TESTING ...)` は、同じ名前の設定項目がすでにあればその値を使うので、先に `OFF` を入れておくとテストが外れます。"
+msgstr ""
+
+msgid "ビルド種別を指定しなければ、MISO の `CMakeLists.txt` が `Release` を選びます。"
+msgstr ""
+
+msgid "ビルドと実行"
+msgstr ""
+
+msgid "`/path/to/MISO` を、MISO を置いた場所の絶対パスに置き換えて設定します。"
+msgstr ""
+
+msgid "`mpiexec -np 2` は、同じプログラムを 2 つのプロセスで起動するコマンドです。次の表示が出れば準備完了です。"
+msgstr ""
+
+msgid "どちらのプロセスも同じ計算をしますが、表示は 1 つのプロセス（ランク 0）だけが行います。"
+msgstr ""
+
+msgid "MISO のデモの `CMakeLists.txt` は、`add_subdirectory` の代わりに `FetchContent_Declare(MISO SOURCE_DIR ...)` と `FetchContent_MakeAvailable(MISO)` で MISO を取り込んでいます。 手元のフォルダを指定する使い方では、どちらも `miso/CMakeLists.txt` を読み込んで `MISO::MISO` を作る点は同じです。"
+msgstr ""
+
+msgid "練習 1-2"
+msgstr ""
+
+msgid "`-DMISO_DIR=...` を付けずに、新しいビルドフォルダ `build_nodir` で設定してください。 表示されたメッセージを確かめ、設定・ビルド・実行のどの段階で止まったかと、その理由を `CMakeLists.txt` の行と対応づけて説明してください。"
+msgstr ""
+
+#, python-brace-format
+msgid "**設定**の段階で止まります。`MISO_DIR` の値は空のままなので、`\"${MISO_DIR}/miso/CMakeLists.txt\"` は `/miso/CMakeLists.txt` になり、 `if(NOT EXISTS ...)` の条件が成り立ちます。その中の `message(FATAL_ERROR ...)` が説明を表示して設定を止めます。 この確認がないと、`add_subdirectory` が「フォルダがない」という分かりにくいエラーを出します。 確かめたら、`build_nodir` は消して構いません。"
+msgstr ""
+
+msgid "練習 1-3"
+msgstr ""
+
+msgid "`miso_check` を `Debug` 種別で、`build_debug` という別のビルドフォルダに作ってください。 `cmake -L -N build_debug` で設定項目の一覧を表示し、`CMAKE_BUILD_TYPE`、`MISO_DIR`、`ENABLE_TESTING`、`MISO_USE_CUDA` の値を確かめてください。"
+msgstr ""
+
+msgid "`-L` は設定項目の一覧を表示し、`-N` は設定をやり直さずに `CMakeCache.txt` を読むだけにする指定です。 `MISO_USE_CUDA` は `MISO` 側の `option` が既定値 `OFF` で作った項目です。 `cmake --build build_debug --verbose` で、コンパイルのコマンドに `-g` が付き、`-O3` が付いていないことも確かめられます。 `build`（Release）と `build_debug`（Debug）はフォルダが別なので、互いの設定は混ざりません。"
+msgstr ""
+
+msgid "手でコンパイルする場合との対応"
+msgstr ""
+
+msgid "CMake が行っていることを、手で書いたコマンドと比べておきます。Ubuntu では次のコマンドでも `miso_check` を作れます。"
+msgstr ""
+
+msgid "`mpicxx` が MPI の指定を足し、`-I` が MISO のヘッダの場所、`-lyaml-cpp` が yaml-cpp を指定します。 `MISO::MISO` をリンクすると、これらを CMake がまとめて指定します。 GPU 用のビルドや計算機ごとの違いがあっても `CMakeLists.txt` を変えずに済むので、この教材では CMake を使います。"
+msgstr ""
+
+msgid "うまくいかないとき"
+msgstr ""
+
+msgid "最初のエラーから順に確かめます。設定が成功してからビルドし、ビルドが成功してから実行します。"
+msgstr ""
+
+msgid "表示・症状"
+msgstr ""
+
+msgid "確かめること"
+msgstr ""
+
+msgid "`Could NOT find MPI`"
+msgstr ""
+
+msgid "Ubuntu では `libopenmpi-dev`、Mac では `open-mpi` が入っているかを確かめます。Mac では `-DMPI_CXX_COMPILER=\"$(brew --prefix open-mpi)/bin/mpicxx\"` を設定のコマンドに足すと、使う MPI を明示できます"
+msgstr ""
+
+msgid "`yaml-cpp not found; fetching with FetchContent` の後に取得の失敗"
+msgstr ""
+
+msgid "yaml-cpp が見つからず、インターネットから取得しようとしています。yaml-cpp を入れる（Ubuntu は `libyaml-cpp-dev`、Mac は `yaml-cpp`）か、ネットワークの接続を確かめます"
+msgstr ""
+
+msgid "ユニットテストの設定で doctest の取得に失敗する"
+msgstr ""
+
+msgid "doctest はいつもインターネットから取得します。接続を確かめます"
+msgstr ""
+
+msgid "`fatal error: miso/core.hpp: No such file or directory`"
+msgstr ""
+
+msgid "`MISO::MISO` をリンクしているか、`-DMISO_DIR` が MISO のフォルダの根（`miso/` を含むフォルダ）を指しているかを確かめます"
+msgstr ""
+
+msgid "`fatal error: mpi.h: No such file or directory`"
+msgstr ""
+
+msgid "手でコンパイルするときは `g++` ではなく `mpicxx` を使います。CMake では `MISO::MISO` が MPI の指定を伝えます"
+msgstr ""
+
+msgid "`undefined reference to 'YAML::...'`"
+msgstr ""
+
+msgid "yaml-cpp がリンクされていません。手でコンパイルするときは `-lyaml-cpp` を付けます"
+msgstr ""
+
+msgid "`There are not enough slots available`"
+msgstr ""
+
+msgid "CPU のコア数より多いプロセスを起動しようとしています。動作確認だけなら `mpiexec --oversubscribe -np 2 ...` とします"
+msgstr ""
+
+msgid "`CMakeLists.txt` が見つからない"
+msgstr ""
+
+msgid "`pwd` と `ls` で、ファイルを保存したフォルダにいるかを確かめます"
+msgstr ""
+
+msgid "コンパイラを変えたのに前のコンパイラが使われる"
+msgstr ""
+
+msgid "前の設定が `CMakeCache.txt` に残っています。別のビルドフォルダで設定し直します"
+msgstr ""
+
+msgid "GPU を使う段階になったら"
+msgstr ""
+
+#, python-brace-format
+msgid "MISO は NVIDIA の GPU で計算する CUDA 版も作れます。 MISO 本体では `-DMISO_USE_CUDA=ON`、デモでは `-DUSE_CUDA=ON` を設定のときに渡します。 CUDA の開発環境（CUDA Toolkit と対応するドライバ）が必要で、Mac の GPU では動きません。 GPU 用のビルドと、自分のプログラムを GPU で動かす設定は {ref}`第 9 章 <edu-ch09>` で説明します。"
+msgstr ""
+
+msgid "次に読むところ"
+msgstr ""
+
+#, python-brace-format
+msgid "準備ができたら、{ref}`第 2 章：変数・関数・制御文 <edu-ch02>` へ進みます。 この章で作った `miso_check` のフォルダと `CMakeLists.txt` の形は、{ref}`第 7 章 <edu-ch07>` と {ref}`第 10 章 <edu-ch10>` の実習で使います。"
+msgstr ""
+

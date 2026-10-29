@@ -1,0 +1,96 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2025, Integrated Studies, ISEE, Nagoya University
+# This file is distributed under the same license as the MISO package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: MISO \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-10-29 09:37+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: en\n"
+"Language-Team: en <LL@li.org>\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.18.0\n"
+
+msgid "Quick Start"
+msgstr ""
+
+msgid "MISOではモデル作成のベースとなるクラス `miso::mhd::ModelBase` を用意しており、これを編集することで様々なテスト問題を実現しています。 `ModelBase`で想定されている問題から大きく離れるほど、ユーザが記述するコード量は増えていきます。"
+msgstr ""
+
+msgid "以下では、テスト問題 `demo/mhd2d_vortex` のメインプログラムを例に説明します。 この問題は、以下のように初期条件を設定するだけで実装されています。"
+msgstr ""
+
+msgid "ここで、`miso::eos::IdealEOS<Real>`は理想気体の状態方程式を計算するために用意されているクラスです。 `miso::mhd::FieldsView`は密度や速度場などのMHD方程式の基本変数をメンバに持つクラス、`miso::GridView`は計算格子に関するクラスです。 両者は上記のように `qq.ro(i, j, k)` や `grid.x[i]` のように配列の各要素にアクセスすることが出来ます。 関数`apply`は`ModelBase`から呼び出されるため、シグネチャ(引数や返り値など)を変更することが出来ないことに注意してください。"
+msgstr ""
+
+msgid "この初期条件の`ModelBase`への組み込みは、以下のように書くことができます。"
+msgstr ""
+
+msgid "ここで、`miso::mhd::EmptyBoundaryCondition`は何もしない境界条件です。全方向が周期境界条件で済む場合のみこれを利用してください。 計算領域が周期境界か否かは設定ファイル `config.yaml` の `domain` セクションで以下のように指定できます。"
+msgstr ""
+
+msgid "MHDシミュレーションでは、方程式の右辺にソース項がある場合、例えば重力などの外力や輻射冷却などの加熱項を加えたい場合、があります。 上記の`miso::mhd::EmptySourceTerm`は、右辺にソース項を何も持たない場合に利用するクラスです。"
+msgstr ""
+
+msgid "`Model`の親クラスである`miso::mhd::ModelBase`は、実際には以下のような初期化を行います。"
+msgstr ""
+
+msgid "設定ファイル(`config.yaml`など)の読み込み"
+msgstr ""
+
+msgid "MPIやCUDAの設定"
+msgstr ""
+
+msgid "計算格子 `miso::Grid` の初期化"
+msgstr ""
+
+msgid "MHDクラス `miso::mhd::MHD` の初期化"
+msgstr ""
+
+msgid "テスト問題 `demo/mhd2d_vortex` の `Model` では、これに加えて状態方程式や初期条件、境界条件やソース項の初期化を行っています。"
+msgstr ""
+
+msgid "メイン関数では、以下のように`miso`の初期化、設定ファイル `config.yaml` の読み込み、`Model`の実行を行います。"
+msgstr ""
+
+msgid "`ModelBase.run()`は、具体的には以下のような計算を実行します。"
+msgstr ""
+
+msgid "初期条件 `ic` のMHD変数への適用"
+msgstr ""
+
+msgid "設定ファイルの情報や計算格子 `grid` (`miso::Grid`) などのファイル出力"
+msgstr ""
+
+msgid "初期状態及び各時間ステップでのMHD変数 `qq` (`miso::mhd::Fields`) のファイル出力"
+msgstr ""
+
+msgid "(既存計算データがあれば) 既存計算データのロード"
+msgstr ""
+
+msgid "メインループ"
+msgstr ""
+
+msgid "CFL条件の評価と時間ステップサイズの決定"
+msgstr ""
+
+msgid "MHD変数の時間積分 (境界条件 `bc` の適用やソース項 `src` の右辺への付加、状態方程式 `eos` の呼び出しを含む)"
+msgstr ""
+
+msgid "時刻 `time` (`miso::Time`) の更新"
+msgstr ""
+
+msgid "ここで、初期条件 `ic` 、境界条件 `bc` 、ソース項 `src` 、状態方程式 `eos` はユーザが設定することを想定しており、`ModelBase`を継承した子クラスで定義された変数を利用します。"
+msgstr ""
+
+msgid "それぞれのカスタム方法については、`demo`内にある各テスト問題を参考にしてください。 特に磁気圏問題 `demo/mhd3d_magnetosphere` は、初期条件、境界条件、ソース項、加えてCFL条件も変更しておりおすすめです。"
+msgstr ""
+

@@ -1,0 +1,233 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2025, Integrated Studies, ISEE, Nagoya University
+# This file is distributed under the same license as the MISO package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: MISO \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-10-29 09:37+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: en\n"
+"Language-Team: en <LL@li.org>\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.18.0\n"
+
+msgid "3D MHD Test: Magnetosphere"
+msgstr ""
+
+#, python-brace-format
+msgid "地球磁気圏に太陽風が吹き付け、地球磁気圏が変形する様子をシミュレーションします。{cite}`ogino_1986JGR....91.6791O`を参考にして、地球の中心から地球半径の3.5倍の位置にも境界を設置し、地球の双極子磁場とスムーズに接続するようにしています。"
+msgstr ""
+
+msgid "Location"
+msgstr ""
+
+msgid "`demo/mhd3d_magnetosphere/`"
+msgstr ""
+
+msgid "Normalization"
+msgstr ""
+
+#, python-brace-format
+msgid "物理量は以下の代表値で規格化しています。{cite}`ogino_1986JGR....91.6791O`ではMKS単位系が使われていますが、本シミュレーションではcgs単位系を使用していることに注意してください。"
+msgstr ""
+
+msgid "Quantity"
+msgstr ""
+
+msgid "Symbol"
+msgstr ""
+
+msgid "Value"
+msgstr ""
+
+msgid "Note"
+msgstr ""
+
+msgid "Length"
+msgstr ""
+
+#, python-brace-format
+msgid "$R_\\mathrm{e}$"
+msgstr ""
+
+#, python-brace-format
+msgid "$6.371 \\times 10^8~\\rm{cm}$"
+msgstr ""
+
+msgid "Earth radius"
+msgstr ""
+
+msgid "Magnetic Field"
+msgstr ""
+
+#, python-brace-format
+msgid "$B_\\mathrm{s}$"
+msgstr ""
+
+#, python-brace-format
+msgid "$3.12 \\times 10^{-1}~\\rm{G}$"
+msgstr ""
+
+msgid "Strength at earth equator surface"
+msgstr ""
+
+msgid "Density"
+msgstr ""
+
+#, python-brace-format
+msgid "$\\rho_\\mathrm{s}$"
+msgstr ""
+
+msgid "$1.67 \\times 10^{-20}~\\mathrm{g~cm^{-3}}$"
+msgstr ""
+
+msgid "Typical density of ionosphere"
+msgstr ""
+
+msgid "Then the other quantities are normalized as follows."
+msgstr ""
+
+msgid "Velocity"
+msgstr ""
+
+#, python-brace-format
+msgid "$V_\\mathrm{s}$"
+msgstr ""
+
+msgid "$B_{\\rm{s}}/\\sqrt{4\\pi \\rho_{\\rm{s}}}=6.81\\times 10^8~\\rm{cm~s^{-1}}$"
+msgstr ""
+
+msgid "time"
+msgstr ""
+
+#, python-brace-format
+msgid "$t_\\mathrm{s}$"
+msgstr ""
+
+msgid "$R_{\\rm{e}}/V_{\\rm{s}}=0.935~\\rm{s}$"
+msgstr ""
+
+msgid "Pressure"
+msgstr ""
+
+#, python-brace-format
+msgid "$p_\\mathrm{s}$"
+msgstr ""
+
+msgid "$B_{\\rm{s}}^2/4\\pi=7.74\\times 10^{-3}~\\rm{dyn~cm^{-2}}$"
+msgstr ""
+
+msgid "Geometry"
+msgstr ""
+
+msgid "$-44.8 \\leq x \\leq 44.8$"
+msgstr ""
+
+msgid "$-44.8 \\leq y \\leq 44.8$"
+msgstr ""
+
+msgid "$-44.8 \\leq z \\leq 44.8$"
+msgstr ""
+
+msgid "Force"
+msgstr ""
+
+msgid "地球の中心に向かう重力を考慮します。"
+msgstr ""
+
+msgid ""
+"\n"
+"\\begin{align*}\n"
+"\\frac{\\partial \\rho \\bm{v}}{\\partial t} &= [...] + \\rho \\bm{g}, \\\\\n"
+"\\bm{g} & = -\\frac{g_0}{r^3} \\left(x \\bm{e}_x + y\\bm{e}_y + z\\bm{e}_z\\right),\\\\\n"
+"r^2 &= x^2 + y^2 + z^2,\n"
+"\\end{align*}\n"
+msgstr ""
+
+#, python-brace-format
+msgid "where $g_0=1.35\\times10^{-6}$ in normalized unit."
+msgstr ""
+
+msgid "Initial Conditions"
+msgstr ""
+
+msgid "初期条件は、磁気圏と太陽風の組み合わせで記述されます。比熱比は$\\gamma = 5/3$とします。"
+msgstr ""
+
+msgid "密度"
+msgstr ""
+
+#, python-brace-format
+msgid ""
+"\n"
+"\\begin{align*}\n"
+"\\rho &=\n"
+"\\begin{cases}\n"
+"1/r^3 & 1/r^3 \\geq 0.2\\rho_\\mathrm{sw} \\\\\n"
+"0.2\\rho_\\mathrm{sw} & 1/r^2 < 0.2\\rho_\\mathrm{sw}\n"
+"\\end{cases}\n"
+"\\end{align*}\n"
+msgstr ""
+
+msgid "圧力"
+msgstr ""
+
+#, python-brace-format
+msgid ""
+"\n"
+"\\begin{align*}\n"
+"p =\n"
+"\\begin{cases}\n"
+"p_0/r^2 & p_0/r^2 \\geq p_\\mathrm{sw} \\\\\n"
+"p_\\mathrm{sw} & p_0/r^2 < p_\\mathrm{sw}\n"
+"\\end{cases}\n"
+"\\end{align*}\n"
+msgstr ""
+
+msgid "双極子磁場"
+msgstr ""
+
+#, python-brace-format
+msgid ""
+"\n"
+"\\begin{align*}\n"
+"\\bm{B} &= \\frac{1}{r^5}\n"
+"\\begin{pmatrix}\n"
+"-3xz \\\\\n"
+"-3yz \\\\\n"
+"x^2 + y^2 - 2z^2\n"
+"\\end{pmatrix}\n"
+"\\end{align*}\n"
+msgstr ""
+
+#, python-brace-format
+msgid "ここで$p_0 = 5.4\\times10^{-7}$。 太陽風のパラメータは、$\\rho_\\mathrm{sw}=5\\times10^{-4}$、$p_\\mathrm{sw}=3.56\\times10^{-8}$、$v_\\mathrm{sw}=0.05$、$B_\\mathrm{sw}=-1.5\\times10^{-4}$です。"
+msgstr ""
+
+msgid "Boundary Conditions"
+msgstr ""
+
+#, python-brace-format
+msgid "すべての境界に対して、$x = -44.8$境界を除き、全ての物理量に対して対称境界条件を設定します。$x = -44.8$境界では、上記の太陽風のパラメータを固定境界条件として設定します。`config.yaml`では以下のように設定します。加えて、地球周辺($r = 3.5R_\\mathrm{E}$)に境界のような条件を設定し、双極子磁場とスムーズに接続するようにしています。"
+msgstr ""
+
+msgid "Results"
+msgstr ""
+
+msgid "可視化用のPythonスクリプトが用意されています。 結果のプロットは `demo/mhd3d_magnetosphere/figs` に保存されます。"
+msgstr ""
+
+msgid "![mhd3d_magnetosphere](../_static/images/geomagnetosphere_3d.gif)"
+msgstr ""
+
+msgid "mhd3d_magnetosphere"
+msgstr ""
+

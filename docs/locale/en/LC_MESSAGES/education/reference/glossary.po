@@ -1,0 +1,1350 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2025, Integrated Studies, ISEE, Nagoya University
+# This file is distributed under the same license as the MISO package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: MISO \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-10-29 09:37+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: en\n"
+"Language-Team: en <LL@li.org>\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.18.0\n"
+
+msgid "用語集"
+msgstr ""
+
+msgid "本文に出てくる用語を、初めて説明する章の順に並べています。詳しい説明は「初出」の章を読んでください。 元の資料やコンパイラのエラーは英語なので、英語も併記します。"
+msgstr ""
+
+msgid "I．準備"
+msgstr ""
+
+msgid "語"
+msgstr ""
+
+msgid "英語"
+msgstr ""
+
+msgid "説明"
+msgstr ""
+
+msgid "初出"
+msgstr ""
+
+msgid "コンパイル"
+msgstr ""
+
+msgid "compile"
+msgstr ""
+
+msgid "ソースファイルを 1 つずつ機械語に翻訳し、オブジェクトファイルを作る段階"
+msgstr ""
+
+#, python-brace-format
+msgid "{ref}`1 <edu-ch01>`"
+msgstr ""
+
+msgid "リンク"
+msgstr ""
+
+msgid "link"
+msgstr ""
+
+msgid "オブジェクトファイルとライブラリを結び付けて実行ファイルを作る段階"
+msgstr ""
+
+msgid "オブジェクトファイル"
+msgstr ""
+
+msgid "object file"
+msgstr ""
+
+msgid "コンパイルの結果できるファイル（`.o`）"
+msgstr ""
+
+msgid "ヘッダ（ヘッダファイル）"
+msgstr ""
+
+msgid "header (file)"
+msgstr ""
+
+msgid "宣言や定義を書き、`#include` で読み込むファイル（`.hpp`）"
+msgstr ""
+
+msgid "ヘッダオンリー"
+msgstr ""
+
+msgid "header-only"
+msgstr ""
+
+msgid "定義をすべてヘッダに書き、前もってライブラリを作らずに使える形。MISO はこの形"
+msgstr ""
+
+msgid "ターゲット"
+msgstr ""
+
+msgid "target"
+msgstr ""
+
+msgid "CMake でビルドする対象（実行ファイルやライブラリ）の名前"
+msgstr ""
+
+msgid "キャッシュ変数"
+msgstr ""
+
+msgid "cache variable"
+msgstr ""
+
+msgid "`cmake -D` で渡し、`CMakeCache.txt` に残る設定項目"
+msgstr ""
+
+msgid "ビルド種別"
+msgstr ""
+
+msgid "build type"
+msgstr ""
+
+msgid "Release・Debug など、最適化とデバッグ情報の組み合わせ"
+msgstr ""
+
+msgid "FetchContent"
+msgstr ""
+
+msgid "設定の段階で依存ライブラリのソースを取得する CMake の仕組み"
+msgstr ""
+
+msgid "ユニットテスト"
+msgstr ""
+
+msgid "unit test"
+msgstr ""
+
+msgid "部品ごとに動作を確かめるプログラム"
+msgstr ""
+
+msgid "環境変数"
+msgstr ""
+
+msgid "environment variable"
+msgstr ""
+
+msgid "シェルからコマンドへ渡る「名前=値」の設定"
+msgstr ""
+
+msgid "仮想環境"
+msgstr ""
+
+msgid "virtual environment (venv)"
+msgstr ""
+
+msgid "ほかと独立した Python の実行環境"
+msgstr ""
+
+msgid "doctest"
+msgstr ""
+
+msgid "MISO のユニットテストに使っている C++ のテスト用ライブラリ"
+msgstr ""
+
+#, python-brace-format
+msgid "{ref}`テスト <edu-ref-testing>`"
+msgstr ""
+
+msgid "計算機イプシロン"
+msgstr ""
+
+msgid "machine epsilon"
+msgstr ""
+
+msgid "1 と、その次に表せる浮動小数点数との差"
+msgstr ""
+
+msgid "丸め誤差"
+msgstr ""
+
+msgid "rounding error"
+msgstr ""
+
+msgid "有限の桁に丸めることで生じる誤差"
+msgstr ""
+
+msgid "桁落ち"
+msgstr ""
+
+msgid "cancellation"
+msgstr ""
+
+msgid "近い値どうしの引き算で有効桁が減ること"
+msgstr ""
+
+msgid "II．C++ の基礎"
+msgstr ""
+
+msgid "宣言"
+msgstr ""
+
+msgid "declaration"
+msgstr ""
+
+msgid "名前と型をコンパイラに知らせること"
+msgstr ""
+
+#, python-brace-format
+msgid "{ref}`2 <edu-ch02>`"
+msgstr ""
+
+msgid "初期化"
+msgstr ""
+
+msgid "initialization"
+msgstr ""
+
+msgid "変数を作るときに最初の値を与えること"
+msgstr ""
+
+msgid "暗黙の型変換"
+msgstr ""
+
+msgid "implicit conversion"
+msgstr ""
+
+msgid "型の違う値を混ぜた式などで、コンパイラが自動で行う変換"
+msgstr ""
+
+msgid "static_cast"
+msgstr ""
+
+msgid "コンパイル時に型を変換する書き方"
+msgstr ""
+
+msgid "型の別名"
+msgstr ""
+
+msgid "type alias"
+msgstr ""
+
+msgid "`using Real = float;` のように既存の型に付ける別の名前"
+msgstr ""
+
+msgid "列挙型"
+msgstr ""
+
+msgid "enumeration (`enum class`)"
+msgstr ""
+
+msgid "決まった選択肢から 1 つを表す型（`Direction::X` など）"
+msgstr ""
+
+msgid "ブロック"
+msgstr ""
+
+msgid "block"
+msgstr ""
+
+#, python-brace-format
+msgid "`{ }` で囲んだ文のまとまり"
+msgstr ""
+
+msgid "短絡評価"
+msgstr ""
+
+msgid "short-circuit evaluation"
+msgstr ""
+
+msgid "`&&`・`||` で、左側だけで結果が決まれば右側を評価しないこと"
+msgstr ""
+
+msgid "条件演算子"
+msgstr ""
+
+msgid "conditional operator"
+msgstr ""
+
+msgid "`c ? a : b`。`c` が真なら `a`、偽なら `b`"
+msgstr ""
+
+msgid "戻り値"
+msgstr ""
+
+msgid "return value"
+msgstr ""
+
+msgid "関数が `return` で返す値"
+msgstr ""
+
+msgid "値渡し"
+msgstr ""
+
+msgid "pass by value"
+msgstr ""
+
+msgid "関数の引数に値のコピーを渡すこと"
+msgstr ""
+
+msgid "デフォルト引数"
+msgstr ""
+
+msgid "default argument"
+msgstr ""
+
+msgid "省略したときに使う引数の値"
+msgstr ""
+
+msgid "オーバーロード"
+msgstr ""
+
+msgid "overload"
+msgstr ""
+
+msgid "同じ名前で引数の型や数が違う関数を複数定義すること"
+msgstr ""
+
+msgid "inline"
+msgstr ""
+
+msgid "同じ定義が複数のソースファイルに現れてもよいとする指定。ヘッダの関数に必要"
+msgstr ""
+
+msgid "名前空間"
+msgstr ""
+
+msgid "namespace"
+msgstr ""
+
+msgid "名前をグループに分ける仕組み（`miso::`、`std::`）"
+msgstr ""
+
+msgid "標準ライブラリ"
+msgstr ""
+
+msgid "standard library"
+msgstr ""
+
+msgid "C++ に付属する部品群（`std::vector`、`std::string` など）"
+msgstr ""
+
+msgid "例外"
+msgstr ""
+
+msgid "exception"
+msgstr ""
+
+msgid "`throw` で投げ、`catch` で受け取るエラーの知らせ"
+msgstr ""
+
+msgid "プリプロセッサ・マクロ"
+msgstr ""
+
+msgid "preprocessor / macro"
+msgstr ""
+
+msgid "コンパイルの前に行う文字列の置き換え（`#define`、`#ifdef`）"
+msgstr ""
+
+msgid "参照"
+msgstr ""
+
+msgid "reference"
+msgstr ""
+
+msgid "既にある変数の別名（`T&`）"
+msgstr ""
+
+#, python-brace-format
+msgid "{ref}`3 <edu-ch03>`"
+msgstr ""
+
+msgid "参照渡し"
+msgstr ""
+
+msgid "pass by reference"
+msgstr ""
+
+msgid "関数の引数を参照で受け取ること"
+msgstr ""
+
+msgid "出力引数"
+msgstr ""
+
+msgid "output parameter"
+msgstr ""
+
+msgid "関数が結果を書き込む先として受け取る引数"
+msgstr ""
+
+msgid "アドレス"
+msgstr ""
+
+msgid "address"
+msgstr ""
+
+msgid "メモリ上の場所を表す番号"
+msgstr ""
+
+msgid "ポインタ"
+msgstr ""
+
+msgid "pointer"
+msgstr ""
+
+msgid "アドレスを値として持つ変数（`T*`）"
+msgstr ""
+
+msgid "間接参照"
+msgstr ""
+
+msgid "dereference"
+msgstr ""
+
+msgid "`*p` のように、ポインタが指す先を使うこと"
+msgstr ""
+
+msgid "ヌルポインタ"
+msgstr ""
+
+msgid "null pointer (`nullptr`)"
+msgstr ""
+
+msgid "どこも指していないポインタ"
+msgstr ""
+
+msgid "ポインタ演算"
+msgstr ""
+
+msgid "pointer arithmetic"
+msgstr ""
+
+msgid "`p + i` で `i` 個先の要素を指すこと"
+msgstr ""
+
+msgid "未定義動作"
+msgstr ""
+
+msgid "undefined behavior"
+msgstr ""
+
+msgid "言語が結果を保証しない操作。何が起きても不思議はない"
+msgstr ""
+
+msgid "スコープ"
+msgstr ""
+
+msgid "scope"
+msgstr ""
+
+msgid "名前を使える範囲"
+msgstr ""
+
+msgid "寿命"
+msgstr ""
+
+msgid "lifetime"
+msgstr ""
+
+msgid "変数やオブジェクトの実体が存在する期間"
+msgstr ""
+
+msgid "ぶら下がり参照・ポインタ"
+msgstr ""
+
+msgid "dangling reference / pointer"
+msgstr ""
+
+msgid "寿命が終わった対象を指したままの参照・ポインタ"
+msgstr ""
+
+msgid "メモリリーク"
+msgstr ""
+
+msgid "memory leak"
+msgstr ""
+
+msgid "確保したメモリを解放し忘れること"
+msgstr ""
+
+msgid "スマートポインタ"
+msgstr ""
+
+msgid "smart pointer"
+msgstr ""
+
+msgid "寿命が終わると自動で解放するポインタ（`std::unique_ptr`、`std::shared_ptr`）"
+msgstr ""
+
+msgid "クラス・構造体"
+msgstr ""
+
+msgid "class / struct"
+msgstr ""
+
+msgid "データと関数をまとめた型。`struct` は既定の公開範囲が public"
+msgstr ""
+
+#, python-brace-format
+msgid "{ref}`4 <edu-ch04>`"
+msgstr ""
+
+msgid "メンバ変数・メンバ関数"
+msgstr ""
+
+msgid "member variable / member function"
+msgstr ""
+
+msgid "クラスの中で宣言した変数・関数"
+msgstr ""
+
+msgid "オブジェクト・インスタンス"
+msgstr ""
+
+msgid "object / instance"
+msgstr ""
+
+msgid "型に従って作られた、値を保存する実体"
+msgstr ""
+
+msgid "カプセル化"
+msgstr ""
+
+msgid "encapsulation"
+msgstr ""
+
+msgid "公開する操作を決め、中のデータを直接触らせないこと"
+msgstr ""
+
+msgid "コンストラクタ"
+msgstr ""
+
+msgid "constructor"
+msgstr ""
+
+msgid "オブジェクトを作るときに自動で呼ばれる関数"
+msgstr ""
+
+msgid "初期化子リスト"
+msgstr ""
+
+msgid "member initializer list"
+msgstr ""
+
+msgid "コンストラクタの `:` の後に書く、メンバの初期化の並び。初期化はメンバの宣言順"
+msgstr ""
+
+msgid "explicit"
+msgstr ""
+
+msgid "コンストラクタによる暗黙の型変換を禁止する指定"
+msgstr ""
+
+msgid "const メンバ関数"
+msgstr ""
+
+msgid "const member function"
+msgstr ""
+
+msgid "メンバを書き換えないと約束した関数（末尾の `const`）"
+msgstr ""
+
+msgid "this"
+msgstr ""
+
+msgid "メンバ関数を呼んだオブジェクトを指すポインタ"
+msgstr ""
+
+msgid "デストラクタ"
+msgstr ""
+
+msgid "destructor"
+msgstr ""
+
+msgid "寿命が終わるときに自動で呼ばれる後片付けの関数"
+msgstr ""
+
+msgid "RAII"
+msgstr ""
+
+msgid "Resource Acquisition Is Initialization"
+msgstr ""
+
+msgid "資源の確保と解放をオブジェクトの寿命に結び付ける方法"
+msgstr ""
+
+msgid "コピーコンストラクタ"
+msgstr ""
+
+msgid "copy constructor"
+msgstr ""
+
+msgid "同じ型のオブジェクトをもとに作るコンストラクタ"
+msgstr ""
+
+msgid "ムーブ"
+msgstr ""
+
+msgid "move"
+msgstr ""
+
+msgid "中身の持ち主を移すこと（`std::move`）"
+msgstr ""
+
+msgid "`= delete`・`= default`"
+msgstr ""
+
+msgid "deleted / defaulted function"
+msgstr ""
+
+msgid "関数を使用禁止にする指定／コンパイラの標準の定義を使う指定"
+msgstr ""
+
+msgid "演算子のオーバーロード"
+msgstr ""
+
+msgid "operator overloading"
+msgstr ""
+
+msgid "`()`・`[]` などの演算子に、クラスごとの意味を定義すること"
+msgstr ""
+
+msgid "所有"
+msgstr ""
+
+msgid "ownership"
+msgstr ""
+
+msgid "資源の後片付けに責任を持つこと"
+msgstr ""
+
+msgid "View"
+msgstr ""
+
+msgid "view"
+msgstr ""
+
+msgid "確保も解放もせず、先頭アドレスと大きさだけを持つ軽いオブジェクト（`Array3DView` など）"
+msgstr ""
+
+msgid "friend"
+msgstr ""
+
+msgid "指定したクラスや関数に private のメンバの使用を許す宣言"
+msgstr ""
+
+msgid "継承・基底クラス・派生クラス"
+msgstr ""
+
+msgid "inheritance / base class / derived class"
+msgstr ""
+
+msgid "既存のクラス（基底）のメンバを引き継いで新しいクラス（派生）を作ること"
+msgstr ""
+
+#, python-brace-format
+msgid "{ref}`5 <edu-ch05>`"
+msgstr ""
+
+msgid "protected"
+msgstr ""
+
+msgid "外からは使えず、派生クラスからは使える公開範囲"
+msgstr ""
+
+msgid "名前の隠蔽"
+msgstr ""
+
+msgid "name hiding"
+msgstr ""
+
+msgid "派生クラスの同じ名前の関数が、基底クラスの関数を隠すこと"
+msgstr ""
+
+msgid "仮想関数・オーバーライド"
+msgstr ""
+
+msgid "virtual function / override"
+msgstr ""
+
+msgid "実際のオブジェクトの型に応じて実行時に選ばれる関数と、その定義し直し。MISO では使っていない"
+msgstr ""
+
+msgid "CRTP"
+msgstr ""
+
+msgid "Curiously Recurring Template Pattern"
+msgstr ""
+
+msgid "基底クラスのテンプレート引数に派生クラス自身を渡す形。MISO の `ModelBase` が使う"
+msgstr ""
+
+msgid "テンプレート"
+msgstr ""
+
+msgid "template"
+msgstr ""
+
+msgid "型や値を後から指定して関数・クラス・変数を作る仕組み"
+msgstr ""
+
+#, python-brace-format
+msgid "{ref}`6 <edu-ch06>`"
+msgstr ""
+
+msgid "テンプレート引数"
+msgstr ""
+
+msgid "template argument"
+msgstr ""
+
+msgid "`<>` の中で与える型や値（`Array3D<float, backend::Host>`）"
+msgstr ""
+
+msgid "テンプレート引数の推論"
+msgstr ""
+
+msgid "template argument deduction"
+msgstr ""
+
+msgid "関数の引数の型からテンプレート引数を決めること"
+msgstr ""
+
+msgid "実体化"
+msgstr ""
+
+msgid "instantiation"
+msgstr ""
+
+msgid "型を当てはめて、具体的な関数やクラスをコンパイル時に作ること"
+msgstr ""
+
+msgid "変数テンプレート"
+msgstr ""
+
+msgid "variable template"
+msgstr ""
+
+msgid "型ごとに値を持つ定数（`pii4<Real>`）"
+msgstr ""
+
+msgid "メンバ関数テンプレート"
+msgstr ""
+
+msgid "member function template"
+msgstr ""
+
+msgid "テンプレートにしたメンバ関数"
+msgstr ""
+
+msgid "タグ型"
+msgstr ""
+
+msgid "tag type"
+msgstr ""
+
+msgid "中身がなく、型だけで選択の目印になる構造体（`backend::Host`）"
+msgstr ""
+
+msgid "タグディスパッチ"
+msgstr ""
+
+msgid "tag dispatch"
+msgstr ""
+
+msgid "タグ型の引数で、呼ぶ関数（オーバーロード）を選ぶ書き方"
+msgstr ""
+
+msgid "特殊化"
+msgstr ""
+
+msgid "specialization"
+msgstr ""
+
+msgid "特定のテンプレート引数のときだけ使う別の定義"
+msgstr ""
+
+msgid "完全な特殊化"
+msgstr ""
+
+msgid "explicit (full) specialization"
+msgstr ""
+
+msgid "すべての引数を決めた特殊化（`template <>`）"
+msgstr ""
+
+msgid "部分特殊化"
+msgstr ""
+
+msgid "partial specialization"
+msgstr ""
+
+msgid "一部の引数だけを決めた特殊化"
+msgstr ""
+
+msgid "基本のテンプレート"
+msgstr ""
+
+msgid "primary template"
+msgstr ""
+
+msgid "特殊化の元になる最初の宣言"
+msgstr ""
+
+msgid "型特性"
+msgstr ""
+
+msgid "type trait"
+msgstr ""
+
+msgid "型の性質を `::value` で返すクラステンプレート（`std::is_same`）"
+msgstr ""
+
+msgid "SFINAE"
+msgstr ""
+
+msgid "Substitution Failure Is Not An Error"
+msgstr ""
+
+msgid "テンプレート引数の置き換えに失敗した候補を、エラーにせず候補から外す規則"
+msgstr ""
+
+msgid "III．MISO における並列計算"
+msgstr ""
+
+msgid "行優先・列優先"
+msgstr ""
+
+msgid "row-major / column-major"
+msgstr ""
+
+msgid "最後の添字（C++・MISO）か、最初の添字（Fortran）がメモリ上で連続する並び"
+msgstr ""
+
+#, python-brace-format
+msgid "{ref}`7 <edu-ch07>`"
+msgstr ""
+
+msgid "ラムダ式"
+msgstr ""
+
+msgid "lambda expression"
+msgstr ""
+
+msgid "式の位置にその場で書く、名前のない関数"
+msgstr ""
+
+msgid "キャプチャ"
+msgstr ""
+
+msgid "capture"
+msgstr ""
+
+msgid "ラムダ式が外側の変数を、値（`[=]`）または参照（`[&]`）で取り込むこと"
+msgstr ""
+
+msgid "半開区間"
+msgstr ""
+
+msgid "half-open interval"
+msgstr ""
+
+msgid "始まりを含み終わりを含まない範囲 `[begin, end)`"
+msgstr ""
+
+msgid "縮約"
+msgstr ""
+
+msgid "reduction"
+msgstr ""
+
+msgid "全要素から和・最大値などの 1 つの値を求める操作（`reduce`）"
+msgstr ""
+
+msgid "単位元"
+msgstr ""
+
+msgid "identity element"
+msgstr ""
+
+msgid "`op` で合わせても相手を変えない値（和なら 0）。`reduce` の初期値に使う"
+msgstr ""
+
+msgid "FMA"
+msgstr ""
+
+msgid "fused multiply-add"
+msgstr ""
+
+msgid "乗算と加算を 1 回の丸めで行う命令。CPU と GPU で結果が少し違う原因になる"
+msgstr ""
+
+msgid "プロセス"
+msgstr ""
+
+msgid "process"
+msgstr ""
+
+msgid "自分のメモリを持って動くプログラムの実行単位"
+msgstr ""
+
+#, python-brace-format
+msgid "{ref}`8 <edu-ch08>`"
+msgstr ""
+
+msgid "ランク"
+msgstr ""
+
+msgid "rank"
+msgstr ""
+
+msgid "コミュニケータの中でプロセスに付く 0 始まりの番号"
+msgstr ""
+
+msgid "コミュニケータ"
+msgstr ""
+
+msgid "communicator"
+msgstr ""
+
+msgid "通信に参加するプロセスの集まり（`MPI_COMM_WORLD` など）"
+msgstr ""
+
+msgid "SPMD"
+msgstr ""
+
+msgid "Single Program, Multiple Data"
+msgstr ""
+
+msgid "同じプログラムを、各プロセスが別のデータで動かす形"
+msgstr ""
+
+msgid "領域分割"
+msgstr ""
+
+msgid "domain decomposition"
+msgstr ""
+
+msgid "計算領域を分けて、各プロセスに割り当てること"
+msgstr ""
+
+msgid "ゴーストセル（のりしろ）"
+msgstr ""
+
+msgid "ghost cell"
+msgstr ""
+
+msgid "隣の値や境界条件の値を置くために、配列の両端に足すセル"
+msgstr ""
+
+msgid "ハロー交換"
+msgstr ""
+
+msgid "halo exchange"
+msgstr ""
+
+msgid "ゴーストセルを隣のランクの値で埋める通信"
+msgstr ""
+
+msgid "タグ"
+msgstr ""
+
+msgid "tag"
+msgstr ""
+
+msgid "MPI で、送信と受信を対応させる整数"
+msgstr ""
+
+msgid "デッドロック"
+msgstr ""
+
+msgid "deadlock"
+msgstr ""
+
+msgid "互いに相手を待って、先へ進めなくなる状態"
+msgstr ""
+
+msgid "ノンブロッキング通信"
+msgstr ""
+
+msgid "non-blocking communication"
+msgstr ""
+
+msgid "開始だけして戻り、後で完了を待つ通信（`MPI_Isend`）"
+msgstr ""
+
+msgid "集団通信"
+msgstr ""
+
+msgid "collective communication"
+msgstr ""
+
+msgid "コミュニケータの全プロセスが参加する通信（`MPI_Allreduce`）"
+msgstr ""
+
+msgid "パック・アンパック"
+msgstr ""
+
+msgid "pack / unpack"
+msgstr ""
+
+msgid "値を送信用のバッファへ詰めること／受信したバッファから配列へ戻すこと"
+msgstr ""
+
+msgid "物理境界・内部境界"
+msgstr ""
+
+msgid "physical / internal boundary"
+msgstr ""
+
+msgid "計算領域の端の境界／隣のランクとの境界"
+msgstr ""
+
+msgid "MPI_PROC_NULL"
+msgstr ""
+
+msgid "相手がいないことを表すランクの値。送受信しても何も起きない"
+msgstr ""
+
+msgid "MCA"
+msgstr ""
+
+msgid "Modular Component Architecture"
+msgstr ""
+
+msgid "Open MPI の内部部品を選ぶ仕組み（環境変数 `OMPI_MCA_*`）"
+msgstr ""
+
+msgid "ホスト"
+msgstr ""
+
+msgid "host"
+msgstr ""
+
+msgid "CPU 側と、そのメモリ"
+msgstr ""
+
+#, python-brace-format
+msgid "{ref}`9 <edu-ch09>`"
+msgstr ""
+
+msgid "デバイス"
+msgstr ""
+
+msgid "device"
+msgstr ""
+
+msgid "GPU 側と、そのメモリ"
+msgstr ""
+
+msgid "カーネル"
+msgstr ""
+
+msgid "kernel"
+msgstr ""
+
+msgid "`__global__` を付けた、GPU の多数のスレッドで実行される関数"
+msgstr ""
+
+msgid "スレッド"
+msgstr ""
+
+msgid "thread"
+msgstr ""
+
+msgid "カーネルを実行する最小の単位"
+msgstr ""
+
+msgid "ブロック（スレッドブロック）"
+msgstr ""
+
+msgid "(thread) block"
+msgstr ""
+
+msgid "スレッドの組。共有メモリと `__syncthreads` はこの中で働く"
+msgstr ""
+
+msgid "グリッド"
+msgstr ""
+
+msgid "grid"
+msgstr ""
+
+msgid "1 回の起動で並べるブロックの全体"
+msgstr ""
+
+msgid "共有メモリ"
+msgstr ""
+
+msgid "shared memory"
+msgstr ""
+
+msgid "同じブロックのスレッドが共有する、小さく速いメモリ"
+msgstr ""
+
+msgid "拡張ラムダ"
+msgstr ""
+
+msgid "extended lambda"
+msgstr ""
+
+msgid "`__host__ __device__` を付けたラムダ。nvcc の `--expt-extended-lambda` が必要"
+msgstr ""
+
+msgid "非同期・同期"
+msgstr ""
+
+msgid "asynchronous / synchronization"
+msgstr ""
+
+msgid "起動した GPU の処理を待たずにホストが先へ進むこと／その完了を待つこと"
+msgstr ""
+
+msgid "ストリーム"
+msgstr ""
+
+msgid "stream"
+msgstr ""
+
+msgid "GPU への仕事の待ち行列。中では入れた順に実行される"
+msgstr ""
+
+msgid "CUDA-aware MPI"
+msgstr ""
+
+msgid "GPU メモリのアドレスを直接送受信できる MPI"
+msgstr ""
+
+msgid "compute capability"
+msgstr ""
+
+msgid "GPU の世代を表す番号。`CMAKE_CUDA_ARCHITECTURES` に使う"
+msgstr ""
+
+msgid "HMM"
+msgstr ""
+
+msgid "Heterogeneous Memory Management"
+msgstr ""
+
+msgid "GPU からホストのメモリを読めるようにする仕組み。有効な環境では `this` の取り込みの誤りが表に出ない"
+msgstr ""
+
+msgid "IV．総合実習と本体の読解"
+msgstr ""
+
+msgid "熱伝導方程式"
+msgstr ""
+
+msgid "heat equation"
+msgstr ""
+
+msgid "$\\partial u/\\partial t = \\kappa\\,\\partial^2 u/\\partial x^2$。温度が拡散する式"
+msgstr ""
+
+#, python-brace-format
+msgid "{ref}`10 <edu-ch10>`"
+msgstr ""
+
+msgid "解析解"
+msgstr ""
+
+msgid "analytical solution"
+msgstr ""
+
+msgid "式で書ける厳密な解"
+msgstr ""
+
+msgid "中心差分"
+msgstr ""
+
+msgid "central difference"
+msgstr ""
+
+msgid "左右の隣の値で微分を近似する差分"
+msgstr ""
+
+msgid "陽解法"
+msgstr ""
+
+msgid "explicit method"
+msgstr ""
+
+msgid "今の時刻の値だけから次の時刻の値を求める方法"
+msgstr ""
+
+msgid "前進オイラー法"
+msgstr ""
+
+msgid "forward Euler method"
+msgstr ""
+
+msgid "時間微分を前進差分で近似する 1 次精度の方法"
+msgstr ""
+
+msgid "拡散数"
+msgstr ""
+
+msgid "diffusion number"
+msgstr ""
+
+msgid "$r = \\kappa\\Delta t/\\Delta x^2$。安定条件に現れる"
+msgstr ""
+
+msgid "安定条件"
+msgstr ""
+
+msgid "stability condition"
+msgstr ""
+
+msgid "計算が発散しない $\\Delta t$ の上限（熱伝導の陽解法では $r \\le 1/2$）"
+msgstr ""
+
+msgid "増幅率"
+msgstr ""
+
+msgid "amplification factor"
+msgstr ""
+
+msgid "1 ステップで波の振幅に掛かる係数"
+msgstr ""
+
+msgid "離散解"
+msgstr ""
+
+msgid "discrete solution"
+msgstr ""
+
+msgid "差分式そのものの厳密な解"
+msgstr ""
+
+msgid "打ち切り誤差"
+msgstr ""
+
+msgid "truncation error"
+msgstr ""
+
+msgid "微分を差分で近似したことによる誤差"
+msgstr ""
+
+msgid "収束次数"
+msgstr ""
+
+msgid "order of convergence"
+msgstr ""
+
+msgid "格子を細かくしたとき、誤差が減る割合の指数"
+msgstr ""
+
+msgid "状態方程式"
+msgstr ""
+
+msgid "equation of state (EOS)"
+msgstr ""
+
+msgid "密度と内部エネルギーから、圧力や音速を求める関係"
+msgstr ""
+
+#, python-brace-format
+msgid "{ref}`11 <edu-ch11>`"
+msgstr ""
+
+msgid "発散クリーニング"
+msgstr ""
+
+msgid "(hyperbolic) divergence cleaning"
+msgstr ""
+
+#, python-brace-format
+msgid "補助変数 $\\phi$ で $\\nabla\\cdot\\boldsymbol{B}$ の誤差を波として運び出し、減衰させる方法"
+msgstr ""
+
+msgid "CFL 条件"
+msgstr ""
+
+msgid "CFL condition"
+msgstr ""
+
+msgid "最も速い波が 1 ステップで格子間隔を越えないように $\\Delta t$ を決める条件"
+msgstr ""
+
+msgid "Alfvén 速度"
+msgstr ""
+
+msgid "Alfvén speed"
+msgstr ""
+
+msgid "磁場に沿って伝わる波の速さ $"
+msgstr ""
+
+#, python-brace-format
+msgid "\\boldsymbol{B}"
+msgstr ""
+
+msgid "人工粘性"
+msgstr ""
+
+msgid "artificial viscosity"
+msgstr ""
+
+msgid "急な変化の近くだけに拡散を加えて、数値的な振動を抑える処理"
+msgstr ""
+
+msgid "制限子"
+msgstr ""
+
+msgid "limiter"
+msgstr ""
+
+msgid "傾きの符号がそろうときだけ最小の傾きを採るなど、勾配の大きさを制限する関数（minmod など）"
+msgstr ""
+
+msgid "流束"
+msgstr ""
+
+msgid "flux"
+msgstr ""
+
+msgid "セルの境界を通って移る量"
+msgstr ""
+
+msgid "ソース項"
+msgstr ""
+
+msgid "source term"
+msgstr ""
+
+msgid "方程式の右辺に足す外力や加熱"
+msgstr ""
+
+msgid "静水圧平衡"
+msgstr ""
+
+msgid "hydrostatic equilibrium"
+msgstr ""
+
+msgid "重力と圧力勾配がつり合った状態"
+msgstr ""
+
+msgid "チェックポイント"
+msgstr ""
+
+msgid "checkpoint"
+msgstr ""
+
+msgid "計算を再開するために保存する状態"
+msgstr ""
+
+msgid "生文字列リテラル"
+msgstr ""
+
+msgid "raw string literal"
+msgstr ""
+
+msgid "`R\"x( ... )x\"` の形で、改行や `\"` をそのまま含められる文字列"
+msgstr ""
+

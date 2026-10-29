@@ -1,0 +1,698 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2025, Integrated Studies, ISEE, Nagoya University
+# This file is distributed under the same license as the MISO package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: MISO \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-10-29 09:37+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: en\n"
+"Language-Team: en <LL@li.org>\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.18.0\n"
+
+msgid "4. クラス・構造体"
+msgstr ""
+
+msgid "第 3 章までに学んだ変数、関数、参照、ポインタを組み合わせて、データとそれを扱う関数をまとめた型を自分で定義します。 この章を読み終えると、MISO の配列 `Array3D`、MHD の変数をまとめた `Fields`、時刻を管理する `Time`、設定ファイルを読む `Config`、demo の `InitialCondition` が、どのようなデータを持ち、どう作られ、どう後片付けされるかを読めるようになります。"
+msgstr ""
+
+#, python-brace-format
+msgid "{ref}`edu-ch04-struct`"
+msgstr ""
+
+#, python-brace-format
+msgid "{ref}`edu-ch04-access`"
+msgstr ""
+
+#, python-brace-format
+msgid "{ref}`edu-ch04-constructor`"
+msgstr ""
+
+#, python-brace-format
+msgid "{ref}`edu-ch04-explicit`"
+msgstr ""
+
+#, python-brace-format
+msgid "{ref}`edu-ch04-const-member`"
+msgstr ""
+
+#, python-brace-format
+msgid "{ref}`edu-ch04-destructor`"
+msgstr ""
+
+#, python-brace-format
+msgid "{ref}`edu-ch04-copy-move`"
+msgstr ""
+
+#, python-brace-format
+msgid "{ref}`edu-ch04-operator`"
+msgstr ""
+
+#, python-brace-format
+msgid "{ref}`edu-ch04-view`"
+msgstr ""
+
+#, python-brace-format
+msgid "{ref}`edu-ch04-initial-condition`"
+msgstr ""
+
+#, python-brace-format
+msgid "{ref}`edu-ch04-exercises`"
+msgstr ""
+
+#, python-brace-format
+msgid "この章の MISO の抜粋には、`template <typename T>` や `Array3D<Real, Backend>` のように、山括弧 `<>` の付いた名前が出てきます。 これは「型を後から指定する印」です。たとえば `Array3D<float>` は「要素が `float` の `Array3D`」、`Time<Real>` は「時刻を `Real` 型で持つ `Time`」と読みます。 仕組みは {ref}`第 6 章 <edu-ch06>` で説明します。この章では、山括弧の中を「そのクラスで使う型の指定」と読んで先へ進みます。"
+msgstr ""
+
+msgid "4.1 型の定義とオブジェクト"
+msgstr ""
+
+msgid "格子数 `nx`, `ny`, `nz` を 1 つにまとめる例から始めます。 次の `GridSize` は説明用の型です。"
+msgstr ""
+
+#, python-brace-format
+msgid "`struct GridSize { ... };` は、`GridSize` という名前の**型**を定義します。 この定義だけでは、まだ特定の格子の変数はできていません。`int` という型の名前を書いただけでは整数の変数ができないのと同じです。 型の中に書いた変数を**メンバ変数**、関数を**メンバ関数**と呼びます。 `int nx = 1;` の `= 1` は、そのメンバの初期値です。 閉じ波括弧の後の `;` は省略できません。"
+msgstr ""
+
+msgid "Fortran の派生型で書くと、データの部分は次に当たります。"
+msgstr ""
+
+msgid "C++ では、データに加えて、そのデータを使う関数（ここでは `cell_count`）も同じ型の中に書けます。"
+msgstr ""
+
+msgid "型を使って変数を作り、メンバを使う例です。"
+msgstr ""
+
+msgid "`a` と `b` は、それぞれが自分の `nx`, `ny`, `nz` を保存する場所を持っています。 このように、型に応じた値を保存する領域を持つものを**オブジェクト**と呼び、クラスの型で作ったオブジェクトを**インスタンス**とも呼びます。"
+msgstr ""
+
+#, python-brace-format
+msgid "`.` は、オブジェクトのメンバを指定する記号で、Fortran の `a%nx` の `%` に当たります。 `a.cell_count()` を呼んでいる間、関数の中の `nx` は `a.nx` を表します。 `b.cell_count()` なら `b.nx` です。メンバ関数は、どのオブジェクトから呼んだかによって、使うメンバ変数が決まります。 `cell_count()` の末尾の `const` は「この関数ではメンバ変数を書き換えない」という指定です。{ref}`4.4 節 <edu-ch04-const-member>` で説明します。"
+msgstr ""
+
+msgid "ポインタからメンバを使うときは、`.` の代わりに `->` を書きます。"
+msgstr ""
+
+msgid "`p->ny` は「`p` の指す先のオブジェクトの `ny`」です。 オブジェクトやその参照からは `.`、ポインタからは `->` を使います。"
+msgstr ""
+
+#, python-brace-format
+msgid "C++ でデータと関数をまとめた型を**クラス**（class）と呼びます。 クラスは `struct` と `class` のどちらのキーワードでも定義できます。`struct` で定義したものは**構造体**（structure）とも呼びますが、C++ ではクラスの一種です。 2 つの違いは {ref}`次の節 <edu-ch04-access>` で説明します。"
+msgstr ""
+
+msgid "MISO の例：時刻を管理する Time"
+msgstr ""
+
+msgid "`miso/include/miso/time.hpp` の `Time` は、時刻やステップ数をまとめた構造体です。 メンバ変数の部分を抜き出します（元のコメント `/// @brief ...` を、日本語の短いコメントに置き換えています）。"
+msgstr ""
+
+#, python-brace-format
+msgid "先頭の `template <typename Real>` は、時刻を表す型 `Real` を後から指定する印です（{ref}`第 6 章 <edu-ch06>`）。 demo では `using Real = float;` としているので、`time` や `tend` は `float` になります。"
+msgstr ""
+
+#, python-brace-format
+msgid "`Time` のオブジェクトは、MISO の時間発展を管理するクラス（{ref}`第 5 章 <edu-ch05>` で読む `ModelBase`）のメンバ `time` として作られます。 `miso/include/miso/mhd_model_base.hpp` の `ModelBase::run()` には、次の行があります。"
+msgstr ""
+
+msgid "左の `time` はオブジェクトの名前、`.time` はそのメンバ変数です。同じ綴りでも役割が違います。 「`time` というオブジェクトの、現在時刻 `time` が終了時刻 `tend` より小さい間」と読みます。"
+msgstr ""
+
+msgid "4.2 公開範囲：public と private"
+msgstr ""
+
+msgid "前の節の `GridSize` では、使う側のコードがどのメンバでも自由に読み書きできました。 ここでは、1 次元の一様格子を表すクラスを作り、**外から読み書きできるメンバを決めます**。 格子のセル数と格子間隔は作るときに決め、その後は読むことだけを許します。"
+msgstr ""
+
+#, python-brace-format
+msgid "`public:` の後に書いたメンバは、`main()` など、`Axis` を使う側のコードから使えます。 `private:` の後に書いた `n_`, `x_min_`, `dx_` は、使う側から直接は読み書きできず、`Axis` のメンバ関数の中からだけ使えます。 先頭の `Axis(...)` で始まる部分はオブジェクトを作るときの処理で、{ref}`次の節 <edu-ch04-constructor>` で説明します。 `explicit` は {ref}`4.3 節の explicit の項 <edu-ch04-explicit>` で説明します。"
+msgstr ""
+
+msgid "使う側では、次のように書きます。"
+msgstr ""
+
+msgid "コメントにした最後の行を有効にすると、g++ は `'int Axis::n_' is private within this context` というエラーを出します。 セル数を変える操作を公開していないので、作った後にセル数だけが変わって格子間隔と合わなくなる、ということが起きません。 このように、データと、それを扱う関数をクラスにまとめ、外に公開する操作を決めることを**カプセル化**（encapsulation）と呼びます。"
+msgstr ""
+
+msgid "`struct` と `class` の違いは、公開範囲を書かなかったときの既定だけです。 `struct` は `public`、`class` は `private` から始まります。 メンバ名の末尾の `_` は、private なメンバ変数を区別するための命名の習慣で、C++ の文法ではありません。"
+msgstr ""
+
+msgid "MISO の例：private を使う Array3D と、すべて公開の構造体"
+msgstr ""
+
+msgid "MISO では、2 つの書き方を役割で使い分けています。"
+msgstr ""
+
+msgid "`miso/include/miso/array3d.hpp` の `Array3D` は `class` で、配列の先頭アドレス `data_` と大きさ `shape_` を `private` にしています。使う側は `extent()`, `size()`, `a(i, j, k)` などの公開された関数を通して使います。確保した配列の大きさを、使う側が勝手に書き換えられないようにするためです。"
+msgstr ""
+
+msgid "`Time`、`Config`、`Fields` などは `struct` で、メンバ変数をすべて公開しています。MISO の内部や demo から `time.n_step` や `qq.ro` のように直接使う、データのまとまりとして設計されています。"
+msgstr ""
+
+#, python-brace-format
+msgid "`Array3D` の抜粋は {ref}`4.5 節 <edu-ch04-destructor>` 以降で読みます。"
+msgstr ""
+
+msgid "4.3 コンストラクタと初期化子リスト"
+msgstr ""
+
+msgid "`Axis(...)` のように、クラスと同じ名前を持つ特別なメンバ関数を**コンストラクタ**（constructor）と呼びます。 オブジェクトを作るときに自動で呼ばれ、メンバ変数を初期化します。戻り値の型は書きません（`void` も付けません）。"
+msgstr ""
+
+msgid "この 2 行は、次のように分けて読みます。"
+msgstr ""
+
+msgid "部分"
+msgstr ""
+
+msgid "意味"
+msgstr ""
+
+msgid "`Axis(int n, double x_min = 0.0, double x_max = 1.0)`"
+msgstr ""
+
+msgid "引数を 3 つ受け取るコンストラクタです"
+msgstr ""
+
+msgid "`= 0.0`、`= 1.0`"
+msgstr ""
+
+msgid "**デフォルト引数**です。呼ぶ側が省略すると、この値を使います"
+msgstr ""
+
+msgid "`:` から `{` の前まで"
+msgstr ""
+
+msgid "**初期化子リスト**（メンバ初期化子リスト）です"
+msgstr ""
+
+msgid "`n_(n)`"
+msgstr ""
+
+msgid "メンバ `n_` を引数 `n` の値で初期化します"
+msgstr ""
+
+msgid "`dx_((x_max - x_min) / n)`"
+msgstr ""
+
+msgid "メンバ `dx_` を、式の値で初期化します"
+msgstr ""
+
+#, python-brace-format
+msgid "`{}`"
+msgstr ""
+
+msgid "初期化の後に実行する本体です。この例では空です"
+msgstr ""
+
+#, python-brace-format
+msgid "`Axis a(4);` と書くと、`x_min` と `x_max` には既定値の 0.0 と 1.0 が使われます。 デフォルト引数は後ろの引数から順に省略でき、途中の引数だけを省略することはできません。 `Axis a{4};` のように波括弧で書いても同じコンストラクタが呼ばれます。 一方、`Axis a();` と空の丸括弧を書くと、「`Axis` を返す関数 `a` の宣言」と解釈されるので注意します。"
+msgstr ""
+
+msgid "Fortran には、型を作るときに必ず実行される手続きはありません。 C++ では、コンストラクタを書いたクラスのオブジェクトは、必ずコンストラクタを通って作られます。 `Axis` には引数を取るコンストラクタしかないので、`Axis a;` と引数なしで作ることもできません（エラーになります）。 コンストラクタを 1 つも書かなかった `GridSize` では、コンパイラが引数なしのコンストラクタを用意するので、`GridSize c;` と書けました。"
+msgstr ""
+
+msgid "メンバを初期化する順番"
+msgstr ""
+
+msgid "初期化子リストに書いた順ではなく、**クラスの中でメンバ変数を宣言した順**に初期化されます。 `Axis` では `n_`, `x_min_`, `dx_` の順に宣言し、初期化子リストも同じ順に書いています。 次の `BadAxis` は、`dx_` を `n_` より先に宣言し、`dx_` の初期化に `n_` を使っています。"
+msgstr ""
+
+msgid "`dx_` を初期化する時点では、`n_` にはまだ値が入っていません。 g++ に `-Wall` を付けると、順番の違い（`-Wreorder`）と、値の入っていない `n_` を使っていること（`-Wuninitialized`）を警告します。 初期化子リストは宣言と同じ順に書き、別のメンバを使う初期化では、その順番を確かめます。 上の `Axis` のように、メンバではなく引数 `n` を使えば、宣言の順番に左右されません。"
+msgstr ""
+
+msgid "初期化子リストでなければ値を決められないメンバ"
+msgstr ""
+
+#, python-brace-format
+msgid "`const` を付けたメンバと参照のメンバは、作った後に代入できません。 これらは初期化子リストで値や参照先を決めます。 コンストラクタの本体 `{ ... }` に入った時点で、メンバの初期化はすでに終わっているからです。"
+msgstr ""
+
+msgid "MISO の例：Time のコンストラクタ"
+msgstr ""
+
+msgid "`miso/include/miso/time.hpp` の `Time` のコンストラクタを読みます（ディレクトリを作る後半は省略しています）。"
+msgstr ""
+
+#, python-brace-format
+msgid "引数 `const Config &config` は、設定ファイルの内容を持つ `Config` をコピーせずに読むための参照です（{ref}`第 3 章 <edu-ch03>`）。"
+msgstr ""
+
+#, python-brace-format
+msgid "`config[\"time\"][\"tend\"]` は、`config.yaml` の `time:` の下の `tend:` の値を取り出す書き方です。`[]` の仕組みは {ref}`4.7 節 <edu-ch04-operator>` で説明します。`.as<Real>()` は、取り出した値を `Real` 型の数として読む yaml-cpp の関数です。"
+msgstr ""
+
+msgid "初期化子リストでは、宣言順（`tend`, `dt_output`, `n_output_digits`, `io_enabled`）どおりに 4 つのメンバを初期化しています。"
+msgstr ""
+
+msgid "本体では、値を検査してから、`initialize()` を呼んで `time`, `n_step`, `n_output` を 0 にします。値が正しくなければ例外を投げ、オブジェクトは作られません。"
+msgstr ""
+
+msgid "元のコメントには `Default constructor` とありますが、C++ の用語の「デフォルトコンストラクタ」は引数なしで呼べるコンストラクタのことで、このコンストラクタは `Config` を受け取ります。 コメントの語は C++ の用語と一致していないので、本文の説明で読みます。"
+msgstr ""
+
+msgid "explicit と暗黙の型変換"
+msgstr ""
+
+msgid "`Axis` のコンストラクタには `explicit` を付けました。 **`explicit` は「このコンストラクタを、別の型からの自動的な変換に使わない」という指定**です。"
+msgstr ""
+
+msgid "デフォルト引数があるので、`Axis` は整数 1 個からでも作れます。 `explicit` がないと、C++ は「整数から `Axis` を作る変換」も自動で行います。 次の 2 行は、`explicit` があるとエラーになり、ないと通ります。"
+msgstr ""
+
+msgid "型を変える処理を自分で書かず、コンパイラに任せる変換を**暗黙の型変換**と呼びます。 引数を取り違えて整数を渡したときに、意図しない格子が作られるのを防ぐのが、ここでの `explicit` の役割です。"
+msgstr ""
+
+msgid "`miso/include/miso/eos.hpp` の理想気体の状態方程式 `IdealEOS` には、2 つのコンストラクタがあり、どちらにも `explicit` が付いています。"
+msgstr ""
+
+msgid "2 つ目の `explicit IdealEOS(Real gm)` は、比熱比 $\\gamma$ から状態方程式を作ります。 `explicit` があるので、状態方程式を受け取る関数に、うっかり `1.4f` のような数をそのまま渡すとエラーになります。 `: gm(gm)` は、メンバ `gm` を、同じ名前の引数 `gm` で初期化する書き方です。 初期化子リストの括弧の外の名前はメンバ、括弧の中の名前は引数を指します。"
+msgstr ""
+
+#, python-brace-format
+msgid "このように、同じ名前で引数の型が違うコンストラクタを複数書けます（{ref}`第 2 章 <edu-ch02>` の関数のオーバーロードと同じです）。 `IdealEOS<Real> eos(config);` なら 1 つ目、`IdealEOS<Real> eos(Real(1.4));` なら 2 つ目が呼ばれます。"
+msgstr ""
+
+msgid "4.4 const メンバ関数と this"
+msgstr ""
+
+msgid "`int size() const` の末尾の `const` は、「この関数の中ではメンバ変数を書き換えない」という指定です。 `size()` の中に `n_ = 8;` と書くとコンパイルエラーになります。 読むだけの関数には末尾に `const` を付け、書き換える関数には付けません。"
+msgstr ""
+
+msgid "この区別は、`const` を付けたオブジェクトや `const` 参照から呼べる関数を決めます。"
+msgstr ""
+
+msgid "`const Axis&` で受け取った引数（前の `length` 関数）からも、末尾が `const` の `size()` と `dx()` だけが呼べます。 末尾の `const` を付け忘れると、読むだけの関数でも `const` 参照から呼べなくなります。"
+msgstr ""
+
+msgid "`miso/include/miso/time.hpp` の `Time` で、2 種類の関数を比べます（抜粋）。"
+msgstr ""
+
+msgid "`update` の閉じ括弧の後の `;` は不要ですが、書いてもエラーにはなりません。"
+msgstr ""
+
+msgid "this：呼び出したオブジェクトを指すポインタ"
+msgstr ""
+
+msgid "メンバ関数の中では、メンバ変数の名前をそのまま書いて使えました。 これは、C++ がメンバ関数に「どのオブジェクトから呼ばれたか」を、**`this` という名前のポインタ**で渡しているからです。 `a.size()` と呼ぶと、`size()` の中の `this` は `a` を指し、`n_` は `this->n_` の省略です。"
+msgstr ""
+
+#, python-brace-format
+msgid "`this` はポインタなので、指す先のオブジェクトそのものは `*this` と書きます。 `Time::update` の `time += dt;` も、正確には `this->time += dt;` です。 この「メンバ変数は `this` を通して使われる」という性質は、{ref}`第 7 章 <edu-ch07>` でラムダ式を学ぶときに、また {ref}`第 9 章 <edu-ch09>` で GPU での落とし穴を学ぶときに重要になります。"
+msgstr ""
+
+msgid "4.5 デストラクタと後片付け（RAII）"
+msgstr ""
+
+msgid "配列を確保したら、使い終わったときに解放が必要です。 Fortran の `allocate` と `deallocate` の組を、C++ ではクラスに任せられます。 **オブジェクトの寿命が終わるときに自動で呼ばれる関数を、デストラクタ**（destructor）と呼びます。 名前は `~` とクラス名で、引数と戻り値の型はありません。"
+msgstr ""
+
+msgid "次は、コンストラクタで配列を確保し、デストラクタで解放する説明用のクラスです。 確保と解放のときに文字を表示して、呼ばれる時点を確かめます（`std::printf` は書式付きで表示する関数で、`#include <cstdio>` で使えます）。"
+msgstr ""
+
+msgid "実行結果は次のとおりです。"
+msgstr ""
+
+msgid "デストラクタを呼ぶ行を自分で書く必要はありません。 ブロックの終わりに達したとき、関数の途中で `return` したとき、例外で関数を抜けたときにも呼ばれます。 同じブロックに複数のオブジェクトがあるときは、作った順の逆に片付けられます。 メンバ変数がクラス型なら、外側のデストラクタの本体が終わった後に、メンバのデストラクタも自動で呼ばれます。"
+msgstr ""
+
+msgid "このように、資源（メモリ、ファイル、MPI の環境など）の確保をコンストラクタで、解放をデストラクタで行い、オブジェクトの寿命に結び付ける書き方を **RAII**（Resource Acquisition Is Initialization）と呼びます。 解放を書き忘れたり、途中の `return` で解放を飛ばしたりすることを防げます。"
+msgstr ""
+
+msgid "MISO の例：Array3D の確保と解放"
+msgstr ""
+
+msgid "`miso/include/miso/array3d.hpp` の、CPU 用の `Array3D` のコンストラクタとデストラクタです（大きさの検査の一部を省略しています）。"
+msgstr ""
+
+#, python-brace-format
+msgid "`T` は要素の型、`backend::Host` は「CPU のメモリに置く」ことを示す指定です（{ref}`第 6 章 <edu-ch06>`）。"
+msgstr ""
+
+msgid "`std::array<int, 3> shape_` は 3 方向の大きさを持つ固定長の配列で、まだ作っていない状態を `-1` で表しています。"
+msgstr ""
+
+msgid "コンストラクタで `new T[array_size]` によって要素を確保し、デストラクタで `delete[]` によって解放します。上の `Buffer` と同じ形です。"
+msgstr ""
+
+msgid "`static_cast<size_t>(...)` は、掛け算の前に `int` を大きな整数型 `size_t` へ変換する書き方です。3 方向の格子数を掛けると `int` の範囲を超えることがあるためです。"
+msgstr ""
+
+#, python-brace-format
+msgid "GPU 用の `Array3D<T, backend::CUDA>` では、`new`/`delete[]` の代わりに GPU のメモリを確保・解放する関数を使います（{ref}`第 9 章 <edu-ch09>`）。 使う側から見れば、どちらも「作れば確保され、寿命が終われば解放される」配列です。"
+msgstr ""
+
+msgid "MISO の例：MPI の初期化と終了を受け持つ Env"
+msgstr ""
+
+msgid "demo の `main()` の最初の行は、次のとおりです（`demo/mhd2d_vortex/src/main.cpp`）。"
+msgstr ""
+
+msgid "`miso/include/miso/env.hpp` の `miso::Env` は、メンバとして `mpi::Env` を持ちます。 `mpi::Env` のコンストラクタは `MPI_Init` を呼び、デストラクタは `MPI_Finalize` を呼びます（抜粋）。"
+msgstr ""
+
+#, python-brace-format
+msgid "`env` は `main()` の最初に作られ、`main()` の終わりで寿命が終わるので、MPI の終了処理を書き忘れることがありません。 `noexcept` は「この関数は例外を外に投げない」という宣言です。 MPI の内容は {ref}`第 8 章 <edu-ch08>` で説明します。"
+msgstr ""
+
+msgid "4.6 コピーの禁止とムーブ"
+msgstr ""
+
+msgid "コピーで起きる問題と = delete"
+msgstr ""
+
+msgid "`int` の変数は `int b = a;` でコピーできます。クラスのオブジェクトも、何も指定しなければコピーでき、そのときはメンバ変数が 1 つずつコピーされます。 前の節の `Buffer` をコピーすると、メンバ `data_` に入っている**アドレスだけ**がコピーされます。 配列そのものは複製されず、2 つのオブジェクトが同じ配列を指します。 すると、2 つのデストラクタが同じ配列を `delete[]` することになり、プログラムが異常終了するなどの誤りになります。"
+msgstr ""
+
+msgid "配列を受け持つクラスでは、コピーを禁止します。 特別なメンバ関数の宣言の後に **`= delete`** を書くと、その関数は使えなくなります。"
+msgstr ""
+
+#, python-brace-format
+msgid "1 行目の `Buffer(const Buffer &)` は、同じ型のオブジェクトから作るコンストラクタで、**コピーコンストラクタ**と呼びます。`Buffer b = a;` や `Buffer b(a);` で呼ばれます。 2 行目の `operator=` は、作った後の `b = a;` で呼ばれる関数です（`operator` の付く名前は {ref}`4.7 節 <edu-ch04-operator>` で説明します）。 どちらも禁止すると、`Buffer b = a;` は `use of deleted function 'Buffer::Buffer(const Buffer&)'` というコンパイルエラーになります。 誤りが実行時ではなくコンパイル時に分かります。"
+msgstr ""
+
+msgid "ムーブ：中身の持ち主を移す"
+msgstr ""
+
+msgid "コピーを禁止しても、「配列の持ち主を別のオブジェクトへ移す」ことはしたい場合があります。 関数の中で作った配列を戻り値で返すときなどです。 これを**ムーブ**（move）と呼びます。`Buffer` にムーブのためのコンストラクタを加えます。"
+msgstr ""
+
+msgid "`Buffer &&` は、「中身を移してよいオブジェクト」を受け取る参照です。 ムーブのコンストラクタは、`other` の配列のアドレスを受け取り、`other` 側を `nullptr` にします。 配列は 1 つのままで、持ち主だけが入れ替わります。 `nullptr` を `delete[]` しても何も起きないので、空になった `other` のデストラクタは何も解放しません。"
+msgstr ""
+
+msgid "デストラクタで、配列を持っているときだけ表示するようにして（`if (data_ != nullptr)`）、`size()` を加えたものが次の使用例です。 `std::move` は `#include <utility>` で使えます。"
+msgstr ""
+
+msgid "`std::move(a)` は、`a` を「中身を移してよいオブジェクト」として扱う指定で、それ自体は何も移しません。 移すのはムーブのコンストラクタです。 ムーブした後の `a` は空になっているので、配列として使いません。"
+msgstr ""
+
+msgid "関数の戻り値として返すときは、`std::move` を書かなくても、ムーブ（または移す処理そのものの省略）が使われます。"
+msgstr ""
+
+msgid "MISO の例：Array3D と Fields"
+msgstr ""
+
+msgid "`miso/include/miso/array3d.hpp` の `Array3D` の末尾には、`Buffer` と同じ組み合わせがあります（抜粋。`//` のコメントは元のコードのものです）。"
+msgstr ""
+
+msgid "ムーブした後の `Array3D` は、`data_` が `nullptr`、大きさが `-1` の「作っていない状態」になります。 コメントの `allow uninitialized state` はこの状態のことです。 ムーブの代入 `operator=(Array3D &&other)` も定義されていて、自分が持っていた配列を解放してから `other` の配列を受け取ります。"
+msgstr ""
+
+msgid "`miso/include/miso/mhd_fields.hpp` の `Fields` は、MHD の 9 つの変数（密度 `ro`、速度 `vx`, `vy`, `vz`、磁場 `bx`, `by`, `bz`、内部エネルギー `ei`、発散を抑えるための変数 `ph`）を `Array3D` で持つ構造体です。 CPU 用の定義の抜粋です。"
+msgstr ""
+
+msgid "`Fields` 自身は配列を直接確保していません。メンバの `Array3D` のコンストラクタがそれぞれ確保し、デストラクタがそれぞれ解放します。 そのため `Fields` にはデストラクタを書いていません。 **`= default`** は「この関数を、コンパイラが用意する標準の形で使う」という指定です。 ムーブなら「メンバを 1 つずつムーブする」処理になり、9 つの `Array3D` のムーブがそれぞれ呼ばれます。"
+msgstr ""
+
+msgid "demo の中で、関数が `Array3D` を返す例が `demo/mhd2d_reconnection/src/main.cpp` の `make_eta` です。 抵抗率の配列を作って返し、`Model` のメンバ `eta` を初期化します（抜粋）。"
+msgstr ""
+
+msgid "`Array3D` はコピーできませんが、戻り値はムーブ（または移す処理の省略）で受け渡されるので、この書き方ができます。"
+msgstr ""
+
+msgid "デストラクタ、コピーのコンストラクタと代入、ムーブのコンストラクタと代入の 5 つは、どれか 1 つを自分で定義したら、残りも定義するか `= delete`・`= default` で明示する、という指針があります。 C++ Core Guidelines の [C.21](https://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines#Rc-five) で「rule of five」として説明されています。 `Array3D` は、デストラクタで解放し、コピーを禁止し、ムーブを定義しているので、この指針どおり 5 つすべてを決めています。 逆に、`Fields` のように資源を直接持たないクラスは、メンバのクラスに後片付けを任せ、自分ではほとんど書かずに済ませられます（同じ文書の [C.20](https://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines#Rc-zero)）。"
+msgstr ""
+
+msgid "4.7 演算子のオーバーロードと operator()"
+msgstr ""
+
+msgid "MISO では、3 次元配列の要素を `a(i, j, k)` と書きます。 Fortran の `a(i, j, k)` と似ていますが、C++ の `a(i, j, k)` は「オブジェクト `a` の `operator()` という名前のメンバ関数を、引数 `i, j, k` で呼ぶ」ことを意味します。 `+` や `[]` や `()` などの演算子に、クラスごとの意味を定義することを**演算子のオーバーロード**と呼びます。 定義する関数の名前は `operator` と演算子の記号を続けたもので、`operator()` や `operator[]`、前節の `operator=` がその例です。"
+msgstr ""
+
+msgid "説明用の 2 次元配列で確かめます。"
+msgstr ""
+
+msgid "`operator()` の戻り値の型 `double &` が重要です。 値（`double`）を返す定義にすると、`a(i, j)` は要素の値をコピーした一時的な値になり、`a(i, j) = ...` はコンパイルエラーになります。 参照を返すので、`a(i, j)` は配列の要素そのものの別名になり、読むことも書くこともできます。 `dim == 0 ? n0_ : n1_` は、`dim == 0` なら `n0_`、そうでなければ `n1_` を値とする式です（条件演算子）。"
+msgstr ""
+
+#, python-brace-format
+msgid "`data_[i * n1_ + j]` は、2 次元の添字を 1 次元の位置に直す式です。 `j` が 1 増えると隣の要素へ、`i` が 1 増えると `n1_` 個先へ進むので、**最後の添字が連続**しています。 Fortran は最初の添字が連続なので、並びが逆です。並びの違いとループの順番は {ref}`第 7 章 <edu-ch07>` で詳しく説明します。"
+msgstr ""
+
+msgid "MISO の例：Array3D の operator()"
+msgstr ""
+
+msgid "`miso/include/miso/array3d.hpp` の CPU 用 `Array3D` の `operator()` と `operator[]` です。"
+msgstr ""
+
+msgid "`(i0 * shape_[1] + i1) * shape_[2] + i2` は、`Array2` の式を 3 次元にしたもので、最後の添字 `i2` が連続です。"
+msgstr ""
+
+#, python-brace-format
+msgid "`assert(...)` は、条件が成り立たなければプログラムを止める検査です。添字が範囲外なら止まります。ただし `assert` は Debug ビルドでだけ働き、MISO の既定の Release ビルドでは取り除かれます（{ref}`第 1 章 <edu-ch01>`）。"
+msgstr ""
+
+msgid "`operator[]` は、1 次元の位置 `idx` で要素を指定します。`a[n]` と書けます。全要素を同じように処理するときに使います。"
+msgstr ""
+
+msgid "`miso/include/miso/config.hpp` の `Config` にも `operator[]` があり、`config[\"time\"]` と書けます。"
+msgstr ""
+
+msgid "メンバ `yaml_obj`（yaml-cpp のオブジェクト）から、キー `key` の項目を取り出して返します。 戻り値の `YAML::Node` も `[]` を持つので、`config[\"time\"][\"tend\"]` と続けて書けます。 末尾の `const` があるので、`const Config &` で受け取った設定（`Time` のコンストラクタの引数など）からも呼べます。"
+msgstr ""
+
+msgid "4.8 所有する配列と所有しない View"
+msgstr ""
+
+msgid "所有と View の考え方"
+msgstr ""
+
+msgid "`Array2` や `Array3D` は、配列を確保し、寿命が終わると解放します。 このように、**資源の後片付けに責任を持つこと**を「**所有する**」と言います。 所有するオブジェクトはコピーを禁止しているので、関数に渡すときは参照で渡します。"
+msgstr ""
+
+msgid "一方、計算の関数に必要なのは、配列の先頭アドレスと大きさだけです。 そこで、**先頭アドレスと大きさだけを持ち、確保も解放もしない**軽いクラスを用意し、関数にはそれを渡します。 これを **View**（ビュー）と呼びます。"
+msgstr ""
+
+msgid "`fill` は `Array2View` を値で受け取るので、関数の中の `v` はコピーです。 コピーしたのはアドレスと大きさだけなので、`v(i, j)` は元の `a` の要素を指し、`a` が書き換わります。 `sizeof(Array2View)` は、このオブジェクトの大きさ（バイト数）です。この確認では 16 バイト（アドレス 8 バイトと `int` 2 つ）で、配列の要素数には依存しません。"
+msgstr ""
+
+#, python-brace-format
+msgid "View は配列を所有しないので、**持ち主より長く使ってはいけません**。 持ち主の `Array2` の寿命が終わった後に View を使うと、解放済みのメモリを指すことになります（{ref}`第 3 章 <edu-ch03>` のぶら下がり参照と同じ問題です）。"
+msgstr ""
+
+msgid "MISO の例：Array3DView"
+msgstr ""
+
+msgid "`miso/include/miso/array3d.hpp` の `Array3DView` の抜粋です。"
+msgstr ""
+
+msgid "持っているのは先頭アドレス `data_` と大きさ `shape_` だけです。デストラクタで解放しません。"
+msgstr ""
+
+msgid "コピーを `= default` で許しています。`Array3D` がコピーを禁止しているのと対照的です。View は安くコピーして関数に渡すためのものです。"
+msgstr ""
+
+msgid "コンストラクタは `private` です。`friend class Array3D` は「`Array3D` には private のメンバの使用を許す」という指定で、View を作れるのは `Array3D` の `view()` だけになります。元のコメントにあるとおり、大きさの検査を済ませた `Array3D` からだけ作らせるためです。"
+msgstr ""
+
+#, python-brace-format
+msgid "`__host__ __device__` は、この関数を GPU でも使えるようにする印です。CPU だけのビルドでは `miso/include/miso/cuda_compat.hpp` が空の印として定義するので、読むときは無視できます（{ref}`第 9 章 <edu-ch09>`）。"
+msgstr ""
+
+msgid "`Array3D` 側には、View を返す関数が 3 つあります（抜粋）。"
+msgstr ""
+
+msgid "`Array3DView<T>` は要素を書き換えられる View、`Array3DView<const T>` は要素を読むだけの View です。 要素の型に `const` が付いているので、`operator()` が返す参照も `const T &` になり、代入するとコンパイルエラーになります。 1 つ目と 2 つ目は名前が同じで、末尾の `const` だけが違います。`const` でない `Array3D` からは 1 つ目、`const` の `Array3D`（や `const` 参照）からは 2 つ目が呼ばれます。 `const_view()` は、`const` でない配列からでも、読むだけの View を明示して取り出すための関数です。"
+msgstr ""
+
+msgid "動かして確かめる：Array3D と Array3DView"
+msgstr ""
+
+msgid "MISO のヘッダだけを使う短いプログラムで確かめます。 `miso/include/miso/array3d.hpp` は MPI や yaml-cpp を使わないので、インクルードパスを指定するだけでビルドできます。"
+msgstr ""
+
+msgid "`miso::Array3D<Real>` のように 2 つ目の型の指定を省略すると、`backend::Host`（CPU）になります。"
+msgstr ""
+
+msgid "`a(1, 2, 3)` は 1 次元の位置で `(1 * 3 + 2) * 4 + 3 = 23` 番目なので、`a[23]` と同じ要素です。"
+msgstr ""
+
+msgid "ムーブした後の `a` は大きさ `-1` の「作っていない状態」で、`b` が 2 x 3 x 4 の配列を持っています。"
+msgstr ""
+
+msgid "`Array3D` の `operator()` は末尾に `const` が付いていても `T &` を返します。 そのため、`const Array3D<Real> &` で受け取った配列からでも、`a(i, j, k) = ...` で要素を書き換えられます（試すとコンパイルが通ります）。 `Array3D` 側の `const` は「配列の大きさや持ち主を変えない」ことまでしか保証しません。 **関数が配列を読むだけであることを型で示したいときは、`const_view()` で作った `Array3DView<const Real>` を渡します。**"
+msgstr ""
+
+msgid "MISO の例：Fields と FieldsView"
+msgstr ""
+
+msgid "`miso/include/miso/mhd_fields.hpp` では、9 つの変数をまとめた `Fields` にも、対応する View `FieldsView` があります（抜粋）。"
+msgstr ""
+
+msgid "`Fields` の `view()` は、9 つの `Array3D` の `view()` をまとめて `FieldsView<Real>` を作り、`const_view()` は `FieldsView<const Real>` を作ります。 元のコメントのとおり、`T` には `Real`（書き換えられる）か `const Real`（読むだけ）が入ります。"
+msgstr ""
+
+msgid "`FieldsView` を使う側が、demo の初期条件です。 `miso/include/miso/mhd_solver.hpp` の `MHD::apply_initial_condition` は、CPU 上に作業用の `Fields` を作り、その View を初期条件の `apply` に渡します（抜粋）。"
+msgstr ""
+
+msgid "`qq_h` が配列を所有し、`apply` には View を値で渡しています。 `apply` の中で View を通して値を書き込むと、`qq_h` の配列が書き換わります。 その後、`copy_from` で計算に使う `qq` へ写します（GPU で計算するときは、ここで GPU のメモリへ転送されます）。 `grid_h.const_view()` は格子の座標などを読むだけの View `GridView<const Real>` です。"
+msgstr ""
+
+msgid "4.9 demo の InitialCondition を読む"
+msgstr ""
+
+msgid "この章で学んだことを使って、`demo/hd1d_shock_tube/src/main.cpp` の `InitialCondition` を読みます。 衝撃波管問題の左右の状態（密度・圧力・速度）を設定ファイルから読み、初期条件を与える構造体です（`apply` の中の一部を省略しています）。"
+msgstr ""
+
+msgid "読み方"
+msgstr ""
+
+msgid "`struct InitialCondition`"
+msgstr ""
+
+msgid "公開範囲を書かないので、メンバはすべて public です"
+msgstr ""
+
+msgid "`eos::IdealEOS<Real> &eos;`"
+msgstr ""
+
+msgid "状態方程式を**参照**で持つメンバです。コピーを持たず、`Model` が持つ `eos` を参照します"
+msgstr ""
+
+msgid "`Real rol, prl, vvl;` など"
+msgstr ""
+
+msgid "左右の密度・圧力・速度を値で持つメンバです"
+msgstr ""
+
+msgid "`explicit InitialCondition(Config &config, eos::IdealEOS<Real> &eos)`"
+msgstr ""
+
+msgid "設定と状態方程式を受け取るコンストラクタです"
+msgstr ""
+
+msgid "`: eos(eos), rol(...), ...`"
+msgstr ""
+
+msgid "参照メンバ `eos` は、初期化子リストでなければ参照先を決められません。他のメンバは宣言順に設定ファイルの値で初期化します"
+msgstr ""
+
+msgid "`void apply(...) const`"
+msgstr ""
+
+msgid "初期条件を書き込む関数です。末尾の `const` は、`InitialCondition` 自身のメンバ（`rol` など）を書き換えないという意味です"
+msgstr ""
+
+msgid "`mhd::FieldsView<Real> qq`"
+msgstr ""
+
+msgid "書き込める View を値で受け取ります。`qq.ro(i, j, k) = rol;` で、呼び出し元の `Fields` の配列が書き換わります"
+msgstr ""
+
+msgid "`GridView<const Real> grid`"
+msgstr ""
+
+msgid "格子を読むだけの View です。`grid.i_total` はゴーストセルを含む格子数、`grid.x[i]` はセル中心の座標です"
+msgstr ""
+
+msgid "`eos.gm`"
+msgstr ""
+
+msgid "参照している状態方程式の比熱比です"
+msgstr ""
+
+msgid "`apply` の末尾の `const` と、`qq` を通した書き込みは矛盾しません。 `const` が禁止するのは `InitialCondition` のメンバ変数の変更で、`qq` は引数として受け取った View だからです。 `apply` の引数の形が決まっている理由は、MISO の内部（前の節の `MHD::apply_initial_condition`）がこの形で呼ぶからです。元のコメントもそのことを述べています。"
+msgstr ""
+
+#, python-brace-format
+msgid "この構造体は、demo の `Model` のメンバ `ic` として作られ、MISO の時間発展の始めに使われます。 `Model` の読み方は {ref}`第 5 章 <edu-ch05>` で説明します。"
+msgstr ""
+
+msgid "練習"
+msgstr ""
+
+msgid "練習 1：Time のメンバが値を得る場所"
+msgstr ""
+
+msgid "`miso/include/miso/time.hpp` の `Time` のコンストラクタを読み、8 つのメンバ変数（`time`, `tend`, `dt_output`, `n_step`, `n_output`, `n_output_digits`, `time_save_dir`, `io_enabled`）が、それぞれ (a) 初期化子リスト、(b) コンストラクタの本体（本体から呼ぶ関数を含む）のどちらで値を得るかを分類してください。"
+msgstr ""
+
+msgid "メンバ"
+msgstr ""
+
+msgid "値を得る場所"
+msgstr ""
+
+msgid "`tend`, `dt_output`, `n_output_digits`, `io_enabled`"
+msgstr ""
+
+msgid "(a) 初期化子リスト。設定ファイルの値で初期化します"
+msgstr ""
+
+msgid "`time`, `n_step`, `n_output`"
+msgstr ""
+
+msgid "(b) 本体から呼ぶ `initialize()` で 0 を代入します"
+msgstr ""
+
+msgid "`time_save_dir`"
+msgstr ""
+
+msgid "(b) 本体で、`config.save_dir` と設定ファイルの `io.time_save_dir` をつないだパスを代入します"
+msgstr ""
+
+msgid "初期化子リストのメンバは、宣言順と同じ順に並んでいます。 本体で代入するメンバは、本体に入る前に一度、既定の方法で作られています（`Real` や `int` は値が不定、`std::string` は空の文字列）。 `tend` と `dt_output` は、本体の最初の検査で使うので、初期化子リストで値を決めておく必要があります。"
+msgstr ""
+
+msgid "練習 2：Array3D の要素の位置"
+msgstr ""
+
+msgid "`miso::Array3D<float> a(2, 3, 4);` について、次を求めてください。"
+msgstr ""
+
+msgid "`a(1, 0, 2)` は、配列の先頭から何番目の要素か（`a[n]` の `n`）。"
+msgstr ""
+
+msgid "`a(0, 0, 1)` と `a(0, 0, 0)`、`a(0, 1, 0)` と `a(0, 0, 0)`、`a(1, 0, 0)` と `a(0, 0, 0)` が、それぞれ何要素離れているかを答えてください。"
+msgstr ""
+
+#, python-brace-format
+msgid "`operator()` の式 `(i0 * shape_[1] + i1) * shape_[2] + i2` に、`shape_ = {2, 3, 4}` を入れます。"
+msgstr ""
+
+msgid "`(1 * 3 + 0) * 4 + 2 = 14` なので、`a[14]` です。"
+msgstr ""
+
+msgid "最後の添字が 1 増えると 1 要素、真ん中の添字が 1 増えると 4 要素（`shape_[2]`）、最初の添字が 1 増えると 12 要素（`shape_[1] * shape_[2]`）離れます。"
+msgstr ""
+
+#, python-brace-format
+msgid "最後の添字 `i2` が連続です。Fortran の `a(2, 3, 4)` では最初の添字が連続なので、逆になります。 ループの順番との関係は {ref}`第 7 章 <edu-ch07>` で扱います。"
+msgstr ""
+
+msgid "練習 3：配列を受け取る関数の引数の型"
+msgstr ""
+
+msgid "`Array3D<Real>` の要素から最大値を求める関数 `max_value` と、すべての要素を 0 にする関数 `clear` を作るとします。 次の候補のうち、それぞれの関数の引数にふさわしい型を選び、理由を説明してください。"
+msgstr ""
+
+msgid "(a) `Array3D<Real> a`"
+msgstr ""
+
+msgid "(b) `const Array3D<Real> &a`"
+msgstr ""
+
+msgid "(c) `Array3DView<Real> a`"
+msgstr ""
+
+msgid "(d) `Array3DView<const Real> a`"
+msgstr ""
+
+msgid "`max_value` には (d) `Array3DView<const Real>` がふさわしいです。読むだけであることが型に表れ、関数の中で誤って代入するとコンパイルエラーになります。呼ぶ側は `max_value(a.const_view())` と書きます。"
+msgstr ""
+
+msgid "`clear` には (c) `Array3DView<Real>` がふさわしいです。View を値で渡しても、指す先は元の配列なので、元の要素を 0 にできます。呼ぶ側は `clear(a.view())` と書きます。"
+msgstr ""
+
+#, python-brace-format
+msgid "(a) は、`Array3D` のコピーを作ろうとするので、コピーが禁止されていてコンパイルエラーになります。 (b) はコンパイルでき、コピーもしません。ただし、`Array3D` の `operator()` は末尾が `const` でも `T &` を返すので、`const Array3D<Real> &` からでも要素を書き換えられます。読むだけであることを型で保証できない点で (d) に劣ります。 また、MISO の `for_each` などの並列ループの中では View を使います（{ref}`第 7 章 <edu-ch07>`）。関数の引数を View にしておくと、その書き方とそろいます。"
+msgstr ""
+

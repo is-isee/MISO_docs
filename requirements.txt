@@ -9,3 +9,4 @@ sphinx-copybutton
 sphinxcontrib-bibtex
 myst-parser
 
+sphinx-intl
