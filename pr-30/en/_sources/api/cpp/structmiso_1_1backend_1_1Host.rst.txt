@@ -1,0 +1,17 @@
+.. _exhale_struct_structmiso_1_1backend_1_1Host:
+
+Struct Host
+===========
+
+- Defined in :ref:`file__home_runner_work_MISO_docs_MISO_docs_MISO_miso_include_miso_backend.hpp`
+
+
+Struct Documentation
+--------------------
+
+
+.. doxygenstruct:: miso::backend::Host
+   :project: CPP
+   :members:
+   :protected-members:
+   :undoc-members:

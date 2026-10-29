@@ -1,0 +1,1367 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="ja" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>9. GPU（CUDA）での計算とデータ転送 &mdash; MISO 0.0 ドキュメント</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=4ae1632d" />
+      <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../_static/collapsible-lists/css/tree_view.css?v=a885cde7" />
+      <link rel="stylesheet" type="text/css" href="../_static/custom.css" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=1a6bc256"></script>
+      <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../_static/copybutton.js?v=f281be69"></script>
+      <script src="../_static/translations.js?v=4755f45a"></script>
+      <script src="../_static/collapsible-lists/js/CollapsibleLists.compressed.js?v=73120307"></script>
+      <script src="../_static/collapsible-lists/js/apply-collapsible-lists.js?v=660e4f45"></script>
+      <script>window.MathJax = {"tex": {"macros": {"bm": ["{\\boldsymbol{#1}}", 1]}}, "options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+      <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="../genindex.html" />
+    <link rel="search" title="検索" href="../search.html" />
+    <link rel="next" title="10. 熱伝導の計算" href="10_heat1d.html" />
+    <link rel="prev" title="8. MPI による領域分割" href="08_mpi.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            MISO
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../quickstart.html">Quick Start</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../demo/index.html">Test Problems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../customization/index.html">Customization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../miso/index.html">MISO C++ documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../pymiso/index.html">pymiso Documentation</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">MISO education</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="index.html#id1">本文</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html#id2">必要なときに参照する資料</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="01_environment_setup.html">1. 開発環境と CMake</a></li>
+<li class="toctree-l3"><a class="reference internal" href="02_cpp_basics.html">2. 変数・関数・制御文</a></li>
+<li class="toctree-l3"><a class="reference internal" href="03_references_and_pointers.html">3. 参照・ポインタと寿命</a></li>
+<li class="toctree-l3"><a class="reference internal" href="04_classes_and_structs.html">4. クラス・構造体</a></li>
+<li class="toctree-l3"><a class="reference internal" href="05_inheritance.html">5. 継承と CRTP</a></li>
+<li class="toctree-l3"><a class="reference internal" href="06_templates.html">6. テンプレート</a></li>
+<li class="toctree-l3"><a class="reference internal" href="07_arrays_and_parallel.html">7. 配列・ラムダと CPU での並列ループ</a></li>
+<li class="toctree-l3"><a class="reference internal" href="08_mpi.html">8. MPI による領域分割</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">9. GPU（CUDA）での計算とデータ転送</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id1">目次</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#edu-ch09-host-device">1. ホストとデバイス</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#cuda">2. CUDA のカーネル</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#edu-ch09-memory">3. デバイスメモリの確保と転送</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#for-each-cuda">4. for_each の CUDA 版</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#this">5. this キャプチャの落とし穴</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#reduce-cuda">6. reduce の CUDA 版</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#edu-ch09-sync">7. 同期とエラーの見つけ方</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#gpu-mpi">8. GPU の選択と MPI</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#miso-gpu">9. MISO を GPU 向けにビルドする</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#cpu-gpu">10. CPU で作ったプログラムを GPU で動かす</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="10_heat1d.html">10. 熱伝導の計算</a></li>
+<li class="toctree-l3"><a class="reference internal" href="11_reading_miso.html">11. MISO の時間発展を読む</a></li>
+<li class="toctree-l3"><a class="reference internal" href="practice/index.html">実習一覧</a></li>
+<li class="toctree-l3"><a class="reference internal" href="reference/index.html">参考資料</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../references.html">References</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">MISO</a>
+      </nav>
+
+      <div class="wy-nav-content">
+<div id="language-links" style="margin-bottom: 1em; font-size: 100%;">
+    Language:
+    
+    <a href="../en/education/09_gpu.html">English</a> |
+    <strong>日本語</strong>
+    
+</div>
+
+
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">MISO education</a></li>
+      <li class="breadcrumb-item active">9. GPU（CUDA）での計算とデータ転送</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/education/09_gpu.md.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section class="tex2jax_ignore mathjax_ignore" id="gpu-cuda">
+<span id="edu-ch09"></span><h1>9. GPU（CUDA）での計算とデータ転送<a class="headerlink" href="#gpu-cuda" title="Link to this heading"></a></h1>
+<p>第 7 章で書いた <code class="docutils literal notranslate"><span class="pre">for_each</span></code> と <code class="docutils literal notranslate"><span class="pre">reduce</span></code> を、NVIDIA の GPU で動かすための考え方を学びます。
+計算する場所と配列を置く場所を区別し、CUDA のカーネル、メモリの確保と転送、
+MISO の <code class="docutils literal notranslate"><span class="pre">for_each</span></code>・<code class="docutils literal notranslate"><span class="pre">reduce</span></code> の CUDA 版、MPI との組み合わせの順に進みます。</p>
+<p>GPU がなくても、この章は読めます。動かして確かめる例には、CPU での出力と GPU での出力を並べて載せています。
+CPU だけで進める場合は、この章を読んだあと <a class="reference internal" href="10_heat1d.html#edu-ch10"><span class="std std-ref">第 10 章</span></a> の逐次・MPI 部分へ進み、
+GPU を使える環境を用意できた段階で GPU 版を追加してください。</p>
+<section id="id1">
+<h2>目次<a class="headerlink" href="#id1" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p><a class="reference internal" href="#edu-ch09-host-device"><span class="std std-ref">1. ホストとデバイス</span></a></p></li>
+<li><p><a class="reference internal" href="#edu-ch09-kernel"><span class="std std-ref">2. CUDA のカーネル</span></a></p></li>
+<li><p><a class="reference internal" href="#edu-ch09-memory"><span class="std std-ref">3. デバイスメモリの確保と転送</span></a></p></li>
+<li><p><a class="reference internal" href="#edu-ch09-for-each"><span class="std std-ref">4. for_each の CUDA 版</span></a></p></li>
+<li><p><a class="reference internal" href="#edu-ch09-this-capture"><span class="std std-ref">5. this キャプチャの落とし穴</span></a></p></li>
+<li><p><a class="reference internal" href="#edu-ch09-reduce"><span class="std std-ref">6. reduce の CUDA 版</span></a></p></li>
+<li><p><a class="reference internal" href="#edu-ch09-sync"><span class="std std-ref">7. 同期とエラーの見つけ方</span></a></p></li>
+<li><p><a class="reference internal" href="#edu-ch09-mpi"><span class="std std-ref">8. GPU の選択と MPI</span></a></p></li>
+<li><p><a class="reference internal" href="#edu-ch09-build"><span class="std std-ref">9. MISO を GPU 向けにビルドする</span></a></p></li>
+<li><p><a class="reference internal" href="#edu-ch09-practice"><span class="std std-ref">10. CPU で作ったプログラムを GPU で動かす</span></a></p></li>
+</ul>
+</section>
+<section id="edu-ch09-host-device">
+<span id="id2"></span><h2>1. ホストとデバイス<a class="headerlink" href="#edu-ch09-host-device" title="Link to this heading"></a></h2>
+<p>GPU を使うプログラムでも、プログラム全体を進めるのは CPU です。
+CPU は設定ファイルを読み、配列を用意し、時間ステップのループを回します。
+その途中で、格子点ごとの計算を GPU へ依頼します。</p>
+<p>CUDA では、CPU 側を<strong>ホスト</strong>（host）、GPU 側を<strong>デバイス</strong>（device）と呼びます。
+2 つは別々のメモリを持っています。</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p></p></th>
+<th class="head"><p>ホスト（CPU）</p></th>
+<th class="head"><p>デバイス（GPU）</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>メモリ</p></td>
+<td><p>主記憶</p></td>
+<td><p>GPU に載ったメモリ</p></td>
+</tr>
+<tr class="row-odd"><td><p>同時に動く処理</p></td>
+<td><p>コア数ぶん</p></td>
+<td><p>数千〜数万のスレッド</p></td>
+</tr>
+<tr class="row-even"><td><p>MISO のバックエンド</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">backend::Host</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">backend::CUDA</span></code></p></td>
+</tr>
+</tbody>
+</table>
+<p>ここで大切なのは、<strong>ホストのメモリにある配列は、そのままではデバイスから読めない</strong>ことと、
+<strong>デバイスのメモリにある配列は、そのままではホストから読めない</strong>ことです。
+Fortran の配列は、宣言すればどのループからでも読み書きできました。
+GPU では、配列をどちらのメモリに置いたかを、プログラムを書く側が管理します。</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>   ホスト（CPU）                         デバイス（GPU）
+  +--------------------+               +--------------------+
+  | 主記憶             |  cudaMemcpy   | GPU のメモリ        |
+  |  a_host[0..n-1]  --+--------------&gt;+-- a_dev[0..n-1]    |
+  |                  &lt;-+---------------+--                  |
+  +--------------------+   (PCIe など)  +--------------------+
+     ループの進行、入出力                  格子点ごとの計算
+</pre></div>
+</div>
+<p>ホストとデバイスの間の転送は、デバイス内のメモリの読み書きに比べてずっと遅い経路です。
+そのため MISO では、物理量の配列を最初にデバイスへ置き、時間発展の間はデバイスの中で計算を続けます。
+ホストへ写すのは、出力するときなど必要なときだけです。</p>
+</section>
+<section id="cuda">
+<span id="edu-ch09-kernel"></span><h2>2. CUDA のカーネル<a class="headerlink" href="#cuda" title="Link to this heading"></a></h2>
+<section id="id3">
+<h3>2.1 関数の指定子<a class="headerlink" href="#id3" title="Link to this heading"></a></h3>
+<p>GPU で実行される関数を<strong>カーネル</strong>（kernel）と呼びます。
+CUDA は C++ を拡張した言語で、関数の前に付ける指定子で、どこで実行される関数かを表します。</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>指定子</p></th>
+<th class="head"><p>実行する場所</p></th>
+<th class="head"><p>呼び出す場所</p></th>
+<th class="head"><p>例</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">__global__</span></code></p></td>
+<td><p>デバイス</p></td>
+<td><p>ホスト（<code class="docutils literal notranslate"><span class="pre">&lt;&lt;&lt;</span> <span class="pre">&gt;&gt;&gt;</span></code> で起動）</p></td>
+<td><p>カーネル。戻り値は <code class="docutils literal notranslate"><span class="pre">void</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">__device__</span></code></p></td>
+<td><p>デバイス</p></td>
+<td><p>デバイス（カーネルや他の <code class="docutils literal notranslate"><span class="pre">__device__</span></code> 関数）</p></td>
+<td><p>カーネルから呼ぶ小さな関数</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">__host__</span></code></p></td>
+<td><p>ホスト</p></td>
+<td><p>ホスト</p></td>
+<td><p>普通の C++ の関数（何も付けないのと同じ）</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">__host__</span> <span class="pre">__device__</span></code></p></td>
+<td><p>両方</p></td>
+<td><p>両方</p></td>
+<td><p>ホストでもデバイスでも使う関数</p></td>
+</tr>
+</tbody>
+</table>
+<p><code class="docutils literal notranslate"><span class="pre">__host__</span> <span class="pre">__device__</span></code> を付けた関数は、ホスト用とデバイス用の 2 通りにコンパイルされます。
+MISO の小さな関数の多くはこの形です。たとえば <code class="docutils literal notranslate"><span class="pre">miso/include/miso/utility.hpp</span></code> の
+<code class="docutils literal notranslate"><span class="pre">util::sqrt</span></code> や <code class="docutils literal notranslate"><span class="pre">util::min2</span></code> は <code class="docutils literal notranslate"><span class="pre">__host__</span> <span class="pre">__device__</span></code> が付いているので、CPU のループからも GPU のカーネルからも呼べます。</p>
+<p>CUDA のコードは、NVIDIA の CUDA Toolkit に含まれるコンパイラ <code class="docutils literal notranslate"><span class="pre">nvcc</span></code> でコンパイルします。
+<code class="docutils literal notranslate"><span class="pre">nvcc</span></code> は、ホスト用の部分を普段の C++ コンパイラ（g++ など）に渡し、デバイス用の部分を自分で GPU の命令に変換します。</p>
+</section>
+<section id="id4">
+<h3>2.2 スレッドとブロック<a class="headerlink" href="#id4" title="Link to this heading"></a></h3>
+<p>カーネルは、多数の<strong>スレッド</strong>（thread）で同時に実行されます。
+どのスレッドも同じカーネルの命令を実行しますが、自分の番号を使って、担当する要素を変えます。</p>
+<p>スレッドは<strong>ブロック</strong>（block）という組にまとめられ、ブロックを並べたものを<strong>グリッド</strong>（grid）と呼びます。
+カーネルを起動するときに、グリッドのブロック数とブロックあたりのスレッド数を <code class="docutils literal notranslate"><span class="pre">&lt;&lt;&lt;グリッド,</span> <span class="pre">ブロック&gt;&gt;&gt;</span></code> で指定します。
+カーネルの中では、次の組み込み変数で自分の位置が分かります。</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>変数</p></th>
+<th class="head"><p>意味</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">blockIdx.x</span></code></p></td>
+<td><p>自分のブロックの番号（0 始まり）</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">blockDim.x</span></code></p></td>
+<td><p>ブロックあたりのスレッド数</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">threadIdx.x</span></code></p></td>
+<td><p>ブロックの中での自分の番号（0 始まり）</p></td>
+</tr>
+</tbody>
+</table>
+<p>1 次元の配列なら、通し番号は <code class="docutils literal notranslate"><span class="pre">blockIdx.x</span> <span class="pre">*</span> <span class="pre">blockDim.x</span> <span class="pre">+</span> <span class="pre">threadIdx.x</span></code> です。
+要素数 1000 を、ブロックあたり 256 スレッドで覆うと次のようになります。</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>ブロック数 = (1000 + 256 - 1) / 256 = 4   （整数の割り算。切り上げになる）
+
+blockIdx.x :   0            1            2            3
+threadIdx.x:   0 ... 255    0 ... 255    0 ... 255    0 ... 255
+通し番号 i :   0 ... 255  256 ... 511  512 ... 767  768 ... 1023
+                                                    ~~~~~~~~~~~~
+                                                    i = 1000〜1023 は配列の外。
+                                                    何もせずに終わらせる
+</pre></div>
+</div>
+<p>スレッドはブロック単位で起動するので、全スレッド数は要素数ちょうどにはなりません。
+はみ出したスレッドが配列の外を書かないよう、カーネルの中で <code class="docutils literal notranslate"><span class="pre">if</span> <span class="pre">(i</span> <span class="pre">&lt;</span> <span class="pre">n)</span></code> と調べます。</p>
+<p><code class="docutils literal notranslate"><span class="pre">.x</span></code> は、ブロックやグリッドを 3 次元（<code class="docutils literal notranslate"><span class="pre">.x</span></code>, <code class="docutils literal notranslate"><span class="pre">.y</span></code>, <code class="docutils literal notranslate"><span class="pre">.z</span></code>）にも並べられるためです。
+3 次元の並べ方は 2.4 で MISO の実物を見ます。</p>
+</section>
+<section id="id5">
+<h3>2.3 ベクトル加算のカーネル<a class="headerlink" href="#id5" title="Link to this heading"></a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">c[i]</span> <span class="pre">=</span> <span class="pre">a[i]</span> <span class="pre">+</span> <span class="pre">b[i]</span></code> を GPU で計算する、MISO を使わない CUDA だけの例です。
+デバイスメモリを扱う関数（<code class="docutils literal notranslate"><span class="pre">cudaMalloc</span></code>, <code class="docutils literal notranslate"><span class="pre">cudaMemcpy</span></code>, <code class="docutils literal notranslate"><span class="pre">cudaFree</span></code>）は次節で説明します。
+ここではカーネルの定義と起動の形を見てください。</p>
+<div class="highlight-cuda notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;cstdio&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;vector&gt;</span>
+
+<span class="c1">// GPU で動く関数（カーネル）。1 つのスレッドが 1 要素を担当する</span>
+<span class="kr">__global__</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="n">add_kernel</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">n</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="kt">float</span><span class="w"> </span><span class="o">*</span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="kt">float</span><span class="w"> </span><span class="o">*</span><span class="n">b</span><span class="p">,</span><span class="w"> </span><span class="kt">float</span><span class="w"> </span><span class="o">*</span><span class="n">c</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">blockIdx</span><span class="p">.</span><span class="n">x</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nb">blockDim</span><span class="p">.</span><span class="n">x</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nb">threadIdx</span><span class="p">.</span><span class="n">x</span><span class="p">;</span><span class="w">  </span><span class="c1">// 通し番号</span>
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">n</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">                                    </span><span class="c1">// はみ出したスレッドは何もしない</span>
+<span class="w">    </span><span class="n">c</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">b</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kt">int</span><span class="w"> </span><span class="n">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">const</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1000</span><span class="p">;</span>
+<span class="w">  </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">float</span><span class="o">&gt;</span><span class="w"> </span><span class="n">a</span><span class="p">(</span><span class="n">n</span><span class="p">),</span><span class="w"> </span><span class="n">b</span><span class="p">(</span><span class="n">n</span><span class="p">),</span><span class="w"> </span><span class="n">c</span><span class="p">(</span><span class="n">n</span><span class="p">);</span><span class="w">  </span><span class="c1">// ホスト（CPU）側の配列</span>
+<span class="w">  </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">n</span><span class="p">;</span><span class="w"> </span><span class="o">++</span><span class="n">i</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">1.0f</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">i</span><span class="p">;</span>
+<span class="w">    </span><span class="n">b</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">2.0f</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">i</span><span class="p">;</span>
+<span class="w">  </span><span class="p">}</span>
+
+<span class="w">  </span><span class="c1">// デバイス（GPU）側の配列を確保する</span>
+<span class="w">  </span><span class="kt">float</span><span class="w"> </span><span class="o">*</span><span class="n">a_d</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">nullptr</span><span class="p">,</span><span class="w"> </span><span class="o">*</span><span class="n">b_d</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">nullptr</span><span class="p">,</span><span class="w"> </span><span class="o">*</span><span class="n">c_d</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">nullptr</span><span class="p">;</span>
+<span class="w">  </span><span class="n">cudaMalloc</span><span class="p">(</span><span class="o">&amp;</span><span class="n">a_d</span><span class="p">,</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="kt">float</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">n</span><span class="p">);</span>
+<span class="w">  </span><span class="n">cudaMalloc</span><span class="p">(</span><span class="o">&amp;</span><span class="n">b_d</span><span class="p">,</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="kt">float</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">n</span><span class="p">);</span>
+<span class="w">  </span><span class="n">cudaMalloc</span><span class="p">(</span><span class="o">&amp;</span><span class="n">c_d</span><span class="p">,</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="kt">float</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">n</span><span class="p">);</span>
+
+<span class="w">  </span><span class="c1">// ホスト → デバイス</span>
+<span class="w">  </span><span class="n">cudaMemcpy</span><span class="p">(</span><span class="n">a_d</span><span class="p">,</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="n">data</span><span class="p">(),</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="kt">float</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">n</span><span class="p">,</span><span class="w"> </span><span class="n">cudaMemcpyHostToDevice</span><span class="p">);</span>
+<span class="w">  </span><span class="n">cudaMemcpy</span><span class="p">(</span><span class="n">b_d</span><span class="p">,</span><span class="w"> </span><span class="n">b</span><span class="p">.</span><span class="n">data</span><span class="p">(),</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="kt">float</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">n</span><span class="p">,</span><span class="w"> </span><span class="n">cudaMemcpyHostToDevice</span><span class="p">);</span>
+
+<span class="w">  </span><span class="c1">// 256 スレッドのブロックを、n 要素を覆うだけ並べて起動する</span>
+<span class="w">  </span><span class="k">const</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">block</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">256</span><span class="p">;</span>
+<span class="w">  </span><span class="k">const</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">grid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">n</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">block</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">block</span><span class="p">;</span><span class="w">  </span><span class="c1">// 切り上げ: 4</span>
+<span class="w">  </span><span class="n">add_kernel</span><span class="o">&lt;&lt;&lt;</span><span class="n">grid</span><span class="p">,</span><span class="w"> </span><span class="n">block</span><span class="o">&gt;&gt;&gt;</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="w"> </span><span class="n">a_d</span><span class="p">,</span><span class="w"> </span><span class="n">b_d</span><span class="p">,</span><span class="w"> </span><span class="n">c_d</span><span class="p">);</span>
+<span class="w">  </span><span class="n">cudaError_t</span><span class="w"> </span><span class="n">err</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">cudaGetLastError</span><span class="p">();</span><span class="w">  </span><span class="c1">// 起動そのものの失敗を調べる</span>
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">cudaSuccess</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">printf</span><span class="p">(</span><span class="s">"launch error: %s</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span><span class="w"> </span><span class="n">cudaGetErrorString</span><span class="p">(</span><span class="n">err</span><span class="p">));</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<span class="w">  </span><span class="p">}</span>
+
+<span class="w">  </span><span class="c1">// デバイス → ホスト（カーネルの終了を待ってから写す）</span>
+<span class="w">  </span><span class="n">cudaMemcpy</span><span class="p">(</span><span class="n">c</span><span class="p">.</span><span class="n">data</span><span class="p">(),</span><span class="w"> </span><span class="n">c_d</span><span class="p">,</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="kt">float</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">n</span><span class="p">,</span><span class="w"> </span><span class="n">cudaMemcpyDeviceToHost</span><span class="p">);</span>
+
+<span class="w">  </span><span class="n">std</span><span class="o">::</span><span class="n">printf</span><span class="p">(</span><span class="s">"grid = %d, block = %d</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span><span class="w"> </span><span class="n">grid</span><span class="p">,</span><span class="w"> </span><span class="n">block</span><span class="p">);</span>
+<span class="w">  </span><span class="n">std</span><span class="o">::</span><span class="n">printf</span><span class="p">(</span><span class="s">"c[1] = %g, c[999] = %g</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span><span class="w"> </span><span class="n">c</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span><span class="w"> </span><span class="n">c</span><span class="p">[</span><span class="mi">999</span><span class="p">]);</span>
+
+<span class="w">  </span><span class="n">cudaFree</span><span class="p">(</span><span class="n">a_d</span><span class="p">);</span>
+<span class="w">  </span><span class="n">cudaFree</span><span class="p">(</span><span class="n">b_d</span><span class="p">);</span>
+<span class="w">  </span><span class="n">cudaFree</span><span class="p">(</span><span class="n">c_d</span><span class="p">);</span>
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>ファイル名を <code class="docutils literal notranslate"><span class="pre">vecadd.cu</span></code> として、次のようにコンパイル・実行します。
+<code class="docutils literal notranslate"><span class="pre">.cu</span></code> は CUDA のソースを表す拡張子です。
+<code class="docutils literal notranslate"><span class="pre">-arch=sm_89</span></code> は、どの世代の GPU 向けの命令を作るかの指定で、使う GPU に合わせます（9 節）。</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>nvcc<span class="w"> </span>-arch<span class="o">=</span>sm_89<span class="w"> </span>vecadd.cu<span class="w"> </span>-o<span class="w"> </span>vecadd
+./vecadd
+</pre></div>
+</div>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>grid = 4, block = 256
+c[1] = 3, c[999] = 2997
+</pre></div>
+</div>
+<p>カーネルの中身は、Fortran の次のループの「1 回分」にあたります。</p>
+<div class="highlight-fortran notranslate"><div class="highlight"><pre><span></span><span class="k">do </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">n</span>
+<span class="w">  </span><span class="n">c</span><span class="p">(</span><span class="n">i</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">a</span><span class="p">(</span><span class="n">i</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">b</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+<span class="k">end do</span>
+</pre></div>
+</div>
+<p>ループの <code class="docutils literal notranslate"><span class="pre">do</span></code> に相当するものはカーネルの中にありません。
+「どの <code class="docutils literal notranslate"><span class="pre">i</span></code> を誰が計算するか」は、<code class="docutils literal notranslate"><span class="pre">&lt;&lt;&lt;grid,</span> <span class="pre">block&gt;&gt;&gt;</span></code> で起動したスレッドの番号が決めます。
+そのため、各 <code class="docutils literal notranslate"><span class="pre">i</span></code> の計算は互いに独立である必要があります。
+<code class="docutils literal notranslate"><span class="pre">c(i)</span></code> を計算するのに <code class="docutils literal notranslate"><span class="pre">c(i-1)</span></code> の新しい値を使う漸化式は、このままでは GPU に渡せません。
+これは第 7 章の <code class="docutils literal notranslate"><span class="pre">for_each</span></code> に渡すラムダと同じ条件です。</p>
+</section>
+<section id="miso">
+<h3>2.4 MISO の手書きカーネル<a class="headerlink" href="#miso" title="Link to this heading"></a></h3>
+<p>MISO の MHD の時間発展は、ほとんどを <code class="docutils literal notranslate"><span class="pre">__global__</span></code> のカーネルとして直接書いています。
+<code class="docutils literal notranslate"><span class="pre">miso/include/miso/mhd_integrator_cuda.cuh</span></code> の <code class="docutils literal notranslate"><span class="pre">bb_ht_vb_kernel</span></code> の冒頭です。</p>
+<div class="highlight-cuda notranslate"><div class="highlight"><pre><span></span><span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">Real</span><span class="o">&gt;</span>
+<span class="kr">__global__</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="n">bb_ht_vb_kernel</span><span class="p">(</span><span class="n">FieldsView</span><span class="o">&lt;</span><span class="k">const</span><span class="w"> </span><span class="n">Real</span><span class="o">&gt;</span><span class="w"> </span><span class="n">qq_argm</span><span class="p">,</span>
+<span class="w">                                </span><span class="n">Array3DView</span><span class="o">&lt;</span><span class="n">Real</span><span class="o">&gt;</span><span class="w"> </span><span class="n">pr</span><span class="p">,</span><span class="w"> </span><span class="n">Array3DView</span><span class="o">&lt;</span><span class="n">Real</span><span class="o">&gt;</span><span class="w"> </span><span class="n">bb</span><span class="p">,</span>
+<span class="w">                                </span><span class="n">Array3DView</span><span class="o">&lt;</span><span class="n">Real</span><span class="o">&gt;</span><span class="w"> </span><span class="n">ht</span><span class="p">,</span><span class="w"> </span><span class="n">Array3DView</span><span class="o">&lt;</span><span class="n">Real</span><span class="o">&gt;</span><span class="w"> </span><span class="n">vb</span><span class="p">,</span>
+<span class="w">                                </span><span class="n">GridView</span><span class="o">&lt;</span><span class="k">const</span><span class="w"> </span><span class="n">Real</span><span class="o">&gt;</span><span class="w"> </span><span class="n">grid</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">blockIdx</span><span class="p">.</span><span class="n">x</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nb">blockDim</span><span class="p">.</span><span class="n">x</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nb">threadIdx</span><span class="p">.</span><span class="n">x</span><span class="p">;</span>
+<span class="w">  </span><span class="kt">int</span><span class="w"> </span><span class="n">j</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">blockIdx</span><span class="p">.</span><span class="n">y</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nb">blockDim</span><span class="p">.</span><span class="n">y</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nb">threadIdx</span><span class="p">.</span><span class="n">y</span><span class="p">;</span>
+<span class="w">  </span><span class="kt">int</span><span class="w"> </span><span class="n">k</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">blockIdx</span><span class="p">.</span><span class="n">z</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nb">blockDim</span><span class="p">.</span><span class="n">z</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nb">threadIdx</span><span class="p">.</span><span class="n">z</span><span class="p">;</span>
+
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="n">grid</span><span class="p">.</span><span class="n">i_total</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="n">j</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="n">j</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="n">grid</span><span class="p">.</span><span class="n">j_total</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="n">k</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="o">||</span>
+<span class="w">      </span><span class="n">k</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="n">grid</span><span class="p">.</span><span class="n">k_total</span><span class="p">)</span>
+<span class="w">    </span><span class="k">return</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>ブロックとグリッドを 3 次元に並べ、<code class="docutils literal notranslate"><span class="pre">i</span></code>, <code class="docutils literal notranslate"><span class="pre">j</span></code>, <code class="docutils literal notranslate"><span class="pre">k</span></code> をそれぞれの方向の番号から作っています。
+<code class="docutils literal notranslate"><span class="pre">return</span></code> で、格子の外にはみ出したスレッドを終わらせます。
+引数は、配列を所有する <code class="docutils literal notranslate"><span class="pre">Array3D</span></code> ではなく、軽い <code class="docutils literal notranslate"><span class="pre">Array3DView</span></code> や <code class="docutils literal notranslate"><span class="pre">FieldsView</span></code> です（第 4 章）。
+カーネルの引数は値でデバイスへ渡される（3.3 で説明します）ので、ポインタと大きさだけを持つ View を渡します。</p>
+<p>ブロックの形は <code class="docutils literal notranslate"><span class="pre">miso/include/miso/cuda_util.cuh</span></code> の <code class="docutils literal notranslate"><span class="pre">KernelShape3D</span></code> で、8×8×8 = 512 スレッドに決めています。
+起動側は <code class="docutils literal notranslate"><span class="pre">Integrator&lt;Real,</span> <span class="pre">backend::CUDA&gt;::update_sc4</span></code> にあります。</p>
+<div class="highlight-cuda notranslate"><div class="highlight"><pre><span></span><span class="w">    </span><span class="n">bb_ht_vb_kernel</span><span class="o">&lt;</span><span class="n">Real</span><span class="o">&gt;&lt;&lt;&lt;</span><span class="n">cu_shape</span><span class="p">.</span><span class="n">grid_dim</span><span class="p">,</span><span class="w"> </span><span class="n">cu_shape</span><span class="p">.</span><span class="n">block_dim</span><span class="o">&gt;&gt;&gt;</span><span class="p">(</span>
+<span class="w">        </span><span class="n">qq_argm</span><span class="p">.</span><span class="n">view</span><span class="p">(),</span><span class="w"> </span><span class="n">pr</span><span class="p">.</span><span class="n">view</span><span class="p">(),</span><span class="w"> </span><span class="n">bb</span><span class="p">.</span><span class="n">view</span><span class="p">(),</span><span class="w"> </span><span class="n">ht</span><span class="p">.</span><span class="n">view</span><span class="p">(),</span><span class="w"> </span><span class="n">vb</span><span class="p">.</span><span class="n">view</span><span class="p">(),</span><span class="w"> </span><span class="n">cgrid</span><span class="p">);</span>
+<span class="w">    </span><span class="n">MISO_CUDA_CHECK</span><span class="p">(</span><span class="n">cudaGetLastError</span><span class="p">());</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">MISO_CUDA_CHECK</span></code> は、CUDA の関数が返すエラーを調べるマクロです（7 節）。</p>
+</section>
+<section id="id6">
+<h3>練習 1：ブロック数とはみ出しの判定<a class="headerlink" href="#id6" title="Link to this heading"></a></h3>
+<p>要素数 <code class="docutils literal notranslate"><span class="pre">n</span> <span class="pre">=</span> <span class="pre">300</span></code> を、ブロックあたり 128 スレッドで処理します。
+ブロック数と起動される全スレッド数を求め、<code class="docutils literal notranslate"><span class="pre">if</span> <span class="pre">(i</span> <span class="pre">&lt;</span> <span class="pre">n)</span></code> がない場合に何が起きるかを説明してください。</p>
+<details>
+<summary>解答・解説</summary>
+<p>ブロック数は <code class="docutils literal notranslate"><span class="pre">(300</span> <span class="pre">+</span> <span class="pre">128</span> <span class="pre">-</span> <span class="pre">1)</span> <span class="pre">/</span> <span class="pre">128</span> <span class="pre">=</span> <span class="pre">427</span> <span class="pre">/</span> <span class="pre">128</span> <span class="pre">=</span> <span class="pre">3</span></code>（整数の割り算）で、全スレッド数は 3 × 128 = 384 です。
+通し番号 <code class="docutils literal notranslate"><span class="pre">i</span></code> は 0〜383 になり、300〜383 の 84 個のスレッドは配列の外を指します。</p>
+<p><code class="docutils literal notranslate"><span class="pre">if</span> <span class="pre">(i</span> <span class="pre">&lt;</span> <span class="pre">n)</span></code> がないと、この 84 個のスレッドが <code class="docutils literal notranslate"><span class="pre">c[300]</span></code>〜<code class="docutils literal notranslate"><span class="pre">c[383]</span></code> を書きます。
+<code class="docutils literal notranslate"><span class="pre">cudaMalloc</span></code> で確保した 300 要素の外なので、他の配列を壊すか、不正なメモリアクセスとしてプログラムが止まります。
+Fortran で配列の上限を超えて書いた場合と同じ種類の誤りですが、GPU では多数のスレッドが同時に書くので、
+結果がどこに現れるかを追いにくくなります。</p>
+</details>
+</section>
+</section>
+<section id="edu-ch09-memory">
+<span id="id7"></span><h2>3. デバイスメモリの確保と転送<a class="headerlink" href="#edu-ch09-memory" title="Link to this heading"></a></h2>
+<section id="cudamalloc-cudamemcpy">
+<h3>3.1 cudaMalloc と cudaMemcpy<a class="headerlink" href="#cudamalloc-cudamemcpy" title="Link to this heading"></a></h3>
+<p>デバイスのメモリは、CUDA の関数で確保・転送・解放します。</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>関数</p></th>
+<th class="head"><p>役割</p></th>
+<th class="head"><p>Fortran・C++ で近いもの</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">cudaMalloc(&amp;p,</span> <span class="pre">バイト数)</span></code></p></td>
+<td><p>デバイスにメモリを確保し、その番地を <code class="docutils literal notranslate"><span class="pre">p</span></code> に入れる</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">allocate</span></code>、<code class="docutils literal notranslate"><span class="pre">new</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">cudaMemcpy(先,</span> <span class="pre">元,</span> <span class="pre">バイト数,</span> <span class="pre">向き)</span></code></p></td>
+<td><p>メモリの内容を写す</p></td>
+<td><p>配列の代入</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">cudaFree(p)</span></code></p></td>
+<td><p>デバイスのメモリを解放する</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">deallocate</span></code>、<code class="docutils literal notranslate"><span class="pre">delete[]</span></code></p></td>
+</tr>
+</tbody>
+</table>
+<p><code class="docutils literal notranslate"><span class="pre">cudaMemcpy</span></code> の向きは、4 番目の引数で指定します。</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>向き</p></th>
+<th class="head"><p>写す方向</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">cudaMemcpyHostToDevice</span></code></p></td>
+<td><p>ホスト → デバイス</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">cudaMemcpyDeviceToHost</span></code></p></td>
+<td><p>デバイス → ホスト</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">cudaMemcpyDeviceToDevice</span></code></p></td>
+<td><p>デバイス内</p></td>
+</tr>
+</tbody>
+</table>
+<p><code class="docutils literal notranslate"><span class="pre">cudaMalloc</span></code> が返すのはデバイスの番地です。型は普通のポインタ <code class="docutils literal notranslate"><span class="pre">float</span> <span class="pre">*</span></code> ですが、
+ホストのコードで <code class="docutils literal notranslate"><span class="pre">a_d[0]</span></code> のように読むことはできません（ホストのメモリの番地ではないためです）。
+逆に、<code class="docutils literal notranslate"><span class="pre">std::vector</span></code> の <code class="docutils literal notranslate"><span class="pre">a.data()</span></code> のようなホストの番地をカーネルへ渡しても、デバイスからは読めません。
+<strong>ポインタの型だけでは、それがどちらのメモリを指すかは区別されません。</strong> 2.3 の例で、
+デバイス側の変数に <code class="docutils literal notranslate"><span class="pre">_d</span></code> を付けたのはそのためです。</p>
+</section>
+<section id="miso-array3d-t-backend-cuda">
+<h3>3.2 MISO の Array3D&lt;T, backend::CUDA&gt;<a class="headerlink" href="#miso-array3d-t-backend-cuda" title="Link to this heading"></a></h3>
+<p>MISO では、<code class="docutils literal notranslate"><span class="pre">cudaMalloc</span></code> などを直接書く代わりに、配列クラスの 2 つ目のテンプレート引数でメモリの場所を選びます（第 6 章）。</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">Array3D</span><span class="o">&lt;</span><span class="n">Real</span><span class="p">,</span><span class="w"> </span><span class="n">backend</span><span class="o">::</span><span class="n">Host</span><span class="o">&gt;</span><span class="w"> </span><span class="n">a_host</span><span class="p">(</span><span class="n">nx</span><span class="p">,</span><span class="w"> </span><span class="n">ny</span><span class="p">,</span><span class="w"> </span><span class="n">nz</span><span class="p">);</span><span class="w">  </span><span class="c1">// ホストのメモリ</span>
+<span class="n">Array3D</span><span class="o">&lt;</span><span class="n">Real</span><span class="p">,</span><span class="w"> </span><span class="n">backend</span><span class="o">::</span><span class="n">CUDA</span><span class="o">&gt;</span><span class="w"> </span><span class="n">a_dev</span><span class="p">(</span><span class="n">nx</span><span class="p">,</span><span class="w"> </span><span class="n">ny</span><span class="p">,</span><span class="w"> </span><span class="n">nz</span><span class="p">);</span><span class="w">   </span><span class="c1">// デバイスのメモリ</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">miso/include/miso/array3d.hpp</span></code> の CUDA 版のコンストラクタとデストラクタです。</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">T</span><span class="o">&gt;</span><span class="w"> </span><span class="k">class</span><span class="w"> </span><span class="nc">Array3D</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span><span class="w"> </span><span class="n">backend</span><span class="o">::</span><span class="n">CUDA</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="k">private</span><span class="o">:</span>
+<span class="w">  </span><span class="n">T</span><span class="w"> </span><span class="o">*</span><span class="n">data_</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">nullptr</span><span class="p">;</span>
+<span class="w">  </span><span class="n">std</span><span class="o">::</span><span class="n">array</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="o">&gt;</span><span class="w"> </span><span class="n">shape_</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="mi">-1</span><span class="p">,</span><span class="w"> </span><span class="mi">-1</span><span class="p">,</span><span class="w"> </span><span class="mi">-1</span><span class="p">};</span>
+
+<span class="k">public</span><span class="o">:</span>
+<span class="w">  </span><span class="n">Array3D</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">nx0</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">nx1</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">nx2</span><span class="p">)</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">shape_</span><span class="p">{</span><span class="n">nx0</span><span class="p">,</span><span class="w"> </span><span class="n">nx1</span><span class="p">,</span><span class="w"> </span><span class="n">nx2</span><span class="p">}</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// （大きさの検査を省略）</span>
+<span class="w">    </span><span class="n">MISO_CUDA_CHECK</span><span class="p">(</span><span class="n">cudaMalloc</span><span class="p">(</span><span class="o">&amp;</span><span class="n">data_</span><span class="p">,</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="n">T</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">array_size</span><span class="p">));</span>
+<span class="w">  </span><span class="p">}</span>
+
+<span class="w">  </span><span class="o">~</span><span class="n">Array3D</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">data_</span><span class="p">)</span>
+<span class="w">      </span><span class="n">cudaFree</span><span class="p">(</span><span class="n">data_</span><span class="p">);</span>
+<span class="w">    </span><span class="n">data_</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">nullptr</span><span class="p">;</span>
+<span class="w">  </span><span class="p">}</span>
+</pre></div>
+</div>
+<p>ホスト版が <code class="docutils literal notranslate"><span class="pre">new</span> <span class="pre">T[...]</span></code> と <code class="docutils literal notranslate"><span class="pre">delete[]</span></code> を使うところを、<code class="docutils literal notranslate"><span class="pre">cudaMalloc</span></code> と <code class="docutils literal notranslate"><span class="pre">cudaFree</span></code> に替えています。
+第 4 章の RAII と同じく、変数の寿命が終わると自動で解放されます。</p>
+<p>転送は <code class="docutils literal notranslate"><span class="pre">copy_from</span></code> というメンバ関数が受け持ちます。
+引数の型（どちらのバックエンドの配列か）で、<code class="docutils literal notranslate"><span class="pre">cudaMemcpy</span></code> の向きが決まります。</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>呼び出し</p></th>
+<th class="head"><p>写す方向</p></th>
+<th class="head"><p>中で使う向き</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">a_dev.copy_from(a_host)</span></code></p></td>
+<td><p>ホスト → デバイス</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">cudaMemcpyHostToDevice</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">a_host.copy_from(a_dev)</span></code></p></td>
+<td><p>デバイス → ホスト</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">cudaMemcpyDeviceToHost</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">a_dev.copy_from(b_dev)</span></code></p></td>
+<td><p>デバイス内</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">cudaMemcpyDeviceToDevice</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">a_host.copy_from(b_host)</span></code></p></td>
+<td><p>ホスト内</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">std::copy</span></code></p></td>
+</tr>
+</tbody>
+</table>
+<p>これは第 6 章で学んだオーバーロードの選択です。
+ホスト版の <code class="docutils literal notranslate"><span class="pre">Array3D&lt;T,</span> <span class="pre">backend::Host&gt;</span></code> にも、<code class="docutils literal notranslate"><span class="pre">#ifdef</span> <span class="pre">__CUDACC__</span></code> の中に「CUDA 版から写す」<code class="docutils literal notranslate"><span class="pre">copy_from</span></code> が用意されています。
+<code class="docutils literal notranslate"><span class="pre">__CUDACC__</span></code> は <code class="docutils literal notranslate"><span class="pre">nvcc</span></code> がコンパイルしているときだけ定義されるマクロです。</p>
+<p><code class="docutils literal notranslate"><span class="pre">Array1D</span></code>〜<code class="docutils literal notranslate"><span class="pre">Array4D</span></code> のすべてに同じ形の CUDA 版があります。</p>
+</section>
+<section id="id8">
+<h3>3.3 CUDA 版の配列で添字が使えない理由<a class="headerlink" href="#id8" title="Link to this heading"></a></h3>
+<p>ホスト版の <code class="docutils literal notranslate"><span class="pre">Array3D</span></code> には <code class="docutils literal notranslate"><span class="pre">a(i,</span> <span class="pre">j,</span> <span class="pre">k)</span></code> と書くための <code class="docutils literal notranslate"><span class="pre">operator()</span></code> がありますが、CUDA 版にはありません。
+<code class="docutils literal notranslate"><span class="pre">a_dev(i,</span> <span class="pre">j,</span> <span class="pre">k)</span></code> をホストのコードに書いても、ホストからはデバイスのメモリを読めないためです。</p>
+<p>デバイスの要素は、カーネルの中で View を通して読み書きします。
+<code class="docutils literal notranslate"><span class="pre">Array3DView</span></code> のメンバ関数には <code class="docutils literal notranslate"><span class="pre">__host__</span> <span class="pre">__device__</span></code> が付いています。</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="w">  </span><span class="c1">/// @brief Return reference to the element at the given indices.</span>
+<span class="w">  </span><span class="n">__host__</span><span class="w"> </span><span class="n">__device__</span><span class="w"> </span><span class="n">T</span><span class="w"> </span><span class="o">&amp;</span><span class="k">operator</span><span class="p">()(</span><span class="kt">int</span><span class="w"> </span><span class="n">i0</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">i1</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">i2</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="k">noexcept</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// （添字の範囲の assert を省略）</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">data_</span><span class="p">[(</span><span class="n">i0</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">shape_</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">i1</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">shape_</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">i2</span><span class="p">];</span>
+<span class="w">  </span><span class="p">}</span>
+</pre></div>
+</div>
+<p>View は、ポインタと各方向の大きさだけを持つ小さな値です。
+カーネルの引数や次節のラムダに値として渡すと、この数個の値だけがデバイスへ写ります。
+要素はすでにデバイスのメモリにあり、View はその番地を指しているだけです。
+つまり、CUDA 版の <code class="docutils literal notranslate"><span class="pre">Array3D</span></code> はホストのコードで確保・解放・<code class="docutils literal notranslate"><span class="pre">copy_from</span></code>・<code class="docutils literal notranslate"><span class="pre">view()</span></code> に使い、
+要素の読み書きはカーネルの中で View を通して行う、という役割分担になります。</p>
+</section>
+<section id="id9">
+<h3>練習 2：配列の場所と転送の向き<a class="headerlink" href="#id9" title="Link to this heading"></a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">demo/mhd2d_vortex/src/main.cpp</span></code> の <code class="docutils literal notranslate"><span class="pre">InitialCondition::apply</span></code> は、普通の <code class="docutils literal notranslate"><span class="pre">for</span></code> 文で <code class="docutils literal notranslate"><span class="pre">qq.ro(i,</span> <span class="pre">j,</span> <span class="pre">k)</span> <span class="pre">=</span> <span class="pre">1.0;</span></code> のように初期値を書いています。
+CUDA ビルドでは物理量の配列がデバイスにあるので、このループからデバイスの配列を直接書くことはできません。
+<code class="docutils literal notranslate"><span class="pre">ModelBase::run()</span></code>（<code class="docutils literal notranslate"><span class="pre">miso/include/miso/mhd_model_base.hpp</span></code>）から呼ばれる <code class="docutils literal notranslate"><span class="pre">MHD::apply_initial_condition</span></code>（<code class="docutils literal notranslate"><span class="pre">miso/include/miso/mhd_solver.hpp</span></code>）を読み、
+初期条件がどの配列に書かれ、どのようにデバイスへ届くかを説明してください。</p>
+<details>
+<summary>解答・解説</summary>
+<p><code class="docutils literal notranslate"><span class="pre">apply_initial_condition</span></code> は、ホストの格子 <code class="docutils literal notranslate"><span class="pre">grid_h</span></code>（<code class="docutils literal notranslate"><span class="pre">Grid&lt;Real,</span> <span class="pre">backend::Host&gt;</span></code>）と
+ホストの配列 <code class="docutils literal notranslate"><span class="pre">qq_h</span></code>（<code class="docutils literal notranslate"><span class="pre">Fields&lt;Real,</span> <span class="pre">backend::Host&gt;</span></code>）をローカル変数として作ります。
+<code class="docutils literal notranslate"><span class="pre">ic.apply(qq_h.view(),</span> <span class="pre">grid_h.const_view())</span></code> で、<code class="docutils literal notranslate"><span class="pre">InitialCondition::apply</span></code> の <code class="docutils literal notranslate"><span class="pre">for</span></code> 文がホストの配列に初期値を書きます。
+その後 <code class="docutils literal notranslate"><span class="pre">qq.copy_from(qq_h)</span></code> で、計算用の配列 <code class="docutils literal notranslate"><span class="pre">qq</span></code>（<code class="docutils literal notranslate"><span class="pre">Fields&lt;Real,</span> <span class="pre">Backend&gt;</span></code>）へ写します。</p>
+<p><code class="docutils literal notranslate"><span class="pre">Backend</span></code> が <code class="docutils literal notranslate"><span class="pre">backend::CUDA</span></code> なら、この <code class="docutils literal notranslate"><span class="pre">copy_from</span></code> は 3.2 の表の「ホスト → デバイス」で、中では <code class="docutils literal notranslate"><span class="pre">cudaMemcpyHostToDevice</span></code> が使われます。
+<code class="docutils literal notranslate"><span class="pre">Backend</span></code> が <code class="docutils literal notranslate"><span class="pre">backend::Host</span></code> なら「ホスト内」の写しです。
+どちらのビルドでも、初期条件はホストで書き、計算用の配列へ写すという同じ手順になります。
+<code class="docutils literal notranslate"><span class="pre">qq_h</span></code> と <code class="docutils literal notranslate"><span class="pre">grid_h</span></code> はローカル変数なので、関数を抜けると解放されます。</p>
+<p>出力は逆向きです。<code class="docutils literal notranslate"><span class="pre">miso/include/miso/mhd_checkpoint.hpp</span></code> の <code class="docutils literal notranslate"><span class="pre">Checkpoint::save</span></code> は、
+ホストの配列 <code class="docutils literal notranslate"><span class="pre">qq</span></code> に <code class="docutils literal notranslate"><span class="pre">qq.copy_from(qq_)</span></code> でデバイスの値を写してから、ファイルに書き出します。</p>
+</details>
+</section>
+</section>
+<section id="for-each-cuda">
+<span id="edu-ch09-for-each"></span><h2>4. for_each の CUDA 版<a class="headerlink" href="#for-each-cuda" title="Link to this heading"></a></h2>
+<section id="gpu">
+<h3>4.1 同じラムダを GPU で動かす<a class="headerlink" href="#gpu" title="Link to this heading"></a></h3>
+<p>第 7 章では、<code class="docutils literal notranslate"><span class="pre">for_each</span></code> にラムダを渡して格子点ごとの計算を書きました。
+Host 版の <code class="docutils literal notranslate"><span class="pre">for_each</span></code> は、ラムダ <code class="docutils literal notranslate"><span class="pre">f</span></code> を <code class="docutils literal notranslate"><span class="pre">for</span></code> 文の中で <code class="docutils literal notranslate"><span class="pre">f(i)</span></code> と呼ぶだけでした。
+CUDA 版では、同じラムダをカーネルの引数として GPU へ渡し、各スレッドが <code class="docutils literal notranslate"><span class="pre">f(i)</span></code> を呼びます。
+<code class="docutils literal notranslate"><span class="pre">miso/include/miso/execution.hpp</span></code> の 1 次元の CUDA 版です。</p>
+<div class="highlight-cuda notranslate"><div class="highlight"><pre><span></span><span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">class</span><span class="w"> </span><span class="nc">F</span><span class="o">&gt;</span><span class="w"> </span><span class="kr">__global__</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="n">for_each_kernel</span><span class="p">(</span><span class="n">Range1D</span><span class="w"> </span><span class="n">range</span><span class="p">,</span><span class="w"> </span><span class="n">F</span><span class="w"> </span><span class="n">f</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="kt">int</span><span class="w"> </span><span class="n">idx</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">blockIdx</span><span class="p">.</span><span class="n">x</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nb">blockDim</span><span class="p">.</span><span class="n">x</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nb">threadIdx</span><span class="p">.</span><span class="n">x</span><span class="p">;</span>
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">idx</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">range</span><span class="p">.</span><span class="n">size</span><span class="p">())</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">range</span><span class="p">.</span><span class="n">unravel</span><span class="p">(</span><span class="n">idx</span><span class="p">);</span>
+<span class="w">    </span><span class="n">f</span><span class="p">(</span><span class="n">i</span><span class="p">);</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+
+<span class="c1">/// @brief 1D parallel (concurrent) for loop in the CUDA backend.</span>
+<span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">class</span><span class="w"> </span><span class="nc">F</span><span class="o">&gt;</span><span class="w"> </span><span class="kr">inline</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="n">for_each</span><span class="p">(</span><span class="n">backend</span><span class="o">::</span><span class="n">CUDA</span><span class="p">,</span><span class="w"> </span><span class="n">Range1D</span><span class="w"> </span><span class="n">range</span><span class="p">,</span><span class="w"> </span><span class="n">F</span><span class="w"> </span><span class="n">f</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="kt">int</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">range</span><span class="p">.</span><span class="n">size</span><span class="p">();</span>
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">n</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span>
+<span class="w">    </span><span class="k">return</span><span class="p">;</span><span class="w">  </span><span class="c1">// Avoid launching kernel with zero threads</span>
+<span class="w">  </span><span class="kt">int</span><span class="w"> </span><span class="n">block</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">256</span><span class="p">;</span>
+<span class="w">  </span><span class="kt">int</span><span class="w"> </span><span class="n">grid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">n</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">block</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">block</span><span class="p">;</span>
+<span class="w">  </span><span class="n">for_each_kernel</span><span class="o">&lt;&lt;&lt;</span><span class="n">grid</span><span class="p">,</span><span class="w"> </span><span class="n">block</span><span class="o">&gt;&gt;&gt;</span><span class="p">(</span><span class="n">range</span><span class="p">,</span><span class="w"> </span><span class="n">f</span><span class="p">);</span>
+<span class="w">  </span><span class="n">MISO_CUDA_CHECK</span><span class="p">(</span><span class="n">cudaGetLastError</span><span class="p">());</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>2.3 のベクトル加算と同じ形です。違いは、計算の中身 <code class="docutils literal notranslate"><span class="pre">c[i]</span> <span class="pre">=</span> <span class="pre">a[i]</span> <span class="pre">+</span> <span class="pre">b[i]</span></code> が、カーネルの中に直接書かれず、
+引数 <code class="docutils literal notranslate"><span class="pre">f</span></code> として外から渡されることです。
+<code class="docutils literal notranslate"><span class="pre">range.unravel(idx)</span></code> は通し番号 <code class="docutils literal notranslate"><span class="pre">idx</span></code>（0 始まり）を、範囲の始まり <code class="docutils literal notranslate"><span class="pre">range.begin</span></code> からの番号 <code class="docutils literal notranslate"><span class="pre">i</span></code> に直します。</p>
+<p>第 7 章で、ラムダは「取り込んだ値をメンバに持つ小さな構造体」と考えられることを学びました。
+カーネルの引数は値渡しなので、この構造体がまるごとデバイスへ写ります。</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>ホスト側のコード                               デバイス（GPU）
+--------------------------------------         -----------------------------------------
+auto fv = f.view();   // ポインタ + 大きさ
+const Real dx = ...;
+
+MISO_LAMBDA(int i) { fv[i] = ... dx ...; }
+   │  コンパイラが作る構造体:
+   │    struct ラムダ型 {
+   │      Array1DView&lt;Real&gt; fv;  // 写し
+   │      Real dx;               // 写し
+   │      __device__ void operator()(int i) const;
+   │    };
+   ▼
+for_each(backend::CUDA{}, Range1D{0, n}, ラムダ)
+   │
+   └─ for_each_kernel&lt;&lt;&lt;grid, 256&gt;&gt;&gt;(range, f)
+          │  引数 range と f（fv, dx の値）を
+          │  カーネル起動時にデバイスへ写す   ──────▶  全スレッドが同じ f の写しを読む
+                                                      スレッド idx=0   : f(range.begin + 0)
+                                                      スレッド idx=1   : f(range.begin + 1)
+                                                        ...
+                                                      スレッド idx=n-1 : f(range.begin + n-1)
+                                                      idx &gt;= n のスレッドは何もしない
+</pre></div>
+</div>
+<p>デバイスへ写るのは、ラムダが取り込んだ値（View のポインタと大きさ、<code class="docutils literal notranslate"><span class="pre">dx</span></code> などの数値）だけです。
+View が指す配列の要素は、もともとデバイスのメモリにあります。
+そのため、<strong>ラムダが取り込む View は、デバイスの配列（<code class="docutils literal notranslate"><span class="pre">Array1D&lt;Real,</span> <span class="pre">backend::CUDA&gt;</span></code> など）から作ったもの</strong>でなければなりません。
+ホストの配列の View を CUDA 版の <code class="docutils literal notranslate"><span class="pre">for_each</span></code> へ渡すと、デバイスからホストの番地を読むことになり、実行時のエラーになります。</p>
+<p>3 次元の <code class="docutils literal notranslate"><span class="pre">for_each(backend::CUDA,</span> <span class="pre">Range3D,</span> <span class="pre">f)</span></code> も、スレッドを 1 次元に並べて起動します。
+<code class="docutils literal notranslate"><span class="pre">Range3D::unravel</span></code> が通し番号を <code class="docutils literal notranslate"><span class="pre">(i0,</span> <span class="pre">i1,</span> <span class="pre">i2)</span></code> に直し、最後の添字が最も速く変わる順に割り当てます。
+メモリ上で隣り合う要素を、隣り合うスレッドが読むようにするためです。</p>
+</section>
+<section id="miso-lambda-host-device">
+<h3>4.2 MISO_LAMBDA と __host__ __device__<a class="headerlink" href="#miso-lambda-host-device" title="Link to this heading"></a></h3>
+<p>デバイスで呼ぶラムダには、関数と同じく <code class="docutils literal notranslate"><span class="pre">__device__</span></code> の指定が必要です。
+<code class="docutils literal notranslate"><span class="pre">MISO_LAMBDA</span></code> は、それをビルドに合わせて付けるマクロです（<code class="docutils literal notranslate"><span class="pre">miso/include/miso/execution.hpp</span></code>）。</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="cp">#ifdef __CUDACC__</span>
+<span class="cp">#define MISO_LAMBDA [=] __host__ __device__</span>
+<span class="cp">#else</span>
+<span class="cp">#define MISO_LAMBDA [=]</span>
+<span class="cp">#endif  </span><span class="c1">// __CUDACC__</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">nvcc</span></code> でコンパイルするときは <code class="docutils literal notranslate"><span class="pre">[=]</span> <span class="pre">__host__</span> <span class="pre">__device__</span></code>、g++ などでコンパイルするときは <code class="docutils literal notranslate"><span class="pre">[=]</span></code> になります。
+<code class="docutils literal notranslate"><span class="pre">[=]</span></code> は第 7 章で学んだ「使う外側の変数を値で取り込む」指定です。
+参照で取り込む <code class="docutils literal notranslate"><span class="pre">[&amp;]</span></code> は使いません。参照はホストの変数を指すので、デバイスからは読めないためです。</p>
+<p><code class="docutils literal notranslate"><span class="pre">__host__</span> <span class="pre">__device__</span></code> を付けたラムダは、CUDA では<strong>拡張ラムダ</strong>（extended lambda）と呼ばれる機能で、
+<code class="docutils literal notranslate"><span class="pre">nvcc</span></code> に <code class="docutils literal notranslate"><span class="pre">--expt-extended-lambda</span></code> オプションを付けたときだけ使えます。
+MISO は <code class="docutils literal notranslate"><span class="pre">miso/CMakeLists.txt</span></code> でこのオプションを付けています。</p>
+<div class="highlight-cmake notranslate"><div class="highlight"><pre><span></span><span class="w">    </span><span class="nb">target_compile_options</span><span class="p">(</span>
+<span class="w">        </span><span class="s">MISO</span><span class="w"> </span><span class="s">INTERFACE</span><span class="w"> </span><span class="o">$&lt;</span><span class="nv">$&lt;COMPILE_LANGUAGE:CUDA</span><span class="o">&gt;</span><span class="s">:--expt-extended-lambda&gt;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">$&lt;$&lt;COMPILE_LANGUAGE:CUDA&gt;:...&gt;</span></code> は「CUDA としてコンパイルするファイルにだけ付ける」という CMake の書き方です。
+<code class="docutils literal notranslate"><span class="pre">MISO::MISO</span></code> をリンクすると、自分のプログラムにもこのオプションが付きます。</p>
+<p>CPU だけでビルドするとき、<code class="docutils literal notranslate"><span class="pre">__host__</span></code> と <code class="docutils literal notranslate"><span class="pre">__device__</span></code> は g++ が知らない語です。
+<code class="docutils literal notranslate"><span class="pre">miso/include/miso/cuda_compat.hpp</span></code> が、そのときは空の語として定義します。</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="cp">#else  </span><span class="c1">// __CUDACC__（nvcc 以外でコンパイルするとき）</span>
+
+<span class="cp">#ifndef __device__</span>
+<span class="cp">#define __device__</span>
+<span class="cp">#endif</span>
+
+<span class="cp">#ifndef __host__</span>
+<span class="cp">#define __host__</span>
+<span class="cp">#endif</span>
+
+<span class="c1">// Do not define __global__:</span>
+<span class="c1">// CUDA kernel semantics and launch syntax are not portable.</span>
+</pre></div>
+</div>
+<p>そのため、<code class="docutils literal notranslate"><span class="pre">__host__</span> <span class="pre">__device__</span></code> を付けた関数や View は、CPU ビルドでは普通の C++ として使えます。
+一方、<code class="docutils literal notranslate"><span class="pre">__global__</span></code> は定義していません。カーネルと <code class="docutils literal notranslate"><span class="pre">&lt;&lt;&lt;</span> <span class="pre">&gt;&gt;&gt;</span></code> の起動は CPU ビルドに意味がないので、
+CUDA 版の <code class="docutils literal notranslate"><span class="pre">for_each</span></code>・<code class="docutils literal notranslate"><span class="pre">reduce</span></code> や手書きのカーネルは <code class="docutils literal notranslate"><span class="pre">#ifdef</span> <span class="pre">__CUDACC__</span></code> の中に置いてあります。</p>
+</section>
+<section id="cpu-gpu-main-cpp">
+<h3>4.3 CPU と GPU で同じ main.cpp を動かす<a class="headerlink" href="#cpu-gpu-main-cpp" title="Link to this heading"></a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">for_each</span></code> と <code class="docutils literal notranslate"><span class="pre">reduce</span></code> を使い、<span class="math notranslate nohighlight">\(\int_0^1 x^2\,dx = 1/3\)</span> を中点則で計算する例です。
+<code class="docutils literal notranslate"><span class="pre">Backend</span></code> を切り替えるだけで、同じコードが CPU でも GPU でも動きます。
+<code class="docutils literal notranslate"><span class="pre">reduce</span></code> の CUDA 版の仕組みは 6 節で説明します。ここでは呼び方が Host 版と同じであることを見てください。</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;cstdio&gt;</span>
+
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;miso/core.hpp&gt;</span>
+
+<span class="k">using</span><span class="w"> </span><span class="k">namespace</span><span class="w"> </span><span class="nn">miso</span><span class="p">;</span>
+<span class="k">using</span><span class="w"> </span><span class="n">Real</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kt">float</span><span class="p">;</span>
+
+<span class="cp">#ifdef USE_CUDA</span>
+<span class="k">using</span><span class="w"> </span><span class="n">Backend</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">backend</span><span class="o">::</span><span class="n">CUDA</span><span class="p">;</span>
+<span class="cp">#else</span>
+<span class="k">using</span><span class="w"> </span><span class="n">Backend</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">backend</span><span class="o">::</span><span class="n">Host</span><span class="p">;</span>
+<span class="cp">#endif</span>
+
+<span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">argc</span><span class="p">,</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">**</span><span class="n">argv</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="n">Env</span><span class="w"> </span><span class="n">env</span><span class="p">(</span><span class="n">argc</span><span class="p">,</span><span class="w"> </span><span class="n">argv</span><span class="p">);</span><span class="w">  </span><span class="c1">// MPI の初期化と、CUDA ビルドでは GPU の選択</span>
+
+<span class="w">  </span><span class="k">const</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1000</span><span class="p">;</span>
+<span class="w">  </span><span class="k">const</span><span class="w"> </span><span class="n">Real</span><span class="w"> </span><span class="n">dx</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Real</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">n</span><span class="p">;</span>
+
+<span class="w">  </span><span class="n">Array1D</span><span class="o">&lt;</span><span class="n">Real</span><span class="p">,</span><span class="w"> </span><span class="n">Backend</span><span class="o">&gt;</span><span class="w"> </span><span class="n">f</span><span class="p">(</span><span class="n">n</span><span class="p">);</span><span class="w">  </span><span class="c1">// Backend が CUDA なら GPU のメモリに確保</span>
+<span class="w">  </span><span class="k">auto</span><span class="w"> </span><span class="n">fv</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">f</span><span class="p">.</span><span class="n">view</span><span class="p">();</span><span class="w">           </span><span class="c1">// ラムダへ渡す軽い View</span>
+
+<span class="w">  </span><span class="c1">// 各要素 f[i] = x^2（x はセルの中心）を計算する</span>
+<span class="w">  </span><span class="n">for_each</span><span class="p">(</span><span class="n">Backend</span><span class="p">{},</span><span class="w"> </span><span class="n">Range1D</span><span class="p">{</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="n">n</span><span class="p">},</span><span class="w"> </span><span class="n">MISO_LAMBDA</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">Real</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">i</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">Real</span><span class="p">(</span><span class="mf">0.5</span><span class="p">))</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">dx</span><span class="p">;</span>
+<span class="w">    </span><span class="n">fv</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">x</span><span class="p">;</span>
+<span class="w">  </span><span class="p">});</span>
+
+<span class="w">  </span><span class="c1">// f[i] * dx の総和（0 から 1 までの x^2 の積分、厳密値は 1/3）</span>
+<span class="w">  </span><span class="k">const</span><span class="w"> </span><span class="n">Real</span><span class="w"> </span><span class="n">integral</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">reduce</span><span class="p">(</span>
+<span class="w">      </span><span class="n">Backend</span><span class="p">{},</span><span class="w"> </span><span class="n">Range1D</span><span class="p">{</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="n">n</span><span class="p">},</span><span class="w"> </span><span class="n">Real</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span>
+<span class="w">      </span><span class="n">MISO_LAMBDA</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">fv</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">dx</span><span class="p">;</span><span class="w"> </span><span class="p">},</span>
+<span class="w">      </span><span class="n">MISO_LAMBDA</span><span class="p">(</span><span class="n">Real</span><span class="w"> </span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="n">Real</span><span class="w"> </span><span class="n">b</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">b</span><span class="p">;</span><span class="w"> </span><span class="p">});</span>
+
+<span class="w">  </span><span class="c1">// 確認のため、CPU 側の配列へ写して 1 要素を表示する</span>
+<span class="w">  </span><span class="n">Array1D</span><span class="o">&lt;</span><span class="n">Real</span><span class="p">,</span><span class="w"> </span><span class="n">backend</span><span class="o">::</span><span class="n">Host</span><span class="o">&gt;</span><span class="w"> </span><span class="n">f_host</span><span class="p">(</span><span class="n">n</span><span class="p">);</span>
+<span class="w">  </span><span class="n">f_host</span><span class="p">.</span><span class="n">copy_from</span><span class="p">(</span><span class="n">f</span><span class="p">);</span>
+
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">mpi</span><span class="o">::</span><span class="n">is_root</span><span class="p">())</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">printf</span><span class="p">(</span><span class="s">"f[999]   = %.7f</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span><span class="w"> </span><span class="n">f_host</span><span class="p">[</span><span class="mi">999</span><span class="p">]);</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">printf</span><span class="p">(</span><span class="s">"integral = %.7f</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span><span class="w"> </span><span class="n">integral</span><span class="p">);</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>読むときの要点です。</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">fv</span></code> と <code class="docutils literal notranslate"><span class="pre">dx</span></code> はラムダの外で用意したローカル変数です。ラムダはこの 2 つを値で取り込みます。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">f</span></code> そのもの（<code class="docutils literal notranslate"><span class="pre">Array1D</span></code>）はラムダの中で使っていません。所有する配列はホストに置いたまま、View だけを渡します。</p></li>
+<li><p>縮約の演算 <code class="docutils literal notranslate"><span class="pre">op</span></code>（2 つ目のラムダ）もデバイスで呼ばれるので、<code class="docutils literal notranslate"><span class="pre">MISO_LAMBDA</span></code> で書きます。</p></li>
+<li><p>結果をホストで表示するには、<code class="docutils literal notranslate"><span class="pre">f_host.copy_from(f)</span></code> でホストへ写します。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">USE_CUDA</span></code> は、自分の CMake 設定で CUDA ビルドのときに定義するマクロです（MISO の demo と同じ名前にしています）。</p></li>
+</ul>
+<p>CPU ビルドと、GPU ビルドの出力です（GPU は RTX 4090 で確かめました）。</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span># CPU（backend::Host）
+f[999]   = 0.9990003
+integral = 0.3333332
+
+# GPU（backend::CUDA）
+f[999]   = 0.9990003
+integral = 0.3333333
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">f[999]</span></code> は一致していますが、<code class="docutils literal notranslate"><span class="pre">integral</span></code> は最後の桁が違います。
+<code class="docutils literal notranslate"><span class="pre">float</span></code> の足し算は、足す順序で丸め誤差が変わります。Host 版は <code class="docutils literal notranslate"><span class="pre">i</span> <span class="pre">=</span> <span class="pre">0,</span> <span class="pre">1,</span> <span class="pre">2,</span> <span class="pre">...</span></code> の順に足しますが、
+CUDA 版は 6 節で見るように、木の形に組んで足します。
+<strong>CPU と GPU の結果は、ビット単位では一致しないことがある</strong>と考えて、比較のしかたを決めます。</p>
+</section>
+<section id="cmake">
+<h3>4.4 CMake の設定<a class="headerlink" href="#cmake" title="Link to this heading"></a></h3>
+<p>このプログラムを CUDA でビルドするには、第 1 章で書いた CMake の設定に、次のことを足します。
+MISO の demo の <code class="docutils literal notranslate"><span class="pre">CMakeLists.txt</span></code>（<code class="docutils literal notranslate"><span class="pre">demo/mhd2d_vortex/CMakeLists.txt</span></code>）が同じことをしているので、抜粋で示します。</p>
+<div class="highlight-cmake notranslate"><div class="highlight"><pre><span></span><span class="nb">option</span><span class="p">(</span><span class="s">USE_CUDA</span><span class="w"> </span><span class="s2">"Enable CUDA support"</span><span class="w"> </span><span class="s">OFF</span><span class="p">)</span>
+<span class="nb">if</span><span class="p">(</span><span class="s">USE_CUDA</span><span class="p">)</span>
+<span class="w">    </span><span class="c"># Select GPU architecture before enable_language(CUDA); otherwise CMake</span>
+<span class="w">    </span><span class="c"># defines the default (52) and this setting is ignored.</span>
+<span class="w">    </span><span class="nb">if</span><span class="p">(</span><span class="s">NOT</span><span class="w"> </span><span class="s">DEFINED</span><span class="w"> </span><span class="s">CMAKE_CUDA_ARCHITECTURES</span><span class="p">)</span>
+<span class="w">        </span><span class="nb">set</span><span class="p">(</span><span class="s">CMAKE_CUDA_ARCHITECTURES</span>
+<span class="w">            </span><span class="s">native</span>
+<span class="w">            </span><span class="s">CACHE</span><span class="w"> </span><span class="s">STRING</span><span class="w"> </span><span class="s2">"CUDA architectures"</span><span class="p">)</span>
+<span class="w">    </span><span class="nb">endif</span><span class="p">()</span>
+<span class="w">    </span><span class="nb">enable_language</span><span class="p">(</span><span class="s">CUDA</span><span class="p">)</span>
+<span class="w">    </span><span class="nb">set</span><span class="p">(</span><span class="s">CMAKE_CUDA_STANDARD</span><span class="w"> </span><span class="s">17</span><span class="p">)</span>
+<span class="w">    </span><span class="nb">set</span><span class="p">(</span><span class="s">CMAKE_CUDA_STANDARD_REQUIRED</span><span class="w"> </span><span class="s">ON</span><span class="p">)</span>
+<span class="nb">endif</span><span class="p">(</span><span class="s">USE_CUDA</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-cmake notranslate"><div class="highlight"><pre><span></span><span class="nb">if</span><span class="p">(</span><span class="s">USE_CUDA</span><span class="p">)</span>
+<span class="w">    </span><span class="nb">find_package</span><span class="p">(</span><span class="s">CUDAToolkit</span><span class="w"> </span><span class="s">REQUIRED</span><span class="p">)</span>
+<span class="w">    </span><span class="nb">target_link_libraries</span><span class="p">(</span><span class="o">${</span><span class="nv">app_name</span><span class="o">}</span><span class="w"> </span><span class="s">PRIVATE</span><span class="w"> </span><span class="s">CUDA::cudart</span><span class="p">)</span>
+
+<span class="w">    </span><span class="c"># Force main.cpp to be treated as CUDA source</span>
+<span class="w">    </span><span class="nb">set_source_files_properties</span><span class="p">(</span><span class="o">${</span><span class="nv">app_main</span><span class="o">}</span><span class="w"> </span><span class="s">PROPERTIES</span><span class="w"> </span><span class="s">LANGUAGE</span><span class="w"> </span><span class="s">CUDA</span><span class="p">)</span>
+<span class="w">    </span><span class="nb">target_compile_definitions</span><span class="p">(</span><span class="o">${</span><span class="nv">app_name</span><span class="o">}</span><span class="w"> </span><span class="s">PRIVATE</span><span class="w"> </span><span class="s">USE_CUDA</span><span class="p">)</span>
+<span class="nb">endif</span><span class="p">(</span><span class="s">USE_CUDA</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">enable_language(CUDA)</span></code> で CMake に <code class="docutils literal notranslate"><span class="pre">nvcc</span></code> を探させます。<code class="docutils literal notranslate"><span class="pre">CMAKE_CUDA_ARCHITECTURES</span></code>（9 節）はその前に決めます。
+<code class="docutils literal notranslate"><span class="pre">set_source_files_properties(...</span> <span class="pre">LANGUAGE</span> <span class="pre">CUDA)</span></code> は、拡張子が <code class="docutils literal notranslate"><span class="pre">.cpp</span></code> のファイルを g++ ではなく <code class="docutils literal notranslate"><span class="pre">nvcc</span></code> でコンパイルさせる指定です。
+CPU ビルドと GPU ビルドで同じファイルを使うためです。
+<code class="docutils literal notranslate"><span class="pre">target_compile_definitions(...</span> <span class="pre">USE_CUDA)</span></code> で、ソースの <code class="docutils literal notranslate"><span class="pre">#ifdef</span> <span class="pre">USE_CUDA</span></code> が有効になります。
+さらに demo は、MISO を読み込む前に MISO 側のオプション <code class="docutils literal notranslate"><span class="pre">MISO_USE_CUDA</span></code> を ON にし、MISO に CUDA の実行時ライブラリと <code class="docutils literal notranslate"><span class="pre">--expt-extended-lambda</span></code> を付けさせます。
+<code class="docutils literal notranslate"><span class="pre">add_subdirectory</span></code> で MISO を読み込む場合も、その前に <code class="docutils literal notranslate"><span class="pre">set(MISO_USE_CUDA</span> <span class="pre">ON</span> <span class="pre">CACHE</span> <span class="pre">BOOL</span> <span class="pre">&quot;...&quot;)</span></code> とします。
+ビルドフォルダは CPU 用と GPU 用で分けます。</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># CPU</span>
+cmake<span class="w"> </span>-B<span class="w"> </span>build_cpu<span class="w"> </span>-S<span class="w"> </span>.
+cmake<span class="w"> </span>--build<span class="w"> </span>build_cpu<span class="w"> </span>-j
+
+<span class="c1"># GPU（nvcc に PATH が通っていること。89 は RTX 40 シリーズの例）</span>
+cmake<span class="w"> </span>-B<span class="w"> </span>build_gpu<span class="w"> </span>-S<span class="w"> </span>.<span class="w"> </span>-DUSE_CUDA<span class="o">=</span>ON<span class="w"> </span>-DCMAKE_CUDA_ARCHITECTURES<span class="o">=</span><span class="m">89</span>
+cmake<span class="w"> </span>--build<span class="w"> </span>build_gpu<span class="w"> </span>-j
+</pre></div>
+</div>
+</section>
+<section id="id10">
+<h3>練習 3：ラムダが取り込むもの<a class="headerlink" href="#id10" title="Link to this heading"></a></h3>
+<p>4.3 の例で、<code class="docutils literal notranslate"><span class="pre">for_each</span></code> に渡したラムダが取り込む変数を挙げ、それぞれがデバイスへ写るときに何バイト程度かを見積もってください。
+<code class="docutils literal notranslate"><span class="pre">Array1DView&lt;Real&gt;</span></code> は、ポインタ 1 つと <code class="docutils literal notranslate"><span class="pre">int</span></code> 1 つを持ちます（<code class="docutils literal notranslate"><span class="pre">miso/include/miso/array1d.hpp</span></code>）。
+また、ラムダの中で <code class="docutils literal notranslate"><span class="pre">fv[i]</span></code> の代わりに <code class="docutils literal notranslate"><span class="pre">f.view()[i]</span></code> と書くと、どこが問題になるかを説明してください。</p>
+<details>
+<summary>解答・解説</summary>
+<p>取り込むのは <code class="docutils literal notranslate"><span class="pre">fv</span></code>（<code class="docutils literal notranslate"><span class="pre">Array1DView&lt;Real&gt;</span></code>）と <code class="docutils literal notranslate"><span class="pre">dx</span></code>（<code class="docutils literal notranslate"><span class="pre">Real</span></code> = <code class="docutils literal notranslate"><span class="pre">float</span></code>）の 2 つです。
+<code class="docutils literal notranslate"><span class="pre">fv</span></code> はポインタ 8 バイトと <code class="docutils literal notranslate"><span class="pre">int</span></code> 4 バイトで、構造体の詰め物を含めて 16 バイト程度、<code class="docutils literal notranslate"><span class="pre">dx</span></code> は 4 バイトです。
+合わせて 20〜24 バイト程度で、配列の要素 1000 個（4000 バイト）は写りません。
+<code class="docutils literal notranslate"><span class="pre">n</span></code> は <code class="docutils literal notranslate"><span class="pre">Range1D{0,</span> <span class="pre">n}</span></code> を作るのに使っただけで、ラムダの中では使っていないので取り込まれません。</p>
+<p>ラムダの中で <code class="docutils literal notranslate"><span class="pre">f.view()</span></code> と書くと、<code class="docutils literal notranslate"><span class="pre">f</span></code>（所有する <code class="docutils literal notranslate"><span class="pre">Array1D&lt;Real,</span> <span class="pre">backend::CUDA&gt;</span></code>）を取り込もうとします。
+<code class="docutils literal notranslate"><span class="pre">Array1D</span></code> はコピーが禁止されている（第 4 章の <code class="docutils literal notranslate"><span class="pre">=</span> <span class="pre">delete</span></code>）ので、<code class="docutils literal notranslate"><span class="pre">[=]</span></code> で値として取り込めず、コンパイルエラーになります
+（<code class="docutils literal notranslate"><span class="pre">nvcc</span></code> では <code class="docutils literal notranslate"><span class="pre">...</span> <span class="pre">cannot</span> <span class="pre">be</span> <span class="pre">referenced</span> <span class="pre">--</span> <span class="pre">it</span> <span class="pre">is</span> <span class="pre">a</span> <span class="pre">deleted</span> <span class="pre">function</span></code> と表示されます）。
+仮に取り込めたとしても、<code class="docutils literal notranslate"><span class="pre">view()</span></code> には <code class="docutils literal notranslate"><span class="pre">__device__</span></code> が付いていないので、デバイスから呼ぶことはできません。
+所有する配列はホストのコードで扱い、ラムダへは View だけを渡す、という役割分担を守ります。</p>
+</details>
+</section>
+</section>
+<section id="this">
+<span id="edu-ch09-this-capture"></span><h2>5. this キャプチャの落とし穴<a class="headerlink" href="#this" title="Link to this heading"></a></h2>
+<section id="id11">
+<h3>5.1 メンバ変数を使うと this が取り込まれる<a class="headerlink" href="#id11" title="Link to this heading"></a></h3>
+<p>クラスのメンバ関数の中でラムダを書き、その中でメンバ変数を使う場合に、CPU では動くのに GPU では止まる誤りが起きます。</p>
+<p>第 4 章で学んだとおり、メンバ関数の中でメンバ変数 <code class="docutils literal notranslate"><span class="pre">factor</span></code> と書くのは、<code class="docutils literal notranslate"><span class="pre">this-&gt;factor</span></code> の省略です。
+<code class="docutils literal notranslate"><span class="pre">this</span></code> は、メンバ関数を呼び出したオブジェクトを指すポインタです。
+C++ の規則では、ラムダの中でメンバ変数を使うと、<code class="docutils literal notranslate"><span class="pre">[=]</span></code> でも <code class="docutils literal notranslate"><span class="pre">factor</span></code> の値ではなく <strong><code class="docutils literal notranslate"><span class="pre">this</span></code> というポインタ</strong>が取り込まれます（第 7 章）。</p>
+<p>GPU では、これが問題になります。<code class="docutils literal notranslate"><span class="pre">this</span></code> はホストのメモリにあるオブジェクトの番地です。
+ラムダと一緒に <code class="docutils literal notranslate"><span class="pre">this</span></code> の値（番地）はデバイスへ写りますが、その番地が指すオブジェクトは写りません。
+デバイスのスレッドが <code class="docutils literal notranslate"><span class="pre">this-&gt;factor</span></code> を読もうとすると、ホストの番地を読むことになります。</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>ホストのメモリ                     デバイス（GPU）
++------------------+               ラムダの写し
+| Scaler s         |                 this = 0x7fff....  ──┐
+|   factor = 3     | ◀── 0x7fff....                          │ デバイスからは
++------------------+                                      │ 読めない番地
+                                   this-&gt;factor を読む ◀──┘ → illegal memory access
+</pre></div>
+</div>
+<p>次の例は、同じことをする 2 つのメンバ関数を比べています（説明用のコードです）。</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">struct</span><span class="w"> </span><span class="nc">Scaler</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="n">Real</span><span class="w"> </span><span class="n">factor</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">3</span><span class="p">;</span>
+
+<span class="w">  </span><span class="c1">// 誤り: ラムダの中でメンバ変数 factor を直接使う</span>
+<span class="w">  </span><span class="kt">void</span><span class="w"> </span><span class="nf">apply_wrong</span><span class="p">(</span><span class="n">Array1DView</span><span class="o">&lt;</span><span class="n">Real</span><span class="o">&gt;</span><span class="w"> </span><span class="n">a</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">for_each</span><span class="p">(</span><span class="n">Backend</span><span class="p">{},</span><span class="w"> </span><span class="n">Range1D</span><span class="p">{</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="n">size</span><span class="p">()},</span>
+<span class="w">             </span><span class="n">MISO_LAMBDA</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">factor</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">i</span><span class="p">;</span><span class="w"> </span><span class="p">});</span>
+<span class="w">  </span><span class="p">}</span>
+
+<span class="w">  </span><span class="c1">// 正しい: ラムダの前でローカル変数へコピーする</span>
+<span class="w">  </span><span class="kt">void</span><span class="w"> </span><span class="nf">apply_right</span><span class="p">(</span><span class="n">Array1DView</span><span class="o">&lt;</span><span class="n">Real</span><span class="o">&gt;</span><span class="w"> </span><span class="n">a</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">Real</span><span class="w"> </span><span class="n">factor_</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">factor</span><span class="p">;</span>
+<span class="w">    </span><span class="n">for_each</span><span class="p">(</span><span class="n">Backend</span><span class="p">{},</span><span class="w"> </span><span class="n">Range1D</span><span class="p">{</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="n">size</span><span class="p">()},</span>
+<span class="w">             </span><span class="n">MISO_LAMBDA</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">factor_</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">i</span><span class="p">;</span><span class="w"> </span><span class="p">});</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">main</span></code> で <code class="docutils literal notranslate"><span class="pre">apply_right</span></code> と <code class="docutils literal notranslate"><span class="pre">apply_wrong</span></code> を順に呼び、それぞれの後に <code class="docutils literal notranslate"><span class="pre">a_host.copy_from(a)</span></code> でホストへ写して <code class="docutils literal notranslate"><span class="pre">a[3]</span></code> を表示しました。</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span># CPU（backend::Host）
+right: a[3] = 9
+wrong: a[3] = 9
+
+# GPU（backend::CUDA）
+right: a[3] = 9
+CUDA Error: an illegal memory access was encountered .../miso/include/miso/array1d.hpp 109
+</pre></div>
+</div>
+<p>CPU ではホストとデバイスの区別がないので、<code class="docutils literal notranslate"><span class="pre">this</span></code> を取り込んでも正しく動きます。
+そのため、<strong>CPU のテストが通っても、この誤りは見つかりません</strong>。
+GPU では <code class="docutils literal notranslate"><span class="pre">apply_wrong</span></code> のカーネルが不正なメモリアクセスで止まります。
+エラーが報告された場所が <code class="docutils literal notranslate"><span class="pre">array1d.hpp</span></code>（<code class="docutils literal notranslate"><span class="pre">copy_from</span></code> の中の <code class="docutils literal notranslate"><span class="pre">cudaMemcpy</span></code>）になっている理由は 7 節で説明します。</p>
+<p><code class="docutils literal notranslate"><span class="pre">apply_right</span></code> では、ラムダの直前で <code class="docutils literal notranslate"><span class="pre">factor</span></code> をローカル変数 <code class="docutils literal notranslate"><span class="pre">factor_</span></code> へコピーしています。
+ラムダはローカル変数 <code class="docutils literal notranslate"><span class="pre">factor_</span></code> の値（<code class="docutils literal notranslate"><span class="pre">float</span></code> 1 つ）を取り込むので、<code class="docutils literal notranslate"><span class="pre">this</span></code> は取り込まれません。
+<code class="docutils literal notranslate"><span class="pre">a</span></code> は関数の引数（View の値）なので、そのまま使えます。</p>
+</section>
+<section id="id12">
+<h3>5.2 MISO での書き方<a class="headerlink" href="#id12" title="Link to this heading"></a></h3>
+<p>MISO の <code class="docutils literal notranslate"><span class="pre">dev/notes/usage_ai.md</span></code> には、この規則が例とともに書かれています。</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">const</span><span class="w"> </span><span class="n">Real</span><span class="w"> </span><span class="n">gm_</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">gm</span><span class="p">;</span><span class="w">  </span><span class="c1">// メンバ変数をローカルにコピー</span>
+<span class="n">for_each</span><span class="p">(</span><span class="n">btag</span><span class="p">,</span><span class="w"> </span><span class="n">range</span><span class="p">,</span><span class="w"> </span><span class="n">MISO_LAMBDA</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">pr</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">gm_</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">Real</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">qq</span><span class="p">.</span><span class="n">ro</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">qq</span><span class="p">.</span><span class="n">ei</span><span class="p">[</span><span class="n">i</span><span class="p">];</span><span class="w"> </span><span class="p">});</span>
+</pre></div>
+</div>
+<p>実物は <code class="docutils literal notranslate"><span class="pre">miso/include/miso/eos.hpp</span></code> の <code class="docutils literal notranslate"><span class="pre">IdealEOS::gas_pressure</span></code> です。</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="w">  </span><span class="kt">void</span><span class="w"> </span><span class="nf">gas_pressure</span><span class="p">(</span><span class="n">Backend</span><span class="w"> </span><span class="n">btag</span><span class="p">,</span><span class="w"> </span><span class="n">mhd</span><span class="o">::</span><span class="n">FieldsView</span><span class="o">&lt;</span><span class="k">const</span><span class="w"> </span><span class="n">Real</span><span class="o">&gt;</span><span class="w"> </span><span class="n">qq</span><span class="p">,</span>
+<span class="w">                    </span><span class="n">Array3DView</span><span class="o">&lt;</span><span class="n">Real</span><span class="o">&gt;</span><span class="w"> </span><span class="n">pr</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">Real</span><span class="w"> </span><span class="n">gm_</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">gm</span><span class="p">;</span><span class="w">  </span><span class="c1">// device lambdas must not capture `this`</span>
+<span class="w">    </span><span class="n">Range1D</span><span class="w"> </span><span class="n">range</span><span class="p">{</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="n">qq</span><span class="p">.</span><span class="n">size</span><span class="p">()};</span>
+<span class="w">    </span><span class="n">for_each</span><span class="p">(</span>
+<span class="w">        </span><span class="n">btag</span><span class="p">,</span><span class="w"> </span><span class="n">range</span><span class="p">,</span>
+<span class="w">        </span><span class="n">MISO_LAMBDA</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">pr</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">gm_</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">Real</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">qq</span><span class="p">.</span><span class="n">ro</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">qq</span><span class="p">.</span><span class="n">ei</span><span class="p">[</span><span class="n">i</span><span class="p">];</span><span class="w"> </span><span class="p">});</span>
+<span class="w">  </span><span class="p">}</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">gm</span></code>（比熱比）は <code class="docutils literal notranslate"><span class="pre">IdealEOS</span></code> のメンバ変数なので、ラムダの前で <code class="docutils literal notranslate"><span class="pre">gm_</span></code> へコピーします。
+<code class="docutils literal notranslate"><span class="pre">qq</span></code> と <code class="docutils literal notranslate"><span class="pre">pr</span></code> は関数の引数（View）なので、そのまま取り込めます。
+<code class="docutils literal notranslate"><span class="pre">Integrator&lt;Real,</span> <span class="pre">backend::CUDA&gt;::cfl</span></code>（<code class="docutils literal notranslate"><span class="pre">miso/include/miso/mhd_integrator_cuda.cuh</span></code>）でも、
+メンバ変数 <code class="docutils literal notranslate"><span class="pre">cfl_number</span></code> を <code class="docutils literal notranslate"><span class="pre">cfl_number_</span></code> へコピーし、配列も <code class="docutils literal notranslate"><span class="pre">qq_v</span></code>, <code class="docutils literal notranslate"><span class="pre">grid_v</span></code>, <code class="docutils literal notranslate"><span class="pre">cs_v</span></code> というローカルの View にしてからラムダを書いています。</p>
+<p>この規則は、MISO の issue #170（<a class="reference external" href="https://github.com/is-isee/MISO/issues/170">https://github.com/is-isee/MISO/issues/170</a>）で見つかった不具合から来ています。
+<code class="docutils literal notranslate"><span class="pre">eos.hpp</span></code>、<code class="docutils literal notranslate"><span class="pre">cfl</span></code>、<code class="docutils literal notranslate"><span class="pre">table_interpolator.hpp</span></code>、<code class="docutils literal notranslate"><span class="pre">demo/mhd3d_magnetosphere</span></code> のラムダがメンバ変数を使っていて <code class="docutils literal notranslate"><span class="pre">this</span></code> を取り込み、
+RTX 4090 の環境で <code class="docutils literal notranslate"><span class="pre">mhd2d_vortex</span></code> と <code class="docutils literal notranslate"><span class="pre">mhd3d_magnetosphere</span></code> が <code class="docutils literal notranslate"><span class="pre">illegal</span> <span class="pre">memory</span> <span class="pre">access</span></code> で止まりました。
+一方、別の環境では偶然動いていました。HMM（Heterogeneous Memory Management）という、
+デバイスからホストのメモリを読めるようにする仕組みが有効な環境では、ホストの番地を読んでも止まらないためです。
+ラムダの直前でメンバをローカル変数にコピーする形に直し、磁気圏デモが 2 GPU で動き、CPU と <code class="docutils literal notranslate"><span class="pre">float</span></code> の精度の範囲で一致することを確かめています。</p>
+<p>「ある GPU 環境で動いた」ことも、<code class="docutils literal notranslate"><span class="pre">this</span></code> を取り込んでいないことの確認にはなりません。
+ラムダを書いたら、中で使っている名前が「ローカル変数か引数か」を、宣言まで戻って確かめます。</p>
+</section>
+<section id="id13">
+<h3>練習 4：ラムダが使う名前の確認<a class="headerlink" href="#id13" title="Link to this heading"></a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">miso/include/miso/eos.hpp</span></code> の <code class="docutils literal notranslate"><span class="pre">IdealEOS::sound_speed</span></code> を読み、ラムダの中で使っている名前を
+「ローカル変数」「関数の引数」「メンバ変数」に分けてください。
+また、<code class="docutils literal notranslate"><span class="pre">const</span> <span class="pre">Real</span> <span class="pre">gm_</span> <span class="pre">=</span> <span class="pre">gm;</span></code> の行を消してラムダの中を <code class="docutils literal notranslate"><span class="pre">gm</span></code> に戻した場合、CPU ビルドと GPU ビルドでそれぞれどうなるかを説明してください。</p>
+<details>
+<summary>解答・解説</summary>
+<p><code class="docutils literal notranslate"><span class="pre">sound_speed</span></code> のラムダは <code class="docutils literal notranslate"><span class="pre">cs[i]</span> <span class="pre">=</span> <span class="pre">util::sqrt(gm_</span> <span class="pre">*</span> <span class="pre">(gm_</span> <span class="pre">-</span> <span class="pre">Real(1))</span> <span class="pre">*</span> <span class="pre">qq.ei[i]);</span></code> を計算します。</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>名前</p></th>
+<th class="head"><p>種類</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">gm_</span></code></p></td>
+<td><p>ローカル変数（メンバ <code class="docutils literal notranslate"><span class="pre">gm</span></code> の写し）</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">qq</span></code></p></td>
+<td><p>関数の引数（<code class="docutils literal notranslate"><span class="pre">mhd::FieldsView&lt;const</span> <span class="pre">Real&gt;</span></code>）</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">cs</span></code></p></td>
+<td><p>関数の引数（<code class="docutils literal notranslate"><span class="pre">Array3DView&lt;Real&gt;</span></code>）</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">i</span></code></p></td>
+<td><p>ラムダの引数</p></td>
+</tr>
+</tbody>
+</table>
+<p><code class="docutils literal notranslate"><span class="pre">util::sqrt</span></code> は関数名で、変数ではないので取り込まれません。<code class="docutils literal notranslate"><span class="pre">__host__</span> <span class="pre">__device__</span></code> が付いているのでデバイスから呼べます。
+ラムダの中にメンバ変数はありません。</p>
+<p><code class="docutils literal notranslate"><span class="pre">gm_</span></code> をやめて <code class="docutils literal notranslate"><span class="pre">gm</span></code> と書くと、<code class="docutils literal notranslate"><span class="pre">gm</span></code> は <code class="docutils literal notranslate"><span class="pre">this-&gt;gm</span></code> の意味になり、ラムダは <code class="docutils literal notranslate"><span class="pre">this</span></code> を取り込みます。
+CPU ビルドでは <code class="docutils literal notranslate"><span class="pre">this</span></code> が指すオブジェクトをそのまま読めるので、正しく動きます。
+GPU ビルドでは、コンパイルは通りますが、実行するとデバイスがホストの番地を読み、
+<code class="docutils literal notranslate"><span class="pre">illegal</span> <span class="pre">memory</span> <span class="pre">access</span></code> で止まります（HMM が有効な環境では偶然動くこともあります）。</p>
+</details>
+</section>
+</section>
+<section id="reduce-cuda">
+<span id="edu-ch09-reduce"></span><h2>6. reduce の CUDA 版<a class="headerlink" href="#reduce-cuda" title="Link to this heading"></a></h2>
+<section id="id14">
+<h3>6.1 多数のスレッドで 1 つの値を作る<a class="headerlink" href="#id14" title="Link to this heading"></a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">reduce</span></code> は、配列全体から最小値や合計などの 1 つの値を作る処理でした（第 7 章）。
+Host 版は、変数 <code class="docutils literal notranslate"><span class="pre">acc</span> <span class="pre">=</span> <span class="pre">init</span></code> に <code class="docutils literal notranslate"><span class="pre">acc</span> <span class="pre">=</span> <span class="pre">op(acc,</span> <span class="pre">map(i))</span></code> で 1 つずつ合わせていくだけです。
+GPU で同じことをするには工夫が要ります。
+数千のスレッドが 1 つの変数 <code class="docutils literal notranslate"><span class="pre">acc</span></code> を同時に書き換えると、互いの書き込みを上書きして正しい値になりません。
+そこで MISO の CUDA 版は、<strong>ブロックの中で値を半分ずつにまとめていく</strong>方法を使います。
+スポーツのトーナメントのように、2 つずつ組にして勝者（合計なら和、最小値なら小さい方）を残し、1 つになるまで繰り返します。</p>
+</section>
+<section id="id15">
+<h3>6.2 共有メモリとブロック内の縮約<a class="headerlink" href="#id15" title="Link to this heading"></a></h3>
+<p>ブロックの中のスレッドは、<strong>共有メモリ</strong>（shared memory）という小さく速いメモリを共有できます。
+共有メモリはブロックごとに別々にあり、他のブロックからは見えません。</p>
+<p>1 ブロックのスレッド数を 8 として、8 個の値の合計を求める様子です。</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>共有メモリ s[]:   s0  s1  s2  s3  s4  s5  s6  s7     各スレッドが自分の値を書く
+                   │   │   │   │   │   │   │   │
+                   │   │   │   │   │   │   │   │      __syncthreads()（全員が書き終わるまで待つ）
+offset = 4:       s0+s4 s1+s5 s2+s6 s3+s7              スレッド 0〜3 が、4 つ先の値と合わせる
+                   │     │     │     │                __syncthreads()
+offset = 2:     (s0+s4)+(s2+s6)  (s1+s5)+(s3+s7)       スレッド 0〜1
+                   │               │                  __syncthreads()
+offset = 1:     s0+s1+...+s7                          スレッド 0
+                   │
+                 ブロックの結果 → out[blockIdx.x]
+</pre></div>
+</div>
+<p>8 個の値は 3 段（<span class="math notranslate nohighlight">\(\log_2 8\)</span>）で 1 つになります。
+各段で働くスレッドは前の段の半分です。</p>
+<p><code class="docutils literal notranslate"><span class="pre">__syncthreads()</span></code> は、ブロックの中の全スレッドがその地点に着くまで待つ命令です。
+これがないと、あるスレッドが <code class="docutils literal notranslate"><span class="pre">s[tid</span> <span class="pre">+</span> <span class="pre">offset]</span></code> を読むときに、その値を書くはずのスレッドがまだ書いていない、ということが起こります。</p>
+<p>MISO の実物は <code class="docutils literal notranslate"><span class="pre">miso/include/miso/execution.hpp</span></code> の <code class="docutils literal notranslate"><span class="pre">block_reduce_shared</span></code> です。</p>
+<div class="highlight-cuda notranslate"><div class="highlight"><pre><span></span><span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">class</span><span class="w"> </span><span class="nc">T</span><span class="p">,</span><span class="w"> </span><span class="k">class</span><span class="w"> </span><span class="nc">Op</span><span class="o">&gt;</span>
+<span class="kt">__device__</span><span class="w"> </span><span class="kr">inline</span><span class="w"> </span><span class="n">T</span><span class="w"> </span><span class="n">block_reduce_shared</span><span class="p">(</span><span class="n">T</span><span class="w"> </span><span class="o">*</span><span class="n">s</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">tid</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">n</span><span class="p">,</span><span class="w"> </span><span class="n">Op</span><span class="w"> </span><span class="n">op</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nf">__syncthreads</span><span class="p">();</span>
+<span class="w">  </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">offset</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">n</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w"> </span><span class="n">offset</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">offset</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">offset</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">tid</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">offset</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">tid</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">offset</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">n</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="n">s</span><span class="p">[</span><span class="n">tid</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">op</span><span class="p">(</span><span class="n">s</span><span class="p">[</span><span class="n">tid</span><span class="p">],</span><span class="w"> </span><span class="n">s</span><span class="p">[</span><span class="n">tid</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">offset</span><span class="p">]);</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="nf">__syncthreads</span><span class="p">();</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">offset</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span>
+<span class="w">      </span><span class="k">break</span><span class="p">;</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="n">s</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">&gt;&gt;</span> <span class="pre">1</span></code> は 2 で割る（右へ 1 ビットずらす）演算で、<code class="docutils literal notranslate"><span class="pre">(n</span> <span class="pre">+</span> <span class="pre">1)</span> <span class="pre">&gt;&gt;</span> <span class="pre">1</span></code> は <span class="math notranslate nohighlight">\(n/2\)</span> の切り上げです。
+切り上げにしているのは、スレッド数 <code class="docutils literal notranslate"><span class="pre">n</span></code> が 2 の累乗でなくても使えるようにするためです。
+<code class="docutils literal notranslate"><span class="pre">tid</span> <span class="pre">+</span> <span class="pre">offset</span> <span class="pre">&lt;</span> <span class="pre">n</span></code> の条件で、相手がいないスレッドは何もしません。</p>
+</section>
+<section id="id16">
+<h3>6.3 ブロックの結果をさらにまとめる<a class="headerlink" href="#id16" title="Link to this heading"></a></h3>
+<p>1 ブロックの縮約で得られるのは、そのブロックの担当分の結果です。
+ブロックが 64 個あれば、64 個の値が残ります。MISO の <code class="docutils literal notranslate"><span class="pre">reduce</span></code> は、これを 1 つになるまでカーネルを繰り返して縮約します。</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>段階 1: reduce_stage_kernel        map(i) を計算し、ブロックごとに縮約
+        n 個の要素 ──▶ buf0[grid]   （grid = n / 256 の切り上げ）
+
+段階 2 以降: reduce_stage_array_kernel
+        buf0[grid] ──▶ buf1[g]  ──▶ buf0[...] ── ... ──▶ 1 個
+        （buf0 と buf1 を入れ替えながら、1 個になるまで繰り返す）
+
+最後: cudaMemcpyAsync で 1 個の値をホストへ写し、cudaStreamSynchronize で待つ
+</pre></div>
+</div>
+<p>段階 1 の <code class="docutils literal notranslate"><span class="pre">reduce_stage_kernel</span></code>（<code class="docutils literal notranslate"><span class="pre">miso/include/miso/execution.hpp</span></code>）では、範囲の中のスレッドが <code class="docutils literal notranslate"><span class="pre">map</span></code> で自分の値を作り、
+範囲の外のスレッドは <code class="docutils literal notranslate"><span class="pre">init</span></code> を、それぞれ共有メモリ <code class="docutils literal notranslate"><span class="pre">s[tid]</span></code> に書きます。
+そのあと <code class="docutils literal notranslate"><span class="pre">block_reduce_shared</span></code> を呼び、スレッド 0 がブロックの結果を <code class="docutils literal notranslate"><span class="pre">out[blockIdx.x]</span></code> に書きます。
+1 次元と 3 次元の範囲で <code class="docutils literal notranslate"><span class="pre">map</span></code> の呼び方を変えるのに、第 6 章の <code class="docutils literal notranslate"><span class="pre">if</span> <span class="pre">constexpr</span></code> を使っています。</p>
+<p>途中の結果を置く <code class="docutils literal notranslate"><span class="pre">buf0</span></code>, <code class="docutils literal notranslate"><span class="pre">buf1</span></code> はデバイスのメモリで、<code class="docutils literal notranslate"><span class="pre">ReduceHelper&lt;T&gt;</span></code> が <code class="docutils literal notranslate"><span class="pre">cudaMalloc</span></code> で確保して持っています。
+<code class="docutils literal notranslate"><span class="pre">reduce</span></code> を呼ぶたびに確保・解放すると時間がかかるので、何度も呼ぶ場所では <code class="docutils literal notranslate"><span class="pre">ReduceHelper</span></code> を用意して使い回します。
+<code class="docutils literal notranslate"><span class="pre">Integrator&lt;Real,</span> <span class="pre">backend::CUDA&gt;</span></code> は、時間刻みを求める <code class="docutils literal notranslate"><span class="pre">cfl</span></code> のために <code class="docutils literal notranslate"><span class="pre">ReduceHelper&lt;Real&gt;</span> <span class="pre">cfl_helper;</span></code> をメンバに持っています。</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="k">auto</span><span class="w"> </span><span class="n">op</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">MISO_LAMBDA</span><span class="p">(</span><span class="n">Real</span><span class="w"> </span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="n">Real</span><span class="w"> </span><span class="n">b</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">util</span><span class="o">::</span><span class="n">min2</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="n">b</span><span class="p">);</span><span class="w"> </span><span class="p">};</span>
+<span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">Real</span><span class="w"> </span><span class="n">dt_max</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">1.</span><span class="n">e10</span><span class="p">;</span>
+<span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="k">auto</span><span class="w"> </span><span class="n">dt</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">reduce</span><span class="p">(</span><span class="n">backend</span><span class="o">::</span><span class="n">CUDA</span><span class="p">{},</span><span class="w"> </span><span class="n">range</span><span class="p">,</span><span class="w"> </span><span class="n">dt_max</span><span class="p">,</span><span class="w"> </span><span class="n">f</span><span class="p">,</span><span class="w"> </span><span class="n">op</span><span class="p">,</span><span class="w"> </span><span class="n">cfl_helper</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>最後の引数 <code class="docutils literal notranslate"><span class="pre">cfl_helper</span></code> を省いた形もあり、そのときは <code class="docutils literal notranslate"><span class="pre">reduce</span></code> の中で一時的な <code class="docutils literal notranslate"><span class="pre">ReduceHelper</span></code> を作ります。</p>
+</section>
+<section id="op">
+<h3>6.4 初期値は op の単位元にする<a class="headerlink" href="#op" title="Link to this heading"></a></h3>
+<p>CUDA 版では、範囲の外のスレッドが <code class="docutils literal notranslate"><span class="pre">init</span></code> を共有メモリに書き、それも縮約に加わります。
+そのため <code class="docutils literal notranslate"><span class="pre">init</span></code> は、<code class="docutils literal notranslate"><span class="pre">op</span></code> で合わせても相手の値を変えない値（<strong>単位元</strong>）にします。</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>縮約</p></th>
+<th class="head"><p><code class="docutils literal notranslate"><span class="pre">op</span></code></p></th>
+<th class="head"><p><code class="docutils literal notranslate"><span class="pre">init</span></code></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>合計</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">a</span> <span class="pre">+</span> <span class="pre">b</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">0</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>最小値</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">util::min2(a,</span> <span class="pre">b)</span></code></p></td>
+<td><p>十分大きな値（<code class="docutils literal notranslate"><span class="pre">cfl</span></code> では <code class="docutils literal notranslate"><span class="pre">1.e10</span></code>）</p></td>
+</tr>
+<tr class="row-even"><td><p>最大値</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">util::max2(a,</span> <span class="pre">b)</span></code></p></td>
+<td><p>十分小さな値</p></td>
+</tr>
+</tbody>
+</table>
+<p>Host 版の <code class="docutils literal notranslate"><span class="pre">init</span></code> は「最初の値」として 1 回だけ加わるので、単位元でなくても動きます。
+同じ呼び出しでも、Host 版と CUDA 版で結果が変わることを確かめました（10 個の要素がすべて 1 で、合計を求める例）。</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>init = 0: CPU 10, GPU 10
+init = 5: CPU 15, GPU 1240   ← 範囲外の 246 スレッドぶんの 5 も足される
+</pre></div>
+</div>
+</section>
+<section id="id17">
+<h3>6.5 縮約の順序と丸め誤差<a class="headerlink" href="#id17" title="Link to this heading"></a></h3>
+<p>Host 版は前から順に、CUDA 版はトーナメントの形で合わせます。
+最小値・最大値なら順序によらず同じ値になりますが、浮動小数点の合計は順序で丸め誤差が変わります。
+4.3 の例で <code class="docutils literal notranslate"><span class="pre">integral</span></code> の最後の桁が CPU と GPU で違ったのはこのためです。
+CPU と GPU の結果を比べるときは、<a class="reference internal" href="reference/testing.html#edu-ref-testing"><span class="std std-ref">テストと計算結果の比較</span></a> を参照して、許す誤差を決めます。</p>
+<details>
+<summary>コラム：extern __shared__ は型によらず 1 つの実体になる</summary>
+<p>ブロック内の縮約で使う共有メモリの大きさ（スレッド数 × <code class="docutils literal notranslate"><span class="pre">sizeof(T)</span></code>）は、起動のたびに変わります。
+このような共有メモリは、カーネルの中で大きさを書かずに <code class="docutils literal notranslate"><span class="pre">extern</span> <span class="pre">__shared__</span></code> で宣言し、
+起動時の <code class="docutils literal notranslate"><span class="pre">&lt;&lt;&lt;グリッド,</span> <span class="pre">ブロック,</span> <span class="pre">バイト数&gt;&gt;&gt;</span></code> の 3 つ目で大きさを渡します。
+MISO の <code class="docutils literal notranslate"><span class="pre">reduce</span></code> が <code class="docutils literal notranslate"><span class="pre">&lt;&lt;&lt;grid,</span> <span class="pre">block,</span> <span class="pre">helper.shmem,</span> <span class="pre">stream&gt;&gt;&gt;</span></code> と 4 つの値で起動しているのはそのためです（4 つ目は 7 節のストリームです）。</p>
+<p>以前の MISO は、テンプレートのカーネルの中で次のように宣言していました。</p>
+<div class="highlight-cuda notranslate"><div class="highlight"><pre><span></span><span class="k">extern</span><span class="w"> </span><span class="kt">__shared__</span><span class="w"> </span><span class="n">T</span><span class="w"> </span><span class="n">s</span><span class="p">[];</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">T</span></code> ごとに別の配列ができるように見えますが、<code class="docutils literal notranslate"><span class="pre">extern</span> <span class="pre">__shared__</span></code> の配列は、テンプレートの型によらず、同じ名前の 1 つの実体として扱われます。
+そのため、同じファイルで <code class="docutils literal notranslate"><span class="pre">int</span></code> の <code class="docutils literal notranslate"><span class="pre">reduce</span></code> と <code class="docutils literal notranslate"><span class="pre">double</span></code> の <code class="docutils literal notranslate"><span class="pre">reduce</span></code> を使うと、「同じ <code class="docutils literal notranslate"><span class="pre">s</span></code> が違う型で宣言された」というコンパイルエラーになりました（MISO issue #190、<a class="reference external" href="https://github.com/is-isee/MISO/issues/190">https://github.com/is-isee/MISO/issues/190</a>）。
+（<code class="docutils literal notranslate"><span class="pre">error:</span> <span class="pre">declaration</span> <span class="pre">is</span> <span class="pre">incompatible</span> <span class="pre">with</span> <span class="pre">previous</span> <span class="pre">&quot;s&quot;</span></code> というエラーです。）
+現在の MISO は、共有メモリを型を持たないバイト列として 1 回だけ宣言し、使う側で <code class="docutils literal notranslate"><span class="pre">T</span> <span class="pre">*</span></code> に読み替えています。</p>
+<div class="highlight-cuda notranslate"><div class="highlight"><pre><span></span><span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">class</span><span class="w"> </span><span class="nc">T</span><span class="o">&gt;</span><span class="w"> </span><span class="kt">__device__</span><span class="w"> </span><span class="kr">inline</span><span class="w"> </span><span class="n">T</span><span class="w"> </span><span class="o">*</span><span class="n">reduce_shared_memory</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">extern</span><span class="w"> </span><span class="kt">__shared__</span><span class="w"> </span><span class="nf">__align__</span><span class="p">(</span><span class="mi">16</span><span class="p">)</span><span class="w"> </span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="n">reduce_smem</span><span class="p">[];</span>
+<span class="w">  </span><span class="k">static_assert</span><span class="p">(</span><span class="k">alignof</span><span class="p">(</span><span class="n">T</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="mi">16</span><span class="p">,</span><span class="w"> </span><span class="s">"Unsupported alignment for reduce"</span><span class="p">);</span>
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="k">reinterpret_cast</span><span class="o">&lt;</span><span class="n">T</span><span class="w"> </span><span class="o">*&gt;</span><span class="p">(</span><span class="n">reduce_smem</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">__align__(16)</span></code> は、先頭の番地を 16 の倍数にそろえる指定です。
+<code class="docutils literal notranslate"><span class="pre">double</span></code> などを置くには、番地が型の大きさに合った倍数になっている必要があるためです。
+<code class="docutils literal notranslate"><span class="pre">static_assert</span></code> は、それより厳しいそろえ方を要求する型が使われたら、コンパイル時に止めます（第 6 章）。
+<code class="docutils literal notranslate"><span class="pre">miso/tests/serial/test_execution.cu</span></code> には、<code class="docutils literal notranslate"><span class="pre">int</span></code> と <code class="docutils literal notranslate"><span class="pre">double</span></code> の <code class="docutils literal notranslate"><span class="pre">reduce</span></code> を同じファイルで使うテストがあります。</p>
+<p><code class="docutils literal notranslate"><span class="pre">extern</span> <span class="pre">__shared__</span></code> の扱いは、NVIDIA の CUDA C++ Programming Guide（<a class="reference external" href="https://docs.nvidia.com/cuda/cuda-c-programming-guide/index.html">https://docs.nvidia.com/cuda/cuda-c-programming-guide/index.html</a>）の共有メモリの節に説明があります。</p>
+</details>
+</section>
+<section id="id18">
+<h3>練習 5：縮約の段数を数える<a class="headerlink" href="#id18" title="Link to this heading"></a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">mhd2d_vortex</span></code> の既定の設定（<code class="docutils literal notranslate"><span class="pre">demo/mhd2d_vortex/config.yaml</span></code>）で、<code class="docutils literal notranslate"><span class="pre">i_size:</span> <span class="pre">128</span></code>, <code class="docutils literal notranslate"><span class="pre">j_size:</span> <span class="pre">128</span></code>, <code class="docutils literal notranslate"><span class="pre">k_size:</span> <span class="pre">1</span></code>、MPI は x 方向に 2 分割です。
+各ランクで <code class="docutils literal notranslate"><span class="pre">cfl</span></code> の <code class="docutils literal notranslate"><span class="pre">reduce</span></code> が扱う要素数（ゴーストセルを除いた内部の格子点数）を求め、
+ブロックあたり 256 スレッドのとき、段階 1 のブロック数と、段階 2 以降のカーネルの起動回数を求めてください。</p>
+<details>
+<summary>解答・解説</summary>
+<p>x 方向に 2 分割なので、各ランクの内部は 64 × 128 × 1 = 8192 点です。
+<code class="docutils literal notranslate"><span class="pre">cfl</span></code> の範囲 <code class="docutils literal notranslate"><span class="pre">Range3D</span></code> は <code class="docutils literal notranslate"><span class="pre">i_margin</span></code> から <code class="docutils literal notranslate"><span class="pre">i_total</span> <span class="pre">-</span> <span class="pre">i_margin</span></code> までなど、内部の格子点だけを指します。</p>
+<p>段階 1 のブロック数は <code class="docutils literal notranslate"><span class="pre">(8192</span> <span class="pre">+</span> <span class="pre">255)</span> <span class="pre">/</span> <span class="pre">256</span> <span class="pre">=</span> <span class="pre">32</span></code> です。段階 1 で 32 個の値が <code class="docutils literal notranslate"><span class="pre">buf0</span></code> に残ります。
+段階 2 では <code class="docutils literal notranslate"><span class="pre">cur_n</span> <span class="pre">=</span> <span class="pre">32</span></code> に対して <code class="docutils literal notranslate"><span class="pre">g</span> <span class="pre">=</span> <span class="pre">(32</span> <span class="pre">+</span> <span class="pre">255)</span> <span class="pre">/</span> <span class="pre">256</span> <span class="pre">=</span> <span class="pre">1</span></code> ブロックで起動し、1 個になります。
+したがって段階 2 以降の起動は 1 回で、<code class="docutils literal notranslate"><span class="pre">reduce</span></code> 全体ではカーネルを 2 回起動します。
+最後に 1 個の値をホストへ写し、各ランクの値を <code class="docutils literal notranslate"><span class="pre">MPI_Allreduce</span></code> の <code class="docutils literal notranslate"><span class="pre">MPI_MIN</span></code> で全体の最小値にします（第 8 章）。</p>
+</details>
+</section>
+</section>
+<section id="edu-ch09-sync">
+<span id="id19"></span><h2>7. 同期とエラーの見つけ方<a class="headerlink" href="#edu-ch09-sync" title="Link to this heading"></a></h2>
+<section id="id20">
+<h3>7.1 カーネルの起動は待たない<a class="headerlink" href="#id20" title="Link to this heading"></a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">&lt;&lt;&lt;</span> <span class="pre">&gt;&gt;&gt;</span></code> でカーネルを起動すると、ホストは<strong>カーネルの終了を待たずに</strong>次の行へ進みます。
+GPU に仕事を預けて、CPU は先へ進むという動きです。この性質を<strong>非同期</strong>（asynchronous）と呼びます。</p>
+<p>GPU への仕事は、<strong>ストリーム</strong>（stream）という待ち行列に入り、ストリームの中では入れた順に実行されます。
+<code class="docutils literal notranslate"><span class="pre">&lt;&lt;&lt;</span> <span class="pre">&gt;&gt;&gt;</span></code> の 4 つ目の値や、<code class="docutils literal notranslate"><span class="pre">cudaMemcpyAsync</span></code> の最後の引数がストリームの指定で、省略すると既定のストリームが使われます。
+MISO の <code class="docutils literal notranslate"><span class="pre">for_each</span></code> と <code class="docutils literal notranslate"><span class="pre">reduce</span></code> は、既定ではどちらも既定のストリームを使うので、<code class="docutils literal notranslate"><span class="pre">for_each</span></code> の結果を次の <code class="docutils literal notranslate"><span class="pre">reduce</span></code> が読むときに順序は守られます。</p>
+<p>ホストが GPU の結果を使う前には、仕事の完了を待つ（<strong>同期</strong>する）必要があります。</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>関数</p></th>
+<th class="head"><p>待つもの</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">cudaMemcpy</span></code></p></td>
+<td><p>それまでに既定のストリームに入れた仕事が終わってから写し、写し終えるまで待つ</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">cudaDeviceSynchronize()</span></code></p></td>
+<td><p>その GPU のすべての仕事</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">cudaStreamSynchronize(stream)</span></code></p></td>
+<td><p>指定したストリームの仕事</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">cudaMemcpyAsync</span></code></p></td>
+<td><p>待たない。写しをストリームに入れるだけ</p></td>
+</tr>
+</tbody>
+</table>
+<p>4.3 の例で、<code class="docutils literal notranslate"><span class="pre">for_each</span></code> の後にすぐ <code class="docutils literal notranslate"><span class="pre">f_host.copy_from(f)</span></code> を呼べたのは、中の <code class="docutils literal notranslate"><span class="pre">cudaMemcpy</span></code> がカーネルの終了を待つからです。
+<code class="docutils literal notranslate"><span class="pre">reduce</span></code> は最後に <code class="docutils literal notranslate"><span class="pre">cudaStreamSynchronize</span></code> で待ってから値を返すので、戻り値はすぐに使えます。</p>
+<p><code class="docutils literal notranslate"><span class="pre">copy_from</span></code> には、ストリームを引数に取る非同期版（中で <code class="docutils literal notranslate"><span class="pre">cudaMemcpyAsync</span></code> を使う）もあり、その場合は呼び出す側が同期の責任を持ちます。</p>
+<p>MISO で <code class="docutils literal notranslate"><span class="pre">cudaDeviceSynchronize</span></code> を明示的に呼んでいるのは、GPU の結果を GPU 以外のものに渡す前です。
+8 節のハロー交換では、送るデータを詰めるカーネルの後、<code class="docutils literal notranslate"><span class="pre">MPI_Isend</span></code> の前に呼んでいます。
+MPI は CUDA のストリームを知らないので、詰め終わる前のバッファを送らないよう、ここで待つ必要があります。</p>
+</section>
+<section id="id21">
+<h3>7.2 エラーは後で報告される<a class="headerlink" href="#id21" title="Link to this heading"></a></h3>
+<p>非同期であることは、エラーの見つけ方にも影響します。
+カーネルの中で起きたエラー（範囲外の読み書きなど）は、起動した時点ではまだ起きていません。
+カーネルが実行され、その後にホストが<strong>同期する CUDA の関数を呼んだときに</strong>、その戻り値として報告されます。</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>確かめる方法</p></th>
+<th class="head"><p>分かること</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>起動直後の <code class="docutils literal notranslate"><span class="pre">cudaGetLastError()</span></code></p></td>
+<td><p>起動そのものの失敗（ブロックが大きすぎる、GPU 向けの命令がない、など）</p></td>
+</tr>
+<tr class="row-odd"><td><p>後の <code class="docutils literal notranslate"><span class="pre">cudaMemcpy</span></code>, <code class="docutils literal notranslate"><span class="pre">cudaDeviceSynchronize</span></code> などの戻り値</p></td>
+<td><p>カーネルの実行中に起きたエラー</p></td>
+</tr>
+</tbody>
+</table>
+<p>5.1 の例で、エラーの場所が <code class="docutils literal notranslate"><span class="pre">array1d.hpp</span></code>（<code class="docutils literal notranslate"><span class="pre">copy_from</span></code> の <code class="docutils literal notranslate"><span class="pre">cudaMemcpy</span></code>）と表示されたのはこのためです。
+誤っていたのは <code class="docutils literal notranslate"><span class="pre">apply_wrong</span></code> のラムダですが、それが分かるのはホストが次に同期したときでした。</p>
+<p>MISO は CUDA の関数の戻り値を <code class="docutils literal notranslate"><span class="pre">MISO_CUDA_CHECK</span></code> で調べます（<code class="docutils literal notranslate"><span class="pre">miso/include/miso/cuda_util.cuh</span></code>）。</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="cp">#define MISO_CUDA_CHECK(ans) \</span>
+<span class="cp">  do { miso::cuda::check_error((ans), __FILE__, __LINE__); } while (0)</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">check_error</span></code> は、エラーなら <code class="docutils literal notranslate"><span class="pre">CUDA</span> <span class="pre">Error:</span> <span class="pre">&lt;内容&gt;</span> <span class="pre">&lt;ファイル&gt;</span> <span class="pre">&lt;行&gt;</span></code> を表示し、MPI が初期化されていれば <code class="docutils literal notranslate"><span class="pre">MPI_Abort</span></code> で全ランクを止めます。
+<code class="docutils literal notranslate"><span class="pre">__FILE__</span></code> と <code class="docutils literal notranslate"><span class="pre">__LINE__</span></code> は、その行のファイル名と行番号に置き換わるマクロです。
+表示されるのは「エラーに気づいた場所」で、「エラーが起きた場所」とは限らないことに注意します。</p>
+<p>起きた場所を突き止めるには、CUDA Toolkit に含まれる <code class="docutils literal notranslate"><span class="pre">compute-sanitizer</span></code> で実行します。
+どのカーネルのどのスレッドが不正な読み書きをしたかが表示されます。
+使い方と 5.1 の例での表示は <a class="reference internal" href="reference/gpu_troubleshooting.html#edu-ref-gpu-troubleshooting"><span class="std std-ref">GPU で困ったとき</span></a> にまとめています。</p>
+</section>
+</section>
+<section id="gpu-mpi">
+<span id="edu-ch09-mpi"></span><h2>8. GPU の選択と MPI<a class="headerlink" href="#gpu-mpi" title="Link to this heading"></a></h2>
+<section id="id22">
+<h3>8.1 ランクごとに GPU を選ぶ<a class="headerlink" href="#id22" title="Link to this heading"></a></h3>
+<p>1 台の計算機に GPU が複数ある場合、MPI のランクごとに使う GPU を決めます。
+MISO では、<code class="docutils literal notranslate"><span class="pre">main</span></code> の最初に作る <code class="docutils literal notranslate"><span class="pre">Env</span></code> がこれを行います（<code class="docutils literal notranslate"><span class="pre">miso/include/miso/env.hpp</span></code>）。</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">struct</span><span class="w"> </span><span class="nc">Env</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="n">mpi</span><span class="o">::</span><span class="n">Env</span><span class="w"> </span><span class="n">mpi_env</span><span class="p">;</span>
+<span class="cp">#ifdef __CUDACC__</span>
+<span class="w">  </span><span class="n">cuda</span><span class="o">::</span><span class="n">Env</span><span class="w"> </span><span class="n">cuda_env</span><span class="p">;</span>
+<span class="cp">#endif</span>
+</pre></div>
+</div>
+<p>CUDA ビルドでは、<code class="docutils literal notranslate"><span class="pre">mpi::Env</span></code> で MPI を初期化した後に <code class="docutils literal notranslate"><span class="pre">cuda::Env</span></code> が作られます。
+<code class="docutils literal notranslate"><span class="pre">cuda::Env</span></code> のコンストラクタの中心部分です。</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="w">    </span><span class="n">cudaGetDeviceCount</span><span class="p">(</span><span class="o">&amp;</span><span class="n">internal</span><span class="o">::</span><span class="n">device_count</span><span class="p">);</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">internal</span><span class="o">::</span><span class="n">device_count</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="k">throw</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">runtime_error</span><span class="p">(</span><span class="s">"No CUDA-capable devices were detected."</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="n">internal</span><span class="o">::</span><span class="n">device_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">mpi</span><span class="o">::</span><span class="n">local_rank</span><span class="p">()</span><span class="w"> </span><span class="o">%</span><span class="w"> </span><span class="n">internal</span><span class="o">::</span><span class="n">device_count</span><span class="p">;</span>
+<span class="w">    </span><span class="n">cudaSetDevice</span><span class="p">(</span><span class="n">internal</span><span class="o">::</span><span class="n">device_id</span><span class="p">);</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">mpi::local_rank()</span></code> は、同じ計算機（ノード）の中でのランク番号です。
+<code class="docutils literal notranslate"><span class="pre">mpi::Env</span></code> が <code class="docutils literal notranslate"><span class="pre">MPI_Comm_split_type</span></code> で、同じノードのプロセスだけの通信グループを作って求めています。
+ノード内のランク番号を GPU の数で割った余りを GPU の番号にします。
+GPU が 2 つの計算機で 3 ランクを動かし、各ランクの <code class="docutils literal notranslate"><span class="pre">cuda::device_id()</span></code> を表示すると次のようになりました。</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>rank 0: local rank 0, device 0 of 2
+rank 1: local rank 1, device 1 of 2
+rank 2: local rank 2, device 0 of 2
+</pre></div>
+</div>
+<p>ランク 2 はランク 0 と同じ GPU を分け合うので、通常はノードあたりのランク数を GPU の数に合わせます。</p>
+</section>
+<section id="id23">
+<h3>8.2 GPU のメモリを MPI で送る<a class="headerlink" href="#id23" title="Link to this heading"></a></h3>
+<p>第 8 章のハロー交換では、隣のランクへ送る値をバッファに詰め、<code class="docutils literal notranslate"><span class="pre">MPI_Isend</span></code>・<code class="docutils literal notranslate"><span class="pre">MPI_Irecv</span></code> で送受信しました。
+CUDA 版では、物理量の配列がデバイスにあるので、詰める処理もカーネルで行います。
+<code class="docutils literal notranslate"><span class="pre">miso/include/miso/mhd_halo_exchange.hpp</span></code> の <code class="docutils literal notranslate"><span class="pre">HaloExchanger&lt;Real,</span> <span class="pre">backend::CUDA&gt;::apply</span></code> の x 方向の一部です。</p>
+<div class="highlight-cuda notranslate"><div class="highlight"><pre><span></span><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">mpi_shape</span><span class="p">.</span><span class="n">x_procs_pos</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">MPI_PROC_NULL</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">grid</span><span class="p">.</span><span class="n">i_total</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="n">pack_x_send</span><span class="o">&lt;&lt;&lt;</span><span class="n">cu_shape</span><span class="p">.</span><span class="n">grid_dim_x_margin</span><span class="p">,</span><span class="w"> </span><span class="n">cu_shape</span><span class="p">.</span><span class="n">block_dim</span><span class="o">&gt;&gt;&gt;</span><span class="p">(</span>
+<span class="w">          </span><span class="n">buff</span><span class="p">.</span><span class="n">view</span><span class="p">(),</span><span class="w"> </span><span class="n">qq_trgt</span><span class="p">.</span><span class="n">view</span><span class="p">(),</span><span class="w"> </span><span class="n">grid</span><span class="p">.</span><span class="n">view</span><span class="p">(),</span><span class="w"> </span><span class="n">Face</span><span class="o">::</span><span class="n">Pos</span><span class="p">);</span>
+<span class="w">      </span><span class="n">MISO_CUDA_CHECK</span><span class="p">(</span><span class="n">cudaGetLastError</span><span class="p">());</span>
+<span class="w">      </span><span class="n">MISO_CUDA_CHECK</span><span class="p">(</span><span class="n">cudaDeviceSynchronize</span><span class="p">());</span>
+
+<span class="w">      </span><span class="n">MPI_Isend</span><span class="p">(</span><span class="n">buff</span><span class="p">.</span><span class="n">send_x_pos</span><span class="p">,</span>
+<span class="w">                </span><span class="n">grid</span><span class="p">.</span><span class="n">i_margin</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">grid</span><span class="p">.</span><span class="n">j_total</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">grid</span><span class="p">.</span><span class="n">k_total</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">n_fields</span><span class="p">,</span>
+<span class="w">                </span><span class="n">mpi</span><span class="o">::</span><span class="n">data_type</span><span class="o">&lt;</span><span class="n">Real</span><span class="o">&gt;</span><span class="p">(),</span><span class="w"> </span><span class="n">mpi_shape</span><span class="p">.</span><span class="n">x_procs_pos</span><span class="p">,</span><span class="w"> </span><span class="mi">100</span><span class="p">,</span>
+<span class="w">                </span><span class="n">mpi_shape</span><span class="p">.</span><span class="n">cart_comm</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">reqs</span><span class="p">[</span><span class="n">req_count</span><span class="o">++</span><span class="p">]);</span>
+</pre></div>
+</div>
+<p>流れは次のとおりです。</p>
+<ol class="arabic simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">pack_x_send</span></code> カーネルで、9 つの物理量の端の値を送信バッファ <code class="docutils literal notranslate"><span class="pre">buff.send_x_pos</span></code> に詰める。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">cudaDeviceSynchronize()</span></code> で、詰め終わるのを待つ（7.1）。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">MPI_Isend</span></code>・<code class="docutils literal notranslate"><span class="pre">MPI_Irecv</span></code> に、<strong>デバイスのメモリにあるバッファの番地をそのまま渡す</strong>。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">MPI_Waitall</span></code> で送受信の完了を待ってから、<code class="docutils literal notranslate"><span class="pre">unpack_x_recv</span></code> カーネルで受信バッファの値をゴーストセルへ書く。</p></li>
+</ol>
+<p>送受信バッファ（<code class="docutils literal notranslate"><span class="pre">miso/include/miso/mhd_buffers.hpp</span></code> の <code class="docutils literal notranslate"><span class="pre">Buffers&lt;Real,</span> <span class="pre">backend::CUDA&gt;</span></code>）は <code class="docutils literal notranslate"><span class="pre">cudaMalloc</span></code> で確保したデバイスのメモリです。
+デバイスの番地を直接受け取って送受信できる MPI を <strong>CUDA-aware MPI</strong> と呼びます。
+MISO の CUDA 版は CUDA-aware MPI を前提にしていて、ホストのバッファを経由して送る経路は持っていません。
+GPU で複数ランクを動かすには、CUDA に対応してビルドされた MPI（NVIDIA HPC SDK に含まれる Open MPI など）を使います。</p>
+<p>GPU の計算の完了待ち（<code class="docutils literal notranslate"><span class="pre">cudaDeviceSynchronize</span></code>）と、MPI の通信の完了待ち（<code class="docutils literal notranslate"><span class="pre">MPI_Waitall</span></code>）は別のものです。
+送る前には GPU の完了を、受け取った値を使う前には MPI の完了を待ちます。</p>
+</section>
+<section id="id24">
+<h3>8.3 実行<a class="headerlink" href="#id24" title="Link to this heading"></a></h3>
+<p>GPU ビルドの実行も、CPU ビルドと同じく <code class="docutils literal notranslate"><span class="pre">mpiexec</span></code> で行います。
+MISO の demo の <code class="docutils literal notranslate"><span class="pre">app_run.sh</span></code> は、<code class="docutils literal notranslate"><span class="pre">demo/shared/openmpi_config.env</span></code> の環境変数を読み込んでから 2 ランクで実行します。</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">set</span><span class="w"> </span>-a
+<span class="nb">source</span><span class="w"> </span>/path/to/MISO/demo/shared/openmpi_config.env
+<span class="nb">set</span><span class="w"> </span>+a
+mpiexec<span class="w"> </span>-np<span class="w"> </span><span class="m">2</span><span class="w"> </span>./build/mhd2d_vortex<span class="w"> </span>--config<span class="o">=</span>config.yaml
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">mhd2d_vortex</span></code> を GPU 2 枚・2 ランクで実行すると、CPU ビルドと同じ形式で時刻と出力番号が表示され、<code class="docutils literal notranslate"><span class="pre">tend:</span> <span class="pre">0.8</span></code> まで進みます。</p>
+</section>
+</section>
+<section id="miso-gpu">
+<span id="edu-ch09-build"></span><h2>9. MISO を GPU 向けにビルドする<a class="headerlink" href="#miso-gpu" title="Link to this heading"></a></h2>
+<section id="cuda-toolkit-gpu">
+<h3>9.1 CUDA Toolkit と GPU の世代<a class="headerlink" href="#cuda-toolkit-gpu" title="Link to this heading"></a></h3>
+<p>GPU 向けにビルドするには、CPU 用の道具（第 1 章）に加えて、NVIDIA の CUDA Toolkit（<code class="docutils literal notranslate"><span class="pre">nvcc</span></code> と CUDA の実行時ライブラリ）が必要です。
+Mac には NVIDIA の GPU がないので、GPU ビルドは NVIDIA の GPU を積んだ Linux の計算機で行います。</p>
+<p><code class="docutils literal notranslate"><span class="pre">nvcc</span></code> は、GPU の世代（<strong>compute capability</strong>）ごとに異なる命令を作ります。
+CMake では <code class="docutils literal notranslate"><span class="pre">CMAKE_CUDA_ARCHITECTURES</span></code> に、compute capability から小数点を除いた数を指定します。</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>GPU の例</p></th>
+<th class="head"><p>compute capability</p></th>
+<th class="head"><p><code class="docutils literal notranslate"><span class="pre">CMAKE_CUDA_ARCHITECTURES</span></code></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>V100</p></td>
+<td><p>7.0</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">70</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>A100</p></td>
+<td><p>8.0</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">80</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p>RTX 4090、L40</p></td>
+<td><p>8.9</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">89</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>H100</p></td>
+<td><p>9.0</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">90</span></code></p></td>
+</tr>
+</tbody>
+</table>
+<p>手元の GPU の値は、次のコマンドで分かります（新しめのドライバの場合）。</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>nvidia-smi<span class="w"> </span>--query-gpu<span class="o">=</span>name,compute_cap<span class="w"> </span>--format<span class="o">=</span>csv
+</pre></div>
+</div>
+<p>MISO の <code class="docutils literal notranslate"><span class="pre">miso/CMakeLists.txt</span></code> は、<code class="docutils literal notranslate"><span class="pre">CMAKE_CUDA_ARCHITECTURES</span></code> を指定しなければ <code class="docutils literal notranslate"><span class="pre">native</span></code>（ビルドする計算機の GPU に合わせる）にします。
+ビルドする計算機に GPU がない場合（ログインノードでビルドして計算ノードで実行する場合など）は、使う GPU の値を明示します。
+コメントにあるとおり、この指定は <code class="docutils literal notranslate"><span class="pre">enable_language(CUDA)</span></code> より前に決める必要があります。
+後から決めると、CMake が既定の古い値を先に使ってしまうためです。</p>
+<p>使う GPU に合わない値でビルドすると、ビルドは通っても実行時にカーネルの起動が失敗します（<a class="reference internal" href="reference/gpu_troubleshooting.html#edu-ref-gpu-troubleshooting"><span class="std std-ref">GPU で困ったとき</span></a>）。</p>
+</section>
+<section id="demo">
+<h3>9.2 ユニットテストと demo<a class="headerlink" href="#demo" title="Link to this heading"></a></h3>
+<p>MISO のユニットテストを GPU 向けにビルドするには、<code class="docutils literal notranslate"><span class="pre">-DMISO_USE_CUDA=ON</span></code> を付けます。
+<code class="docutils literal notranslate"><span class="pre">miso/tests/</span></code> の <code class="docutils literal notranslate"><span class="pre">*.cu</span></code> のテスト（<code class="docutils literal notranslate"><span class="pre">test_execution.cu</span></code> など）は、このときだけビルドされます。</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>/path/to/MISO
+cmake<span class="w"> </span>-B<span class="w"> </span>build_gpu<span class="w"> </span>-S<span class="w"> </span>miso<span class="w"> </span>-DMISO_USE_CUDA<span class="o">=</span>ON<span class="w"> </span>-DCMAKE_CUDA_ARCHITECTURES<span class="o">=</span><span class="m">89</span>
+cmake<span class="w"> </span>--build<span class="w"> </span>build_gpu<span class="w"> </span>-j
+<span class="o">(</span><span class="nb">cd</span><span class="w"> </span>build_gpu<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>ctest<span class="w"> </span>--output-on-failure<span class="o">)</span>
+</pre></div>
+</div>
+<p>demo は <code class="docutils literal notranslate"><span class="pre">-DUSE_CUDA=ON</span></code> です（4.4 の CMake 設定）。</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>cmake<span class="w"> </span>-B<span class="w"> </span>demo/mhd2d_vortex/build<span class="w"> </span>-S<span class="w"> </span>demo/mhd2d_vortex<span class="w"> </span>-DUSE_CUDA<span class="o">=</span>ON<span class="w"> </span>-DCMAKE_CUDA_ARCHITECTURES<span class="o">=</span><span class="m">89</span>
+cmake<span class="w"> </span>--build<span class="w"> </span>demo/mhd2d_vortex/build<span class="w"> </span>-j
+./demo/mhd2d_vortex/app_run.sh
+</pre></div>
+</div>
+<p>demo の <code class="docutils literal notranslate"><span class="pre">app_run.sh</span></code> は <code class="docutils literal notranslate"><span class="pre">build/</span></code> の中の実行ファイルを使います。
+CPU 版から GPU 版へ切り替えるときは、CMake のキャッシュに前の設定が残らないよう、<code class="docutils literal notranslate"><span class="pre">build/</span></code> を消してから作り直します（<code class="docutils literal notranslate"><span class="pre">app_clean.sh</span></code> は <code class="docutils literal notranslate"><span class="pre">build/</span></code> と一緒に出力の <code class="docutils literal notranslate"><span class="pre">data/</span></code> と <code class="docutils literal notranslate"><span class="pre">figs/</span></code> も消します）。</p>
+</section>
+</section>
+<section id="cpu-gpu">
+<span id="edu-ch09-practice"></span><h2>10. CPU で作ったプログラムを GPU で動かす<a class="headerlink" href="#cpu-gpu" title="Link to this heading"></a></h2>
+<p>第 7 章で作った <a class="reference internal" href="practice/execution/index.html#edu-practice-execution"><span class="std std-ref">配列計算の実習</span></a>（ベクトル加算、縮約、1 次元移流）を、GPU 用のビルドフォルダでビルドして動かします。
+4.4 の CMake 設定を自分の <code class="docutils literal notranslate"><span class="pre">CMakeLists.txt</span></code> に足します。<code class="docutils literal notranslate"><span class="pre">Backend</span></code> は、<a class="reference internal" href="practice/execution/index.html#edu-practice-execution"><span class="std std-ref">実習の入口</span></a>の <code class="docutils literal notranslate"><span class="pre">#ifdef</span> <span class="pre">__CUDACC__</span></code> で切り替えます（4.3 の <code class="docutils literal notranslate"><span class="pre">USE_CUDA</span></code> で切り替えても結果は同じです）。
+書き直すときは、次の点を確かめてください。</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">for_each</span></code>・<code class="docutils literal notranslate"><span class="pre">reduce</span></code> に渡すラムダは <code class="docutils literal notranslate"><span class="pre">MISO_LAMBDA</span></code> で書き、<code class="docutils literal notranslate"><span class="pre">[&amp;]</span></code> を使っていない。</p></li>
+<li><p>ラムダが取り込む配列は、<code class="docutils literal notranslate"><span class="pre">Backend</span></code> の配列から作った View である。所有する配列そのものを取り込んでいない。</p></li>
+<li><p>ラムダの中で使う名前は、ローカル変数か引数である。クラスの中に書いた場合、メンバ変数を直接使っていない（5 節）。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">reduce</span></code> の <code class="docutils literal notranslate"><span class="pre">init</span></code> は <code class="docutils literal notranslate"><span class="pre">op</span></code> の単位元である（6.4）。</p></li>
+<li><p>結果を表示する前に、<code class="docutils literal notranslate"><span class="pre">backend::Host</span></code> の配列へ <code class="docutils literal notranslate"><span class="pre">copy_from</span></code> で写している。</p></li>
+</ul>
+<p>CPU と GPU で同じ入力を与え、ベクトルの各要素、総和、移流後の分布を比べます。
+各要素の値は一致することが多いですが、総和は加算の順序の違いで最後の桁が変わることがあります（6.5）。</p>
+<p>GPU 環境がまだない場合は、比較を後で追加することにして、<a class="reference internal" href="10_heat1d.html#edu-ch10"><span class="std std-ref">第 10 章</span></a> へ進めます。
+CPU で熱伝導の逐次版と MPI 版を作り、GPU 版はこの章の内容を使って後から加えます。</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="08_mpi.html" class="btn btn-neutral float-left" title="8. MPI による領域分割" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="10_heat1d.html" class="btn btn-neutral float-right" title="10. 熱伝導の計算" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Integrated Studies, ISEE, Nagoya University.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

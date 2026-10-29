@@ -1,0 +1,14 @@
+.. _exhale_function_mhd__halo__exchange_8hpp_1aa1ee7f3d4f6a230d7a7354922cbf99a9:
+
+Template Function miso::mhd::unpack_x_recv
+==========================================
+
+- Defined in :ref:`file__home_runner_work_MISO_docs_MISO_docs_MISO_miso_include_miso_mhd_halo_exchange.hpp`
+
+
+Function Documentation
+----------------------
+
+
+.. doxygenfunction:: miso::mhd::unpack_x_recv(FieldsView<Real>, const BuffersView<Real>, const GridView<Real>, Face)
+   :project: CPP

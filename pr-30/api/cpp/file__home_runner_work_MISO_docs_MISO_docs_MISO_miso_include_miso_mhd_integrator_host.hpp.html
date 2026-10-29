@@ -1,0 +1,177 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="ja" data-content_root="../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>File mhd_integrator_host.hpp &mdash; MISO 0.0 ドキュメント</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css?v=4ae1632d" />
+      <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../../_static/collapsible-lists/css/tree_view.css?v=a885cde7" />
+      <link rel="stylesheet" type="text/css" href="../../_static/custom.css" />
+
+  
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options.js?v=1a6bc256"></script>
+      <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../../_static/copybutton.js?v=f281be69"></script>
+      <script src="../../_static/translations.js?v=4755f45a"></script>
+      <script src="../../_static/collapsible-lists/js/CollapsibleLists.compressed.js?v=73120307"></script>
+      <script src="../../_static/collapsible-lists/js/apply-collapsible-lists.js?v=660e4f45"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="../../genindex.html" />
+    <link rel="search" title="検索" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            MISO
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../quickstart.html">Quick Start</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../demo/index.html">Test Problems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../customization/index.html">Customization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../miso/index.html">MISO C++ documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../pymiso/index.html">pymiso Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../education/index.html">MISO education</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../references.html">References</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">MISO</a>
+      </nav>
+
+      <div class="wy-nav-content">
+<div id="language-links" style="margin-bottom: 1em; font-size: 100%;">
+    Language:
+    
+    <a href="../../en/api/cpp/file__home_runner_work_MISO_docs_MISO_docs_MISO_miso_include_miso_mhd_integrator_host.hpp.html">English</a> |
+    <strong>日本語</strong>
+    
+</div>
+
+
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">File mhd_integrator_host.hpp</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../_sources/api/cpp/file__home_runner_work_MISO_docs_MISO_docs_MISO_miso_include_miso_mhd_integrator_host.hpp.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="file-mhd-integrator-host-hpp">
+<span id="file-home-runner-work-miso-docs-miso-docs-miso-miso-include-miso-mhd-integrator-host-hpp"></span><h1>File mhd_integrator_host.hpp<a class="headerlink" href="#file-mhd-integrator-host-hpp" title="Link to this heading"></a></h1>
+<p>↰ <a class="reference internal" href="dir__home_runner_work_MISO_docs_MISO_docs_MISO_miso_include_miso.html#dir-home-runner-work-miso-docs-miso-docs-miso-miso-include-miso"><span class="std std-ref">Parent directory</span></a> (<code class="docutils literal notranslate"><span class="pre">/home/runner/work/MISO_docs/MISO_docs/MISO/miso/include/miso</span></code>)</p>
+<nav class="contents local" id="contents">
+<p class="topic-title">Contents</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#definition-home-runner-work-miso-docs-miso-docs-miso-miso-include-miso-mhd-integrator-host-hpp" id="id1">Definition (<code class="docutils literal notranslate"><span class="pre">/home/runner/work/MISO_docs/MISO_docs/MISO/miso/include/miso/mhd_integrator_host.hpp</span></code>)</a></p></li>
+<li><p><a class="reference internal" href="#includes" id="id2">Includes</a></p></li>
+<li><p><a class="reference internal" href="#included-by" id="id3">Included By</a></p></li>
+<li><p><a class="reference internal" href="#namespaces" id="id4">Namespaces</a></p></li>
+<li><p><a class="reference internal" href="#classes" id="id5">Classes</a></p></li>
+</ul>
+</nav>
+<section id="definition-home-runner-work-miso-docs-miso-docs-miso-miso-include-miso-mhd-integrator-host-hpp">
+<h2>Definition (<code class="docutils literal notranslate"><span class="pre">/home/runner/work/MISO_docs/MISO_docs/MISO/miso/include/miso/mhd_integrator_host.hpp</span></code>)<a class="headerlink" href="#definition-home-runner-work-miso-docs-miso-docs-miso-miso-include-miso-mhd-integrator-host-hpp" title="Link to this heading"></a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="program_listing_file__home_runner_work_MISO_docs_MISO_docs_MISO_miso_include_miso_mhd_integrator_host.hpp.html">Program Listing for File mhd_integrator_host.hpp</a></li>
+</ul>
+</div>
+</section>
+<section id="includes">
+<h2>Includes<a class="headerlink" href="#includes" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">array3d.hpp</span></code> (<a class="reference internal" href="file__home_runner_work_MISO_docs_MISO_docs_MISO_miso_include_miso_array3d.hpp.html#file-home-runner-work-miso-docs-miso-docs-miso-miso-include-miso-array3d-hpp"><span class="std std-ref">File array3d.hpp</span></a>)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">constants.hpp</span></code> (<a class="reference internal" href="file__home_runner_work_MISO_docs_MISO_docs_MISO_miso_include_miso_constants.hpp.html#file-home-runner-work-miso-docs-miso-docs-miso-miso-include-miso-constants-hpp"><span class="std std-ref">File constants.hpp</span></a>)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">env.hpp</span></code> (<a class="reference internal" href="file__home_runner_work_MISO_docs_MISO_docs_MISO_miso_include_miso_env.hpp.html#file-home-runner-work-miso-docs-miso-docs-miso-miso-include-miso-env-hpp"><span class="std std-ref">File env.hpp</span></a>)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">mhd_artificial_viscosity_host.hpp</span></code> (<a class="reference internal" href="file__home_runner_work_MISO_docs_MISO_docs_MISO_miso_include_miso_mhd_artificial_viscosity_host.hpp.html#file-home-runner-work-miso-docs-miso-docs-miso-miso-include-miso-mhd-artificial-viscosity-host-hpp"><span class="std std-ref">File mhd_artificial_viscosity_host.hpp</span></a>)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">mhd_fields.hpp</span></code> (<a class="reference internal" href="file__home_runner_work_MISO_docs_MISO_docs_MISO_miso_include_miso_mhd_fields.hpp.html#file-home-runner-work-miso-docs-miso-docs-miso-miso-include-miso-mhd-fields-hpp"><span class="std std-ref">File mhd_fields.hpp</span></a>)</p></li>
+</ul>
+</section>
+<section id="included-by">
+<h2>Included By<a class="headerlink" href="#included-by" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p><a class="reference internal" href="file__home_runner_work_MISO_docs_MISO_docs_MISO_miso_include_miso_mhd_integrator.hpp.html#file-home-runner-work-miso-docs-miso-docs-miso-miso-include-miso-mhd-integrator-hpp"><span class="std std-ref">File mhd_integrator.hpp</span></a></p></li>
+</ul>
+</section>
+<section id="namespaces">
+<h2>Namespaces<a class="headerlink" href="#namespaces" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p><a class="reference internal" href="namespace_miso.html#namespace-miso"><span class="std std-ref">Namespace miso</span></a></p></li>
+<li><p><a class="reference internal" href="namespace_miso__mhd.html#namespace-miso-mhd"><span class="std std-ref">Namespace miso::mhd</span></a></p></li>
+</ul>
+</section>
+<section id="classes">
+<h2>Classes<a class="headerlink" href="#classes" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p><a class="reference internal" href="structmiso_1_1mhd_1_1Integrator_3_01Real_00_01backend_1_1Host_01_4.html#exhale-struct-structmiso-1-1mhd-1-1integrator-3-01real-00-01backend-1-1host-01-4"><span class="std std-ref">Template Struct Integrator&lt; Real, backend::Host &gt;</span></a></p></li>
+</ul>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Integrated Studies, ISEE, Nagoya University.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

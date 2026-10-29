@@ -1,0 +1,275 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="ja" data-content_root="../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Template Class Array2D&lt; T, backend::Host &gt; &mdash; MISO 0.0 ドキュメント</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css?v=4ae1632d" />
+      <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../../_static/collapsible-lists/css/tree_view.css?v=a885cde7" />
+      <link rel="stylesheet" type="text/css" href="../../_static/custom.css" />
+
+  
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options.js?v=1a6bc256"></script>
+      <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../../_static/copybutton.js?v=f281be69"></script>
+      <script src="../../_static/translations.js?v=4755f45a"></script>
+      <script src="../../_static/collapsible-lists/js/CollapsibleLists.compressed.js?v=73120307"></script>
+      <script src="../../_static/collapsible-lists/js/apply-collapsible-lists.js?v=660e4f45"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="../../genindex.html" />
+    <link rel="search" title="検索" href="../../search.html" />
+    <link rel="next" title="Template Class Array2DView" href="classmiso_1_1Array2DView.html" />
+    <link rel="prev" title="Template Class Array2D&lt; T, backend::CUDA &gt;" href="classmiso_1_1Array2D_3_01T_00_01backend_1_1CUDA_01_4.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            MISO
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../quickstart.html">Quick Start</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../demo/index.html">Test Problems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../customization/index.html">Customization</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../miso/index.html">MISO C++ documentation</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="root.html">MISO C++ API Reference</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="root.html#file-hierarchy">File Hierarchy</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="root.html#full-api">Full API</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="root.html#namespaces">Namespaces</a></li>
+<li class="toctree-l4 current"><a class="reference internal" href="root.html#classes-and-structs">Classes and Structs</a></li>
+<li class="toctree-l4"><a class="reference internal" href="root.html#enums">Enums</a></li>
+<li class="toctree-l4"><a class="reference internal" href="root.html#functions">Functions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="root.html#variables">Variables</a></li>
+<li class="toctree-l4"><a class="reference internal" href="root.html#defines">Defines</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../pymiso/index.html">pymiso Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../education/index.html">MISO education</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../references.html">References</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">MISO</a>
+      </nav>
+
+      <div class="wy-nav-content">
+<div id="language-links" style="margin-bottom: 1em; font-size: 100%;">
+    Language:
+    
+    <a href="../../en/api/cpp/classmiso_1_1Array2D_3_01T_00_01backend_1_1Host_01_4.html">English</a> |
+    <strong>日本語</strong>
+    
+</div>
+
+
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../miso/index.html">MISO C++ documentation</a></li>
+          <li class="breadcrumb-item"><a href="root.html">MISO C++ API Reference</a></li>
+      <li class="breadcrumb-item active">Template Class Array2D&lt; T, backend::Host &gt;</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../_sources/api/cpp/classmiso_1_1Array2D_3_01T_00_01backend_1_1Host_01_4.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="template-class-array2d-t-backend-host">
+<span id="exhale-class-classmiso-1-1array2d-3-01t-00-01backend-1-1host-01-4"></span><h1>Template Class Array2D&lt; T, backend::Host &gt;<a class="headerlink" href="#template-class-array2d-t-backend-host" title="Link to this heading"></a></h1>
+<ul class="simple">
+<li><p>Defined in <a class="reference internal" href="file__home_runner_work_MISO_docs_MISO_docs_MISO_miso_include_miso_array2d.hpp.html#file-home-runner-work-miso-docs-miso-docs-miso-miso-include-miso-array2d-hpp"><span class="std std-ref">File array2d.hpp</span></a></p></li>
+</ul>
+<section id="class-documentation">
+<h2>Class Documentation<a class="headerlink" href="#class-documentation" title="Link to this heading"></a></h2>
+<dl class="cpp class">
+<dt class="sig sig-object cpp" id="_CPPv4I0EN4miso7Array2DI1TN7backend4HostEEE">
+<span id="_CPPv3I0EN4miso7Array2DI1TN7backend4HostEEE"></span><span id="_CPPv2I0EN4miso7Array2DI1TN7backend4HostEEE"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">T</span></span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="target" id="classmiso_1_1Array2D_3_01T_00_01backend_1_1Host_01_4"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Array2D</span></span></span><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4I0EN4miso7Array2DI1TN7backend4HostEEE" title="miso::Array2D&lt;T, backend::Host&gt;::T"><span class="n"><span class="pre">T</span></span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="n"><span class="pre">backend</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="structmiso_1_1backend_1_1Host.html#_CPPv4N4miso7backend4HostE" title="miso::backend::Host"><span class="n"><span class="pre">Host</span></span></a><span class="p"><span class="pre">&gt;</span></span><a class="headerlink" href="#_CPPv4I0EN4miso7Array2DI1TN7backend4HostEEE" title="Link to this definition"></a><br /></dt>
+<dd><p>2D Array in host memory. </p>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-functions">Public Functions</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N4miso7Array2DI1TN7backend4HostEE7Array2DEii">
+<span id="_CPPv3N4miso7Array2DI1TN7backend4HostEE7Array2DEii"></span><span id="_CPPv2N4miso7Array2DI1TN7backend4HostEE7Array2DEii"></span><span id="miso::Array2D:T.backend::Host:::Array2D__i.i"></span><span class="target" id="classmiso_1_1Array2D_3_01T_00_01backend_1_1Host_01_4_1a8480d02d40bf7e55ac67a6f545baa90c"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Array2D</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">nx0</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">nx1</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4miso7Array2DI1TN7backend4HostEE7Array2DEii" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N4miso7Array2DI1TN7backend4HostEED0Ev">
+<span id="_CPPv3N4miso7Array2DI1TN7backend4HostEED0Ev"></span><span id="_CPPv2N4miso7Array2DI1TN7backend4HostEED0Ev"></span><span id="miso::Array2D:T.backend::Host:::~Array2D"></span><span class="target" id="classmiso_1_1Array2D_3_01T_00_01backend_1_1Host_01_4_1a8f3943314dfc7fe2ed14aa77d4d2c96e"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">~Array2D</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4miso7Array2DI1TN7backend4HostEED0Ev" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N4miso7Array2DI1TN7backend4HostEE4viewEv">
+<span id="_CPPv3N4miso7Array2DI1TN7backend4HostEE4viewEv"></span><span id="_CPPv2N4miso7Array2DI1TN7backend4HostEE4viewEv"></span><span id="miso::Array2D:T.backend::Host:::view"></span><span class="target" id="classmiso_1_1Array2D_3_01T_00_01backend_1_1Host_01_4_1a3525266230e75319e0adcdc22846ac98"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><a class="reference internal" href="classmiso_1_1Array2DView.html#_CPPv4I0EN4miso11Array2DViewE" title="miso::Array2DView"><span class="n"><span class="pre">Array2DView</span></span></a><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4I0EN4miso7Array2DI1TN7backend4HostEEE" title="miso::Array2D&lt;T, backend::Host&gt;::T"><span class="n"><span class="pre">T</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">view</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">noexcept</span></span><a class="headerlink" href="#_CPPv4N4miso7Array2DI1TN7backend4HostEE4viewEv" title="Link to this definition"></a><br /></dt>
+<dd><p>Return a lightweight view of the array. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK4miso7Array2DI1TN7backend4HostEE4viewEv">
+<span id="_CPPv3NK4miso7Array2DI1TN7backend4HostEE4viewEv"></span><span id="_CPPv2NK4miso7Array2DI1TN7backend4HostEE4viewEv"></span><span id="miso::Array2D:T.backend::Host:::viewC"></span><span class="target" id="classmiso_1_1Array2D_3_01T_00_01backend_1_1Host_01_4_1a0a00dc6d4a689694feb7a8507b2a8179"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><a class="reference internal" href="classmiso_1_1Array2DView.html#_CPPv4I0EN4miso11Array2DViewE" title="miso::Array2DView"><span class="n"><span class="pre">Array2DView</span></span></a><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4I0EN4miso7Array2DI1TN7backend4HostEEE" title="miso::Array2D&lt;T, backend::Host&gt;::T"><span class="n"><span class="pre">T</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">view</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="k"><span class="pre">noexcept</span></span><a class="headerlink" href="#_CPPv4NK4miso7Array2DI1TN7backend4HostEE4viewEv" title="Link to this definition"></a><br /></dt>
+<dd><p>Return a constant lightweight view of the array. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK4miso7Array2DI1TN7backend4HostEE10const_viewEv">
+<span id="_CPPv3NK4miso7Array2DI1TN7backend4HostEE10const_viewEv"></span><span id="_CPPv2NK4miso7Array2DI1TN7backend4HostEE10const_viewEv"></span><span id="miso::Array2D:T.backend::Host:::const_viewC"></span><span class="target" id="classmiso_1_1Array2D_3_01T_00_01backend_1_1Host_01_4_1a88d6eeeee0884197081cfa5804feab49"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><a class="reference internal" href="classmiso_1_1Array2DView.html#_CPPv4I0EN4miso11Array2DViewE" title="miso::Array2DView"><span class="n"><span class="pre">Array2DView</span></span></a><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4I0EN4miso7Array2DI1TN7backend4HostEEE" title="miso::Array2D&lt;T, backend::Host&gt;::T"><span class="n"><span class="pre">T</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">const_view</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="k"><span class="pre">noexcept</span></span><a class="headerlink" href="#_CPPv4NK4miso7Array2DI1TN7backend4HostEE10const_viewEv" title="Link to this definition"></a><br /></dt>
+<dd><p>Return a constant lightweight view of the array. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N4miso7Array2DI1TN7backend4HostEE4dataEv">
+<span id="_CPPv3N4miso7Array2DI1TN7backend4HostEE4dataEv"></span><span id="_CPPv2N4miso7Array2DI1TN7backend4HostEE4dataEv"></span><span id="miso::Array2D:T.backend::Host:::data"></span><span class="target" id="classmiso_1_1Array2D_3_01T_00_01backend_1_1Host_01_4_1aafc0c27bbcb443c1ed368d8a8cf31046"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4I0EN4miso7Array2DI1TN7backend4HostEEE" title="miso::Array2D&lt;T, backend::Host&gt;::T"><span class="n"><span class="pre">T</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">data</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">noexcept</span></span><a class="headerlink" href="#_CPPv4N4miso7Array2DI1TN7backend4HostEE4dataEv" title="Link to this definition"></a><br /></dt>
+<dd><p>Return pointer to the data. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK4miso7Array2DI1TN7backend4HostEE4dataEv">
+<span id="_CPPv3NK4miso7Array2DI1TN7backend4HostEE4dataEv"></span><span id="_CPPv2NK4miso7Array2DI1TN7backend4HostEE4dataEv"></span><span id="miso::Array2D:T.backend::Host:::dataC"></span><span class="target" id="classmiso_1_1Array2D_3_01T_00_01backend_1_1Host_01_4_1a8b9e880c6e900fe6d4362f9f0f3497ae"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4I0EN4miso7Array2DI1TN7backend4HostEEE" title="miso::Array2D&lt;T, backend::Host&gt;::T"><span class="n"><span class="pre">T</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">data</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="k"><span class="pre">noexcept</span></span><a class="headerlink" href="#_CPPv4NK4miso7Array2DI1TN7backend4HostEE4dataEv" title="Link to this definition"></a><br /></dt>
+<dd><p>Return const pointer to the data. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK4miso7Array2DI1TN7backend4HostEE6extentEi">
+<span id="_CPPv3NK4miso7Array2DI1TN7backend4HostEE6extentEi"></span><span id="_CPPv2NK4miso7Array2DI1TN7backend4HostEE6extentEi"></span><span id="miso::Array2D:T.backend::Host:::extent__iC"></span><span class="target" id="classmiso_1_1Array2D_3_01T_00_01backend_1_1Host_01_4_1a7d51bc2052bf66269b4eefec78323cdd"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">extent</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">dim</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="k"><span class="pre">noexcept</span></span><a class="headerlink" href="#_CPPv4NK4miso7Array2DI1TN7backend4HostEE6extentEi" title="Link to this definition"></a><br /></dt>
+<dd><p>Return the array extent in each dimension. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK4miso7Array2DI1TN7backend4HostEE5shapeEv">
+<span id="_CPPv3NK4miso7Array2DI1TN7backend4HostEE5shapeEv"></span><span id="_CPPv2NK4miso7Array2DI1TN7backend4HostEE5shapeEv"></span><span id="miso::Array2D:T.backend::Host:::shapeC"></span><span class="target" id="classmiso_1_1Array2D_3_01T_00_01backend_1_1Host_01_4_1a9725a569349fdfb8bf604b8a9fc2841e"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">array</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">int</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="m"><span class="pre">2</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">shape</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="k"><span class="pre">noexcept</span></span><a class="headerlink" href="#_CPPv4NK4miso7Array2DI1TN7backend4HostEE5shapeEv" title="Link to this definition"></a><br /></dt>
+<dd><p>Return the shape of the array in the given axis. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK4miso7Array2DI1TN7backend4HostEE4sizeEv">
+<span id="_CPPv3NK4miso7Array2DI1TN7backend4HostEE4sizeEv"></span><span id="_CPPv2NK4miso7Array2DI1TN7backend4HostEE4sizeEv"></span><span id="miso::Array2D:T.backend::Host:::sizeC"></span><span class="target" id="classmiso_1_1Array2D_3_01T_00_01backend_1_1Host_01_4_1a5b2ce374bf0b6480c627dabd65b18740"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">size</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="k"><span class="pre">noexcept</span></span><a class="headerlink" href="#_CPPv4NK4miso7Array2DI1TN7backend4HostEE4sizeEv" title="Link to this definition"></a><br /></dt>
+<dd><p>Return the total size of the array. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK4miso7Array2DI1TN7backend4HostEEclEii">
+<span id="_CPPv3NK4miso7Array2DI1TN7backend4HostEEclEii"></span><span id="_CPPv2NK4miso7Array2DI1TN7backend4HostEEclEii"></span><span id="miso::Array2D:T.backend::Host:::call-operator__i.iC"></span><span class="target" id="classmiso_1_1Array2D_3_01T_00_01backend_1_1Host_01_4_1a601c562d50c66fb651f70de71810418f"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4I0EN4miso7Array2DI1TN7backend4HostEEE" title="miso::Array2D&lt;T, backend::Host&gt;::T"><span class="n"><span class="pre">T</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="o"><span class="pre">()</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">i0</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">i1</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="k"><span class="pre">noexcept</span></span><a class="headerlink" href="#_CPPv4NK4miso7Array2DI1TN7backend4HostEEclEii" title="Link to this definition"></a><br /></dt>
+<dd><p>Return reference to the element at the given indices. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK4miso7Array2DI1TN7backend4HostEEixEi">
+<span id="_CPPv3NK4miso7Array2DI1TN7backend4HostEEixEi"></span><span id="_CPPv2NK4miso7Array2DI1TN7backend4HostEEixEi"></span><span id="miso::Array2D:T.backend::Host:::subscript-operator__iC"></span><span class="target" id="classmiso_1_1Array2D_3_01T_00_01backend_1_1Host_01_4_1a9432a16b306d34c0fd54f1971224cdc8"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4I0EN4miso7Array2DI1TN7backend4HostEEE" title="miso::Array2D&lt;T, backend::Host&gt;::T"><span class="n"><span class="pre">T</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="o"><span class="pre">[]</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">idx</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="k"><span class="pre">noexcept</span></span><a class="headerlink" href="#_CPPv4NK4miso7Array2DI1TN7backend4HostEEixEi" title="Link to this definition"></a><br /></dt>
+<dd><p>Return reference to the element at the given linear index. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N4miso7Array2DI1TN7backend4HostEE9copy_fromERK7Array2DI1TN7backend4HostEE">
+<span id="_CPPv3N4miso7Array2DI1TN7backend4HostEE9copy_fromERK7Array2DI1TN7backend4HostEE"></span><span id="_CPPv2N4miso7Array2DI1TN7backend4HostEE9copy_fromERK7Array2DI1TN7backend4HostEE"></span><span id="miso::Array2D:T.backend::Host:::copy_from__Array2D:T.backend::Host:CR"></span><span class="target" id="classmiso_1_1Array2D_3_01T_00_01backend_1_1Host_01_4_1ad6c55b69dde5389be9c62baca7b702eb"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">copy_from</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N4miso7Array2DI1TN7backend4HostEE7Array2DEii" title="miso::Array2D&lt;T, backend::Host&gt;::Array2D"><span class="n"><span class="pre">Array2D</span></span></a><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4I0EN4miso7Array2DI1TN7backend4HostEEE" title="miso::Array2D&lt;T, backend::Host&gt;::T"><span class="n"><span class="pre">T</span></span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="n"><span class="pre">backend</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="structmiso_1_1backend_1_1Host.html#_CPPv4N4miso7backend4HostE" title="miso::backend::Host"><span class="n"><span class="pre">Host</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">other</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4miso7Array2DI1TN7backend4HostEE9copy_fromERK7Array2DI1TN7backend4HostEE" title="Link to this definition"></a><br /></dt>
+<dd><p>Copy data from another <a class="reference internal" href="classmiso_1_1Array2D.html#classmiso_1_1Array2D"><span class="std std-ref">Array2D</span></a> in host memory. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N4miso7Array2DI1TN7backend4HostEE9copy_fromERK7Array2DI1TN7backend4CUDAEE">
+<span id="_CPPv3N4miso7Array2DI1TN7backend4HostEE9copy_fromERK7Array2DI1TN7backend4CUDAEE"></span><span id="_CPPv2N4miso7Array2DI1TN7backend4HostEE9copy_fromERK7Array2DI1TN7backend4CUDAEE"></span><span id="miso::Array2D:T.backend::Host:::copy_from__Array2D:T.backend::CUDA:CR"></span><span class="target" id="classmiso_1_1Array2D_3_01T_00_01backend_1_1Host_01_4_1aaddf769a83132359e54a217d017e3eb7"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">copy_from</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N4miso7Array2DI1TN7backend4HostEE7Array2DEii" title="miso::Array2D&lt;T, backend::Host&gt;::Array2D"><span class="n"><span class="pre">Array2D</span></span></a><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4I0EN4miso7Array2DI1TN7backend4HostEEE" title="miso::Array2D&lt;T, backend::Host&gt;::T"><span class="n"><span class="pre">T</span></span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="n"><span class="pre">backend</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="structmiso_1_1backend_1_1CUDA.html#_CPPv4N4miso7backend4CUDAE" title="miso::backend::CUDA"><span class="n"><span class="pre">CUDA</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">other</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4miso7Array2DI1TN7backend4HostEE9copy_fromERK7Array2DI1TN7backend4CUDAEE" title="Link to this definition"></a><br /></dt>
+<dd><p>Copy data from another <a class="reference internal" href="classmiso_1_1Array2D.html#classmiso_1_1Array2D"><span class="std std-ref">Array2D</span></a> in CUDA memory. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N4miso7Array2DI1TN7backend4HostEE9copy_fromERK7Array2DI1TN7backend4CUDAEE12cudaStream_t">
+<span id="_CPPv3N4miso7Array2DI1TN7backend4HostEE9copy_fromERK7Array2DI1TN7backend4CUDAEE12cudaStream_t"></span><span id="_CPPv2N4miso7Array2DI1TN7backend4HostEE9copy_fromERK7Array2DI1TN7backend4CUDAEE12cudaStream_t"></span><span id="miso::Array2D:T.backend::Host:::copy_from__Array2D:T.backend::CUDA:CR.cudaStream_t"></span><span class="target" id="classmiso_1_1Array2D_3_01T_00_01backend_1_1Host_01_4_1a2213a9320b1a9cace61e7e6d0f4f3276"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">copy_from</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N4miso7Array2DI1TN7backend4HostEE7Array2DEii" title="miso::Array2D&lt;T, backend::Host&gt;::Array2D"><span class="n"><span class="pre">Array2D</span></span></a><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4I0EN4miso7Array2DI1TN7backend4HostEEE" title="miso::Array2D&lt;T, backend::Host&gt;::T"><span class="n"><span class="pre">T</span></span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="n"><span class="pre">backend</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="structmiso_1_1backend_1_1CUDA.html#_CPPv4N4miso7backend4CUDAE" title="miso::backend::CUDA"><span class="n"><span class="pre">CUDA</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">other</span></span>, <span class="n"><span class="pre">cudaStream_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">stream</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4miso7Array2DI1TN7backend4HostEE9copy_fromERK7Array2DI1TN7backend4CUDAEE12cudaStream_t" title="Link to this definition"></a><br /></dt>
+<dd><p>Copy data from another <a class="reference internal" href="classmiso_1_1Array2D.html#classmiso_1_1Array2D"><span class="std std-ref">Array2D</span></a> in CUDA memory (async). </p>
+<p>The caller is responsible for synchronizing the stream. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N4miso7Array2DI1TN7backend4HostEE7Array2DERK7Array2D">
+<span id="_CPPv3N4miso7Array2DI1TN7backend4HostEE7Array2DERK7Array2D"></span><span id="_CPPv2N4miso7Array2DI1TN7backend4HostEE7Array2DERK7Array2D"></span><span id="miso::Array2D:T.backend::Host:::Array2D__Array2DCR"></span><span class="target" id="classmiso_1_1Array2D_3_01T_00_01backend_1_1Host_01_4_1a6936ba1551c1e03196ff7487f3a5f1f0"></span><span class="sig-name descname"><span class="n"><span class="pre">Array2D</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N4miso7Array2DI1TN7backend4HostEE7Array2DERK7Array2D" title="miso::Array2D&lt;T, backend::Host&gt;::Array2D"><span class="n"><span class="pre">Array2D</span></span></a><span class="p"><span class="pre">&amp;</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">delete</span></span><a class="headerlink" href="#_CPPv4N4miso7Array2DI1TN7backend4HostEE7Array2DERK7Array2D" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N4miso7Array2DI1TN7backend4HostEEaSERK7Array2D">
+<span id="_CPPv3N4miso7Array2DI1TN7backend4HostEEaSERK7Array2D"></span><span id="_CPPv2N4miso7Array2DI1TN7backend4HostEEaSERK7Array2D"></span><span id="miso::Array2D:T.backend::Host:::assign-operator__Array2DCR"></span><span class="target" id="classmiso_1_1Array2D_3_01T_00_01backend_1_1Host_01_4_1a707a15bc7a6b69352b4f18ca4bbe9ac3"></span><a class="reference internal" href="#_CPPv4N4miso7Array2DI1TN7backend4HostEE7Array2DEii" title="miso::Array2D&lt;T, backend::Host&gt;::Array2D"><span class="n"><span class="pre">Array2D</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="o"><span class="pre">=</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N4miso7Array2DI1TN7backend4HostEE7Array2DEii" title="miso::Array2D&lt;T, backend::Host&gt;::Array2D"><span class="n"><span class="pre">Array2D</span></span></a><span class="p"><span class="pre">&amp;</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">delete</span></span><a class="headerlink" href="#_CPPv4N4miso7Array2DI1TN7backend4HostEEaSERK7Array2D" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N4miso7Array2DI1TN7backend4HostEE7Array2DERR7Array2D">
+<span id="_CPPv3N4miso7Array2DI1TN7backend4HostEE7Array2DERR7Array2D"></span><span id="_CPPv2N4miso7Array2DI1TN7backend4HostEE7Array2DERR7Array2D"></span><span id="miso::Array2D:T.backend::Host:::Array2D__Array2DRR"></span><span class="target" id="classmiso_1_1Array2D_3_01T_00_01backend_1_1Host_01_4_1ac74ae9533db0ea94921d6182cf518c2d"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Array2D</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv4N4miso7Array2DI1TN7backend4HostEE7Array2DERR7Array2D" title="miso::Array2D&lt;T, backend::Host&gt;::Array2D"><span class="n"><span class="pre">Array2D</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">other</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">noexcept</span></span><a class="headerlink" href="#_CPPv4N4miso7Array2DI1TN7backend4HostEE7Array2DERR7Array2D" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N4miso7Array2DI1TN7backend4HostEEaSERR7Array2D">
+<span id="_CPPv3N4miso7Array2DI1TN7backend4HostEEaSERR7Array2D"></span><span id="_CPPv2N4miso7Array2DI1TN7backend4HostEEaSERR7Array2D"></span><span id="miso::Array2D:T.backend::Host:::assign-operator__Array2DRR"></span><span class="target" id="classmiso_1_1Array2D_3_01T_00_01backend_1_1Host_01_4_1a002cc716a356c8d539f583ca3de668b5"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N4miso7Array2DI1TN7backend4HostEE7Array2DEii" title="miso::Array2D&lt;T, backend::Host&gt;::Array2D"><span class="n"><span class="pre">Array2D</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="o"><span class="pre">=</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv4N4miso7Array2DI1TN7backend4HostEE7Array2DEii" title="miso::Array2D&lt;T, backend::Host&gt;::Array2D"><span class="n"><span class="pre">Array2D</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">other</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">noexcept</span></span><a class="headerlink" href="#_CPPv4N4miso7Array2DI1TN7backend4HostEEaSERR7Array2D" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+</div>
+</dd></dl>
+
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="classmiso_1_1Array2D_3_01T_00_01backend_1_1CUDA_01_4.html" class="btn btn-neutral float-left" title="Template Class Array2D&lt; T, backend::CUDA &gt;" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="classmiso_1_1Array2DView.html" class="btn btn-neutral float-right" title="Template Class Array2DView" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Integrated Studies, ISEE, Nagoya University.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

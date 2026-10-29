@@ -1,0 +1,14 @@
+.. _exhale_function_rt__host_8hpp_1ab1b08bdae1e49b7855d6e9205700b184:
+
+Template Function miso::rt::is_incoming_ray
+===========================================
+
+- Defined in :ref:`file__home_runner_work_MISO_docs_MISO_docs_MISO_miso_include_miso_rt_host.hpp`
+
+
+Function Documentation
+----------------------
+
+
+.. doxygenfunction:: miso::rt::is_incoming_ray(const AngularQuadrature<Real>&, int, Direction, Side)
+   :project: CPP

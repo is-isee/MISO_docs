@@ -1,0 +1,47 @@
+
+.. _namespace_miso__cuda:
+
+Namespace miso::cuda
+====================
+
+
+Global environment for CUDA. 
+
+
+
+
+.. contents:: Contents
+   :local:
+   :backlinks: none
+
+
+
+
+
+Namespaces
+----------
+
+
+- :ref:`namespace_miso__cuda__internal`
+
+
+Classes
+-------
+
+
+- :ref:`exhale_struct_structmiso_1_1cuda_1_1Env`
+
+- :ref:`exhale_struct_structmiso_1_1cuda_1_1KernelShape3D`
+
+
+Functions
+---------
+
+
+- :ref:`exhale_function_namespacemiso_1_1cuda_1aea084f84f3b6b5c989cb63b2460ea7f2`
+
+- :ref:`exhale_function_namespacemiso_1_1cuda_1a582f9bb45b24da312cb583e06401a8f6`
+
+- :ref:`exhale_function_namespacemiso_1_1cuda_1a79e9522de915f8464e0bae378d36e16a`
+
+- :ref:`exhale_function_namespacemiso_1_1cuda_1a6d7258fde7b82eb916ca7d6d292c2904`

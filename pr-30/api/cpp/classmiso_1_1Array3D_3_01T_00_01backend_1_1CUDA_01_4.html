@@ -1,0 +1,270 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="ja" data-content_root="../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Template Class Array3D&lt; T, backend::CUDA &gt; &mdash; MISO 0.0 ドキュメント</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css?v=4ae1632d" />
+      <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../../_static/collapsible-lists/css/tree_view.css?v=a885cde7" />
+      <link rel="stylesheet" type="text/css" href="../../_static/custom.css" />
+
+  
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options.js?v=1a6bc256"></script>
+      <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../../_static/copybutton.js?v=f281be69"></script>
+      <script src="../../_static/translations.js?v=4755f45a"></script>
+      <script src="../../_static/collapsible-lists/js/CollapsibleLists.compressed.js?v=73120307"></script>
+      <script src="../../_static/collapsible-lists/js/apply-collapsible-lists.js?v=660e4f45"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="../../genindex.html" />
+    <link rel="search" title="検索" href="../../search.html" />
+    <link rel="next" title="Template Class Array3D&lt; T, backend::Host &gt;" href="classmiso_1_1Array3D_3_01T_00_01backend_1_1Host_01_4.html" />
+    <link rel="prev" title="Template Class Array3D" href="classmiso_1_1Array3D.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            MISO
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../quickstart.html">Quick Start</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../demo/index.html">Test Problems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../customization/index.html">Customization</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../miso/index.html">MISO C++ documentation</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="root.html">MISO C++ API Reference</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="root.html#file-hierarchy">File Hierarchy</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="root.html#full-api">Full API</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="root.html#namespaces">Namespaces</a></li>
+<li class="toctree-l4 current"><a class="reference internal" href="root.html#classes-and-structs">Classes and Structs</a></li>
+<li class="toctree-l4"><a class="reference internal" href="root.html#enums">Enums</a></li>
+<li class="toctree-l4"><a class="reference internal" href="root.html#functions">Functions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="root.html#variables">Variables</a></li>
+<li class="toctree-l4"><a class="reference internal" href="root.html#defines">Defines</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../pymiso/index.html">pymiso Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../education/index.html">MISO education</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../references.html">References</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">MISO</a>
+      </nav>
+
+      <div class="wy-nav-content">
+<div id="language-links" style="margin-bottom: 1em; font-size: 100%;">
+    Language:
+    
+    <a href="../../en/api/cpp/classmiso_1_1Array3D_3_01T_00_01backend_1_1CUDA_01_4.html">English</a> |
+    <strong>日本語</strong>
+    
+</div>
+
+
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../miso/index.html">MISO C++ documentation</a></li>
+          <li class="breadcrumb-item"><a href="root.html">MISO C++ API Reference</a></li>
+      <li class="breadcrumb-item active">Template Class Array3D&lt; T, backend::CUDA &gt;</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../_sources/api/cpp/classmiso_1_1Array3D_3_01T_00_01backend_1_1CUDA_01_4.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="template-class-array3d-t-backend-cuda">
+<span id="exhale-class-classmiso-1-1array3d-3-01t-00-01backend-1-1cuda-01-4"></span><h1>Template Class Array3D&lt; T, backend::CUDA &gt;<a class="headerlink" href="#template-class-array3d-t-backend-cuda" title="Link to this heading"></a></h1>
+<ul class="simple">
+<li><p>Defined in <a class="reference internal" href="file__home_runner_work_MISO_docs_MISO_docs_MISO_miso_include_miso_array3d.hpp.html#file-home-runner-work-miso-docs-miso-docs-miso-miso-include-miso-array3d-hpp"><span class="std std-ref">File array3d.hpp</span></a></p></li>
+</ul>
+<section id="class-documentation">
+<h2>Class Documentation<a class="headerlink" href="#class-documentation" title="Link to this heading"></a></h2>
+<dl class="cpp class">
+<dt class="sig sig-object cpp" id="_CPPv4I0EN4miso7Array3DI1TN7backend4CUDAEEE">
+<span id="_CPPv3I0EN4miso7Array3DI1TN7backend4CUDAEEE"></span><span id="_CPPv2I0EN4miso7Array3DI1TN7backend4CUDAEEE"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">T</span></span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="target" id="classmiso_1_1Array3D_3_01T_00_01backend_1_1CUDA_01_4"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Array3D</span></span></span><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4I0EN4miso7Array3DI1TN7backend4CUDAEEE" title="miso::Array3D&lt;T, backend::CUDA&gt;::T"><span class="n"><span class="pre">T</span></span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="n"><span class="pre">backend</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="structmiso_1_1backend_1_1CUDA.html#_CPPv4N4miso7backend4CUDAE" title="miso::backend::CUDA"><span class="n"><span class="pre">CUDA</span></span></a><span class="p"><span class="pre">&gt;</span></span><a class="headerlink" href="#_CPPv4I0EN4miso7Array3DI1TN7backend4CUDAEEE" title="Link to this definition"></a><br /></dt>
+<dd><p>3D Array in CUDA device memory. </p>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-functions">Public Functions</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N4miso7Array3DI1TN7backend4CUDAEE7Array3DEiii">
+<span id="_CPPv3N4miso7Array3DI1TN7backend4CUDAEE7Array3DEiii"></span><span id="_CPPv2N4miso7Array3DI1TN7backend4CUDAEE7Array3DEiii"></span><span id="miso::Array3D:T.backend::CUDA:::Array3D__i.i.i"></span><span class="target" id="classmiso_1_1Array3D_3_01T_00_01backend_1_1CUDA_01_4_1a264cd37f8096b33e45e25ff7a73f5ba0"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Array3D</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">nx0</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">nx1</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">nx2</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4miso7Array3DI1TN7backend4CUDAEE7Array3DEiii" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N4miso7Array3DI1TN7backend4CUDAEED0Ev">
+<span id="_CPPv3N4miso7Array3DI1TN7backend4CUDAEED0Ev"></span><span id="_CPPv2N4miso7Array3DI1TN7backend4CUDAEED0Ev"></span><span id="miso::Array3D:T.backend::CUDA:::~Array3D"></span><span class="target" id="classmiso_1_1Array3D_3_01T_00_01backend_1_1CUDA_01_4_1a41df4e8aa79e819a9dd58ccac8a92811"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">~Array3D</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4miso7Array3DI1TN7backend4CUDAEED0Ev" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N4miso7Array3DI1TN7backend4CUDAEE4viewEv">
+<span id="_CPPv3N4miso7Array3DI1TN7backend4CUDAEE4viewEv"></span><span id="_CPPv2N4miso7Array3DI1TN7backend4CUDAEE4viewEv"></span><span id="miso::Array3D:T.backend::CUDA:::view"></span><span class="target" id="classmiso_1_1Array3D_3_01T_00_01backend_1_1CUDA_01_4_1ad88beb20990cf3e37d482af3836c0df2"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><a class="reference internal" href="classmiso_1_1Array3DView.html#_CPPv4I0EN4miso11Array3DViewE" title="miso::Array3DView"><span class="n"><span class="pre">Array3DView</span></span></a><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4I0EN4miso7Array3DI1TN7backend4CUDAEEE" title="miso::Array3D&lt;T, backend::CUDA&gt;::T"><span class="n"><span class="pre">T</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">view</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">noexcept</span></span><a class="headerlink" href="#_CPPv4N4miso7Array3DI1TN7backend4CUDAEE4viewEv" title="Link to this definition"></a><br /></dt>
+<dd><p>Return a lightweight view of the array. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK4miso7Array3DI1TN7backend4CUDAEE4viewEv">
+<span id="_CPPv3NK4miso7Array3DI1TN7backend4CUDAEE4viewEv"></span><span id="_CPPv2NK4miso7Array3DI1TN7backend4CUDAEE4viewEv"></span><span id="miso::Array3D:T.backend::CUDA:::viewC"></span><span class="target" id="classmiso_1_1Array3D_3_01T_00_01backend_1_1CUDA_01_4_1a45844f15c3530ad8fd6941ca7888bfe8"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><a class="reference internal" href="classmiso_1_1Array3DView.html#_CPPv4I0EN4miso11Array3DViewE" title="miso::Array3DView"><span class="n"><span class="pre">Array3DView</span></span></a><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4I0EN4miso7Array3DI1TN7backend4CUDAEEE" title="miso::Array3D&lt;T, backend::CUDA&gt;::T"><span class="n"><span class="pre">T</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">view</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="k"><span class="pre">noexcept</span></span><a class="headerlink" href="#_CPPv4NK4miso7Array3DI1TN7backend4CUDAEE4viewEv" title="Link to this definition"></a><br /></dt>
+<dd><p>Return a constant lightweight view of the array. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK4miso7Array3DI1TN7backend4CUDAEE10const_viewEv">
+<span id="_CPPv3NK4miso7Array3DI1TN7backend4CUDAEE10const_viewEv"></span><span id="_CPPv2NK4miso7Array3DI1TN7backend4CUDAEE10const_viewEv"></span><span id="miso::Array3D:T.backend::CUDA:::const_viewC"></span><span class="target" id="classmiso_1_1Array3D_3_01T_00_01backend_1_1CUDA_01_4_1afa3bc9f93689eb6653a5b35f4d5b6d26"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><a class="reference internal" href="classmiso_1_1Array3DView.html#_CPPv4I0EN4miso11Array3DViewE" title="miso::Array3DView"><span class="n"><span class="pre">Array3DView</span></span></a><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4I0EN4miso7Array3DI1TN7backend4CUDAEEE" title="miso::Array3D&lt;T, backend::CUDA&gt;::T"><span class="n"><span class="pre">T</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">const_view</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="k"><span class="pre">noexcept</span></span><a class="headerlink" href="#_CPPv4NK4miso7Array3DI1TN7backend4CUDAEE10const_viewEv" title="Link to this definition"></a><br /></dt>
+<dd><p>Return a constant lightweight view of the array. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N4miso7Array3DI1TN7backend4CUDAEE4dataEv">
+<span id="_CPPv3N4miso7Array3DI1TN7backend4CUDAEE4dataEv"></span><span id="_CPPv2N4miso7Array3DI1TN7backend4CUDAEE4dataEv"></span><span id="miso::Array3D:T.backend::CUDA:::data"></span><span class="target" id="classmiso_1_1Array3D_3_01T_00_01backend_1_1CUDA_01_4_1a97892a3dece44422676afe6d53d5a169"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4I0EN4miso7Array3DI1TN7backend4CUDAEEE" title="miso::Array3D&lt;T, backend::CUDA&gt;::T"><span class="n"><span class="pre">T</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">data</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">noexcept</span></span><a class="headerlink" href="#_CPPv4N4miso7Array3DI1TN7backend4CUDAEE4dataEv" title="Link to this definition"></a><br /></dt>
+<dd><p>Return pointer to the data. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK4miso7Array3DI1TN7backend4CUDAEE4dataEv">
+<span id="_CPPv3NK4miso7Array3DI1TN7backend4CUDAEE4dataEv"></span><span id="_CPPv2NK4miso7Array3DI1TN7backend4CUDAEE4dataEv"></span><span id="miso::Array3D:T.backend::CUDA:::dataC"></span><span class="target" id="classmiso_1_1Array3D_3_01T_00_01backend_1_1CUDA_01_4_1a9c52c4848fad3cab0c4f4646ff930a15"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4I0EN4miso7Array3DI1TN7backend4CUDAEEE" title="miso::Array3D&lt;T, backend::CUDA&gt;::T"><span class="n"><span class="pre">T</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">data</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="k"><span class="pre">noexcept</span></span><a class="headerlink" href="#_CPPv4NK4miso7Array3DI1TN7backend4CUDAEE4dataEv" title="Link to this definition"></a><br /></dt>
+<dd><p>Return const pointer to the data. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK4miso7Array3DI1TN7backend4CUDAEE6extentEi">
+<span id="_CPPv3NK4miso7Array3DI1TN7backend4CUDAEE6extentEi"></span><span id="_CPPv2NK4miso7Array3DI1TN7backend4CUDAEE6extentEi"></span><span id="miso::Array3D:T.backend::CUDA:::extent__iC"></span><span class="target" id="classmiso_1_1Array3D_3_01T_00_01backend_1_1CUDA_01_4_1ac6f0f48de63c0da326cb493b6a80038f"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">extent</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">dim</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="k"><span class="pre">noexcept</span></span><a class="headerlink" href="#_CPPv4NK4miso7Array3DI1TN7backend4CUDAEE6extentEi" title="Link to this definition"></a><br /></dt>
+<dd><p>Return the array extent in each dimension. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK4miso7Array3DI1TN7backend4CUDAEE5shapeEv">
+<span id="_CPPv3NK4miso7Array3DI1TN7backend4CUDAEE5shapeEv"></span><span id="_CPPv2NK4miso7Array3DI1TN7backend4CUDAEE5shapeEv"></span><span id="miso::Array3D:T.backend::CUDA:::shapeC"></span><span class="target" id="classmiso_1_1Array3D_3_01T_00_01backend_1_1CUDA_01_4_1a1df84ae6a27566fd7fa8e72756d02f0f"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">array</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">int</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="m"><span class="pre">3</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">shape</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="k"><span class="pre">noexcept</span></span><a class="headerlink" href="#_CPPv4NK4miso7Array3DI1TN7backend4CUDAEE5shapeEv" title="Link to this definition"></a><br /></dt>
+<dd><p>Return the shape of the array in the given axis. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK4miso7Array3DI1TN7backend4CUDAEE4sizeEv">
+<span id="_CPPv3NK4miso7Array3DI1TN7backend4CUDAEE4sizeEv"></span><span id="_CPPv2NK4miso7Array3DI1TN7backend4CUDAEE4sizeEv"></span><span id="miso::Array3D:T.backend::CUDA:::sizeC"></span><span class="target" id="classmiso_1_1Array3D_3_01T_00_01backend_1_1CUDA_01_4_1aee83e4b9fb4aa32100830cba66ece52f"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">size</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="k"><span class="pre">noexcept</span></span><a class="headerlink" href="#_CPPv4NK4miso7Array3DI1TN7backend4CUDAEE4sizeEv" title="Link to this definition"></a><br /></dt>
+<dd><p>Return the total size of the array. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N4miso7Array3DI1TN7backend4CUDAEE9copy_fromERK7Array3DI1TN7backend4HostEE">
+<span id="_CPPv3N4miso7Array3DI1TN7backend4CUDAEE9copy_fromERK7Array3DI1TN7backend4HostEE"></span><span id="_CPPv2N4miso7Array3DI1TN7backend4CUDAEE9copy_fromERK7Array3DI1TN7backend4HostEE"></span><span id="miso::Array3D:T.backend::CUDA:::copy_from__Array3D:T.backend::Host:CR"></span><span class="target" id="classmiso_1_1Array3D_3_01T_00_01backend_1_1CUDA_01_4_1a7344b7215a7864f021cc95ac01fc82e3"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">copy_from</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N4miso7Array3DI1TN7backend4CUDAEE7Array3DEiii" title="miso::Array3D&lt;T, backend::CUDA&gt;::Array3D"><span class="n"><span class="pre">Array3D</span></span></a><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4I0EN4miso7Array3DI1TN7backend4CUDAEEE" title="miso::Array3D&lt;T, backend::CUDA&gt;::T"><span class="n"><span class="pre">T</span></span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="n"><span class="pre">backend</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="structmiso_1_1backend_1_1Host.html#_CPPv4N4miso7backend4HostE" title="miso::backend::Host"><span class="n"><span class="pre">Host</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">other</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4miso7Array3DI1TN7backend4CUDAEE9copy_fromERK7Array3DI1TN7backend4HostEE" title="Link to this definition"></a><br /></dt>
+<dd><p>Copy data from another <a class="reference internal" href="classmiso_1_1Array3D.html#classmiso_1_1Array3D"><span class="std std-ref">Array3D</span></a> in host memory. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N4miso7Array3DI1TN7backend4CUDAEE9copy_fromERK7Array3DI1TN7backend4CUDAEE">
+<span id="_CPPv3N4miso7Array3DI1TN7backend4CUDAEE9copy_fromERK7Array3DI1TN7backend4CUDAEE"></span><span id="_CPPv2N4miso7Array3DI1TN7backend4CUDAEE9copy_fromERK7Array3DI1TN7backend4CUDAEE"></span><span id="miso::Array3D:T.backend::CUDA:::copy_from__Array3D:T.backend::CUDA:CR"></span><span class="target" id="classmiso_1_1Array3D_3_01T_00_01backend_1_1CUDA_01_4_1ab3923f90ddb4f9dfb82967e6619071f4"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">copy_from</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N4miso7Array3DI1TN7backend4CUDAEE7Array3DEiii" title="miso::Array3D&lt;T, backend::CUDA&gt;::Array3D"><span class="n"><span class="pre">Array3D</span></span></a><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4I0EN4miso7Array3DI1TN7backend4CUDAEEE" title="miso::Array3D&lt;T, backend::CUDA&gt;::T"><span class="n"><span class="pre">T</span></span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="n"><span class="pre">backend</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="structmiso_1_1backend_1_1CUDA.html#_CPPv4N4miso7backend4CUDAE" title="miso::backend::CUDA"><span class="n"><span class="pre">CUDA</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">other</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4miso7Array3DI1TN7backend4CUDAEE9copy_fromERK7Array3DI1TN7backend4CUDAEE" title="Link to this definition"></a><br /></dt>
+<dd><p>Copy data from another <a class="reference internal" href="classmiso_1_1Array3D.html#classmiso_1_1Array3D"><span class="std std-ref">Array3D</span></a> in CUDA memory. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N4miso7Array3DI1TN7backend4CUDAEE9copy_fromERK7Array3DI1TN7backend4HostEE12cudaStream_t">
+<span id="_CPPv3N4miso7Array3DI1TN7backend4CUDAEE9copy_fromERK7Array3DI1TN7backend4HostEE12cudaStream_t"></span><span id="_CPPv2N4miso7Array3DI1TN7backend4CUDAEE9copy_fromERK7Array3DI1TN7backend4HostEE12cudaStream_t"></span><span id="miso::Array3D:T.backend::CUDA:::copy_from__Array3D:T.backend::Host:CR.cudaStream_t"></span><span class="target" id="classmiso_1_1Array3D_3_01T_00_01backend_1_1CUDA_01_4_1a24bc4581abb0e6f9de28343b3b850fde"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">copy_from</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N4miso7Array3DI1TN7backend4CUDAEE7Array3DEiii" title="miso::Array3D&lt;T, backend::CUDA&gt;::Array3D"><span class="n"><span class="pre">Array3D</span></span></a><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4I0EN4miso7Array3DI1TN7backend4CUDAEEE" title="miso::Array3D&lt;T, backend::CUDA&gt;::T"><span class="n"><span class="pre">T</span></span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="n"><span class="pre">backend</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="structmiso_1_1backend_1_1Host.html#_CPPv4N4miso7backend4HostE" title="miso::backend::Host"><span class="n"><span class="pre">Host</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">other</span></span>, <span class="n"><span class="pre">cudaStream_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">stream</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4miso7Array3DI1TN7backend4CUDAEE9copy_fromERK7Array3DI1TN7backend4HostEE12cudaStream_t" title="Link to this definition"></a><br /></dt>
+<dd><p>Copy data from another <a class="reference internal" href="classmiso_1_1Array3D.html#classmiso_1_1Array3D"><span class="std std-ref">Array3D</span></a> in host memory (async). </p>
+<p>The caller is responsible for synchronizing the stream. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N4miso7Array3DI1TN7backend4CUDAEE9copy_fromERK7Array3DI1TN7backend4CUDAEE12cudaStream_t">
+<span id="_CPPv3N4miso7Array3DI1TN7backend4CUDAEE9copy_fromERK7Array3DI1TN7backend4CUDAEE12cudaStream_t"></span><span id="_CPPv2N4miso7Array3DI1TN7backend4CUDAEE9copy_fromERK7Array3DI1TN7backend4CUDAEE12cudaStream_t"></span><span id="miso::Array3D:T.backend::CUDA:::copy_from__Array3D:T.backend::CUDA:CR.cudaStream_t"></span><span class="target" id="classmiso_1_1Array3D_3_01T_00_01backend_1_1CUDA_01_4_1a9a9e0916bc352ff9857db5ea9b98a7a7"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">copy_from</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N4miso7Array3DI1TN7backend4CUDAEE7Array3DEiii" title="miso::Array3D&lt;T, backend::CUDA&gt;::Array3D"><span class="n"><span class="pre">Array3D</span></span></a><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4I0EN4miso7Array3DI1TN7backend4CUDAEEE" title="miso::Array3D&lt;T, backend::CUDA&gt;::T"><span class="n"><span class="pre">T</span></span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="n"><span class="pre">backend</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="structmiso_1_1backend_1_1CUDA.html#_CPPv4N4miso7backend4CUDAE" title="miso::backend::CUDA"><span class="n"><span class="pre">CUDA</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">other</span></span>, <span class="n"><span class="pre">cudaStream_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">stream</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4miso7Array3DI1TN7backend4CUDAEE9copy_fromERK7Array3DI1TN7backend4CUDAEE12cudaStream_t" title="Link to this definition"></a><br /></dt>
+<dd><p>Copy data from another <a class="reference internal" href="classmiso_1_1Array3D.html#classmiso_1_1Array3D"><span class="std std-ref">Array3D</span></a> in CUDA memory (async). </p>
+<p>The caller is responsible for synchronizing the stream. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N4miso7Array3DI1TN7backend4CUDAEE7Array3DERK7Array3D">
+<span id="_CPPv3N4miso7Array3DI1TN7backend4CUDAEE7Array3DERK7Array3D"></span><span id="_CPPv2N4miso7Array3DI1TN7backend4CUDAEE7Array3DERK7Array3D"></span><span id="miso::Array3D:T.backend::CUDA:::Array3D__Array3DCR"></span><span class="target" id="classmiso_1_1Array3D_3_01T_00_01backend_1_1CUDA_01_4_1a41d1a1dc4e6301255f48a71ccf13159e"></span><span class="sig-name descname"><span class="n"><span class="pre">Array3D</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N4miso7Array3DI1TN7backend4CUDAEE7Array3DERK7Array3D" title="miso::Array3D&lt;T, backend::CUDA&gt;::Array3D"><span class="n"><span class="pre">Array3D</span></span></a><span class="p"><span class="pre">&amp;</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">delete</span></span><a class="headerlink" href="#_CPPv4N4miso7Array3DI1TN7backend4CUDAEE7Array3DERK7Array3D" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N4miso7Array3DI1TN7backend4CUDAEEaSERK7Array3D">
+<span id="_CPPv3N4miso7Array3DI1TN7backend4CUDAEEaSERK7Array3D"></span><span id="_CPPv2N4miso7Array3DI1TN7backend4CUDAEEaSERK7Array3D"></span><span id="miso::Array3D:T.backend::CUDA:::assign-operator__Array3DCR"></span><span class="target" id="classmiso_1_1Array3D_3_01T_00_01backend_1_1CUDA_01_4_1a61aeb675e73e967a4acf2aa54ffccc69"></span><a class="reference internal" href="#_CPPv4N4miso7Array3DI1TN7backend4CUDAEE7Array3DEiii" title="miso::Array3D&lt;T, backend::CUDA&gt;::Array3D"><span class="n"><span class="pre">Array3D</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="o"><span class="pre">=</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N4miso7Array3DI1TN7backend4CUDAEE7Array3DEiii" title="miso::Array3D&lt;T, backend::CUDA&gt;::Array3D"><span class="n"><span class="pre">Array3D</span></span></a><span class="p"><span class="pre">&amp;</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">delete</span></span><a class="headerlink" href="#_CPPv4N4miso7Array3DI1TN7backend4CUDAEEaSERK7Array3D" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N4miso7Array3DI1TN7backend4CUDAEE7Array3DERR7Array3D">
+<span id="_CPPv3N4miso7Array3DI1TN7backend4CUDAEE7Array3DERR7Array3D"></span><span id="_CPPv2N4miso7Array3DI1TN7backend4CUDAEE7Array3DERR7Array3D"></span><span id="miso::Array3D:T.backend::CUDA:::Array3D__Array3DRR"></span><span class="target" id="classmiso_1_1Array3D_3_01T_00_01backend_1_1CUDA_01_4_1ac67006d189787b070b2db4aedeaaa417"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Array3D</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv4N4miso7Array3DI1TN7backend4CUDAEE7Array3DERR7Array3D" title="miso::Array3D&lt;T, backend::CUDA&gt;::Array3D"><span class="n"><span class="pre">Array3D</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">other</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">noexcept</span></span><a class="headerlink" href="#_CPPv4N4miso7Array3DI1TN7backend4CUDAEE7Array3DERR7Array3D" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N4miso7Array3DI1TN7backend4CUDAEEaSERR7Array3D">
+<span id="_CPPv3N4miso7Array3DI1TN7backend4CUDAEEaSERR7Array3D"></span><span id="_CPPv2N4miso7Array3DI1TN7backend4CUDAEEaSERR7Array3D"></span><span id="miso::Array3D:T.backend::CUDA:::assign-operator__Array3DRR"></span><span class="target" id="classmiso_1_1Array3D_3_01T_00_01backend_1_1CUDA_01_4_1a1cb033584c5ac2f2c9b84a7350f9d8a0"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N4miso7Array3DI1TN7backend4CUDAEE7Array3DEiii" title="miso::Array3D&lt;T, backend::CUDA&gt;::Array3D"><span class="n"><span class="pre">Array3D</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="o"><span class="pre">=</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv4N4miso7Array3DI1TN7backend4CUDAEE7Array3DEiii" title="miso::Array3D&lt;T, backend::CUDA&gt;::Array3D"><span class="n"><span class="pre">Array3D</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">other</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">noexcept</span></span><a class="headerlink" href="#_CPPv4N4miso7Array3DI1TN7backend4CUDAEEaSERR7Array3D" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+</div>
+</dd></dl>
+
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="classmiso_1_1Array3D.html" class="btn btn-neutral float-left" title="Template Class Array3D" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="classmiso_1_1Array3D_3_01T_00_01backend_1_1Host_01_4.html" class="btn btn-neutral float-right" title="Template Class Array3D&lt; T, backend::Host &gt;" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Integrated Studies, ISEE, Nagoya University.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

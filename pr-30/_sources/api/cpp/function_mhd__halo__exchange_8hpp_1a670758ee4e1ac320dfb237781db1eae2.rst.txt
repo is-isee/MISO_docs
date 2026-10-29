@@ -1,0 +1,14 @@
+.. _exhale_function_mhd__halo__exchange_8hpp_1a670758ee4e1ac320dfb237781db1eae2:
+
+Template Function miso::mhd::pack_z_send
+========================================
+
+- Defined in :ref:`file__home_runner_work_MISO_docs_MISO_docs_MISO_miso_include_miso_mhd_halo_exchange.hpp`
+
+
+Function Documentation
+----------------------
+
+
+.. doxygenfunction:: miso::mhd::pack_z_send(BuffersView<Real>, const FieldsView<Real>, const GridView<Real>, Face)
+   :project: CPP

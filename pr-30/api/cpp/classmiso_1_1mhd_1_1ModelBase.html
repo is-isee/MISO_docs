@@ -1,0 +1,251 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="ja" data-content_root="../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Template Class ModelBase &mdash; MISO 0.0 ドキュメント</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css?v=4ae1632d" />
+      <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../../_static/collapsible-lists/css/tree_view.css?v=a885cde7" />
+      <link rel="stylesheet" type="text/css" href="../../_static/custom.css" />
+
+  
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options.js?v=1a6bc256"></script>
+      <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../../_static/copybutton.js?v=f281be69"></script>
+      <script src="../../_static/translations.js?v=4755f45a"></script>
+      <script src="../../_static/collapsible-lists/js/CollapsibleLists.compressed.js?v=73120307"></script>
+      <script src="../../_static/collapsible-lists/js/apply-collapsible-lists.js?v=660e4f45"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="../../genindex.html" />
+    <link rel="search" title="検索" href="../../search.html" />
+    <link rel="next" title="Template Class UniformTableInterpolator1D" href="classmiso_1_1UniformTableInterpolator1D.html" />
+    <link rel="prev" title="Template Class Array4DView" href="classmiso_1_1Array4DView.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            MISO
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../quickstart.html">Quick Start</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../demo/index.html">Test Problems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../customization/index.html">Customization</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../miso/index.html">MISO C++ documentation</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="root.html">MISO C++ API Reference</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="root.html#file-hierarchy">File Hierarchy</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="root.html#full-api">Full API</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="root.html#namespaces">Namespaces</a></li>
+<li class="toctree-l4 current"><a class="reference internal" href="root.html#classes-and-structs">Classes and Structs</a></li>
+<li class="toctree-l4"><a class="reference internal" href="root.html#enums">Enums</a></li>
+<li class="toctree-l4"><a class="reference internal" href="root.html#functions">Functions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="root.html#variables">Variables</a></li>
+<li class="toctree-l4"><a class="reference internal" href="root.html#defines">Defines</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../pymiso/index.html">pymiso Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../education/index.html">MISO education</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../references.html">References</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">MISO</a>
+      </nav>
+
+      <div class="wy-nav-content">
+<div id="language-links" style="margin-bottom: 1em; font-size: 100%;">
+    Language:
+    
+    <a href="../../en/api/cpp/classmiso_1_1mhd_1_1ModelBase.html">English</a> |
+    <strong>日本語</strong>
+    
+</div>
+
+
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../miso/index.html">MISO C++ documentation</a></li>
+          <li class="breadcrumb-item"><a href="root.html">MISO C++ API Reference</a></li>
+      <li class="breadcrumb-item active">Template Class ModelBase</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../_sources/api/cpp/classmiso_1_1mhd_1_1ModelBase.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="template-class-modelbase">
+<span id="exhale-class-classmiso-1-1mhd-1-1modelbase"></span><h1>Template Class ModelBase<a class="headerlink" href="#template-class-modelbase" title="Link to this heading"></a></h1>
+<ul class="simple">
+<li><p>Defined in <a class="reference internal" href="file__home_runner_work_MISO_docs_MISO_docs_MISO_miso_include_miso_mhd_model_base.hpp.html#file-home-runner-work-miso-docs-miso-docs-miso-miso-include-miso-mhd-model-base-hpp"><span class="std std-ref">File mhd_model_base.hpp</span></a></p></li>
+</ul>
+<section id="class-documentation">
+<h2>Class Documentation<a class="headerlink" href="#class-documentation" title="Link to this heading"></a></h2>
+<dl class="cpp class">
+<dt class="sig sig-object cpp" id="_CPPv4I000EN4miso3mhd9ModelBaseE">
+<span id="_CPPv3I000EN4miso3mhd9ModelBaseE"></span><span id="_CPPv2I000EN4miso3mhd9ModelBaseE"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Derived</span></span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Real</span></span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Backend</span></span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="target" id="classmiso_1_1mhd_1_1ModelBase"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">ModelBase</span></span></span><a class="headerlink" href="#_CPPv4I000EN4miso3mhd9ModelBaseE" title="Link to this definition"></a><br /></dt>
+<dd><p>Base class of <a class="reference internal" href="structmiso_1_1mhd_1_1MHD.html#structmiso_1_1mhd_1_1MHD"><span class="std std-ref">MHD</span></a> models using CRTP. </p>
+<p>The derived class must implement the following members:<ul class="simple">
+<li><p>eos: equation of state</p></li>
+<li><p>ic: initial condition</p></li>
+<li><p>bc: boundary condition</p></li>
+<li><p>src: source term. Every term (ro, vx, vy, vz, bx, by, bz, ei) and dt_limit(), the upper limit of the time step, are optional (<a class="reference internal" href="structmiso_1_1mhd_1_1EmptySourceTerm.html#structmiso_1_1mhd_1_1EmptySourceTerm"><span class="std std-ref">EmptySourceTerm</span></a> defines none of them). </p></li>
+</ul>
+</p>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-functions">Public Functions</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N4miso3mhd9ModelBase9ModelBaseER6Config">
+<span id="_CPPv3N4miso3mhd9ModelBase9ModelBaseER6Config"></span><span id="_CPPv2N4miso3mhd9ModelBase9ModelBaseER6Config"></span><span id="miso::mhd::ModelBase::ModelBase__ConfigR"></span><span class="target" id="classmiso_1_1mhd_1_1ModelBase_1a10c855958a53e2d4f0d76ca1b9b598f2"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">explicit</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">ModelBase</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="structmiso_1_1Config.html#_CPPv4N4miso6ConfigE" title="miso::Config"><span class="n"><span class="pre">Config</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">cfg</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4miso3mhd9ModelBase9ModelBaseER6Config" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N4miso3mhd9ModelBase6updateEv">
+<span id="_CPPv3N4miso3mhd9ModelBase6updateEv"></span><span id="_CPPv2N4miso3mhd9ModelBase6updateEv"></span><span id="miso::mhd::ModelBase::update"></span><span class="target" id="classmiso_1_1mhd_1_1ModelBase_1ab506a84c00c045bc3d382c2c015ce46b"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">update</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4miso3mhd9ModelBase6updateEv" title="Link to this definition"></a><br /></dt>
+<dd><p>Default implementation of one timestep update. </p>
+<p>The derived class may provide its own <code class="docutils literal notranslate"><a class="reference internal" href="#classmiso_1_1mhd_1_1ModelBase_1ab506a84c00c045bc3d382c2c015ce46b"><span class="std std-ref"><span class="pre">update()</span></span></a></code> method. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N4miso3mhd9ModelBase13save_metadataEv">
+<span id="_CPPv3N4miso3mhd9ModelBase13save_metadataEv"></span><span id="_CPPv2N4miso3mhd9ModelBase13save_metadataEv"></span><span id="miso::mhd::ModelBase::save_metadata"></span><span class="target" id="classmiso_1_1mhd_1_1ModelBase_1a96c805049c7343262a542bd42a6114f8"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">save_metadata</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4miso3mhd9ModelBase13save_metadataEv" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N4miso3mhd9ModelBase10save_stateEv">
+<span id="_CPPv3N4miso3mhd9ModelBase10save_stateEv"></span><span id="_CPPv2N4miso3mhd9ModelBase10save_stateEv"></span><span id="miso::mhd::ModelBase::save_state"></span><span class="target" id="classmiso_1_1mhd_1_1ModelBase_1a406674b9a96d9ad4e135ac6d8ce554a0"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">save_state</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4miso3mhd9ModelBase10save_stateEv" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N4miso3mhd9ModelBase10load_stateEv">
+<span id="_CPPv3N4miso3mhd9ModelBase10load_stateEv"></span><span id="_CPPv2N4miso3mhd9ModelBase10load_stateEv"></span><span id="miso::mhd::ModelBase::load_state"></span><span class="target" id="classmiso_1_1mhd_1_1ModelBase_1ada4499bb49545e0b5f401425dbf131a8"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">load_state</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4miso3mhd9ModelBase10load_stateEv" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N4miso3mhd9ModelBase14save_if_neededEv">
+<span id="_CPPv3N4miso3mhd9ModelBase14save_if_neededEv"></span><span id="_CPPv2N4miso3mhd9ModelBase14save_if_neededEv"></span><span id="miso::mhd::ModelBase::save_if_needed"></span><span class="target" id="classmiso_1_1mhd_1_1ModelBase_1af4540f85ac3212f263da9c16f9f4c3c8"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">save_if_needed</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4miso3mhd9ModelBase14save_if_neededEv" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N4miso3mhd9ModelBase3runEv">
+<span id="_CPPv3N4miso3mhd9ModelBase3runEv"></span><span id="_CPPv2N4miso3mhd9ModelBase3runEv"></span><span id="miso::mhd::ModelBase::run"></span><span class="target" id="classmiso_1_1mhd_1_1ModelBase_1ab27ab95f8cc09907bbda685c1883fb1c"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">run</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4miso3mhd9ModelBase3runEv" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-members">Public Members</p>
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N4miso3mhd9ModelBase6configE">
+<span id="_CPPv3N4miso3mhd9ModelBase6configE"></span><span id="_CPPv2N4miso3mhd9ModelBase6configE"></span><span id="miso::mhd::ModelBase::config__ConfigR"></span><span class="target" id="classmiso_1_1mhd_1_1ModelBase_1a549c9f299ca3e886015e6c2ec1a9868a"></span><a class="reference internal" href="structmiso_1_1Config.html#_CPPv4N4miso6ConfigE" title="miso::Config"><span class="n"><span class="pre">Config</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-name descname"><span class="n"><span class="pre">config</span></span></span><a class="headerlink" href="#_CPPv4N4miso3mhd9ModelBase6configE" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N4miso3mhd9ModelBase9mpi_shapeE">
+<span id="_CPPv3N4miso3mhd9ModelBase9mpi_shapeE"></span><span id="_CPPv2N4miso3mhd9ModelBase9mpi_shapeE"></span><span id="miso::mhd::ModelBase::mpi_shape__mpi::Shape"></span><span class="target" id="classmiso_1_1mhd_1_1ModelBase_1a7377824f2b475f0169f9634e9ff7c060"></span><span class="n"><span class="pre">mpi</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="structmiso_1_1mpi_1_1Shape.html#_CPPv4N4miso3mpi5ShapeE" title="miso::mpi::Shape"><span class="n"><span class="pre">Shape</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">mpi_shape</span></span></span><a class="headerlink" href="#_CPPv4N4miso3mhd9ModelBase9mpi_shapeE" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N4miso3mhd9ModelBase4timeE">
+<span id="_CPPv3N4miso3mhd9ModelBase4timeE"></span><span id="_CPPv2N4miso3mhd9ModelBase4timeE"></span><span id="miso::mhd::ModelBase::time__Time:Real:"></span><span class="target" id="classmiso_1_1mhd_1_1ModelBase_1aadb48bf83966543353365587142557f6"></span><a class="reference internal" href="structmiso_1_1Time.html#_CPPv4I0EN4miso4TimeE" title="miso::Time"><span class="n"><span class="pre">Time</span></span></a><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4I000EN4miso3mhd9ModelBaseE" title="miso::mhd::ModelBase::Real"><span class="n"><span class="pre">Real</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">time</span></span></span><a class="headerlink" href="#_CPPv4N4miso3mhd9ModelBase4timeE" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N4miso3mhd9ModelBase4gridE">
+<span id="_CPPv3N4miso3mhd9ModelBase4gridE"></span><span id="_CPPv2N4miso3mhd9ModelBase4gridE"></span><span id="miso::mhd::ModelBase::grid__Grid:Real.backend::Host:"></span><span class="target" id="classmiso_1_1mhd_1_1ModelBase_1a4aa14bdc22b6b6fb19f7c4be9451d76d"></span><a class="reference internal" href="structmiso_1_1Grid.html#_CPPv4I00EN4miso4GridE" title="miso::Grid"><span class="n"><span class="pre">Grid</span></span></a><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4I000EN4miso3mhd9ModelBaseE" title="miso::mhd::ModelBase::Real"><span class="n"><span class="pre">Real</span></span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="n"><span class="pre">backend</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="structmiso_1_1backend_1_1Host.html#_CPPv4N4miso7backend4HostE" title="miso::backend::Host"><span class="n"><span class="pre">Host</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">grid</span></span></span><a class="headerlink" href="#_CPPv4N4miso3mhd9ModelBase4gridE" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N4miso3mhd9ModelBase8exec_ctxE">
+<span id="_CPPv3N4miso3mhd9ModelBase8exec_ctxE"></span><span id="_CPPv2N4miso3mhd9ModelBase8exec_ctxE"></span><span id="miso::mhd::ModelBase::exec_ctx__ExecContext:Real.Backend:"></span><span class="target" id="classmiso_1_1mhd_1_1ModelBase_1a81e14c7bbfeb305994a8e3ff9140e692"></span><a class="reference internal" href="structmiso_1_1mhd_1_1ExecContext.html#_CPPv4I00EN4miso3mhd11ExecContextE" title="miso::mhd::ExecContext"><span class="n"><span class="pre">ExecContext</span></span></a><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4I000EN4miso3mhd9ModelBaseE" title="miso::mhd::ModelBase::Real"><span class="n"><span class="pre">Real</span></span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4I000EN4miso3mhd9ModelBaseE" title="miso::mhd::ModelBase::Backend"><span class="n"><span class="pre">Backend</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">exec_ctx</span></span></span><a class="headerlink" href="#_CPPv4N4miso3mhd9ModelBase8exec_ctxE" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N4miso3mhd9ModelBase3mhdE">
+<span id="_CPPv3N4miso3mhd9ModelBase3mhdE"></span><span id="_CPPv2N4miso3mhd9ModelBase3mhdE"></span><span id="miso::mhd::ModelBase::mhd__MHD:Real.Backend:"></span><span class="target" id="classmiso_1_1mhd_1_1ModelBase_1ad04aac60848d2527df9ffc4f2f8f6f15"></span><a class="reference internal" href="structmiso_1_1mhd_1_1MHD.html#_CPPv4I00EN4miso3mhd3MHDE" title="miso::mhd::MHD"><span class="n"><span class="pre">MHD</span></span></a><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4I000EN4miso3mhd9ModelBaseE" title="miso::mhd::ModelBase::Real"><span class="n"><span class="pre">Real</span></span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4I000EN4miso3mhd9ModelBaseE" title="miso::mhd::ModelBase::Backend"><span class="n"><span class="pre">Backend</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">mhd</span></span></span><a class="headerlink" href="#_CPPv4N4miso3mhd9ModelBase3mhdE" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-protected-functions">Protected Functions</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N4miso3mhd9ModelBase7derivedEv">
+<span id="_CPPv3N4miso3mhd9ModelBase7derivedEv"></span><span id="_CPPv2N4miso3mhd9ModelBase7derivedEv"></span><span id="miso::mhd::ModelBase::derived"></span><span class="target" id="classmiso_1_1mhd_1_1ModelBase_1a466e76978c4bc56672f5d8757db82744"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4I000EN4miso3mhd9ModelBaseE" title="miso::mhd::ModelBase::Derived"><span class="n"><span class="pre">Derived</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-name descname"><span class="n"><span class="pre">derived</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4miso3mhd9ModelBase7derivedEv" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+</div>
+</dd></dl>
+
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="classmiso_1_1Array4DView.html" class="btn btn-neutral float-left" title="Template Class Array4DView" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="classmiso_1_1UniformTableInterpolator1D.html" class="btn btn-neutral float-right" title="Template Class UniformTableInterpolator1D" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Integrated Studies, ISEE, Nagoya University.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

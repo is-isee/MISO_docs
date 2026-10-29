@@ -1,0 +1,1157 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="ja" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>4. クラス・構造体 &mdash; MISO 0.0 ドキュメント</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=4ae1632d" />
+      <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../_static/collapsible-lists/css/tree_view.css?v=a885cde7" />
+      <link rel="stylesheet" type="text/css" href="../_static/custom.css" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=1a6bc256"></script>
+      <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../_static/copybutton.js?v=f281be69"></script>
+      <script src="../_static/translations.js?v=4755f45a"></script>
+      <script src="../_static/collapsible-lists/js/CollapsibleLists.compressed.js?v=73120307"></script>
+      <script src="../_static/collapsible-lists/js/apply-collapsible-lists.js?v=660e4f45"></script>
+      <script>window.MathJax = {"tex": {"macros": {"bm": ["{\\boldsymbol{#1}}", 1]}}, "options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+      <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="../genindex.html" />
+    <link rel="search" title="検索" href="../search.html" />
+    <link rel="next" title="5. 継承と CRTP" href="05_inheritance.html" />
+    <link rel="prev" title="3. 参照・ポインタと寿命" href="03_references_and_pointers.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            MISO
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../quickstart.html">Quick Start</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../demo/index.html">Test Problems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../customization/index.html">Customization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../miso/index.html">MISO C++ documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../pymiso/index.html">pymiso Documentation</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">MISO education</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="index.html#id1">本文</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html#id2">必要なときに参照する資料</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="01_environment_setup.html">1. 開発環境と CMake</a></li>
+<li class="toctree-l3"><a class="reference internal" href="02_cpp_basics.html">2. 変数・関数・制御文</a></li>
+<li class="toctree-l3"><a class="reference internal" href="03_references_and_pointers.html">3. 参照・ポインタと寿命</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">4. クラス・構造体</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#edu-ch04-struct">4.1 型の定義とオブジェクト</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#public-private">4.2 公開範囲：public と private</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#edu-ch04-constructor">4.3 コンストラクタと初期化子リスト</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#const-this">4.4 const メンバ関数と this</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#raii">4.5 デストラクタと後片付け（RAII）</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#edu-ch04-copy-move">4.6 コピーの禁止とムーブ</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#operator">4.7 演算子のオーバーロードと operator()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#view">4.8 所有する配列と所有しない View</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#demo-initialcondition">4.9 demo の InitialCondition を読む</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#edu-ch04-exercises">練習</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="05_inheritance.html">5. 継承と CRTP</a></li>
+<li class="toctree-l3"><a class="reference internal" href="06_templates.html">6. テンプレート</a></li>
+<li class="toctree-l3"><a class="reference internal" href="07_arrays_and_parallel.html">7. 配列・ラムダと CPU での並列ループ</a></li>
+<li class="toctree-l3"><a class="reference internal" href="08_mpi.html">8. MPI による領域分割</a></li>
+<li class="toctree-l3"><a class="reference internal" href="09_gpu.html">9. GPU（CUDA）での計算とデータ転送</a></li>
+<li class="toctree-l3"><a class="reference internal" href="10_heat1d.html">10. 熱伝導の計算</a></li>
+<li class="toctree-l3"><a class="reference internal" href="11_reading_miso.html">11. MISO の時間発展を読む</a></li>
+<li class="toctree-l3"><a class="reference internal" href="practice/index.html">実習一覧</a></li>
+<li class="toctree-l3"><a class="reference internal" href="reference/index.html">参考資料</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../references.html">References</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">MISO</a>
+      </nav>
+
+      <div class="wy-nav-content">
+<div id="language-links" style="margin-bottom: 1em; font-size: 100%;">
+    Language:
+    
+    <a href="../en/education/04_classes_and_structs.html">English</a> |
+    <strong>日本語</strong>
+    
+</div>
+
+
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">MISO education</a></li>
+      <li class="breadcrumb-item active">4. クラス・構造体</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/education/04_classes_and_structs.md.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section class="tex2jax_ignore mathjax_ignore" id="edu-ch04">
+<span id="id1"></span><h1>4. クラス・構造体<a class="headerlink" href="#edu-ch04" title="Link to this heading"></a></h1>
+<p>第 3 章までに学んだ変数、関数、参照、ポインタを組み合わせて、データとそれを扱う関数をまとめた型を自分で定義します。
+この章を読み終えると、MISO の配列 <code class="docutils literal notranslate"><span class="pre">Array3D</span></code>、MHD の変数をまとめた <code class="docutils literal notranslate"><span class="pre">Fields</span></code>、時刻を管理する <code class="docutils literal notranslate"><span class="pre">Time</span></code>、設定ファイルを読む <code class="docutils literal notranslate"><span class="pre">Config</span></code>、demo の <code class="docutils literal notranslate"><span class="pre">InitialCondition</span></code> が、どのようなデータを持ち、どう作られ、どう後片付けされるかを読めるようになります。</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#edu-ch04-struct"><span class="std std-ref">4.1 型の定義とオブジェクト</span></a></p></li>
+<li><p><a class="reference internal" href="#edu-ch04-access"><span class="std std-ref">4.2 公開範囲：public と private</span></a></p></li>
+<li><p><a class="reference internal" href="#edu-ch04-constructor"><span class="std std-ref">4.3 コンストラクタと初期化子リスト</span></a></p></li>
+<li><p><a class="reference internal" href="#edu-ch04-explicit"><span class="std std-ref">explicit と暗黙の型変換</span></a></p></li>
+<li><p><a class="reference internal" href="#edu-ch04-const-member"><span class="std std-ref">4.4 const メンバ関数と this</span></a></p></li>
+<li><p><a class="reference internal" href="#edu-ch04-destructor"><span class="std std-ref">4.5 デストラクタと後片付け（RAII）</span></a></p></li>
+<li><p><a class="reference internal" href="#edu-ch04-copy-move"><span class="std std-ref">4.6 コピーの禁止とムーブ</span></a></p></li>
+<li><p><a class="reference internal" href="#edu-ch04-operator"><span class="std std-ref">4.7 演算子のオーバーロードと operator()</span></a></p></li>
+<li><p><a class="reference internal" href="#edu-ch04-view"><span class="std std-ref">4.8 所有する配列と所有しない View</span></a></p></li>
+<li><p><a class="reference internal" href="#edu-ch04-initial-condition"><span class="std std-ref">4.9 demo の InitialCondition を読む</span></a></p></li>
+<li><p><a class="reference internal" href="#edu-ch04-exercises"><span class="std std-ref">練習</span></a></p></li>
+</ul>
+<p>この章の MISO の抜粋には、<code class="docutils literal notranslate"><span class="pre">template</span> <span class="pre">&lt;typename</span> <span class="pre">T&gt;</span></code> や <code class="docutils literal notranslate"><span class="pre">Array3D&lt;Real,</span> <span class="pre">Backend&gt;</span></code> のように、山括弧 <code class="docutils literal notranslate"><span class="pre">&lt;&gt;</span></code> の付いた名前が出てきます。
+これは「型を後から指定する印」です。たとえば <code class="docutils literal notranslate"><span class="pre">Array3D&lt;float&gt;</span></code> は「要素が <code class="docutils literal notranslate"><span class="pre">float</span></code> の <code class="docutils literal notranslate"><span class="pre">Array3D</span></code>」、<code class="docutils literal notranslate"><span class="pre">Time&lt;Real&gt;</span></code> は「時刻を <code class="docutils literal notranslate"><span class="pre">Real</span></code> 型で持つ <code class="docutils literal notranslate"><span class="pre">Time</span></code>」と読みます。
+仕組みは <a class="reference internal" href="06_templates.html#edu-ch06"><span class="std std-ref">第 6 章</span></a> で説明します。この章では、山括弧の中を「そのクラスで使う型の指定」と読んで先へ進みます。</p>
+<section id="edu-ch04-struct">
+<span id="id2"></span><h2>4.1 型の定義とオブジェクト<a class="headerlink" href="#edu-ch04-struct" title="Link to this heading"></a></h2>
+<p>格子数 <code class="docutils literal notranslate"><span class="pre">nx</span></code>, <code class="docutils literal notranslate"><span class="pre">ny</span></code>, <code class="docutils literal notranslate"><span class="pre">nz</span></code> を 1 つにまとめる例から始めます。
+次の <code class="docutils literal notranslate"><span class="pre">GridSize</span></code> は説明用の型です。</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">struct</span><span class="w"> </span><span class="nc">GridSize</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="kt">int</span><span class="w"> </span><span class="n">nx</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<span class="w">  </span><span class="kt">int</span><span class="w"> </span><span class="n">ny</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<span class="w">  </span><span class="kt">int</span><span class="w"> </span><span class="n">nz</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+
+<span class="w">  </span><span class="kt">int</span><span class="w"> </span><span class="nf">cell_count</span><span class="p">()</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">nx</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">ny</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">nz</span><span class="p">;</span><span class="w">  </span><span class="c1">// 3 方向の格子数を掛けて、セルの総数を返します</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">struct</span> <span class="pre">GridSize</span> <span class="pre">{</span> <span class="pre">...</span> <span class="pre">};</span></code> は、<code class="docutils literal notranslate"><span class="pre">GridSize</span></code> という名前の<strong>型</strong>を定義します。
+この定義だけでは、まだ特定の格子の変数はできていません。<code class="docutils literal notranslate"><span class="pre">int</span></code> という型の名前を書いただけでは整数の変数ができないのと同じです。
+型の中に書いた変数を<strong>メンバ変数</strong>、関数を<strong>メンバ関数</strong>と呼びます。
+<code class="docutils literal notranslate"><span class="pre">int</span> <span class="pre">nx</span> <span class="pre">=</span> <span class="pre">1;</span></code> の <code class="docutils literal notranslate"><span class="pre">=</span> <span class="pre">1</span></code> は、そのメンバの初期値です。
+閉じ波括弧の後の <code class="docutils literal notranslate"><span class="pre">;</span></code> は省略できません。</p>
+<p>Fortran の派生型で書くと、データの部分は次に当たります。</p>
+<div class="highlight-fortran notranslate"><div class="highlight"><pre><span></span><span class="k">type</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">grid_size</span>
+<span class="w">  </span><span class="kt">integer</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">nx</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">ny</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">nz</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span>
+<span class="k">end type </span><span class="n">grid_size</span>
+</pre></div>
+</div>
+<p>C++ では、データに加えて、そのデータを使う関数（ここでは <code class="docutils literal notranslate"><span class="pre">cell_count</span></code>）も同じ型の中に書けます。</p>
+<p>型を使って変数を作り、メンバを使う例です。</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">GridSize</span><span class="w"> </span><span class="n">a</span><span class="p">{</span><span class="mi">4</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">};</span><span class="w">  </span><span class="c1">// a の nx, ny, nz を 4, 3, 2 で初期化します</span>
+<span class="n">GridSize</span><span class="w"> </span><span class="n">b</span><span class="p">{</span><span class="mi">8</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">};</span><span class="w">  </span><span class="c1">// b は a とは別に、自分の nx, ny, nz を持ちます</span>
+<span class="n">a</span><span class="p">.</span><span class="n">nx</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">5</span><span class="p">;</span><span class="w">             </span><span class="c1">// a.nx だけが 5 になります。b.nx は 8 のままです</span>
+<span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="n">cell_count</span><span class="p">()</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">" "</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">b</span><span class="p">.</span><span class="n">cell_count</span><span class="p">()</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">"</span><span class="se">\n</span><span class="s">"</span><span class="p">;</span><span class="w">  </span><span class="c1">// 30 48</span>
+
+<span class="n">GridSize</span><span class="w"> </span><span class="n">c</span><span class="p">;</span><span class="w">           </span><span class="c1">// 宣言に書いた初期値 1 を使います。c.cell_count() は 1 です</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">a</span></code> と <code class="docutils literal notranslate"><span class="pre">b</span></code> は、それぞれが自分の <code class="docutils literal notranslate"><span class="pre">nx</span></code>, <code class="docutils literal notranslate"><span class="pre">ny</span></code>, <code class="docutils literal notranslate"><span class="pre">nz</span></code> を保存する場所を持っています。
+このように、型に応じた値を保存する領域を持つものを<strong>オブジェクト</strong>と呼び、クラスの型で作ったオブジェクトを<strong>インスタンス</strong>とも呼びます。</p>
+<p><code class="docutils literal notranslate"><span class="pre">.</span></code> は、オブジェクトのメンバを指定する記号で、Fortran の <code class="docutils literal notranslate"><span class="pre">a%nx</span></code> の <code class="docutils literal notranslate"><span class="pre">%</span></code> に当たります。
+<code class="docutils literal notranslate"><span class="pre">a.cell_count()</span></code> を呼んでいる間、関数の中の <code class="docutils literal notranslate"><span class="pre">nx</span></code> は <code class="docutils literal notranslate"><span class="pre">a.nx</span></code> を表します。
+<code class="docutils literal notranslate"><span class="pre">b.cell_count()</span></code> なら <code class="docutils literal notranslate"><span class="pre">b.nx</span></code> です。メンバ関数は、どのオブジェクトから呼んだかによって、使うメンバ変数が決まります。
+<code class="docutils literal notranslate"><span class="pre">cell_count()</span></code> の末尾の <code class="docutils literal notranslate"><span class="pre">const</span></code> は「この関数ではメンバ変数を書き換えない」という指定です。<a class="reference internal" href="#edu-ch04-const-member"><span class="std std-ref">4.4 節</span></a> で説明します。</p>
+<p>ポインタからメンバを使うときは、<code class="docutils literal notranslate"><span class="pre">.</span></code> の代わりに <code class="docutils literal notranslate"><span class="pre">-&gt;</span></code> を書きます。</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">GridSize</span><span class="w"> </span><span class="o">*</span><span class="n">p</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&amp;</span><span class="n">a</span><span class="p">;</span><span class="w">  </span><span class="c1">// p は a を指します</span>
+<span class="n">p</span><span class="o">-&gt;</span><span class="n">ny</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">6</span><span class="p">;</span><span class="w">         </span><span class="c1">// (*p).ny = 6 と同じです。a.ny が 6 になります</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">p-&gt;ny</span></code> は「<code class="docutils literal notranslate"><span class="pre">p</span></code> の指す先のオブジェクトの <code class="docutils literal notranslate"><span class="pre">ny</span></code>」です。
+オブジェクトやその参照からは <code class="docutils literal notranslate"><span class="pre">.</span></code>、ポインタからは <code class="docutils literal notranslate"><span class="pre">-&gt;</span></code> を使います。</p>
+<p>C++ でデータと関数をまとめた型を<strong>クラス</strong>（class）と呼びます。
+クラスは <code class="docutils literal notranslate"><span class="pre">struct</span></code> と <code class="docutils literal notranslate"><span class="pre">class</span></code> のどちらのキーワードでも定義できます。<code class="docutils literal notranslate"><span class="pre">struct</span></code> で定義したものは<strong>構造体</strong>（structure）とも呼びますが、C++ ではクラスの一種です。
+2 つの違いは <a class="reference internal" href="#edu-ch04-access"><span class="std std-ref">次の節</span></a> で説明します。</p>
+<section id="miso-time">
+<h3>MISO の例：時刻を管理する Time<a class="headerlink" href="#miso-time" title="Link to this heading"></a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">miso/include/miso/time.hpp</span></code> の <code class="docutils literal notranslate"><span class="pre">Time</span></code> は、時刻やステップ数をまとめた構造体です。
+メンバ変数の部分を抜き出します（元のコメント <code class="docutils literal notranslate"><span class="pre">///</span> <span class="pre">&#64;brief</span> <span class="pre">...</span></code> を、日本語の短いコメントに置き換えています）。</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">Real</span><span class="o">&gt;</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">Time</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="n">Real</span><span class="w"> </span><span class="n">time</span><span class="p">;</span><span class="w">                  </span><span class="c1">// 現在の時刻</span>
+<span class="w">  </span><span class="n">Real</span><span class="w"> </span><span class="n">tend</span><span class="p">;</span><span class="w">                  </span><span class="c1">// 終了時刻</span>
+<span class="w">  </span><span class="n">Real</span><span class="w"> </span><span class="n">dt_output</span><span class="p">;</span><span class="w">             </span><span class="c1">// 出力の時間間隔</span>
+<span class="w">  </span><span class="kt">int</span><span class="w"> </span><span class="n">n_step</span><span class="p">;</span><span class="w">                 </span><span class="c1">// 時間ステップの番号</span>
+<span class="w">  </span><span class="kt">int</span><span class="w"> </span><span class="n">n_output</span><span class="p">;</span><span class="w">               </span><span class="c1">// 出力の番号</span>
+<span class="w">  </span><span class="kt">int</span><span class="w"> </span><span class="n">n_output_digits</span><span class="p">;</span><span class="w">        </span><span class="c1">// 出力ファイル名の桁数</span>
+<span class="w">  </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="n">time_save_dir</span><span class="p">;</span><span class="w">  </span><span class="c1">// 時刻のファイルを書くディレクトリ</span>
+<span class="w">  </span><span class="kt">bool</span><span class="w"> </span><span class="n">io_enabled</span><span class="p">;</span><span class="w">            </span><span class="c1">// 入出力をするかどうか</span>
+<span class="w">  </span><span class="c1">// ...（メンバ関数は 4.3 節以降で読みます）</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+<p>先頭の <code class="docutils literal notranslate"><span class="pre">template</span> <span class="pre">&lt;typename</span> <span class="pre">Real&gt;</span></code> は、時刻を表す型 <code class="docutils literal notranslate"><span class="pre">Real</span></code> を後から指定する印です（<a class="reference internal" href="06_templates.html#edu-ch06"><span class="std std-ref">第 6 章</span></a>）。
+demo では <code class="docutils literal notranslate"><span class="pre">using</span> <span class="pre">Real</span> <span class="pre">=</span> <span class="pre">float;</span></code> としているので、<code class="docutils literal notranslate"><span class="pre">time</span></code> や <code class="docutils literal notranslate"><span class="pre">tend</span></code> は <code class="docutils literal notranslate"><span class="pre">float</span></code> になります。</p>
+<p><code class="docutils literal notranslate"><span class="pre">Time</span></code> のオブジェクトは、MISO の時間発展を管理するクラス（<a class="reference internal" href="05_inheritance.html#edu-ch05"><span class="std std-ref">第 5 章</span></a> で読む <code class="docutils literal notranslate"><span class="pre">ModelBase</span></code>）のメンバ <code class="docutils literal notranslate"><span class="pre">time</span></code> として作られます。
+<code class="docutils literal notranslate"><span class="pre">miso/include/miso/mhd_model_base.hpp</span></code> の <code class="docutils literal notranslate"><span class="pre">ModelBase::run()</span></code> には、次の行があります。</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="n">time</span><span class="p">.</span><span class="n">time</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">time</span><span class="p">.</span><span class="n">tend</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</pre></div>
+</div>
+<p>左の <code class="docutils literal notranslate"><span class="pre">time</span></code> はオブジェクトの名前、<code class="docutils literal notranslate"><span class="pre">.time</span></code> はそのメンバ変数です。同じ綴りでも役割が違います。
+「<code class="docutils literal notranslate"><span class="pre">time</span></code> というオブジェクトの、現在時刻 <code class="docutils literal notranslate"><span class="pre">time</span></code> が終了時刻 <code class="docutils literal notranslate"><span class="pre">tend</span></code> より小さい間」と読みます。</p>
+</section>
+</section>
+<section id="public-private">
+<span id="edu-ch04-access"></span><h2>4.2 公開範囲：public と private<a class="headerlink" href="#public-private" title="Link to this heading"></a></h2>
+<p>前の節の <code class="docutils literal notranslate"><span class="pre">GridSize</span></code> では、使う側のコードがどのメンバでも自由に読み書きできました。
+ここでは、1 次元の一様格子を表すクラスを作り、<strong>外から読み書きできるメンバを決めます</strong>。
+格子のセル数と格子間隔は作るときに決め、その後は読むことだけを許します。</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">Axis</span><span class="w"> </span><span class="p">{</span>
+<span class="k">public</span><span class="o">:</span>
+<span class="w">  </span><span class="c1">// n 個のセルで区間 [x_min, x_max] を等分します</span>
+<span class="w">  </span><span class="k">explicit</span><span class="w"> </span><span class="n">Axis</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">n</span><span class="p">,</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="n">x_min</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.0</span><span class="p">,</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="n">x_max</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">1.0</span><span class="p">)</span>
+<span class="w">      </span><span class="o">:</span><span class="w"> </span><span class="n">n_</span><span class="p">(</span><span class="n">n</span><span class="p">),</span><span class="w"> </span><span class="n">x_min_</span><span class="p">(</span><span class="n">x_min</span><span class="p">),</span><span class="w"> </span><span class="n">dx_</span><span class="p">((</span><span class="n">x_max</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">x_min</span><span class="p">)</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">n</span><span class="p">)</span><span class="w"> </span><span class="p">{}</span>
+
+<span class="w">  </span><span class="kt">int</span><span class="w"> </span><span class="n">size</span><span class="p">()</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">n_</span><span class="p">;</span><span class="w"> </span><span class="p">}</span><span class="w">      </span><span class="c1">// セル数を読むだけです</span>
+<span class="w">  </span><span class="kt">double</span><span class="w"> </span><span class="n">dx</span><span class="p">()</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">dx_</span><span class="p">;</span><span class="w"> </span><span class="p">}</span><span class="w">    </span><span class="c1">// 格子間隔を読むだけです</span>
+<span class="w">  </span><span class="kt">double</span><span class="w"> </span><span class="n">x</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="p">{</span><span class="w">              </span><span class="c1">// i 番目のセル中心の座標です（i は 0 から）</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">x_min_</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="p">(</span><span class="n">i</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mf">0.5</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">dx_</span><span class="p">;</span>
+<span class="w">  </span><span class="p">}</span>
+
+<span class="k">private</span><span class="o">:</span>
+<span class="w">  </span><span class="kt">int</span><span class="w"> </span><span class="n">n_</span><span class="p">;</span>
+<span class="w">  </span><span class="kt">double</span><span class="w"> </span><span class="n">x_min_</span><span class="p">;</span>
+<span class="w">  </span><span class="kt">double</span><span class="w"> </span><span class="n">dx_</span><span class="p">;</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">public:</span></code> の後に書いたメンバは、<code class="docutils literal notranslate"><span class="pre">main()</span></code> など、<code class="docutils literal notranslate"><span class="pre">Axis</span></code> を使う側のコードから使えます。
+<code class="docutils literal notranslate"><span class="pre">private:</span></code> の後に書いた <code class="docutils literal notranslate"><span class="pre">n_</span></code>, <code class="docutils literal notranslate"><span class="pre">x_min_</span></code>, <code class="docutils literal notranslate"><span class="pre">dx_</span></code> は、使う側から直接は読み書きできず、<code class="docutils literal notranslate"><span class="pre">Axis</span></code> のメンバ関数の中からだけ使えます。
+先頭の <code class="docutils literal notranslate"><span class="pre">Axis(...)</span></code> で始まる部分はオブジェクトを作るときの処理で、<a class="reference internal" href="#edu-ch04-constructor"><span class="std std-ref">次の節</span></a> で説明します。
+<code class="docutils literal notranslate"><span class="pre">explicit</span></code> は <a class="reference internal" href="#edu-ch04-explicit"><span class="std std-ref">4.3 節の explicit の項</span></a> で説明します。</p>
+<p>使う側では、次のように書きます。</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">Axis</span><span class="w"> </span><span class="nf">a</span><span class="p">(</span><span class="mi">4</span><span class="p">);</span><span class="w">              </span><span class="c1">// 区間 [0, 1] を 4 等分します</span>
+<span class="n">Axis</span><span class="w"> </span><span class="nf">b</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="w"> </span><span class="mf">-1.0</span><span class="p">,</span><span class="w"> </span><span class="mf">1.0</span><span class="p">);</span><span class="w">  </span><span class="c1">// 区間 [-1, 1] を 10 等分します</span>
+<span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="n">size</span><span class="p">()</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">" "</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="n">dx</span><span class="p">()</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">" "</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="n">x</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">"</span><span class="se">\n</span><span class="s">"</span><span class="p">;</span><span class="w">  </span><span class="c1">// 4 0.25 0.125</span>
+<span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">b</span><span class="p">.</span><span class="n">size</span><span class="p">()</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">" "</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">b</span><span class="p">.</span><span class="n">dx</span><span class="p">()</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">" "</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">b</span><span class="p">.</span><span class="n">x</span><span class="p">(</span><span class="mi">9</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">"</span><span class="se">\n</span><span class="s">"</span><span class="p">;</span><span class="w">  </span><span class="c1">// 10 0.2 0.9</span>
+<span class="c1">// a.n_ = 8;           // エラー：private のメンバには外から代入できません</span>
+</pre></div>
+</div>
+<p>コメントにした最後の行を有効にすると、g++ は <code class="docutils literal notranslate"><span class="pre">'int</span> <span class="pre">Axis::n_'</span> <span class="pre">is</span> <span class="pre">private</span> <span class="pre">within</span> <span class="pre">this</span> <span class="pre">context</span></code> というエラーを出します。
+セル数を変える操作を公開していないので、作った後にセル数だけが変わって格子間隔と合わなくなる、ということが起きません。
+このように、データと、それを扱う関数をクラスにまとめ、外に公開する操作を決めることを<strong>カプセル化</strong>（encapsulation）と呼びます。</p>
+<p><code class="docutils literal notranslate"><span class="pre">struct</span></code> と <code class="docutils literal notranslate"><span class="pre">class</span></code> の違いは、公開範囲を書かなかったときの既定だけです。
+<code class="docutils literal notranslate"><span class="pre">struct</span></code> は <code class="docutils literal notranslate"><span class="pre">public</span></code>、<code class="docutils literal notranslate"><span class="pre">class</span></code> は <code class="docutils literal notranslate"><span class="pre">private</span></code> から始まります。
+メンバ名の末尾の <code class="docutils literal notranslate"><span class="pre">_</span></code> は、private なメンバ変数を区別するための命名の習慣で、C++ の文法ではありません。</p>
+<section id="miso-private-array3d">
+<h3>MISO の例：private を使う Array3D と、すべて公開の構造体<a class="headerlink" href="#miso-private-array3d" title="Link to this heading"></a></h3>
+<p>MISO では、2 つの書き方を役割で使い分けています。</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">miso/include/miso/array3d.hpp</span></code> の <code class="docutils literal notranslate"><span class="pre">Array3D</span></code> は <code class="docutils literal notranslate"><span class="pre">class</span></code> で、配列の先頭アドレス <code class="docutils literal notranslate"><span class="pre">data_</span></code> と大きさ <code class="docutils literal notranslate"><span class="pre">shape_</span></code> を <code class="docutils literal notranslate"><span class="pre">private</span></code> にしています。使う側は <code class="docutils literal notranslate"><span class="pre">extent()</span></code>, <code class="docutils literal notranslate"><span class="pre">size()</span></code>, <code class="docutils literal notranslate"><span class="pre">a(i,</span> <span class="pre">j,</span> <span class="pre">k)</span></code> などの公開された関数を通して使います。確保した配列の大きさを、使う側が勝手に書き換えられないようにするためです。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Time</span></code>、<code class="docutils literal notranslate"><span class="pre">Config</span></code>、<code class="docutils literal notranslate"><span class="pre">Fields</span></code> などは <code class="docutils literal notranslate"><span class="pre">struct</span></code> で、メンバ変数をすべて公開しています。MISO の内部や demo から <code class="docutils literal notranslate"><span class="pre">time.n_step</span></code> や <code class="docutils literal notranslate"><span class="pre">qq.ro</span></code> のように直接使う、データのまとまりとして設計されています。</p></li>
+</ul>
+<p><code class="docutils literal notranslate"><span class="pre">Array3D</span></code> の抜粋は <a class="reference internal" href="#edu-ch04-destructor"><span class="std std-ref">4.5 節</span></a> 以降で読みます。</p>
+</section>
+</section>
+<section id="edu-ch04-constructor">
+<span id="id3"></span><h2>4.3 コンストラクタと初期化子リスト<a class="headerlink" href="#edu-ch04-constructor" title="Link to this heading"></a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">Axis(...)</span></code> のように、クラスと同じ名前を持つ特別なメンバ関数を<strong>コンストラクタ</strong>（constructor）と呼びます。
+オブジェクトを作るときに自動で呼ばれ、メンバ変数を初期化します。戻り値の型は書きません（<code class="docutils literal notranslate"><span class="pre">void</span></code> も付けません）。</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">explicit</span><span class="w"> </span><span class="n">Axis</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">n</span><span class="p">,</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="n">x_min</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.0</span><span class="p">,</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="n">x_max</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">1.0</span><span class="p">)</span>
+<span class="w">    </span><span class="o">:</span><span class="w"> </span><span class="n">n_</span><span class="p">(</span><span class="n">n</span><span class="p">),</span><span class="w"> </span><span class="n">x_min_</span><span class="p">(</span><span class="n">x_min</span><span class="p">),</span><span class="w"> </span><span class="n">dx_</span><span class="p">((</span><span class="n">x_max</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">x_min</span><span class="p">)</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">n</span><span class="p">)</span><span class="w"> </span><span class="p">{}</span>
+</pre></div>
+</div>
+<p>この 2 行は、次のように分けて読みます。</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>部分</p></th>
+<th class="head"><p>意味</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Axis(int</span> <span class="pre">n,</span> <span class="pre">double</span> <span class="pre">x_min</span> <span class="pre">=</span> <span class="pre">0.0,</span> <span class="pre">double</span> <span class="pre">x_max</span> <span class="pre">=</span> <span class="pre">1.0)</span></code></p></td>
+<td><p>引数を 3 つ受け取るコンストラクタです</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">=</span> <span class="pre">0.0</span></code>、<code class="docutils literal notranslate"><span class="pre">=</span> <span class="pre">1.0</span></code></p></td>
+<td><p><strong>デフォルト引数</strong>です。呼ぶ側が省略すると、この値を使います</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">:</span></code> から <code class="docutils literal notranslate"><span class="pre">{</span></code> の前まで</p></td>
+<td><p><strong>初期化子リスト</strong>（メンバ初期化子リスト）です</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">n_(n)</span></code></p></td>
+<td><p>メンバ <code class="docutils literal notranslate"><span class="pre">n_</span></code> を引数 <code class="docutils literal notranslate"><span class="pre">n</span></code> の値で初期化します</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">dx_((x_max</span> <span class="pre">-</span> <span class="pre">x_min)</span> <span class="pre">/</span> <span class="pre">n)</span></code></p></td>
+<td><p>メンバ <code class="docutils literal notranslate"><span class="pre">dx_</span></code> を、式の値で初期化します</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">{}</span></code></p></td>
+<td><p>初期化の後に実行する本体です。この例では空です</p></td>
+</tr>
+</tbody>
+</table>
+<p><code class="docutils literal notranslate"><span class="pre">Axis</span> <span class="pre">a(4);</span></code> と書くと、<code class="docutils literal notranslate"><span class="pre">x_min</span></code> と <code class="docutils literal notranslate"><span class="pre">x_max</span></code> には既定値の 0.0 と 1.0 が使われます。
+デフォルト引数は後ろの引数から順に省略でき、途中の引数だけを省略することはできません。
+<code class="docutils literal notranslate"><span class="pre">Axis</span> <span class="pre">a{4};</span></code> のように波括弧で書いても同じコンストラクタが呼ばれます。
+一方、<code class="docutils literal notranslate"><span class="pre">Axis</span> <span class="pre">a();</span></code> と空の丸括弧を書くと、「<code class="docutils literal notranslate"><span class="pre">Axis</span></code> を返す関数 <code class="docutils literal notranslate"><span class="pre">a</span></code> の宣言」と解釈されるので注意します。</p>
+<p>Fortran には、型を作るときに必ず実行される手続きはありません。
+C++ では、コンストラクタを書いたクラスのオブジェクトは、必ずコンストラクタを通って作られます。
+<code class="docutils literal notranslate"><span class="pre">Axis</span></code> には引数を取るコンストラクタしかないので、<code class="docutils literal notranslate"><span class="pre">Axis</span> <span class="pre">a;</span></code> と引数なしで作ることもできません（エラーになります）。
+コンストラクタを 1 つも書かなかった <code class="docutils literal notranslate"><span class="pre">GridSize</span></code> では、コンパイラが引数なしのコンストラクタを用意するので、<code class="docutils literal notranslate"><span class="pre">GridSize</span> <span class="pre">c;</span></code> と書けました。</p>
+<section id="id4">
+<h3>メンバを初期化する順番<a class="headerlink" href="#id4" title="Link to this heading"></a></h3>
+<p>初期化子リストに書いた順ではなく、<strong>クラスの中でメンバ変数を宣言した順</strong>に初期化されます。
+<code class="docutils literal notranslate"><span class="pre">Axis</span></code> では <code class="docutils literal notranslate"><span class="pre">n_</span></code>, <code class="docutils literal notranslate"><span class="pre">x_min_</span></code>, <code class="docutils literal notranslate"><span class="pre">dx_</span></code> の順に宣言し、初期化子リストも同じ順に書いています。
+次の <code class="docutils literal notranslate"><span class="pre">BadAxis</span></code> は、<code class="docutils literal notranslate"><span class="pre">dx_</span></code> を <code class="docutils literal notranslate"><span class="pre">n_</span></code> より先に宣言し、<code class="docutils literal notranslate"><span class="pre">dx_</span></code> の初期化に <code class="docutils literal notranslate"><span class="pre">n_</span></code> を使っています。</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">BadAxis</span><span class="w"> </span><span class="p">{</span>
+<span class="k">public</span><span class="o">:</span>
+<span class="w">  </span><span class="n">BadAxis</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">n</span><span class="p">,</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="n">x_min</span><span class="p">,</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="n">x_max</span><span class="p">)</span>
+<span class="w">      </span><span class="o">:</span><span class="w"> </span><span class="n">n_</span><span class="p">(</span><span class="n">n</span><span class="p">),</span><span class="w"> </span><span class="n">x_min_</span><span class="p">(</span><span class="n">x_min</span><span class="p">),</span><span class="w"> </span><span class="n">dx_</span><span class="p">((</span><span class="n">x_max</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">x_min</span><span class="p">)</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">n_</span><span class="p">)</span><span class="w"> </span><span class="p">{}</span>
+
+<span class="k">private</span><span class="o">:</span>
+<span class="w">  </span><span class="kt">double</span><span class="w"> </span><span class="n">dx_</span><span class="p">;</span><span class="w">  </span><span class="c1">// n_ より先に宣言しているので、最初に初期化されます</span>
+<span class="w">  </span><span class="kt">int</span><span class="w"> </span><span class="n">n_</span><span class="p">;</span>
+<span class="w">  </span><span class="kt">double</span><span class="w"> </span><span class="n">x_min_</span><span class="p">;</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">dx_</span></code> を初期化する時点では、<code class="docutils literal notranslate"><span class="pre">n_</span></code> にはまだ値が入っていません。
+g++ に <code class="docutils literal notranslate"><span class="pre">-Wall</span></code> を付けると、順番の違い（<code class="docutils literal notranslate"><span class="pre">-Wreorder</span></code>）と、値の入っていない <code class="docutils literal notranslate"><span class="pre">n_</span></code> を使っていること（<code class="docutils literal notranslate"><span class="pre">-Wuninitialized</span></code>）を警告します。
+初期化子リストは宣言と同じ順に書き、別のメンバを使う初期化では、その順番を確かめます。
+上の <code class="docutils literal notranslate"><span class="pre">Axis</span></code> のように、メンバではなく引数 <code class="docutils literal notranslate"><span class="pre">n</span></code> を使えば、宣言の順番に左右されません。</p>
+</section>
+<section id="id5">
+<h3>初期化子リストでなければ値を決められないメンバ<a class="headerlink" href="#id5" title="Link to this heading"></a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">const</span></code> を付けたメンバと参照のメンバは、作った後に代入できません。
+これらは初期化子リストで値や参照先を決めます。
+コンストラクタの本体 <code class="docutils literal notranslate"><span class="pre">{</span> <span class="pre">...</span> <span class="pre">}</span></code> に入った時点で、メンバの初期化はすでに終わっているからです。</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">struct</span><span class="w"> </span><span class="nc">Scaled</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">const</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="n">factor</span><span class="p">;</span><span class="w">   </span><span class="c1">// 作った後は変えません</span>
+<span class="w">  </span><span class="kt">double</span><span class="w"> </span><span class="o">&amp;</span><span class="n">target</span><span class="p">;</span><span class="w">        </span><span class="c1">// 外の変数を参照します（第 3 章）</span>
+
+<span class="w">  </span><span class="n">Scaled</span><span class="p">(</span><span class="kt">double</span><span class="w"> </span><span class="n">f</span><span class="p">,</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="o">&amp;</span><span class="n">t</span><span class="p">)</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">factor</span><span class="p">(</span><span class="n">f</span><span class="p">),</span><span class="w"> </span><span class="n">target</span><span class="p">(</span><span class="n">t</span><span class="p">)</span><span class="w"> </span><span class="p">{}</span>
+<span class="w">  </span><span class="c1">// Scaled(double f, double &amp;t) { factor = f; target = t; }  // エラー</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+</section>
+<section id="id6">
+<h3>MISO の例：Time のコンストラクタ<a class="headerlink" href="#id6" title="Link to this heading"></a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">miso/include/miso/time.hpp</span></code> の <code class="docutils literal notranslate"><span class="pre">Time</span></code> のコンストラクタを読みます（ディレクトリを作る後半は省略しています）。</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="w">  </span><span class="c1">/// @brief Default constructor</span>
+<span class="w">  </span><span class="n">Time</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">Config</span><span class="w"> </span><span class="o">&amp;</span><span class="n">config</span><span class="p">)</span>
+<span class="w">      </span><span class="o">:</span><span class="w"> </span><span class="n">tend</span><span class="p">(</span><span class="n">config</span><span class="p">[</span><span class="s">"time"</span><span class="p">][</span><span class="s">"tend"</span><span class="p">].</span><span class="n">as</span><span class="o">&lt;</span><span class="n">Real</span><span class="o">&gt;</span><span class="p">()),</span>
+<span class="w">        </span><span class="n">dt_output</span><span class="p">(</span><span class="n">config</span><span class="p">[</span><span class="s">"time"</span><span class="p">][</span><span class="s">"dt_output"</span><span class="p">].</span><span class="n">as</span><span class="o">&lt;</span><span class="n">Real</span><span class="o">&gt;</span><span class="p">()),</span>
+<span class="w">        </span><span class="n">n_output_digits</span><span class="p">(</span><span class="n">config</span><span class="p">[</span><span class="s">"io"</span><span class="p">][</span><span class="s">"n_output_digits"</span><span class="p">].</span><span class="n">as</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">()),</span>
+<span class="w">        </span><span class="n">io_enabled</span><span class="p">(</span><span class="n">config</span><span class="p">.</span><span class="n">yaml_obj</span><span class="p">[</span><span class="s">"io"</span><span class="p">][</span><span class="s">"enabled"</span><span class="p">].</span><span class="n">as</span><span class="o">&lt;</span><span class="kt">bool</span><span class="o">&gt;</span><span class="p">())</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="p">(</span><span class="n">tend</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">0</span><span class="p">))</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="k">throw</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">runtime_error</span><span class="p">(</span><span class="s">"time.tend must be positive."</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="p">(</span><span class="n">dt_output</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">0</span><span class="p">))</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="k">throw</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">runtime_error</span><span class="p">(</span><span class="s">"time.dt_output must be positive."</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="n">initialize</span><span class="p">();</span>
+<span class="w">    </span><span class="c1">// ...（time_save_dir を決めてディレクトリを作ります）</span>
+<span class="w">  </span><span class="p">}</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>引数 <code class="docutils literal notranslate"><span class="pre">const</span> <span class="pre">Config</span> <span class="pre">&amp;config</span></code> は、設定ファイルの内容を持つ <code class="docutils literal notranslate"><span class="pre">Config</span></code> をコピーせずに読むための参照です（<a class="reference internal" href="03_references_and_pointers.html#edu-ch03"><span class="std std-ref">第 3 章</span></a>）。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">config[&quot;time&quot;][&quot;tend&quot;]</span></code> は、<code class="docutils literal notranslate"><span class="pre">config.yaml</span></code> の <code class="docutils literal notranslate"><span class="pre">time:</span></code> の下の <code class="docutils literal notranslate"><span class="pre">tend:</span></code> の値を取り出す書き方です。<code class="docutils literal notranslate"><span class="pre">[]</span></code> の仕組みは <a class="reference internal" href="#edu-ch04-operator"><span class="std std-ref">4.7 節</span></a> で説明します。<code class="docutils literal notranslate"><span class="pre">.as&lt;Real&gt;()</span></code> は、取り出した値を <code class="docutils literal notranslate"><span class="pre">Real</span></code> 型の数として読む yaml-cpp の関数です。</p></li>
+<li><p>初期化子リストでは、宣言順（<code class="docutils literal notranslate"><span class="pre">tend</span></code>, <code class="docutils literal notranslate"><span class="pre">dt_output</span></code>, <code class="docutils literal notranslate"><span class="pre">n_output_digits</span></code>, <code class="docutils literal notranslate"><span class="pre">io_enabled</span></code>）どおりに 4 つのメンバを初期化しています。</p></li>
+<li><p>本体では、値を検査してから、<code class="docutils literal notranslate"><span class="pre">initialize()</span></code> を呼んで <code class="docutils literal notranslate"><span class="pre">time</span></code>, <code class="docutils literal notranslate"><span class="pre">n_step</span></code>, <code class="docutils literal notranslate"><span class="pre">n_output</span></code> を 0 にします。値が正しくなければ例外を投げ、オブジェクトは作られません。</p></li>
+</ul>
+<p>元のコメントには <code class="docutils literal notranslate"><span class="pre">Default</span> <span class="pre">constructor</span></code> とありますが、C++ の用語の「デフォルトコンストラクタ」は引数なしで呼べるコンストラクタのことで、このコンストラクタは <code class="docutils literal notranslate"><span class="pre">Config</span></code> を受け取ります。
+コメントの語は C++ の用語と一致していないので、本文の説明で読みます。</p>
+</section>
+<section id="explicit">
+<span id="edu-ch04-explicit"></span><h3>explicit と暗黙の型変換<a class="headerlink" href="#explicit" title="Link to this heading"></a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">Axis</span></code> のコンストラクタには <code class="docutils literal notranslate"><span class="pre">explicit</span></code> を付けました。
+<strong><code class="docutils literal notranslate"><span class="pre">explicit</span></code> は「このコンストラクタを、別の型からの自動的な変換に使わない」という指定</strong>です。</p>
+<p>デフォルト引数があるので、<code class="docutils literal notranslate"><span class="pre">Axis</span></code> は整数 1 個からでも作れます。
+<code class="docutils literal notranslate"><span class="pre">explicit</span></code> がないと、C++ は「整数から <code class="docutils literal notranslate"><span class="pre">Axis</span></code> を作る変換」も自動で行います。
+次の 2 行は、<code class="docutils literal notranslate"><span class="pre">explicit</span></code> があるとエラーになり、ないと通ります。</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">double</span><span class="w"> </span><span class="nf">length</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">Axis</span><span class="w"> </span><span class="o">&amp;</span><span class="n">axis</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">axis</span><span class="p">.</span><span class="n">size</span><span class="p">()</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">axis</span><span class="p">.</span><span class="n">dx</span><span class="p">();</span><span class="w"> </span><span class="p">}</span>
+
+<span class="c1">// Axis c = 4;   // explicit がなければ、Axis(4) が自動で作られます</span>
+<span class="c1">// length(4);    // explicit がなければ、一時的な Axis(4) が作られて渡されます</span>
+<span class="n">length</span><span class="p">(</span><span class="n">Axis</span><span class="p">(</span><span class="mi">8</span><span class="p">));</span><span class="w">  </span><span class="c1">// 作ることを明示すれば、explicit があっても使えます（1 を返します）</span>
+</pre></div>
+</div>
+<p>型を変える処理を自分で書かず、コンパイラに任せる変換を<strong>暗黙の型変換</strong>と呼びます。
+引数を取り違えて整数を渡したときに、意図しない格子が作られるのを防ぐのが、ここでの <code class="docutils literal notranslate"><span class="pre">explicit</span></code> の役割です。</p>
+<p><code class="docutils literal notranslate"><span class="pre">miso/include/miso/eos.hpp</span></code> の理想気体の状態方程式 <code class="docutils literal notranslate"><span class="pre">IdealEOS</span></code> には、2 つのコンストラクタがあり、どちらにも <code class="docutils literal notranslate"><span class="pre">explicit</span></code> が付いています。</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">Real</span><span class="o">&gt;</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">IdealEOS</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="c1">/// @brief Ratio of specific heats (gamma)</span>
+<span class="w">  </span><span class="n">Real</span><span class="w"> </span><span class="n">gm</span><span class="p">;</span>
+
+<span class="w">  </span><span class="c1">/// @brief Construct the EOS from the configuration file</span>
+<span class="w">  </span><span class="k">explicit</span><span class="w"> </span><span class="n">IdealEOS</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">Config</span><span class="w"> </span><span class="o">&amp;</span><span class="n">config</span><span class="p">)</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">gm</span><span class="p">(</span><span class="n">config</span><span class="p">[</span><span class="s">"eos"</span><span class="p">][</span><span class="s">"gm"</span><span class="p">].</span><span class="n">as</span><span class="o">&lt;</span><span class="n">Real</span><span class="o">&gt;</span><span class="p">())</span><span class="w"> </span><span class="p">{}</span>
+
+<span class="w">  </span><span class="c1">/// @brief Construct the EOS from the specific heat ratio (gamma)</span>
+<span class="w">  </span><span class="k">explicit</span><span class="w"> </span><span class="n">IdealEOS</span><span class="p">(</span><span class="n">Real</span><span class="w"> </span><span class="n">gm</span><span class="p">)</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">gm</span><span class="p">(</span><span class="n">gm</span><span class="p">)</span><span class="w"> </span><span class="p">{}</span>
+<span class="w">  </span><span class="c1">// ...</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+<p>2 つ目の <code class="docutils literal notranslate"><span class="pre">explicit</span> <span class="pre">IdealEOS(Real</span> <span class="pre">gm)</span></code> は、比熱比 <span class="math notranslate nohighlight">\(\gamma\)</span> から状態方程式を作ります。
+<code class="docutils literal notranslate"><span class="pre">explicit</span></code> があるので、状態方程式を受け取る関数に、うっかり <code class="docutils literal notranslate"><span class="pre">1.4f</span></code> のような数をそのまま渡すとエラーになります。
+<code class="docutils literal notranslate"><span class="pre">:</span> <span class="pre">gm(gm)</span></code> は、メンバ <code class="docutils literal notranslate"><span class="pre">gm</span></code> を、同じ名前の引数 <code class="docutils literal notranslate"><span class="pre">gm</span></code> で初期化する書き方です。
+初期化子リストの括弧の外の名前はメンバ、括弧の中の名前は引数を指します。</p>
+<p>このように、同じ名前で引数の型が違うコンストラクタを複数書けます（<a class="reference internal" href="02_cpp_basics.html#edu-ch02"><span class="std std-ref">第 2 章</span></a> の関数のオーバーロードと同じです）。
+<code class="docutils literal notranslate"><span class="pre">IdealEOS&lt;Real&gt;</span> <span class="pre">eos(config);</span></code> なら 1 つ目、<code class="docutils literal notranslate"><span class="pre">IdealEOS&lt;Real&gt;</span> <span class="pre">eos(Real(1.4));</span></code> なら 2 つ目が呼ばれます。</p>
+</section>
+</section>
+<section id="const-this">
+<span id="edu-ch04-const-member"></span><h2>4.4 const メンバ関数と this<a class="headerlink" href="#const-this" title="Link to this heading"></a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">int</span> <span class="pre">size()</span> <span class="pre">const</span></code> の末尾の <code class="docutils literal notranslate"><span class="pre">const</span></code> は、「この関数の中ではメンバ変数を書き換えない」という指定です。
+<code class="docutils literal notranslate"><span class="pre">size()</span></code> の中に <code class="docutils literal notranslate"><span class="pre">n_</span> <span class="pre">=</span> <span class="pre">8;</span></code> と書くとコンパイルエラーになります。
+読むだけの関数には末尾に <code class="docutils literal notranslate"><span class="pre">const</span></code> を付け、書き換える関数には付けません。</p>
+<p>この区別は、<code class="docutils literal notranslate"><span class="pre">const</span></code> を付けたオブジェクトや <code class="docutils literal notranslate"><span class="pre">const</span></code> 参照から呼べる関数を決めます。</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">const</span><span class="w"> </span><span class="n">Axis</span><span class="w"> </span><span class="nf">a</span><span class="p">(</span><span class="mi">4</span><span class="p">);</span><span class="w">   </span><span class="c1">// 作った後の変更を禁止します</span>
+<span class="kt">int</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="n">size</span><span class="p">();</span><span class="w">  </span><span class="c1">// 末尾が const の関数は呼べます</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">const</span> <span class="pre">Axis&amp;</span></code> で受け取った引数（前の <code class="docutils literal notranslate"><span class="pre">length</span></code> 関数）からも、末尾が <code class="docutils literal notranslate"><span class="pre">const</span></code> の <code class="docutils literal notranslate"><span class="pre">size()</span></code> と <code class="docutils literal notranslate"><span class="pre">dx()</span></code> だけが呼べます。
+末尾の <code class="docutils literal notranslate"><span class="pre">const</span></code> を付け忘れると、読むだけの関数でも <code class="docutils literal notranslate"><span class="pre">const</span></code> 参照から呼べなくなります。</p>
+<p><code class="docutils literal notranslate"><span class="pre">miso/include/miso/time.hpp</span></code> の <code class="docutils literal notranslate"><span class="pre">Time</span></code> で、2 種類の関数を比べます（抜粋）。</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="w">  </span><span class="c1">/// @brief update time parameters</span>
+<span class="w">  </span><span class="kt">void</span><span class="w"> </span><span class="nf">update</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">Real</span><span class="w"> </span><span class="n">dt</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">time</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">dt</span><span class="p">;</span><span class="w">  </span><span class="c1">// メンバを書き換えるので、末尾に const がありません</span>
+<span class="w">    </span><span class="n">n_step</span><span class="o">++</span><span class="p">;</span>
+<span class="w">  </span><span class="p">};</span>
+
+<span class="w">  </span><span class="c1">/// @brief Save time parameters to file</span>
+<span class="w">  </span><span class="kt">void</span><span class="w"> </span><span class="nf">save</span><span class="p">()</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="p">{</span><span class="w">  </span><span class="c1">// メンバを読んでファイルに書くだけです</span>
+<span class="w">    </span><span class="c1">// ...</span>
+<span class="w">  </span><span class="p">}</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">update</span></code> の閉じ括弧の後の <code class="docutils literal notranslate"><span class="pre">;</span></code> は不要ですが、書いてもエラーにはなりません。</p>
+<section id="this">
+<h3>this：呼び出したオブジェクトを指すポインタ<a class="headerlink" href="#this" title="Link to this heading"></a></h3>
+<p>メンバ関数の中では、メンバ変数の名前をそのまま書いて使えました。
+これは、C++ がメンバ関数に「どのオブジェクトから呼ばれたか」を、<strong><code class="docutils literal notranslate"><span class="pre">this</span></code> という名前のポインタ</strong>で渡しているからです。
+<code class="docutils literal notranslate"><span class="pre">a.size()</span></code> と呼ぶと、<code class="docutils literal notranslate"><span class="pre">size()</span></code> の中の <code class="docutils literal notranslate"><span class="pre">this</span></code> は <code class="docutils literal notranslate"><span class="pre">a</span></code> を指し、<code class="docutils literal notranslate"><span class="pre">n_</span></code> は <code class="docutils literal notranslate"><span class="pre">this-&gt;n_</span></code> の省略です。</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">int</span><span class="w"> </span><span class="nf">size</span><span class="p">()</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="k">this</span><span class="o">-&gt;</span><span class="n">n_</span><span class="p">;</span><span class="w"> </span><span class="p">}</span><span class="w">  </span><span class="c1">// return n_; と同じです</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">this</span></code> はポインタなので、指す先のオブジェクトそのものは <code class="docutils literal notranslate"><span class="pre">*this</span></code> と書きます。
+<code class="docutils literal notranslate"><span class="pre">Time::update</span></code> の <code class="docutils literal notranslate"><span class="pre">time</span> <span class="pre">+=</span> <span class="pre">dt;</span></code> も、正確には <code class="docutils literal notranslate"><span class="pre">this-&gt;time</span> <span class="pre">+=</span> <span class="pre">dt;</span></code> です。
+この「メンバ変数は <code class="docutils literal notranslate"><span class="pre">this</span></code> を通して使われる」という性質は、<a class="reference internal" href="07_arrays_and_parallel.html#edu-ch07"><span class="std std-ref">第 7 章</span></a> でラムダ式を学ぶときに、また <a class="reference internal" href="09_gpu.html#edu-ch09"><span class="std std-ref">第 9 章</span></a> で GPU での落とし穴を学ぶときに重要になります。</p>
+</section>
+</section>
+<section id="raii">
+<span id="edu-ch04-destructor"></span><h2>4.5 デストラクタと後片付け（RAII）<a class="headerlink" href="#raii" title="Link to this heading"></a></h2>
+<p>配列を確保したら、使い終わったときに解放が必要です。
+Fortran の <code class="docutils literal notranslate"><span class="pre">allocate</span></code> と <code class="docutils literal notranslate"><span class="pre">deallocate</span></code> の組を、C++ ではクラスに任せられます。
+<strong>オブジェクトの寿命が終わるときに自動で呼ばれる関数を、デストラクタ</strong>（destructor）と呼びます。
+名前は <code class="docutils literal notranslate"><span class="pre">~</span></code> とクラス名で、引数と戻り値の型はありません。</p>
+<p>次は、コンストラクタで配列を確保し、デストラクタで解放する説明用のクラスです。
+確保と解放のときに文字を表示して、呼ばれる時点を確かめます（<code class="docutils literal notranslate"><span class="pre">std::printf</span></code> は書式付きで表示する関数で、<code class="docutils literal notranslate"><span class="pre">#include</span> <span class="pre">&lt;cstdio&gt;</span></code> で使えます）。</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;cstdio&gt;</span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">Buffer</span><span class="w"> </span><span class="p">{</span>
+<span class="k">public</span><span class="o">:</span>
+<span class="w">  </span><span class="k">explicit</span><span class="w"> </span><span class="n">Buffer</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">n</span><span class="p">)</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">data_</span><span class="p">(</span><span class="k">new</span><span class="w"> </span><span class="kt">double</span><span class="p">[</span><span class="n">n</span><span class="p">]),</span><span class="w"> </span><span class="n">n_</span><span class="p">(</span><span class="n">n</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">printf</span><span class="p">(</span><span class="s">"確保しました（%d 要素）</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span><span class="w"> </span><span class="n">n_</span><span class="p">);</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="w">  </span><span class="o">~</span><span class="n">Buffer</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">printf</span><span class="p">(</span><span class="s">"解放します（%d 要素）</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span><span class="w"> </span><span class="n">n_</span><span class="p">);</span>
+<span class="w">    </span><span class="k">delete</span><span class="p">[]</span><span class="w"> </span><span class="n">data_</span><span class="p">;</span><span class="w">  </span><span class="c1">// コンストラクタの new[] と対にします</span>
+<span class="w">  </span><span class="p">}</span>
+
+<span class="k">private</span><span class="o">:</span>
+<span class="w">  </span><span class="kt">double</span><span class="w"> </span><span class="o">*</span><span class="n">data_</span><span class="p">;</span>
+<span class="w">  </span><span class="kt">int</span><span class="w"> </span><span class="n">n_</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="n">std</span><span class="o">::</span><span class="n">puts</span><span class="p">(</span><span class="s">"ブロックの前"</span><span class="p">);</span>
+<span class="w">  </span><span class="p">{</span>
+<span class="w">    </span><span class="n">Buffer</span><span class="w"> </span><span class="n">work</span><span class="p">(</span><span class="mi">100</span><span class="p">);</span><span class="w">  </span><span class="c1">// ここでコンストラクタが呼ばれます</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">puts</span><span class="p">(</span><span class="s">"使っている間"</span><span class="p">);</span>
+<span class="w">  </span><span class="p">}</span><span class="w">  </span><span class="c1">// work の寿命が終わり、デストラクタが自動で呼ばれます</span>
+<span class="w">  </span><span class="n">std</span><span class="o">::</span><span class="n">puts</span><span class="p">(</span><span class="s">"ブロックの後"</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>実行結果は次のとおりです。</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>ブロックの前
+確保しました（100 要素）
+使っている間
+解放します（100 要素）
+ブロックの後
+</pre></div>
+</div>
+<p>デストラクタを呼ぶ行を自分で書く必要はありません。
+ブロックの終わりに達したとき、関数の途中で <code class="docutils literal notranslate"><span class="pre">return</span></code> したとき、例外で関数を抜けたときにも呼ばれます。
+同じブロックに複数のオブジェクトがあるときは、作った順の逆に片付けられます。
+メンバ変数がクラス型なら、外側のデストラクタの本体が終わった後に、メンバのデストラクタも自動で呼ばれます。</p>
+<p>このように、資源（メモリ、ファイル、MPI の環境など）の確保をコンストラクタで、解放をデストラクタで行い、オブジェクトの寿命に結び付ける書き方を <strong>RAII</strong>（Resource Acquisition Is Initialization）と呼びます。
+解放を書き忘れたり、途中の <code class="docutils literal notranslate"><span class="pre">return</span></code> で解放を飛ばしたりすることを防げます。</p>
+<section id="miso-array3d">
+<h3>MISO の例：Array3D の確保と解放<a class="headerlink" href="#miso-array3d" title="Link to this heading"></a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">miso/include/miso/array3d.hpp</span></code> の、CPU 用の <code class="docutils literal notranslate"><span class="pre">Array3D</span></code> のコンストラクタとデストラクタです（大きさの検査の一部を省略しています）。</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">T</span><span class="o">&gt;</span><span class="w"> </span><span class="k">class</span><span class="w"> </span><span class="nc">Array3D</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span><span class="w"> </span><span class="n">backend</span><span class="o">::</span><span class="n">Host</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="k">private</span><span class="o">:</span>
+<span class="w">  </span><span class="n">T</span><span class="w"> </span><span class="o">*</span><span class="n">data_</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">nullptr</span><span class="p">;</span>
+<span class="w">  </span><span class="n">std</span><span class="o">::</span><span class="n">array</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="o">&gt;</span><span class="w"> </span><span class="n">shape_</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="mi">-1</span><span class="p">,</span><span class="w"> </span><span class="mi">-1</span><span class="p">,</span><span class="w"> </span><span class="mi">-1</span><span class="p">};</span>
+
+<span class="k">public</span><span class="o">:</span>
+<span class="w">  </span><span class="n">Array3D</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">nx0</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">nx1</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">nx2</span><span class="p">)</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">shape_</span><span class="p">{</span><span class="n">nx0</span><span class="p">,</span><span class="w"> </span><span class="n">nx1</span><span class="p">,</span><span class="w"> </span><span class="n">nx2</span><span class="p">}</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">assert</span><span class="p">(</span><span class="n">shape_</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">shape_</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">shape_</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">0</span><span class="p">);</span>
+<span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="kt">size_t</span><span class="w"> </span><span class="n">array_size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">static_cast</span><span class="o">&lt;</span><span class="kt">size_t</span><span class="o">&gt;</span><span class="p">(</span><span class="n">shape_</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="w"> </span><span class="o">*</span>
+<span class="w">                                   </span><span class="k">static_cast</span><span class="o">&lt;</span><span class="kt">size_t</span><span class="o">&gt;</span><span class="p">(</span><span class="n">shape_</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span><span class="w"> </span><span class="o">*</span>
+<span class="w">                                   </span><span class="k">static_cast</span><span class="o">&lt;</span><span class="kt">size_t</span><span class="o">&gt;</span><span class="p">(</span><span class="n">shape_</span><span class="p">[</span><span class="mi">2</span><span class="p">]);</span>
+<span class="w">    </span><span class="c1">// ...（array_size が int の範囲に収まることを確かめます）</span>
+<span class="w">    </span><span class="n">data_</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">T</span><span class="p">[</span><span class="n">array_size</span><span class="p">];</span>
+<span class="w">  </span><span class="p">}</span>
+
+<span class="w">  </span><span class="o">~</span><span class="n">Array3D</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">delete</span><span class="p">[]</span><span class="w"> </span><span class="n">data_</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+<span class="w">  </span><span class="c1">// ...</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">T</span></code> は要素の型、<code class="docutils literal notranslate"><span class="pre">backend::Host</span></code> は「CPU のメモリに置く」ことを示す指定です（<a class="reference internal" href="06_templates.html#edu-ch06"><span class="std std-ref">第 6 章</span></a>）。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">std::array&lt;int,</span> <span class="pre">3&gt;</span> <span class="pre">shape_</span></code> は 3 方向の大きさを持つ固定長の配列で、まだ作っていない状態を <code class="docutils literal notranslate"><span class="pre">-1</span></code> で表しています。</p></li>
+<li><p>コンストラクタで <code class="docutils literal notranslate"><span class="pre">new</span> <span class="pre">T[array_size]</span></code> によって要素を確保し、デストラクタで <code class="docutils literal notranslate"><span class="pre">delete[]</span></code> によって解放します。上の <code class="docutils literal notranslate"><span class="pre">Buffer</span></code> と同じ形です。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">static_cast&lt;size_t&gt;(...)</span></code> は、掛け算の前に <code class="docutils literal notranslate"><span class="pre">int</span></code> を大きな整数型 <code class="docutils literal notranslate"><span class="pre">size_t</span></code> へ変換する書き方です。3 方向の格子数を掛けると <code class="docutils literal notranslate"><span class="pre">int</span></code> の範囲を超えることがあるためです。</p></li>
+</ul>
+<p>GPU 用の <code class="docutils literal notranslate"><span class="pre">Array3D&lt;T,</span> <span class="pre">backend::CUDA&gt;</span></code> では、<code class="docutils literal notranslate"><span class="pre">new</span></code>/<code class="docutils literal notranslate"><span class="pre">delete[]</span></code> の代わりに GPU のメモリを確保・解放する関数を使います（<a class="reference internal" href="09_gpu.html#edu-ch09"><span class="std std-ref">第 9 章</span></a>）。
+使う側から見れば、どちらも「作れば確保され、寿命が終われば解放される」配列です。</p>
+</section>
+<section id="miso-mpi-env">
+<h3>MISO の例：MPI の初期化と終了を受け持つ Env<a class="headerlink" href="#miso-mpi-env" title="Link to this heading"></a></h3>
+<p>demo の <code class="docutils literal notranslate"><span class="pre">main()</span></code> の最初の行は、次のとおりです（<code class="docutils literal notranslate"><span class="pre">demo/mhd2d_vortex/src/main.cpp</span></code>）。</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">argc</span><span class="p">,</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">**</span><span class="n">argv</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="c1">// Initialize MPI and CUDA environments</span>
+<span class="w">  </span><span class="n">Env</span><span class="w"> </span><span class="n">env</span><span class="p">(</span><span class="n">argc</span><span class="p">,</span><span class="w"> </span><span class="n">argv</span><span class="p">);</span>
+<span class="w">  </span><span class="c1">// ...</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">miso/include/miso/env.hpp</span></code> の <code class="docutils literal notranslate"><span class="pre">miso::Env</span></code> は、メンバとして <code class="docutils literal notranslate"><span class="pre">mpi::Env</span></code> を持ちます。
+<code class="docutils literal notranslate"><span class="pre">mpi::Env</span></code> のコンストラクタは <code class="docutils literal notranslate"><span class="pre">MPI_Init</span></code> を呼び、デストラクタは <code class="docutils literal notranslate"><span class="pre">MPI_Finalize</span></code> を呼びます（抜粋）。</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">struct</span><span class="w"> </span><span class="nc">Env</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="kt">bool</span><span class="w"> </span><span class="n">owns_mpi</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">false</span><span class="p">;</span>
+<span class="w">  </span><span class="c1">// ...</span>
+<span class="w">  </span><span class="o">~</span><span class="n">Env</span><span class="p">()</span><span class="w"> </span><span class="k">noexcept</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// ...</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">is_mpi_finalized</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">false</span><span class="p">;</span>
+<span class="w">    </span><span class="n">MPI_Finalized</span><span class="p">(</span><span class="o">&amp;</span><span class="n">is_mpi_finalized</span><span class="p">);</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">owns_mpi</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="o">!</span><span class="n">is_mpi_finalized</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="n">MPI_Finalize</span><span class="p">();</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">env</span></code> は <code class="docutils literal notranslate"><span class="pre">main()</span></code> の最初に作られ、<code class="docutils literal notranslate"><span class="pre">main()</span></code> の終わりで寿命が終わるので、MPI の終了処理を書き忘れることがありません。
+<code class="docutils literal notranslate"><span class="pre">noexcept</span></code> は「この関数は例外を外に投げない」という宣言です。
+MPI の内容は <a class="reference internal" href="08_mpi.html#edu-ch08"><span class="std std-ref">第 8 章</span></a> で説明します。</p>
+</section>
+</section>
+<section id="edu-ch04-copy-move">
+<span id="id7"></span><h2>4.6 コピーの禁止とムーブ<a class="headerlink" href="#edu-ch04-copy-move" title="Link to this heading"></a></h2>
+<section id="delete">
+<h3>コピーで起きる問題と = delete<a class="headerlink" href="#delete" title="Link to this heading"></a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">int</span></code> の変数は <code class="docutils literal notranslate"><span class="pre">int</span> <span class="pre">b</span> <span class="pre">=</span> <span class="pre">a;</span></code> でコピーできます。クラスのオブジェクトも、何も指定しなければコピーでき、そのときはメンバ変数が 1 つずつコピーされます。
+前の節の <code class="docutils literal notranslate"><span class="pre">Buffer</span></code> をコピーすると、メンバ <code class="docutils literal notranslate"><span class="pre">data_</span></code> に入っている<strong>アドレスだけ</strong>がコピーされます。
+配列そのものは複製されず、2 つのオブジェクトが同じ配列を指します。
+すると、2 つのデストラクタが同じ配列を <code class="docutils literal notranslate"><span class="pre">delete[]</span></code> することになり、プログラムが異常終了するなどの誤りになります。</p>
+<p>配列を受け持つクラスでは、コピーを禁止します。
+特別なメンバ関数の宣言の後に <strong><code class="docutils literal notranslate"><span class="pre">=</span> <span class="pre">delete</span></code></strong> を書くと、その関数は使えなくなります。</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">Buffer</span><span class="w"> </span><span class="p">{</span>
+<span class="k">public</span><span class="o">:</span>
+<span class="w">  </span><span class="c1">// ...（コンストラクタとデストラクタは前と同じ）</span>
+<span class="w">  </span><span class="n">Buffer</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">Buffer</span><span class="w"> </span><span class="o">&amp;</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">delete</span><span class="p">;</span><span class="w">             </span><span class="c1">// コピーして作ることを禁止します</span>
+<span class="w">  </span><span class="n">Buffer</span><span class="w"> </span><span class="o">&amp;</span><span class="k">operator</span><span class="o">=</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">Buffer</span><span class="w"> </span><span class="o">&amp;</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">delete</span><span class="p">;</span><span class="w">  </span><span class="c1">// コピーの代入を禁止します</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+<p>1 行目の <code class="docutils literal notranslate"><span class="pre">Buffer(const</span> <span class="pre">Buffer</span> <span class="pre">&amp;)</span></code> は、同じ型のオブジェクトから作るコンストラクタで、<strong>コピーコンストラクタ</strong>と呼びます。<code class="docutils literal notranslate"><span class="pre">Buffer</span> <span class="pre">b</span> <span class="pre">=</span> <span class="pre">a;</span></code> や <code class="docutils literal notranslate"><span class="pre">Buffer</span> <span class="pre">b(a);</span></code> で呼ばれます。
+2 行目の <code class="docutils literal notranslate"><span class="pre">operator=</span></code> は、作った後の <code class="docutils literal notranslate"><span class="pre">b</span> <span class="pre">=</span> <span class="pre">a;</span></code> で呼ばれる関数です（<code class="docutils literal notranslate"><span class="pre">operator</span></code> の付く名前は <a class="reference internal" href="#edu-ch04-operator"><span class="std std-ref">4.7 節</span></a> で説明します）。
+どちらも禁止すると、<code class="docutils literal notranslate"><span class="pre">Buffer</span> <span class="pre">b</span> <span class="pre">=</span> <span class="pre">a;</span></code> は <code class="docutils literal notranslate"><span class="pre">use</span> <span class="pre">of</span> <span class="pre">deleted</span> <span class="pre">function</span> <span class="pre">'Buffer::Buffer(const</span> <span class="pre">Buffer&amp;)'</span></code> というコンパイルエラーになります。
+誤りが実行時ではなくコンパイル時に分かります。</p>
+</section>
+<section id="id8">
+<h3>ムーブ：中身の持ち主を移す<a class="headerlink" href="#id8" title="Link to this heading"></a></h3>
+<p>コピーを禁止しても、「配列の持ち主を別のオブジェクトへ移す」ことはしたい場合があります。
+関数の中で作った配列を戻り値で返すときなどです。
+これを<strong>ムーブ</strong>（move）と呼びます。<code class="docutils literal notranslate"><span class="pre">Buffer</span></code> にムーブのためのコンストラクタを加えます。</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="w">  </span><span class="n">Buffer</span><span class="p">(</span><span class="n">Buffer</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="n">other</span><span class="p">)</span><span class="w"> </span><span class="k">noexcept</span><span class="w">      </span><span class="c1">// ムーブして作ります</span>
+<span class="w">      </span><span class="o">:</span><span class="w"> </span><span class="n">data_</span><span class="p">(</span><span class="n">other</span><span class="p">.</span><span class="n">data_</span><span class="p">),</span><span class="w"> </span><span class="n">n_</span><span class="p">(</span><span class="n">other</span><span class="p">.</span><span class="n">n_</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">other</span><span class="p">.</span><span class="n">data_</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">nullptr</span><span class="p">;</span><span class="w">  </span><span class="c1">// 元のオブジェクトは配列を手放します</span>
+<span class="w">    </span><span class="n">other</span><span class="p">.</span><span class="n">n_</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="w">  </span><span class="p">}</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">Buffer</span> <span class="pre">&amp;&amp;</span></code> は、「中身を移してよいオブジェクト」を受け取る参照です。
+ムーブのコンストラクタは、<code class="docutils literal notranslate"><span class="pre">other</span></code> の配列のアドレスを受け取り、<code class="docutils literal notranslate"><span class="pre">other</span></code> 側を <code class="docutils literal notranslate"><span class="pre">nullptr</span></code> にします。
+配列は 1 つのままで、持ち主だけが入れ替わります。
+<code class="docutils literal notranslate"><span class="pre">nullptr</span></code> を <code class="docutils literal notranslate"><span class="pre">delete[]</span></code> しても何も起きないので、空になった <code class="docutils literal notranslate"><span class="pre">other</span></code> のデストラクタは何も解放しません。</p>
+<p>デストラクタで、配列を持っているときだけ表示するようにして（<code class="docutils literal notranslate"><span class="pre">if</span> <span class="pre">(data_</span> <span class="pre">!=</span> <span class="pre">nullptr)</span></code>）、<code class="docutils literal notranslate"><span class="pre">size()</span></code> を加えたものが次の使用例です。
+<code class="docutils literal notranslate"><span class="pre">std::move</span></code> は <code class="docutils literal notranslate"><span class="pre">#include</span> <span class="pre">&lt;utility&gt;</span></code> で使えます。</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="n">Buffer</span><span class="w"> </span><span class="n">a</span><span class="p">(</span><span class="mi">10</span><span class="p">);</span>
+<span class="w">  </span><span class="c1">// Buffer b = a;          // エラー：コピーは禁止しています</span>
+<span class="w">  </span><span class="n">Buffer</span><span class="w"> </span><span class="n">c</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">move</span><span class="p">(</span><span class="n">a</span><span class="p">);</span><span class="w">  </span><span class="c1">// a の配列を c へ移します。新しい確保はしません</span>
+<span class="w">  </span><span class="n">std</span><span class="o">::</span><span class="n">printf</span><span class="p">(</span><span class="s">"a.size() = %d, c.size() = %d</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="n">size</span><span class="p">(),</span><span class="w"> </span><span class="n">c</span><span class="p">.</span><span class="n">size</span><span class="p">());</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>確保しました（10 要素）
+a.size() = 0, c.size() = 10
+解放します（10 要素）
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">std::move(a)</span></code> は、<code class="docutils literal notranslate"><span class="pre">a</span></code> を「中身を移してよいオブジェクト」として扱う指定で、それ自体は何も移しません。
+移すのはムーブのコンストラクタです。
+ムーブした後の <code class="docutils literal notranslate"><span class="pre">a</span></code> は空になっているので、配列として使いません。</p>
+<p>関数の戻り値として返すときは、<code class="docutils literal notranslate"><span class="pre">std::move</span></code> を書かなくても、ムーブ（または移す処理そのものの省略）が使われます。</p>
+</section>
+<section id="miso-array3d-fields">
+<h3>MISO の例：Array3D と Fields<a class="headerlink" href="#miso-array3d-fields" title="Link to this heading"></a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">miso/include/miso/array3d.hpp</span></code> の <code class="docutils literal notranslate"><span class="pre">Array3D</span></code> の末尾には、<code class="docutils literal notranslate"><span class="pre">Buffer</span></code> と同じ組み合わせがあります（抜粋。<code class="docutils literal notranslate"><span class="pre">//</span></code> のコメントは元のコードのものです）。</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="w">  </span><span class="c1">// Prohibit copy semantics</span>
+<span class="w">  </span><span class="n">Array3D</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">Array3D</span><span class="w"> </span><span class="o">&amp;</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">delete</span><span class="p">;</span>
+<span class="w">  </span><span class="n">Array3D</span><span class="w"> </span><span class="o">&amp;</span><span class="k">operator</span><span class="o">=</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">Array3D</span><span class="w"> </span><span class="o">&amp;</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">delete</span><span class="p">;</span>
+
+<span class="w">  </span><span class="c1">// Allow move semantics (allow uninitialized state)</span>
+<span class="w">  </span><span class="n">Array3D</span><span class="p">(</span><span class="n">Array3D</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="n">other</span><span class="p">)</span><span class="w"> </span><span class="k">noexcept</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">data_</span><span class="p">(</span><span class="n">other</span><span class="p">.</span><span class="n">data_</span><span class="p">),</span><span class="w"> </span><span class="n">shape_</span><span class="p">(</span><span class="n">other</span><span class="p">.</span><span class="n">shape_</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">other</span><span class="p">.</span><span class="n">data_</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">nullptr</span><span class="p">;</span>
+<span class="w">    </span><span class="n">other</span><span class="p">.</span><span class="n">shape_</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">array</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="o">&gt;</span><span class="p">{</span><span class="mi">-1</span><span class="p">,</span><span class="w"> </span><span class="mi">-1</span><span class="p">,</span><span class="w"> </span><span class="mi">-1</span><span class="p">};</span>
+<span class="w">  </span><span class="p">}</span>
+</pre></div>
+</div>
+<p>ムーブした後の <code class="docutils literal notranslate"><span class="pre">Array3D</span></code> は、<code class="docutils literal notranslate"><span class="pre">data_</span></code> が <code class="docutils literal notranslate"><span class="pre">nullptr</span></code>、大きさが <code class="docutils literal notranslate"><span class="pre">-1</span></code> の「作っていない状態」になります。
+コメントの <code class="docutils literal notranslate"><span class="pre">allow</span> <span class="pre">uninitialized</span> <span class="pre">state</span></code> はこの状態のことです。
+ムーブの代入 <code class="docutils literal notranslate"><span class="pre">operator=(Array3D</span> <span class="pre">&amp;&amp;other)</span></code> も定義されていて、自分が持っていた配列を解放してから <code class="docutils literal notranslate"><span class="pre">other</span></code> の配列を受け取ります。</p>
+<p><code class="docutils literal notranslate"><span class="pre">miso/include/miso/mhd_fields.hpp</span></code> の <code class="docutils literal notranslate"><span class="pre">Fields</span></code> は、MHD の 9 つの変数（密度 <code class="docutils literal notranslate"><span class="pre">ro</span></code>、速度 <code class="docutils literal notranslate"><span class="pre">vx</span></code>, <code class="docutils literal notranslate"><span class="pre">vy</span></code>, <code class="docutils literal notranslate"><span class="pre">vz</span></code>、磁場 <code class="docutils literal notranslate"><span class="pre">bx</span></code>, <code class="docutils literal notranslate"><span class="pre">by</span></code>, <code class="docutils literal notranslate"><span class="pre">bz</span></code>、内部エネルギー <code class="docutils literal notranslate"><span class="pre">ei</span></code>、発散を抑えるための変数 <code class="docutils literal notranslate"><span class="pre">ph</span></code>）を <code class="docutils literal notranslate"><span class="pre">Array3D</span></code> で持つ構造体です。
+CPU 用の定義の抜粋です。</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">Real</span><span class="o">&gt;</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">Fields</span><span class="o">&lt;</span><span class="n">Real</span><span class="p">,</span><span class="w"> </span><span class="n">backend</span><span class="o">::</span><span class="n">Host</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="n">Array3D</span><span class="o">&lt;</span><span class="n">Real</span><span class="p">,</span><span class="w"> </span><span class="n">backend</span><span class="o">::</span><span class="n">Host</span><span class="o">&gt;</span><span class="w"> </span><span class="n">ro</span><span class="p">,</span><span class="w"> </span><span class="n">vx</span><span class="p">,</span><span class="w"> </span><span class="n">vy</span><span class="p">,</span><span class="w"> </span><span class="n">vz</span><span class="p">,</span><span class="w"> </span><span class="n">bx</span><span class="p">,</span><span class="w"> </span><span class="n">by</span><span class="p">,</span><span class="w"> </span><span class="n">bz</span><span class="p">,</span><span class="w"> </span><span class="n">ei</span><span class="p">,</span><span class="w"> </span><span class="n">ph</span><span class="p">;</span>
+
+<span class="w">  </span><span class="n">Fields</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">i_total</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">j_total</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">k_total</span><span class="p">)</span>
+<span class="w">      </span><span class="o">:</span><span class="w"> </span><span class="n">ro</span><span class="p">(</span><span class="n">i_total</span><span class="p">,</span><span class="w"> </span><span class="n">j_total</span><span class="p">,</span><span class="w"> </span><span class="n">k_total</span><span class="p">),</span><span class="w"> </span><span class="n">vx</span><span class="p">(</span><span class="n">i_total</span><span class="p">,</span><span class="w"> </span><span class="n">j_total</span><span class="p">,</span><span class="w"> </span><span class="n">k_total</span><span class="p">),</span>
+<span class="w">        </span><span class="c1">// ...（vy から ph まで同じ）</span>
+<span class="w">        </span><span class="n">ph</span><span class="p">(</span><span class="n">i_total</span><span class="p">,</span><span class="w"> </span><span class="n">j_total</span><span class="p">,</span><span class="w"> </span><span class="n">k_total</span><span class="p">)</span><span class="w"> </span><span class="p">{}</span>
+<span class="w">  </span><span class="c1">// ...</span>
+<span class="w">  </span><span class="c1">// Prohibit copy semantics</span>
+<span class="w">  </span><span class="n">Fields</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">Fields</span><span class="w"> </span><span class="o">&amp;</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">delete</span><span class="p">;</span>
+<span class="w">  </span><span class="n">Fields</span><span class="w"> </span><span class="o">&amp;</span><span class="k">operator</span><span class="o">=</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">Fields</span><span class="w"> </span><span class="o">&amp;</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">delete</span><span class="p">;</span>
+
+<span class="w">  </span><span class="c1">// Allow move semantics</span>
+<span class="w">  </span><span class="n">Fields</span><span class="p">(</span><span class="n">Fields</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">default</span><span class="p">;</span>
+<span class="w">  </span><span class="n">Fields</span><span class="w"> </span><span class="o">&amp;</span><span class="k">operator</span><span class="o">=</span><span class="p">(</span><span class="n">Fields</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">default</span><span class="p">;</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">Fields</span></code> 自身は配列を直接確保していません。メンバの <code class="docutils literal notranslate"><span class="pre">Array3D</span></code> のコンストラクタがそれぞれ確保し、デストラクタがそれぞれ解放します。
+そのため <code class="docutils literal notranslate"><span class="pre">Fields</span></code> にはデストラクタを書いていません。
+<strong><code class="docutils literal notranslate"><span class="pre">=</span> <span class="pre">default</span></code></strong> は「この関数を、コンパイラが用意する標準の形で使う」という指定です。
+ムーブなら「メンバを 1 つずつムーブする」処理になり、9 つの <code class="docutils literal notranslate"><span class="pre">Array3D</span></code> のムーブがそれぞれ呼ばれます。</p>
+<p>demo の中で、関数が <code class="docutils literal notranslate"><span class="pre">Array3D</span></code> を返す例が <code class="docutils literal notranslate"><span class="pre">demo/mhd2d_reconnection/src/main.cpp</span></code> の <code class="docutils literal notranslate"><span class="pre">make_eta</span></code> です。
+抵抗率の配列を作って返し、<code class="docutils literal notranslate"><span class="pre">Model</span></code> のメンバ <code class="docutils literal notranslate"><span class="pre">eta</span></code> を初期化します（抜粋）。</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kr">inline</span><span class="w"> </span><span class="n">Array3D</span><span class="o">&lt;</span><span class="n">Real</span><span class="p">,</span><span class="w"> </span><span class="n">Backend</span><span class="o">&gt;</span><span class="w"> </span><span class="n">make_eta</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">Grid</span><span class="o">&lt;</span><span class="n">Real</span><span class="p">,</span><span class="w"> </span><span class="n">backend</span><span class="o">::</span><span class="n">Host</span><span class="o">&gt;</span><span class="w"> </span><span class="o">&amp;</span><span class="n">grid</span><span class="p">,</span>
+<span class="w">                                       </span><span class="k">const</span><span class="w"> </span><span class="n">Parameters</span><span class="w"> </span><span class="o">&amp;</span><span class="n">par</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="c1">// ...（CPU で値を計算し、Backend の配列 eta へ写します）</span>
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="n">eta</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="c1">// Model のコンストラクタの初期化子リストの一部</span>
+<span class="w">      </span><span class="n">eta</span><span class="p">(</span><span class="n">make_eta</span><span class="p">(</span><span class="n">grid</span><span class="p">,</span><span class="w"> </span><span class="n">par</span><span class="p">)),</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">Array3D</span></code> はコピーできませんが、戻り値はムーブ（または移す処理の省略）で受け渡されるので、この書き方ができます。</p>
+<details>
+<summary>コラム：コピー・ムーブ・デストラクタをまとめて考える規則</summary>
+<p>デストラクタ、コピーのコンストラクタと代入、ムーブのコンストラクタと代入の 5 つは、どれか 1 つを自分で定義したら、残りも定義するか <code class="docutils literal notranslate"><span class="pre">=</span> <span class="pre">delete</span></code>・<code class="docutils literal notranslate"><span class="pre">=</span> <span class="pre">default</span></code> で明示する、という指針があります。
+C++ Core Guidelines の <a class="reference external" href="https://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines#Rc-five">C.21</a> で「rule of five」として説明されています。
+<code class="docutils literal notranslate"><span class="pre">Array3D</span></code> は、デストラクタで解放し、コピーを禁止し、ムーブを定義しているので、この指針どおり 5 つすべてを決めています。
+逆に、<code class="docutils literal notranslate"><span class="pre">Fields</span></code> のように資源を直接持たないクラスは、メンバのクラスに後片付けを任せ、自分ではほとんど書かずに済ませられます（同じ文書の <a class="reference external" href="https://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines#Rc-zero">C.20</a>）。</p>
+</details>
+</section>
+</section>
+<section id="operator">
+<span id="edu-ch04-operator"></span><h2>4.7 演算子のオーバーロードと operator()<a class="headerlink" href="#operator" title="Link to this heading"></a></h2>
+<p>MISO では、3 次元配列の要素を <code class="docutils literal notranslate"><span class="pre">a(i,</span> <span class="pre">j,</span> <span class="pre">k)</span></code> と書きます。
+Fortran の <code class="docutils literal notranslate"><span class="pre">a(i,</span> <span class="pre">j,</span> <span class="pre">k)</span></code> と似ていますが、C++ の <code class="docutils literal notranslate"><span class="pre">a(i,</span> <span class="pre">j,</span> <span class="pre">k)</span></code> は「オブジェクト <code class="docutils literal notranslate"><span class="pre">a</span></code> の <code class="docutils literal notranslate"><span class="pre">operator()</span></code> という名前のメンバ関数を、引数 <code class="docutils literal notranslate"><span class="pre">i,</span> <span class="pre">j,</span> <span class="pre">k</span></code> で呼ぶ」ことを意味します。
+<code class="docutils literal notranslate"><span class="pre">+</span></code> や <code class="docutils literal notranslate"><span class="pre">[]</span></code> や <code class="docutils literal notranslate"><span class="pre">()</span></code> などの演算子に、クラスごとの意味を定義することを<strong>演算子のオーバーロード</strong>と呼びます。
+定義する関数の名前は <code class="docutils literal notranslate"><span class="pre">operator</span></code> と演算子の記号を続けたもので、<code class="docutils literal notranslate"><span class="pre">operator()</span></code> や <code class="docutils literal notranslate"><span class="pre">operator[]</span></code>、前節の <code class="docutils literal notranslate"><span class="pre">operator=</span></code> がその例です。</p>
+<p>説明用の 2 次元配列で確かめます。</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">Array2</span><span class="w"> </span><span class="p">{</span>
+<span class="k">public</span><span class="o">:</span>
+<span class="w">  </span><span class="n">Array2</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">n0</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">n1</span><span class="p">)</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">data_</span><span class="p">(</span><span class="k">new</span><span class="w"> </span><span class="kt">double</span><span class="p">[</span><span class="n">n0</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">n1</span><span class="p">]),</span><span class="w"> </span><span class="n">n0_</span><span class="p">(</span><span class="n">n0</span><span class="p">),</span><span class="w"> </span><span class="n">n1_</span><span class="p">(</span><span class="n">n1</span><span class="p">)</span><span class="w"> </span><span class="p">{}</span>
+<span class="w">  </span><span class="o">~</span><span class="n">Array2</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">delete</span><span class="p">[]</span><span class="w"> </span><span class="n">data_</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+<span class="w">  </span><span class="n">Array2</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">Array2</span><span class="w"> </span><span class="o">&amp;</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">delete</span><span class="p">;</span>
+<span class="w">  </span><span class="n">Array2</span><span class="w"> </span><span class="o">&amp;</span><span class="k">operator</span><span class="o">=</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">Array2</span><span class="w"> </span><span class="o">&amp;</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">delete</span><span class="p">;</span>
+
+<span class="w">  </span><span class="c1">// a(i, j) と書くと、この関数が呼ばれます</span>
+<span class="w">  </span><span class="kt">double</span><span class="w"> </span><span class="o">&amp;</span><span class="nf">operator</span><span class="p">()(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">j</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">data_</span><span class="p">[</span><span class="n">i</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">n1_</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">j</span><span class="p">];</span><span class="w"> </span><span class="p">}</span>
+
+<span class="w">  </span><span class="kt">int</span><span class="w"> </span><span class="nf">extent</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">dim</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">dim</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="o">?</span><span class="w"> </span><span class="n">n0_</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">n1_</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+
+<span class="k">private</span><span class="o">:</span>
+<span class="w">  </span><span class="kt">double</span><span class="w"> </span><span class="o">*</span><span class="n">data_</span><span class="p">;</span>
+<span class="w">  </span><span class="kt">int</span><span class="w"> </span><span class="n">n0_</span><span class="p">,</span><span class="w"> </span><span class="n">n1_</span><span class="p">;</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">Array2</span><span class="w"> </span><span class="nf">a</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">);</span>
+<span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="n">extent</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span><span class="w"> </span><span class="o">++</span><span class="n">i</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">j</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">j</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="n">extent</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span><span class="w"> </span><span class="o">++</span><span class="n">j</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">a</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="w"> </span><span class="n">j</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">10</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">j</span><span class="p">;</span><span class="w">  </span><span class="c1">// 戻り値は参照なので、要素に代入できます</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+<span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">a</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">"</span><span class="se">\n</span><span class="s">"</span><span class="p">;</span><span class="w">  </span><span class="c1">// 12</span>
+<span class="kt">double</span><span class="w"> </span><span class="o">&amp;</span><span class="n">e</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">a</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">);</span><span class="w">           </span><span class="c1">// 要素 (0, 1) の別名です</span>
+<span class="n">e</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">-1.0</span><span class="p">;</span>
+<span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">a</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">"</span><span class="se">\n</span><span class="s">"</span><span class="p">;</span><span class="w">  </span><span class="c1">// -1</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">operator()</span></code> の戻り値の型 <code class="docutils literal notranslate"><span class="pre">double</span> <span class="pre">&amp;</span></code> が重要です。
+値（<code class="docutils literal notranslate"><span class="pre">double</span></code>）を返す定義にすると、<code class="docutils literal notranslate"><span class="pre">a(i,</span> <span class="pre">j)</span></code> は要素の値をコピーした一時的な値になり、<code class="docutils literal notranslate"><span class="pre">a(i,</span> <span class="pre">j)</span> <span class="pre">=</span> <span class="pre">...</span></code> はコンパイルエラーになります。
+参照を返すので、<code class="docutils literal notranslate"><span class="pre">a(i,</span> <span class="pre">j)</span></code> は配列の要素そのものの別名になり、読むことも書くこともできます。
+<code class="docutils literal notranslate"><span class="pre">dim</span> <span class="pre">==</span> <span class="pre">0</span> <span class="pre">?</span> <span class="pre">n0_</span> <span class="pre">:</span> <span class="pre">n1_</span></code> は、<code class="docutils literal notranslate"><span class="pre">dim</span> <span class="pre">==</span> <span class="pre">0</span></code> なら <code class="docutils literal notranslate"><span class="pre">n0_</span></code>、そうでなければ <code class="docutils literal notranslate"><span class="pre">n1_</span></code> を値とする式です（条件演算子）。</p>
+<p><code class="docutils literal notranslate"><span class="pre">data_[i</span> <span class="pre">*</span> <span class="pre">n1_</span> <span class="pre">+</span> <span class="pre">j]</span></code> は、2 次元の添字を 1 次元の位置に直す式です。
+<code class="docutils literal notranslate"><span class="pre">j</span></code> が 1 増えると隣の要素へ、<code class="docutils literal notranslate"><span class="pre">i</span></code> が 1 増えると <code class="docutils literal notranslate"><span class="pre">n1_</span></code> 個先へ進むので、<strong>最後の添字が連続</strong>しています。
+Fortran は最初の添字が連続なので、並びが逆です。並びの違いとループの順番は <a class="reference internal" href="07_arrays_and_parallel.html#edu-ch07"><span class="std std-ref">第 7 章</span></a> で詳しく説明します。</p>
+<section id="miso-array3d-operator">
+<h3>MISO の例：Array3D の operator()<a class="headerlink" href="#miso-array3d-operator" title="Link to this heading"></a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">miso/include/miso/array3d.hpp</span></code> の CPU 用 <code class="docutils literal notranslate"><span class="pre">Array3D</span></code> の <code class="docutils literal notranslate"><span class="pre">operator()</span></code> と <code class="docutils literal notranslate"><span class="pre">operator[]</span></code> です。</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="w">  </span><span class="c1">/// @brief Return reference to the element at the given indices.</span>
+<span class="w">  </span><span class="n">T</span><span class="w"> </span><span class="o">&amp;</span><span class="nf">operator</span><span class="p">()(</span><span class="kt">int</span><span class="w"> </span><span class="n">i0</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">i1</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">i2</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="k">noexcept</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">assert</span><span class="p">(</span><span class="n">data_</span><span class="p">);</span>
+<span class="w">    </span><span class="n">assert</span><span class="p">(</span><span class="n">i0</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">i0</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">shape_</span><span class="p">[</span><span class="mi">0</span><span class="p">]);</span>
+<span class="w">    </span><span class="n">assert</span><span class="p">(</span><span class="n">i1</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">i1</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">shape_</span><span class="p">[</span><span class="mi">1</span><span class="p">]);</span>
+<span class="w">    </span><span class="n">assert</span><span class="p">(</span><span class="n">i2</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">i2</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">shape_</span><span class="p">[</span><span class="mi">2</span><span class="p">]);</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">data_</span><span class="p">[(</span><span class="n">i0</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">shape_</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">i1</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">shape_</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">i2</span><span class="p">];</span>
+<span class="w">  </span><span class="p">}</span>
+
+<span class="w">  </span><span class="c1">/// @brief Return reference to the element at the given linear index.</span>
+<span class="w">  </span><span class="n">T</span><span class="w"> </span><span class="o">&amp;</span><span class="k">operator</span><span class="p">[](</span><span class="kt">int</span><span class="w"> </span><span class="n">idx</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="k">noexcept</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">assert</span><span class="p">(</span><span class="n">data_</span><span class="p">);</span>
+<span class="w">    </span><span class="n">assert</span><span class="p">(</span><span class="n">idx</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">idx</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">size</span><span class="p">());</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">data_</span><span class="p">[</span><span class="n">idx</span><span class="p">];</span>
+<span class="w">  </span><span class="p">}</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">(i0</span> <span class="pre">*</span> <span class="pre">shape_[1]</span> <span class="pre">+</span> <span class="pre">i1)</span> <span class="pre">*</span> <span class="pre">shape_[2]</span> <span class="pre">+</span> <span class="pre">i2</span></code> は、<code class="docutils literal notranslate"><span class="pre">Array2</span></code> の式を 3 次元にしたもので、最後の添字 <code class="docutils literal notranslate"><span class="pre">i2</span></code> が連続です。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">assert(...)</span></code> は、条件が成り立たなければプログラムを止める検査です。添字が範囲外なら止まります。ただし <code class="docutils literal notranslate"><span class="pre">assert</span></code> は Debug ビルドでだけ働き、MISO の既定の Release ビルドでは取り除かれます（<a class="reference internal" href="01_environment_setup.html#edu-ch01"><span class="std std-ref">第 1 章</span></a>）。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">operator[]</span></code> は、1 次元の位置 <code class="docutils literal notranslate"><span class="pre">idx</span></code> で要素を指定します。<code class="docutils literal notranslate"><span class="pre">a[n]</span></code> と書けます。全要素を同じように処理するときに使います。</p></li>
+</ul>
+<p><code class="docutils literal notranslate"><span class="pre">miso/include/miso/config.hpp</span></code> の <code class="docutils literal notranslate"><span class="pre">Config</span></code> にも <code class="docutils literal notranslate"><span class="pre">operator[]</span></code> があり、<code class="docutils literal notranslate"><span class="pre">config[&quot;time&quot;]</span></code> と書けます。</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="w">  </span><span class="c1">/// @brief Accessor for YAML configuration object</span>
+<span class="w">  </span><span class="k">const</span><span class="w"> </span><span class="n">YAML</span><span class="o">::</span><span class="n">Node</span><span class="w"> </span><span class="k">operator</span><span class="p">[](</span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="o">&amp;</span><span class="n">key</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">yaml_obj</span><span class="p">[</span><span class="n">key</span><span class="p">];</span>
+<span class="w">  </span><span class="p">}</span>
+</pre></div>
+</div>
+<p>メンバ <code class="docutils literal notranslate"><span class="pre">yaml_obj</span></code>（yaml-cpp のオブジェクト）から、キー <code class="docutils literal notranslate"><span class="pre">key</span></code> の項目を取り出して返します。
+戻り値の <code class="docutils literal notranslate"><span class="pre">YAML::Node</span></code> も <code class="docutils literal notranslate"><span class="pre">[]</span></code> を持つので、<code class="docutils literal notranslate"><span class="pre">config[&quot;time&quot;][&quot;tend&quot;]</span></code> と続けて書けます。
+末尾の <code class="docutils literal notranslate"><span class="pre">const</span></code> があるので、<code class="docutils literal notranslate"><span class="pre">const</span> <span class="pre">Config</span> <span class="pre">&amp;</span></code> で受け取った設定（<code class="docutils literal notranslate"><span class="pre">Time</span></code> のコンストラクタの引数など）からも呼べます。</p>
+</section>
+</section>
+<section id="view">
+<span id="edu-ch04-view"></span><h2>4.8 所有する配列と所有しない View<a class="headerlink" href="#view" title="Link to this heading"></a></h2>
+<section id="id9">
+<h3>所有と View の考え方<a class="headerlink" href="#id9" title="Link to this heading"></a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">Array2</span></code> や <code class="docutils literal notranslate"><span class="pre">Array3D</span></code> は、配列を確保し、寿命が終わると解放します。
+このように、<strong>資源の後片付けに責任を持つこと</strong>を「<strong>所有する</strong>」と言います。
+所有するオブジェクトはコピーを禁止しているので、関数に渡すときは参照で渡します。</p>
+<p>一方、計算の関数に必要なのは、配列の先頭アドレスと大きさだけです。
+そこで、<strong>先頭アドレスと大きさだけを持ち、確保も解放もしない</strong>軽いクラスを用意し、関数にはそれを渡します。
+これを <strong>View</strong>（ビュー）と呼びます。</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="c1">// 所有しない View：先頭のアドレスと大きさだけを持ちます</span>
+<span class="k">struct</span><span class="w"> </span><span class="nc">Array2View</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="kt">double</span><span class="w"> </span><span class="o">*</span><span class="n">data</span><span class="p">;</span>
+<span class="w">  </span><span class="kt">int</span><span class="w"> </span><span class="n">n0</span><span class="p">,</span><span class="w"> </span><span class="n">n1</span><span class="p">;</span>
+<span class="w">  </span><span class="kt">double</span><span class="w"> </span><span class="o">&amp;</span><span class="nf">operator</span><span class="p">()(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">j</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">data</span><span class="p">[</span><span class="n">i</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">n1</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">j</span><span class="p">];</span><span class="w"> </span><span class="p">}</span>
+<span class="p">};</span>
+
+<span class="c1">// 所有する配列：確保と解放を受け持ちます</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">Array2</span><span class="w"> </span><span class="p">{</span>
+<span class="k">public</span><span class="o">:</span>
+<span class="w">  </span><span class="c1">// ...（コンストラクタ、デストラクタ、コピーの禁止は前と同じ）</span>
+<span class="w">  </span><span class="n">Array2View</span><span class="w"> </span><span class="n">view</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">Array2View</span><span class="p">{</span><span class="n">data_</span><span class="p">,</span><span class="w"> </span><span class="n">n0_</span><span class="p">,</span><span class="w"> </span><span class="n">n1_</span><span class="p">};</span><span class="w"> </span><span class="p">}</span>
+<span class="w">  </span><span class="c1">// ...</span>
+<span class="p">};</span>
+
+<span class="c1">// View を値で受け取ります。コピーされるのはアドレスと大きさだけです</span>
+<span class="kt">void</span><span class="w"> </span><span class="nf">fill</span><span class="p">(</span><span class="n">Array2View</span><span class="w"> </span><span class="n">v</span><span class="p">,</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="n">value</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">v</span><span class="p">.</span><span class="n">n0</span><span class="p">;</span><span class="w"> </span><span class="o">++</span><span class="n">i</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">j</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">j</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">v</span><span class="p">.</span><span class="n">n1</span><span class="p">;</span><span class="w"> </span><span class="o">++</span><span class="n">j</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="n">v</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="w"> </span><span class="n">j</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">value</span><span class="p">;</span><span class="w">  </span><span class="c1">// 元の Array2 の要素を書き換えます</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">Array2</span><span class="w"> </span><span class="nf">a</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">);</span>
+<span class="n">fill</span><span class="p">(</span><span class="n">a</span><span class="p">.</span><span class="n">view</span><span class="p">(),</span><span class="w"> </span><span class="mf">7.0</span><span class="p">);</span>
+<span class="n">Array2View</span><span class="w"> </span><span class="n">v</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="n">view</span><span class="p">();</span>
+<span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">v</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">" "</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="n">Array2View</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">"</span><span class="se">\n</span><span class="s">"</span><span class="p">;</span><span class="w">  </span><span class="c1">// 7 16</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">fill</span></code> は <code class="docutils literal notranslate"><span class="pre">Array2View</span></code> を値で受け取るので、関数の中の <code class="docutils literal notranslate"><span class="pre">v</span></code> はコピーです。
+コピーしたのはアドレスと大きさだけなので、<code class="docutils literal notranslate"><span class="pre">v(i,</span> <span class="pre">j)</span></code> は元の <code class="docutils literal notranslate"><span class="pre">a</span></code> の要素を指し、<code class="docutils literal notranslate"><span class="pre">a</span></code> が書き換わります。
+<code class="docutils literal notranslate"><span class="pre">sizeof(Array2View)</span></code> は、このオブジェクトの大きさ（バイト数）です。この確認では 16 バイト（アドレス 8 バイトと <code class="docutils literal notranslate"><span class="pre">int</span></code> 2 つ）で、配列の要素数には依存しません。</p>
+<p>View は配列を所有しないので、<strong>持ち主より長く使ってはいけません</strong>。
+持ち主の <code class="docutils literal notranslate"><span class="pre">Array2</span></code> の寿命が終わった後に View を使うと、解放済みのメモリを指すことになります（<a class="reference internal" href="03_references_and_pointers.html#edu-ch03"><span class="std std-ref">第 3 章</span></a> のぶら下がり参照と同じ問題です）。</p>
+</section>
+<section id="miso-array3dview">
+<h3>MISO の例：Array3DView<a class="headerlink" href="#miso-array3dview" title="Link to this heading"></a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">miso/include/miso/array3d.hpp</span></code> の <code class="docutils literal notranslate"><span class="pre">Array3DView</span></code> の抜粋です。</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="c1">/// @brief Lightweight non-owning view of 3D array data.</span>
+<span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">T</span><span class="o">&gt;</span><span class="w"> </span><span class="k">class</span><span class="w"> </span><span class="nc">Array3DView</span><span class="w"> </span><span class="p">{</span>
+<span class="k">private</span><span class="o">:</span>
+<span class="w">  </span><span class="n">T</span><span class="w"> </span><span class="o">*</span><span class="n">data_</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">nullptr</span><span class="p">;</span>
+<span class="w">  </span><span class="kt">int</span><span class="w"> </span><span class="n">shape_</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="mi">-1</span><span class="p">,</span><span class="w"> </span><span class="mi">-1</span><span class="p">,</span><span class="w"> </span><span class="mi">-1</span><span class="p">};</span>
+
+<span class="w">  </span><span class="c1">// Always constructed from Array3D</span>
+<span class="w">  </span><span class="c1">// to ensure that the array size is within the numeric limits of int.</span>
+<span class="w">  </span><span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">typename</span><span class="p">,</span><span class="w"> </span><span class="k">typename</span><span class="o">&gt;</span><span class="w"> </span><span class="k">friend</span><span class="w"> </span><span class="k">class</span><span class="w"> </span><span class="nc">Array3D</span><span class="p">;</span>
+<span class="w">  </span><span class="n">Array3DView</span><span class="p">(</span><span class="n">T</span><span class="w"> </span><span class="o">*</span><span class="n">data</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">nx0</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">nx1</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">nx2</span><span class="p">)</span><span class="w"> </span><span class="k">noexcept</span>
+<span class="w">      </span><span class="o">:</span><span class="w"> </span><span class="n">data_</span><span class="p">(</span><span class="n">data</span><span class="p">),</span><span class="w"> </span><span class="n">shape_</span><span class="p">{</span><span class="n">nx0</span><span class="p">,</span><span class="w"> </span><span class="n">nx1</span><span class="p">,</span><span class="w"> </span><span class="n">nx2</span><span class="p">}</span><span class="w"> </span><span class="p">{}</span>
+
+<span class="k">public</span><span class="o">:</span>
+<span class="w">  </span><span class="c1">// ...（data(), extent(), size(), operator[]）</span>
+<span class="w">  </span><span class="n">__host__</span><span class="w"> </span><span class="n">__device__</span><span class="w"> </span><span class="n">T</span><span class="w"> </span><span class="o">&amp;</span><span class="k">operator</span><span class="p">()(</span><span class="kt">int</span><span class="w"> </span><span class="n">i0</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">i1</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">i2</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="k">noexcept</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// ...（assert による検査）</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">data_</span><span class="p">[(</span><span class="n">i0</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">shape_</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">i1</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">shape_</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">i2</span><span class="p">];</span>
+<span class="w">  </span><span class="p">}</span>
+
+<span class="w">  </span><span class="c1">// Allow copy semantics</span>
+<span class="w">  </span><span class="n">__host__</span><span class="w"> </span><span class="n">__device__</span><span class="w"> </span><span class="n">Array3DView</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">Array3DView</span><span class="w"> </span><span class="o">&amp;</span><span class="p">)</span><span class="w"> </span><span class="k">noexcept</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">default</span><span class="p">;</span>
+<span class="w">  </span><span class="n">__host__</span><span class="w"> </span><span class="n">__device__</span><span class="w"> </span><span class="n">Array3DView</span><span class="w"> </span><span class="o">&amp;</span>
+<span class="w">  </span><span class="k">operator</span><span class="o">=</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">Array3DView</span><span class="w"> </span><span class="o">&amp;</span><span class="p">)</span><span class="w"> </span><span class="k">noexcept</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">default</span><span class="p">;</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>持っているのは先頭アドレス <code class="docutils literal notranslate"><span class="pre">data_</span></code> と大きさ <code class="docutils literal notranslate"><span class="pre">shape_</span></code> だけです。デストラクタで解放しません。</p></li>
+<li><p>コピーを <code class="docutils literal notranslate"><span class="pre">=</span> <span class="pre">default</span></code> で許しています。<code class="docutils literal notranslate"><span class="pre">Array3D</span></code> がコピーを禁止しているのと対照的です。View は安くコピーして関数に渡すためのものです。</p></li>
+<li><p>コンストラクタは <code class="docutils literal notranslate"><span class="pre">private</span></code> です。<code class="docutils literal notranslate"><span class="pre">friend</span> <span class="pre">class</span> <span class="pre">Array3D</span></code> は「<code class="docutils literal notranslate"><span class="pre">Array3D</span></code> には private のメンバの使用を許す」という指定で、View を作れるのは <code class="docutils literal notranslate"><span class="pre">Array3D</span></code> の <code class="docutils literal notranslate"><span class="pre">view()</span></code> だけになります。元のコメントにあるとおり、大きさの検査を済ませた <code class="docutils literal notranslate"><span class="pre">Array3D</span></code> からだけ作らせるためです。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">__host__</span> <span class="pre">__device__</span></code> は、この関数を GPU でも使えるようにする印です。CPU だけのビルドでは <code class="docutils literal notranslate"><span class="pre">miso/include/miso/cuda_compat.hpp</span></code> が空の印として定義するので、読むときは無視できます（<a class="reference internal" href="09_gpu.html#edu-ch09"><span class="std std-ref">第 9 章</span></a>）。</p></li>
+</ul>
+<p><code class="docutils literal notranslate"><span class="pre">Array3D</span></code> 側には、View を返す関数が 3 つあります（抜粋）。</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="w">  </span><span class="c1">/// @brief Return a lightweight view of the array.</span>
+<span class="w">  </span><span class="n">Array3DView</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="w"> </span><span class="n">view</span><span class="p">()</span><span class="w"> </span><span class="k">noexcept</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="cm">/* ... */</span><span class="w"> </span><span class="p">}</span>
+
+<span class="w">  </span><span class="c1">/// @brief Return a constant lightweight view of the array.</span>
+<span class="w">  </span><span class="n">Array3DView</span><span class="o">&lt;</span><span class="k">const</span><span class="w"> </span><span class="n">T</span><span class="o">&gt;</span><span class="w"> </span><span class="n">view</span><span class="p">()</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="k">noexcept</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="cm">/* ... */</span><span class="w"> </span><span class="p">}</span>
+
+<span class="w">  </span><span class="c1">/// @brief Return a constant lightweight view of the array.</span>
+<span class="w">  </span><span class="n">Array3DView</span><span class="o">&lt;</span><span class="k">const</span><span class="w"> </span><span class="n">T</span><span class="o">&gt;</span><span class="w"> </span><span class="n">const_view</span><span class="p">()</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="k">noexcept</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">view</span><span class="p">();</span><span class="w"> </span><span class="p">}</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">Array3DView&lt;T&gt;</span></code> は要素を書き換えられる View、<code class="docutils literal notranslate"><span class="pre">Array3DView&lt;const</span> <span class="pre">T&gt;</span></code> は要素を読むだけの View です。
+要素の型に <code class="docutils literal notranslate"><span class="pre">const</span></code> が付いているので、<code class="docutils literal notranslate"><span class="pre">operator()</span></code> が返す参照も <code class="docutils literal notranslate"><span class="pre">const</span> <span class="pre">T</span> <span class="pre">&amp;</span></code> になり、代入するとコンパイルエラーになります。
+1 つ目と 2 つ目は名前が同じで、末尾の <code class="docutils literal notranslate"><span class="pre">const</span></code> だけが違います。<code class="docutils literal notranslate"><span class="pre">const</span></code> でない <code class="docutils literal notranslate"><span class="pre">Array3D</span></code> からは 1 つ目、<code class="docutils literal notranslate"><span class="pre">const</span></code> の <code class="docutils literal notranslate"><span class="pre">Array3D</span></code>（や <code class="docutils literal notranslate"><span class="pre">const</span></code> 参照）からは 2 つ目が呼ばれます。
+<code class="docutils literal notranslate"><span class="pre">const_view()</span></code> は、<code class="docutils literal notranslate"><span class="pre">const</span></code> でない配列からでも、読むだけの View を明示して取り出すための関数です。</p>
+</section>
+<section id="array3d-array3dview">
+<h3>動かして確かめる：Array3D と Array3DView<a class="headerlink" href="#array3d-array3dview" title="Link to this heading"></a></h3>
+<p>MISO のヘッダだけを使う短いプログラムで確かめます。
+<code class="docutils literal notranslate"><span class="pre">miso/include/miso/array3d.hpp</span></code> は MPI や yaml-cpp を使わないので、インクルードパスを指定するだけでビルドできます。</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;iostream&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;utility&gt;</span>
+
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;miso/array3d.hpp&gt;</span>
+
+<span class="k">using</span><span class="w"> </span><span class="n">Real</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kt">float</span><span class="p">;</span>
+
+<span class="c1">// 書き込み用の View を値で受け取り、元の配列の要素を書き換えます</span>
+<span class="kt">void</span><span class="w"> </span><span class="nf">fill</span><span class="p">(</span><span class="n">miso</span><span class="o">::</span><span class="n">Array3DView</span><span class="o">&lt;</span><span class="n">Real</span><span class="o">&gt;</span><span class="w"> </span><span class="n">a</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="n">extent</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span><span class="w"> </span><span class="o">++</span><span class="n">i</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">j</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">j</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="n">extent</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span><span class="w"> </span><span class="o">++</span><span class="n">j</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">k</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">k</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="n">extent</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span><span class="w"> </span><span class="o">++</span><span class="n">k</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">a</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="w"> </span><span class="n">j</span><span class="p">,</span><span class="w"> </span><span class="n">k</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">100</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">10</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">j</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">k</span><span class="p">;</span>
+<span class="w">      </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+
+<span class="c1">// 読み取り専用の View を受け取り、合計を返します</span>
+<span class="n">Real</span><span class="w"> </span><span class="nf">total</span><span class="p">(</span><span class="n">miso</span><span class="o">::</span><span class="n">Array3DView</span><span class="o">&lt;</span><span class="k">const</span><span class="w"> </span><span class="n">Real</span><span class="o">&gt;</span><span class="w"> </span><span class="n">a</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="n">Real</span><span class="w"> </span><span class="n">s</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="w">  </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="n">size</span><span class="p">();</span><span class="w"> </span><span class="o">++</span><span class="n">n</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">s</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">a</span><span class="p">[</span><span class="n">n</span><span class="p">];</span>
+<span class="w">    </span><span class="c1">// a[n] = 0;  // エラー：const Real の要素には代入できません</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="n">s</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="n">miso</span><span class="o">::</span><span class="n">Array3D</span><span class="o">&lt;</span><span class="n">Real</span><span class="o">&gt;</span><span class="w"> </span><span class="n">a</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="mi">4</span><span class="p">);</span><span class="w">  </span><span class="c1">// 2 x 3 x 4 の配列を確保します</span>
+<span class="w">  </span><span class="n">fill</span><span class="p">(</span><span class="n">a</span><span class="p">.</span><span class="n">view</span><span class="p">());</span>
+<span class="w">  </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">a</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">" "</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">a</span><span class="p">[</span><span class="mi">23</span><span class="p">]</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">"</span><span class="se">\n</span><span class="s">"</span><span class="p">;</span><span class="w">  </span><span class="c1">// 同じ要素です</span>
+<span class="w">  </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">total</span><span class="p">(</span><span class="n">a</span><span class="p">.</span><span class="n">const_view</span><span class="p">())</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">"</span><span class="se">\n</span><span class="s">"</span><span class="p">;</span>
+
+<span class="w">  </span><span class="c1">// miso::Array3D&lt;Real&gt; b = a;          // エラー：コピーは禁止されています</span>
+<span class="w">  </span><span class="n">miso</span><span class="o">::</span><span class="n">Array3D</span><span class="o">&lt;</span><span class="n">Real</span><span class="o">&gt;</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">move</span><span class="p">(</span><span class="n">a</span><span class="p">);</span><span class="w">  </span><span class="c1">// 配列の持ち主を a から b へ移します</span>
+<span class="w">  </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="n">extent</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">" "</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">b</span><span class="p">.</span><span class="n">extent</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">"</span><span class="se">\n</span><span class="s">"</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>g++<span class="w"> </span>-std<span class="o">=</span>c++17<span class="w"> </span>-I/path/to/MISO/miso/include<span class="w"> </span>check_array3d.cpp<span class="w"> </span>-o<span class="w"> </span>check_array3d
+./check_array3d
+</pre></div>
+</div>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>123 123
+1476
+-1 2
+</pre></div>
+</div>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">miso::Array3D&lt;Real&gt;</span></code> のように 2 つ目の型の指定を省略すると、<code class="docutils literal notranslate"><span class="pre">backend::Host</span></code>（CPU）になります。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">a(1,</span> <span class="pre">2,</span> <span class="pre">3)</span></code> は 1 次元の位置で <code class="docutils literal notranslate"><span class="pre">(1</span> <span class="pre">*</span> <span class="pre">3</span> <span class="pre">+</span> <span class="pre">2)</span> <span class="pre">*</span> <span class="pre">4</span> <span class="pre">+</span> <span class="pre">3</span> <span class="pre">=</span> <span class="pre">23</span></code> 番目なので、<code class="docutils literal notranslate"><span class="pre">a[23]</span></code> と同じ要素です。</p></li>
+<li><p>ムーブした後の <code class="docutils literal notranslate"><span class="pre">a</span></code> は大きさ <code class="docutils literal notranslate"><span class="pre">-1</span></code> の「作っていない状態」で、<code class="docutils literal notranslate"><span class="pre">b</span></code> が 2 x 3 x 4 の配列を持っています。</p></li>
+</ul>
+<p><code class="docutils literal notranslate"><span class="pre">Array3D</span></code> の <code class="docutils literal notranslate"><span class="pre">operator()</span></code> は末尾に <code class="docutils literal notranslate"><span class="pre">const</span></code> が付いていても <code class="docutils literal notranslate"><span class="pre">T</span> <span class="pre">&amp;</span></code> を返します。
+そのため、<code class="docutils literal notranslate"><span class="pre">const</span> <span class="pre">Array3D&lt;Real&gt;</span> <span class="pre">&amp;</span></code> で受け取った配列からでも、<code class="docutils literal notranslate"><span class="pre">a(i,</span> <span class="pre">j,</span> <span class="pre">k)</span> <span class="pre">=</span> <span class="pre">...</span></code> で要素を書き換えられます（試すとコンパイルが通ります）。
+<code class="docutils literal notranslate"><span class="pre">Array3D</span></code> 側の <code class="docutils literal notranslate"><span class="pre">const</span></code> は「配列の大きさや持ち主を変えない」ことまでしか保証しません。
+<strong>関数が配列を読むだけであることを型で示したいときは、<code class="docutils literal notranslate"><span class="pre">const_view()</span></code> で作った <code class="docutils literal notranslate"><span class="pre">Array3DView&lt;const</span> <span class="pre">Real&gt;</span></code> を渡します。</strong></p>
+</section>
+<section id="miso-fields-fieldsview">
+<h3>MISO の例：Fields と FieldsView<a class="headerlink" href="#miso-fields-fieldsview" title="Link to this heading"></a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">miso/include/miso/mhd_fields.hpp</span></code> では、9 つの変数をまとめた <code class="docutils literal notranslate"><span class="pre">Fields</span></code> にも、対応する View <code class="docutils literal notranslate"><span class="pre">FieldsView</span></code> があります（抜粋）。</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">T</span><span class="o">&gt;</span><span class="w">  </span><span class="c1">// Use T to represent Real or const Real</span>
+<span class="k">struct</span><span class="w"> </span><span class="nc">FieldsView</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="n">Array3DView</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="w"> </span><span class="n">ro</span><span class="p">,</span><span class="w"> </span><span class="n">vx</span><span class="p">,</span><span class="w"> </span><span class="n">vy</span><span class="p">,</span><span class="w"> </span><span class="n">vz</span><span class="p">,</span><span class="w"> </span><span class="n">bx</span><span class="p">,</span><span class="w"> </span><span class="n">by</span><span class="p">,</span><span class="w"> </span><span class="n">bz</span><span class="p">,</span><span class="w"> </span><span class="n">ei</span><span class="p">,</span><span class="w"> </span><span class="n">ph</span><span class="p">;</span>
+<span class="w">  </span><span class="c1">// ...（9 つの View を受け取る explicit なコンストラクタ、extent(), size()）</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">Fields</span></code> の <code class="docutils literal notranslate"><span class="pre">view()</span></code> は、9 つの <code class="docutils literal notranslate"><span class="pre">Array3D</span></code> の <code class="docutils literal notranslate"><span class="pre">view()</span></code> をまとめて <code class="docutils literal notranslate"><span class="pre">FieldsView&lt;Real&gt;</span></code> を作り、<code class="docutils literal notranslate"><span class="pre">const_view()</span></code> は <code class="docutils literal notranslate"><span class="pre">FieldsView&lt;const</span> <span class="pre">Real&gt;</span></code> を作ります。
+元のコメントのとおり、<code class="docutils literal notranslate"><span class="pre">T</span></code> には <code class="docutils literal notranslate"><span class="pre">Real</span></code>（書き換えられる）か <code class="docutils literal notranslate"><span class="pre">const</span> <span class="pre">Real</span></code>（読むだけ）が入ります。</p>
+<p><code class="docutils literal notranslate"><span class="pre">FieldsView</span></code> を使う側が、demo の初期条件です。
+<code class="docutils literal notranslate"><span class="pre">miso/include/miso/mhd_solver.hpp</span></code> の <code class="docutils literal notranslate"><span class="pre">MHD::apply_initial_condition</span></code> は、CPU 上に作業用の <code class="docutils literal notranslate"><span class="pre">Fields</span></code> を作り、その View を初期条件の <code class="docutils literal notranslate"><span class="pre">apply</span></code> に渡します（抜粋）。</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="w">    </span><span class="n">Fields</span><span class="o">&lt;</span><span class="n">Real</span><span class="p">,</span><span class="w"> </span><span class="n">backend</span><span class="o">::</span><span class="n">Host</span><span class="o">&gt;</span><span class="w"> </span><span class="n">qq_h</span><span class="p">(</span><span class="n">grid</span><span class="p">.</span><span class="n">i_total</span><span class="p">,</span><span class="w"> </span><span class="n">grid</span><span class="p">.</span><span class="n">j_total</span><span class="p">,</span><span class="w"> </span><span class="n">grid</span><span class="p">.</span><span class="n">k_total</span><span class="p">);</span>
+<span class="w">    </span><span class="n">ic</span><span class="p">.</span><span class="n">apply</span><span class="p">(</span><span class="n">qq_h</span><span class="p">.</span><span class="n">view</span><span class="p">(),</span><span class="w"> </span><span class="n">grid_h</span><span class="p">.</span><span class="n">const_view</span><span class="p">());</span>
+<span class="w">    </span><span class="n">qq</span><span class="p">.</span><span class="n">copy_from</span><span class="p">(</span><span class="n">qq_h</span><span class="p">);</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">qq_h</span></code> が配列を所有し、<code class="docutils literal notranslate"><span class="pre">apply</span></code> には View を値で渡しています。
+<code class="docutils literal notranslate"><span class="pre">apply</span></code> の中で View を通して値を書き込むと、<code class="docutils literal notranslate"><span class="pre">qq_h</span></code> の配列が書き換わります。
+その後、<code class="docutils literal notranslate"><span class="pre">copy_from</span></code> で計算に使う <code class="docutils literal notranslate"><span class="pre">qq</span></code> へ写します（GPU で計算するときは、ここで GPU のメモリへ転送されます）。
+<code class="docutils literal notranslate"><span class="pre">grid_h.const_view()</span></code> は格子の座標などを読むだけの View <code class="docutils literal notranslate"><span class="pre">GridView&lt;const</span> <span class="pre">Real&gt;</span></code> です。</p>
+</section>
+</section>
+<section id="demo-initialcondition">
+<span id="edu-ch04-initial-condition"></span><h2>4.9 demo の InitialCondition を読む<a class="headerlink" href="#demo-initialcondition" title="Link to this heading"></a></h2>
+<p>この章で学んだことを使って、<code class="docutils literal notranslate"><span class="pre">demo/hd1d_shock_tube/src/main.cpp</span></code> の <code class="docutils literal notranslate"><span class="pre">InitialCondition</span></code> を読みます。
+衝撃波管問題の左右の状態（密度・圧力・速度）を設定ファイルから読み、初期条件を与える構造体です（<code class="docutils literal notranslate"><span class="pre">apply</span></code> の中の一部を省略しています）。</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">struct</span><span class="w"> </span><span class="nc">InitialCondition</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="n">eos</span><span class="o">::</span><span class="n">IdealEOS</span><span class="o">&lt;</span><span class="n">Real</span><span class="o">&gt;</span><span class="w"> </span><span class="o">&amp;</span><span class="n">eos</span><span class="p">;</span>
+<span class="w">  </span><span class="n">Real</span><span class="w"> </span><span class="n">rol</span><span class="p">,</span><span class="w"> </span><span class="n">prl</span><span class="p">,</span><span class="w"> </span><span class="n">vvl</span><span class="p">;</span>
+<span class="w">  </span><span class="n">Real</span><span class="w"> </span><span class="n">ror</span><span class="p">,</span><span class="w"> </span><span class="n">prr</span><span class="p">,</span><span class="w"> </span><span class="n">vvr</span><span class="p">;</span>
+
+<span class="w">  </span><span class="k">explicit</span><span class="w"> </span><span class="n">InitialCondition</span><span class="p">(</span><span class="n">Config</span><span class="w"> </span><span class="o">&amp;</span><span class="n">config</span><span class="p">,</span><span class="w"> </span><span class="n">eos</span><span class="o">::</span><span class="n">IdealEOS</span><span class="o">&lt;</span><span class="n">Real</span><span class="o">&gt;</span><span class="w"> </span><span class="o">&amp;</span><span class="n">eos</span><span class="p">)</span>
+<span class="w">      </span><span class="o">:</span><span class="w"> </span><span class="n">eos</span><span class="p">(</span><span class="n">eos</span><span class="p">),</span><span class="w"> </span><span class="n">rol</span><span class="p">(</span><span class="n">config</span><span class="p">[</span><span class="s">"shock_tube"</span><span class="p">][</span><span class="s">"rol"</span><span class="p">].</span><span class="n">as</span><span class="o">&lt;</span><span class="n">Real</span><span class="o">&gt;</span><span class="p">()),</span>
+<span class="w">        </span><span class="n">prl</span><span class="p">(</span><span class="n">config</span><span class="p">[</span><span class="s">"shock_tube"</span><span class="p">][</span><span class="s">"prl"</span><span class="p">].</span><span class="n">as</span><span class="o">&lt;</span><span class="n">Real</span><span class="o">&gt;</span><span class="p">()),</span>
+<span class="w">        </span><span class="n">vvl</span><span class="p">(</span><span class="n">config</span><span class="p">[</span><span class="s">"shock_tube"</span><span class="p">][</span><span class="s">"vvl"</span><span class="p">].</span><span class="n">as</span><span class="o">&lt;</span><span class="n">Real</span><span class="o">&gt;</span><span class="p">()),</span>
+<span class="w">        </span><span class="n">ror</span><span class="p">(</span><span class="n">config</span><span class="p">[</span><span class="s">"shock_tube"</span><span class="p">][</span><span class="s">"ror"</span><span class="p">].</span><span class="n">as</span><span class="o">&lt;</span><span class="n">Real</span><span class="o">&gt;</span><span class="p">()),</span>
+<span class="w">        </span><span class="n">prr</span><span class="p">(</span><span class="n">config</span><span class="p">[</span><span class="s">"shock_tube"</span><span class="p">][</span><span class="s">"prr"</span><span class="p">].</span><span class="n">as</span><span class="o">&lt;</span><span class="n">Real</span><span class="o">&gt;</span><span class="p">()),</span>
+<span class="w">        </span><span class="n">vvr</span><span class="p">(</span><span class="n">config</span><span class="p">[</span><span class="s">"shock_tube"</span><span class="p">][</span><span class="s">"vvr"</span><span class="p">].</span><span class="n">as</span><span class="o">&lt;</span><span class="n">Real</span><span class="o">&gt;</span><span class="p">())</span><span class="w"> </span><span class="p">{}</span>
+
+<span class="w">  </span><span class="c1">// The signature must not be changed as it is called inside miso::mhd::MHD.</span>
+<span class="w">  </span><span class="kt">void</span><span class="w"> </span><span class="n">apply</span><span class="p">(</span><span class="n">mhd</span><span class="o">::</span><span class="n">FieldsView</span><span class="o">&lt;</span><span class="n">Real</span><span class="o">&gt;</span><span class="w"> </span><span class="n">qq</span><span class="p">,</span><span class="w"> </span><span class="n">GridView</span><span class="o">&lt;</span><span class="k">const</span><span class="w"> </span><span class="n">Real</span><span class="o">&gt;</span><span class="w"> </span><span class="n">grid</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="p">{</span>
+
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">k</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">k</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">grid</span><span class="p">.</span><span class="n">k_total</span><span class="p">;</span><span class="w"> </span><span class="o">++</span><span class="n">k</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">j</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">j</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">grid</span><span class="p">.</span><span class="n">j_total</span><span class="p">;</span><span class="w"> </span><span class="o">++</span><span class="n">j</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">grid</span><span class="p">.</span><span class="n">i_total</span><span class="p">;</span><span class="w"> </span><span class="o">++</span><span class="n">i</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">          </span><span class="c1">// ...（速度・磁場などを 0 にし、座標 xyz を選びます）</span>
+<span class="w">          </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">xyz</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mf">0.5</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="n">qq</span><span class="p">.</span><span class="n">ro</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="w"> </span><span class="n">j</span><span class="p">,</span><span class="w"> </span><span class="n">k</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">rol</span><span class="p">;</span>
+<span class="w">            </span><span class="n">qq</span><span class="p">.</span><span class="n">ei</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="w"> </span><span class="n">j</span><span class="p">,</span><span class="w"> </span><span class="n">k</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">prl</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="p">(</span><span class="n">eos</span><span class="p">.</span><span class="n">gm</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mf">1.0</span><span class="p">)</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">qq</span><span class="p">.</span><span class="n">ro</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="w"> </span><span class="n">j</span><span class="p">,</span><span class="w"> </span><span class="n">k</span><span class="p">);</span>
+<span class="w">            </span><span class="n">qq</span><span class="p">.</span><span class="n">vx</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="w"> </span><span class="n">j</span><span class="p">,</span><span class="w"> </span><span class="n">k</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">vvl</span><span class="p">;</span>
+<span class="w">          </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="c1">// ...（右側の状態）</span>
+<span class="w">          </span><span class="p">}</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">      </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>部分</p></th>
+<th class="head"><p>読み方</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">struct</span> <span class="pre">InitialCondition</span></code></p></td>
+<td><p>公開範囲を書かないので、メンバはすべて public です</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">eos::IdealEOS&lt;Real&gt;</span> <span class="pre">&amp;eos;</span></code></p></td>
+<td><p>状態方程式を<strong>参照</strong>で持つメンバです。コピーを持たず、<code class="docutils literal notranslate"><span class="pre">Model</span></code> が持つ <code class="docutils literal notranslate"><span class="pre">eos</span></code> を参照します</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Real</span> <span class="pre">rol,</span> <span class="pre">prl,</span> <span class="pre">vvl;</span></code> など</p></td>
+<td><p>左右の密度・圧力・速度を値で持つメンバです</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">explicit</span> <span class="pre">InitialCondition(Config</span> <span class="pre">&amp;config,</span> <span class="pre">eos::IdealEOS&lt;Real&gt;</span> <span class="pre">&amp;eos)</span></code></p></td>
+<td><p>設定と状態方程式を受け取るコンストラクタです</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">:</span> <span class="pre">eos(eos),</span> <span class="pre">rol(...),</span> <span class="pre">...</span></code></p></td>
+<td><p>参照メンバ <code class="docutils literal notranslate"><span class="pre">eos</span></code> は、初期化子リストでなければ参照先を決められません。他のメンバは宣言順に設定ファイルの値で初期化します</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">void</span> <span class="pre">apply(...)</span> <span class="pre">const</span></code></p></td>
+<td><p>初期条件を書き込む関数です。末尾の <code class="docutils literal notranslate"><span class="pre">const</span></code> は、<code class="docutils literal notranslate"><span class="pre">InitialCondition</span></code> 自身のメンバ（<code class="docutils literal notranslate"><span class="pre">rol</span></code> など）を書き換えないという意味です</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">mhd::FieldsView&lt;Real&gt;</span> <span class="pre">qq</span></code></p></td>
+<td><p>書き込める View を値で受け取ります。<code class="docutils literal notranslate"><span class="pre">qq.ro(i,</span> <span class="pre">j,</span> <span class="pre">k)</span> <span class="pre">=</span> <span class="pre">rol;</span></code> で、呼び出し元の <code class="docutils literal notranslate"><span class="pre">Fields</span></code> の配列が書き換わります</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">GridView&lt;const</span> <span class="pre">Real&gt;</span> <span class="pre">grid</span></code></p></td>
+<td><p>格子を読むだけの View です。<code class="docutils literal notranslate"><span class="pre">grid.i_total</span></code> はゴーストセルを含む格子数、<code class="docutils literal notranslate"><span class="pre">grid.x[i]</span></code> はセル中心の座標です</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">eos.gm</span></code></p></td>
+<td><p>参照している状態方程式の比熱比です</p></td>
+</tr>
+</tbody>
+</table>
+<p><code class="docutils literal notranslate"><span class="pre">apply</span></code> の末尾の <code class="docutils literal notranslate"><span class="pre">const</span></code> と、<code class="docutils literal notranslate"><span class="pre">qq</span></code> を通した書き込みは矛盾しません。
+<code class="docutils literal notranslate"><span class="pre">const</span></code> が禁止するのは <code class="docutils literal notranslate"><span class="pre">InitialCondition</span></code> のメンバ変数の変更で、<code class="docutils literal notranslate"><span class="pre">qq</span></code> は引数として受け取った View だからです。
+<code class="docutils literal notranslate"><span class="pre">apply</span></code> の引数の形が決まっている理由は、MISO の内部（前の節の <code class="docutils literal notranslate"><span class="pre">MHD::apply_initial_condition</span></code>）がこの形で呼ぶからです。元のコメントもそのことを述べています。</p>
+<p>この構造体は、demo の <code class="docutils literal notranslate"><span class="pre">Model</span></code> のメンバ <code class="docutils literal notranslate"><span class="pre">ic</span></code> として作られ、MISO の時間発展の始めに使われます。
+<code class="docutils literal notranslate"><span class="pre">Model</span></code> の読み方は <a class="reference internal" href="05_inheritance.html#edu-ch05"><span class="std std-ref">第 5 章</span></a> で説明します。</p>
+</section>
+<section id="edu-ch04-exercises">
+<span id="id10"></span><h2>練習<a class="headerlink" href="#edu-ch04-exercises" title="Link to this heading"></a></h2>
+<section id="time">
+<h3>練習 1：Time のメンバが値を得る場所<a class="headerlink" href="#time" title="Link to this heading"></a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">miso/include/miso/time.hpp</span></code> の <code class="docutils literal notranslate"><span class="pre">Time</span></code> のコンストラクタを読み、8 つのメンバ変数（<code class="docutils literal notranslate"><span class="pre">time</span></code>, <code class="docutils literal notranslate"><span class="pre">tend</span></code>, <code class="docutils literal notranslate"><span class="pre">dt_output</span></code>, <code class="docutils literal notranslate"><span class="pre">n_step</span></code>, <code class="docutils literal notranslate"><span class="pre">n_output</span></code>, <code class="docutils literal notranslate"><span class="pre">n_output_digits</span></code>, <code class="docutils literal notranslate"><span class="pre">time_save_dir</span></code>, <code class="docutils literal notranslate"><span class="pre">io_enabled</span></code>）が、それぞれ (a) 初期化子リスト、(b) コンストラクタの本体（本体から呼ぶ関数を含む）のどちらで値を得るかを分類してください。</p>
+<details>
+<summary>解答・解説</summary>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>メンバ</p></th>
+<th class="head"><p>値を得る場所</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">tend</span></code>, <code class="docutils literal notranslate"><span class="pre">dt_output</span></code>, <code class="docutils literal notranslate"><span class="pre">n_output_digits</span></code>, <code class="docutils literal notranslate"><span class="pre">io_enabled</span></code></p></td>
+<td><p>(a) 初期化子リスト。設定ファイルの値で初期化します</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">time</span></code>, <code class="docutils literal notranslate"><span class="pre">n_step</span></code>, <code class="docutils literal notranslate"><span class="pre">n_output</span></code></p></td>
+<td><p>(b) 本体から呼ぶ <code class="docutils literal notranslate"><span class="pre">initialize()</span></code> で 0 を代入します</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">time_save_dir</span></code></p></td>
+<td><p>(b) 本体で、<code class="docutils literal notranslate"><span class="pre">config.save_dir</span></code> と設定ファイルの <code class="docutils literal notranslate"><span class="pre">io.time_save_dir</span></code> をつないだパスを代入します</p></td>
+</tr>
+</tbody>
+</table>
+<p>初期化子リストのメンバは、宣言順と同じ順に並んでいます。
+本体で代入するメンバは、本体に入る前に一度、既定の方法で作られています（<code class="docutils literal notranslate"><span class="pre">Real</span></code> や <code class="docutils literal notranslate"><span class="pre">int</span></code> は値が不定、<code class="docutils literal notranslate"><span class="pre">std::string</span></code> は空の文字列）。
+<code class="docutils literal notranslate"><span class="pre">tend</span></code> と <code class="docutils literal notranslate"><span class="pre">dt_output</span></code> は、本体の最初の検査で使うので、初期化子リストで値を決めておく必要があります。</p>
+</details>
+</section>
+<section id="array3d">
+<h3>練習 2：Array3D の要素の位置<a class="headerlink" href="#array3d" title="Link to this heading"></a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">miso::Array3D&lt;float&gt;</span> <span class="pre">a(2,</span> <span class="pre">3,</span> <span class="pre">4);</span></code> について、次を求めてください。</p>
+<ol class="arabic simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">a(1,</span> <span class="pre">0,</span> <span class="pre">2)</span></code> は、配列の先頭から何番目の要素か（<code class="docutils literal notranslate"><span class="pre">a[n]</span></code> の <code class="docutils literal notranslate"><span class="pre">n</span></code>）。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">a(0,</span> <span class="pre">0,</span> <span class="pre">1)</span></code> と <code class="docutils literal notranslate"><span class="pre">a(0,</span> <span class="pre">0,</span> <span class="pre">0)</span></code>、<code class="docutils literal notranslate"><span class="pre">a(0,</span> <span class="pre">1,</span> <span class="pre">0)</span></code> と <code class="docutils literal notranslate"><span class="pre">a(0,</span> <span class="pre">0,</span> <span class="pre">0)</span></code>、<code class="docutils literal notranslate"><span class="pre">a(1,</span> <span class="pre">0,</span> <span class="pre">0)</span></code> と <code class="docutils literal notranslate"><span class="pre">a(0,</span> <span class="pre">0,</span> <span class="pre">0)</span></code> が、それぞれ何要素離れているかを答えてください。</p></li>
+</ol>
+<details>
+<summary>解答・解説</summary>
+<p><code class="docutils literal notranslate"><span class="pre">operator()</span></code> の式 <code class="docutils literal notranslate"><span class="pre">(i0</span> <span class="pre">*</span> <span class="pre">shape_[1]</span> <span class="pre">+</span> <span class="pre">i1)</span> <span class="pre">*</span> <span class="pre">shape_[2]</span> <span class="pre">+</span> <span class="pre">i2</span></code> に、<code class="docutils literal notranslate"><span class="pre">shape_</span> <span class="pre">=</span> <span class="pre">{2,</span> <span class="pre">3,</span> <span class="pre">4}</span></code> を入れます。</p>
+<ol class="arabic simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">(1</span> <span class="pre">*</span> <span class="pre">3</span> <span class="pre">+</span> <span class="pre">0)</span> <span class="pre">*</span> <span class="pre">4</span> <span class="pre">+</span> <span class="pre">2</span> <span class="pre">=</span> <span class="pre">14</span></code> なので、<code class="docutils literal notranslate"><span class="pre">a[14]</span></code> です。</p></li>
+<li><p>最後の添字が 1 増えると 1 要素、真ん中の添字が 1 増えると 4 要素（<code class="docutils literal notranslate"><span class="pre">shape_[2]</span></code>）、最初の添字が 1 増えると 12 要素（<code class="docutils literal notranslate"><span class="pre">shape_[1]</span> <span class="pre">*</span> <span class="pre">shape_[2]</span></code>）離れます。</p></li>
+</ol>
+<p>最後の添字 <code class="docutils literal notranslate"><span class="pre">i2</span></code> が連続です。Fortran の <code class="docutils literal notranslate"><span class="pre">a(2,</span> <span class="pre">3,</span> <span class="pre">4)</span></code> では最初の添字が連続なので、逆になります。
+ループの順番との関係は <a class="reference internal" href="07_arrays_and_parallel.html#edu-ch07"><span class="std std-ref">第 7 章</span></a> で扱います。</p>
+</details>
+</section>
+<section id="id11">
+<h3>練習 3：配列を受け取る関数の引数の型<a class="headerlink" href="#id11" title="Link to this heading"></a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">Array3D&lt;Real&gt;</span></code> の要素から最大値を求める関数 <code class="docutils literal notranslate"><span class="pre">max_value</span></code> と、すべての要素を 0 にする関数 <code class="docutils literal notranslate"><span class="pre">clear</span></code> を作るとします。
+次の候補のうち、それぞれの関数の引数にふさわしい型を選び、理由を説明してください。</p>
+<ul class="simple">
+<li><p>(a) <code class="docutils literal notranslate"><span class="pre">Array3D&lt;Real&gt;</span> <span class="pre">a</span></code></p></li>
+<li><p>(b) <code class="docutils literal notranslate"><span class="pre">const</span> <span class="pre">Array3D&lt;Real&gt;</span> <span class="pre">&amp;a</span></code></p></li>
+<li><p>(c) <code class="docutils literal notranslate"><span class="pre">Array3DView&lt;Real&gt;</span> <span class="pre">a</span></code></p></li>
+<li><p>(d) <code class="docutils literal notranslate"><span class="pre">Array3DView&lt;const</span> <span class="pre">Real&gt;</span> <span class="pre">a</span></code></p></li>
+</ul>
+<details>
+<summary>解答・解説</summary>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">max_value</span></code> には (d) <code class="docutils literal notranslate"><span class="pre">Array3DView&lt;const</span> <span class="pre">Real&gt;</span></code> がふさわしいです。読むだけであることが型に表れ、関数の中で誤って代入するとコンパイルエラーになります。呼ぶ側は <code class="docutils literal notranslate"><span class="pre">max_value(a.const_view())</span></code> と書きます。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">clear</span></code> には (c) <code class="docutils literal notranslate"><span class="pre">Array3DView&lt;Real&gt;</span></code> がふさわしいです。View を値で渡しても、指す先は元の配列なので、元の要素を 0 にできます。呼ぶ側は <code class="docutils literal notranslate"><span class="pre">clear(a.view())</span></code> と書きます。</p></li>
+</ul>
+<p>(a) は、<code class="docutils literal notranslate"><span class="pre">Array3D</span></code> のコピーを作ろうとするので、コピーが禁止されていてコンパイルエラーになります。
+(b) はコンパイルでき、コピーもしません。ただし、<code class="docutils literal notranslate"><span class="pre">Array3D</span></code> の <code class="docutils literal notranslate"><span class="pre">operator()</span></code> は末尾が <code class="docutils literal notranslate"><span class="pre">const</span></code> でも <code class="docutils literal notranslate"><span class="pre">T</span> <span class="pre">&amp;</span></code> を返すので、<code class="docutils literal notranslate"><span class="pre">const</span> <span class="pre">Array3D&lt;Real&gt;</span> <span class="pre">&amp;</span></code> からでも要素を書き換えられます。読むだけであることを型で保証できない点で (d) に劣ります。
+また、MISO の <code class="docutils literal notranslate"><span class="pre">for_each</span></code> などの並列ループの中では View を使います（<a class="reference internal" href="07_arrays_and_parallel.html#edu-ch07"><span class="std std-ref">第 7 章</span></a>）。関数の引数を View にしておくと、その書き方とそろいます。</p>
+</details>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="03_references_and_pointers.html" class="btn btn-neutral float-left" title="3. 参照・ポインタと寿命" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="05_inheritance.html" class="btn btn-neutral float-right" title="5. 継承と CRTP" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Integrated Studies, ISEE, Nagoya University.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,14 @@
+.. _exhale_function_namespacemiso_1_1mpi_1a375870c7472dce2e37f2aa9481e4f440:
+
+Function miso::mpi::rank
+========================
+
+- Defined in :ref:`file__home_runner_work_MISO_docs_MISO_docs_MISO_miso_include_miso_env.hpp`
+
+
+Function Documentation
+----------------------
+
+
+.. doxygenfunction:: miso::mpi::rank()
+   :project: CPP

@@ -1,0 +1,14 @@
+.. _exhale_function_rt__host_8hpp_1a73cafa089438444bc153a2c391807f1b:
+
+Template Function miso::rt::ray_cosine
+======================================
+
+- Defined in :ref:`file__home_runner_work_MISO_docs_MISO_docs_MISO_miso_include_miso_rt_host.hpp`
+
+
+Function Documentation
+----------------------
+
+
+.. doxygenfunction:: miso::rt::ray_cosine(const AngularQuadrature<Real>&, int, Direction)
+   :project: CPP

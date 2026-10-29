@@ -1,0 +1,275 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>02. MPI 版：領域を分けて解く &mdash; MISO 0.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/graphviz.css?v=4ae1632d" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/collapsible-lists/css/tree_view.css?v=a885cde7" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/custom.css" />
+
+  
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options.js?v=837179f8"></script>
+      <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../../../_static/copybutton.js?v=f281be69"></script>
+      <script src="../../../_static/collapsible-lists/js/CollapsibleLists.compressed.js?v=73120307"></script>
+      <script src="../../../_static/collapsible-lists/js/apply-collapsible-lists.js?v=660e4f45"></script>
+      <script>window.MathJax = {"tex": {"macros": {"bm": ["{\\boldsymbol{#1}}", 1]}}, "options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+      <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="03. GPU 版：配列とループを GPU へ移す" href="03_gpu.html" />
+    <link rel="prev" title="01. 逐次版：CPU で熱伝導を解く" href="01_serial.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            MISO
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../../quickstart.html">Quick Start</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../demo/index.html">Test Problems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../customization/index.html">Customization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../miso/index.html">MISO C++ documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../pymiso/index.html">pymiso Documentation</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../index.html">MISO education</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../../index.html#id1">本文</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../../index.html#id2">必要なときに参照する資料</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../../01_environment_setup.html">1. 開発環境と CMake</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../02_cpp_basics.html">2. 変数・関数・制御文</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../03_references_and_pointers.html">3. 参照・ポインタと寿命</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../04_classes_and_structs.html">4. クラス・構造体</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../05_inheritance.html">5. 継承と CRTP</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../06_templates.html">6. テンプレート</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../07_arrays_and_parallel.html">7. 配列・ラムダと CPU での並列ループ</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../08_mpi.html">8. MPI による領域分割</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../09_gpu.html">9. GPU（CUDA）での計算とデータ転送</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../10_heat1d.html">10. 熱伝導の計算</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../11_reading_miso.html">11. MISO の時間発展を読む</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="../index.html">実習一覧</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="../execution/index.html">配列と並列ループの実習</a></li>
+<li class="toctree-l4 current"><a class="reference internal" href="index.html">実習 heat1d：熱伝導の計算</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference/index.html">参考資料</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../references.html">References</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">MISO</a>
+      </nav>
+
+      <div class="wy-nav-content">
+<div id="language-links" style="margin-bottom: 1em; font-size: 100%;">
+    Language:
+    
+    <strong>English</strong> |
+    <a href="../../../../education/practice/heat1d/02_mpi.html">日本語</a>
+    
+</div>
+
+
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">MISO education</a></li>
+          <li class="breadcrumb-item"><a href="../index.html">実習一覧</a></li>
+          <li class="breadcrumb-item"><a href="index.html">実習 heat1d：熱伝導の計算</a></li>
+      <li class="breadcrumb-item active">02. MPI 版：領域を分けて解く</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../../_sources/education/practice/heat1d/02_mpi.md.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section class="tex2jax_ignore mathjax_ignore" id="mpi">
+<span id="edu-practice-heat1d-02"></span><h1>02. MPI 版：領域を分けて解く<a class="headerlink" href="#mpi" title="Link to this heading"></a></h1>
+<p><a class="reference internal" href="01_serial.html#edu-practice-heat1d-01"><span class="std std-ref">01. 逐次版</span></a> のプログラムを、<span class="math notranslate nohighlight">\(P\)</span> ランクで分担する <code class="docutils literal notranslate"><span class="pre">heat1d_mpi</span></code> に広げます。
+領域分割とゴーストセルの交換の考え方は <a class="reference internal" href="../../10_heat1d.html#edu-ch10"><span class="std std-ref">第 10 章</span></a>、MPI の関数は <a class="reference internal" href="../../08_mpi.html#edu-ch08"><span class="std std-ref">第 8 章</span></a> で説明しています。</p>
+<section id="id1">
+<h2>使うもの<a class="headerlink" href="#id1" title="Link to this heading"></a></h2>
+<p>逐次版のものに加えて、次を使います。</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>もの</p></th>
+<th class="head"><p>ヘッダ</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">miso::Env</span></code>（<code class="docutils literal notranslate"><span class="pre">MPI_Init</span></code> と <code class="docutils literal notranslate"><span class="pre">MPI_Finalize</span></code>）、<code class="docutils literal notranslate"><span class="pre">miso::mpi::rank()</span></code>、<code class="docutils literal notranslate"><span class="pre">mpi::size()</span></code>、<code class="docutils literal notranslate"><span class="pre">mpi::comm()</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">miso/env.hpp</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">MPI_Sendrecv</span></code>、<code class="docutils literal notranslate"><span class="pre">MPI_Allreduce</span></code>、<code class="docutils literal notranslate"><span class="pre">MPI_Gather</span></code>、<code class="docutils literal notranslate"><span class="pre">MPI_Abort</span></code>、<code class="docutils literal notranslate"><span class="pre">MPI_PROC_NULL</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">mpi.h</span></code></p></td>
+</tr>
+</tbody>
+</table>
+<p><code class="docutils literal notranslate"><span class="pre">main</span></code> の最初で <code class="docutils literal notranslate"><span class="pre">Env</span> <span class="pre">env(argc,</span> <span class="pre">argv);</span></code> を作ると MPI が初期化され、<code class="docutils literal notranslate"><span class="pre">main</span></code> を抜けるときに終了処理が行われます。</p>
+</section>
+<section id="id2">
+<h2>作るもの<a class="headerlink" href="#id2" title="Link to this heading"></a></h2>
+<section id="id3">
+<h3>各ランクの格子<a class="headerlink" href="#id3" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>全体のセル数 <span class="math notranslate nohighlight">\(N\)</span> をランク数 <span class="math notranslate nohighlight">\(P\)</span> で割り、各ランクの物理セル数を <span class="math notranslate nohighlight">\(n = N/P\)</span> とします。
+<span class="math notranslate nohighlight">\(N\)</span> が <span class="math notranslate nohighlight">\(P\)</span> で割り切れないときは、ランク 0 が理由を表示し、<code class="docutils literal notranslate"><span class="pre">MPI_Abort</span></code> で全ランクを終了します。</p></li>
+<li><p>配列は <code class="docutils literal notranslate"><span class="pre">Array1D&lt;Real&gt;</span> <span class="pre">u(n</span> <span class="pre">+</span> <span class="pre">2)</span></code> と <code class="docutils literal notranslate"><span class="pre">u_new(n</span> <span class="pre">+</span> <span class="pre">2)</span></code> です。</p></li>
+<li><p>ランク <span class="math notranslate nohighlight">\(p\)</span> の配列の添字 <code class="docutils literal notranslate"><span class="pre">i</span></code>（1〜<code class="docutils literal notranslate"><span class="pre">n</span></code>）は、全体の番号 <span class="math notranslate nohighlight">\(j = p\,n + (i - 1)\)</span> にあたります。
+初期条件と誤差の計算では、この <span class="math notranslate nohighlight">\(j\)</span> から <span class="math notranslate nohighlight">\(x_j = (j + 1/2)\Delta x\)</span> を求めます。</p></li>
+<li><p><span class="math notranslate nohighlight">\(\Delta x\)</span>、<span class="math notranslate nohighlight">\(n_\mathrm{steps}\)</span>、<span class="math notranslate nohighlight">\(\Delta t\)</span>、<span class="math notranslate nohighlight">\(r\)</span> は全体の <span class="math notranslate nohighlight">\(N\)</span> から逐次版と同じ式で求めます。</p></li>
+</ul>
+</section>
+<section id="id4">
+<h3>隣のランク<a class="headerlink" href="#id4" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>左隣は <code class="docutils literal notranslate"><span class="pre">rank</span> <span class="pre">-</span> <span class="pre">1</span></code>、右隣は <code class="docutils literal notranslate"><span class="pre">rank</span> <span class="pre">+</span> <span class="pre">1</span></code> です。</p></li>
+<li><p>ランク 0 の左隣と、ランク <span class="math notranslate nohighlight">\(P - 1\)</span> の右隣は <code class="docutils literal notranslate"><span class="pre">MPI_PROC_NULL</span></code> にします。</p></li>
+</ul>
+</section>
+<section id="id5">
+<h3>各ステップ<a class="headerlink" href="#id5" title="Link to this heading"></a></h3>
+<ol class="arabic">
+<li><p>次の 2 回の <code class="docutils literal notranslate"><span class="pre">MPI_Sendrecv</span></code> でゴーストセルを埋めます。型は <code class="docutils literal notranslate"><span class="pre">MPI_DOUBLE</span></code>、要素数は 1、コミュニケータは <code class="docutils literal notranslate"><span class="pre">mpi::comm()</span></code> です。</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>呼び出し</p></th>
+<th class="head"><p>送る値 → 相手</p></th>
+<th class="head"><p>受け取る場所 ← 相手</p></th>
+<th class="head"><p>タグ</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>1 回目</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">u[1]</span></code> → 左隣</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">u[n+1]</span></code> ← 右隣</p></td>
+<td><p>0</p></td>
+</tr>
+<tr class="row-odd"><td><p>2 回目</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">u[n]</span></code> → 右隣</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">u[0]</span></code> ← 左隣</p></td>
+<td><p>1</p></td>
+</tr>
+</tbody>
+</table>
+<p>受信の状態は使わないので、最後の引数には <code class="docutils literal notranslate"><span class="pre">MPI_STATUS_IGNORE</span></code> を渡します。</p>
+</li>
+<li><p>左隣が <code class="docutils literal notranslate"><span class="pre">MPI_PROC_NULL</span></code> のランクは <code class="docutils literal notranslate"><span class="pre">u[0]</span> <span class="pre">=</span> <span class="pre">-u[1]</span></code> を、右隣が <code class="docutils literal notranslate"><span class="pre">MPI_PROC_NULL</span></code> のランクは <code class="docutils literal notranslate"><span class="pre">u[n+1]</span> <span class="pre">=</span> <span class="pre">-u[n]</span></code> を入れます。</p></li>
+<li><p>逐次版と同じ式で、物理セル（<code class="docutils literal notranslate"><span class="pre">Range1D{1,</span> <span class="pre">n</span> <span class="pre">+</span> <span class="pre">1}</span></code>）を更新し、<code class="docutils literal notranslate"><span class="pre">u</span></code> と <code class="docutils literal notranslate"><span class="pre">u_new</span></code> を入れ替えます。</p></li>
+</ol>
+</section>
+<section id="id6">
+<h3>誤差と出力<a class="headerlink" href="#id6" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>各ランクで <code class="docutils literal notranslate"><span class="pre">reduce</span></code> により自分の物理セルの最大誤差を求め、<code class="docutils literal notranslate"><span class="pre">MPI_Allreduce</span></code>（<code class="docutils literal notranslate"><span class="pre">MPI_MAX</span></code>）で全体の最大誤差にします。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">MPI_Gather</span></code> で各ランクの物理セル <span class="math notranslate nohighlight">\(n\)</span> 個（<code class="docutils literal notranslate"><span class="pre">&amp;u[1]</span></code> から）をランク 0 に集めます。ランク 0 は <span class="math notranslate nohighlight">\(N\)</span> 要素の受信用の配列（<code class="docutils literal notranslate"><span class="pre">std::vector&lt;Real&gt;</span></code>）を用意します。</p></li>
+<li><p>ランク 0 だけが、逐次版と同じ 3 行（1 行目は <code class="docutils literal notranslate"><span class="pre">N</span> <span class="pre">=</span> <span class="pre">64,</span> <span class="pre">P</span> <span class="pre">=</span> <span class="pre">2,</span> <span class="pre">steps</span> <span class="pre">=</span> <span class="pre">1024,</span> <span class="pre">r</span> <span class="pre">=</span> <span class="pre">0.4000</span></code> のように <span class="math notranslate nohighlight">\(P\)</span> も表示）を表示し、
+結果を <code class="docutils literal notranslate"><span class="pre">result_N&lt;N&gt;_P&lt;P&gt;.txt</span></code>（たとえば <code class="docutils literal notranslate"><span class="pre">result_N64_P2.txt</span></code>）に書き出します。</p></li>
+</ul>
+</section>
+</section>
+<section id="id7">
+<h2>確かめること<a class="headerlink" href="#id7" title="Link to this heading"></a></h2>
+<p>逐次版を実行したのと同じフォルダで、次を実行します。</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./build/heat1d_serial<span class="w"> </span><span class="m">64</span>
+<span class="k">for</span><span class="w"> </span>P<span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">4</span><span class="p">;</span><span class="w"> </span><span class="k">do</span>
+<span class="w">  </span>mpiexec<span class="w"> </span>-np<span class="w"> </span><span class="nv">$P</span><span class="w"> </span>./build/heat1d_mpi<span class="w"> </span><span class="m">64</span>
+<span class="w">  </span>cmp<span class="w"> </span>result_N64_serial.txt<span class="w"> </span>result_N64_P<span class="nv">$P</span>.txt
+<span class="k">done</span>
+</pre></div>
+</div>
+<ol class="arabic simple">
+<li><p><strong>表示</strong>：<span class="math notranslate nohighlight">\(P = 1, 2, 4\)</span> のどれでも、表示される 2 つの誤差が逐次版と同じ値になります。</p></li>
+<li><p><strong>ビット単位の一致</strong>：<code class="docutils literal notranslate"><span class="pre">cmp</span></code> が何も表示しない（ファイルが 1 バイトも違わない）ことを確かめます。</p></li>
+<li><p><strong>割り切れない分割</strong>：<code class="docutils literal notranslate"><span class="pre">mpiexec</span> <span class="pre">-np</span> <span class="pre">3</span> <span class="pre">./build/heat1d_mpi</span> <span class="pre">64</span></code> で、理由を表示して終了することを確かめます。</p></li>
+<li><p><strong>3 ランク</strong>：<span class="math notranslate nohighlight">\(N = 120\)</span> で <span class="math notranslate nohighlight">\(P = 1, 2, 3, 4\)</span> を実行し、すべて逐次版の <code class="docutils literal notranslate"><span class="pre">result_N120_serial.txt</span></code> と一致することを確かめます。
+このとき <code class="docutils literal notranslate"><span class="pre">max</span> <span class="pre">error</span> <span class="pre">(exact)</span></code> は <code class="docutils literal notranslate"><span class="pre">2.941414e-05</span></code> です。</p></li>
+</ol>
+<p>逐次版と一致しないときは、次の順に調べます。</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(P = 1\)</span> でも違うなら、初期条件の <span class="math notranslate nohighlight">\(x_j\)</span>（全体の番号 <span class="math notranslate nohighlight">\(j\)</span> の求め方）、<span class="math notranslate nohighlight">\(\Delta t\)</span> の求め方を調べます。</p></li>
+<li><p><span class="math notranslate nohighlight">\(P = 1\)</span> では一致し、<span class="math notranslate nohighlight">\(P = 2\)</span> で違うなら、<code class="docutils literal notranslate"><span class="pre">MPI_Sendrecv</span></code> の送る値・受け取る場所・相手・タグを、上の表と見比べます。</p></li>
+<li><p>端のセルだけ違うなら、物理境界の値を入れる条件（どのランクが入れるか）を調べます。</p></li>
+</ul>
+<p>ファイルのどの行から違うかは、<code class="docutils literal notranslate"><span class="pre">diff</span> <span class="pre">result_N64_serial.txt</span> <span class="pre">result_N64_P2.txt</span> <span class="pre">|</span> <span class="pre">head</span></code> で分かります。
+行番号から全体の番号 <span class="math notranslate nohighlight">\(j\)</span>（行番号 − 1）が分かり、どのランクの、どの端の値がおかしいかを絞り込めます。</p>
+</section>
+<section id="id8">
+<h2>次へ進む目安<a class="headerlink" href="#id8" title="Link to this heading"></a></h2>
+<p>複数のランク数で逐次版とビット単位で一致したら、<a class="reference internal" href="03_gpu.html#edu-practice-heat1d-03"><span class="std std-ref">03. GPU 版</span></a> へ進みます。
+GPU がなくても、課題 3 の CPU 用ビルドまで進められます。</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="01_serial.html" class="btn btn-neutral float-left" title="01. 逐次版：CPU で熱伝導を解く" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="03_gpu.html" class="btn btn-neutral float-right" title="03. GPU 版：配列とループを GPU へ移す" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Integrated Studies, ISEE, Nagoya University.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

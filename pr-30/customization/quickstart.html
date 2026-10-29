@@ -1,0 +1,238 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="ja" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Quick Start &mdash; MISO 0.0 ドキュメント</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=4ae1632d" />
+      <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../_static/collapsible-lists/css/tree_view.css?v=a885cde7" />
+      <link rel="stylesheet" type="text/css" href="../_static/custom.css" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=1a6bc256"></script>
+      <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../_static/copybutton.js?v=f281be69"></script>
+      <script src="../_static/translations.js?v=4755f45a"></script>
+      <script src="../_static/collapsible-lists/js/CollapsibleLists.compressed.js?v=73120307"></script>
+      <script src="../_static/collapsible-lists/js/apply-collapsible-lists.js?v=660e4f45"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="../genindex.html" />
+    <link rel="search" title="検索" href="../search.html" />
+    <link rel="next" title="MISO C++ documentation" href="../miso/index.html" />
+    <link rel="prev" title="Customization" href="index.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            MISO
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../quickstart.html">Quick Start</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../demo/index.html">Test Problems</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Customization</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Quick Start</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../miso/index.html">MISO C++ documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../pymiso/index.html">pymiso Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../education/index.html">MISO education</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../references.html">References</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">MISO</a>
+      </nav>
+
+      <div class="wy-nav-content">
+<div id="language-links" style="margin-bottom: 1em; font-size: 100%;">
+    Language:
+    
+    <a href="../en/customization/quickstart.html">English</a> |
+    <strong>日本語</strong>
+    
+</div>
+
+
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">Customization</a></li>
+      <li class="breadcrumb-item active">Quick Start</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/customization/quickstart.md.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section class="tex2jax_ignore mathjax_ignore" id="quick-start">
+<h1>Quick Start<a class="headerlink" href="#quick-start" title="Link to this heading"></a></h1>
+<p>MISOではモデル作成のベースとなるクラス <code class="docutils literal notranslate"><span class="pre">miso::mhd::ModelBase</span></code> を用意しており、これを編集することで様々なテスト問題を実現しています。
+<code class="docutils literal notranslate"><span class="pre">ModelBase</span></code>で想定されている問題から大きく離れるほど、ユーザが記述するコード量は増えていきます。</p>
+<p>以下では、テスト問題 <code class="docutils literal notranslate"><span class="pre">demo/mhd2d_vortex</span></code> のメインプログラムを例に説明します。
+この問題は、以下のように初期条件を設定するだけで実装されています。</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">struct</span><span class="w"> </span><span class="nc">InitialCondition</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="n">eos</span><span class="o">::</span><span class="n">IdealEOS</span><span class="o">&lt;</span><span class="n">Real</span><span class="o">&gt;</span><span class="w"> </span><span class="o">&amp;</span><span class="n">eos</span><span class="p">;</span>
+
+<span class="w">  </span><span class="k">explicit</span><span class="w"> </span><span class="n">InitialCondition</span><span class="p">(</span><span class="n">eos</span><span class="o">::</span><span class="n">IdealEOS</span><span class="o">&lt;</span><span class="n">Real</span><span class="o">&gt;</span><span class="w"> </span><span class="o">&amp;</span><span class="n">eos</span><span class="p">)</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">eos</span><span class="p">(</span><span class="n">eos</span><span class="p">)</span><span class="w"> </span><span class="p">{}</span>
+
+<span class="w">  </span><span class="c1">// The signature must not be changed as it is called inside miso::mhd::MHD.</span>
+<span class="w">  </span><span class="kt">void</span><span class="w"> </span><span class="n">apply</span><span class="p">(</span><span class="n">mhd</span><span class="o">::</span><span class="n">FieldsView</span><span class="o">&lt;</span><span class="n">Real</span><span class="o">&gt;</span><span class="w"> </span><span class="n">qq</span><span class="p">,</span><span class="w"> </span><span class="n">GridView</span><span class="o">&lt;</span><span class="k">const</span><span class="w"> </span><span class="n">Real</span><span class="o">&gt;</span><span class="w"> </span><span class="n">grid</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">Real</span><span class="w"> </span><span class="n">pr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">1.0</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">eos</span><span class="p">.</span><span class="n">gm</span><span class="p">;</span>
+<span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">Real</span><span class="w"> </span><span class="n">b0</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">util</span><span class="o">::</span><span class="n">sqrt</span><span class="p">(</span><span class="mf">4.0</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">pi</span><span class="o">&lt;</span><span class="n">Real</span><span class="o">&gt;</span><span class="p">)</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">eos</span><span class="p">.</span><span class="n">gm</span><span class="p">;</span>
+<span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">Real</span><span class="w"> </span><span class="n">v0</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">1.0</span><span class="p">;</span>
+
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">k</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">k</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">grid</span><span class="p">.</span><span class="n">k_total</span><span class="p">;</span><span class="w"> </span><span class="o">++</span><span class="n">k</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">j</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">j</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">grid</span><span class="p">.</span><span class="n">j_total</span><span class="p">;</span><span class="w"> </span><span class="o">++</span><span class="n">j</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">grid</span><span class="p">.</span><span class="n">i_total</span><span class="p">;</span><span class="w"> </span><span class="o">++</span><span class="n">i</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">          </span><span class="n">qq</span><span class="p">.</span><span class="n">ro</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="w"> </span><span class="n">j</span><span class="p">,</span><span class="w"> </span><span class="n">k</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">1.0</span><span class="p">;</span>
+<span class="w">          </span><span class="n">qq</span><span class="p">.</span><span class="n">ei</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="w"> </span><span class="n">j</span><span class="p">,</span><span class="w"> </span><span class="n">k</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">eos</span><span class="p">.</span><span class="n">roprtoei</span><span class="p">(</span><span class="n">qq</span><span class="p">.</span><span class="n">ro</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="w"> </span><span class="n">j</span><span class="p">,</span><span class="w"> </span><span class="n">k</span><span class="p">),</span><span class="w"> </span><span class="n">pr</span><span class="p">);</span>
+<span class="w">          </span><span class="n">qq</span><span class="p">.</span><span class="n">vx</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="w"> </span><span class="n">j</span><span class="p">,</span><span class="w"> </span><span class="n">k</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">-</span><span class="n">v0</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">util</span><span class="o">::</span><span class="n">sin</span><span class="p">(</span><span class="mf">2.0</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">pi</span><span class="o">&lt;</span><span class="n">Real</span><span class="o">&gt;</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">grid</span><span class="p">.</span><span class="n">y</span><span class="p">[</span><span class="n">j</span><span class="p">]);</span>
+<span class="w">          </span><span class="n">qq</span><span class="p">.</span><span class="n">vy</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="w"> </span><span class="n">j</span><span class="p">,</span><span class="w"> </span><span class="n">k</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">+</span><span class="n">v0</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">util</span><span class="o">::</span><span class="n">sin</span><span class="p">(</span><span class="mf">2.0</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">pi</span><span class="o">&lt;</span><span class="n">Real</span><span class="o">&gt;</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">grid</span><span class="p">.</span><span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
+<span class="w">          </span><span class="n">qq</span><span class="p">.</span><span class="n">vz</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="w"> </span><span class="n">j</span><span class="p">,</span><span class="w"> </span><span class="n">k</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.0</span><span class="p">;</span>
+<span class="w">          </span><span class="n">qq</span><span class="p">.</span><span class="n">bx</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="w"> </span><span class="n">j</span><span class="p">,</span><span class="w"> </span><span class="n">k</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">-</span><span class="n">b0</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">util</span><span class="o">::</span><span class="n">sin</span><span class="p">(</span><span class="mf">2.0</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">pi</span><span class="o">&lt;</span><span class="n">Real</span><span class="o">&gt;</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">grid</span><span class="p">.</span><span class="n">y</span><span class="p">[</span><span class="n">j</span><span class="p">]);</span>
+<span class="w">          </span><span class="n">qq</span><span class="p">.</span><span class="n">by</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="w"> </span><span class="n">j</span><span class="p">,</span><span class="w"> </span><span class="n">k</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">+</span><span class="n">b0</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">util</span><span class="o">::</span><span class="n">sin</span><span class="p">(</span><span class="mf">4.0</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">pi</span><span class="o">&lt;</span><span class="n">Real</span><span class="o">&gt;</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">grid</span><span class="p">.</span><span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
+<span class="w">          </span><span class="n">qq</span><span class="p">.</span><span class="n">bz</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="w"> </span><span class="n">j</span><span class="p">,</span><span class="w"> </span><span class="n">k</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.0</span><span class="p">;</span>
+<span class="w">          </span><span class="n">qq</span><span class="p">.</span><span class="n">ph</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="w"> </span><span class="n">j</span><span class="p">,</span><span class="w"> </span><span class="n">k</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.0</span><span class="p">;</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">      </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+<p>ここで、<code class="docutils literal notranslate"><span class="pre">miso::eos::IdealEOS&lt;Real&gt;</span></code>は理想気体の状態方程式を計算するために用意されているクラスです。
+<code class="docutils literal notranslate"><span class="pre">miso::mhd::FieldsView</span></code>は密度や速度場などのMHD方程式の基本変数をメンバに持つクラス、<code class="docutils literal notranslate"><span class="pre">miso::GridView</span></code>は計算格子に関するクラスです。
+両者は上記のように <code class="docutils literal notranslate"><span class="pre">qq.ro(i,</span> <span class="pre">j,</span> <span class="pre">k)</span></code> や <code class="docutils literal notranslate"><span class="pre">grid.x[i]</span></code> のように配列の各要素にアクセスすることが出来ます。
+関数<code class="docutils literal notranslate"><span class="pre">apply</span></code>は<code class="docutils literal notranslate"><span class="pre">ModelBase</span></code>から呼び出されるため、シグネチャ(引数や返り値など)を変更することが出来ないことに注意してください。</p>
+<p>この初期条件の<code class="docutils literal notranslate"><span class="pre">ModelBase</span></code>への組み込みは、以下のように書くことができます。</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">struct</span><span class="w"> </span><span class="nc">Model</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="k">public</span><span class="w"> </span><span class="n">mhd</span><span class="o">::</span><span class="n">ModelBase</span><span class="o">&lt;</span><span class="n">Model</span><span class="p">,</span><span class="w"> </span><span class="n">Real</span><span class="p">,</span><span class="w"> </span><span class="n">Backend</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="n">eos</span><span class="o">::</span><span class="n">IdealEOS</span><span class="o">&lt;</span><span class="n">Real</span><span class="o">&gt;</span><span class="w"> </span><span class="n">eos</span><span class="p">;</span>
+<span class="w">  </span><span class="n">InitialCondition</span><span class="w"> </span><span class="n">ic</span><span class="p">;</span>
+<span class="w">  </span><span class="n">mhd</span><span class="o">::</span><span class="n">EmptyBoundaryCondition</span><span class="o">&lt;</span><span class="n">Real</span><span class="o">&gt;</span><span class="w"> </span><span class="n">bc</span><span class="p">;</span>
+<span class="w">  </span><span class="n">mhd</span><span class="o">::</span><span class="n">EmptySourceTerm</span><span class="o">&lt;</span><span class="n">Real</span><span class="o">&gt;</span><span class="w"> </span><span class="n">src</span><span class="p">;</span>
+
+<span class="w">  </span><span class="n">Model</span><span class="p">(</span><span class="n">Config</span><span class="w"> </span><span class="o">&amp;</span><span class="n">config</span><span class="p">)</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">ModelBase</span><span class="p">(</span><span class="n">config</span><span class="p">),</span><span class="w"> </span><span class="n">eos</span><span class="p">(</span><span class="n">config</span><span class="p">),</span><span class="w"> </span><span class="n">ic</span><span class="p">(</span><span class="n">eos</span><span class="p">),</span><span class="w"> </span><span class="n">bc</span><span class="p">(),</span><span class="w"> </span><span class="n">src</span><span class="p">()</span><span class="w"> </span><span class="p">{}</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+<p>ここで、<code class="docutils literal notranslate"><span class="pre">miso::mhd::EmptyBoundaryCondition</span></code>は何もしない境界条件です。全方向が周期境界条件で済む場合のみこれを利用してください。
+計算領域が周期境界か否かは設定ファイル <code class="docutils literal notranslate"><span class="pre">config.yaml</span></code> の <code class="docutils literal notranslate"><span class="pre">domain</span></code> セクションで以下のように指定できます。</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">domain</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">periodic</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">x</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">    </span><span class="nt">y</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">    </span><span class="nt">z</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+</pre></div>
+</div>
+<p>MHDシミュレーションでは、方程式の右辺にソース項がある場合、例えば重力などの外力や輻射冷却などの加熱項を加えたい場合、があります。
+上記の<code class="docutils literal notranslate"><span class="pre">miso::mhd::EmptySourceTerm</span></code>は、右辺にソース項を何も持たない場合に利用するクラスです。</p>
+<p><code class="docutils literal notranslate"><span class="pre">Model</span></code>の親クラスである<code class="docutils literal notranslate"><span class="pre">miso::mhd::ModelBase</span></code>は、実際には以下のような初期化を行います。</p>
+<ul class="simple">
+<li><p>設定ファイル(<code class="docutils literal notranslate"><span class="pre">config.yaml</span></code>など)の読み込み</p></li>
+<li><p>MPIやCUDAの設定</p></li>
+<li><p>計算格子 <code class="docutils literal notranslate"><span class="pre">miso::Grid</span></code> の初期化</p></li>
+<li><p>MHDクラス <code class="docutils literal notranslate"><span class="pre">miso::mhd::MHD</span></code> の初期化</p></li>
+</ul>
+<p>テスト問題 <code class="docutils literal notranslate"><span class="pre">demo/mhd2d_vortex</span></code> の <code class="docutils literal notranslate"><span class="pre">Model</span></code> では、これに加えて状態方程式や初期条件、境界条件やソース項の初期化を行っています。</p>
+<p>メイン関数では、以下のように<code class="docutils literal notranslate"><span class="pre">miso</span></code>の初期化、設定ファイル <code class="docutils literal notranslate"><span class="pre">config.yaml</span></code> の読み込み、<code class="docutils literal notranslate"><span class="pre">Model</span></code>の実行を行います。</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">argc</span><span class="p">,</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">**</span><span class="n">argv</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="c1">// Initialize MPI and CUDA environments</span>
+<span class="w">  </span><span class="n">Env</span><span class="w"> </span><span class="n">env</span><span class="p">(</span><span class="n">argc</span><span class="p">,</span><span class="w"> </span><span class="n">argv</span><span class="p">);</span>
+
+<span class="w">  </span><span class="c1">// Read configuration file</span>
+<span class="w">  </span><span class="k">auto</span><span class="w"> </span><span class="n">config_path</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">parse_config_filepath</span><span class="p">(</span><span class="n">argc</span><span class="p">,</span><span class="w"> </span><span class="n">argv</span><span class="p">);</span>
+<span class="w">  </span><span class="n">Config</span><span class="w"> </span><span class="n">config</span><span class="p">(</span><span class="n">config_path</span><span class="p">.</span><span class="n">value_or</span><span class="p">(</span><span class="s">"./config.yaml"</span><span class="p">));</span>
+
+<span class="w">  </span><span class="c1">// Run simulation</span>
+<span class="w">  </span><span class="n">Model</span><span class="w"> </span><span class="n">model</span><span class="p">(</span><span class="n">config</span><span class="p">);</span>
+<span class="w">  </span><span class="n">model</span><span class="p">.</span><span class="n">run</span><span class="p">();</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">ModelBase.run()</span></code>は、具体的には以下のような計算を実行します。</p>
+<ul class="simple">
+<li><p>初期条件 <code class="docutils literal notranslate"><span class="pre">ic</span></code> のMHD変数への適用</p></li>
+<li><p>設定ファイルの情報や計算格子 <code class="docutils literal notranslate"><span class="pre">grid</span></code> (<code class="docutils literal notranslate"><span class="pre">miso::Grid</span></code>) などのファイル出力</p></li>
+<li><p>初期状態及び各時間ステップでのMHD変数 <code class="docutils literal notranslate"><span class="pre">qq</span></code> (<code class="docutils literal notranslate"><span class="pre">miso::mhd::Fields</span></code>) のファイル出力</p></li>
+<li><p>(既存計算データがあれば) 既存計算データのロード</p></li>
+<li><p>メインループ</p>
+<ul>
+<li><p>CFL条件の評価と時間ステップサイズの決定</p></li>
+<li><p>MHD変数の時間積分 (境界条件 <code class="docutils literal notranslate"><span class="pre">bc</span></code> の適用やソース項 <code class="docutils literal notranslate"><span class="pre">src</span></code> の右辺への付加、状態方程式 <code class="docutils literal notranslate"><span class="pre">eos</span></code> の呼び出しを含む)</p></li>
+<li><p>時刻 <code class="docutils literal notranslate"><span class="pre">time</span></code> (<code class="docutils literal notranslate"><span class="pre">miso::Time</span></code>) の更新</p></li>
+</ul>
+</li>
+</ul>
+<p>ここで、初期条件 <code class="docutils literal notranslate"><span class="pre">ic</span></code> 、境界条件 <code class="docutils literal notranslate"><span class="pre">bc</span></code> 、ソース項 <code class="docutils literal notranslate"><span class="pre">src</span></code> 、状態方程式 <code class="docutils literal notranslate"><span class="pre">eos</span></code> はユーザが設定することを想定しており、<code class="docutils literal notranslate"><span class="pre">ModelBase</span></code>を継承した子クラスで定義された変数を利用します。</p>
+<p>それぞれのカスタム方法については、<code class="docutils literal notranslate"><span class="pre">demo</span></code>内にある各テスト問題を参考にしてください。
+特に磁気圏問題 <code class="docutils literal notranslate"><span class="pre">demo/mhd3d_magnetosphere</span></code> は、初期条件、境界条件、ソース項、加えてCFL条件も変更しておりおすすめです。</p>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="index.html" class="btn btn-neutral float-left" title="Customization" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../miso/index.html" class="btn btn-neutral float-right" title="MISO C++ documentation" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Integrated Studies, ISEE, Nagoya University.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,17 @@
+Time
+====
+
+.. currentmodule:: pymiso
+
+.. autoclass:: Time
+   :show-inheritance:
+
+   .. rubric:: Methods Summary
+
+   .. autosummary::
+
+      ~Time.load
+
+   .. rubric:: Methods Documentation
+
+   .. automethod:: load

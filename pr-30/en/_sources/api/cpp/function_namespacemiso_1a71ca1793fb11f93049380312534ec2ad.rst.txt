@@ -1,0 +1,14 @@
+.. _exhale_function_namespacemiso_1a71ca1793fb11f93049380312534ec2ad:
+
+Template Function miso::reduce(backend::CUDA, Range3D, T, F, Op, ReduceHelper<T>&, cudaStream_t)
+================================================================================================
+
+- Defined in :ref:`file__home_runner_work_MISO_docs_MISO_docs_MISO_miso_include_miso_execution.hpp`
+
+
+Function Documentation
+----------------------
+
+
+.. doxygenfunction:: miso::reduce(backend::CUDA, Range3D, T, F, Op, ReduceHelper<T>&, cudaStream_t)
+   :project: CPP
