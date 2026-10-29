@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MISO \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-10-29 13:10+0900\n"
+"POT-Creation-Date: 2026-10-29 13:33+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: en\n"
@@ -163,7 +163,7 @@ msgstr ""
 msgid "MISO のデモの `main` は、最初に `Env` を作ります（`demo/mhd2d_vortex/src/main.cpp`）。"
 msgstr ""
 
-msgid "`MPI_Init` も `MPI_Finalize` も、ここには現れません。 どちらも `Env` が受け持ちます（`miso/include/miso/env.hpp`）。 MPI の部分は `miso::mpi::Env` です。抜粋します。 この章の抜粋で `// ...（説明）` の形のコメントは、省いた部分を示すためにこの教材で足したものです。"
+msgid "`MPI_Init` も `MPI_Finalize` も、ここには現れません。 どちらも `Env` が受け持ちます（`miso/include/miso/env.hpp`）。 MPI の部分は `miso::mpi::Env` です。抜粋します。 この章の抜粋で `// ...(description)` の形のコメントは、省いた部分を示すためにこの教材で足したものです。"
 msgstr ""
 
 msgid "コンストラクタで `MPI_Init` を呼び、デストラクタで `MPI_Finalize` を呼びます。 第 4 章で学んだ RAII の形です。`main` の最後で `env` の寿命が終わるとデストラクタが動くので、`MPI_Finalize` を書き忘れることがありません。 `MPI_Initialized` で「すでに初期化済みか」を調べ、自分が初期化したとき（`owns_mpi`）だけ終了処理をします。 テストのように、別の場所で MPI を始めた場合にも使えるようにするためです。"
@@ -706,7 +706,7 @@ msgid "出力ファイルとランク"
 msgstr ""
 
 #, python-brace-format
-msgid "`data/` の下の `mhd/mhd.<出力番号>.<ランク>.bin`（例：`mhd.00000001.00000000.bin`）は、ランクごとの MHD 変数です。各ランクは自分の配列（ゴーストセル込み）だけを書きます。 `grid.bin` は全体の格子で、ランク 0 だけが書きます。 `mpi/coords.csv` は、{ref}`3 節 <edu-ch08-shape>` で見たランクと位置の対応で、`x_procs: 2` なら `0,0,0,0` と `1,1,0,0` の 2 行が並びます。 `pymiso.Data` は `coords.csv` と各ランクのファイルを読み、ゴーストを除いて全体の配列（`ro` など）を組み立てます。 読み手は分割の仕方を意識せずに解析できます。"
+msgid "`data/` の下の `mhd/mhd.<n_output>.<rank>.bin`（例：`mhd.00000001.00000000.bin`）は、ランクごとの MHD 変数です。各ランクは自分の配列（ゴーストセル込み）だけを書きます。 `grid.bin` は全体の格子で、ランク 0 だけが書きます。 `mpi/coords.csv` は、{ref}`3 節 <edu-ch08-shape>` で見たランクと位置の対応で、`x_procs: 2` なら `0,0,0,0` と `1,1,0,0` の 2 行が並びます。 `pymiso.Data` は `coords.csv` と各ランクのファイルを読み、ゴーストを除いて全体の配列（`ro` など）を組み立てます。 読み手は分割の仕方を意識せずに解析できます。"
 msgstr ""
 
 msgid "分割の仕方を変えて結果を比べる"
@@ -774,10 +774,4 @@ msgstr ""
 
 msgid "GPU を使う場合のハロー交換と、ランクと GPU の対応づけは第 9 章で扱います。 CPU だけで進める場合は、第 10 章の熱伝導の実習で、この章の 1 次元のハロー交換と `MPI_Allreduce` を自分で書きます。"
 msgstr ""
-
-#~ msgid "config.yaml の mpi セクション"
-#~ msgstr ""
-
-#~ msgid "app_run.sh と OpenMPI の環境変数"
-#~ msgstr ""
 

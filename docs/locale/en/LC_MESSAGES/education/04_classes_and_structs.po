@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MISO \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-10-29 09:37+0900\n"
+"POT-Creation-Date: 2026-10-29 13:33+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: en\n"
@@ -112,7 +112,7 @@ msgstr ""
 msgid "MISO の例：時刻を管理する Time"
 msgstr ""
 
-msgid "`miso/include/miso/time.hpp` の `Time` は、時刻やステップ数をまとめた構造体です。 メンバ変数の部分を抜き出します（元のコメント `/// @brief ...` を、日本語の短いコメントに置き換えています）。"
+msgid "`miso/include/miso/time.hpp` の `Time` は、時刻やステップ数をまとめた構造体です。 メンバ変数の部分を抜き出します（元のコメント `/// @brief ...` を、英語の短いコメントに置き換えています）。"
 msgstr ""
 
 #, python-brace-format

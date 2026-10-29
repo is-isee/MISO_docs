@@ -25,6 +25,10 @@ html-en:
 update-po: gettext
 	@rm -rf "$(BUILDDIR)/gettext/api"
 	@sphinx-intl update -p "$(BUILDDIR)/gettext" -d locale -l en --line-width -1
+	@# 使われなくなった項目（#~）を消す。前の訳は fuzzy の項目に残る。
+	@python -c 'import sys, glob; from babel.messages.pofile import read_po, write_po; \
+		[write_po(open(p, "wb"), c, width=-1) for p in glob.glob("locale/en/LC_MESSAGES/**/*.po", recursive=True) \
+		 for c in [read_po(open(p, "rb"))] if c.obsolete and not c.obsolete.clear()]'
 
 # Catch-all target: route all unknown targets to Sphinx using the new
 # "make mode" option.  $(O) is meant as a shortcut for $(SPHINXOPTS).

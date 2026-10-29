@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MISO \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-10-29 13:10+0900\n"
+"POT-Creation-Date: 2026-10-29 13:33+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: en\n"
@@ -1130,7 +1130,7 @@ msgstr ""
 msgid "最新の出力番号"
 msgstr ""
 
-msgid "`mhd/mhd.<出力番号>.<ランク>.bin`"
+msgid "`mhd/mhd.<n_output>.<rank>.bin`"
 msgstr ""
 
 msgid "`Checkpoint::save`（`miso/include/miso/mhd_checkpoint.hpp`）"
@@ -1146,7 +1146,7 @@ msgstr ""
 msgid "11.3 再開"
 msgstr ""
 
-msgid "`io.continue` が真（既定値も真）で、`time/n_output.txt` が残っていれば、`run()` は初期条件を作ったあとで `load_state()` を呼び、最新の出力から計算を続けます。 `Time::load` はランク 0 で時刻ファイルを読んで `MPI_Bcast` で配り、`Checkpoint::load` は各ランクが自分の `mhd.<出力番号>.<ランク>.bin` を読みます。 出力をそのまま再開用のデータ（チェックポイント）として使う設計です。最初から計算し直すときは、`data/` を消すか `io.continue: false` にします。"
+msgid "`io.continue` が真（既定値も真）で、`time/n_output.txt` が残っていれば、`run()` は初期条件を作ったあとで `load_state()` を呼び、最新の出力から計算を続けます。 `Time::load` はランク 0 で時刻ファイルを読んで `MPI_Bcast` で配り、`Checkpoint::load` は各ランクが自分の `mhd.<n_output>.<rank>.bin` を読みます。 出力をそのまま再開用のデータ（チェックポイント）として使う設計です。最初から計算し直すときは、`data/` を消すか `io.continue: false` にします。"
 msgstr ""
 
 msgid "12. 自分で問題を作るときに触る場所"
@@ -1385,7 +1385,4 @@ msgstr ""
 #, python-brace-format
 msgid "{ref}`目次 <edu-index>` · {ref}`前の章 <edu-ch10>` · {ref}`Fortran との対応表 <edu-ref-fortran-map>`"
 msgstr ""
-
-#~ msgid "3.1 config.yaml のセクション"
-#~ msgstr ""
 

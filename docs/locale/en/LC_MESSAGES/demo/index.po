@@ -31,6 +31,3 @@ msgstr "This section describes the test problems available in MISO. Under the ``
 msgid ":doc:`../customization/index` で説明するように、よりカスタマイズした境界条件や外力を設定している場合もあります。"
 msgstr "Some problems use more customized boundary conditions or external forces, as described in :doc:`../customization/index`."
 
-#~ msgid "本セクションでは、MISOで利用可能なテスト問題について説明します。demoディレクトリ以下に、各問題のディレクトリが設置してあり、main.cpp、およびconfig.yamlなどの設定ファイルが含まれています。"
-#~ msgstr ""
-

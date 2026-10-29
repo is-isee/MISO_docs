@@ -975,6 +975,3 @@ msgstr ""
 msgid "GPU 環境がまだない場合は、比較を後で追加することにして、{ref}`第 10 章 <edu-ch10>` へ進めます。 CPU で熱伝導の逐次版と MPI 版を作り、GPU 版はこの章の内容を使って後から加えます。"
 msgstr ""
 
-#~ msgid "4.3 CPU と GPU で同じ main.cpp を動かす"
-#~ msgstr ""
-

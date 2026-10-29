@@ -1086,6 +1086,3 @@ msgstr ""
 msgid "文法の詳細は C++17 規格草案 N4659 の [`if`・`switch`](https://timsong-cpp.github.io/cppwp/n4659/stmt.select)、 [`for`](https://timsong-cpp.github.io/cppwp/n4659/stmt.for)、 [`while`・`do`](https://timsong-cpp.github.io/cppwp/n4659/stmt.iter)、 [`break`・`continue`・`return`](https://timsong-cpp.github.io/cppwp/n4659/stmt.jump)、 [`&&`](https://timsong-cpp.github.io/cppwp/n4659/expr.log.and)・[`||`](https://timsong-cpp.github.io/cppwp/n4659/expr.log.or)、 [条件演算子](https://timsong-cpp.github.io/cppwp/n4659/expr.cond)で確認できます。 慣れない用語は {ref}`用語集 <edu-ref-glossary>`、Fortran の書き方との対応は {ref}`Fortran との対応表 <edu-ref-fortran-map>` で引けます。"
 msgstr ""
 
-#~ msgid "11. 練習：demo の main.cpp の冒頭を読む"
-#~ msgstr ""
-

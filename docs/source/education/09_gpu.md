@@ -670,7 +670,7 @@ GPU では、これが問題になります。`this` はホストのメモリに
 host memory                        device (GPU)
 +------------------+               lambda copy
 | Scaler s         |                 this = 0x7fff....  ──┐
-|   factor = 3     | ◀── 0x7fff....                          │ not readable
+|   factor = 3     | ◀── 0x7fff....                       │ not readable
 +------------------+                                      │ from the device
                                    reads this->factor  ◀──┘ → illegal memory access
 ```

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MISO \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-10-29 13:10+0900\n"
+"POT-Creation-Date: 2026-10-29 13:33+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: en\n"
@@ -344,7 +344,7 @@ msgstr ""
 msgid "型によって処理を変えるには、`<type_traits>` の `std::is_same_v<A, B>` を使います。 `A` と `B` が同じ型なら `true`、違えば `false` になる、コンパイル時の定数です。"
 msgstr ""
 
-msgid "`precision_name<float>()` は「単精度」、`precision_name<double>()` は「倍精度以上」を返します。"
+msgid "`precision_name<float>()` は `\"single precision\"`（単精度）、`precision_name<double>()` は `\"double precision or higher\"`（倍精度以上）を返します。"
 msgstr ""
 
 msgid "選ばれなかった側が組み込まれないことには、もう一つ意味があります。 テンプレート引数によっては**書けない**処理（その型にないメンバの呼び出しなど）を、選ばれない側に置いてもエラーになりません。 6.7 節の MISO の例は、この性質を使っています。"
@@ -631,10 +631,4 @@ msgstr ""
 
 msgid "`vx`・`vz`・`ei` は 0 を返すだけですが、定義されているので呼ばれます（定義を省いても結果は同じです）。 `SourceTerm` には `dt_limit` がないので、`has_dt_limit<SourceTerm>::value` は `false` です。 `if constexpr` の中は組み込まれず、時間刻みは CFL 条件（`mhd.cfl(d.eos)`）だけで決まります。"
 msgstr ""
-
-#~ msgid "MISO の例：constants.hpp"
-#~ msgstr ""
-
-#~ msgid "MISO の例：backend.hpp と for_each"
-#~ msgstr ""
 

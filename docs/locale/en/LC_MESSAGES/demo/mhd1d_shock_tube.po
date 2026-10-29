@@ -103,6 +103,3 @@ msgstr ""
 msgid "mhd1d_shock_tube"
 msgstr ""
 
-#~ msgid "Pythonを用いて可視化し、$x$, $y$, $z$方向の結果を比較できます。 画像ファイルは demo/mhd1d_shock_tube/figsに保存されます。"
-#~ msgstr ""
-
