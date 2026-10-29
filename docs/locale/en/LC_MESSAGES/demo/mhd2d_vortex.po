@@ -24,7 +24,7 @@ msgstr ""
 
 #, python-brace-format
 msgid "Orszag-Tang渦問題 {cite}`orszag_1979JFM....90..129O` は、磁気流体力学（MHD）コードの標準的なテスト問題です。この問題は、磁化された媒体における2つの渦流の相互作用を含み、複雑な構造と乱流を形成します。"
-msgstr ""
+msgstr "The Orszag-Tang vortex problem {cite}`orszag_1979JFM....90..129O` is a standard test problem for magnetohydrodynamics (MHD) codes. This problem involves the interaction of two vortices in a magnetized medium, and forms complex structures and turbulence."
 
 msgid "Location"
 msgstr ""
@@ -45,7 +45,7 @@ msgid "Initial Conditions"
 msgstr ""
 
 msgid "初期条件は以下のように設定されます。比熱比は$\\gamma = 5/3$とします。"
-msgstr ""
+msgstr "The initial condition is set as follows. The ratio of specific heats is $\\gamma = 5/3$."
 
 #, python-brace-format
 msgid ""
@@ -64,19 +64,19 @@ msgstr ""
 
 #, python-brace-format
 msgid "ここで$v_0 = 1$、$B_0 = \\sqrt{4\\pi}/\\gamma$です。"
-msgstr ""
+msgstr "Here $v_0 = 1$ and $B_0 = \\sqrt{4\\pi}/\\gamma$."
 
 msgid "Boundary Conditions"
 msgstr ""
 
 msgid "周期境界条件を全ての境界に対して全ての物理量に設定します。"
-msgstr ""
+msgstr "A periodic boundary condition is imposed on all variables at all boundaries."
 
 msgid "Results"
 msgstr ""
 
 msgid "可視化用のPythonスクリプトが用意されています。 結果のプロットは `demo/mhd2d_vortex/figs` に保存されます。"
-msgstr ""
+msgstr "A Python script for visualization is provided. The plots of the results are saved in `demo/mhd2d_vortex/figs`."
 
 msgid "![mhd2d_vortex](../_static/images/mhd_vortex_2d.gif)"
 msgstr ""

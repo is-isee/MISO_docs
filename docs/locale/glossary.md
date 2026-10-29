@@ -68,6 +68,26 @@ Claude Code の上位モデルで作業しているときも、訳はサブエ�
 | 輻射強度・平均強度・入射強度 | intensity / mean intensity / incident intensity | |
 | 源泉関数 | source function | |
 | 吸収係数 | absorption coefficient | |
+| 衝撃波・接触不連続・希薄波 | shock wave / contact discontinuity / rarefaction wave | |
+| プラズマベータ・低ベータ | plasma beta / low-beta | |
+| プラズモイド | plasmoid | |
+| X 点 | X-point | |
+| ハリス電流シート | Harris current sheet | |
+| ペチェック型の速いリコネクション | Petschek-type fast reconnection | |
+| スローショック・ファストショック | slow shock / fast shock | 逆向きの → reverse、縦向きの → vertical |
+| 完全導体の壁 | perfectly conducting wall | |
+| 鏡映対称 | mirror-symmetric | |
+| 擬ベクトル | pseudovector | |
+| 偶・奇（対称性） | even / odd | |
+| ジュール加熱 | Joule heating | |
+| ガウス単位系 | Gaussian units | |
+| 短特性法 | short characteristics method | |
+| 輻射流束 | radiative flux | |
+| 方向余弦 | direction cosine | |
+| 求積 | quadrature | |
+| 数値拡散 | numerical diffusion | |
+| 親クラス・子クラス | parent class / child class | education の表の「基底クラス・派生クラス」と同じもの |
+| シグネチャ | signature | |
 | 規格化 | normalization | |
 | 設定ファイル | configuration file | |
 | 実行ファイル | executable | |

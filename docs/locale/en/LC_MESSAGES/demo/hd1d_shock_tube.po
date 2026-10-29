@@ -24,10 +24,10 @@ msgstr ""
 
 #, python-brace-format
 msgid "1次元の衝撃波管問題 {cite}`sod_1978JCoPh..27....1S` です。初期条件に不連続があるため、衝撃波、接触不連続、希薄波が発生します。この問題は、流体の方程式を解く数値スキームの検証によく用いられます。"
-msgstr ""
+msgstr "This is the 1D shock tube problem {cite}`sod_1978JCoPh..27....1S`. Because the initial condition has a discontinuity, a shock wave, a contact discontinuity, and a rarefaction wave are generated. This problem is often used to verify numerical schemes that solve the fluid equations."
 
 msgid "MISOで提供しているテスト問題では、$x$, $y$, $z$の各方向に1次元問題を実施していますが、本ページでは$x$方向の問題のみを説明します。"
-msgstr ""
+msgstr "The test problems provided in MISO run the 1D problem in each of the $x$, $y$, and $z$ directions, but this page describes only the problem in the $x$ direction."
 
 msgid "Location"
 msgstr ""
@@ -45,7 +45,7 @@ msgid "Initial Conditions"
 msgstr ""
 
 msgid "初期条件は、$x=0.5$で分離された左側と右側の状態で記述されます。比熱比は$\\gamma = 1.4$とします。"
-msgstr ""
+msgstr "The initial condition is described by the left and right states separated at $x=0.5$. The ratio of specific heats is $\\gamma = 1.4$."
 
 #, python-brace-format
 msgid ""
@@ -80,16 +80,16 @@ msgid "Boundary Conditions"
 msgstr ""
 
 msgid "すべての物理量について、対称境界条件を設定します。"
-msgstr ""
+msgstr "A symmetric boundary condition is imposed on all variables."
 
 msgid "Results"
 msgstr ""
 
 msgid "Pythonを用いて可視化し、$x$, $y$, $z$方向の結果を比較できます。 画像ファイルは`demo/hd1d_shock_tube/figs`に保存されます。"
-msgstr ""
+msgstr "You can visualize the results with Python and compare the results in the $x$, $y$, and $z$ directions. The image files are saved in `demo/hd1d_shock_tube/figs`."
 
 msgid "本pythonプログラムでは、解析解も計算しており、数値解と解析解の比較も行っています。"
-msgstr ""
+msgstr "This Python program also computes the analytical solution and compares it with the numerical solution."
 
 msgid "![hd1d_shock_tube](../_static/images/hd_shock_tube_1d.png)"
 msgstr ""

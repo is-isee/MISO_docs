@@ -26,5 +26,5 @@ msgid "Customization"
 msgstr ""
 
 msgid "MISOは、ユーザーが特定のニーズに合わせてソースコードをカスタマイズできるようにしています。 本セクションでは、MISOコードベースの変更および拡張方法についてのガイドラインを提供します。"
-msgstr ""
+msgstr "MISO allows users to customize the source code to meet their specific needs. This section provides guidelines on how to modify and extend the MISO code base."
 

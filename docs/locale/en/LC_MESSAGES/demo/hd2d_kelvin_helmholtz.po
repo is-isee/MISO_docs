@@ -23,7 +23,7 @@ msgid "2D HD Test: Kelvin-Helmholtz Instability"
 msgstr ""
 
 msgid "ケルビン・ヘルムホルツ不安定性問題。設定した境界面を挟んで、上下で異なる速度を持つ流れが接しているときに発生する不安定性です。可視化のために、上下で密度を変えています。"
-msgstr ""
+msgstr "The Kelvin-Helmholtz instability problem. This instability occurs when flows with different velocities above and below a given interface are in contact. For visualization, the density is different above and below."
 
 msgid "Location"
 msgstr ""
@@ -44,7 +44,7 @@ msgid "Initial Conditions"
 msgstr ""
 
 msgid "初期条件は、$y=0.0$で分離された上側と下側の状態と一定の圧力$p=2.5$で記述されます。比熱比は$\\gamma = 1.4$とします。"
-msgstr ""
+msgstr "The initial condition is described by the upper and lower states separated at $y=0.0$ and a uniform pressure $p=2.5$. The ratio of specific heats is $\\gamma = 1.4$."
 
 #, python-brace-format
 msgid ""
@@ -75,13 +75,13 @@ msgid "Boundary Conditions"
 msgstr ""
 
 msgid "$x$方向に周期境界条件を、$y$方向に対しては全ての物理量に対して対称境界条件を設定します。 `config.yaml`において、$x$方向の周期境界条件フラグをtrueに設定すると、対称境界条件が機能しなくなることに注意してください。"
-msgstr ""
+msgstr "A periodic boundary condition is imposed in the $x$ direction, and a symmetric boundary condition is imposed on all variables in the $y$ direction. Note that if you set the periodic boundary flag in the $x$ direction to true in `config.yaml`, the symmetric boundary condition no longer works."
 
 msgid "Results"
 msgstr ""
 
 msgid "可視化用のPythonスクリプトが用意されています。 結果のプロットは `demo/hd2d_kelvin_helmholtz/figs` に保存されます。"
-msgstr ""
+msgstr "A Python script for visualization is provided. The plots of the results are saved in `demo/hd2d_kelvin_helmholtz/figs`."
 
 msgid "![hd2d_kelvin_helmholtz](../_static/images/kelvin_helmholtz.gif)"
 msgstr ""
@@ -93,5 +93,5 @@ msgid "3D Version"
 msgstr ""
 
 msgid "3次元への拡張は、設定ファイル`config.yaml`で`k_size`を1より大きく設定するだけで実現できます。"
-msgstr ""
+msgstr "The extension to 3D is achieved simply by setting `k_size` to a value larger than 1 in the configuration file `config.yaml`."
 

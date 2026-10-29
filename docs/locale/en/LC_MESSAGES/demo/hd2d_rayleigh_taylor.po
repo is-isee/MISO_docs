@@ -23,7 +23,7 @@ msgid "2D HD Test: Rayleigh Taylor Instability"
 msgstr ""
 
 msgid "レイリー・テイラー不安定性問題。重力場において、密度の高い流体が密度の低い流体の上にあるときに発生する不安定性です。"
-msgstr ""
+msgstr "The Rayleigh-Taylor instability problem. This instability occurs in a gravitational field when a dense fluid lies above a less dense fluid."
 
 msgid "Location"
 msgstr ""
@@ -44,7 +44,7 @@ msgid "Force"
 msgstr ""
 
 msgid "負の$y$方向に一定の重力を加えます。重力加速度は$g=0.1$に設定します。"
-msgstr ""
+msgstr "A constant gravity is applied in the negative $y$ direction. The gravitational acceleration is set to $g=0.1$."
 
 #, python-brace-format
 msgid ""
@@ -56,19 +56,19 @@ msgid "Initial Conditions"
 msgstr ""
 
 msgid "初期条件は、$y=0.0$で分離された上側と下側の状態で記述されます。上側領域（$y \\geq 0$）では密度$\\rho = 2$、下側領域（$y < 0$）では密度$\\rho =1$です。圧力は$p =p_0 - \\rho g y$とします。比熱比は$\\gamma = 1.4$とします。"
-msgstr ""
+msgstr "The initial condition is described by the upper and lower states separated at $y=0.0$. The density is $\\rho = 2$ in the upper region ($y \\geq 0$) and $\\rho =1$ in the lower region ($y < 0$). The pressure is $p =p_0 - \\rho g y$. The ratio of specific heats is $\\gamma = 1.4$."
 
 msgid "Boundary Conditions"
 msgstr ""
 
 msgid "$x$方向に周期境界条件を、$y$方向に対しては全ての物理量に対して対称境界条件を設定します。 ただし、$V_y$のみ$y=\\pm0.5$で反対称に設定しています。 `config.yaml`において、$x$方向の周期境界条件フラグをtrueに設定すると、対称境界条件が機能しなくなることに注意してください。"
-msgstr ""
+msgstr "A periodic boundary condition is imposed in the $x$ direction, and a symmetric boundary condition is imposed on all variables in the $y$ direction. Only $V_y$ is set antisymmetric at $y=\\pm0.5$. Note that if you set the periodic boundary flag in the $x$ direction to true in `config.yaml`, the symmetric boundary condition no longer works."
 
 msgid "Results"
 msgstr ""
 
 msgid "可視化用のPythonスクリプトが用意されています。 結果のプロットは `demo/hd2d_rayleigh_taylor/figs` に保存されます。"
-msgstr ""
+msgstr "A Python script for visualization is provided. The plots of the results are saved in `demo/hd2d_rayleigh_taylor/figs`."
 
 msgid "![hd2d_rayleigh_taylor](../_static/images/rayleigh_taylor.gif)"
 msgstr ""
@@ -80,5 +80,5 @@ msgid "3D Version"
 msgstr ""
 
 msgid "3次元への拡張は、設定ファイル`config.yaml`で`k_size`を1より大きく設定するだけで実現できます。"
-msgstr ""
+msgstr "The extension to 3D is achieved simply by setting `k_size` to a value larger than 1 in the configuration file `config.yaml`."
 
