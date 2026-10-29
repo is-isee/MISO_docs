@@ -125,21 +125,21 @@ cmake<span class="w"> </span>-B<span class="w"> </span>build<span class="w"> </s
 make<span class="w"> </span>-C<span class="w"> </span>build
 </pre></div>
 </div>
-<p>これで、実行ファイル build/mhd2d_vortex が生成されます。</p>
+<p>これで、実行ファイル <code class="docutils literal notranslate"><span class="pre">build/mhd2d_vortex</span></code>が生成されます。</p>
 <p>2D Orszag-Tang渦問題は以下のように実行することができます。</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>mpiexec<span class="w"> </span>-n<span class="w"> </span><span class="m">2</span><span class="w"> </span>./build/mhd2d_vortex
 </pre></div>
 </div>
-<p>MPIを使用している場合、適切な環境変数・オプションを要求されることがあります。OpenMPIを使用している場合には、自動で環境変数を設定したうえで上記のコマンドを実行するシェルスクリプトが demo/mhd2d_vortex/app_run.sh に用意されています。</p>
+<p>MPIを使用している場合、適切な環境変数・オプションを要求されることがあります。OpenMPIを使用している場合には、自動で環境変数を設定したうえで上記のコマンドを実行するシェルスクリプトが <code class="docutils literal notranslate"><span class="pre">demo/mhd2d_vortex/app_run.sh</span></code>に用意されています。</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>./app_run.sh
 </pre></div>
 </div>
-<p>demo/mhd2d_vortex/data にシミュレーション結果が保存されます。
-途中で計算を停止した場合でも、保存されたデータから再開されます。計算を最初からやり直すには、 demo/mhd2d_vortex/data/ ディレクトリを削除してください。以下のようにしてもデータを削除することができます。</p>
+<p><code class="docutils literal notranslate"><span class="pre">demo/mhd2d_vortex/data</span></code>にシミュレーション結果が保存されます。
+途中で計算を停止した場合でも、保存されたデータから再開されます。計算を最初からやり直すには、<code class="docutils literal notranslate"><span class="pre">demo/mhd2d_vortex/data/</span></code>ディレクトリを削除してください。以下のようにしてもデータを削除することができます。</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>./app_clean.sh
 </pre></div>
 </div>
-<p>シミュレーションパラメータは、 demo/mhd2d_vortex/config.yaml ファイルを編集することで制御できます。例えば、格子点数は次のように変更できます。</p>
+<p>シミュレーションパラメータは、<code class="docutils literal notranslate"><span class="pre">demo/mhd2d_vortex/config.yaml</span></code>ファイルを編集することで制御できます。例えば、格子点数は次のように変更できます。</p>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">grid</span><span class="p">:</span>
 <span class="w">    </span><span class="nt">i_size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">256</span>
 <span class="w">    </span><span class="nt">j_size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">256</span>
@@ -155,12 +155,12 @@ cmake<span class="w"> </span>-B<span class="w"> </span>build<span class="w"> </s
 make<span class="w"> </span>-C<span class="w"> </span>build
 </pre></div>
 </div>
-<p>実行ファイル build/mhd2d_vortex やその実行方法はCPU版と同様です。
+<p>実行ファイル <code class="docutils literal notranslate"><span class="pre">build/mhd2d_vortex</span></code>やその実行方法はCPU版と同様です。
 実行時に必要なオプションや環境変数の設定方法が環境により変わる場合があるため、以下は例として参考にしてください。</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>mpiexec<span class="w"> </span>-n<span class="w"> </span><span class="m">2</span><span class="w"> </span>--bind-to<span class="w"> </span>none<span class="w"> </span>--mca<span class="w"> </span>pml<span class="w"> </span>ob1<span class="w"> </span>--mca<span class="w"> </span>btl<span class="w"> </span>tcp,self,vader<span class="w"> </span>--mca<span class="w"> </span>coll<span class="w"> </span>^hcoll<span class="w"> </span>--mca<span class="w"> </span>osc<span class="w"> </span>^ucx<span class="w"> </span>./build/mhd2d_vortex
 </pre></div>
 </div>
-<p>GPU版で複数のプロセスを使用する場合は、オプションとして &quot;--map-by ppr:N:node&quot; (N は 1 ノードあたりのプロセス数) や &quot;-x CUDA_VISIBLE_DEVICES=M,L,...&quot; (M, L, ... は各ノードで利用可能とする CUDA デバイス番号) などを指定することを推奨します。例えば、 2 ノード、ノード当たり 2 プロセス、各プロセスが 1 CUDA デバイスを使用し、合計 4 プロセスで実行する場合は、次のようになります。</p>
+<p>GPU版で複数のプロセスを使用する場合は、オプションとして <code class="docutils literal notranslate"><span class="pre">--map-by</span> <span class="pre">ppr:N:node</span></code> (N は 1 ノードあたりのプロセス数) や <code class="docutils literal notranslate"><span class="pre">-x</span> <span class="pre">CUDA_VISIBLE_DEVICES=M,L,...</span></code> (M, L, ... は各ノードで利用可能とする CUDA デバイス番号) などを指定することを推奨します。例えば、 2 ノード、ノード当たり 2 プロセス、各プロセスが 1 CUDA デバイスを使用し、合計 4 プロセスで実行する場合は、次のようになります。</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>mpiexec<span class="w"> </span>-n<span class="w"> </span><span class="m">4</span><span class="w"> </span>--map-by<span class="w"> </span>ppr:2:node<span class="w"> </span>--bind-to<span class="w"> </span>none<span class="w"> </span>-x<span class="w"> </span><span class="nv">CUDA_DEVICE_ORDER</span><span class="o">=</span>PCI_BUS_ID<span class="w"> </span>-x<span class="w"> </span><span class="nv">CUDA_VISIBLE_DEVICES</span><span class="o">=</span><span class="m">0</span>,1<span class="w"> </span>--mca<span class="w"> </span>pml<span class="w"> </span>ob1<span class="w"> </span>--mca<span class="w"> </span>btl<span class="w"> </span>tcp,self,vader<span class="w"> </span>--mca<span class="w"> </span>coll<span class="w"> </span>^hcoll<span class="w"> </span>--mca<span class="w"> </span>osc<span class="w"> </span>^ucx<span class="w"> </span>./build/mhd2d_vortex
 </pre></div>
 </div>
@@ -206,12 +206,12 @@ pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </s
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
-<p>各デモ問題には可視化用のスクリプトが含まれています。例えば、2D Orszag-Tang渦問題の結果を可視化するには、 demo/mhd2d_vortex/plot_data.py を実行します。</p>
+<p>各デモ問題には可視化用のスクリプトが含まれています。例えば、2D Orszag-Tang渦問題の結果を可視化するには、<code class="docutils literal notranslate"><span class="pre">demo/mhd2d_vortex/plot_data.py</span></code>を実行します。</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>demo/mhd2d_vortex
 python<span class="w"> </span>plot_data.py
 </pre></div>
 </div>
-<p>実行後、シミュレーション結果の画像ファイルが demo/mhd2d_vortex/figs に保存されます。</p>
+<p>実行後、シミュレーション結果の画像ファイルが <code class="docutils literal notranslate"><span class="pre">demo/mhd2d_vortex/figs</span></code>に保存されます。</p>
 </section>
 </section>
 

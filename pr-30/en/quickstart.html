@@ -123,20 +123,20 @@ cmake<span class="w"> </span>-B<span class="w"> </span>build<span class="w"> </s
 make<span class="w"> </span>-C<span class="w"> </span>build
 </pre></div>
 </div>
-<p>This produces the executable build/mhd2d_vortex.</p>
+<p>This produces the executable <code class="docutils literal notranslate"><span class="pre">build/mhd2d_vortex</span></code>.</p>
 <p>The 2D Orszag-Tang vortex problem can be run as follows.</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>mpiexec<span class="w"> </span>-n<span class="w"> </span><span class="m">2</span><span class="w"> </span>./build/mhd2d_vortex
 </pre></div>
 </div>
-<p>With MPI, appropriate environment variables and options may be required. For Open MPI, the shell script demo/mhd2d_vortex/app_run.sh sets the environment variables automatically and runs the command above.</p>
+<p>With MPI, appropriate environment variables and options may be required. For Open MPI, the shell script <code class="docutils literal notranslate"><span class="pre">demo/mhd2d_vortex/app_run.sh</span></code> sets the environment variables automatically and runs the command above.</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>./app_run.sh
 </pre></div>
 </div>
-<p>The simulation results are saved in demo/mhd2d_vortex/data. If the run is stopped partway, it resumes from the saved data. To restart the run from the beginning, delete the demo/mhd2d_vortex/data/ directory. You can also delete the data as follows.</p>
+<p>The simulation results are saved in <code class="docutils literal notranslate"><span class="pre">demo/mhd2d_vortex/data</span></code>. If the run is stopped partway, it resumes from the saved data. To restart the run from the beginning, delete the <code class="docutils literal notranslate"><span class="pre">demo/mhd2d_vortex/data/</span></code> directory. You can also delete the data as follows.</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>./app_clean.sh
 </pre></div>
 </div>
-<p>The simulation parameters are controlled by editing demo/mhd2d_vortex/config.yaml. For example, the number of grid points can be changed as follows.</p>
+<p>The simulation parameters are controlled by editing <code class="docutils literal notranslate"><span class="pre">demo/mhd2d_vortex/config.yaml</span></code>. For example, the number of grid points can be changed as follows.</p>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">grid</span><span class="p">:</span>
 <span class="w">    </span><span class="nt">i_size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">256</span>
 <span class="w">    </span><span class="nt">j_size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">256</span>
@@ -151,11 +151,11 @@ cmake<span class="w"> </span>-B<span class="w"> </span>build<span class="w"> </s
 make<span class="w"> </span>-C<span class="w"> </span>build
 </pre></div>
 </div>
-<p>The executable build/mhd2d_vortex and how to run it are the same as for the CPU version. The required runtime options and environment variables may depend on your environment, so treat the following as an example.</p>
+<p>The executable <code class="docutils literal notranslate"><span class="pre">build/mhd2d_vortex</span></code> and how to run it are the same as for the CPU version. The required runtime options and environment variables may depend on your environment, so treat the following as an example.</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>mpiexec<span class="w"> </span>-n<span class="w"> </span><span class="m">2</span><span class="w"> </span>--bind-to<span class="w"> </span>none<span class="w"> </span>--mca<span class="w"> </span>pml<span class="w"> </span>ob1<span class="w"> </span>--mca<span class="w"> </span>btl<span class="w"> </span>tcp,self,vader<span class="w"> </span>--mca<span class="w"> </span>coll<span class="w"> </span>^hcoll<span class="w"> </span>--mca<span class="w"> </span>osc<span class="w"> </span>^ucx<span class="w"> </span>./build/mhd2d_vortex
 </pre></div>
 </div>
-<p>When running the GPU version with multiple processes, we recommend options such as “–map-by ppr:N:node” (N is the number of processes per node) and “-x CUDA_VISIBLE_DEVICES=M,L,…” (M, L, … are the CUDA device numbers available on each node). For example, to run 4 processes in total on 2 nodes with 2 processes per node and 1 CUDA device per process:</p>
+<p>When running the GPU version with multiple processes, we recommend options such as <code class="docutils literal notranslate"><span class="pre">--map-by</span> <span class="pre">ppr:N:node</span></code> (N is the number of processes per node) and <code class="docutils literal notranslate"><span class="pre">-x</span> <span class="pre">CUDA_VISIBLE_DEVICES=M,L,...</span></code> (M, L, … are the CUDA device numbers available on each node). For example, to run 4 processes in total on 2 nodes with 2 processes per node and 1 CUDA device per process:</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>mpiexec<span class="w"> </span>-n<span class="w"> </span><span class="m">4</span><span class="w"> </span>--map-by<span class="w"> </span>ppr:2:node<span class="w"> </span>--bind-to<span class="w"> </span>none<span class="w"> </span>-x<span class="w"> </span><span class="nv">CUDA_DEVICE_ORDER</span><span class="o">=</span>PCI_BUS_ID<span class="w"> </span>-x<span class="w"> </span><span class="nv">CUDA_VISIBLE_DEVICES</span><span class="o">=</span><span class="m">0</span>,1<span class="w"> </span>--mca<span class="w"> </span>pml<span class="w"> </span>ob1<span class="w"> </span>--mca<span class="w"> </span>btl<span class="w"> </span>tcp,self,vader<span class="w"> </span>--mca<span class="w"> </span>coll<span class="w"> </span>^hcoll<span class="w"> </span>--mca<span class="w"> </span>osc<span class="w"> </span>^ucx<span class="w"> </span>./build/mhd2d_vortex
 </pre></div>
 </div>
@@ -200,12 +200,12 @@ pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </s
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
-<p>Each demo problem includes a visualization script. For example, to visualize the results of the 2D Orszag-Tang vortex problem, run demo/mhd2d_vortex/plot_data.py.</p>
+<p>Each demo problem includes a visualization script. For example, to visualize the results of the 2D Orszag-Tang vortex problem, run <code class="docutils literal notranslate"><span class="pre">demo/mhd2d_vortex/plot_data.py</span></code>.</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>demo/mhd2d_vortex
 python<span class="w"> </span>plot_data.py
 </pre></div>
 </div>
-<p>The resulting image files are saved in demo/mhd2d_vortex/figs.</p>
+<p>The resulting image files are saved in <code class="docutils literal notranslate"><span class="pre">demo/mhd2d_vortex/figs</span></code>.</p>
 </section>
 </section>
 
