@@ -20,214 +20,214 @@ msgstr ""
 "Generated-By: Babel 2.18.0\n"
 
 msgid "GPU で困ったとき"
-msgstr ""
+msgstr "GPU Troubleshooting"
 
 #, python-brace-format
 msgid "GPU 向けのコードの基本は {ref}`第 9 章 <edu-ch09>` で説明しています。 ここでは、ビルドや実行で問題が起きたときに確かめることをまとめます。 ソースのパスは、MISO を clone したフォルダからのパスです。 エラーの文面は CUDA 12.9 の `nvcc` と RTX 4090 で確かめたもので、版によって少し変わることがあります。"
-msgstr ""
+msgstr "The basics of GPU code are explained in {ref}`Chapter 9 <edu-ch09>`. This page collects what to check when a problem occurs during building or running. Source paths are relative to the folder where you cloned MISO. The error messages were checked with `nvcc` from CUDA 12.9 and an RTX 4090, and may differ slightly between versions."
 
 msgid "1. CMake の設定で止まる"
-msgstr ""
+msgstr "1\\. Stops during CMake configuration"
 
 msgid "症状"
-msgstr ""
+msgstr "Symptom"
 
 msgid "確かめること"
-msgstr ""
+msgstr "What to check"
 
 msgid "`No CMAKE_CUDA_COMPILER could be found`"
 msgstr ""
 
 msgid "`nvcc` に PATH が通っているか（`nvcc --version`）。通っていなければ `-DCMAKE_CUDA_COMPILER=/path/to/nvcc` で指定する"
-msgstr ""
+msgstr "Whether `nvcc` is on the PATH (`nvcc --version`). If it is not, specify it with `-DCMAKE_CUDA_COMPILER=/path/to/nvcc`"
 
 msgid "CPU 版から切り替えたら設定が反映されない"
-msgstr ""
+msgstr "The settings are not applied after switching from the CPU version"
 
 msgid "同じビルドフォルダを使い回していないか。CPU 用と GPU 用でフォルダを分けるか、フォルダを消して作り直す"
-msgstr ""
+msgstr "Whether you are reusing the same build folder. Use separate folders for the CPU and the GPU, or delete the folder and recreate it"
 
 msgid "`CMAKE_CUDA_ARCHITECTURES` を指定したのに別の値になる"
-msgstr ""
+msgstr "`CMAKE_CUDA_ARCHITECTURES` takes a different value even though you specified it"
 
 msgid "自分の `CMakeLists.txt` で、`enable_language(CUDA)` より前にこの値を決めているか（第 9 章 4.4 節）"
-msgstr ""
+msgstr "Whether, in your own `CMakeLists.txt`, you set this value before `enable_language(CUDA)` (Chapter 9, Section 4.4)"
 
 msgid "`native` で GPU が見つからないというエラー"
-msgstr ""
+msgstr "An error that no GPU is found with `native`"
 
 msgid "ビルドする計算機に GPU がない（ログインノードなど）。使う GPU の値（`89` など）を明示する"
-msgstr ""
+msgstr "The machine you build on has no GPU (for example, a login node). Specify the value of the GPU you will use explicitly (such as `89`)"
 
 msgid "2. コンパイルできない"
-msgstr ""
+msgstr "2\\. It does not compile"
 
 msgid "エラーの文面（抜粋）"
-msgstr ""
+msgstr "Error message (excerpt)"
 
 msgid "原因と対処"
-msgstr ""
+msgstr "Cause and remedy"
 
 msgid "`__host__ or __device__ annotation on lambda requires --extended-lambda nvcc flag`"
 msgstr ""
 
 msgid "`MISO_LAMBDA` には `nvcc` の `--expt-extended-lambda`（`--extended-lambda` と同じ）が必要。`MISO::MISO` をリンクしているか、MISO の `MISO_USE_CUDA` を ON にしているかを確かめる"
-msgstr ""
+msgstr "`MISO_LAMBDA` requires `nvcc`'s `--expt-extended-lambda` (the same as `--extended-lambda`). Check whether you link `MISO::MISO` and whether you turned MISO's `MISO_USE_CUDA` ON"
 
 msgid "`The enclosing parent function (\"work\") for an extended __host__ __device__ lambda cannot have private or protected access within its class`"
 msgstr ""
 
 msgid "`MISO_LAMBDA` を `private`・`protected` のメンバ関数の中に書いている。`public` の関数か、クラスの外の関数へ移す"
-msgstr ""
+msgstr "You wrote `MISO_LAMBDA` inside a `private` or `protected` member function. Move it to a `public` function or to a function outside the class"
 
 msgid "`... cannot be referenced -- it is a deleted function`（`Array1D` などのコピー）"
-msgstr ""
+msgstr "`... cannot be referenced -- it is a deleted function` (copying an `Array1D` or similar)"
 
 msgid "ラムダの中で、所有する配列（`Array1D` など）を使っている。ラムダの前で `view()` を取り出し、View を使う"
-msgstr ""
+msgstr "You use an owning array (such as `Array1D`) inside a lambda. Obtain the view with `view()` before the lambda and use the view"
 
 msgid "`calling a __host__ function(\"...\") from a __host__ __device__ function(\"...\") is not allowed`（警告 #20011）"
-msgstr ""
+msgstr "`calling a __host__ function(\"...\") from a __host__ __device__ function(\"...\") is not allowed` (warning #20011)"
 
 msgid "ラムダやカーネルから、`__device__` の付いていない関数を呼んでいる。警告でもそのままにしない。自分の関数には `__host__ __device__` を付け、数学関数は `util::sqrt` などを使う（`miso/include/miso/utility.hpp`）"
-msgstr ""
+msgstr "You call a function without `__device__` from a lambda or kernel. Do not leave it as it is even if it is only a warning. Add `__host__ __device__` to your own functions, and use `util::sqrt` and the like for math functions (`miso/include/miso/utility.hpp`)"
 
 msgid "`declaration is incompatible with previous \"s\"`"
 msgstr ""
 
 msgid "テンプレートのカーネルで `extern __shared__ T s[];` と型付きで宣言している。MISO の `reduce_shared_memory` のように、バイト列で 1 回だけ宣言して読み替える（第 9 章のコラム、MISO issue #190）"
-msgstr ""
+msgstr "You declare `extern __shared__ T s[];` with a type in a templated kernel. As in MISO's `reduce_shared_memory`, declare it once as a byte array and reinterpret it (the column in Chapter 9, MISO issue #190)"
 
 msgid "g++ が `'__global__' does not name a type` を出す"
-msgstr ""
+msgstr "g++ reports `'__global__' does not name a type`"
 
 msgid "カーネルを `#ifdef __CUDACC__` の外に書いているか、`.cpp` を `nvcc` に渡していない。CMake の `set_source_files_properties(... LANGUAGE CUDA)` を確かめる"
-msgstr ""
+msgstr "Whether you wrote the kernel outside `#ifdef __CUDACC__`, or you are not passing the `.cpp` to `nvcc`. Check CMake's `set_source_files_properties(... LANGUAGE CUDA)`"
 
 msgid "拡張ラムダ（`__host__ __device__` を付けたラムダ）には、ここに挙げた以外にも置き場所や取り込み方の制約があります。 利用している版の NVIDIA CUDA C++ Programming Guide（<https://docs.nvidia.com/cuda/cuda-c-programming-guide/index.html>）の extended lambda の節を確かめてください。"
-msgstr ""
+msgstr "Extended lambdas (lambdas marked `__host__ __device__`) have constraints on where they can be placed and how they capture, beyond those listed here. Check the section on extended lambdas in the NVIDIA CUDA C++ Programming Guide (<https://docs.nvidia.com/cuda/cuda-c-programming-guide/index.html>) for the version you use."
 
 msgid "3. 実行時に止まる"
-msgstr ""
+msgstr "3\\. It stops at run time"
 
 msgid "3.1 よくあるエラー"
-msgstr ""
+msgstr "3.1 Common errors"
 
 msgid "表示"
-msgstr ""
+msgstr "Message"
 
 msgid "原因の候補"
-msgstr ""
+msgstr "Possible causes"
 
 msgid "`CUDA Error: an illegal memory access was encountered`"
 msgstr ""
 
 msgid "ラムダが `this` を取り込んでいる（メンバ変数を直接使っている）。ホストの配列の View を CUDA 版の `for_each` に渡している。添字が配列の範囲外"
-msgstr ""
+msgstr "The lambda captures `this` (it uses a member variable directly). You pass a view of a host array to the CUDA version of `for_each`. An index is outside the array range"
 
 msgid "`no kernel image is available for execution on the device`"
 msgstr ""
 
 msgid "`CMAKE_CUDA_ARCHITECTURES`（`nvcc -arch`）が使う GPU より新しい世代を指している。GPU の compute capability（`nvidia-smi --query-gpu=compute_cap --format=csv`）に合わせてビルドし直す"
-msgstr ""
+msgstr "`CMAKE_CUDA_ARCHITECTURES` (`nvcc -arch`) points to a newer generation than the GPU you use. Rebuild to match the GPU's compute capability (`nvidia-smi --query-gpu=compute_cap --format=csv`)"
 
 msgid "`CUDA driver version is insufficient for CUDA runtime version`"
 msgstr ""
 
 msgid "CUDA Toolkit がドライバより新しい。ドライバが対応する版の CUDA Toolkit を使う（`nvidia-smi` の右上に、ドライバが対応する CUDA の版が出る）"
-msgstr ""
+msgstr "The CUDA Toolkit is newer than the driver. Use a CUDA Toolkit of a version the driver supports (the upper right of the `nvidia-smi` output shows the CUDA version the driver supports)"
 
 msgid "`No CUDA-capable devices were detected.`"
 msgstr ""
 
 msgid "MISO の `cuda::Env` が GPU を見つけられない。`nvidia-smi` で GPU が見えるか、環境変数 `CUDA_VISIBLE_DEVICES` で隠していないかを確かめる"
-msgstr ""
+msgstr "MISO's `cuda::Env` cannot find a GPU. Check with `nvidia-smi` that the GPU is visible, and that you are not hiding it with the environment variable `CUDA_VISIBLE_DEVICES`"
 
 msgid "`illegal memory access` の中で最も見つけにくいのは `this` の取り込みです。 CPU ビルドでは正しく動き、HMM が有効な一部の GPU 環境でも偶然動くためです（MISO issue #170）。 ラムダの中で使っている名前が、ローカル変数か引数かを、宣言まで戻って確かめてください（第 9 章 5 節）。"
-msgstr ""
+msgstr "Among `illegal memory access` errors, the hardest to find is capturing `this`. It works correctly in a CPU build, and it also happens to work in some GPU environments where HMM is enabled (MISO issue #170). Go back to the declaration and check whether each name used inside the lambda is a local variable or an argument (Chapter 9, Section 5)."
 
 msgid "3.2 エラーの場所を突き止める"
-msgstr ""
+msgstr "3.2 Locating the error"
 
 msgid "カーネルの起動は非同期なので、`MISO_CUDA_CHECK` が表示するファイルと行は、エラーに**気づいた**場所です。 エラーが**起きた**カーネルは、それより前に起動したものです（第 9 章 7 節）。"
-msgstr ""
+msgstr "Kernel launches are asynchronous, so the file and line printed by `MISO_CUDA_CHECK` are where the error was **noticed**. The kernel in which the error **occurred** is one launched earlier (Chapter 9, Section 7)."
 
 msgid "**環境変数 `CUDA_LAUNCH_BLOCKING=1`** を付けて実行すると、カーネルの起動が終了まで待つようになり、 起動直後の `MISO_CUDA_CHECK(cudaGetLastError())` でエラーが報告されます。 第 9 章 5.1 の例では、表示が次のように変わりました。"
-msgstr ""
+msgstr "If you run with **the environment variable `CUDA_LAUNCH_BLOCKING=1`**, a kernel launch waits until the kernel finishes, and the error is reported by `MISO_CUDA_CHECK(cudaGetLastError())` right after the launch. In the example of Chapter 9, Section 5.1, the output changed as follows."
 
 msgid "`array1d.hpp` は後の `copy_from` の中、`execution.hpp` は CUDA 版 `for_each` の起動直後の検査です。 さらに、`for_each` を呼んだ場所を調べるには、自分のコードの `for_each` の直後に `MISO_CUDA_CHECK(cudaDeviceSynchronize());` を一時的に足して範囲を狭めます。"
-msgstr ""
+msgstr "`array1d.hpp` is inside a later `copy_from`, and `execution.hpp` is the check right after the launch of the CUDA version of `for_each`. To find further where `for_each` was called, temporarily add `MISO_CUDA_CHECK(cudaDeviceSynchronize());` right after a `for_each` in your own code to narrow down the range."
 
 msgid "**`compute-sanitizer`**（CUDA Toolkit に含まれる）で実行すると、不正な読み書きをしたカーネルとスレッドが表示されます。"
-msgstr ""
+msgstr "If you run with **`compute-sanitizer`** (included in the CUDA Toolkit), it shows the kernel and thread that made the invalid read or write."
 
 msgid "第 9 章 5.1 の例での表示（抜粋）です。"
-msgstr ""
+msgstr "This is the output (excerpt) for the example of Chapter 9, Section 5.1."
 
 msgid "`apply_wrong` の中のラムダを実行する `for_each_kernel` が、4 バイト（`float` のメンバ `factor`）を読もうとしたことが分かります。 `0x7fff...` で始まる番地は、Linux ではホストのスタック（ローカル変数を置く場所）によく使われる番地で、ホストのオブジェクトを読もうとした手がかりになります。 `compute-sanitizer` の下では実行がかなり遅くなるので、格子を小さくし、時間ステップ数を減らして試します。"
-msgstr ""
+msgstr "You can see that `for_each_kernel`, which runs the lambda inside `apply_wrong`, tried to read 4 bytes (the `float` member `factor`). An address starting with `0x7fff...` is commonly used on Linux for the host stack (where local variables are placed), which is a clue that it tried to read a host object. Execution is much slower under `compute-sanitizer`, so try it with a smaller grid and fewer time steps."
 
 msgid "4. MPI と組み合わせたとき"
-msgstr ""
+msgstr "4\\. When combined with MPI"
 
 msgid "**CUDA-aware MPI を使っているか。** MISO の CUDA 版のハロー交換は、デバイスのバッファの番地をそのまま `MPI_Isend`・`MPI_Irecv` に渡します（`miso/include/miso/mhd_halo_exchange.hpp`）。 CUDA に対応していない MPI では、通信の中で止まるか、誤った値を受け取ります。NVIDIA HPC SDK に含まれる Open MPI など、CUDA に対応した MPI を使います。"
-msgstr ""
+msgstr "**Are you using CUDA-aware MPI?** The CUDA version of MISO's halo exchange passes the addresses of device buffers directly to `MPI_Isend` and `MPI_Irecv` (`miso/include/miso/mhd_halo_exchange.hpp`). With an MPI that does not support CUDA, the program hangs inside the communication or receives wrong values. Use a CUDA-aware MPI, such as the Open MPI included in the NVIDIA HPC SDK."
 
 msgid "**ランクと GPU の対応。** MISO はノード内のランク番号を GPU の数で割った余りで GPU を選びます（`miso/include/miso/env.hpp` の `cuda::Env`）。 ランク数が GPU の数より多いと、1 つの GPU を複数のランクで分け合います。"
-msgstr ""
+msgstr "**Mapping between ranks and GPUs.** MISO selects the GPU by the remainder of the rank number within the node divided by the number of GPUs (`cuda::Env` in `miso/include/miso/env.hpp`). If there are more ranks than GPUs, multiple ranks share one GPU."
 
 msgid "**完了待ちの順序。** GPU のカーネルが書いたバッファを MPI へ渡す前に `cudaDeviceSynchronize` で待ちます。 受信した値をカーネルで使う前には `MPI_Waitall` で待ちます。2 つの完了待ちは別のものです。"
-msgstr ""
+msgstr "**Order of waiting for completion.** Before passing a buffer written by a GPU kernel to MPI, wait with `cudaDeviceSynchronize`. Before using the received values in a kernel, wait with `MPI_Waitall`. The two waits are different things."
 
 msgid "**コンテナの中で実行するとき。** MISO の demo は `demo/shared/openmpi_config.env` の環境変数を読み込んでから `mpiexec` を実行します。"
-msgstr ""
+msgstr "**When running inside a container.** MISO's demos load the environment variables in `demo/shared/openmpi_config.env` before running `mpiexec`."
 
 msgid "5. CPU と GPU で数値が違うとき"
-msgstr ""
+msgstr "5\\. When the numbers differ between the CPU and the GPU"
 
 msgid "まず、入力（`config.yaml`）、格子、MPI の分割、`Real` の型（`float`/`double`）を揃えます。 そのうえで、差の大きさと場所を調べます。"
-msgstr ""
+msgstr "First, make the input (`config.yaml`), the grid, the MPI decomposition, and the `Real` type (`float`/`double`) the same. Then examine the size and location of the difference."
 
 msgid "差の様子"
-msgstr ""
+msgstr "How the difference looks"
 
 msgid "総和・平均などの縮約値の最後の数桁"
-msgstr ""
+msgstr "The last few digits of reduced values such as sums and means"
 
 msgid "加算の順序の違い（Host 版は前から順、CUDA 版はブロック内のトーナメント）。誤りではない"
-msgstr ""
+msgstr "A difference in the order of addition (the Host version goes in order from the front; the CUDA version uses a tournament within a block). It is not a mistake"
 
 msgid "`reduce` の結果が大きく違う"
-msgstr ""
+msgstr "The result of `reduce` differs greatly"
 
 msgid "`init` が `op` の単位元か（合計なら 0、最小値なら十分大きな値）。CUDA 版では範囲外のスレッドが `init` を縮約に加える（第 9 章 6.4 節）"
-msgstr ""
+msgstr "Whether `init` is the identity element of `op` (0 for a sum, a sufficiently large value for a minimum). In the CUDA version, threads outside the range add `init` to the reduction (Chapter 9, Section 6.4)"
 
 msgid "格子点ごとの値が丸め誤差程度に違う"
-msgstr ""
+msgstr "Values at each grid point differ by about the rounding error"
 
 msgid "`nvcc` は掛け算と足し算を 1 命令（FMA）にまとめることがあり、丸めが CPU と変わる。数学関数の実装も CPU と GPU で違う"
-msgstr ""
+msgstr "`nvcc` may merge a multiplication and an addition into one instruction (FMA), which changes the rounding from the CPU. The implementations of math functions also differ between the CPU and the GPU"
 
 msgid "境界の近くだけ違う"
-msgstr ""
+msgstr "It differs only near the boundary"
 
 msgid "境界条件、ゴーストセルの更新、ハロー交換"
-msgstr ""
+msgstr "The boundary condition, the update of the ghost cells, the halo exchange"
 
 msgid "特定の軸に沿ってずれる"
-msgstr ""
+msgstr "It drifts along a particular axis"
 
 msgid "添字の順序、`Range3D` の範囲、配列の大きさ"
-msgstr ""
+msgstr "The order of indices, the range of `Range3D`, the array sizes"
 
 msgid "最初のステップから大きく違う"
-msgstr ""
+msgstr "It differs greatly from the first step"
 
 msgid "初期条件がデバイスへ写っているか（`copy_from` の向き）、`this` の取り込み"
-msgstr ""
+msgstr "Whether the initial condition has been copied to the device (the direction of `copy_from`), and the capturing of `this`"
 
 #, python-brace-format
 msgid "比較の方法と許す誤差の決め方は {ref}`テストと計算結果の比較 <edu-ref-testing>` を参照してください。 CPU と GPU の結果がビット単位で一致することは前提にしません。"
-msgstr ""
+msgstr "For how to compare and how to decide the tolerance, see {ref}`Testing and Comparing Results <edu-ref-testing>`. We do not assume that the CPU and GPU results match bit for bit."
 

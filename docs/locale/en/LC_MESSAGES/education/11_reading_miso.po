@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MISO \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-10-29 13:33+0900\n"
+"POT-Creation-Date: 2026-10-29 13:55+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: en\n"
@@ -20,89 +20,89 @@ msgstr ""
 "Generated-By: Babel 2.18.0\n"
 
 msgid "11. MISO の時間発展を読む"
-msgstr ""
+msgstr "11\\. Reading MISO's Time Evolution"
 
 #, python-brace-format
 msgid "{ref}`第 10 章 <edu-ch10>` で書いた熱伝導の計算には、時間刻みの決定、右辺の差分、時間積分、境界の処理、出力という部品がありました。 MISO の MHD 計算も同じ部品でできています。この章では、デモの `main()` から始めて、1 ステップの中身と出力までを MISO のソースでたどり、方程式と差分式をコードに対応づけます。 最後に、自分で問題を作るときに書き換える場所を確かめます。"
-msgstr ""
+msgstr "The heat conduction calculation you wrote in {ref}`Chapter 10 <edu-ch10>` had these parts: determining the time step, the finite difference of the right-hand side, time integration, boundary handling, and output. MISO's MHD calculation is built from the same parts. In this chapter, starting from the demo's `main()`, we trace the contents of one step and the output through the MISO source, and relate the equations and finite-difference formulas to the code. Finally, we identify the places you rewrite when you create your own problem."
 
 #, python-brace-format
 msgid "本文のパスは、MISO を clone したフォルダから辿ってください。GPU の章（{ref}`第 9 章 <edu-ch09>`）を済ませていなくても、CPU 版のソースだけで読み進められます。CUDA 版は、CPU 版との対応だけを示します。"
-msgstr ""
+msgstr "Follow the paths in the text from the folder where you cloned MISO. Even if you have not finished the GPU chapter ({ref}`Chapter 9 <edu-ch09>`), you can read on with the CPU source alone. For the CUDA version, we show only how it corresponds to the CPU version."
 
 msgid "目次"
-msgstr ""
+msgstr "Contents"
 
 #, python-brace-format
 msgid "{ref}`1. 基礎方程式と MISO の変数 <edu-ch11-equations>`"
-msgstr ""
+msgstr "{ref}`1. Basic equations and MISO's variables <edu-ch11-equations>`"
 
 #, python-brace-format
 msgid "{ref}`2. main() と Model <edu-ch11-main>`"
-msgstr ""
+msgstr "{ref}`2. main() and Model <edu-ch11-main>`"
 
 #, python-brace-format
 msgid "{ref}`3. 設定ファイルと既定値 <edu-ch11-config>`"
-msgstr ""
+msgstr "{ref}`3. Configuration file and default values <edu-ch11-config>`"
 
 #, python-brace-format
 msgid "{ref}`4. ModelBase の構築と run() <edu-ch11-run>`"
-msgstr ""
+msgstr "{ref}`4. Constructing ModelBase and run() <edu-ch11-run>`"
 
 #, python-brace-format
 msgid "{ref}`5. 1 ステップの流れ <edu-ch11-step>`"
-msgstr ""
+msgstr "{ref}`5. Flow of one step <edu-ch11-step>`"
 
 #, python-brace-format
 msgid "{ref}`6. CFL 条件による時間刻み <edu-ch11-cfl>`"
-msgstr ""
+msgstr "{ref}`6. Time step from the CFL condition <edu-ch11-cfl>`"
 
 #, python-brace-format
 msgid "{ref}`7. 4 段の Runge–Kutta 法 <edu-ch11-rk4>`"
-msgstr ""
+msgstr "{ref}`7. Four-stage Runge–Kutta method <edu-ch11-rk4>`"
 
 #, python-brace-format
 msgid "{ref}`8. 4 次中心差分と右辺の計算 <edu-ch11-sc4>`"
-msgstr ""
+msgstr "{ref}`8. Fourth-order central difference and the right-hand side <edu-ch11-sc4>`"
 
 #, python-brace-format
 msgid "{ref}`9. 境界条件とハロー交換 <edu-ch11-boundary>`"
-msgstr ""
+msgstr "{ref}`9. Boundary conditions and halo exchange <edu-ch11-boundary>`"
 
 #, python-brace-format
 msgid "{ref}`10. 人工粘性 <edu-ch11-viscosity>`"
-msgstr ""
+msgstr "{ref}`10. Artificial viscosity <edu-ch11-viscosity>`"
 
 #, python-brace-format
 msgid "{ref}`11. 出力と再開 <edu-ch11-output>`"
-msgstr ""
+msgstr "{ref}`11. Output and restart <edu-ch11-output>`"
 
 #, python-brace-format
 msgid "{ref}`12. 自分で問題を作るときに触る場所 <edu-ch11-customize>`"
-msgstr ""
+msgstr "{ref}`12. Where to make changes when creating your own problem <edu-ch11-customize>`"
 
 #, python-brace-format
 msgid "{ref}`13. ソースを読んで確かめる練習 <edu-ch11-exercises>`"
-msgstr ""
+msgstr "{ref}`13. Exercises: checking by reading the source <edu-ch11-exercises>`"
 
 msgid "1. 基礎方程式と MISO の変数"
-msgstr ""
+msgstr "1\\. Basic equations and MISO's variables"
 
 msgid "1.1 状態変数"
-msgstr ""
+msgstr "1.1 State variables"
 
 #, python-brace-format
 msgid "MISO は、各格子点に次の 9 つの変数を持ちます。`miso/include/miso/mhd_fields.hpp` の `Fields` が、これらを `Array3D` のメンバとしてまとめています（{ref}`第 4 章 <edu-ch04>`）。"
-msgstr ""
+msgstr "MISO holds the following 9 variables at each grid point. `Fields` in `miso/include/miso/mhd_fields.hpp` bundles them as members of type `Array3D` ({ref}`Chapter 4 <edu-ch04>`)."
 
 msgid "メンバ名"
-msgstr ""
+msgstr "Member name"
 
 msgid "記号"
-msgstr ""
+msgstr "Symbol"
 
 msgid "意味"
-msgstr ""
+msgstr "Meaning"
 
 msgid "`ro`"
 msgstr ""
@@ -111,7 +111,7 @@ msgid "$\\rho$"
 msgstr ""
 
 msgid "密度"
-msgstr ""
+msgstr "Density"
 
 msgid "`vx`, `vy`, `vz`"
 msgstr ""
@@ -120,7 +120,7 @@ msgid "$v_x, v_y, v_z$"
 msgstr ""
 
 msgid "速度"
-msgstr ""
+msgstr "Velocity"
 
 msgid "`bx`, `by`, `bz`"
 msgstr ""
@@ -129,7 +129,7 @@ msgid "$B_x, B_y, B_z$"
 msgstr ""
 
 msgid "磁場"
-msgstr ""
+msgstr "Magnetic field"
 
 msgid "`ei`"
 msgstr ""
@@ -138,7 +138,7 @@ msgid "$e$"
 msgstr ""
 
 msgid "単位質量あたりの内部エネルギー"
-msgstr ""
+msgstr "Internal energy per unit mass"
 
 msgid "`ph`"
 msgstr ""
@@ -147,17 +147,17 @@ msgid "$\\phi$"
 msgstr ""
 
 msgid "磁場の発散を減らすための補助変数（divB クリーニングのポテンシャル）"
-msgstr ""
+msgstr "Auxiliary variable for reducing the divergence of the magnetic field (the potential of divB cleaning)"
 
 #, python-brace-format
 msgid "保存する量は運動量 $\\rho\\boldsymbol{v}$ や全エネルギーですが、配列として持つのは速度 $\\boldsymbol{v}$ と単位質量あたりの内部エネルギー $e$ です。 時間積分では、いったん保存量を作って進め、最後に $\\rho$ で割って速度と $e$ に戻します（8 節）。"
-msgstr ""
+msgstr "The conserved quantities are the momentum $\\rho\\boldsymbol{v}$, the total energy, and so on, but the arrays hold the velocity $\\boldsymbol{v}$ and the internal energy per unit mass $e$. In the time integration, we first form the conserved quantities and advance them, and at the end divide by $\\rho$ to recover the velocity and $e$ (Section 8)."
 
 msgid "1.2 基礎方程式"
-msgstr ""
+msgstr "1.2 Basic equations"
 
 msgid "MISO は理想 MHD 方程式を、Gauss 単位系（磁場の項に $1/4\\pi$ が付く形）で解きます。 $\\partial_j$ は $x, y, z$ 方向の偏微分、同じ添字 $j$ が 2 回出たら $j = x, y, z$ で和を取ります。 $S_\\rho$ などはソース項（外力や加熱）で、ユーザーが与えます（12 節）。"
-msgstr ""
+msgstr "MISO solves the ideal MHD equations in Gaussian units (the form in which the magnetic terms carry a factor $1/4\\pi$). $\\partial_j$ is the partial derivative in the $x, y, z$ directions, and when the same index $j$ appears twice, it is summed over $j = x, y, z$. $S_\\rho$ and the like are source terms (external forces and heating), which the user provides (Section 12)."
 
 msgid ""
 "\n"
@@ -175,13 +175,13 @@ msgstr ""
 
 #, python-brace-format
 msgid "磁場の式の $-\\partial_i\\phi$ と $\\phi$ の式は、数値計算で生じる $\\nabla\\cdot\\boldsymbol{B}$ の誤差を波として運び出し（速さ $c_h$）、時間 $\\tau$ で減衰させる仕組みです。 この方法は双曲型の発散クリーニング（hyperbolic divergence cleaning）と呼ばれます（Dedner et al. 2002, J. Comput. Phys. 175, 645）。"
-msgstr ""
+msgstr "The term $-\\partial_i\\phi$ in the magnetic field equation and the equation for $\\phi$ form a mechanism that carries the error of $\\nabla\\cdot\\boldsymbol{B}$ generated in the numerical calculation away as a wave (with speed $c_h$) and damps it over a time $\\tau$. This method is called hyperbolic divergence cleaning (Dedner et al. 2002, J. Comput. Phys. 175, 645)."
 
 msgid "1.3 状態方程式"
-msgstr ""
+msgstr "1.3 Equation of state"
 
 msgid "圧力 $p$ と音速 $c_s$ は状態方程式（EOS: equation of state）から求めます。 MISO が用意している理想気体の EOS は `miso/include/miso/eos.hpp` の `eos::IdealEOS` です。比熱比を $\\gamma$（設定の `eos.gm`）として、"
-msgstr ""
+msgstr "The pressure $p$ and the sound speed $c_s$ are obtained from the equation of state (EOS). The ideal-gas EOS that MISO provides is `eos::IdealEOS` in `miso/include/miso/eos.hpp`. With the ratio of specific heats $\\gamma$ (`eos.gm` in the configuration),"
 
 #, python-brace-format
 msgid ""
@@ -191,149 +191,149 @@ msgstr ""
 
 #, python-brace-format
 msgid "を、`gas_pressure` と `sound_speed` の 2 つのメンバ関数で計算します。 どちらも `for_each` で全格子点を処理します（{ref}`第 7 章 <edu-ch07>`）。"
-msgstr ""
+msgstr "are computed by the two member functions `gas_pressure` and `sound_speed`. Both process all grid points with `for_each` ({ref}`Chapter 7 <edu-ch07>`)."
 
 #, python-brace-format
 msgid "メンバ変数 `gm` をローカル変数 `gm_` に写してからラムダで使うのは、{ref}`第 9 章 <edu-ch09>` で説明した `this` キャプチャを避けるためです。"
-msgstr ""
+msgstr "The member variable `gm` is copied to the local variable `gm_` before being used in the lambda in order to avoid the `this` capture explained in {ref}`Chapter 9 <edu-ch09>`."
 
 msgid "2. main() と Model"
-msgstr ""
+msgstr "2\\. main() and Model"
 
 msgid "`demo/mhd2d_vortex/src/main.cpp` の `main()` は、次の 4 行だけです。"
-msgstr ""
+msgstr "The `main()` in `demo/mhd2d_vortex/src/main.cpp` consists of just the following 4 lines."
 
 msgid "行"
-msgstr ""
+msgstr "Line"
 
 msgid "役割"
-msgstr ""
+msgstr "Role"
 
 msgid "Fortran で書くなら"
-msgstr ""
+msgstr "In Fortran"
 
 msgid "`Env env(argc, argv);`"
 msgstr ""
 
 #, python-brace-format
 msgid "MPI を初期化します。`env` の寿命が終わる `main()` の末尾で、デストラクタが `MPI_Finalize` を呼びます（{ref}`第 8 章 <edu-ch08>`）"
-msgstr ""
+msgstr "Initializes MPI. At the end of `main()`, when the lifetime of `env` ends, the destructor calls `MPI_Finalize` ({ref}`Chapter 8 <edu-ch08>`)"
 
 msgid "`call MPI_Init(ierr)` と、最後の `call MPI_Finalize(ierr)`"
-msgstr ""
+msgstr "`call MPI_Init(ierr)` and the final `call MPI_Finalize(ierr)`"
 
 msgid "`parse_config_filepath(argc, argv)`"
 msgstr ""
 
 msgid "コマンド行の `--config=<path>` または `--config <path>` を探します。なければ空の `std::optional` を返します"
-msgstr ""
+msgstr "Looks for `--config=<path>` or `--config <path>` on the command line. If it is absent, returns an empty `std::optional`"
 
 msgid "`get_command_argument` で引数を読む処理"
-msgstr ""
+msgstr "Code that reads arguments with `get_command_argument`"
 
 msgid "`Config config(...)`"
 msgstr ""
 
 msgid "設定ファイルを読み、既定値で補います（3 節）。`value_or(\"./config.yaml\")` は、指定がなければ `./config.yaml` を使うという意味です"
-msgstr ""
+msgstr "Reads the configuration file and fills in default values (Section 3). `value_or(\"./config.yaml\")` means to use `./config.yaml` if none is specified"
 
 msgid "`namelist` を読む処理"
-msgstr ""
+msgstr "Code that reads a `namelist`"
 
 msgid "`Model model(config);`"
 msgstr ""
 
 msgid "格子、配列、時間積分の部品をまとめて作ります（4 節）"
-msgstr ""
+msgstr "Creates the grid, arrays, and time-integration components together (Section 4)"
 
 msgid "各 `*_init` の呼び出しと `allocate`"
-msgstr ""
+msgstr "The calls to each `*_init` and `allocate`"
 
 msgid "`model.run();`"
 msgstr ""
 
 msgid "時間ループを回します（4 節）"
-msgstr ""
+msgstr "Runs the time loop (Section 4)"
 
 msgid "`do while (time < tend)` の時間ループ"
-msgstr ""
+msgstr "The `do while (time < tend)` time loop"
 
 msgid "`Model` は、デモごとに書く構造体です。"
-msgstr ""
+msgstr "`Model` is a struct that you write for each demo."
 
 #, python-brace-format
 msgid "`Model` は `mhd::ModelBase` を継承し、テンプレート引数に自分自身（`Model`）を渡しています。{ref}`第 5 章 <edu-ch05>` で学んだ CRTP です。 派生クラスが持つのは、問題ごとに変わる 4 つの部品です。"
-msgstr ""
+msgstr "`Model` inherits from `mhd::ModelBase` and passes itself (`Model`) as the template argument. This is the CRTP you learned about in {ref}`Chapter 5 <edu-ch05>`. The derived class holds the 4 components that change from problem to problem."
 
 msgid "メンバ"
-msgstr ""
+msgstr "Member"
 
 msgid "この例での型"
-msgstr ""
+msgstr "Type in this example"
 
 msgid "`eos`"
 msgstr ""
 
 msgid "状態方程式"
-msgstr ""
+msgstr "Equation of state"
 
 msgid "`eos::IdealEOS<Real>`（理想気体）"
-msgstr ""
+msgstr "`eos::IdealEOS<Real>` (ideal gas)"
 
 msgid "`ic`"
 msgstr ""
 
 msgid "初期条件"
-msgstr ""
+msgstr "Initial condition"
 
 msgid "`InitialCondition`（同じファイルで定義）"
-msgstr ""
+msgstr "`InitialCondition` (defined in the same file)"
 
 msgid "`bc`"
 msgstr ""
 
 msgid "境界条件"
-msgstr ""
+msgstr "Boundary condition"
 
 msgid "`mhd::EmptyBoundaryCondition<Real>`（何もしない。全方向が周期境界のとき）"
-msgstr ""
+msgstr "`mhd::EmptyBoundaryCondition<Real>` (does nothing; used when all directions are periodic boundaries)"
 
 msgid "`src`"
 msgstr ""
 
 msgid "ソース項"
-msgstr ""
+msgstr "Source term"
 
 msgid "`mhd::EmptySourceTerm<Real>`（ソース項なし）"
-msgstr ""
+msgstr "`mhd::EmptySourceTerm<Real>` (no source term)"
 
 #, python-brace-format
 msgid "`Real` と `Backend` は、ファイルの先頭の `using Real = float;` と `#ifdef USE_CUDA` で決めています。`Real = float` で単精度、`USE_CUDA` が定義されていれば `backend::CUDA`（GPU）、なければ `backend::Host`（CPU）で計算します（{ref}`第 2 章 <edu-ch02>`、{ref}`第 6 章 <edu-ch06>`）。"
-msgstr ""
+msgstr "`Real` and `Backend` are decided at the top of the file by `using Real = float;` and `#ifdef USE_CUDA`. `Real = float` gives single precision, and the calculation runs on `backend::CUDA` (GPU) if `USE_CUDA` is defined and on `backend::Host` (CPU) otherwise ({ref}`Chapter 2 <edu-ch02>`, {ref}`Chapter 6 <edu-ch06>`)."
 
 msgid "3. 設定ファイルと既定値"
-msgstr ""
+msgstr "3\\. Configuration file and default values"
 
 msgid "3.1 `config.yaml` のセクション"
-msgstr ""
+msgstr "3.1 Sections of `config.yaml`"
 
 msgid "`demo/mhd2d_vortex/config.yaml` には、次のセクションがあります。"
-msgstr ""
+msgstr "`demo/mhd2d_vortex/config.yaml` has the following sections."
 
 msgid "セクション"
-msgstr ""
+msgstr "Section"
 
 msgid "内容"
-msgstr ""
+msgstr "Contents"
 
 msgid "読む場所"
-msgstr ""
+msgstr "Where it is read"
 
 msgid "`io`"
 msgstr ""
 
 msgid "出力の有無、出力先、再開するか（`continue`）"
-msgstr ""
+msgstr "Whether to write output, the output destination, and whether to restart (`continue`)"
 
 msgid "`config.hpp`, `time.hpp`, `mhd_checkpoint.hpp`"
 msgstr ""
@@ -342,96 +342,96 @@ msgid "`time`"
 msgstr ""
 
 msgid "終了時刻 `tend`、出力間隔 `dt_output`"
-msgstr ""
+msgstr "End time `tend` and output interval `dt_output`"
 
 msgid "`time.hpp` の `Time`"
-msgstr ""
+msgstr "`Time` in `time.hpp`"
 
 msgid "`grid`"
 msgstr ""
 
 msgid "格子数 `i_size` など（全体の格子数）、ゴーストセルの幅 `margin`、領域 `x_min` など"
-msgstr ""
+msgstr "Number of grid points `i_size` and so on (the global number of grid points), ghost cell width `margin`, domain `x_min` and so on"
 
 msgid "`grid.hpp` の `Grid`"
-msgstr ""
+msgstr "`Grid` in `grid.hpp`"
 
 msgid "`mpi`"
 msgstr ""
 
 msgid "各方向のプロセス数 `x_procs` など"
-msgstr ""
+msgstr "Number of processes in each direction, `x_procs` and so on"
 
 msgid "`mpi_util.hpp` の `mpi::Shape`"
-msgstr ""
+msgstr "`mpi::Shape` in `mpi_util.hpp`"
 
 msgid "`domain`"
 msgstr ""
 
 msgid "周期境界にする方向 `periodic`"
-msgstr ""
+msgstr "Directions made periodic, `periodic`"
 
 msgid "`mhd`"
 msgstr ""
 
 msgid "CFL 数 `cfl_number`、人工粘性のパラメータ"
-msgstr ""
+msgstr "CFL number `cfl_number` and artificial viscosity parameters"
 
 msgid "`mhd_integrator_host.hpp`, `mhd_artificial_viscosity_host.hpp`"
 msgstr ""
 
 msgid "比熱比 `gm`"
-msgstr ""
+msgstr "Ratio of specific heats `gm`"
 
 msgid "`eos.hpp` の `IdealEOS`"
-msgstr ""
+msgstr "`IdealEOS` in `eos.hpp`"
 
 #, python-brace-format
 msgid "値を読むときは、`config[\"time\"][\"tend\"].as<Real>()` のように、セクション名とキーを順に `[]` で指定し、`as<型>()` で型を決めて取り出します。 `as<Real>()` の `<>` はテンプレート引数です（{ref}`第 6 章 <edu-ch06>`）。"
-msgstr ""
+msgstr "To read a value, specify the section name and the key in turn with `[]`, as in `config[\"time\"][\"tend\"].as<Real>()`, and extract it by choosing the type with `as<Type>()`. The `<>` in `as<Real>()` is a template argument ({ref}`Chapter 6 <edu-ch06>`)."
 
 msgid "3.2 既定値と merge_yaml"
-msgstr ""
+msgstr "3.2 Default values and merge_yaml"
 
 msgid "すべてのキーを毎回書かなくてよいように、MISO は既定値を `miso/include/miso/config_defaults.hpp` に YAML の文字列として持っています。"
-msgstr ""
+msgstr "So that you do not have to write every key each time, MISO keeps default values as a YAML string in `miso/include/miso/config_defaults.hpp`."
 
 msgid "`R\"yaml( ... )yaml\"` は生文字列リテラル（raw string literal）です。`R\"区切り(` から `)区切り\"` までを、改行や `\"` も含めてそのまま 1 つの文字列にします。 YAML をそのまま C++ のソースに埋め込むために使っています。"
-msgstr ""
+msgstr "`R\"yaml( ... )yaml\"` is a raw string literal. It turns everything from `R\"delimiter(` to `)delimiter\"`, including newlines and `\"`, into a single string as it is. It is used to embed YAML directly in the C++ source."
 
 msgid "`miso/include/miso/config.hpp` の `Config` のコンストラクタは、次の順に処理します。"
-msgstr ""
+msgstr "The constructor of `Config` in `miso/include/miso/config.hpp` does the following in order."
 
 msgid "ランク 0 だけがファイルを読み（`YAML::LoadFile`）、文字列にして `MPI_Bcast` で全ランクに配ります。"
-msgstr ""
+msgstr "Only rank 0 reads the file (`YAML::LoadFile`), converts it to a string, and distributes it to all ranks with `MPI_Bcast`."
 
 msgid "全ランクで既定値の文字列を読み（`YAML::Load(config_default_yaml)`）、`merge_yaml` でユーザーの設定に足します。"
-msgstr ""
+msgstr "All ranks read the default-value string (`YAML::Load(config_default_yaml)`) and add it to the user's settings with `merge_yaml`."
 
 msgid "`io.save_dir` を、設定ファイルのあるフォルダからの相対パスとして解釈し、出力先を作ります。"
-msgstr ""
+msgstr "Interpret `io.save_dir` as a path relative to the folder containing the configuration file, and create the output destination."
 
 msgid "（`merge_yaml` の 2 つのコメントは説明のために足しました。） ユーザーが書いた値は上書きされず、書いていないキーだけが既定値で埋まります。セクションの中のセクション（`mhd.artificial_viscosity` など）も、キーごとに補われます。 補った結果は、出力先に `config.yaml` として保存されます（11 節）。実際に使われた値は、この保存されたファイルで確かめられます。"
-msgstr ""
+msgstr "(The two comments in `merge_yaml` were added for explanation.) Values written by the user are not overwritten, and only the keys that were not written are filled with default values. Sections inside sections (such as `mhd.artificial_viscosity`) are also filled in key by key. The completed result is saved as `config.yaml` in the output destination (Section 11). You can check the values actually used in this saved file."
 
 msgid "4. ModelBase の構築と run()"
-msgstr ""
+msgstr "4\\. Constructing ModelBase and run()"
 
 msgid "4.1 メンバの構築順"
-msgstr ""
+msgstr "4.1 Construction order of the members"
 
 msgid "`miso/include/miso/mhd_model_base.hpp` の `ModelBase` は、次のメンバを持ちます。"
-msgstr ""
+msgstr "`ModelBase` in `miso/include/miso/mhd_model_base.hpp` has the following members."
 
 #, python-brace-format
 msgid "メンバは宣言の順に作られます（{ref}`第 4 章 <edu-ch04>`）。後のメンバは、前に作ったメンバを使います。"
-msgstr ""
+msgstr "Members are constructed in the order of declaration ({ref}`Chapter 4 <edu-ch04>`). Later members use members that were constructed earlier."
 
 msgid "順"
-msgstr ""
+msgstr "Order"
 
 msgid "作るもの"
-msgstr ""
+msgstr "What is created"
 
 msgid "1"
 msgstr ""
@@ -440,7 +440,7 @@ msgid "`config`"
 msgstr ""
 
 msgid "設定への参照"
-msgstr ""
+msgstr "Reference to the configuration"
 
 msgid "2"
 msgstr ""
@@ -450,19 +450,19 @@ msgstr ""
 
 #, python-brace-format
 msgid "`MPI_Cart_create` による直交格子状のプロセス配置と、各方向の隣のランク（{ref}`第 8 章 <edu-ch08>`）"
-msgstr ""
+msgstr "The Cartesian process layout created by `MPI_Cart_create`, and the neighboring ranks in each direction ({ref}`Chapter 8 <edu-ch08>`)"
 
 msgid "3"
 msgstr ""
 
 msgid "時刻、ステップ数、出力番号"
-msgstr ""
+msgstr "Time, step count, and output number"
 
 msgid "4"
 msgstr ""
 
 msgid "このランクが受け持つ格子（ゴーストセルを含む座標と格子間隔）。CPU 上に作ります"
-msgstr ""
+msgstr "The grid this rank is responsible for (coordinates including ghost cells, and grid spacing). Created on the CPU"
 
 msgid "5"
 msgstr ""
@@ -471,199 +471,199 @@ msgid "`exec_ctx`"
 msgstr ""
 
 msgid "計算場所ごとの付加情報（CPU では `mpi_shape` への参照だけ。GPU ではカーネルの起動形状も持ちます）"
-msgstr ""
+msgstr "Extra information for each compute location (on the CPU, only a reference to `mpi_shape`; on the GPU, it also holds the kernel launch configuration)"
 
 msgid "6"
 msgstr ""
 
 msgid "状態変数 `qq`、時間積分の `Integrator`、出力の `Checkpoint`"
-msgstr ""
+msgstr "The state variables `qq`, the time-integration `Integrator`, and the output `Checkpoint`"
 
 msgid "`mhd` の型 `MHD` は `miso/include/miso/mhd_solver.hpp` にあります。"
-msgstr ""
+msgstr "The type `MHD` of `mhd` is in `miso/include/miso/mhd_solver.hpp`."
 
 msgid "`MHD` は、状態変数 `qq` と計算の部品を持ち、仕事を `Integrator` に渡す窓口です。`Grid<Real, Backend>` は、CPU 上の格子 `grid_h` を計算場所（`Backend`）へ写したものです。"
-msgstr ""
+msgstr "`MHD` holds the state variables `qq` and the computation components, and acts as the front end that hands the work to `Integrator`. `Grid<Real, Backend>` is a copy of the CPU grid `grid_h` placed on the compute location (`Backend`)."
 
 msgid "派生クラス `Model` のメンバ（`eos`, `ic`, `bc`, `src`）は、基底クラス `ModelBase` の構築が終わってから作られます。 そのため `ModelBase` のコンストラクタはこれらを使わず、`run()` の中で `derived()` を通して受け取ります。"
-msgstr ""
+msgstr "The members of the derived class `Model` (`eos`, `ic`, `bc`, `src`) are constructed after the construction of the base class `ModelBase` is finished. For this reason, the constructor of `ModelBase` does not use them, and `run()` receives them through `derived()`."
 
 msgid "4.2 run()：時間ループ"
-msgstr ""
+msgstr "4.2 run(): the time loop"
 
 msgid "処理"
-msgstr ""
+msgstr "Processing"
 
 msgid "`derived()`"
 msgstr ""
 
 #, python-brace-format
 msgid "`static_cast<Derived &>(*this)` で、自分を派生クラス `Model` として扱います（{ref}`第 5 章 <edu-ch05>`）"
-msgstr ""
+msgstr "Treats itself as the derived class `Model` with `static_cast<Derived &>(*this)` ({ref}`Chapter 5 <edu-ch05>`)"
 
 msgid "`static_assert(has_eos<Derived>::value, ...)`"
 msgstr ""
 
 #, python-brace-format
 msgid "`Model` に `eos` などのメンバがなければ、コンパイル時にエラーにします（{ref}`第 6 章 <edu-ch06>`）"
-msgstr ""
+msgstr "Causes a compile-time error if `Model` lacks members such as `eos` ({ref}`Chapter 6 <edu-ch06>`)"
 
 msgid "`mhd.apply_initial_condition(d.ic, d.bc)`"
 msgstr ""
 
 msgid "CPU 上の一時配列に `ic.apply` で初期値を入れ、計算場所の `qq` へ写し、境界条件とハロー交換を 1 回行います"
-msgstr ""
+msgstr "Fills a temporary array on the CPU with initial values via `ic.apply`, copies it to `qq` on the compute location, and performs the boundary condition and halo exchange once"
 
 msgid "`load_state()`"
 msgstr ""
 
 msgid "`io.continue` が真で、前回の出力が残っていれば、最新の出力から再開します（11 節）"
-msgstr ""
+msgstr "If `io.continue` is true and the previous output remains, restarts from the latest output (Section 11)"
 
 msgid "`save_metadata()`"
 msgstr ""
 
 msgid "設定（既定値を補ったもの）、格子、MPI の配置を書き出します"
-msgstr ""
+msgstr "Writes out the configuration (with defaults filled in), the grid, and the MPI layout"
 
 msgid "`save_if_needed()`"
 msgstr ""
 
 msgid "出力する時刻に達していれば状態を書き出します"
-msgstr ""
+msgstr "Writes out the state if the output time has been reached"
 
 msgid "`d.update()`"
 msgstr ""
 
 msgid "1 ステップ進めます"
-msgstr ""
+msgstr "Advances one step"
 
 msgid "`config[\"io\"][\"continue\"].template as<bool>()` の `.template` は、テンプレートの中で、依存する型のメンバテンプレートを呼ぶときに必要な書き方です。`as<bool>()` と同じ意味に読んで構いません。"
-msgstr ""
+msgstr "The `.template` in `config[\"io\"][\"continue\"].template as<bool>()` is the syntax required inside a template when calling a member template of a dependent type. You can read it as meaning the same as `as<bool>()`."
 
 msgid "`d.update()` は、`Model` が `update()` を定義していればそれを呼び、なければ基底の `ModelBase::update()` を呼びます。 `demo/mhd3d_magnetosphere/src/main.cpp` の `Model` は自分の `update()` を定義し、時間刻みの決め方を変えています。"
-msgstr ""
+msgstr "`d.update()` calls `update()` if `Model` defines it, and otherwise calls the base class `ModelBase::update()`. The `Model` in `demo/mhd3d_magnetosphere/src/main.cpp` defines its own `update()` and changes how the time step is determined."
 
 msgid "4.3 update()：1 ステップの入口"
-msgstr ""
+msgstr "4.3 update(): the entry point of one step"
 
 msgid "`mhd.cfl(d.eos)` で CFL 条件から時間刻みを決めます（6 節）。"
-msgstr ""
+msgstr "Determine the time step from the CFL condition with `mhd.cfl(d.eos)` (Section 6)."
 
 msgid "ソース項が `dt_limit()` を持っていれば、その制限（全ランクの最小値）も合わせます。持っていなければ `if constexpr` の中はコンパイルされません。"
-msgstr ""
+msgstr "If the source term has `dt_limit()`, also apply that limit (the minimum over all ranks). If it does not, the inside of the `if constexpr` is not compiled."
 
 msgid "`mhd.update` で状態を 1 ステップ進めます（5 節）。"
-msgstr ""
+msgstr "Advance the state one step with `mhd.update` (Section 5)."
 
 msgid "`time.update(dt)` で時刻とステップ数を進めます。"
-msgstr ""
+msgstr "Advance the time and step count with `time.update(dt)`."
 
 msgid "5. 1 ステップの流れ"
-msgstr ""
+msgstr "5\\. Flow of one step"
 
 #, python-brace-format
 msgid "`MHD::update` から呼ばれる `Integrator::update` が、1 ステップの本体です。 `Integrator` は `miso/include/miso/mhd_integrator.hpp` で宣言され、CPU 版と GPU 版が別々のファイルで特殊化されています（{ref}`第 6 章 <edu-ch06>`）。"
-msgstr ""
+msgstr "`Integrator::update`, called from `MHD::update`, is the body of one step. `Integrator` is declared in `miso/include/miso/mhd_integrator.hpp`, and the CPU and GPU versions are specialized in separate files ({ref}`Chapter 6 <edu-ch06>`)."
 
 msgid "ファイル"
-msgstr ""
+msgstr "File"
 
 msgid "中身"
-msgstr ""
+msgstr "Contents"
 
 msgid "`miso/include/miso/mhd_integrator.hpp`"
 msgstr ""
 
 msgid "`Integrator` の宣言、ソース項を取り出す `source_ro` など、4 次中心差分 `space_centered_4th`"
-msgstr ""
+msgstr "The declaration of `Integrator`, `source_ro` and the like that extract source terms, and the fourth-order central difference `space_centered_4th`"
 
 msgid "`miso/include/miso/mhd_integrator_host.hpp`"
 msgstr ""
 
 msgid "`Integrator<Real, backend::Host>`（CPU 版）"
-msgstr ""
+msgstr "`Integrator<Real, backend::Host>` (CPU version)"
 
 msgid "`miso/include/miso/mhd_integrator_cuda.cuh`"
 msgstr ""
 
 msgid "`Integrator<Real, backend::CUDA>`（GPU 版。`nvcc` でコンパイルするときだけ読み込みます）"
-msgstr ""
+msgstr "`Integrator<Real, backend::CUDA>` (GPU version; included only when compiling with `nvcc`)"
 
 msgid "CPU 版の `update` は 3 行です。"
-msgstr ""
+msgstr "The CPU version of `update` is 3 lines."
 
 msgid "1 ステップ全体を、関数の呼び出し順に並べると次のようになります。"
-msgstr ""
+msgstr "The whole step, arranged in the order of function calls, is as follows."
 
 msgid "`divb_parameters_set` は、発散クリーニングの速さ $c_h$ と減衰時間 $\\tau$ を、時間刻みに合わせて決めます。"
-msgstr ""
+msgstr "`divb_parameters_set` determines the divergence-cleaning speed $c_h$ and the damping time $\\tau$ to match the time step."
 
 msgid "$c_h \\Delta t = 0.8\\, C \\min(\\Delta x, \\Delta y, \\Delta z)$（$C$ は CFL 数）なので、$\\phi$ の波も CFL 条件を満たす速さで伝わります。"
-msgstr ""
+msgstr "Since $c_h \\Delta t = 0.8\\, C \\min(\\Delta x, \\Delta y, \\Delta z)$ ($C$ is the CFL number), the waves of $\\phi$ also propagate at a speed that satisfies the CFL condition."
 
 msgid "CPU 版と GPU 版は、関数の名前と呼び出し順が同じです。違うのは、格子点ごとの計算を `for` 文で書くか、CUDA のカーネルで書くかです。"
-msgstr ""
+msgstr "The CPU and GPU versions have the same function names and call order. The difference is whether the per-grid-point computation is written as a `for` statement or as a CUDA kernel."
 
 msgid "CPU 版（`mhd_integrator_host.hpp`）"
-msgstr ""
+msgstr "CPU version (`mhd_integrator_host.hpp`)"
 
 msgid "GPU 版（`mhd_integrator_cuda.cuh`）"
-msgstr ""
+msgstr "GPU version (`mhd_integrator_cuda.cuh`)"
 
 #, python-brace-format
 msgid "$B^2$, $h_t$, $\\boldsymbol{v}\\cdot\\boldsymbol{B}$ の準備"
-msgstr ""
+msgstr "Preparing $B^2$, $h_t$, and $\\boldsymbol{v}\\cdot\\boldsymbol{B}$"
 
 msgid "`update_sc4` の最初の三重ループ"
-msgstr ""
+msgstr "The first triple loop of `update_sc4`"
 
 msgid "`bb_ht_vb_kernel`"
 msgstr ""
 
 msgid "各変数の更新"
-msgstr ""
+msgstr "Update of each variable"
 
 msgid "`update_sc4` の 2 つ目の三重ループ"
-msgstr ""
+msgstr "The second triple loop of `update_sc4`"
 
 msgid "`update_ro_kernel`, `update_vx_kernel` 〜 `update_ei_kernel`"
-msgstr ""
+msgstr "`update_ro_kernel`, `update_vx_kernel`  to  `update_ei_kernel`"
 
 msgid "CFL 条件"
-msgstr ""
+msgstr "CFL condition"
 
 msgid "三重ループで最小値を取り、`MPI_Allreduce`"
-msgstr ""
+msgstr "Take the minimum in a triple loop, then `MPI_Allreduce`"
 
 #, python-brace-format
 msgid "`reduce(backend::CUDA{}, ...)` と `MPI_Allreduce`"
-msgstr ""
+msgstr "`reduce(backend::CUDA{}, ...)` and `MPI_Allreduce`"
 
 msgid "`runge_kutta_4step`, `apply_boundary_condition`"
 msgstr ""
 
 msgid "同じ順序"
-msgstr ""
+msgstr "Same order"
 
 msgid "人工粘性"
-msgstr ""
+msgstr "Artificial viscosity"
 
 msgid "`impl_host::ArtificialViscosity`（`mhd_artificial_viscosity_host.hpp`）"
-msgstr ""
+msgstr "`impl_host::ArtificialViscosity` (`mhd_artificial_viscosity_host.hpp`)"
 
 msgid "`impl_cuda::ArtificialViscosity`（`mhd_artificial_viscosity_cuda.cuh`）"
-msgstr ""
+msgstr "`impl_cuda::ArtificialViscosity` (`mhd_artificial_viscosity_cuda.cuh`)"
 
 #, python-brace-format
 msgid "CPU 版の `update_sc4` は、`for_each` ではなく、ふつうの三重の `for` 文で書かれています。 `i` が外側、`k` が内側のループで、最後の添字が連続する `Array3D` の並び（{ref}`第 7 章 <edu-ch07>`）に沿ってメモリを読みます。"
-msgstr ""
+msgstr "The CPU version of `update_sc4` is written with an ordinary triple `for` statement, not `for_each`. With `i` as the outer loop and `k` as the inner loop, it reads memory along the layout of `Array3D`, in which the last index is contiguous ({ref}`Chapter 7 <edu-ch07>`)."
 
 msgid "6. CFL 条件による時間刻み"
-msgstr ""
+msgstr "6\\. Time step from the CFL condition"
 
 msgid "時間刻みは、どの格子点でも、最も速い波が 1 ステップで格子間隔を越えないように決めます。"
-msgstr ""
+msgstr "The time step is chosen so that, at every grid point, the fastest wave does not cross the grid spacing in one step."
 
 msgid ""
 "\n"
@@ -672,21 +672,21 @@ msgid ""
 msgstr ""
 
 msgid "$C$ は設定の `mhd.cfl_number`、$c_A$ は Alfvén 速度です。"
-msgstr ""
+msgstr "$C$ is `mhd.cfl_number` in the configuration, and $c_A$ is the Alfvén speed."
 
 #, python-brace-format
 msgid "ループの範囲は `i_margin` から `i_total - i_margin` の手前まで、つまりゴーストセルを除いた、このランクが受け持つ格子点です。 各ランクで最小値を求めたあと、`MPI_Allreduce` の `MPI_MIN` で全ランクの最小値をそろえます（{ref}`第 8 章 <edu-ch08>`）。 すべてのランクが同じ $\\Delta t$ で進まないと、隣と交換する値の時刻がずれるためです。"
-msgstr ""
+msgstr "The loop runs from `i_margin` up to just before `i_total - i_margin`, that is, over the grid points this rank is responsible for, excluding ghost cells. After each rank finds its minimum, `MPI_MIN` in `MPI_Allreduce` makes the global minimum common to all ranks ({ref}`Chapter 8 <edu-ch08>`). This is because, unless all ranks advance with the same $\\Delta t$, the times of the values exchanged with neighbors would be inconsistent."
 
 msgid "7. 4 段の Runge–Kutta 法"
-msgstr ""
+msgstr "7\\. Four-stage Runge–Kutta method"
 
 msgid "7.1 runge_kutta_4step"
 msgstr ""
 
 #, python-brace-format
 msgid "方程式を $\\partial q/\\partial t = R(q)$ と書きます。$q$ は保存量（$\\rho$, $\\rho\\boldsymbol{v}$, $\\boldsymbol{B}$, $\\phi$, $E$）、$R$ は右辺（空間微分とソース項）です。 MISO は、次の 4 段で $q^n$ から $q^{n+1}$ を作ります。"
-msgstr ""
+msgstr "Write the equation as $\\partial q/\\partial t = R(q)$. $q$ is the conserved quantities ($\\rho$, $\\rho\\boldsymbol{v}$, $\\boldsymbol{B}$, $\\phi$, $E$), and $R$ is the right-hand side (spatial derivatives and source terms). MISO builds $q^{n+1}$ from $q^n$ in the following 4 stages."
 
 #, python-brace-format
 msgid ""
@@ -700,56 +700,56 @@ msgid ""
 msgstr ""
 
 msgid "各段は「元の値 $q^n$ に、直前の段の値で評価した右辺を足す」形です。必要な配列は、元の値、直前の段の値、結果の 3 組だけです。"
-msgstr ""
+msgstr "Each stage has the form \"add the right-hand side, evaluated with the value from the previous stage, to the original value $q^n$.\" The only arrays needed are three sets: the original value, the value of the previous stage, and the result."
 
 msgid "`update_sc4(段の dt, eos, src, 元の値, 右辺を評価する値, 結果)` の引数と、式の対応は次のとおりです。"
-msgstr ""
+msgstr "The arguments of `update_sc4(stage dt, eos, src, original value, value for evaluating the right-hand side, result)` correspond to the formulas as follows."
 
 msgid "引数"
-msgstr ""
+msgstr "Argument"
 
 msgid "配列"
-msgstr ""
+msgstr "Array"
 
 msgid "式の記号"
-msgstr ""
+msgstr "Symbol in the formula"
 
 msgid "`qq_orgn`（3 番目の `Fields`）"
-msgstr ""
+msgstr "`qq_orgn` (the 3rd `Fields`)"
 
 msgid "`qq`"
 msgstr ""
 
 msgid "$q^n$（ステップの最初の値。4 段の間は変えません）"
-msgstr ""
+msgstr "$q^n$ (the value at the start of the step; unchanged during the 4 stages)"
 
 msgid "`qq_argm`（4 番目）"
-msgstr ""
+msgstr "`qq_argm` (the 4th)"
 
 msgid "1 段目は `qq`、2 段目以降は `qq_argm`"
-msgstr ""
+msgstr "`qq` for the 1st stage, `qq_argm` for the 2nd stage onward"
 
 msgid "$R(\\cdot)$ に入れる直前の段の値"
-msgstr ""
+msgstr "The value from the previous stage that is fed into $R(\\cdot)$"
 
 msgid "`qq_rslt`（5 番目）"
-msgstr ""
+msgstr "`qq_rslt` (the 5th)"
 
 msgid "`qq_rslt`"
 msgstr ""
 
 msgid "その段の結果"
-msgstr ""
+msgstr "The result of that stage"
 
 #, python-brace-format
 msgid "各段の結果は `qq_rslt` に書かれ、`copy_from` で `qq_argm` へ写してから境界条件を適用します。 `update_sc4` はゴーストセルを除いた格子点だけを更新するので、次の段の右辺を計算する前に、ゴーストセルを埋め直す必要があります。 {ref}`第 10 章 <edu-ch10>` の熱伝導で、時間積分の各段の前に境界の値を用意したのと同じ順序です。 最後の段だけは結果を `qq` に戻し、これが $q^{n+1}$ になります。"
-msgstr ""
+msgstr "The result of each stage is written to `qq_rslt`, copied to `qq_argm` with `copy_from`, and then the boundary condition is applied. `update_sc4` updates only the grid points excluding the ghost cells, so the ghost cells must be refilled before the right-hand side of the next stage is computed. This is the same order as in the heat conduction calculation of {ref}`Chapter 10 <edu-ch10>`, where the boundary values were prepared before each stage of the time integration. Only in the last stage is the result put back into `qq`, and this becomes $q^{n+1}$."
 
 msgid "7.2 段の係数を確かめる"
-msgstr ""
+msgstr "7.2 Checking the stage coefficients"
 
 msgid "線形の方程式 $dq/dt = \\lambda q$ では、$R(q) = \\lambda q$ なので、$h = \\lambda\\Delta t$ として順に代入すると"
-msgstr ""
+msgstr "For the linear equation $dq/dt = \\lambda q$, we have $R(q) = \\lambda q$, so substituting in order with $h = \\lambda\\Delta t$ gives"
 
 #, python-brace-format
 msgid ""
@@ -759,25 +759,35 @@ msgstr ""
 
 #, python-brace-format
 msgid "となり、厳密解 $e^{h} q^n$ の Taylor 展開と 4 次の項まで一致します。 次の短いプログラムは、$dq/dt = -q$ を同じ 4 段で $t = 1$ まで解き、厳密解 $e^{-1}$ との差を表示します。"
-msgstr ""
+msgstr "which agrees with the Taylor expansion of the exact solution $e^{h} q^n$ up to the fourth-order term. The following short program solves $dq/dt = -q$ up to $t = 1$ with the same 4 stages and prints the difference from the exact solution $e^{-1}$."
 
 msgid "ステップ数を 2 倍にすると誤差がおよそ $1/16 = 1/2^4$ になり、4 次精度であることが分かります。"
+msgstr "Doubling the number of steps reduces the error to about $1/16 = 1/2^4$, which shows that the method is fourth-order accurate."
+
+msgid ""
+"<details>\n"
+"<summary>コラム：この 4 段の方法と非線形の方程式</summary>\n"
 msgstr ""
+"<details>\n"
+"<summary>Column: This four-stage method and nonlinear equations</summary>\n"
 
 msgid "この形の多段法は、Jameson, Schmidt, Turkel (1981, AIAA Paper 81-1259) が圧縮性流体の計算に用いたことで知られています。 各段で保存する配列が少なくて済むのが利点です。"
-msgstr ""
+msgstr "This form of multistage method is known from its use by Jameson, Schmidt, and Turkel (1981, AIAA Paper 81-1259) for compressible flow calculations. Its advantage is that few arrays need to be kept at each stage."
 
 msgid "係数 $1/4, 1/3, 1/2, 1$ は、線形の方程式に対して 4 次精度になるように選ばれています。 非線形の方程式 $dq/dt = f(q)$ では、$\\Delta t^3$ の項のうち $f''f^2$ に掛かる係数を展開して比べると、この方法では $1/8$、厳密解では $1/6$ となり一致しません。 そのため、非線形の方程式に対する形式上の精度は 2 次です。 一方、線形の安定領域は古典的な 4 段 Runge–Kutta 法と同じです。 `miso/include/miso/mhd_resistivity.hpp` のコメントにある「RK4 の安定条件 $\\lambda\\Delta t < 2.78$」も、この安定領域から来ています。"
+msgstr "The coefficients $1/4, 1/3, 1/2, 1$ are chosen so that the method is fourth-order accurate for linear equations. For a nonlinear equation $dq/dt = f(q)$, expanding and comparing the coefficient of $f''f^2$ in the $\\Delta t^3$ term gives $1/8$ for this method and $1/6$ for the exact solution, which do not agree. The formal accuracy for nonlinear equations is therefore second order. On the other hand, the linear stability region is the same as that of the classical four-stage Runge–Kutta method. The \"stability condition of RK4, $\\lambda\\Delta t < 2.78$\" in the comment of `miso/include/miso/mhd_resistivity.hpp` also comes from this stability region."
+
+msgid "</details>\n"
 msgstr ""
 
 msgid "8. 4 次中心差分と右辺の計算"
-msgstr ""
+msgstr "8\\. Fourth-order central difference and the right-hand side"
 
 msgid "8.1 space_centered_4th"
 msgstr ""
 
 msgid "空間微分は、4 次精度の中心差分で近似します。等間隔の格子で、"
-msgstr ""
+msgstr "Spatial derivatives are approximated with a fourth-order central difference. On a uniformly spaced grid,"
 
 msgid ""
 "\n"
@@ -786,48 +796,48 @@ msgid ""
 msgstr ""
 
 msgid "です。誤差は $\\Delta x^4$ に比例します。片側に 2 点ずつ使うので、ゴーストセルの幅（`grid.margin`）は 2 以上必要です。"
-msgstr ""
+msgstr "The error is proportional to $\\Delta x^4$. Because it uses 2 points on each side, the ghost cell width (`grid.margin`) must be at least 2."
 
 msgid "微分する配列（`const` の View）"
-msgstr ""
+msgstr "The array to differentiate (a `const` view)"
 
 msgid "`dxyzi`"
 msgstr ""
 
 msgid "格子間隔の逆数 $1/\\Delta x$（`grid.dxi[i]` など）"
-msgstr ""
+msgstr "The reciprocal of the grid spacing, $1/\\Delta x$ (`grid.dxi[i]` and so on)"
 
 msgid "`i, j, k`"
 msgstr ""
 
 msgid "微分を求める格子点"
-msgstr ""
+msgstr "The grid point at which the derivative is evaluated"
 
 msgid "`is, js, ks`"
 msgstr ""
 
 msgid "微分の方向。$x$ 方向なら `(grid.is, 0, 0)`"
-msgstr ""
+msgstr "The direction of differentiation. For the $x$ direction, `(grid.is, 0, 0)`"
 
 #, python-brace-format
 msgid "方向を `is, js, ks` で選ぶので、1 つの関数で 3 方向の微分を書けます。 `grid.is` は、$x$ 方向の格子数が 2 以上なら 1、1 なら 0 です。格子数が 1 の方向では添字がずれず、その方向の微分は 0 になります（練習 4）。 `inv12<Real>` は $1/12$ を `Real` 型で表す変数テンプレートです（`miso/include/miso/constants.hpp`、{ref}`第 6 章 <edu-ch06>`）。"
-msgstr ""
+msgstr "Because the direction is selected with `is, js, ks`, one function can handle the derivatives in all 3 directions. `grid.is` is 1 if the number of grid points in the $x$ direction is 2 or more, and 0 if it is 1. In a direction with one grid point, the index does not shift, and the derivative in that direction becomes 0 (Exercise 4). `inv12<Real>` is a variable template that represents $1/12$ in type `Real` (`miso/include/miso/constants.hpp`, {ref}`Chapter 6 <edu-ch06>`)."
 
 #, python-brace-format
 msgid "同じ名前で、2 つまたは 3 つの配列の積を微分する関数もあります（オーバーロード、{ref}`第 2 章 <edu-ch02>`）。 `space_centered_4th(c_ro, c_vx, dxi, ...)` は $\\partial_x(\\rho v_x)$、`space_centered_4th(c_ro, c_vx, c_vy, dyi, ...)` は $\\partial_y(\\rho v_x v_y)$ です。 各格子点で積を作ってから差分を取ります。"
-msgstr ""
+msgstr "There are also functions with the same name that differentiate the product of two or three arrays (overloads, {ref}`Chapter 2 <edu-ch02>`). `space_centered_4th(c_ro, c_vx, dxi, ...)` computes $\\partial_x(\\rho v_x)$, and `space_centered_4th(c_ro, c_vx, c_vy, dyi, ...)` computes $\\partial_y(\\rho v_x v_y)$. The product is formed at each grid point before the difference is taken."
 
 msgid "8.2 update_sc4 の準備"
-msgstr ""
+msgstr "8.2 Preparation in update_sc4"
 
 msgid "`update_sc4` は、最初に右辺で何度も使う量を配列に用意します。"
-msgstr ""
+msgstr "`update_sc4` first prepares in arrays the quantities that are used many times on the right-hand side."
 
 msgid "式"
-msgstr ""
+msgstr "Formula"
 
 msgid "使う場所"
-msgstr ""
+msgstr "Where it is used"
 
 msgid "`pr`"
 msgstr ""
@@ -836,7 +846,7 @@ msgid "$p = (\\gamma-1)\\rho e$"
 msgstr ""
 
 msgid "運動方程式の圧力勾配"
-msgstr ""
+msgstr "Pressure gradient in the equation of motion"
 
 msgid "`bb`"
 msgstr ""
@@ -845,7 +855,7 @@ msgid "$B^2$"
 msgstr ""
 
 msgid "運動方程式の磁気圧 $B^2/8\\pi$"
-msgstr ""
+msgstr "Magnetic pressure $B^2/8\\pi$ in the equation of motion"
 
 msgid "`ht`"
 msgstr ""
@@ -855,7 +865,7 @@ msgid "$\\rho e + p + \\frac{1}{2}\\rho v^2 + \\frac{B^2}{4\\pi}$"
 msgstr ""
 
 msgid "エネルギーの流束"
-msgstr ""
+msgstr "Energy flux"
 
 msgid "`vb`"
 msgstr ""
@@ -865,19 +875,19 @@ msgid "$\\boldsymbol{v}\\cdot\\boldsymbol{B}$"
 msgstr ""
 
 msgid "差分を取るので、ゴーストセルを含む全格子点で計算します。どれも `qq_argm`（右辺を評価する値）から作ります。"
-msgstr ""
+msgstr "Because differences are taken, these are computed at all grid points including ghost cells. All of them are made from `qq_argm` (the value used to evaluate the right-hand side)."
 
 msgid "続いて、`const_view()` で読み取り専用の View を作り、名前を短くしています（`c_ro`, `c_vx`, ... `c_ph`）。"
-msgstr ""
+msgstr "Next, read-only views are created with `const_view()` and given short names (`c_ro`, `c_vx`, ... `c_ph`)."
 
 msgid "8.3 方程式とコードの対応"
-msgstr ""
+msgstr "8.3 Correspondence between the equations and the code"
 
 msgid "2 つ目の三重ループで、ゴーストセルを除いた格子点を更新します。 段の時間刻みを $\\Delta t'$（`dt` 引数。$\\Delta t/4$ など）、`space_centered_4th` を $D_x, D_y, D_z$ と書きます。"
-msgstr ""
+msgstr "The second triple loop updates the grid points excluding the ghost cells. We write the time step of a stage as $\\Delta t'$ (the `dt` argument; for example $\\Delta t/4$) and `space_centered_4th` as $D_x, D_y, D_z$."
 
 msgid "**連続の式**"
-msgstr ""
+msgstr "**Continuity equation**"
 
 msgid ""
 "\n"
@@ -885,10 +895,10 @@ msgid ""
 msgstr ""
 
 msgid "右辺の $\\rho v_x$ などは `qq_argm` の値、左辺に足す $\\rho^n$ は `qq_orgn` の値です。7 節の式の形と一致します。"
-msgstr ""
+msgstr "The $\\rho v_x$ and so on on the right-hand side are values from `qq_argm`, and the $\\rho^n$ added to it is the value from `qq_orgn`. This matches the form of the formula in Section 7."
 
 msgid "**運動方程式（$x$ 成分）**"
-msgstr ""
+msgstr "**Equation of motion ($x$ component)**"
 
 msgid ""
 "\n"
@@ -898,10 +908,10 @@ msgid ""
 msgstr ""
 
 msgid "保存量 $\\rho v_x$ を進めてから、新しい密度 $\\rho^{\\text{rslt}}$ で割って速度に戻しています。 そのため、連続の式（`qq_rslt.ro`）を先に計算しておく必要があります。 `pii4<Real>` と `pii8<Real>` は $1/4\\pi$ と $1/8\\pi$ です（`miso/include/miso/constants.hpp`）。$y, z$ 成分も同じ形です。"
-msgstr ""
+msgstr "The conserved quantity $\\rho v_x$ is advanced and then divided by the new density $\\rho^{\\text{rslt}}$ to recover the velocity. For this reason, the continuity equation (`qq_rslt.ro`) must be computed first. `pii4<Real>` and `pii8<Real>` are $1/4\\pi$ and $1/8\\pi$ (`miso/include/miso/constants.hpp`). The $y, z$ components have the same form."
 
 msgid "**誘導方程式（$x$ 成分）**"
-msgstr ""
+msgstr "**Induction equation ($x$ component)**"
 
 msgid ""
 "\n"
@@ -909,13 +919,13 @@ msgid ""
 msgstr ""
 
 msgid "1.2 節の誘導方程式で $i = x$ とした式です（$j = x$ の項は $v_x B_x - v_x B_x = 0$ なので書いていません）。最後の $-D_x\\phi$ が発散クリーニングの項です。"
-msgstr ""
+msgstr "This is the induction equation of Section 1.2 with $i = x$ (the $j = x$ term is not written because $v_x B_x - v_x B_x = 0$). The last term, $-D_x\\phi$, is the divergence-cleaning term."
 
 msgid "**発散クリーニングの $\\phi$**"
-msgstr ""
+msgstr "**The divergence-cleaning $\\phi$**"
 
 msgid "`qq_rslt.ph` の式は、`ch_divb_square`（$c_h^2$）と `util::exp(-dt/tau_divb)` を使って次の形になっています。"
-msgstr ""
+msgstr "The formula for `qq_rslt.ph` takes the following form, using `ch_divb_square` ($c_h^2$) and `util::exp(-dt/tau_divb)`."
 
 msgid ""
 "\n"
@@ -924,10 +934,10 @@ msgstr ""
 
 #, python-brace-format
 msgid "$-c_h^2\\nabla\\cdot\\boldsymbol{B}$ の項を差分で進め、減衰の項 $-\\phi/\\tau$ は、厳密解の因子 $e^{-\\Delta t'/\\tau}$ を掛けて扱っています。"
-msgstr ""
+msgstr "The term $-c_h^2\\nabla\\cdot\\boldsymbol{B}$ is advanced with the finite difference, and the damping term $-\\phi/\\tau$ is handled by multiplying by the exact-solution factor $e^{-\\Delta t'/\\tau}$."
 
 msgid "**エネルギーの式**"
-msgstr ""
+msgstr "**Energy equation**"
 
 msgid ""
 "\n"
@@ -939,95 +949,95 @@ msgstr ""
 
 #, python-brace-format
 msgid "全エネルギー $E$ を進め、同じ段で求めた新しい $\\rho$, $\\boldsymbol{v}$, $\\boldsymbol{B}$ の運動エネルギーと磁気エネルギーを引いて、内部エネルギーに戻します。 新しい速度と磁場を使うので、エネルギーの式はループの最後に置かれています。 ソース項 `source_ei` は、全エネルギーの式の右辺 $S_E$（単位体積・単位時間あたり）です。"
-msgstr ""
+msgstr "The total energy $E$ is advanced, and the kinetic and magnetic energies of the new $\\rho$, $\\boldsymbol{v}$, and $\\boldsymbol{B}$ computed in the same stage are subtracted to recover the internal energy. Because it uses the new velocity and magnetic field, the energy equation is placed at the end of the loop. The source term `source_ei` is the right-hand side $S_E$ of the total energy equation (per unit volume and unit time)."
 
 msgid "8.4 ソース項の取り出し"
-msgstr ""
+msgstr "8.4 Extracting the source terms"
 
 msgid "`source_ro(src, c_qq, i, j, k)` などは、`miso/include/miso/mhd_integrator.hpp` のマクロ `MISO_MHD_DEFINE_SOURCE_TERM` が作る関数です。"
-msgstr ""
+msgstr "`source_ro(src, c_qq, i, j, k)` and the like are functions generated by the macro `MISO_MHD_DEFINE_SOURCE_TERM` in `miso/include/miso/mhd_integrator.hpp`."
 
 msgid "次は、マクロが `vy` について作る関数の本体を、マクロの引数 `name` を `vy` に置き換えて示したものです（説明のために展開しました）。"
-msgstr ""
+msgstr "The following shows the body of the function that the macro generates for `vy`, with the macro argument `name` replaced by `vy` (expanded for explanation)."
 
 #, python-brace-format
 msgid "ソース項の型 `Source` が、たとえば `vy(FieldsView<const Real>, int, int, int) const` というメンバ関数を持っていればそれを呼び、持っていなければ 0 を返します（{ref}`第 6 章 <edu-ch06>`）。 `mhd::EmptySourceTerm` は何も持たないので、8 つのソース項がすべて 0 になります。 判定はコンパイル時に行われるので、定義していない項のために計算が増えることはありません。 ソース項は、右辺を評価する値 `c_qq`（`qq_argm`）で各段ごとに呼ばれます。"
-msgstr ""
+msgstr "If the source term type `Source` has a member function such as `vy(FieldsView<const Real>, int, int, int) const`, it is called; if not, 0 is returned ({ref}`Chapter 6 <edu-ch06>`). `mhd::EmptySourceTerm` has nothing, so all 8 source terms are 0. The decision is made at compile time, so terms that are not defined add no computation. The source terms are called at each stage with `c_qq` (`qq_argm`), the value used to evaluate the right-hand side."
 
 msgid "9. 境界条件とハロー交換"
-msgstr ""
+msgstr "9\\. Boundary conditions and halo exchange"
 
 msgid "9.1 apply_boundary_condition"
 msgstr ""
 
 msgid "RK4 の各段と人工粘性の各方向のあとで、次の関数が呼ばれます。"
-msgstr ""
+msgstr "The following function is called after each stage of RK4 and after each direction of the artificial viscosity."
 
 msgid "`bc.apply` で、ユーザーが与えた物理境界条件を適用します。"
-msgstr ""
+msgstr "Apply the physical boundary condition given by the user with `bc.apply`."
 
 #, python-brace-format
 msgid "`halo_exchanger.apply` で、隣のランクとゴーストセルの値を交換します（ハロー交換、{ref}`第 8 章 <edu-ch08>`）。"
-msgstr ""
+msgstr "Exchange ghost cell values with the neighboring ranks with `halo_exchanger.apply` (halo exchange, {ref}`Chapter 8 <edu-ch08>`)."
 
 msgid "`bc.apply` の引数の形は、`Model` の `bc` が必ず持つ約束です。"
-msgstr ""
+msgstr "The argument form of `bc.apply` is a convention that the `bc` of `Model` must follow."
 
 msgid "9.2 ハロー交換と周期境界"
-msgstr ""
+msgstr "9.2 Halo exchange and periodic boundaries"
 
 msgid "ハロー交換は `miso/include/miso/mhd_halo_exchange.hpp` の `HaloExchanger` にあります。 CPU 版の `apply` は、$x$ → $y$ → $z$ の順に、方向ごとに次を行います。"
-msgstr ""
+msgstr "Halo exchange is in `HaloExchanger` in `miso/include/miso/mhd_halo_exchange.hpp`. The CPU version of `apply` does the following for each direction, in the order $x$ → $y$ → $z$."
 
 msgid "9 変数のうち送る範囲（端から `margin` 枚）を送信用の `Array4D` に詰めます。"
-msgstr ""
+msgstr "Pack the range to send (`margin` layers from the edge) of the 9 variables into a send `Array4D`."
 
 msgid "`MPI_Isend` と `MPI_Irecv` で正の側と負の側に同時に送受信し、`MPI_Waitall` で待ちます。"
-msgstr ""
+msgstr "Send and receive on the positive and negative sides at the same time with `MPI_Isend` and `MPI_Irecv`, and wait with `MPI_Waitall`."
 
 msgid "受け取った値をゴーストセルへ書き込みます。"
-msgstr ""
+msgstr "Write the received values into the ghost cells."
 
 msgid "方向を 1 つずつ交換するので、$y$ 方向で送る範囲には、直前に $x$ 方向で受け取ったゴーストセルも含まれます。 そのため、角のゴーストセルにも正しい値が入ります。"
-msgstr ""
+msgstr "Because the directions are exchanged one at a time, the range sent in the $y$ direction includes the ghost cells received just before in the $x$ direction. As a result, the corner ghost cells also receive correct values."
 
 msgid "隣のランクは、`mpi::Shape` が `MPI_Cart_shift` で求めた `x_procs_pos` などです。 `domain.periodic` で周期境界にした方向では、領域の端のランクの隣が反対側の端のランクになります。 その方向のプロセス数が 1 なら、隣は自分自身です。 つまり、**周期境界はハロー交換が担います**。全方向が周期境界の問題では、`bc` に何もしない `mhd::EmptyBoundaryCondition` を使えます。"
-msgstr ""
+msgstr "The neighboring ranks are `x_procs_pos` and the like, which `mpi::Shape` obtains with `MPI_Cart_shift`. In a direction made periodic with `domain.periodic`, the neighbor of the rank at one end of the domain is the rank at the opposite end. If the number of processes in that direction is 1, the neighbor is the rank itself. In other words, **the halo exchange takes care of the periodic boundary**. For a problem in which all directions are periodic, you can use `mhd::EmptyBoundaryCondition`, which does nothing, as `bc`."
 
 msgid "周期境界にしない方向の端では、隣が `MPI_PROC_NULL` になり、交換は行われません。そのゴーストセルを埋めるのが `bc.apply` の役目です。"
-msgstr ""
+msgstr "At the end of a direction that is not periodic, the neighbor is `MPI_PROC_NULL` and no exchange takes place. Filling those ghost cells is the role of `bc.apply`."
 
 msgid "9.3 物理境界の例"
-msgstr ""
+msgstr "9.3 Example of a physical boundary"
 
 msgid "`demo/hd2d_rayleigh_taylor/src/main.cpp` の `BoundaryCondition` は、$y$ 方向の両端に対称境界を置きます。"
-msgstr ""
+msgstr "The `BoundaryCondition` in `demo/hd2d_rayleigh_taylor/src/main.cpp` places symmetric boundaries at both ends in the $y$ direction."
 
 msgid "`is_physical_boundary`（`miso/include/miso/boundary_condition.hpp`）は、このランクの $y$ 方向の負の側（`Side::INNER`）に隣のランクがない、つまり領域の端を受け持っているかを調べます。 MPI で分割していると、端を受け持たないランクもあるので、この判定が必要です。"
-msgstr ""
+msgstr "`is_physical_boundary` (`miso/include/miso/boundary_condition.hpp`) checks whether this rank has no neighboring rank on the negative side in the $y$ direction (`Side::INNER`), that is, whether it is responsible for the edge of the domain. When the domain is decomposed with MPI, some ranks are not responsible for an edge, so this check is necessary."
 
 msgid "`symmetric` は、境界をはさんで鏡に映した位置の値をゴーストセルに写します。`Sign::Neg` なら符号を反転します。 境界に垂直な速度 `vy` だけを反転させ、境界を通り抜ける流れを 0 にしています。"
-msgstr ""
+msgstr "`symmetric` copies the value at the mirror-image position across the boundary into the ghost cell. With `Sign::Neg`, the sign is reversed. Only the velocity `vy` perpendicular to the boundary is reversed, which makes the flow through the boundary 0."
 
 msgid "10. 人工粘性"
-msgstr ""
+msgstr "10\\. Artificial viscosity"
 
 msgid "中心差分だけでは、衝撃波などの急な変化の近くで数値振動が生じます。 MISO は、RK4 のあとに人工粘性（人工拡散）を 1 回かけて、急な変化の近くだけを選んでならします。 実装は `miso/include/miso/mhd_artificial_viscosity_host.hpp` の `impl_host::ArtificialViscosity` で、方法は Rempel (2014, ApJ 789, 132) に基づきます（`config_defaults.hpp` のコメント）。"
-msgstr ""
+msgstr "With the central difference alone, numerical oscillations occur near sharp changes such as shock waves. After RK4, MISO applies artificial viscosity (artificial diffusion) once, selectively smoothing only the neighborhood of sharp changes. The implementation is `impl_host::ArtificialViscosity` in `miso/include/miso/mhd_artificial_viscosity_host.hpp`, and the method is based on Rempel (2014, ApJ 789, 132) (see the comment in `config_defaults.hpp`)."
 
 msgid "10.1 方向ごとの更新"
-msgstr ""
+msgstr "10.1 Update in each direction"
 
 #, python-brace-format
 msgid "最初に特性速度 $c = f_{cs} c_s + f_{vv}|\\boldsymbol{v}| + f_{ca} c_A$ を全格子点で求めます（係数は設定の `mhd.artificial_viscosity.cs_fac` など）。 そのあと $x, y, z$ の順に 1 方向ずつ更新し、そのたびに境界条件とハロー交換を行います。"
-msgstr ""
+msgstr "First, compute the characteristic speed $c = f_{cs} c_s + f_{vv}|\\boldsymbol{v}| + f_{ca} c_A$ at all grid points (the coefficients are `mhd.artificial_viscosity.cs_fac` and so on in the configuration). Then update one direction at a time in the order $x, y, z$, applying the boundary condition and halo exchange each time."
 
 msgid "10.2 拡散流束"
-msgstr ""
+msgstr "10.2 Diffusive flux"
 
 #, python-brace-format
 msgid "1 方向の更新は、セル境界 $i+1/2$ での流束 $F_{i+1/2}$ の差です。"
-msgstr ""
+msgstr "The update in one direction is the difference of the fluxes $F_{i+1/2}$ at the cell boundaries $i+1/2$."
 
 msgid ""
 "\n"
@@ -1036,13 +1046,13 @@ msgstr ""
 
 #, python-brace-format
 msgid "対象は $\\rho$, $\\rho\\boldsymbol{v}$, $\\boldsymbol{B}$, $\\phi$, $\\rho e$ です。流束は `miso/include/miso/limiter.hpp` の 2 つの関数で作ります。"
-msgstr ""
+msgstr "The targets are $\\rho$, $\\rho\\boldsymbol{v}$, $\\boldsymbol{B}$, $\\phi$, and $\\rho e$. The flux is built by two functions in `miso/include/miso/limiter.hpp`."
 
 msgid "関数"
-msgstr ""
+msgstr "Function"
 
 msgid "計算"
-msgstr ""
+msgstr "Computation"
 
 #, python-brace-format
 msgid "`dqq_eval(q_{i-1}, q_i, q_{i+1}, ep)`"
@@ -1050,7 +1060,7 @@ msgstr ""
 
 #, python-brace-format
 msgid "傾き $\\Delta q_i$。$\\varepsilon(q_i - q_{i-1})$、$\\varepsilon(q_{i+1} - q_i)$、$(q_{i+1} - q_{i-1})/2$ の符号がそろっていれば絶対値が最小のもの、そろっていなければ 0（一般化 minmod 制限子）。$\\varepsilon$ は設定の `ep`"
-msgstr ""
+msgstr "The slope $\\Delta q_i$. If $\\varepsilon(q_i - q_{i-1})$, $\\varepsilon(q_{i+1} - q_i)$, and $(q_{i+1} - q_{i-1})/2$ have the same sign, it is the one with the smallest absolute value; otherwise it is 0 (generalized minmod limiter). $\\varepsilon$ is `ep` in the configuration"
 
 #, python-brace-format
 msgid "`flux_core(q_i, q_{i+1}, Δq_i, Δq_{i+1}, c, fh)`"
@@ -1058,32 +1068,32 @@ msgstr ""
 
 #, python-brace-format
 msgid "セル境界の左右の値 $q_L = q_i + \\Delta q_i/2$, $q_R = q_{i+1} - \\Delta q_{i+1}/2$ を作り、$F = -\\frac{1}{2} c\\, \\Phi\\, (q_R - q_L)$ を返す"
-msgstr ""
+msgstr "Builds the values on the left and right of the cell boundary, $q_L = q_i + \\Delta q_i/2$ and $q_R = q_{i+1} - \\Delta q_{i+1}/2$, and returns $F = -\\frac{1}{2} c\\, \\Phi\\, (q_R - q_L)$"
 
 #, python-brace-format
 msgid "$\\Phi$ は、$r = \\min\\left(1, (q_R - q_L)/(q_{i+1} - q_i)\\right)$ を使って、$r \\ge 0$ なら $\\max(0, 1 + h(r - 1))$、$r < 0$ なら 0 です。$h$ は設定の `fh` です。 変化がなめらかなところでは $q_R \\approx q_L$ なので流束はほぼ 0 です。急な変化があって $q_R - q_L$ が大きく残るところだけで拡散が働きます。"
-msgstr ""
+msgstr "$\\Phi$ is defined using $r = \\min\\left(1, (q_R - q_L)/(q_{i+1} - q_i)\\right)$: it is $\\max(0, 1 + h(r - 1))$ if $r \\ge 0$ and 0 if $r < 0$. $h$ is `fh` in the configuration. Where the variation is smooth, $q_R \\approx q_L$, so the flux is almost 0. Diffusion acts only where there is a sharp change and $q_R - q_L$ remains large."
 
 msgid "エネルギーは、$\\rho e$ の流束で全エネルギーを更新したあと、新しい運動エネルギーと磁気エネルギーを引いて内部エネルギーに戻します。 人工粘性で失われた運動エネルギーと磁気エネルギーは、内部エネルギーに移ります。"
-msgstr ""
+msgstr "For the energy, the total energy is updated with the flux of $\\rho e$, and then the new kinetic and magnetic energies are subtracted to recover the internal energy. The kinetic and magnetic energy lost to artificial viscosity is transferred to the internal energy."
 
 msgid "11. 出力と再開"
-msgstr ""
+msgstr "11\\. Output and restart"
 
 msgid "11.1 出力の時刻"
-msgstr ""
+msgstr "11.1 Output times"
 
 msgid "時刻が `dt_output * n_output` 以上になった最初のステップで出力します。時間刻みを出力時刻に合わせて調整しないので、出力時刻はちょうど `dt_output` の倍数にはなりません（練習 6）。 `time.log()` は、ランク 0 で次のような行を表示します（`demo/mhd2d_vortex` を `tend: 0.03` にして 2 プロセスで実行した例）。"
-msgstr ""
+msgstr "Output is written at the first step at which the time reaches `dt_output * n_output` or more. The time step is not adjusted to match the output time, so the output time is not exactly a multiple of `dt_output` (Exercise 6). `time.log()` prints lines like the following on rank 0 (an example running `demo/mhd2d_vortex` with `tend: 0.03` on 2 processes)."
 
 msgid "11.2 出力されるファイル"
-msgstr ""
+msgstr "11.2 Files that are written"
 
 msgid "すべて `io.save_dir`（既定は設定ファイルと同じフォルダの `data/`）の下に書かれます。"
-msgstr ""
+msgstr "All of them are written under `io.save_dir` (by default, `data/` in the same folder as the configuration file)."
 
 msgid "書く関数"
-msgstr ""
+msgstr "Function that writes it"
 
 msgid "`config.yaml`"
 msgstr ""
@@ -1092,7 +1102,7 @@ msgid "`Config::save`"
 msgstr ""
 
 msgid "既定値を補った設定"
-msgstr ""
+msgstr "The configuration with defaults filled in"
 
 msgid "`grid.bin`"
 msgstr ""
@@ -1101,7 +1111,7 @@ msgid "`Grid::save`"
 msgstr ""
 
 msgid "全体格子の座標"
-msgstr ""
+msgstr "Coordinates of the global grid"
 
 msgid "`mpi/coords.csv`"
 msgstr ""
@@ -1110,16 +1120,16 @@ msgid "`mpi::Shape::save`"
 msgstr ""
 
 msgid "ランクごとの MPI 座標"
-msgstr ""
+msgstr "MPI coordinates of each rank"
 
 msgid "`time/time.NNNNNNNN.txt`"
 msgstr ""
 
 msgid "`Time::save`（`miso/include/miso/time.hpp`）"
-msgstr ""
+msgstr "`Time::save` (`miso/include/miso/time.hpp`)"
 
 msgid "時刻、出力番号、ステップ数を 1 行ずつ"
-msgstr ""
+msgstr "Time, output number, and step count, one per line"
 
 msgid "`time/n_output.txt`"
 msgstr ""
@@ -1128,175 +1138,182 @@ msgid "`Time::save`"
 msgstr ""
 
 msgid "最新の出力番号"
-msgstr ""
+msgstr "The latest output number"
 
 msgid "`mhd/mhd.<n_output>.<rank>.bin`"
 msgstr ""
 
 msgid "`Checkpoint::save`（`miso/include/miso/mhd_checkpoint.hpp`）"
-msgstr ""
+msgstr "`Checkpoint::save` (`miso/include/miso/mhd_checkpoint.hpp`)"
 
 msgid "ランクごとの 9 変数"
-msgstr ""
+msgstr "The 9 variables of each rank"
 
 #, python-brace-format
 msgid "`Checkpoint::save` は、計算場所の `qq` を CPU 上の配列へ写し（`copy_from`）、先頭に要素の大きさ（`float` なら 4）を `std::uint32_t` で書いてから、`ro, vx, vy, vz, bx, by, bz, ei, ph` の順に、ゴーストセルを含む配列をそのまま書き出します。 並びは `Array3D` のメモリ上の並び（最後の添字 `k` が連続）です。 上の例では、各ランクの格子が $(64 + 2\\cdot 2) \\times (128 + 2\\cdot 2) \\times 1$ なので、ファイルの大きさは $4 + 68 \\times 132 \\times 9 \\times 4 = 323140$ バイトです。 Python では `pymiso.Data` で読みます（{ref}`第 1 章 <edu-ch01>`）。"
-msgstr ""
+msgstr "`Checkpoint::save` copies `qq` on the compute location to an array on the CPU (`copy_from`), writes the element size (4 for `float`) at the beginning as a `std::uint32_t`, and then writes out the arrays, including ghost cells, as they are, in the order `ro, vx, vy, vz, bx, by, bz, ei, ph`. The layout is the in-memory layout of `Array3D` (the last index `k` is contiguous). In the example above, the grid of each rank is $(64 + 2\\cdot 2) \\times (128 + 2\\cdot 2) \\times 1$, so the file size is $4 + 68 \\times 132 \\times 9 \\times 4 = 323140$ bytes. In Python, read it with `pymiso.Data` ({ref}`Chapter 1 <edu-ch01>`)."
 
 msgid "11.3 再開"
-msgstr ""
+msgstr "11.3 Restart"
 
 msgid "`io.continue` が真（既定値も真）で、`time/n_output.txt` が残っていれば、`run()` は初期条件を作ったあとで `load_state()` を呼び、最新の出力から計算を続けます。 `Time::load` はランク 0 で時刻ファイルを読んで `MPI_Bcast` で配り、`Checkpoint::load` は各ランクが自分の `mhd.<n_output>.<rank>.bin` を読みます。 出力をそのまま再開用のデータ（チェックポイント）として使う設計です。最初から計算し直すときは、`data/` を消すか `io.continue: false` にします。"
-msgstr ""
+msgstr "If `io.continue` is true (the default is also true) and `time/n_output.txt` remains, `run()` creates the initial condition, then calls `load_state()` and continues the calculation from the latest output. `Time::load` reads the time file on rank 0 and distributes it with `MPI_Bcast`, and in `Checkpoint::load` each rank reads its own `mhd.<n_output>.<rank>.bin`. The design uses the output as is as the data for restarting (a checkpoint). To recompute from the beginning, delete `data/` or set `io.continue: false`."
 
 msgid "12. 自分で問題を作るときに触る場所"
-msgstr ""
+msgstr "12\\. Where to make changes when creating your own problem"
 
 msgid "新しい問題は、多くの場合、デモの `main.cpp` を写して `Model` の 4 つの部品と `config.yaml` を書き換えて作ります。 `miso/include/miso/` の中を書き換える必要はありません。"
-msgstr ""
+msgstr "In most cases, you create a new problem by copying a demo's `main.cpp` and rewriting the 4 components of `Model` and `config.yaml`. You do not need to modify anything inside `miso/include/miso/`."
 
 msgid "変えたいもの"
-msgstr ""
+msgstr "What you want to change"
 
 msgid "書く場所"
-msgstr ""
+msgstr "Where to write it"
 
 msgid "約束（呼ばれる形）"
-msgstr ""
+msgstr "Convention (the form in which it is called)"
 
 msgid "参考になるデモ"
-msgstr ""
+msgstr "Demo to refer to"
 
 msgid "`ic` の型"
-msgstr ""
+msgstr "Type of `ic`"
 
 msgid "`void apply(mhd::FieldsView<Real> qq, GridView<const Real> grid) const`。ゴーストセルを含む全格子点に値を入れます。CPU 上の配列に対して 1 回だけ呼ばれます"
-msgstr ""
+msgstr "`void apply(mhd::FieldsView<Real> qq, GridView<const Real> grid) const`. Fills in values at all grid points including ghost cells. Called only once, on arrays on the CPU"
 
 msgid "`demo/mhd2d_vortex`"
 msgstr ""
 
 msgid "`bc` の型"
-msgstr ""
+msgstr "Type of `bc`"
 
 msgid "`void apply(mhd::FieldsView<Real> qq, GridView<const Real> grid) const`。周期境界でない方向の端のゴーストセルを埋めます。1 ステップに何回も、計算場所の配列に対して呼ばれます"
-msgstr ""
+msgstr "`void apply(mhd::FieldsView<Real> qq, GridView<const Real> grid) const`. Fills the ghost cells at the ends of directions that are not periodic. Called many times per step, on arrays on the compute location"
 
 msgid "`demo/hd2d_rayleigh_taylor`"
 msgstr ""
 
 msgid "`src` の型"
-msgstr ""
+msgstr "Type of `src`"
 
 msgid "必要な項だけ `__host__ __device__ Real vy(mhd::FieldsView<const Real> qq, int i, int j, int k) const` の形で定義します（`ro`, `vx`〜`vz`, `bx`〜`bz`, `ei`）。時間刻みの上限があれば `Real dt_limit() const`"
-msgstr ""
+msgstr "Define only the terms you need, in the form `__host__ __device__ Real vy(mhd::FieldsView<const Real> qq, int i, int j, int k) const` (`ro`, `vx` to `vz`, `bx` to `bz`, `ei`). If there is an upper limit on the time step, define `Real dt_limit() const`"
 
 msgid "`demo/hd2d_rayleigh_taylor`, `demo/mhd2d_reconnection`"
 msgstr ""
 
 msgid "`eos` の型"
-msgstr ""
+msgstr "Type of `eos`"
 
 msgid "`gas_pressure(btag, qq, pr)` と `sound_speed(btag, qq, cs)` を `IdealEOS` と同じ引数で持ちます"
-msgstr ""
+msgstr "Provide `gas_pressure(btag, qq, pr)` and `sound_speed(btag, qq, cs)` with the same arguments as `IdealEOS`"
 
 msgid "`miso/include/miso/eos.hpp`"
 msgstr ""
 
 msgid "時間刻みの決め方"
-msgstr ""
+msgstr "How the time step is determined"
 
 msgid "`Model::update()`"
 msgstr ""
 
 msgid "`ModelBase::update()` と同じ形で上書きします"
-msgstr ""
+msgstr "Override it in the same form as `ModelBase::update()`"
 
 msgid "`demo/mhd3d_magnetosphere`"
 msgstr ""
 
 msgid "問題のパラメータ"
-msgstr ""
+msgstr "Problem parameters"
 
 msgid "`config.yaml` の独自セクション"
-msgstr ""
+msgstr "A custom section in `config.yaml`"
 
 msgid "コンストラクタで `config[\"rayleigh_taylor\"][\"g_grav\"].as<Real>()` のように読みます"
-msgstr ""
+msgstr "Read them in the constructor, as in `config[\"rayleigh_taylor\"][\"g_grav\"].as<Real>()`"
 
 msgid "注意する点は次のとおりです。"
-msgstr ""
+msgstr "Points to note are as follows."
 
 #, python-brace-format
 msgid "境界条件とソース項は、GPU 版では GPU 上の配列に対して呼ばれます。ソース項のメンバ関数には `__host__ __device__` を付け、GPU から読める値（数値のメンバや、計算場所の配列の View）だけを使います（{ref}`第 9 章 <edu-ch09>`）。"
-msgstr ""
+msgstr "In the GPU version, boundary conditions and source terms are called on arrays on the GPU. Attach `__host__ __device__` to the member functions of the source term and use only values that the GPU can read (numeric members and views of arrays on the compute location) ({ref}`Chapter 9 <edu-ch09>`)."
 
 msgid "境界条件で `for` 文を直接書くと CPU でしか動きません。`boundary_condition::symmetric` のように計算場所のタグ `btag` を受け取る関数や、`for_each` を使います。"
-msgstr ""
+msgstr "If you write a `for` statement directly in a boundary condition, it works only on the CPU. Use functions that take the compute-location tag `btag`, such as `boundary_condition::symmetric`, or use `for_each`."
 
 msgid "全方向を周期境界にする場合は、`config.yaml` の `domain.periodic` をすべて `true` にし、`bc` に `mhd::EmptyBoundaryCondition<Real>` を使えます。"
-msgstr ""
+msgstr "If you make all directions periodic, set all of `domain.periodic` in `config.yaml` to `true`, and you can use `mhd::EmptyBoundaryCondition<Real>` as `bc`."
 
 #, python-brace-format
 msgid "部品ごとの書き方と例は、MISO のドキュメントの {doc}`カスタマイズ </customization/index>` にまとめています。"
-msgstr ""
+msgstr "How to write each component, with examples, is summarized in {doc}`Customization </customization/index>` in the MISO documentation."
 
 msgid "13. ソースを読んで確かめる練習"
-msgstr ""
+msgstr "13\\. Exercises: checking by reading the source"
 
 msgid "練習 1：1 ステップで境界条件が呼ばれる回数"
-msgstr ""
+msgstr "Exercise 1: How many times boundary conditions are called in one step"
 
 msgid "`demo/mhd2d_vortex` の設定で 1 ステップ進めるとき、`bc.apply` が何回呼ばれるかを、`miso/include/miso/mhd_integrator_host.hpp` を読んで数えてください。 初期条件を作るときに呼ばれる回数と、1 ステップで `MPI_Allreduce` が呼ばれる回数も数えてください。"
+msgstr "When advancing one step with the settings of `demo/mhd2d_vortex`, read `miso/include/miso/mhd_integrator_host.hpp` and count how many times `bc.apply` is called. Also count the number of calls made when creating the initial condition, and the number of times `MPI_Allreduce` is called in one step."
+
+msgid ""
+"<details>\n"
+"<summary>解答・解説</summary>\n"
 msgstr ""
+"<details>\n"
+"<summary>Answer and explanation</summary>\n"
 
 msgid "1 ステップで **7 回**です。"
-msgstr ""
+msgstr "It is called **7 times** in one step."
 
 msgid "`runge_kutta_4step` の 4 段で、それぞれ `apply_boundary_condition` を 1 回ずつ（4 回）。"
-msgstr ""
+msgstr "In the 4 stages of `runge_kutta_4step`, `apply_boundary_condition` is called once in each (4 times)."
 
 msgid "`apply_artificial_viscosity` の $x, y, z$ の各方向で 1 回ずつ（3 回）。"
-msgstr ""
+msgstr "In `apply_artificial_viscosity`, it is called once in each of the $x, y, z$ directions (3 times)."
 
 msgid "`apply_boundary_condition` は `bc.apply` のあとに `halo_exchanger.apply` を呼ぶので、ハロー交換も 1 ステップで 7 回です。 2 次元の計算でも、$z$ 方向の人工粘性の呼び出しは省かれないので回数は同じです。"
-msgstr ""
+msgstr "`apply_boundary_condition` calls `halo_exchanger.apply` after `bc.apply`, so the halo exchange also happens 7 times in one step. Even in a 2D calculation, the call for the artificial viscosity in the $z$ direction is not skipped, so the count is the same."
 
 msgid "初期条件を作るときは、`MHD::apply_initial_condition` の最後で 1 回呼ばれます。"
-msgstr ""
+msgstr "When creating the initial condition, it is called once at the end of `MHD::apply_initial_condition`."
 
 msgid "`MPI_Allreduce` は、`Integrator::cfl` で 1 回です。ソース項が `dt_limit()` を持つ場合は、`ModelBase::update` でもう 1 回呼ばれます。"
-msgstr ""
+msgstr "`MPI_Allreduce` is called once in `Integrator::cfl`. If the source term has `dt_limit()`, it is called once more in `ModelBase::update`."
 
 msgid "回数は、`apply` の中で呼び出し回数を数える境界条件を `bc` に使い、`update()` を直接呼んでも確かめられます。 `apply` は `const` のメンバ関数なので、数える変数はメンバの外（たとえば `main.cpp` の外側の変数）に置きます。 この方法で数えると、初期条件で 1、1 ステップで 7、さらに 2 ステップで 14 になります。"
-msgstr ""
+msgstr "You can also verify the counts by using, as `bc`, a boundary condition that counts the calls inside `apply`, and calling `update()` directly. Since `apply` is a `const` member function, put the counting variable outside the members (for example, a variable outside `main.cpp`'s struct). Counted this way, you get 1 for the initial condition, 7 after one step, and 14 after two more steps."
 
 msgid "練習 2：既定値の補完"
-msgstr ""
+msgstr "Exercise 2: Filling in default values"
 
 msgid "`demo/hd2d_rayleigh_taylor/config.yaml` には `mhd.cfl_number` が書かれていません。 この計算で使われる CFL 数と人工粘性のパラメータ `ep` の値を、`config_defaults.hpp` と `merge_yaml` を読んで答えてください。 実際に使われた値を、計算後のどのファイルで確かめられるかも説明してください。"
-msgstr ""
+msgstr "`mhd.cfl_number` is not written in `demo/hd2d_rayleigh_taylor/config.yaml`. Read `config_defaults.hpp` and `merge_yaml` and answer what the CFL number and the artificial viscosity parameter `ep` are in this calculation. Also explain in which file, after the run, you can check the values that were actually used."
 
 msgid "CFL 数は既定値の **0.5**、`ep` はユーザーが書いた **2.0** です。"
-msgstr ""
+msgstr "The CFL number is the default value, **0.5**, and `ep` is **2.0**, as written by the user."
 
 msgid "`merge_yaml` は既定値の `mhd` セクションに入り、`cfl_number` はユーザーの設定にないので 0.5 を足します。 `artificial_viscosity` はセクション（YAML の Map）なので再帰的に入り、キーごとに補います。 `ep` はユーザーが書いているので上書きしません。ユーザーが書いていない `mhd.resistivity.cfl_number` も 0.5 で補われます。"
-msgstr ""
+msgstr "`merge_yaml` descends into the `mhd` section of the defaults, and since `cfl_number` is not in the user's settings, it adds 0.5. `artificial_viscosity` is a section (a YAML map), so it descends into it recursively and fills in key by key. `ep` is written by the user, so it is not overwritten. `mhd.resistivity.cfl_number`, which the user did not write, is also filled in with 0.5."
 
 msgid "補った結果は、`save_metadata()` が出力先に書く `data/config.yaml` に残ります。 `demo/hd2d_rayleigh_taylor` の設定では `io.save_dir` が既定の `data/` なので、`demo/hd2d_rayleigh_taylor/data/config.yaml` です。"
-msgstr ""
+msgstr "The completed result remains in `data/config.yaml`, which `save_metadata()` writes to the output destination. In the settings of `demo/hd2d_rayleigh_taylor`, `io.save_dir` is the default `data/`, so the file is `demo/hd2d_rayleigh_taylor/data/config.yaml`."
 
 msgid "練習 3：重力のソース項"
-msgstr ""
+msgstr "Exercise 3: Gravity source term"
 
 msgid "`demo/hd2d_rayleigh_taylor/src/main.cpp` の `SourceTerm` は、$-y$ 方向の一様な重力（大きさ $g$）を与えます。 このソース項を使うと、`update_sc4` のどの式のどの項が変わるかを説明してください。 また、全エネルギーを保存させるには、`ei` のソース項として何を返す必要があるかを、8.3 節のエネルギーの式から説明してください。"
-msgstr ""
+msgstr "The `SourceTerm` in `demo/hd2d_rayleigh_taylor/src/main.cpp` provides a uniform gravity (magnitude $g$) in the $-y$ direction. Explain which term of which formula in `update_sc4` changes when this source term is used. Also, explain from the energy equation in Section 8.3 what must be returned as the source term for `ei` in order to conserve the total energy."
 
 msgid "`SourceTerm` が定義しているのは `vx`, `vy`, `vz`, `ei` で、0 以外を返すのは `vy` の $-g\\rho$ だけです。"
-msgstr ""
+msgstr "`SourceTerm` defines `vx`, `vy`, `vz`, and `ei`, and the only one that returns a nonzero value is $-g\\rho$ for `vy`."
 
 msgid "変わるのは、$y$ 方向の運動方程式の `+source_vy(src, c_qq, i, j, k)` の項です。"
-msgstr ""
+msgstr "What changes is the `+source_vy(src, c_qq, i, j, k)` term in the equation of motion in the $y$ direction."
 
 msgid ""
 "\n"
@@ -1304,85 +1321,85 @@ msgid ""
 msgstr ""
 
 msgid "$\\rho$ は `c_qq`、つまりその段の `qq_argm` の値で、RK4 の 4 段のそれぞれで評価されます。 `ro`, `bx`, `by`, `bz` は定義されていないので、`if constexpr` で 0 になります。"
-msgstr ""
+msgstr "$\\rho$ is the value in `c_qq`, that is, `qq_argm` of that stage, and it is evaluated in each of the 4 RK4 stages. `ro`, `bx`, `by`, and `bz` are not defined, so they become 0 through `if constexpr`."
 
 #, python-brace-format
 msgid "エネルギーについて：MISO のエネルギーの式は全エネルギー $E$ の式で、内部エネルギーは $e = (E - \\rho v^2/2 - B^2/8\\pi)/\\rho$ で戻します。 重力が流体にする仕事 $\\rho\\boldsymbol{v}\\cdot\\boldsymbol{g} = -g\\rho v_y$ を $S_E$ に入れないと、重力で増えた運動エネルギーの分が $E$ に足されないまま引かれ、内部エネルギーが減ります。 全エネルギーを保存させるには、`ei` で $-g\\rho v_y$ を返します。"
-msgstr ""
+msgstr "Regarding the energy: MISO's energy equation is the equation for the total energy $E$, and the internal energy is recovered with $e = (E - \\rho v^2/2 - B^2/8\\pi)/\\rho$. If the work that gravity does on the fluid, $\\rho\\boldsymbol{v}\\cdot\\boldsymbol{g} = -g\\rho v_y$, is not included in $S_E$, the kinetic energy gained from gravity is subtracted without having been added to $E$, and the internal energy decreases. To conserve the total energy, return $-g\\rho v_y$ in `ei`."
 
 msgid "`demo/hd2d_rayleigh_taylor` の `ei` は 0 を返しているので、このデモでは、重力がした仕事の分が内部エネルギーの側で差し引かれます。"
-msgstr ""
+msgstr "The `ei` in `demo/hd2d_rayleigh_taylor` returns 0, so in this demo the work done by gravity is deducted from the internal energy side."
 
 msgid "重力を足すときは、ソース項のほかに、初期条件を静水圧平衡にすること（このデモでは $p = p_0 - g\\rho y$）と、$y$ 方向の端の境界条件も考える必要があります。"
-msgstr ""
+msgstr "When adding gravity, besides the source term you also need to consider making the initial condition satisfy hydrostatic equilibrium (in this demo, $p = p_0 - g\\rho y$) and the boundary conditions at the ends in the $y$ direction."
 
 msgid "練習 4：2 次元計算での z 方向の差分"
-msgstr ""
+msgstr "Exercise 4: Differences in the z direction in a 2D calculation"
 
 msgid "`demo/mhd2d_vortex` は `k_size: 1` の 2 次元計算です。 このとき、`update_sc4` の $z$ 方向の差分、CFL 条件、ハロー交換、人工粘性の $z$ 方向の更新がどうなるかを、`miso/include/miso/grid.hpp` の `AxisGrid` を読んで説明してください。"
-msgstr ""
+msgstr "`demo/mhd2d_vortex` is a 2D calculation with `k_size: 1`. Read `AxisGrid` in `miso/include/miso/grid.hpp` and explain what happens in this case to the $z$-direction difference in `update_sc4`, the CFL condition, the halo exchange, and the $z$-direction update of the artificial viscosity."
 
 msgid "`AxisGrid` は、格子数 `size` が 1 の方向で `stride = 0`、`margin = 0`、`total = 1` とし、格子間隔 `ds` を `1.e30`、その逆数 `dsi` を 0 にします。 `grid.ks` は `stride` なので 0、`grid.k_margin` は 0、`grid.k_total` は 1 です。"
-msgstr ""
+msgstr "In a direction where the number of grid points `size` is 1, `AxisGrid` sets `stride = 0`, `margin = 0`, and `total = 1`, sets the grid spacing `ds` to `1.e30`, and sets its reciprocal `dsi` to 0. `grid.ks` is the `stride`, so it is 0; `grid.k_margin` is 0; and `grid.k_total` is 1."
 
 msgid "**差分**：`space_centered_4th(..., 0, 0, grid.ks)` は `ks = 0` なので 4 点がすべて同じ格子点 `k` になり、$(-1 + 8 - 8 + 1)$ の組み合わせで 0 になります。さらに `dzi` も 0 です。$z$ 方向の微分の項は 0 になります。"
-msgstr ""
+msgstr "**Difference**: In `space_centered_4th(..., 0, 0, grid.ks)`, `ks = 0`, so all 4 points are the same grid point `k`, and the combination $(-1 + 8 - 8 + 1)$ gives 0. In addition, `dzi` is also 0. The derivative terms in the $z$ direction become 0."
 
 msgid "**CFL 条件**：`min3(dx[i], dy[j], dz[k])` で `dz` が `1.e30` なので、$z$ 方向は時間刻みを制限しません。"
-msgstr ""
+msgstr "**CFL condition**: In `min3(dx[i], dy[j], dz[k])`, `dz` is `1.e30`, so the $z$ direction does not restrict the time step."
 
 msgid "**ハロー交換**：`HaloExchanger` の $z$ 方向は `grid.k_size > 1` が偽なので行いません（GPU 版は `grid.k_total > 1` で判定します）。"
-msgstr ""
+msgstr "**Halo exchange**: The $z$ direction of `HaloExchanger` is not performed because `grid.k_size > 1` is false (the GPU version decides with `grid.k_total > 1`)."
 
 #, python-brace-format
 msgid "**人工粘性**：`Direction::Z` では `ks = 0` なので左右の値がすべて同じになり、流束の差 $F_{i+1/2} - F_{i-1/2}$ が 0 です。掛ける `dzi` も 0 なので値は変わりません。"
-msgstr ""
+msgstr "**Artificial viscosity**: For `Direction::Z`, `ks = 0`, so the left and right values are all the same, and the flux difference $F_{i+1/2} - F_{i-1/2}$ is 0. The `dzi` it is multiplied by is also 0, so the values do not change."
 
 msgid "ループの範囲はどれも `k = 0` だけになり、配列の範囲外を読むことはありません。"
-msgstr ""
+msgstr "In every case the loop range is just `k = 0`, and no out-of-range array access occurs."
 
 msgid "練習 5：4 次中心差分の精度を確かめる（発展）"
-msgstr ""
+msgstr "Exercise 5: Checking the accuracy of the fourth-order central difference (advanced)"
 
 #, python-brace-format
 msgid "MISO を使うプログラムを自分で書き、`mhd::space_centered_4th` で $f(x) = \\sin x$ の微分を求めて、$\\cos x$ との差の最大値を調べてください。 $0 \\le x < 2\\pi$ を $n$ 個のセルに分け、セル中心 $x_i = (i + 1/2)\\Delta x$ に値を置きます。 $n = 16, 32, 64$ で誤差がどう変わるかを確かめてください。 ビルドは、{ref}`第 1 章 <edu-ch01>` の「自分のプログラムから MISO を使う最小の CMake 設定」を使います。"
-msgstr ""
+msgstr "Write a program that uses MISO, compute the derivative of $f(x) = \\sin x$ with `mhd::space_centered_4th`, and find the maximum difference from $\\cos x$. Divide $0 \\le x < 2\\pi$ into $n$ cells and place the values at the cell centers $x_i = (i + 1/2)\\Delta x$. Check how the error changes for $n = 16, 32, 64$. For the build, use the \"minimal CMake configuration for using MISO from your own program\" in {ref}`Chapter 1 <edu-ch01>`."
 
 msgid "作るものは次のとおりです。"
-msgstr ""
+msgstr "What to build is as follows."
 
 msgid "`#include <miso/core.hpp>` と `#include <miso/mhd.hpp>` を書きます（`space_centered_4th` は `mhd.hpp` から読み込まれます）。"
-msgstr ""
+msgstr "Write `#include <miso/core.hpp>` and `#include <miso/mhd.hpp>` (`space_centered_4th` is included from `mhd.hpp`)."
 
 msgid "ゴーストセルを両側に 2 つずつ付けた `Array3D<double>`（大きさ `n + 4, 1, 1`）を作り、添字 `i` の位置 $x = (i - 2 + 1/2)\\Delta x$ に $\\sin x$ を入れます。ゴーストセルにも同じ式で値を入れると、周期境界と同じになります。"
-msgstr ""
+msgstr "Create an `Array3D<double>` with 2 ghost cells on each side (of size `n + 4, 1, 1`), and put $\\sin x$ at the position $x = (i - 2 + 1/2)\\Delta x$ of index `i`. If you fill the ghost cells with the same formula, the result is the same as a periodic boundary."
 
 msgid "`i = 2` から `n + 1` まで、`mhd::space_centered_4th(f.const_view(), 1.0 / dx, i, 0, 0, 1, 0, 0)` と $\\cos x$ の差の最大値を求めます。"
-msgstr ""
+msgstr "For `i = 2` to `n + 1`, find the maximum of the difference between `mhd::space_centered_4th(f.const_view(), 1.0 / dx, i, 0, 0, 1, 0, 0)` and $\\cos x$."
 
 msgid "`space_centered_4th` は MPI を使わないので、このプログラムでは `Env` を作らなくても動きます。"
-msgstr ""
+msgstr "`space_centered_4th` does not use MPI, so this program works even without creating an `Env`."
 
 msgid "結果の例は次のとおりです。"
-msgstr ""
+msgstr "An example of the result is as follows."
 
 #, python-brace-format
 msgid "格子数を 2 倍にすると誤差がおよそ $1/16 = 1/2^4$ になり、4 次精度であることが分かります。 差分式の誤差の主要項は $-\\frac{\\Delta x^4}{30} f^{(5)}$ で、$f = \\sin x$ では最大値が $\\Delta x^4/30$ です。$n = 16$ では $\\Delta x = \\pi/8$ なので $(\\pi/8)^4/30 \\approx 7.9\\times 10^{-4}$ となり、結果と合います。"
-msgstr ""
+msgstr "Doubling the number of grid points reduces the error to about $1/16 = 1/2^4$, which shows that the scheme is fourth-order accurate. The leading term of the error of the difference formula is $-\\frac{\\Delta x^4}{30} f^{(5)}$, and for $f = \\sin x$ its maximum is $\\Delta x^4/30$. For $n = 16$, $\\Delta x = \\pi/8$, so $(\\pi/8)^4/30 \\approx 7.9\\times 10^{-4}$, which agrees with the result."
 
 msgid "練習 6：出力の時刻"
-msgstr ""
+msgstr "Exercise 6: Output times"
 
 msgid "`demo/mhd2d_vortex` を `dt_output: 0.01` で実行すると、`data/time/time.00000001.txt` の 1 行目は `0.0100069` のように、0.01 からわずかにずれた値になります。 このずれが生じる理由を、`ModelBase::save_if_needed` と `ModelBase::run` を読んで説明してください。"
-msgstr ""
+msgstr "When you run `demo/mhd2d_vortex` with `dt_output: 0.01`, the first line of `data/time/time.00000001.txt` is a value slightly off from 0.01, such as `0.0100069`. Read `ModelBase::save_if_needed` and `ModelBase::run` and explain why this offset occurs."
 
 msgid "`run()` は 1 ステップ進めるたびに `save_if_needed()` を呼び、`time.time >= dt_output * n_output` が成り立った最初のステップで出力します。 時間刻み $\\Delta t$ は CFL 条件だけで決まり、出力時刻にちょうど届くように縮めることはしません。 そのため、出力されるのは 0.01 を初めて越えたステップの時刻で、0.01 より最大 $\\Delta t$ だけ後になります。"
-msgstr ""
+msgstr "`run()` calls `save_if_needed()` after every step and writes output at the first step at which `time.time >= dt_output * n_output` holds. The time step $\\Delta t$ is determined only by the CFL condition and is not shortened to land exactly on the output time. As a result, the time that is written is that of the step that first exceeds 0.01, which is later than 0.01 by at most $\\Delta t$."
 
 msgid "出力時刻の正確な値は、`time/time.NNNNNNNN.txt` の 1 行目に書かれています。解析で時刻を使うときは、`dt_output` の倍数ではなく、このファイルの値（`pymiso` が読む値）を使います。"
-msgstr ""
+msgstr "The exact value of the output time is written on the first line of `time/time.NNNNNNNN.txt`. When you use the time in analysis, use the value in this file (the value that `pymiso` reads), not a multiple of `dt_output`."
 
 #, python-brace-format
 msgid "{ref}`目次 <edu-index>` · {ref}`前の章 <edu-ch10>` · {ref}`Fortran との対応表 <edu-ref-fortran-map>`"
-msgstr ""
+msgstr "{ref}`Contents <edu-index>` · {ref}`Previous chapter <edu-ch10>` · {ref}`Fortran correspondence table <edu-ref-fortran-map>`"
 

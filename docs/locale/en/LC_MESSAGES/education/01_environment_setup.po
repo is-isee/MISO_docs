@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MISO \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-10-29 13:33+0900\n"
+"POT-Creation-Date: 2026-10-29 13:55+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: en\n"
@@ -74,7 +74,7 @@ msgid "必要な道具"
 msgstr "Required tools"
 
 msgid "この教材は CPU だけで進められます。GPU がなくても、C++ の練習、MISO の配列と並列ループ、MPI による領域分割、 1 次元熱伝導の実習、MISO のデモの実行まで行えます。"
-msgstr "You can work through this course with a CPU alone. Even without a GPU, you can practice C++, use MISO's arrays and parallel loops, decompose the domain with MPI, do the 1D heat conduction exercise, and run MISO's demos."
+msgstr "You can work through this course with a CPU alone. Even without a GPU, you can practice C++, use MISO's arrays and parallel loops, decompose the domain with MPI, do the 1D heat conduction practice, and run MISO's demos."
 
 msgid "道具"
 msgstr "Tool"
@@ -311,6 +311,13 @@ msgstr "Exercise 1-1"
 msgid "`yaml_check.cpp` を、`-lyaml-cpp` を付けずにビルドしてください。 エラーがコンパイルとリンクのどちらの段階で起きたかを、表示から判断して説明してください。"
 msgstr "Build `yaml_check.cpp` without `-lyaml-cpp`. From the output, determine and explain whether the error occurred at the compile stage or the link stage."
 
+msgid ""
+"<details>\n"
+"<summary>解答・解説</summary>\n"
+msgstr ""
+"<details>\n"
+"<summary>Answer and explanation</summary>\n"
+
 msgid "Ubuntu では次のような表示が出ます（一部を抜粋）。"
 msgstr "On Ubuntu, you see output like the following (excerpt)."
 
@@ -319,6 +326,9 @@ msgstr "`undefined reference` is an error at the **link** stage. The declaration
 
 msgid "一方、ヘッダが見つからないときは `fatal error: yaml-cpp/yaml.h: No such file or directory` のように表示されます。 これはコンパイルの段階のエラーで、`-I` の指定かパッケージのインストールを確かめます。"
 msgstr "On the other hand, when a header cannot be found, the output looks like `fatal error: yaml-cpp/yaml.h: No such file or directory`. This is a compile-stage error; check the `-I` option or the package installation."
+
+msgid "</details>\n"
+msgstr ""
 
 msgid "CMake の仕組み"
 msgstr "How CMake Works"
@@ -646,7 +656,7 @@ msgid "自分のプログラムから MISO を使う"
 msgstr "Using MISO from Your Own Program"
 
 msgid "第 7 章と第 10 章の実習では、MISO のフォルダの外に自分のフォルダを作り、MISO の部品を使うプログラムを書きます。 そのための最小の CMake の設定を作り、MISO が使えることを確かめます。"
-msgstr "In the exercises of Chapter 7 and Chapter 10, you create your own folder outside the MISO folder and write programs that use MISO components. Here we create the minimal CMake configuration for that and check that MISO works."
+msgstr "In the practice of Chapter 7 and Chapter 10, you create your own folder outside the MISO folder and write programs that use MISO components. Here we create the minimal CMake configuration for that and check that MISO works."
 
 msgid "作るもの"
 msgstr "What to create"
@@ -836,5 +846,5 @@ msgstr "What to Read Next"
 
 #, python-brace-format
 msgid "準備ができたら、{ref}`第 2 章：変数・関数・制御文 <edu-ch02>` へ進みます。 この章で作った `miso_check` のフォルダと `CMakeLists.txt` の形は、{ref}`第 7 章 <edu-ch07>` と {ref}`第 10 章 <edu-ch10>` の実習で使います。"
-msgstr "When you are ready, go on to {ref}`Chapter 2: Variables, Functions, and Control Statements <edu-ch02>`. The folder of `miso_check` that you created in this chapter and the form of its `CMakeLists.txt` will be used in the exercises of {ref}`Chapter 7 <edu-ch07>` and {ref}`Chapter 10 <edu-ch10>`."
+msgstr "When you are ready, go on to {ref}`Chapter 2: Variables, Functions, and Control Statements <edu-ch02>`. The folder of `miso_check` that you created in this chapter and the form of its `CMakeLists.txt` will be used in the practice of {ref}`Chapter 7 <edu-ch07>` and {ref}`Chapter 10 <edu-ch10>`."
 

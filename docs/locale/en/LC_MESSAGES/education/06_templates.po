@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MISO \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-10-29 13:33+0900\n"
+"POT-Creation-Date: 2026-10-29 13:55+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: en\n"
@@ -20,547 +20,557 @@ msgstr ""
 "Generated-By: Babel 2.18.0\n"
 
 msgid "6. テンプレート"
-msgstr ""
+msgstr "6\\. Templates"
 
 msgid "目次"
-msgstr ""
+msgstr "Contents"
 
 #, python-brace-format
 msgid "{ref}`はじめに <edu-ch06-intro>`"
-msgstr ""
+msgstr "{ref}`Introduction <edu-ch06-intro>`"
 
 #, python-brace-format
 msgid "{ref}`6.1 関数テンプレート <edu-ch06-function-templates>`"
-msgstr ""
+msgstr "{ref}`6.1 Function templates <edu-ch06-function-templates>`"
 
 #, python-brace-format
 msgid "{ref}`6.2 クラステンプレート <edu-ch06-class-templates>`"
-msgstr ""
+msgstr "{ref}`6.2 Class templates <edu-ch06-class-templates>`"
 
 #, python-brace-format
 msgid "{ref}`6.3 変数テンプレート <edu-ch06-variable-templates>`"
-msgstr ""
+msgstr "{ref}`6.3 Variable templates <edu-ch06-variable-templates>`"
 
 #, python-brace-format
 msgid "{ref}`6.4 タグ型によるオーバーロードの選択 <edu-ch06-tag-dispatch>`"
-msgstr ""
+msgstr "{ref}`6.4 Selecting overloads with tag types <edu-ch06-tag-dispatch>`"
 
 #, python-brace-format
 msgid "{ref}`6.5 テンプレートの特殊化 <edu-ch06-specialization>`"
-msgstr ""
+msgstr "{ref}`6.5 Template specialization <edu-ch06-specialization>`"
 
 #, python-brace-format
 msgid "{ref}`6.6 if constexpr と static_assert <edu-ch06-if-constexpr>`"
-msgstr ""
+msgstr "{ref}`6.6 if constexpr and static_assert <edu-ch06-if-constexpr>`"
 
 #, python-brace-format
 msgid "{ref}`6.7 型の性質を調べる仕組み <edu-ch06-type-traits>`"
-msgstr ""
+msgstr "{ref}`6.7 Mechanisms for examining the properties of types <edu-ch06-type-traits>`"
 
 #, python-brace-format
 msgid "{ref}`6.7.1 型の性質を値として持つ構造体 <edu-ch06-true-false-type>`"
-msgstr ""
+msgstr "{ref}`6.7.1 Structs that hold a type's property as a value <edu-ch06-true-false-type>`"
 
 #, python-brace-format
 msgid "{ref}`6.7.2 std::void_t によるメンバの検査 <edu-ch06-void-t>`"
-msgstr ""
+msgstr "{ref}`6.7.2 Checking for members with std::void_t <edu-ch06-void-t>`"
 
 #, python-brace-format
 msgid "{ref}`6.7.3 マクロとテンプレートの組み合わせ（ソース項） <edu-ch06-source-term-macro>`"
-msgstr ""
+msgstr "{ref}`6.7.3 Combining macros and templates (source terms) <edu-ch06-source-term-macro>`"
 
 #, python-brace-format
 msgid "{ref}`6.7.4 テンプレートの中の .template <edu-ch06-dot-template>`"
-msgstr ""
+msgstr "{ref}`6.7.4 .template inside templates <edu-ch06-dot-template>`"
 
 #, python-brace-format
 msgid "{ref}`練習：テンプレートの指定と選択 <edu-ch06-exercises>`"
-msgstr ""
+msgstr "{ref}`Exercises: specifying and selecting templates <edu-ch06-exercises>`"
 
 msgid "はじめに"
-msgstr ""
+msgstr "Introduction"
 
 msgid "MISO の計算は、単精度（`float`）でも倍精度（`double`）でも、CPU でも GPU でも動きます。 demo の `main.cpp` では、次の 2 行でそれを選んでいます（`demo/mhd2d_vortex/src/main.cpp` から抜粋）。"
-msgstr ""
+msgstr "MISO's computations run in single precision (`float`) or double precision (`double`), on a CPU or a GPU. The demo's `main.cpp` chooses among them with the following two lines (excerpt from `demo/mhd2d_vortex/src/main.cpp`)."
 
 msgid "ライブラリ側（`miso/include/miso/`）には、`float` 用と `double` 用、CPU 用と GPU 用の計算を別々に書いてはいません。 型を「後から指定する名前」にしておき、使う側が `Real` や `Backend` を与えた時点で、コンパイラが具体的な関数やクラスを作ります。 この仕組みを**テンプレート**（template）と呼びます。"
-msgstr ""
+msgstr "The library side (`miso/include/miso/`) does not have separate code for `float` and `double`, or for CPU and GPU. Types are left as \"names to be specified later,\" and when the user provides `Real` and `Backend`, the compiler creates the concrete functions and classes. This mechanism is called a **template**."
 
 #, python-brace-format
 msgid "{ref}`第 5 章 <edu-ch05>`では `ModelBase<Model, Real, Backend>` の山括弧に型を渡すことだけを使いました。 この章では、関数・クラス・変数のテンプレートの書き方から始め、 MISO が `Backend` に応じて CPU 用と GPU 用の処理を選ぶ仕組み、モデルに必要なメンバがあるかをコンパイル時に調べる仕組みまでを読みます。 最後の 6.7 節は、自分で書けなくても、MISO のソースを読めれば十分です。"
-msgstr ""
+msgstr "In {ref}`Chapter 5 <edu-ch05>`, we used only the act of passing types into the angle brackets of `ModelBase<Model, Real, Backend>`. This chapter starts with how to write templates for functions, classes, and variables, then reads how MISO selects CPU or GPU processing according to `Backend`, and how it checks at compile time whether a model has the required members. You do not need to be able to write the last Section 6.7 yourself; being able to read MISO's source is enough."
 
 msgid "6.1 関数テンプレート"
-msgstr ""
+msgstr "6.1 Function Templates"
 
 #, python-brace-format
 msgid "二乗を計算する式は、整数でも実数でも `x * x` です。 {ref}`第 2 章 <edu-ch02>`のオーバーロードでは、`int` 用と `double` 用の関数をそれぞれ定義しました。 処理の形が型によらず同じなら、型の部分を `T` という仮の名前にして、1 つの定義にまとめられます。"
-msgstr ""
+msgstr "The expression for computing a square is `x * x` for both integers and real numbers. In the overloading of {ref}`Chapter 2 <edu-ch02>`, we defined separate functions for `int` and `double`. If the form of the processing is the same regardless of type, you can replace the type part with a placeholder name `T` and combine them into one definition."
 
 msgid "このように定義した関数を**関数テンプレート**（function template）と呼びます。"
-msgstr ""
+msgstr "A function defined this way is called a **function template**."
 
 msgid "`template <typename T>` は「この後の定義では、`T` を型の名前として使う」という宣言です。`typename` の代わりに `class` と書いても同じ意味です。`class` と書いても、`T` がクラス型に限られるわけではありません。"
-msgstr ""
+msgstr "`template <typename T>` is a declaration that \"in the following definition, `T` is used as the name of a type.\" Writing `class` instead of `typename` means the same. Even if you write `class`, `T` is not limited to class types."
 
 msgid "`square<double>` の山括弧に書く `double` を**テンプレート引数**（template argument）と呼びます。`(1.5)` は値の引数で、役割が違います。"
-msgstr ""
+msgstr "The `double` written in the angle brackets of `square<double>` is called a **template argument**. `(1.5)` is a value argument, and has a different role."
 
 msgid "`square(2.5f)` のように山括弧を省くと、コンパイラは引数の型から `T` を決めます。これを**テンプレート引数の推論**（template argument deduction）と呼びます。"
-msgstr ""
+msgstr "If you omit the angle brackets, as in `square(2.5f)`, the compiler determines `T` from the argument's type. This is called **template argument deduction**."
 
 msgid "コンパイラは、`square<double>` が使われた時点で、`T` を `double` に置き換えた関数を作ります。 これを**実体化**（instantiation）と呼びます。実行中に型を取り替えるのではなく、コンパイル時に型ごとの関数が用意されます。 `square<int>` と `square<double>` は、名前が似た別々の関数です。"
-msgstr ""
+msgstr "When `square<double>` is used, the compiler creates a function with `T` replaced by `double`. This is called **instantiation**. The type is not swapped at run time; instead, a function for each type is prepared at compile time. `square<int>` and `square<double>` are separate functions with similar names."
 
 msgid "推論には、型が一つに決まる必要があります。次の `max_of` は 2 つの引数に同じ `T` を使っているので、 `int` と `double` を混ぜて渡すとコンパイルエラーになります。"
-msgstr ""
+msgstr "Deduction requires that the type be determined uniquely. The following `max_of` uses the same `T` for both arguments, so passing a mix of `int` and `double` is a compile error."
 
 msgid "g++ では次のような説明が出ます。"
-msgstr ""
+msgstr "g++ gives an explanation like the following."
 
 #, python-brace-format
 msgid "**テンプレートの定義はヘッダに置きます。** コンパイラは実体化のときに関数の本体を見る必要があるので、テンプレートは宣言だけでなく本体まで、使う側から見える場所に書きます。 MISO がヘッダオンリー（`.hpp` だけのライブラリ）なのは、ほとんどがテンプレートだからです。 {ref}`第 2 章 <edu-ch02>`で、ヘッダに置く通常の関数には `inline` が必要だと説明しました。 関数テンプレートは、同じ定義が複数の `.cpp` に現れても許される決まりなので、`inline` がなくてもリンクの問題は起きません。 MISO では、テンプレートにも `inline` を付けている箇所があります。付けても意味は変わりません。"
-msgstr ""
+msgstr "**Put the definition of a template in the header.** The compiler needs to see the function body at instantiation, so for a template you write not only the declaration but also the body in a place visible to the user. MISO is header-only (a library of only `.hpp` files) because most of it is templates. In {ref}`Chapter 2 <edu-ch02>`, we explained that ordinary functions placed in a header need `inline`. For function templates, the same definition is allowed to appear in multiple `.cpp` files, so no link problem occurs without `inline`. In MISO, some templates also have `inline`. Adding it does not change the meaning."
 
 msgid "MISO の例：4 次の中心差分"
-msgstr ""
+msgstr "A MISO example: fourth-order central difference"
 
 msgid "`miso/include/miso/mhd_integrator.hpp` の `space_centered_4th` は、`Real` を後から決める関数テンプレートです。 宣言の部分だけを示します（本体は第 11 章で読みます）。"
-msgstr ""
+msgstr "`space_centered_4th` in `miso/include/miso/mhd_integrator.hpp` is a function template in which `Real` is decided later. We show only the declaration part (the body is read in Chapter 11)."
 
 #, python-brace-format
 msgid "`__host__ __device__` は、この関数を CPU からも GPU からも呼べるようにする指定です（{ref}`第 9 章 <edu-ch09>`）。CPU だけのビルドでは空の文字列に置き換わります。"
-msgstr ""
+msgstr "`__host__ __device__` is a specification that makes this function callable from both the CPU and the GPU ({ref}`Chapter 9 <edu-ch09>`). In CPU-only builds, it is replaced with an empty string."
 
 msgid "呼び出す側は `space_centered_4th(qq_view, dxi, i, j, k, 1, 0, 0)` のように `<Real>` を書きません。`qq_view` の型が `Array3DView<const float>` なら、`Real` は `float` と推論されます。 `Array3DView<const Real>` のように、別のテンプレートの山括弧の中にある `Real` も推論の手がかりになります。"
-msgstr ""
+msgstr "The caller does not write `<Real>`, as in `space_centered_4th(qq_view, dxi, i, j, k, 1, 0, 0)`. If the type of `qq_view` is `Array3DView<const float>`, `Real` is deduced to be `float`. A `Real` inside the angle brackets of another template, as in `Array3DView<const Real>`, also serves as a clue for deduction."
 
 msgid "6.2 クラステンプレート"
-msgstr ""
+msgstr "6.2 Class Templates"
 
 msgid "クラス（構造体）にも、型を後から指定する仕組みがあります。 次は、同じ型の値 2 つと、それらを足すメンバ関数をまとめた**クラステンプレート**（class template）です。"
-msgstr ""
+msgstr "Classes (structs) also have a mechanism for specifying types later. The following is a **class template** that bundles two values of the same type and a member function that adds them."
 
 msgid "`ValuePair<double>` 全体で 1 つの型の名前です。`ValuePair<int>` は別の型で、互いに代入はできません。 どちらも同じ定義から作られますが、`ValuePair` だけでは型になりません（C++17 には、初期値から山括弧の中を推論する仕組みもありますが、この教材では使いません）。"
-msgstr ""
+msgstr "`ValuePair<double>` as a whole is the name of one type. `ValuePair<int>` is a different type, and they cannot be assigned to each other. Both are created from the same definition, but `ValuePair` alone is not a type (C++17 also has a mechanism that deduces what is inside the angle brackets from the initial values, but this course does not use it)."
 
 #, python-brace-format
 msgid "{ref}`第 4 章 <edu-ch04>`の `std::vector<double>` や `Array3D<Real>` の山括弧も、このテンプレート引数です。"
-msgstr ""
+msgstr "The angle brackets of `std::vector<double>` and `Array3D<Real>` in {ref}`Chapter 4 <edu-ch04>` are also template arguments of this kind."
 
 msgid "テンプレート引数の既定値"
-msgstr ""
+msgstr "Default values for template arguments"
 
 msgid "関数の引数と同じく、テンプレート引数にも既定値を付けられます。 `miso/include/miso/array3d.hpp` の宣言は次のとおりです。"
-msgstr ""
+msgstr "As with function arguments, template arguments can have default values. The declaration in `miso/include/miso/array3d.hpp` is as follows."
 
 msgid "`T` は要素の型、`Backend` は配列を置く場所です。 `Array3D<float>` と書けば `Array3D<float, backend::Host>` の意味になり、CPU のメモリに置かれます。 GPU のメモリに置くときは `Array3D<float, backend::CUDA>` と、2 つ目を書きます。 `Fields`（`mhd_fields.hpp`）、`Grid`（`grid.hpp`）なども、同じように `Backend` の既定値を `backend::Host` にしています。"
-msgstr ""
+msgstr "`T` is the element type, and `Backend` is where the array is placed. Writing `Array3D<float>` means `Array3D<float, backend::Host>`, and it is placed in CPU memory. To place it in GPU memory, write the second argument: `Array3D<float, backend::CUDA>`. `Fields` (`mhd_fields.hpp`), `Grid` (`grid.hpp`), and others also set the default of `Backend` to `backend::Host` in the same way."
 
 msgid "MISO の例：Real を受け取るクラス"
-msgstr ""
+msgstr "A MISO example: classes that take Real"
 
 msgid "MISO のクラスの多くは、`Real` を受け取るクラステンプレートです。 `miso/include/miso/eos.hpp` の理想気体の状態方程式を、メンバ変数とコンストラクタだけにすると次の形です。"
-msgstr ""
+msgstr "Many MISO classes are class templates that take `Real`. Reduced to just the member variables and the constructor, the ideal-gas equation of state in `miso/include/miso/eos.hpp` looks like this."
 
 msgid "demo では `eos::IdealEOS<Real> eos;` と宣言します。`Real` が `float` なら、`gm` は `float` のメンバになります。 `config[\"eos\"][\"gm\"].as<Real>()` の `as<Real>` も、設定ファイルの値を `Real` 型で取り出す関数テンプレートの呼び出しです（yaml-cpp の機能）。"
-msgstr ""
+msgstr "The demo declares `eos::IdealEOS<Real> eos;`. If `Real` is `float`, `gm` becomes a `float` member. The `as<Real>` in `config[\"eos\"][\"gm\"].as<Real>()` is also a call of a function template that extracts a value from the configuration file as type `Real` (a yaml-cpp feature)."
 
 #, python-brace-format
 msgid "{ref}`第 5 章 <edu-ch05>`の `ModelBase` は、テンプレート引数を 3 つ持つクラステンプレートです。"
-msgstr ""
+msgstr "`ModelBase` from {ref}`Chapter 5 <edu-ch05>` is a class template with three template arguments."
 
 msgid "（`miso/include/miso/mhd_model_base.hpp` から抜粋）"
-msgstr ""
+msgstr "(Excerpt from `miso/include/miso/mhd_model_base.hpp`)"
 
 msgid "受け取った `Real` と `Backend` を、そのまま `Time<Real>` や `MHD<Real, Backend>` のテンプレート引数に渡しています。 demo が `Real` と `Backend` を一度決めると、それがメンバのクラスへ順に伝わり、MISO 全体の型が決まります。 ここで `grid` だけは `Backend` によらず `backend::Host` です。格子の座標は、まず CPU 側で用意するためです。"
-msgstr ""
+msgstr "The received `Real` and `Backend` are passed as they are to the template arguments of `Time<Real>` and `MHD<Real, Backend>`. Once the demo decides `Real` and `Backend`, they propagate in turn to the member classes, and the types of all of MISO are determined. Here only `grid` is `backend::Host` regardless of `Backend`, because the grid coordinates are first prepared on the CPU side."
 
 msgid "6.3 変数テンプレート"
-msgstr ""
+msgstr "6.3 Variable Templates"
 
 msgid "$\\pi$ や $1/12$ のような定数を、`Real` の精度で使いたいことがあります。 `float` の計算に `double` の定数を混ぜると、計算全体が `double` で行われてから `float` に戻され、遅くなったり、型の不一致で警告が出たりします。 型ごとに定数を用意するには、変数にもテンプレートを使います。これを**変数テンプレート**（variable template）と呼びます。"
-msgstr ""
+msgstr "Sometimes you want to use constants such as $\\pi$ and $1/12$ at the precision of `Real`. If you mix a `double` constant into a `float` computation, the whole computation is done in `double` and then converted back to `float`, which slows things down or produces warnings about type mismatch. To prepare a constant for each type, use templates for variables as well. This is called a **variable template**."
 
 msgid "`third<float>` と `third<double>` は別々の定数で、それぞれの型の精度で値を持ちます。"
-msgstr ""
+msgstr "`third<float>` and `third<double>` are separate constants, each holding a value at the precision of its type."
 
 #, python-brace-format
 msgid "`constexpr` は、値がコンパイル時に決まる定数であることを表します（{ref}`第 2 章 <edu-ch02>`）。"
-msgstr ""
+msgstr "`constexpr` indicates a constant whose value is determined at compile time ({ref}`Chapter 2 <edu-ch02>`)."
 
 msgid "`static_cast<T>(...)` は、`double` で計算した `1.0 / 3.0` を `T` に変換します。"
-msgstr ""
+msgstr "`static_cast<T>(...)` converts `1.0 / 3.0`, computed in `double`, to `T`."
 
 msgid "`inline` は、この定義をヘッダに置き、複数の `.cpp` から読み込んでもよいことを表します（C++17 から変数にも付けられます）。"
-msgstr ""
+msgstr "`inline` indicates that this definition is placed in a header and may be included from multiple `.cpp` files (it can be applied to variables from C++17)."
 
 msgid "MISO の例：`constants.hpp`"
-msgstr ""
+msgstr "A MISO example: `constants.hpp`"
 
 msgid "`miso/include/miso/constants.hpp` の全体です。"
-msgstr ""
+msgstr "This is the whole of `miso/include/miso/constants.hpp`."
 
 msgid "使う側は `pi<Real>`、`pii4<Real>` と書きます。たとえば `demo/mhd2d_vortex/src/main.cpp` の初期条件には `util::sin(2.0 * pi<Real> * grid.y[j])` があり、`mhd_integrator.hpp` の差分では `inv12<Real>` を掛けています。 `miso::pii4<float>` と `miso::pii4<double>` を表示すると、次のように精度が違います。"
-msgstr ""
+msgstr "The user writes `pi<Real>` and `pii4<Real>`. For example, the initial condition in `demo/mhd2d_vortex/src/main.cpp` has `util::sin(2.0 * pi<Real> * grid.y[j])`, and the differences in `mhd_integrator.hpp` multiply by `inv12<Real>`. If you print `miso::pii4<float>` and `miso::pii4<double>`, the precision differs as follows."
 
 msgid "`M_PI` は C++ 規格の定数ではなく、`<cmath>` が多くの環境で用意するマクロです。 C++20 には `std::numbers::pi_v<T>` という同じ役割の変数テンプレートがありますが、MISO は C++17 なので自前で定義しています。"
-msgstr ""
+msgstr "`M_PI` is not a constant of the C++ standard, but a macro that `<cmath>` provides in many environments. C++20 has a variable template with the same role, `std::numbers::pi_v<T>`, but MISO is C++17, so it defines its own."
 
 msgid "6.4 タグ型によるオーバーロードの選択"
-msgstr ""
+msgstr "6.4 Selecting Overloads with Tag Types"
 
 #, python-brace-format
 msgid "同じ呼び出しの形のまま、CPU 用と GPU 用の処理をコンパイル時に選びたい場面を考えます。 {ref}`第 2 章 <edu-ch02>`のオーバーロードでは、引数の型によって呼ばれる関数が決まりました。 そこで、「どちらで計算するか」を表すだけの、中身のない型を用意して引数に渡します。"
-msgstr ""
+msgstr "Consider a situation where you want to select CPU or GPU processing at compile time while keeping the same call form. In the overloading of {ref}`Chapter 2 <edu-ch02>`, the function called was determined by the argument types. So we prepare empty types that only express \"which one to compute with\" and pass them as arguments."
 
 #, python-brace-format
 msgid "`Cpu{}` は、`Cpu` 型の値を初期値なしで 1 つ作る式です。中身がないので、値に意味はなく、**型だけ**が情報になります。"
-msgstr ""
+msgstr "`Cpu{}` is an expression that creates one value of type `Cpu` with no initial value. It has no contents, so the value carries no meaning, and **only the type** is information."
 
 msgid "`void run(Cpu, int n)` のように、使わない引数は名前を省略できます。型を見分けるためだけの引数です。"
-msgstr ""
+msgstr "As in `void run(Cpu, int n)`, you can omit the name of an unused argument. It is an argument only for distinguishing types."
 
 msgid "`compute` の中の `run(b, n)` がどちらの `run` を呼ぶかは、コンパイル時に決まります。実行時に `if` で分岐するわけではありません。"
-msgstr ""
+msgstr "Which `run` the `run(b, n)` inside `compute` calls is determined at compile time. It is not branching with `if` at run time."
 
 msgid "このように、選択の目印にする中身のない型を**タグ型**（tag type）と呼び、 タグ型の引数でオーバーロードを選ぶ書き方を**タグディスパッチ**（tag dispatch）と呼びます。"
-msgstr ""
+msgstr "An empty type used as a selection marker in this way is called a **tag type**, and the style of selecting an overload by a tag-type argument is called **tag dispatch**."
 
 msgid "MISO の例：`backend.hpp` と `for_each`"
-msgstr ""
+msgstr "A MISO example: `backend.hpp` and `for_each`"
 
 msgid "MISO のタグ型は `miso/include/miso/backend.hpp` にある 2 つです。"
-msgstr ""
+msgstr "MISO's tag types are the two in `miso/include/miso/backend.hpp`."
 
 msgid "並列ループの `for_each`（`miso/include/miso/execution.hpp`）は、1 つ目の引数のタグ型で CPU 用と GPU 用を選びます。 本体を省略し、宣言の形だけを示します。"
-msgstr ""
+msgstr "The parallel loop `for_each` (`miso/include/miso/execution.hpp`) selects CPU or GPU by the tag type of its first argument. We omit the body and show only the form of the declarations."
 
 msgid "（説明用のコメントに置き換えています。3 次元の `Range3D` 用も同じ形で並んでいます。）"
-msgstr ""
+msgstr "(They are replaced with explanatory comments. The versions for the three-dimensional `Range3D` are lined up in the same form.)"
 
 msgid "1 つ目の引数は名前のないタグ型です。上の `run(Cpu, int)` と同じ形です。"
-msgstr ""
+msgstr "The first argument is an unnamed tag type. It has the same form as `run(Cpu, int)` above."
 
 #, python-brace-format
 msgid "`F` は、ループの中身として渡すラムダ式（名前のない関数）の型です。ラムダ式は {ref}`第 7 章 <edu-ch07>`で説明します。"
-msgstr ""
+msgstr "`F` is the type of the lambda expression (an unnamed function) passed as the loop body. Lambda expressions are explained in {ref}`Chapter 7 <edu-ch07>`."
 
 #, python-brace-format
 msgid "CUDA 版は `#ifdef __CUDACC__` の中にあり、CUDA のコンパイラ（nvcc）でビルドするときだけ定義されます。CPU だけのビルドで `backend::CUDA{}` を渡すと、該当する `for_each` がないのでコンパイルエラーになります。"
-msgstr ""
+msgstr "The CUDA version is inside `#ifdef __CUDACC__` and is defined only when building with the CUDA compiler (nvcc). If you pass `backend::CUDA{}` in a CPU-only build, there is no matching `for_each`, so it is a compile error."
 
 msgid "タグを受け取って下へ渡す例が、`miso/include/miso/eos.hpp` の `IdealEOS` のメンバ関数です（本体は第 7 章で読みます）。"
-msgstr ""
+msgstr "An example that receives a tag and passes it down is the member function of `IdealEOS` in `miso/include/miso/eos.hpp` (the body is read in Chapter 7)."
 
 #, python-brace-format
 msgid "`gas_pressure` は、クラステンプレートの中で、さらにテンプレートにしたメンバ関数です（**メンバ関数テンプレート**）。 CPU 用の `Integrator`（`miso/include/miso/mhd_integrator_host.hpp`）は `eos.gas_pressure(backend::Host{}, qq_argm.const_view(), pr.view());` と呼び、GPU 用は `backend::CUDA{}` を渡します。 `backend::Host{}` を渡すと `Backend` は `backend::Host` と推論され、中の `for_each` も CPU 版が選ばれます。 状態方程式の側は CPU と GPU を区別せずに 1 回書くだけで済みます。"
-msgstr ""
+msgstr "`gas_pressure` is a member function that is made a template inside a class template (a **member function template**). The CPU `Integrator` (`miso/include/miso/mhd_integrator_host.hpp`) calls `eos.gas_pressure(backend::Host{}, qq_argm.const_view(), pr.view());`, and the GPU one passes `backend::CUDA{}`. Passing `backend::Host{}` makes `Backend` deduced as `backend::Host`, and the CPU version of the inner `for_each` is selected as well. The equation-of-state side needs to be written only once, without distinguishing CPU and GPU."
 
 #, python-brace-format
 msgid "タグの値は `backend::Host{}` のほか、型の名前 `Backend` から `Backend{}` としても作れます。 `miso/include/miso/mhd_resistivity.hpp` の `ReduceWorkspace` には `miso::reduce(Backend{}, range, init, f, op)` という呼び出しがあります。"
-msgstr ""
+msgstr "A tag value can be created not only as `backend::Host{}` but also as `Backend{}` from the type name `Backend`. `ReduceWorkspace` in `miso/include/miso/mhd_resistivity.hpp` has the call `miso::reduce(Backend{}, range, init, f, op)`."
 
 msgid "6.5 テンプレートの特殊化"
-msgstr ""
+msgstr "6.5 Template Specialization"
 
 msgid "関数テンプレートやクラステンプレートは、どの型にも同じ定義を使います。 特定の型のときだけ別の定義を使いたい場合は、その型用の定義を追加します。これを**特殊化**（specialization）と呼びます。"
-msgstr ""
+msgstr "Function templates and class templates use the same definition for every type. If you want to use a different definition only for a specific type, you add a definition for that type. This is called **specialization**."
 
 msgid "6.5.1 完全な特殊化"
-msgstr ""
+msgstr "6.5.1 Explicit specialization"
 
 msgid "テンプレート引数をすべて決めた定義を、**完全な特殊化**（explicit specialization、明示的特殊化とも）と呼びます。 `template <>` と山括弧を空にして書きます。"
-msgstr ""
+msgstr "A definition in which all template arguments are decided is called an **explicit specialization** (also called a full specialization). It is written with an empty angle bracket, `template <>`."
 
 msgid "引数がないので推論はできず、`type_name<float>()` のように型を明示して呼びます。 `type_name<int>()` を呼ぶと、本体のある定義がないのでリンク時にエラーになります。"
-msgstr ""
+msgstr "There are no arguments, so deduction is impossible, and you call it by specifying the type explicitly, as in `type_name<float>()`. Calling `type_name<int>()` gives an error at link time because there is no definition with a body."
 
 msgid "MISO では、`miso/include/miso/mpi_util.hpp` が `Real` に対応する MPI のデータ型を返すのに、この形を使っています。"
-msgstr ""
+msgstr "In MISO, `miso/include/miso/mpi_util.hpp` uses this form to return the MPI data type corresponding to `Real`."
 
 #, python-brace-format
 msgid "`mpi::data_type<Real>()` と書けば、`Real` が `float` なら `MPI_FLOAT` が返ります（{ref}`第 8 章 <edu-ch08>`）。 完全な特殊化はもうテンプレートではない普通の関数なので、ヘッダに置くには `inline` が必要です。"
-msgstr ""
+msgstr "If you write `mpi::data_type<Real>()`, `MPI_FLOAT` is returned when `Real` is `float` ({ref}`Chapter 8 <edu-ch08>`). An explicit specialization is no longer a template but an ordinary function, so it needs `inline` to be placed in a header."
 
 msgid "6.5.2 部分特殊化"
-msgstr ""
+msgstr "6.5.2 Partial specialization"
 
 msgid "クラステンプレートでは、テンプレート引数の**一部だけ**を決めた定義も書けます。これを**部分特殊化**（partial specialization）と呼びます。 要素の型 `T` は自由なまま、置き場所 `Backend` ごとに中身を変える例です。"
-msgstr ""
+msgstr "For class templates, you can also write a definition that fixes **only some** of the template arguments. This is called **partial specialization**. This is an example where the element type `T` is left free and the contents change for each placement `Backend`."
 
 msgid "最初の `template <typename T, typename Backend> struct Storage;` を**基本のテンプレート**（primary template）と呼びます。ここでは宣言だけで、本体はありません。"
-msgstr ""
+msgstr "The first `template <typename T, typename Backend> struct Storage;` is called the **primary template**. Here it is only a declaration, with no body."
 
 msgid "`template <typename T> struct Storage<T, Cpu>` は、「`T` は自由、2 つ目は `Cpu`」に当てはまるときの定義です。`template` の後の山括弧には、まだ決まっていない `T` だけを書きます。"
-msgstr ""
+msgstr "`template <typename T> struct Storage<T, Cpu>` is the definition for when \"`T` is free and the second is `Cpu`.\" In the angle brackets after `template`, write only the `T` that is not yet decided."
 
 msgid "`Storage<float, Cpu>` と書くと、コンパイラは当てはまる部分特殊化を探して使います。どれにも当てはまらなければ、基本のテンプレートを使います。この例では基本のテンプレートに本体がないので、`Storage<float, int>` はコンパイルエラーです。"
-msgstr ""
+msgstr "When you write `Storage<float, Cpu>`, the compiler looks for a matching partial specialization and uses it. If none matches, it uses the primary template. In this example, the primary template has no body, so `Storage<float, int>` is a compile error."
 
 msgid "部分特殊化ごとに、メンバ変数もメンバ関数も自由に変えられます。使う側が同じ名前のメンバ関数を呼べるよう、名前と引数を揃えておくのが普通です。"
-msgstr ""
+msgstr "For each partial specialization, you can freely change both member variables and member functions. It is normal to keep the names and arguments the same so that the user can call member functions of the same name."
 
 msgid "関数テンプレートには部分特殊化がありません。 `for_each` の CPU 版と GPU 版を、特殊化ではなく 6.4 節のタグ型のオーバーロードで書き分けているのはそのためです。"
-msgstr ""
+msgstr "Function templates have no partial specialization. That is why the CPU and GPU versions of `for_each` are written separately with the tag-type overloads of Section 6.4 rather than with specialization."
 
 msgid "MISO の例：Array3D と Integrator"
-msgstr ""
+msgstr "A MISO example: Array3D and Integrator"
 
 msgid "`miso/include/miso/array3d.hpp` は、6.2 節で見た宣言のあと、`Backend` ごとに部分特殊化を定義しています。 本体を省略して示します。"
-msgstr ""
+msgstr "After the declaration seen in Section 6.2, `miso/include/miso/array3d.hpp` defines a partial specialization for each `Backend`. We show them with the bodies omitted."
 
 msgid "（説明用のコメントに置き換えています。）"
-msgstr ""
+msgstr "(They are replaced with explanatory comments.)"
 
 msgid "上の `Storage` と同じ形です。`Array3D<float, backend::Host>` と `Array3D<float, backend::CUDA>` は、 どちらも `view()`、`extent()`、`copy_from()` などの同じ名前のメンバ関数を持ちますが、メモリの確保と解放の仕方が違います。 `Array1D`、`Array2D`、`Array4D`、`Fields`、`Grid` も同じ作りです。"
-msgstr ""
+msgstr "This is the same form as `Storage` above. `Array3D<float, backend::Host>` and `Array3D<float, backend::CUDA>` both have member functions of the same names, such as `view()`, `extent()`, and `copy_from()`, but differ in how memory is allocated and released. `Array1D`, `Array2D`, `Array4D`, `Fields`, and `Grid` are built the same way."
 
 msgid "時間積分を受け持つ `Integrator` も、基本のテンプレートは宣言だけです（`miso/include/miso/mhd_integrator.hpp`）。"
-msgstr ""
+msgstr "`Integrator`, which handles time integration, also has only a declaration as its primary template (`miso/include/miso/mhd_integrator.hpp`)."
 
 msgid "CPU 用の定義は `miso/include/miso/mhd_integrator_host.hpp`、GPU 用は `miso/include/miso/mhd_integrator_cuda.cuh` にあります。"
-msgstr ""
+msgstr "The CPU definition is in `miso/include/miso/mhd_integrator_host.hpp`, and the GPU one is in `miso/include/miso/mhd_integrator_cuda.cuh`."
 
 msgid "`mhd_integrator.hpp` の末尾で、CPU 用は常に、GPU 用は `__CUDACC__` が定義されているときだけ読み込みます。"
-msgstr ""
+msgstr "At the end of `mhd_integrator.hpp`, the CPU one is always included, and the GPU one only when `__CUDACC__` is defined."
 
 msgid "`Integrator` を使う側の `MHD<Real, Backend>`（`miso/include/miso/mhd_solver.hpp`）は、メンバとして `Integrator<Real, Backend> integrator;` を持ち、`integrator.update(...)`、`integrator.cfl(...)` を呼ぶだけです。 `Backend` が決まれば、どちらの定義が使われるかも決まります。 2 つの定義は、`update`・`cfl`・`apply_boundary_condition` を同じ名前と引数の並びで持つように揃えてあり、 GPU 用だけが CUDA のカーネルの形（`cuda::KernelShape3D`）や縮約用の作業領域をメンバに持ちます。"
-msgstr ""
+msgstr "`MHD<Real, Backend>` (`miso/include/miso/mhd_solver.hpp`), which uses `Integrator`, has `Integrator<Real, Backend> integrator;` as a member and just calls `integrator.update(...)` and `integrator.cfl(...)`. Once `Backend` is decided, which definition is used is decided too. The two definitions are aligned so that both have `update`, `cfl`, and `apply_boundary_condition` with the same names and argument lists, and only the GPU one has members such as the CUDA kernel shape (`cuda::KernelShape3D`) and the workspace for reduction."
 
 msgid "6.6 if constexpr と static_assert"
-msgstr ""
+msgstr "6.6 if constexpr and static_assert"
 
 msgid "if constexpr"
 msgstr ""
 
 msgid "テンプレート引数には、型だけでなく `bool` や `int` の値も使えます。 次は、符号を反転するかどうかをテンプレート引数で指定する関数です。"
-msgstr ""
+msgstr "Template arguments can be not only types but also `bool` and `int` values. The following is a function that specifies, by a template argument, whether to flip the sign."
 
 #, python-brace-format
 msgid "`change_sign<true>(3.0)` は −3、`change_sign<false>(3.0)` は 3 を返します。 `if constexpr` は、条件がコンパイル時に決まるときに使う分岐です。 実体化のときに、選ばれなかった側は関数に組み込まれません。`change_sign<true>` には `return -value;` だけが残ります。 {ref}`第 2 章 <edu-ch02>`の通常の `if` は、実行時に決まる値でも条件にできますが、両方の側がコンパイルされます。 `if constexpr` の条件には、コンパイル時に値の決まる式しか書けません。"
-msgstr ""
+msgstr "`change_sign<true>(3.0)` returns −3, and `change_sign<false>(3.0)` returns 3. `if constexpr` is a branch used when the condition is determined at compile time. At instantiation, the side not chosen is not built into the function. Only `return -value;` remains in `change_sign<true>`. The ordinary `if` of {ref}`Chapter 2 <edu-ch02>` can take a condition determined at run time, but both sides are compiled. The condition of `if constexpr` can only be an expression whose value is determined at compile time."
 
 msgid "型によって処理を変えるには、`<type_traits>` の `std::is_same_v<A, B>` を使います。 `A` と `B` が同じ型なら `true`、違えば `false` になる、コンパイル時の定数です。"
-msgstr ""
+msgstr "To change the processing according to the type, use `std::is_same_v<A, B>` from `<type_traits>`. It is a compile-time constant that is `true` if `A` and `B` are the same type and `false` otherwise."
 
 msgid "`precision_name<float>()` は `\"single precision\"`（単精度）、`precision_name<double>()` は `\"double precision or higher\"`（倍精度以上）を返します。"
-msgstr ""
+msgstr "`precision_name<float>()` returns `\"single precision\"`, and `precision_name<double>()` returns `\"double precision or higher\"`."
 
 msgid "選ばれなかった側が組み込まれないことには、もう一つ意味があります。 テンプレート引数によっては**書けない**処理（その型にないメンバの呼び出しなど）を、選ばれない側に置いてもエラーになりません。 6.7 節の MISO の例は、この性質を使っています。"
-msgstr ""
+msgstr "That the side not chosen is not built in has another implication. Processing that **cannot be written** for some template arguments (such as calling a member the type does not have) does not cause an error if you put it on the side that is not chosen. The MISO example in Section 6.7 uses this property."
 
 msgid "static_assert"
 msgstr ""
 
 msgid "テンプレート引数に条件を付けたいときは、`static_assert`（コンパイル時の検査）を使います。"
-msgstr ""
+msgstr "When you want to put a condition on a template argument, use `static_assert` (a compile-time check)."
 
 msgid "`static_assert(条件, \"メッセージ\");` は、条件が `false` ならコンパイルエラーにし、メッセージを表示します。 `half(3.0)` はそのままコンパイルできますが、`half(3)` は `T` が `int` になるので、次のエラーで止まります。"
-msgstr ""
+msgstr "`static_assert(condition, \"message\");` makes it a compile error and prints the message if the condition is `false`. `half(3.0)` compiles as is, but `half(3)` makes `T` an `int`, so it stops with the following error."
 
 msgid "`std::is_floating_point_v<T>` は、`T` が `float`・`double` などの浮動小数点型なら `true` になる定数です。 実行時の `assert` と違い、`static_assert` は Release ビルドでも消えません。間違った使い方を、実行する前に見つけられます。"
-msgstr ""
+msgstr "`std::is_floating_point_v<T>` is a constant that is `true` if `T` is a floating-point type such as `float` or `double`. Unlike the run-time `assert`, `static_assert` does not disappear in Release builds. It can find incorrect usage before the program runs."
 
 msgid "文法の詳細は C++17 規格草案 N4659 の [テンプレートのパラメータ](https://timsong-cpp.github.io/cppwp/n4659/temp.param)、 [`if constexpr`](https://timsong-cpp.github.io/cppwp/n4659/stmt.if)、 [型の性質（type traits）](https://timsong-cpp.github.io/cppwp/n4659/meta)で確認できます。"
-msgstr ""
+msgstr "You can check the details of the grammar in the C++17 draft standard N4659: [template parameters](https://timsong-cpp.github.io/cppwp/n4659/temp.param), [`if constexpr`](https://timsong-cpp.github.io/cppwp/n4659/stmt.if), and [type properties (type traits)](https://timsong-cpp.github.io/cppwp/n4659/meta)."
 
 msgid "MISO の例：縮約カーネルの分岐"
-msgstr ""
+msgstr "A MISO example: branching in the reduction kernel"
 
 #, python-brace-format
 msgid "`miso/include/miso/execution.hpp` の GPU 用の縮約（`reduce`）では、範囲が 1 次元か 3 次元かで添字の取り出し方を変えています。 `Range` はテンプレート引数で、1 次元の範囲を表す `Range1D` か 3 次元の範囲を表す `Range3D`（{ref}`第 7 章 <edu-ch07>`）が入ります。"
-msgstr ""
+msgstr "In the GPU reduction (`reduce`) in `miso/include/miso/execution.hpp`, how the indices are extracted changes depending on whether the range is one-dimensional or three-dimensional. `Range` is a template argument, and takes either `Range1D`, which represents a one-dimensional range, or `Range3D`, which represents a three-dimensional range ({ref}`Chapter 7 <edu-ch07>`)."
 
 msgid "`Range1D` の `unravel` は `int` を、`Range3D` の `unravel` は `Index3D`（3 つの添字の組）を返します。 通常の `if` で書くと、`Range1D` のときにも `Index3D p = range.unravel(idx);` がコンパイルされて型が合わずエラーになります。 `if constexpr` なら、その型に合う側だけが組み込まれます。"
-msgstr ""
+msgstr "`unravel` of `Range1D` returns an `int`, and `unravel` of `Range3D` returns an `Index3D` (a triple of indices). Written with an ordinary `if`, `Index3D p = range.unravel(idx);` would also be compiled for `Range1D`, and the types would not match, causing an error. With `if constexpr`, only the side that fits the type is built in."
 
 msgid "6.7 型の性質を調べる仕組み"
-msgstr ""
+msgstr "6.7 Mechanisms for Examining the Properties of Types"
 
 #, python-brace-format
 msgid "MISO の利用者は、`ModelBase` を継承したモデルに `eos`・`ic`・`bc`・`src` というメンバを用意します（{ref}`第 5 章 <edu-ch05>`）。 ソース項 `src` には、必要な項（たとえば重力なら `vy`）だけを書けばよく、書かなかった項は 0 として扱われます。 これを実現するには、「この型に `vy` というメンバ関数があるか」をコンパイル時に調べ、結果で `if constexpr` を分ける必要があります。 この節では、その仕組みを読める程度に説明します。"
-msgstr ""
+msgstr "Users of MISO prepare the members `eos`, `ic`, `bc`, and `src` in a model that inherits from `ModelBase` ({ref}`Chapter 5 <edu-ch05>`). In the source term `src`, you write only the terms you need (for example, `vy` for gravity), and terms you did not write are treated as 0. To achieve this, you must check at compile time \"whether this type has a member function `vy`,\" and branch with `if constexpr` based on the result. This section explains the mechanism just enough for you to read it."
 
 msgid "6.7.1 型の性質を値として持つ構造体"
-msgstr ""
+msgstr "6.7.1 Structs that hold a type's property as a value"
 
 msgid "`<type_traits>` には、`true` または `false` を表す 2 つの構造体があります。"
-msgstr ""
+msgstr "`<type_traits>` has two structs that represent `true` or `false`."
 
 msgid "`value` は、クラスに属する定数（`static constexpr bool`）です。実体を作らず、`型名::value` で読めます。 構造体がこのどちらかを継承すると、その構造体の `::value` も `true` か `false` になります。"
-msgstr ""
+msgstr "`value` is a constant belonging to the class (`static constexpr bool`). It can be read as `type_name::value` without creating an instance. If a struct inherits from one of these two, that struct's `::value` also becomes `true` or `false`."
 
 msgid "6.6 節の `std::is_same_v<A, B>` は、`std::is_same<A, B>::value` の短い書き方です。 `std::is_same<A, B>` は、`A` と `B` が同じなら `std::true_type` を、違えば `std::false_type` を継承するように作られています。 このように、型について調べた結果を `::value` で返すクラステンプレートを**型特性**（type trait）と呼びます。"
-msgstr ""
+msgstr "`std::is_same_v<A, B>` in Section 6.6 is a short way of writing `std::is_same<A, B>::value`. `std::is_same<A, B>` is built to inherit `std::true_type` if `A` and `B` are the same and `std::false_type` otherwise. A class template that returns the result of examining a type through `::value` in this way is called a **type trait**."
 
 msgid "6.7.2 std::void_t によるメンバの検査"
-msgstr ""
+msgstr "6.7.2 Checking for members with std::void_t"
 
 msgid "「型 `T` に `gm` というメンバがあるか」を調べる型特性 `has_gm` を、2 つの定義で作ります。"
-msgstr ""
+msgstr "We build the type trait `has_gm`, which checks \"whether type `T` has a member `gm`,\" from two definitions."
 
 msgid "部品を順に読みます。"
-msgstr ""
+msgstr "We read the parts in order."
 
 msgid "`class = void` は、名前のない 2 つ目のテンプレート引数で、既定値が `void` です。使う側は `has_gm<Gas>` と 1 つだけ書き、2 つ目は `void` になります。"
-msgstr ""
+msgstr "`class = void` is an unnamed second template argument whose default is `void`. The user writes only one, `has_gm<Gas>`, and the second becomes `void`."
 
 msgid "`&T::gm` は「`T` のメンバ `gm` を指す」式です。`T` に `gm` がなければ、この式は書けません。"
-msgstr ""
+msgstr "`&T::gm` is an expression meaning \"point to the member `gm` of `T`.\" If `T` has no `gm`, this expression cannot be written."
 
 msgid "`decltype(式)` は、式を**実行せずに**その型を求めます。ここでは式が書けるかどうかだけが問題です。"
-msgstr ""
+msgstr "`decltype(expression)` finds the type of the expression **without evaluating it**. Here only whether the expression can be written matters."
 
 msgid "`std::void_t<...>` は、山括弧の中が正しく書ければ、中身によらず `void` になる型です。"
-msgstr ""
+msgstr "`std::void_t<...>` is a type that becomes `void` regardless of its contents, as long as what is inside the angle brackets can be written correctly."
 
 msgid "`has_gm<Gas>` の場合、コンパイラは次のように考えます。"
-msgstr ""
+msgstr "For `has_gm<Gas>`, the compiler reasons as follows."
 
 msgid "`has_gm<Gas>` は、既定値を補って `has_gm<Gas, void>` です。"
-msgstr ""
+msgstr "`has_gm<Gas>`, with the default filled in, is `has_gm<Gas, void>`."
 
 msgid "部分特殊化 (2) に `T = Gas` を当てはめると、`std::void_t<decltype(&Gas::gm)>` は `void` になり、(2) は `has_gm<Gas, void>` の定義になります。"
-msgstr ""
+msgstr "Applying `T = Gas` to partial specialization (2), `std::void_t<decltype(&Gas::gm)>` becomes `void`, and (2) becomes the definition for `has_gm<Gas, void>`."
 
 msgid "1 と 2 が一致するので、(2) が使われ、`value` は `true` です。"
-msgstr ""
+msgstr "1 and 2 match, so (2) is used and `value` is `true`."
 
 msgid "`has_gm<Dust>` の場合は、2 で `&Dust::gm` が書けません。 このとき、コンパイラはエラーにせず、(2) を候補から外すだけです。残った (1) が使われ、`value` は `false` です。 テンプレート引数を当てはめた結果が書けない形になっても、その候補を外すだけでエラーにしない、という C++ の規則を **SFINAE**（スフィネー、Substitution Failure Is Not An Error：置き換えの失敗はエラーではない）と呼びます。 規則は C++17 規格草案の[テンプレート引数の推論](https://timsong-cpp.github.io/cppwp/n4659/temp.deduct)にあります。"
-msgstr ""
+msgstr "For `has_gm<Dust>`, `&Dust::gm` cannot be written in 2. In this case, the compiler does not report an error and merely removes (2) from the candidates. The remaining (1) is used, and `value` is `false`. The C++ rule that when applying template arguments produces a form that cannot be written, the candidate is simply removed without an error is called **SFINAE** (Substitution Failure Is Not An Error). The rule is in [template argument deduction](https://timsong-cpp.github.io/cppwp/n4659/temp.deduct) in the C++17 draft standard."
 
 msgid "メンバ関数を、決まった引数の並びで**呼べるか**を調べるには、`&T::名前` の代わりに呼び出しの式を書きます。"
-msgstr ""
+msgstr "To check whether a member function **can be called** with a given argument list, write a call expression instead of `&T::name`."
 
 msgid "`std::declval<const T &>()` は、「`const T &` 型の値があるとしたら」という仮の式で、`decltype` の中だけで使えます。 `T` の実体を作らずに、`t.dt_limit()` が書けるかを調べられます。`const T &` から呼ぶので、`dt_limit` が `const` メンバ関数でなければ `false` になります。"
-msgstr ""
+msgstr "`std::declval<const T &>()` is a hypothetical expression meaning \"if there were a value of type `const T &`,\" and can be used only inside `decltype`. It lets you check whether `t.dt_limit()` can be written without creating an instance of `T`. Because it is called through `const T &`, the result is `false` unless `dt_limit` is a `const` member function."
 
 msgid "MISO の例：has_eos と has_dt_limit"
-msgstr ""
+msgstr "A MISO example: has_eos and has_dt_limit"
 
 msgid "`miso/include/miso/mhd_model_base.hpp` の冒頭には、上と同じ形の型特性が並んでいます（抜粋）。"
-msgstr ""
+msgstr "The beginning of `miso/include/miso/mhd_model_base.hpp` has type traits in the same form as above (excerpt)."
 
 msgid "`has_ic`・`has_bc`・`has_src` も `has_eos` と同じ形です。 `ModelBase::run()` は、これらを `static_assert` で検査します（抜粋）。"
-msgstr ""
+msgstr "`has_ic`, `has_bc`, and `has_src` have the same form as `has_eos`. `ModelBase::run()` checks them with `static_assert` (excerpt)."
 
 msgid "モデルに `eos` を書き忘れると、実行する前に、このメッセージでコンパイルが止まります。"
-msgstr ""
+msgstr "If you forget to write `eos` in the model, compilation stops with this message before the program runs."
 
 msgid "`ModelBase::update()` は、ソース項が時間刻みの上限 `dt_limit()` を持つときだけ、それを使います（抜粋。MPI の部分は省略）。"
-msgstr ""
+msgstr "`ModelBase::update()` uses the source term's upper limit on the time step, `dt_limit()`, only when the source term has it (excerpt; the MPI part is omitted)."
 
 msgid "`using Source = decltype(d.src);` は、メンバ `src` の型に `Source` という別名を付けます。"
-msgstr ""
+msgstr "`using Source = decltype(d.src);` gives the type of the member `src` the alias `Source`."
 
 msgid "`if constexpr` の中の `d.src.dt_limit()` は、`dt_limit` を持たないソース項では書けない式です。6.6 節で見たとおり、条件が `false` なら組み込まれないので、エラーになりません。"
-msgstr ""
+msgstr "`d.src.dt_limit()` inside `if constexpr` is an expression that cannot be written for a source term without `dt_limit`. As seen in Section 6.6, it is not built in when the condition is `false`, so there is no error."
 
 msgid "`static_assert` の条件は「`dt_limit` という名前がない、**または**、`dt_limit() const` として呼べる」です（`!` は否定、`||` は「または」）。 `dt_limit` を書いたのに `const` を付け忘れた場合、`has_dt_limit` だけで調べると `false` になり、黙って無視されてしまいます。 名前の有無（`has_member_dt_limit`）と呼べるか（`has_dt_limit`）を分けて調べ、書き間違いをコンパイルエラーにしています。"
-msgstr ""
+msgstr "The condition of the `static_assert` is \"there is no name `dt_limit`, **or** it can be called as `dt_limit() const`\" (`!` is negation and `||` is \"or\"). If you wrote `dt_limit` but forgot `const`, checking with `has_dt_limit` alone would give `false` and it would be silently ignored. By checking separately for the presence of the name (`has_member_dt_limit`) and for callability (`has_dt_limit`), the code turns such a mistake into a compile error."
 
 msgid "6.7.3 マクロとテンプレートの組み合わせ（ソース項）"
-msgstr ""
+msgstr "6.7.3 Combining macros and templates (source terms)"
 
 #, python-brace-format
 msgid "ソース項は `ro`・`vx`・`vy`・`vz`・`bx`・`by`・`bz`・`ei` の 8 つあり、どれも省略できます。 8 つについて、上の 2 種類の型特性と、0 を補う関数を書くと、名前だけが違う定義が 8 回並びます。 `miso/include/miso/mhd_integrator.hpp` では、これをプリプロセッサのマクロ（{ref}`第 2 章 <edu-ch02>`）で 1 回だけ書いています。"
-msgstr ""
+msgstr "There are eight source terms, `ro`, `vx`, `vy`, `vz`, `bx`, `by`, `bz`, and `ei`, and each can be omitted. If you wrote the two kinds of type traits above and the function that fills in 0 for all eight, the same definition would be repeated eight times, differing only in the name. In `miso/include/miso/mhd_integrator.hpp`, this is written only once using a preprocessor macro ({ref}`Chapter 2 <edu-ch02>`)."
 
 msgid "マクロの記号を先に読みます。"
-msgstr ""
+msgstr "We read the macro symbols first."
 
 msgid "記号"
-msgstr ""
+msgstr "Symbol"
 
 msgid "意味"
-msgstr ""
+msgstr "Meaning"
 
 msgid "行末の `\\`"
-msgstr ""
+msgstr "`\\` at the end of a line"
 
 msgid "マクロの定義を次の行へ続けます。マクロは本来 1 行で書くものです"
-msgstr ""
+msgstr "Continues the macro definition onto the next line. A macro is originally written on one line"
 
 msgid "`name`"
 msgstr ""
 
 msgid "マクロの引数です。`MISO_MHD_DEFINE_SOURCE_TERM(vx)` なら、すべての `name` が `vx` に置き換わります"
-msgstr ""
+msgstr "The macro's argument. For `MISO_MHD_DEFINE_SOURCE_TERM(vx)`, every `name` is replaced with `vx`"
 
 msgid "`has_##name`"
 msgstr ""
 
 msgid "`##` は、前後をつないで 1 つの名前にします。`name` が `vx` なら `has_vx` になります"
-msgstr ""
+msgstr "`##` joins what is before and after into one name. If `name` is `vx`, it becomes `has_vx`"
 
 msgid "`#name`"
 msgstr ""
 
 msgid "`#` は、引数を文字列 `\"vx\"` にします"
-msgstr ""
+msgstr "`#` turns the argument into the string `\"vx\"`"
 
 msgid "`#undef`"
 msgstr ""
 
 msgid "使い終わったマクロの定義を取り消します"
-msgstr ""
+msgstr "Cancels the definition of a macro that is no longer needed"
 
 msgid "`\"Source::\" #name \" must be ...\"` は、`\"Source::\" \"vx\" \" must be ...\"` のように文字列が並んだ形になります。 C++ では、隣り合う文字列は 1 つにつながるので、メッセージは `\"Source::vx must be callable as vx(...) const\"` になります。"
-msgstr ""
+msgstr "`\"Source::\" #name \" must be ...\"` becomes strings placed side by side, like `\"Source::\" \"vx\" \" must be ...\"`. In C++, adjacent strings are joined into one, so the message becomes `\"Source::vx must be callable as vx(...) const\"`."
 
 msgid "`MISO_MHD_DEFINE_SOURCE_TERM(vx)` を手で展開し、読みやすく整形すると次のとおりです（説明のために展開したもので、ソースにこの形では書かれていません）。"
-msgstr ""
+msgstr "Expanding `MISO_MHD_DEFINE_SOURCE_TERM(vx)` by hand and formatting it for readability gives the following (it is expanded for explanation, and is not written in this form in the source)."
 
 msgid "6.7.2 節の `has_member_dt_limit`・`has_dt_limit` と、`update()` の `static_assert`・`if constexpr` を、`vx` 用にまとめた形です。 `has_vx` が `Real` も受け取るのは、引数の型 `FieldsView<const Real>` を決めるためです。"
-msgstr ""
+msgstr "It is the `has_member_dt_limit` and `has_dt_limit` of Section 6.7.2, and the `static_assert` and `if constexpr` of `update()`, combined for `vx`. `has_vx` also takes `Real` in order to determine the argument type `FieldsView<const Real>`."
 
 msgid "時間積分（`miso/include/miso/mhd_integrator_host.hpp` の `update_sc4`）では、運動方程式の右辺に `source_vx(src, c_qq, i, j, k)` を足しています。 `<Real>` を書いていないのは、`c_qq` の型 `FieldsView<const Real>` から `Real` が推論されるからです（6.1 節）。 `src` が `vx` を持たなければ、`source_vx` は `Real(0)` を返すだけの関数になり、余計な計算は残りません。"
-msgstr ""
+msgstr "In the time integration (`update_sc4` in `miso/include/miso/mhd_integrator_host.hpp`), `source_vx(src, c_qq, i, j, k)` is added to the right-hand side of the equation of motion. `<Real>` is not written because `Real` is deduced from the type of `c_qq`, `FieldsView<const Real>` (Section 6.1). If `src` has no `vx`, `source_vx` becomes a function that merely returns `Real(0)`, and no extra computation remains."
 
 msgid "`demo/hd2d_rayleigh_taylor/src/main.cpp` のソース項は、`vx`・`vy`・`vz`・`ei` の 4 つを定義しています（`vy` だけ抜粋）。"
-msgstr ""
+msgstr "The source term in `demo/hd2d_rayleigh_taylor/src/main.cpp` defines four terms: `vx`, `vy`, `vz`, and `ei` (only `vy` is excerpted)."
 
 msgid "`vy` を `const` なしで書くと、`has_member_vy` は `true`、`has_vy` は `false` になり、コンパイルは次のメッセージで止まります。"
+msgstr "If you write `vy` without `const`, `has_member_vy` is `true` and `has_vy` is `false`, and compilation stops with the following message."
+
+msgid ""
+"<details>\n"
+"<summary>コラム：C++20 の requires による書き方</summary>\n"
 msgstr ""
+"<details>\n"
+"<summary>Column: Writing with requires in C++20</summary>\n"
 
 msgid "C++20 では、「この式が書けるか」を `requires` 式で直接書けるようになりました。 `has_dt_limit` と同じ検査は、次のように書けます（`-std=c++20` が必要です）。"
-msgstr ""
+msgstr "In C++20, you can write \"whether this expression can be written\" directly with a `requires` expression. The same check as `has_dt_limit` can be written as follows (`-std=c++20` is required)."
 
 msgid "`HasDtLimit<T>` は `true` か `false` になり、`if constexpr (HasDtLimit<Source>)` のように使えます。 `std::void_t` と部分特殊化を組み合わせる 6.7.2 節の方法は、C++17 までで同じことをするための工夫です。 MISO は C++17 で書かれているので、`std::void_t` の方法を使っています。 規則は C++20 規格草案 N4861 の [制約（constraints）](https://timsong-cpp.github.io/cppwp/n4861/temp.constr)と [`requires` 式](https://timsong-cpp.github.io/cppwp/n4861/expr.prim.req)にあります。"
+msgstr "`HasDtLimit<T>` becomes `true` or `false`, and can be used as in `if constexpr (HasDtLimit<Source>)`. The method of Section 6.7.2 that combines `std::void_t` with partial specialization is a technique for doing the same thing up to C++17. MISO is written in C++17, so it uses the `std::void_t` method. The rules are in [constraints](https://timsong-cpp.github.io/cppwp/n4861/temp.constr) and [`requires` expressions](https://timsong-cpp.github.io/cppwp/n4861/expr.prim.req) in the C++20 draft standard N4861."
+
+msgid "</details>\n"
 msgstr ""
 
 msgid "6.7.4 テンプレートの中の .template"
-msgstr ""
+msgstr "6.7.4 .template inside templates"
 
 msgid "`ModelBase::run()` には、次の行があります（`miso/include/miso/mhd_model_base.hpp`）。"
-msgstr ""
+msgstr "`ModelBase::run()` has the following line (`miso/include/miso/mhd_model_base.hpp`)."
 
 msgid "6.2 節の `IdealEOS` では `config[\"eos\"][\"gm\"].as<Real>()` と書いていたのに、ここでは `.` と `as` の間に `template` があります。 これは「この後の名前は関数テンプレート」とコンパイラに知らせる印です。必要になるのは、次のような場合です。"
-msgstr ""
+msgstr "In `IdealEOS` in Section 6.2, we wrote `config[\"eos\"][\"gm\"].as<Real>()`, but here there is a `template` between `.` and `as`. This is a mark that tells the compiler \"the name that follows is a function template.\" It is needed in cases like the following."
 
 msgid "`main` の中の `r` は型が `Reader` と決まっているので、`r.get<int>()` とそのまま書けます。 `read_twice` の中の `r` は型が `T` で、`T` に何が入るかは実体化まで分かりません。 このときコンパイラは `get` をテンプレートでない名前として読み、`r.get < double > ()` を大小比較と解釈しようとしてエラーにします。 `.template` を付けると、`get<double>` をテンプレートの呼び出しとして読みます。 `typename T::value_type` のように、型の名前であることを知らせる `typename` も同じ理由で使います。"
-msgstr ""
+msgstr "The type of `r` in `main` is determined to be `Reader`, so you can write `r.get<int>()` as it is. The type of `r` in `read_twice` is `T`, and what goes into `T` is not known until instantiation. In this case, the compiler reads `get` as a non-template name and tries to interpret `r.get < double > ()` as comparisons, which causes an error. With `.template`, it reads `get<double>` as a template call. `typename`, which tells the compiler that something is a type name, as in `typename T::value_type`, is used for the same reason."
 
 msgid "`ModelBase` の `config` は `Config &` 型で、テンプレート引数によらず型が決まっているので、この行の `.template` は省いてもコンパイルできます。 必要のない場所に付けても意味は変わりません（`miso/include/miso/mhd_resistivity.hpp` にも同じ書き方があります）。 読むときは「テンプレートの呼び出しの印」と分かれば十分で、書くべき場所はコンパイラがエラーで教えてくれます。 規則は C++17 規格草案の[名前の解決](https://timsong-cpp.github.io/cppwp/n4659/temp.res)にあります。"
-msgstr ""
+msgstr "The `config` in `ModelBase` has type `Config &`, whose type is determined regardless of the template arguments, so this line compiles even if `.template` is omitted. Adding it where it is not needed does not change the meaning (the same style also appears in `miso/include/miso/mhd_resistivity.hpp`). When reading, it is enough to recognize it as \"a mark for a template call,\" and the compiler tells you with an error where you need to write it. The rules are in [name resolution](https://timsong-cpp.github.io/cppwp/n4659/temp.res) in the C++17 draft standard."
 
 msgid "練習：テンプレートの指定と選択"
-msgstr ""
+msgstr "Exercises: Specifying and Selecting Templates"
 
 msgid "6.1 節の `max_of` について、`max_of(2, 7)` と `max_of<double>(1, 2.5)` の戻り値の型と値を答えてください。"
-msgstr ""
+msgstr "For `max_of` in Section 6.1, give the return type and value of `max_of(2, 7)` and `max_of<double>(1, 2.5)`."
 
 #, python-format
 msgid "$2\\pi$ を表す変数テンプレート `two_pi<T>` を書き、`two_pi<float>` と `two_pi<double>` を `%.17g` で表示してください。"
-msgstr ""
+msgstr "Write a variable template `two_pi<T>` that represents $2\\pi$, and print `two_pi<float>` and `two_pi<double>` with `%.17g`."
 
 #, python-brace-format
 msgid "6.4 節の `Cpu`・`Gpu`・`run`・`compute` に `struct Fpga {};` を足し、`compute(Fpga{}, 1)` を呼ぶと何が起きるかを確かめ、理由を説明してください。"
-msgstr ""
+msgstr "Add `struct Fpga {};` to `Cpu`, `Gpu`, `run`, and `compute` of Section 6.4, check what happens when you call `compute(Fpga{}, 1)`, and explain why."
 
 msgid "次の型について、`miso/include/miso/` のどのファイルのどの定義が使われるかを答えてください。"
-msgstr ""
+msgstr "For the following types, answer which definition in which file under `miso/include/miso/` is used."
 
 msgid "`Array3D<float>`"
 msgstr ""
@@ -569,66 +579,73 @@ msgid "`Integrator<double, backend::Host>`"
 msgstr ""
 
 msgid "CPU だけのビルドでの `Array3D<float, backend::CUDA>`"
-msgstr ""
+msgstr "`Array3D<float, backend::CUDA>` in a CPU-only build"
 
 msgid "6.7.2 節の `has_gm` にならって、メンバ `size` があるかを調べる `has_size<T>` を書いてください。 `miso/include/miso/execution.hpp` を読み込み、`has_size<miso::Range1D>::value` と `has_size<miso::Index3D>::value` を表示して、結果を `execution.hpp` の定義と照らし合わせてください。"
-msgstr ""
+msgstr "Following `has_gm` in Section 6.7.2, write `has_size<T>`, which checks whether there is a member `size`. Include `miso/include/miso/execution.hpp`, print `has_size<miso::Range1D>::value` and `has_size<miso::Index3D>::value`, and compare the results with the definitions in `execution.hpp`."
 
 msgid "`demo/hd2d_rayleigh_taylor/src/main.cpp` の `SourceTerm` を読み、`source_ro`〜`source_ei` の 8 つの関数のうち、`SourceTerm` のメンバを呼ぶものと `Real(0)` を返すものを分けてください。 また、`ModelBase::update()` の `if constexpr (has_dt_limit<Source>::value)` の中が組み込まれるかを答えてください。"
+msgstr "Read `SourceTerm` in `demo/hd2d_rayleigh_taylor/src/main.cpp`, and, among the eight functions `source_ro` through `source_ei`, separate those that call a member of `SourceTerm` from those that return `Real(0)`. Also answer whether the inside of `if constexpr (has_dt_limit<Source>::value)` in `ModelBase::update()` is built in."
+
+msgid ""
+"<details>\n"
+"<summary>解答・解説</summary>\n"
 msgstr ""
+"<details>\n"
+"<summary>Answer and explanation</summary>\n"
 
 msgid "**1.** `max_of(2, 7)` は、2 つの引数がどちらも `int` なので `T` が `int` と推論され、`int` の 7 を返します。 `max_of<double>(1, 2.5)` は `T` を `double` と指定しているので、`1` は `1.0` に変換され、`double` の 2.5 を返します。 指定がなければ `T` が決まらずエラーになる呼び出しでも、明示すれば通常の型変換が使われます。"
-msgstr ""
+msgstr "**1.** For `max_of(2, 7)`, both arguments are `int`, so `T` is deduced to be `int` and it returns the `int` 7. For `max_of<double>(1, 2.5)`, `T` is specified as `double`, so `1` is converted to `1.0` and it returns the `double` 2.5. Even for a call that would be an error because `T` cannot be determined without a specification, if you specify it explicitly, ordinary type conversion is used."
 
 msgid "**2.** 例："
-msgstr ""
+msgstr "**2.** Example:"
 
 msgid "`float` は有効数字がおよそ 7 桁なので、8 桁目から違います。 `constants.hpp` にならって `M_PI` を使い、`static_cast<T>(2.0 * M_PI)` と書いても構いません。"
-msgstr ""
+msgstr "`float` has about 7 significant digits, so the values differ from the 8th digit. Following `constants.hpp`, you may also use `M_PI` and write `static_cast<T>(2.0 * M_PI)`."
 
 #, python-brace-format
 msgid "**3.** コンパイルエラーになります。g++ では `no matching function for call to 'run(Fpga&, int&)'` と表示されます。 `compute<Fpga>` を実体化すると `run(b, n)` の `b` が `Fpga` 型になりますが、`Fpga` を受け取る `run` が定義されていないためです。 タグ型によるオーバーロードの選択はコンパイル時に行われるので、対応する関数がなければ実行前に分かります。 MISO の CPU だけのビルドで `for_each(backend::CUDA{}, ...)` を呼んだ場合も同じです。"
-msgstr ""
+msgstr "**3.** It is a compile error. In g++, `no matching function for call to 'run(Fpga&, int&)'` is shown. Instantiating `compute<Fpga>` makes `b` in `run(b, n)` have type `Fpga`, but no `run` that takes an `Fpga` is defined. Selecting overloads by tag types is done at compile time, so a missing corresponding function is found before running. The same applies when `for_each(backend::CUDA{}, ...)` is called in a CPU-only build of MISO."
 
 msgid "**4.**"
 msgstr ""
 
 msgid "`Array3D<float>` は既定値で `Array3D<float, backend::Host>` になり、`array3d.hpp` の部分特殊化 `template <typename T> class Array3D<T, backend::Host>` が使われます。"
-msgstr ""
+msgstr "`Array3D<float>` becomes `Array3D<float, backend::Host>` by default, and the partial specialization `template <typename T> class Array3D<T, backend::Host>` in `array3d.hpp` is used."
 
 msgid "`Integrator<double, backend::Host>` は、`mhd_integrator_host.hpp` の `template <typename Real> struct Integrator<Real, backend::Host>` が使われます（`Real` は `double`）。"
-msgstr ""
+msgstr "For `Integrator<double, backend::Host>`, `template <typename Real> struct Integrator<Real, backend::Host>` in `mhd_integrator_host.hpp` is used (`Real` is `double`)."
 
 msgid "CPU だけのビルドでは、`Array3D<T, backend::CUDA>` の部分特殊化が `#ifdef __CUDACC__` の中にあるので定義されません。 基本のテンプレートは宣言だけなので、`Array3D<float, backend::CUDA> b(2, 2, 2);` と書くと、 g++ では `has initializer but incomplete type`（定義のない型）というコンパイルエラーになります。"
-msgstr ""
+msgstr "In a CPU-only build, the partial specialization of `Array3D<T, backend::CUDA>` is inside `#ifdef __CUDACC__`, so it is not defined. The primary template is only a declaration, so writing `Array3D<float, backend::CUDA> b(2, 2, 2);` gives the g++ compile error `has initializer but incomplete type` (a type without a definition)."
 
 msgid "**5.** 例："
-msgstr ""
+msgstr "**5.** Example:"
 
 msgid "MISO のヘッダの場所を `-I/path/to/MISO/miso/include` で指定してコンパイルします。表示は `1 0` です。 `execution.hpp` の `Range1D` はメンバ関数 `size()` を持ち、`Index3D` は `int i0, i1, i2;` だけを持つので、結果と一致します。 `&T::size` は、メンバ変数にもメンバ関数にも使えます。"
-msgstr ""
+msgstr "Compile with the location of MISO's headers specified by `-I/path/to/MISO/miso/include`. The output is `1 0`. `Range1D` in `execution.hpp` has the member function `size()`, and `Index3D` has only `int i0, i1, i2;`, which matches the result. `&T::size` can be used for both member variables and member functions."
 
 msgid "**6.** `SourceTerm` は `vx`・`vy`・`vz`・`ei` を、どれも `(mhd::FieldsView<const Real>, int, int, int) const` の形で定義しています。"
-msgstr ""
+msgstr "**6.** `SourceTerm` defines `vx`, `vy`, `vz`, and `ei`, all in the form `(mhd::FieldsView<const Real>, int, int, int) const`."
 
 msgid "関数"
-msgstr ""
+msgstr "Function"
 
 msgid "使われる処理"
-msgstr ""
+msgstr "Processing used"
 
 msgid "`source_vx`, `source_vy`, `source_vz`, `source_ei`"
 msgstr ""
 
 msgid "`src.vx(qq, i, j, k)` などを呼びます"
-msgstr ""
+msgstr "Calls `src.vx(qq, i, j, k)` and so on"
 
 msgid "`source_ro`, `source_bx`, `source_by`, `source_bz`"
 msgstr ""
 
 msgid "`Real(0)` を返します"
-msgstr ""
+msgstr "Returns `Real(0)`"
 
 msgid "`vx`・`vz`・`ei` は 0 を返すだけですが、定義されているので呼ばれます（定義を省いても結果は同じです）。 `SourceTerm` には `dt_limit` がないので、`has_dt_limit<SourceTerm>::value` は `false` です。 `if constexpr` の中は組み込まれず、時間刻みは CFL 条件（`mhd.cfl(d.eos)`）だけで決まります。"
-msgstr ""
+msgstr "`vx`, `vz`, and `ei` just return 0, but they are defined, so they are called (the result is the same if the definitions are omitted). `SourceTerm` has no `dt_limit`, so `has_dt_limit<SourceTerm>::value` is `false`. The inside of `if constexpr` is not built in, and the time step is determined only by the CFL condition (`mhd.cfl(d.eos)`)."
 

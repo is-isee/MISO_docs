@@ -20,403 +20,403 @@ msgstr ""
 "Generated-By: Babel 2.18.0\n"
 
 msgid "記号の早見表"
-msgstr ""
+msgstr "Symbol Quick Reference"
 
 msgid "C++ の第 2〜6 章と、第 7〜9 章で MISO のコードを読みながら、記号やキーワードの意味を確かめるための表です。 通読する必要はありません。各行の「詳しい説明」から本文の章へ戻れます。"
-msgstr ""
+msgstr "This is a table for checking the meaning of symbols and keywords while you read MISO's code in the C++ chapters (Chapters 2–6) and in Chapters 7–9. You do not need to read it through. From the \"Details\" column of each row, you can go back to the chapter in the main text."
 
 msgid "目次"
-msgstr ""
+msgstr "Contents"
 
 #, python-brace-format
 msgid "{ref}`読み方の基本：宣言か式か <edu-ref-cpp-basics>`"
-msgstr ""
+msgstr "{ref}`Basics of reading: declaration or expression? <edu-ref-cpp-basics>`"
 
 #, python-brace-format
 msgid "{ref}`* と & と && <edu-ref-cpp-star-amp>`"
-msgstr ""
+msgstr "{ref}`* and & and && <edu-ref-cpp-star-amp>`"
 
 #, python-brace-format
 msgid "{ref}`名前とメンバを指す記号（:: . ->） <edu-ref-cpp-scope>`"
-msgstr ""
+msgstr "{ref}`Symbols that refer to names and members (:: . ->) <edu-ref-cpp-scope>`"
 
 #, python-brace-format
 msgid "{ref}`括弧（山括弧・角括弧・丸括弧・波括弧） <edu-ref-cpp-brackets>`"
-msgstr ""
+msgstr "{ref}`Brackets (angle, square, round, and curly) <edu-ref-cpp-brackets>`"
 
 #, python-brace-format
 msgid "{ref}`その他の演算子 <edu-ref-cpp-operators>`"
-msgstr ""
+msgstr "{ref}`Other operators <edu-ref-cpp-operators>`"
 
 #, python-brace-format
 msgid "{ref}`プリプロセッサの記号（#） <edu-ref-cpp-preprocessor>`"
-msgstr ""
+msgstr "{ref}`Preprocessor symbols (#) <edu-ref-cpp-preprocessor>`"
 
 #, python-brace-format
 msgid "{ref}`キーワード <edu-ref-cpp-keywords>`"
-msgstr ""
+msgstr "{ref}`Keywords <edu-ref-cpp-keywords>`"
 
 #, python-brace-format
 msgid "{ref}`MISO と CUDA の記号 <edu-ref-cpp-miso>`"
-msgstr ""
+msgstr "{ref}`MISO and CUDA symbols <edu-ref-cpp-miso>`"
 
 #, python-brace-format
 msgid "{ref}`宣言を読むときの確認順序 <edu-ref-cpp-reading>`"
-msgstr ""
+msgstr "{ref}`Order of checks when reading a declaration <edu-ref-cpp-reading>`"
 
 msgid "読み方の基本：宣言か式か"
-msgstr ""
+msgstr "Basics of reading: declaration or expression?"
 
 msgid "C++ では、同じ記号が**宣言**（新しい名前を作る文）と**式**（すでにある名前を使う計算）で別の意味になります。 記号に迷ったら、まずその行が名前を作っているのか、使っているのかを確かめます。"
-msgstr ""
+msgstr "In C++, the same symbol means different things in a **declaration** (a statement that creates a new name) and in an **expression** (a computation that uses an existing name). When you are unsure about a symbol, first check whether the line is creating a name or using one."
 
 msgid "以下の表では、`a`・`b` を `double` の変数、`p` を `double *` 型のポインタ、`T` をテンプレート引数の型として読みます。"
-msgstr ""
+msgstr "In the tables below, read `a` and `b` as `double` variables, `p` as a pointer of type `double *`, and `T` as a template argument type."
 
 msgid "* と & と &&"
-msgstr ""
+msgstr "\\* and & and &&"
 
 msgid "見かけた形"
-msgstr ""
+msgstr "Form you see"
 
 msgid "宣言か式か"
-msgstr ""
+msgstr "Declaration or expression"
 
 msgid "意味"
-msgstr ""
+msgstr "Meaning"
 
 msgid "詳しい説明"
-msgstr ""
+msgstr "Details"
 
 msgid "`double *p = &a;`"
 msgstr ""
 
 msgid "宣言"
-msgstr ""
+msgstr "Declaration"
 
 msgid "`p` は `double` を指すポインタです。`double* p` と書いても同じです"
-msgstr ""
+msgstr "`p` is a pointer to a `double`. Writing `double* p` means the same"
 
 #, python-brace-format
 msgid "{ref}`第 3 章 <edu-ch03>`"
-msgstr ""
+msgstr "{ref}`Chapter 3 <edu-ch03>`"
 
 msgid "`*p`、`*p = 5.0;`"
 msgstr ""
 
 msgid "式"
-msgstr ""
+msgstr "Expression"
 
 msgid "`p` の指す先の値を読み書きします"
-msgstr ""
+msgstr "Reads and writes the value that `p` points to"
 
 msgid "`a * b`"
 msgstr ""
 
 msgid "掛け算です"
-msgstr ""
+msgstr "Multiplication"
 
 #, python-brace-format
 msgid "{ref}`第 2 章 <edu-ch02>`"
-msgstr ""
+msgstr "{ref}`Chapter 2 <edu-ch02>`"
 
 msgid "`double &r = a;`"
 msgstr ""
 
 msgid "`r` は `a` の別名（参照）です。`r` への代入は `a` を変えます"
-msgstr ""
+msgstr "`r` is another name (a reference) for `a`. Assigning to `r` changes `a`"
 
 msgid "`void f(double &x)`"
 msgstr ""
 
 msgid "宣言（引数）"
-msgstr ""
+msgstr "Declaration (parameter)"
 
 msgid "参照渡しです。関数の中で `x` を変えると、呼び出し元の変数が変わります"
-msgstr ""
+msgstr "Pass by reference. If you change `x` inside the function, the caller's variable changes"
 
 msgid "`const Config &config`"
 msgstr ""
 
 msgid "読むだけの参照渡しです。コピーせず、変更もしません"
-msgstr ""
+msgstr "Pass by reference for reading only. It does not copy and does not modify"
 
 msgid "`&a`"
 msgstr ""
 
 msgid "`a` のアドレスを取り出します"
-msgstr ""
+msgstr "Takes the address of `a`"
 
 msgid "`&T::gm`"
 msgstr ""
 
 msgid "クラス `T` のメンバ `gm` を指す式です。MISO では「`gm` があるか」の検査に使います"
-msgstr ""
+msgstr "An expression that points to member `gm` of class `T`. MISO uses it to check \"whether `gm` exists\""
 
 #, python-brace-format
 msgid "{ref}`第 6 章 <edu-ch06>`"
-msgstr ""
+msgstr "{ref}`Chapter 6 <edu-ch06>`"
 
 msgid "`x && y`"
 msgstr ""
 
 msgid "論理積（かつ）です。Fortran の `.and.` です"
-msgstr ""
+msgstr "Logical AND (and). It is Fortran's `.and.`"
 
 msgid "`Array3D(Array3D &&other)`"
 msgstr ""
 
 msgid "右辺値参照です。ムーブ（中身の移し替え）を受け取るときに使います"
-msgstr ""
+msgstr "An rvalue reference. It is used to receive a move (a transfer of contents)"
 
 #, python-brace-format
 msgid "{ref}`第 4 章 <edu-ch04>`"
-msgstr ""
+msgstr "{ref}`Chapter 4 <edu-ch04>`"
 
 msgid "`const double *p`"
 msgstr ""
 
 msgid "`*p` を通した変更を禁止します。`p` の指す先は切り替えられます"
-msgstr ""
+msgstr "Forbids modification through `*p`. You can switch what `p` points to"
 
 msgid "`double *const p`"
 msgstr ""
 
 msgid "`p` の指す先の切り替えを禁止します。`*p` を通した変更はできます"
-msgstr ""
+msgstr "Forbids switching what `p` points to. You can modify through `*p`"
 
 msgid "`T *data_`"
 msgstr ""
 
 msgid "宣言（メンバ）"
-msgstr ""
+msgstr "Declaration (member)"
 
 msgid "`Array3DView` などが持つ、配列の先頭を指すポインタです"
-msgstr ""
+msgstr "A pointer to the start of the array, held by `Array3DView` and others"
 
 msgid "`char **argv`"
 msgstr ""
 
 msgid "ポインタを指すポインタです。`main` のコマンドライン引数で見かけます"
-msgstr ""
+msgstr "A pointer to a pointer. You see it in the command-line arguments of `main`"
 
 msgid "MISO のソースは `double *p` のように `*` と `&` を名前の側に付けて書きます（`.clang-format` の設定）。 `double* p` と `double *p` は同じ意味です。"
-msgstr ""
+msgstr "MISO's source attaches `*` and `&` to the name, as in `double *p` (the `.clang-format` setting). `double* p` and `double *p` mean the same thing."
 
 msgid "名前とメンバを指す記号（:: . ->）"
-msgstr ""
+msgstr "Symbols that refer to names and members (:: . ->)"
 
 msgid "`std::cout`、`miso::mhd::MHD`"
 msgstr ""
 
 msgid "名前空間の中の名前です。`miso::mhd::` は「`miso` の中の `mhd` の中」です"
-msgstr ""
+msgstr "A name inside a namespace. `miso::mhd::` means \"inside `mhd` inside `miso`\""
 
 msgid "`backend::Host`"
 msgstr ""
 
 msgid "名前空間 `miso::backend` の中の型です。`using namespace miso;` の後では `miso::` を省けます"
-msgstr ""
+msgstr "A type inside the namespace `miso::backend`. After `using namespace miso;` you can omit `miso::`"
 
 #, python-brace-format
 msgid "{ref}`第 2 章 <edu-ch02>`、{ref}`第 6 章 <edu-ch06>`"
-msgstr ""
+msgstr "{ref}`Chapter 2 <edu-ch02>`, {ref}`Chapter 6 <edu-ch06>`"
 
 msgid "`::sinf(x)`"
 msgstr ""
 
 msgid "先頭の `::` は、名前空間の外（一番外側）の名前を指します"
-msgstr ""
+msgstr "A leading `::` refers to a name outside the namespaces (the outermost one)"
 
 msgid "`Shape::ndims`、`std::true_type::value`"
 msgstr ""
 
 msgid "クラスに属する名前（`static` なメンバ）です。実体を作らずに使えます"
-msgstr ""
+msgstr "A name belonging to a class (a `static` member). You can use it without creating an object"
 
 #, python-brace-format
 msgid "{ref}`第 4 章 <edu-ch04>`、{ref}`第 6 章 <edu-ch06>`"
-msgstr ""
+msgstr "{ref}`Chapter 4 <edu-ch04>`, {ref}`Chapter 6 <edu-ch06>`"
 
 msgid "`T::gm`"
 msgstr ""
 
 msgid "テンプレート引数 `T` のメンバです"
-msgstr ""
+msgstr "A member of the template argument `T`"
 
 msgid "`grid.i_total`、`qq.ro(i, j, k)`"
 msgstr ""
 
 msgid "実体（または参照）のメンバを使います"
-msgstr ""
+msgstr "Uses a member of an object (or reference)"
 
 msgid "`p->x`"
 msgstr ""
 
 msgid "ポインタ `p` の指す先のメンバを使います。`(*p).x` と同じです"
-msgstr ""
+msgstr "Uses a member of what the pointer `p` points to. It is the same as `(*p).x`"
 
 msgid "`this->config`"
 msgstr ""
 
 msgid "メンバ関数の中で、自分自身を指すポインタ `this` からメンバを使います。ふつうは `this->` を省きます"
-msgstr ""
+msgstr "Inside a member function, uses a member through `this`, the pointer to itself. Usually you omit `this->`"
 
 #, python-brace-format
 msgid "括弧（<> [] () {}）"
-msgstr ""
+msgstr "Brackets (<> [] () {})"
 
 msgid "`#include <vector>`"
 msgstr ""
 
 msgid "標準ライブラリなど、決まった場所にあるヘッダを読み込みます"
-msgstr ""
+msgstr "Includes a header in a fixed location, such as the standard library"
 
 #, python-brace-format
 msgid "{ref}`第 1 章 <edu-ch01>`、{ref}`第 2 章 <edu-ch02>`"
-msgstr ""
+msgstr "{ref}`Chapter 1 <edu-ch01>`, {ref}`Chapter 2 <edu-ch02>`"
 
 msgid "`#include \"array3d.hpp\"`"
 msgstr ""
 
 msgid "自分のファイルからの相対位置でヘッダを探して読み込みます"
-msgstr ""
+msgstr "Looks for a header relative to the location of your own file and includes it"
 
 msgid "`a < b`、`n << 1`、`std::cout << x`"
 msgstr ""
 
 msgid "比較、ビットのずらし、出力です"
-msgstr ""
+msgstr "Comparison, bit shift, and output"
 
 msgid "`std::vector<double>`、`Array3D<Real, Backend>`"
 msgstr ""
 
 msgid "テンプレート引数です。山括弧まで含めて 1 つの型の名前になります"
-msgstr ""
+msgstr "Template arguments. The angle brackets are part of the type name, forming a single name"
 
 msgid "`template <typename Real>`"
 msgstr ""
 
 msgid "後から決める型の名前を宣言します"
-msgstr ""
+msgstr "Declares the name of a type to be decided later"
 
 msgid "`template <>`"
 msgstr ""
 
 msgid "完全な特殊化です（すべてのテンプレート引数を決めた定義）"
-msgstr ""
+msgstr "A full specialization (a definition in which all template arguments are fixed)"
 
 msgid "`pi<Real>`、`mpi::data_type<Real>()`"
 msgstr ""
 
 msgid "変数テンプレート・関数テンプレートに型を指定して使います"
-msgstr ""
+msgstr "Uses a variable template or function template by specifying a type"
 
 msgid "`static_cast<Real>(x)`"
 msgstr ""
 
 msgid "`x` を `Real` 型に変換します"
-msgstr ""
+msgstr "Converts `x` to type `Real`"
 
 msgid "`kernel<<<grid, block>>>(...)`"
 msgstr ""
 
 msgid "CUDA のカーネルの起動です。C++ の記号ではありません"
-msgstr ""
+msgstr "A launch of a CUDA kernel. It is not a C++ symbol"
 
 #, python-brace-format
 msgid "{ref}`第 9 章 <edu-ch09>`"
-msgstr ""
+msgstr "{ref}`Chapter 9 <edu-ch09>`"
 
 msgid "`x[i]`、`grid.x[i]`"
 msgstr ""
 
 msgid "配列や `std::vector` の要素です。**0 始まり**です"
-msgstr ""
+msgstr "An element of an array or `std::vector`. Indexing is **zero-based**"
 
 #, python-brace-format
 msgid "{ref}`第 2 章 <edu-ch02>`、{ref}`第 7 章 <edu-ch07>`"
-msgstr ""
+msgstr "{ref}`Chapter 2 <edu-ch02>`, {ref}`Chapter 7 <edu-ch07>`"
 
 msgid "`double x[3];`、`int shape_[3]`"
 msgstr ""
 
 msgid "宣言の `[]` は、要素数の決まった配列を作ります"
-msgstr ""
+msgstr "`[]` in a declaration creates an array with a fixed number of elements"
 
 msgid "`new T[n]`、`delete[] data_`"
 msgstr ""
 
 msgid "配列の確保と解放です"
-msgstr ""
+msgstr "Allocating and freeing an array"
 
 #, python-brace-format
 msgid "{ref}`第 3 章 <edu-ch03>`、{ref}`第 4 章 <edu-ch04>`"
-msgstr ""
+msgstr "{ref}`Chapter 3 <edu-ch03>`, {ref}`Chapter 4 <edu-ch04>`"
 
 msgid "`T &operator[](int idx)`"
 msgstr ""
 
 msgid "`a[idx]` と書けるようにする演算子の定義です"
-msgstr ""
+msgstr "The definition of an operator that lets you write `a[idx]`"
 
 #, python-brace-format
 msgid "`[=]`、`[&]`、`MISO_LAMBDA(int i) { ... }`"
 msgstr ""
 
 msgid "ラムダ式（名前のない関数）の始まりです。`[=]` は値のコピー、`[&]` は参照で外の変数を取り込みます"
-msgstr ""
+msgstr "The start of a lambda expression (an unnamed function). `[=]` captures outside variables by value copy, and `[&]` by reference"
 
 #, python-brace-format
 msgid "{ref}`第 7 章 <edu-ch07>`"
-msgstr ""
+msgstr "{ref}`Chapter 7 <edu-ch07>`"
 
 msgid "`f(x)`、`square<double>(1.5)`"
 msgstr ""
 
 msgid "関数の呼び出しです"
-msgstr ""
+msgstr "A function call"
 
 msgid "`double f(double x);`"
 msgstr ""
 
 msgid "宣言の `()` は引数の並びです"
-msgstr ""
+msgstr "`()` in a declaration is the list of parameters"
 
 msgid "`qq.ro(i, j, k)`"
 msgstr ""
 
 msgid "`operator()` による、配列の要素の読み書きです。Fortran の `ro(i, j, k)` に似せた書き方です"
-msgstr ""
+msgstr "Reading and writing an array element through `operator()`. A notation modeled on Fortran's `ro(i, j, k)`"
 
 msgid "`T &operator()(int i0, int i1, int i2)`"
 msgstr ""
 
 msgid "`a(i, j, k)` と書けるようにする演算子の定義です"
-msgstr ""
+msgstr "The definition of an operator that lets you write `a(i, j, k)`"
 
 msgid "`Array3D<Real> pr(nx, ny, nz);`"
 msgstr ""
 
 msgid "宣言の後の `()` は、コンストラクタに渡す値です"
-msgstr ""
+msgstr "`()` after a declaration holds the values passed to the constructor"
 
 msgid "`(a + b) * c`"
 msgstr ""
 
 msgid "計算の順序を決める括弧です"
-msgstr ""
+msgstr "Parentheses that determine the order of computation"
 
 #, python-brace-format
 msgid "`if (...) { ... }`、`for (...) { ... }`"
 msgstr ""
 
 msgid "処理のまとまり（ブロック）です。中で宣言した変数は `}` で寿命が終わります"
-msgstr ""
+msgstr "A group of statements (a block). A variable declared inside ends its lifetime at `}`"
 
 #, python-brace-format
 msgid "{ref}`第 2 章 <edu-ch02>`、{ref}`第 3 章 <edu-ch03>`"
-msgstr ""
+msgstr "{ref}`Chapter 2 <edu-ch02>`, {ref}`Chapter 3 <edu-ch03>`"
 
 #, python-brace-format
 msgid "`struct Host {};`"
@@ -424,427 +424,427 @@ msgstr ""
 
 #, python-brace-format
 msgid "クラスの本体です。`{}` は中身が空であることを表します"
-msgstr ""
+msgstr "The body of a class. `{}` means the contents are empty"
 
 #, python-brace-format
 msgid "`int n{3};`、`Range1D range{0, n};`"
 msgstr ""
 
 msgid "波括弧による初期化です"
-msgstr ""
+msgstr "Initialization with braces"
 
 #, python-brace-format
 msgid "{ref}`第 2 章 <edu-ch02>`、{ref}`第 4 章 <edu-ch04>`"
-msgstr ""
+msgstr "{ref}`Chapter 2 <edu-ch02>`, {ref}`Chapter 4 <edu-ch04>`"
 
 #, python-brace-format
 msgid "`backend::Host{}`、`Backend{}`"
 msgstr ""
 
 msgid "型の値を初期値なしで作る式です。タグ型を関数に渡すときに使います"
-msgstr ""
+msgstr "An expression that creates a value of a type without an initial value. Used to pass a tag type to a function"
 
 msgid "`: grid(grid), qq(grid)`"
 msgstr ""
 
 msgid "コンストラクタの初期化子リストです（`)` と `{` の間に書きます）"
-msgstr ""
+msgstr "The member initializer list of a constructor (written between `)` and `{`)"
 
 msgid "`<...>` と `(...)` の区別が大切です。`Array3D<float> a(4, 4, 4);` の `float` は型の指定、`4, 4, 4` はコンストラクタへ渡す値です。"
-msgstr ""
+msgstr "The distinction between `<...>` and `(...)` is important. In `Array3D<float> a(4, 4, 4);`, `float` specifies a type, and `4, 4, 4` are the values passed to the constructor."
 
 msgid "その他の演算子"
-msgstr ""
+msgstr "Other operators"
 
 msgid "`a = b`"
 msgstr ""
 
 msgid "代入です。比較は `==` です"
-msgstr ""
+msgstr "Assignment. Comparison is `==`"
 
 msgid "`a == b`、`a != b`"
 msgstr ""
 
 msgid "等しい・等しくない（Fortran の `==`・`/=`）"
-msgstr ""
+msgstr "Equal and not equal (Fortran's `==` and `/=`)"
 
 msgid "`x || y`、`!x`"
 msgstr ""
 
 msgid "論理和（または）、否定（Fortran の `.or.`、`.not.`）"
-msgstr ""
+msgstr "Logical OR (or) and negation (Fortran's `.or.` and `.not.`)"
 
 msgid "`i % n`"
 msgstr ""
 
 msgid "整数の割り算の余り（Fortran の `mod(i, n)`）"
-msgstr ""
+msgstr "The remainder of integer division (Fortran's `mod(i, n)`)"
 
 msgid "`++i`、`i++`"
 msgstr ""
 
 msgid "`i` を 1 増やします"
-msgstr ""
+msgstr "Increases `i` by 1"
 
 msgid "`a += b`"
 msgstr ""
 
 msgid "`a = a + b` と同じです。`-=`、`*=`、`/=` もあります"
-msgstr ""
+msgstr "The same as `a = a + b`. There are also `-=`, `*=`, and `/=`"
 
 msgid "`c ? a : b`"
 msgstr ""
 
 msgid "`c` が真なら `a`、偽なら `b` です"
-msgstr ""
+msgstr "`a` if `c` is true, `b` if false"
 
 msgid "`~Array3D()`"
 msgstr ""
 
 msgid "デストラクタ（後片付けの関数）の名前です"
-msgstr ""
+msgstr "The name of the destructor (a cleanup function)"
 
 msgid "`= default`、`= delete`"
 msgstr ""
 
 msgid "関数の本体の代わりに書く指定です。コンパイラに用意させる・使えなくする"
-msgstr ""
+msgstr "A specifier written in place of a function body. It makes the compiler provide the function or makes it unusable"
 
 msgid "`: public ModelBase<...>`"
 msgstr ""
 
 msgid "クラスの宣言での `:` は継承です"
-msgstr ""
+msgstr "`:` in a class declaration is inheritance"
 
 #, python-brace-format
 msgid "{ref}`第 5 章 <edu-ch05>`"
-msgstr ""
+msgstr "{ref}`Chapter 5 <edu-ch05>`"
 
 msgid "プリプロセッサの記号（#）"
-msgstr ""
+msgstr "Preprocessor symbols (#)"
 
 msgid "`#` で始まる行は、コンパイルの前にプリプロセッサが処理します。C++ の文法とは別の、テキストの置き換えです。"
-msgstr ""
+msgstr "Lines that start with `#` are processed by the preprocessor before compilation. This is text replacement, separate from C++ grammar."
 
 msgid "`#include`"
 msgstr ""
 
 msgid "ファイルの中身をその場所に読み込みます"
-msgstr ""
+msgstr "Includes the contents of a file at that place"
 
 msgid "`#pragma once`"
 msgstr ""
 
 msgid "同じヘッダを 2 回読み込まないようにします"
-msgstr ""
+msgstr "Prevents the same header from being included twice"
 
 msgid "`#define NAME 値`"
-msgstr ""
+msgstr "`#define NAME value`"
 
 msgid "`NAME` を後ろの文字列に置き換えるマクロを定義します"
-msgstr ""
+msgstr "Defines a macro that replaces `NAME` with the text that follows"
 
 msgid "`#ifdef USE_CUDA` 〜 `#else` 〜 `#endif`"
 msgstr ""
 
 msgid "マクロが定義されているかで、コンパイルする部分を選びます。Fortran の `#ifdef` と同じです"
-msgstr ""
+msgstr "Selects the part to compile depending on whether a macro is defined. It is the same as Fortran's `#ifdef`"
 
 msgid "`#ifdef __CUDACC__`"
 msgstr ""
 
 msgid "CUDA のコンパイラ（nvcc）でビルドしているときだけ有効な部分です"
-msgstr ""
+msgstr "A part that is active only when building with the CUDA compiler (nvcc)"
 
 #, python-brace-format
 msgid "{ref}`第 6 章 <edu-ch06>`、{ref}`第 9 章 <edu-ch09>`"
-msgstr ""
+msgstr "{ref}`Chapter 6 <edu-ch06>`, {ref}`Chapter 9 <edu-ch09>`"
 
 msgid "`#undef NAME`"
 msgstr ""
 
 msgid "マクロの定義を取り消します"
-msgstr ""
+msgstr "Cancels the definition of a macro"
 
 msgid "行末の `\\`"
-msgstr ""
+msgstr "`\\` at the end of a line"
 
 msgid "マクロの定義を次の行へ続けます"
-msgstr ""
+msgstr "Continues the macro definition onto the next line"
 
 msgid "マクロの中の `##`"
-msgstr ""
+msgstr "`##` in a macro"
 
 msgid "前後をつないで 1 つの名前にします（`has_##name` → `has_vx`）"
-msgstr ""
+msgstr "Joins the parts before and after into a single name (`has_##name` → `has_vx`)"
 
 msgid "マクロの中の `#name`"
-msgstr ""
+msgstr "`#name` in a macro"
 
 msgid "引数を文字列にします（`#name` → `\"vx\"`）"
-msgstr ""
+msgstr "Turns the argument into a string (`#name` → `\"vx\"`)"
 
 msgid "キーワード"
-msgstr ""
+msgstr "Keywords"
 
 msgid "宣言の中の位置によって意味が変わるものを中心にまとめます。"
-msgstr ""
+msgstr "This collects mainly those whose meaning changes depending on their position in a declaration."
 
 msgid "見かけた形と意味"
-msgstr ""
+msgstr "Form you see and its meaning"
 
 msgid "`const`"
 msgstr ""
 
 msgid "`const Real gm_ = gm;`：値を変えられない変数です"
-msgstr ""
+msgstr "`const Real gm_ = gm;`: a variable whose value cannot be changed"
 
 msgid "`const T &x`：読むだけの参照です"
-msgstr ""
+msgstr "`const T &x`: a reference for reading only"
 
 msgid "`const T *p` と `T *const p`：`*` の左なら指す先、右ならポインタ自身を固定します"
-msgstr ""
+msgstr "`const T *p` and `T *const p`: to the left of the `*` it fixes what is pointed to; to the right it fixes the pointer itself"
 
 msgid "`int size() const`：メンバ変数を変えないメンバ関数です"
-msgstr ""
+msgstr "`int size() const`: a member function that does not change member variables"
 
 msgid "`Array3DView<const Real>`：要素を読むだけの View です"
-msgstr ""
+msgstr "`Array3DView<const Real>`: a view that only reads the elements"
 
 msgid "`constexpr`"
 msgstr ""
 
 msgid "`constexpr int n_fields = 9;`：コンパイル時に値が決まる定数です"
-msgstr ""
+msgstr "`constexpr int n_fields = 9;`: a constant whose value is determined at compile time"
 
 msgid "`auto`"
 msgstr ""
 
 msgid "`auto dt = mhd.cfl(d.eos);`：初期値から型を決めます。`auto &d = derived();` は参照になります"
-msgstr ""
+msgstr "`auto dt = mhd.cfl(d.eos);`: determines the type from the initial value. `auto &d = derived();` becomes a reference"
 
 msgid "`using`"
 msgstr ""
 
 msgid "`using Real = float;`：型の別名です"
-msgstr ""
+msgstr "`using Real = float;`: a type alias"
 
 msgid "`using namespace miso;`：名前空間の名前を `miso::` なしで使えるようにします"
-msgstr ""
+msgstr "`using namespace miso;`: lets you use names in the namespace without `miso::`"
 
 msgid "`using Source = decltype(d.src);`：テンプレートの中で、求めた型に別名を付けます"
-msgstr ""
+msgstr "`using Source = decltype(d.src);`: gives an alias to a deduced type inside a template"
 
 msgid "`template`"
 msgstr ""
 
 msgid "`template <typename T> ...`：テンプレートの宣言です"
-msgstr ""
+msgstr "`template <typename T> ...`: a template declaration"
 
 msgid "`template <> ...`：完全な特殊化です"
-msgstr ""
+msgstr "`template <> ...`: a full specialization"
 
 msgid "`x.template as<bool>()`：この後の名前がテンプレートであることを示す印です"
-msgstr ""
+msgstr "`x.template as<bool>()`: a marker showing that the name that follows is a template"
 
 msgid "`typename`"
 msgstr ""
 
 msgid "`template <typename T>`：`T` が型の名前であることを示します。`class` と書いても同じです"
-msgstr ""
+msgstr "`template <typename T>`: shows that `T` is the name of a type. Writing `class` means the same"
 
 msgid "`typename T::value_type`：テンプレート引数に属する名前が型であることを示します"
-msgstr ""
+msgstr "`typename T::value_type`: shows that a name belonging to a template argument is a type"
 
 msgid "`inline`"
 msgstr ""
 
 msgid "ヘッダに定義を置く通常の関数や変数に付けます。速くする指定ではありません"
-msgstr ""
+msgstr "Attached to ordinary functions and variables whose definitions are placed in a header. It is not a specifier for making things faster"
 
 msgid "`static`"
 msgstr ""
 
 msgid "クラスの中では、実体によらずクラスに属するメンバです"
-msgstr ""
+msgstr "Inside a class, a member that belongs to the class regardless of any object"
 
 msgid "`explicit`"
 msgstr ""
 
 msgid "コンストラクタによる暗黙の型変換を禁止します"
-msgstr ""
+msgstr "Forbids implicit type conversion by a constructor"
 
 msgid "`noexcept`"
 msgstr ""
 
 msgid "関数が例外を外へ出さないことを表します"
-msgstr ""
+msgstr "Indicates that the function does not let exceptions escape"
 
 msgid "`virtual`"
 msgstr ""
 
 msgid "実行時に派生クラスの関数を選ぶ仮想関数です。MISO では使っていません"
-msgstr ""
+msgstr "A virtual function whose derived-class version is chosen at run time. MISO does not use it"
 
 msgid "`decltype(式)`"
-msgstr ""
+msgstr "`decltype(expression)`"
 
 msgid "式を実行せずに、その型を求めます"
-msgstr ""
+msgstr "Determines the type of an expression without evaluating it"
 
 msgid "`if constexpr`"
 msgstr ""
 
 msgid "条件がコンパイル時に決まる分岐です。選ばれない側は組み込まれません"
-msgstr ""
+msgstr "A branch whose condition is determined at compile time. The side not selected is not included"
 
 msgid "`static_assert`"
 msgstr ""
 
 msgid "条件が偽ならコンパイルエラーにします"
-msgstr ""
+msgstr "Makes it a compile error if the condition is false"
 
 msgid "`nullptr`"
 msgstr ""
 
 msgid "どこも指していないポインタです"
-msgstr ""
+msgstr "A pointer that points nowhere"
 
 msgid "`this`"
 msgstr ""
 
 msgid "メンバ関数の中で、自分自身を指すポインタです。ラムダの中で使うと GPU で問題になります"
-msgstr ""
+msgstr "Inside a member function, a pointer to itself. Using it inside a lambda causes problems on the GPU"
 
 #, python-brace-format
 msgid "{ref}`第 4 章 <edu-ch04>`、{ref}`第 7 章 <edu-ch07>`、{ref}`第 9 章 <edu-ch09>`"
-msgstr ""
+msgstr "{ref}`Chapter 4 <edu-ch04>`, {ref}`Chapter 7 <edu-ch07>`, {ref}`Chapter 9 <edu-ch09>`"
 
 msgid "`struct`、`class`"
 msgstr ""
 
 msgid "クラスの宣言です。`struct` は既定で `public`、`class` は既定で `private` です"
-msgstr ""
+msgstr "A class declaration. `struct` is `public` by default, and `class` is `private` by default"
 
 msgid "MISO と CUDA の記号"
-msgstr ""
+msgstr "MISO and CUDA symbols"
 
 msgid "C++ のキーワードではなく、MISO や CUDA が用意する名前です。"
-msgstr ""
+msgstr "These are not C++ keywords, but names provided by MISO and CUDA."
 
 msgid "`Real`"
 msgstr ""
 
 msgid "demo で `using Real = float;` と決める浮動小数点の型です。ライブラリ側ではテンプレート引数です"
-msgstr ""
+msgstr "The floating-point type that the demos fix with `using Real = float;`. On the library side it is a template argument"
 
 msgid "`Backend`、`backend::Host`、`backend::CUDA`"
 msgstr ""
 
 msgid "計算とメモリの場所を表すタグ型です（`miso/include/miso/backend.hpp`）"
-msgstr ""
+msgstr "Tag types that represent the place of computation and memory (`miso/include/miso/backend.hpp`)"
 
 msgid "`MISO_LAMBDA`"
 msgstr ""
 
 msgid "ラムダ式の始まりを表すマクロです。CPU のビルドでは `[=]`、CUDA のビルドでは `[=] __host__ __device__` になります（`miso/include/miso/execution.hpp`）"
-msgstr ""
+msgstr "A macro that marks the start of a lambda expression. In a CPU build it is `[=]`, and in a CUDA build it is `[=] __host__ __device__` (`miso/include/miso/execution.hpp`)"
 
 #, python-brace-format
 msgid "{ref}`第 7 章 <edu-ch07>`、{ref}`第 9 章 <edu-ch09>`"
-msgstr ""
+msgstr "{ref}`Chapter 7 <edu-ch07>`, {ref}`Chapter 9 <edu-ch09>`"
 
 msgid "`__host__`、`__device__`"
 msgstr ""
 
 msgid "関数を CPU・GPU のどちらから呼べるかの指定です。CPU だけのビルドでは空になります（`miso/include/miso/cuda_compat.hpp`）"
-msgstr ""
+msgstr "A specifier for whether a function can be called from the CPU or the GPU. It is empty in a CPU-only build (`miso/include/miso/cuda_compat.hpp`)"
 
 msgid "`__global__`"
 msgstr ""
 
 msgid "GPU で動くカーネル関数の指定です"
-msgstr ""
+msgstr "A specifier for a kernel function that runs on the GPU"
 
 msgid "`MPI_Comm`、`MPI_Allreduce` など"
-msgstr ""
+msgstr "`MPI_Comm`, `MPI_Allreduce`, and so on"
 
 msgid "MPI のライブラリの型と関数です"
-msgstr ""
+msgstr "Types and functions of the MPI library"
 
 #, python-brace-format
 msgid "{ref}`第 8 章 <edu-ch08>`"
-msgstr ""
+msgstr "{ref}`Chapter 8 <edu-ch08>`"
 
 msgid "宣言を読むときの確認順序"
-msgstr ""
+msgstr "Order of checks when reading a declaration"
 
 msgid "長い宣言は、次の順に分けて読みます。"
-msgstr ""
+msgstr "Read a long declaration by splitting it up in the following order."
 
 msgid "**名前を見つけます。** 変数・関数・型のどれを宣言しているかを確かめます。"
-msgstr ""
+msgstr "**Find the name.** Check whether it declares a variable, a function, or a type."
 
 msgid "**型を読みます。** `<...>` まで含めて 1 つの型です。`template <...>` が前にあれば、山括弧の中の名前は後から決まる型です。"
-msgstr ""
+msgstr "**Read the type.** The type includes everything up to `<...>`. If `template <...>` comes before, the names inside the angle brackets are types decided later."
 
 msgid "**値・参照・ポインタを区別します。** 名前に `&` や `*` が付いているかを見ます。"
-msgstr ""
+msgstr "**Distinguish value, reference, and pointer.** Look at whether `&` or `*` is attached to the name."
 
 msgid "**`const` の対象を確かめます。** 値、指す先、ポインタ自身、メンバ関数のどれかを区別します。"
-msgstr ""
+msgstr "**Check what `const` applies to.** Distinguish whether it is the value, what is pointed to, the pointer itself, or the member function."
 
 msgid "**作り方と寿命を確かめます。** 初期値、引数、戻り値がどの実体を使い、いつまで使えるかを追います。"
-msgstr ""
+msgstr "**Check how it is created and its lifetime.** Trace which objects the initial value, parameters, and return value use, and how long they remain usable."
 
 msgid "例として、`miso/include/miso/mhd_integrator.hpp` の宣言を分けて読みます。"
-msgstr ""
+msgstr "As an example, let us read a declaration from `miso/include/miso/mhd_integrator.hpp` in parts."
 
 msgid "部分"
-msgstr ""
+msgstr "Part"
 
 msgid "読み方"
-msgstr ""
+msgstr "How to read it"
 
 msgid "`template <typename Real, typename Source>`"
 msgstr ""
 
 msgid "`Real` と `Source` は後から決まる型です"
-msgstr ""
+msgstr "`Real` and `Source` are types decided later"
 
 msgid "`__host__ __device__`"
 msgstr ""
 
 msgid "CPU からも GPU からも呼べる関数です"
-msgstr ""
+msgstr "A function that can be called from both the CPU and the GPU"
 
 msgid "ヘッダに置く関数です"
-msgstr ""
+msgstr "A function placed in a header"
 
 msgid "`Real source_vx(...)`"
 msgstr ""
 
 msgid "名前は `source_vx`、戻り値の型は `Real` です"
-msgstr ""
+msgstr "The name is `source_vx` and the return type is `Real`"
 
 msgid "`const Source &src`"
 msgstr ""
 
 msgid "ソース項の実体を、読むだけの参照で受け取ります"
-msgstr ""
+msgstr "Receives the source-term object as a reference for reading only"
 
 msgid "`const FieldsView<const Real> &qq`"
 msgstr ""
 
 msgid "要素を読むだけの View（`FieldsView<const Real>`）を、読むだけの参照で受け取ります"
-msgstr ""
+msgstr "Receives a view that only reads the elements (`FieldsView<const Real>`) as a reference for reading only"
 
 msgid "`int i, int j, int k`"
 msgstr ""
 
 msgid "格子点の添字を値で受け取ります"
-msgstr ""
+msgstr "Receives the grid-point indices by value"
 
 msgid "文法の詳細は、C++17 規格草案 N4659 の [参照の宣言](https://timsong-cpp.github.io/cppwp/n4659/dcl.ref)、 [`const` の規則](https://timsong-cpp.github.io/cppwp/n4659/dcl.type.cv)、 [テンプレート](https://timsong-cpp.github.io/cppwp/n4659/temp)で確認できます。"
-msgstr ""
+msgstr "For the details of the grammar, see the C++17 draft standard N4659: [declaring references](https://timsong-cpp.github.io/cppwp/n4659/dcl.ref), [the rules for `const`](https://timsong-cpp.github.io/cppwp/n4659/dcl.type.cv), and [templates](https://timsong-cpp.github.io/cppwp/n4659/temp)."
 

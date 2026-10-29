@@ -20,7 +20,7 @@ Claude Code の上位モデルで作業しているときも、訳はサブエ�
 - `{ref}`、`{doc}`、`:ref:`、`:cite:` などのロールの**ターゲット**（`<edu-ch02>` の部分）。表示文は訳す。
 - `|today|` などの置換、`**` や `*` の強調の記号（中の語は訳す）。
 - 英語のままの見出し（`Quick Start`、`Boundary Condition` など）は `msgstr` を空のままにする。空なら原文が出る。
-- 「1. 」のように番号とピリオドで始まる見出しは、訳文で `1\. ` と書く（`.po` の中では `1\\. `）。そのままだと Sphinx が箇条書きと見て、訳を捨てる。
+- 「1. 」のように番号とピリオドで始まる見出しは、訳文で `1\. ` と書く（`.po` の中では `1\\. `）。`*`・`-`・`+` で始まる見出しも同じく `\*` のようにする。そのままだと Sphinx が箇条書きと見て、訳を捨てる。
 
 ## 書き方
 
@@ -90,6 +90,11 @@ Claude Code の上位モデルで作業しているときも、訳はサブエ�
 | 数値拡散 | numerical diffusion | |
 | 親クラス・子クラス | parent class / child class | education の表の「基底クラス・派生クラス」と同じもの |
 | シグネチャ | signature | |
+| 実習（実習のページとその節） | practice | 「実習一覧」→ Practice List、「実習 heat1d」→ Practice heat1d |
+| 練習（章の中の「練習 N」） | Exercise | 実習（practice）と区別する |
+| 課題 | assignment | |
+| この教材 | this course | |
+| 第 N 章・N 節 | Chapter N / Section N | |
 | 規格化 | normalization | |
 | 設定ファイル | configuration file | |
 | 実行ファイル | executable | |

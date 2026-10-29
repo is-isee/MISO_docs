@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MISO \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-10-29 09:37+0900\n"
+"POT-Creation-Date: 2026-10-29 13:55+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: en\n"
@@ -20,159 +20,159 @@ msgstr ""
 "Generated-By: Babel 2.18.0\n"
 
 msgid "3. 参照・ポインタと寿命"
-msgstr ""
+msgstr "3\\. References, Pointers, and Lifetime"
 
 #, python-brace-format
 msgid "{ref}`第 2 章 <edu-ch02>` では、値をコピーして関数へ渡す方法（値渡し）を学びました。 この章では、コピーを作らずに**元の変数を使う**ための参照とポインタを学び、どの変数を読み書きしているか、その変数がいつまで使えるかを追えるようにします。 MISO では、設定や格子を参照で受け取って持ち続けたり、配列の場所をポインタで持つ軽い「View」を計算に渡したりしています。"
-msgstr ""
+msgstr "In {ref}`Chapter 2 <edu-ch02>`, you learned how to pass a copy of a value to a function (pass by value). In this chapter, you will learn references and pointers, which let you **use the original variable** without making a copy, so that you can trace which variable is being read or written and how long that variable remains usable. In MISO, configuration and grids are received by reference and kept, and lightweight \"Views\" that hold the location of an array through a pointer are passed to computations."
 
 #, python-brace-format
 msgid "記号の意味だけを確かめたいときは {ref}`記号の早見表 <edu-ref-cpp>` も使えます。"
-msgstr ""
+msgstr "If you only want to check what the symbols mean, you can also use the {ref}`symbol quick reference <edu-ref-cpp>`."
 
 msgid "目次"
-msgstr ""
+msgstr "Contents"
 
 #, python-brace-format
 msgid "{ref}`1. コピーと参照 <edu-ch03-references>`"
-msgstr ""
+msgstr "{ref}`1. Copies and references <edu-ch03-references>`"
 
 #, python-brace-format
 msgid "{ref}`1.1 値のコピーと参照 <edu-ch03-reference-basics>` ／ {ref}`1.2 参照渡し <edu-ch03-pass-by-reference>` ／ {ref}`1.3 出力引数 <edu-ch03-output-arguments>`"
-msgstr ""
+msgstr "{ref}`1.1 Copying a value and references <edu-ch03-reference-basics>` / {ref}`1.2 Pass by reference <edu-ch03-pass-by-reference>` / {ref}`1.3 Output parameters <edu-ch03-output-arguments>`"
 
 #, python-brace-format
 msgid "{ref}`1.4 読むための const 参照 <edu-ch03-const-reference>` ／ {ref}`1.5 引数の受け取り方の使い分け <edu-ch03-argument-choice>`"
-msgstr ""
+msgstr "{ref}`1.4 const references for reading <edu-ch03-const-reference>` / {ref}`1.5 Choosing how to receive parameters <edu-ch03-argument-choice>`"
 
 #, python-brace-format
 msgid "{ref}`2. ポインタ <edu-ch03-pointers>`"
-msgstr ""
+msgstr "{ref}`2. Pointers <edu-ch03-pointers>`"
 
 #, python-brace-format
 msgid "{ref}`2.1 アドレスとポインタ <edu-ch03-address>` ／ {ref}`2.2 宣言と式で変わる * と & <edu-ch03-symbols-in-declaration>` ／ {ref}`2.3 指す先の付け替え <edu-ch03-rebinding>` ／ {ref}`2.4 nullptr <edu-ch03-nullptr>` ／ {ref}`2.5 ポインタを受け取る関数 <edu-ch03-pointer-arguments>`"
-msgstr ""
+msgstr "{ref}`2.1 Addresses and pointers <edu-ch03-address>` / {ref}`2.2 * and & change meaning between declarations and expressions <edu-ch03-symbols-in-declaration>` / {ref}`2.3 Re-pointing <edu-ch03-rebinding>` / {ref}`2.4 nullptr <edu-ch03-nullptr>` / {ref}`2.5 Functions that take pointers <edu-ch03-pointer-arguments>`"
 
 #, python-brace-format
 msgid "{ref}`3. const の位置 <edu-ch03-const-position>`"
-msgstr ""
+msgstr "{ref}`3. Position of const <edu-ch03-const-position>`"
 
 #, python-brace-format
 msgid "{ref}`4. 配列とポインタ <edu-ch03-arrays>`"
-msgstr ""
+msgstr "{ref}`4. Arrays and pointers <edu-ch03-arrays>`"
 
 #, python-brace-format
 msgid "{ref}`5. 変数の寿命とスコープ <edu-ch03-lifetime>`"
-msgstr ""
+msgstr "{ref}`5. Variable lifetime and scope <edu-ch03-lifetime>`"
 
 #, python-brace-format
 msgid "{ref}`6. new・delete とスマートポインタ <edu-ch03-dynamic-memory>`"
-msgstr ""
+msgstr "{ref}`6. new, delete, and smart pointers <edu-ch03-dynamic-memory>`"
 
 #, python-brace-format
 msgid "{ref}`7. 練習 <edu-ch03-exercises>`"
-msgstr ""
+msgstr "{ref}`7. Exercises <edu-ch03-exercises>`"
 
 #, python-brace-format
 msgid "{ref}`8. 記号のまとめ <edu-ch03-summary>`"
-msgstr ""
+msgstr "{ref}`8. Summary of symbols <edu-ch03-summary>`"
 
 msgid "1. コピーと参照"
-msgstr ""
+msgstr "1\\. Copies and references"
 
 msgid "1.1 値のコピーと参照"
-msgstr ""
+msgstr "1.1 Copying a value and references"
 
 msgid "同じ値から始めることと、同じ変数を使うことを区別します。"
-msgstr ""
+msgstr "Distinguish between starting from the same value and using the same variable."
 
 msgid "`double &r = a;` の `r` は、新しい `double` の変数ではなく、**`a` に付けた別の名前**です。 このような別名を**参照**（reference）と呼び、宣言では型の後に `&` を付けます。 `double& r` と `double &r` は同じ意味で、MISO のソースは `double &r` の書き方（`&` を名前に寄せる）に揃えています。"
-msgstr ""
+msgstr "The `r` in `double &r = a;` is not a new `double` variable; it is **another name given to `a`**. Such an alias is called a **reference**, and in a declaration you put `&` after the type. `double& r` and `double &r` mean the same thing, and the MISO source consistently uses the `double &r` style (`&` next to the name)."
 
 msgid "参照は、宣言するときに必ず対象を決めます。`double &r;` のように対象なしでは作れません。 また、**後から別の変数へ付け替えることはできません**。上の状態で `r = b;` と書くと、`a` に `b` の値が代入されるだけです。"
-msgstr ""
+msgstr "A reference must be bound to its target when it is declared. You cannot create one without a target, as in `double &r;`. Also, **you cannot rebind it to a different variable later**. If you write `r = b;` in the state above, it only assigns the value of `b` to `a`."
 
 msgid "1.2 参照渡し"
-msgstr ""
+msgstr "1.2 Pass by reference"
 
 msgid "関数の引数を参照にすると、呼び出し元の変数そのものを関数の中で使えます。"
-msgstr ""
+msgstr "If you make a function parameter a reference, the function can use the caller's variable itself."
 
 msgid "呼び出す側はどちらも `set_copy(c)`・`set_original(c)` と書き、見た目は同じです。 違いは**関数を定義する側の `double value` と `double &value`** にあります。 このように引数を参照で受け取る方法を**参照渡し**（pass by reference）と呼びます。"
-msgstr ""
+msgstr "The caller writes `set_copy(c)` and `set_original(c)`, which look the same. The difference lies in **`double value` versus `double &value` on the side that defines the function**. Receiving a parameter by reference in this way is called **pass by reference**."
 
 #, python-brace-format
 msgid "Fortran では、引数は通常、呼び出し元の変数そのものとして扱われ、サブルーチンの中で代入すると呼び出し元が変わります。 **Fortran の引数に近いのは、C++ の値渡しではなく参照渡しの方です。** Fortran で `intent(in)`、`intent(out)`、`intent(inout)` を書き分けるように、C++ では引数の型で受け取り方を書き分けます（{ref}`1.5 節 <edu-ch03-argument-choice>`）。"
-msgstr ""
+msgstr "In Fortran, arguments are normally treated as the caller's variable itself, and assigning to one inside a subroutine changes the caller's variable. **A Fortran argument is closer to C++ pass by reference than to pass by value.** Just as you distinguish `intent(in)`, `intent(out)`, and `intent(inout)` in Fortran, in C++ you express how an argument is received through its type ({ref}`Section 1.5 <edu-ch03-argument-choice>`)."
 
 msgid "1.3 出力引数"
-msgstr ""
+msgstr "1.3 Output parameters"
 
 msgid "関数の戻り値は 1 つですが、参照引数を使えば複数の結果を呼び出し元へ渡せます。 Fortran のサブルーチンが `intent(out)` の引数に結果を書くのと同じ使い方です。"
-msgstr ""
+msgstr "A function has only one return value, but reference parameters let you pass multiple results back to the caller. This is the same usage as a Fortran subroutine writing its results to `intent(out)` arguments."
 
 msgid "`a` と `b` は値渡しで計算に使う値を受け取り、`total` と `difference` は参照で結果を書き込む先を受け取っています。 結果を受け取るための引数を**出力引数**と呼びます。"
-msgstr ""
+msgstr "`a` and `b` receive the values used in the computation by value, and `total` and `difference` receive, by reference, the places where the results are written. A parameter that receives a result is called an **output parameter**."
 
 #, python-brace-format
 msgid "**MISO の実例** — {ref}`第 2 章 <edu-ch02>` の `switch` で見た `miso/include/miso/boundary_condition.hpp` の `symmetric_index` の全体です。"
-msgstr ""
+msgstr "**A real MISO example** — the whole of `symmetric_index` in `miso/include/miso/boundary_condition.hpp`, which we saw with `switch` in {ref}`Chapter 2 <edu-ch02>`."
 
 #, python-brace-format
 msgid "先頭の `__host__ __device__` は CPU と GPU の両方から呼べる印で（{ref}`第 9 章 <edu-ch09>`）、CPU ビルドでは空に置き換わります（{ref}`第 2 章 <edu-ch02>` のプリプロセッサ）。 `i`, `i_total`, `i_margin`, `side` は値渡しの入力、`int &i_ghst` と `int &i_trgt` は出力引数です。 呼び出す側で用意した 2 つの `int` に、ゴーストセルの添字と、値を写す元の添字が書き込まれます。"
-msgstr ""
+msgstr "The leading `__host__ __device__` is a marker that the function can be called from both CPU and GPU ({ref}`Chapter 9 <edu-ch09>`), and in a CPU build it is replaced by nothing (the preprocessor, in {ref}`Chapter 2 <edu-ch02>`). `i`, `i_total`, `i_margin`, and `side` are inputs passed by value, and `int &i_ghst` and `int &i_trgt` are output parameters. The index of the ghost cell and the index of the cell whose value is copied are written into the two `int` variables prepared by the caller."
 
 #, python-brace-format
 msgid "{ref}`第 1 章 <edu-ch01>` の、`MISO::MISO` をリンクする CMake 設定でビルドできます（`miso/core.hpp` が MPI と yaml-cpp のヘッダを読むためです）。 外側の境界では、ゴーストセル 6, 7 に、境界をはさんで鏡に映した位置 5, 4 の値を写すことが分かります。"
-msgstr ""
+msgstr "You can build this with the CMake setup from {ref}`Chapter 1 <edu-ch01>` that links `MISO::MISO` (because `miso/core.hpp` includes the MPI and yaml-cpp headers). You can see that at the outer boundary, the values at positions 5 and 4, mirrored across the boundary, are copied into ghost cells 6 and 7."
 
 msgid "1.4 読むための const 参照"
-msgstr ""
+msgstr "1.4 const references for reading"
 
 msgid "元の変数をコピーせずに使いながら、関数の中では書き換えないようにするには、`const` を付けて `const T &` と書きます（`T` は型を表す仮の名前です）。"
-msgstr ""
+msgstr "To use the original variable without copying it while making sure the function does not modify it, add `const` and write `const T &` (`T` is a placeholder name that stands for a type)."
 
 #, python-brace-format
 msgid "`const double &value` は「`double` を読むためだけの参照」です。Fortran の `intent(in)` に当たります。 禁止されるのは**この参照を通した書き換え**で、呼び出し元の変数が書き換え禁止になるわけではありません。 `const` 参照には `twice(1.0)` のように数値を直接渡すこともできます（{ref}`5 節 <edu-ch03-lifetime>`）。書き換え用の `double &` には数値を渡せません。"
-msgstr ""
+msgstr "`const double &value` is \"a reference only for reading a `double`.\" It corresponds to Fortran's `intent(in)`. What is forbidden is **modification through this reference**; it does not make the caller's variable itself read-only. You can also pass a number directly to a `const` reference, as in `twice(1.0)` ({ref}`Section 5 <edu-ch03-lifetime>`). You cannot pass a number to a `double &` meant for modification."
 
 #, python-brace-format
 msgid "{ref}`第 2 章 <edu-ch02-exceptions>` の `catch (const std::runtime_error &e)` も、受け止めた例外を const 参照で受け取る書き方です。"
-msgstr ""
+msgstr "The `catch (const std::runtime_error &e)` in {ref}`Chapter 2 <edu-ch02-exceptions>` is also a way of receiving the caught exception by const reference."
 
 msgid "**MISO の実例** — `miso/include/miso/config.hpp` の `merge_yaml` は、設定ファイルの内容 `target` に、既定値 `defaults` のうち足りない項目を書き足す関数です（宣言部分）。"
-msgstr ""
+msgstr "**A real MISO example** — `merge_yaml` in `miso/include/miso/config.hpp` is a function that adds the missing items from the defaults `defaults` to the contents of the configuration file `target` (the declaration)."
 
 msgid "`YAML::Node` は yaml-cpp の型で、YAML の木構造を表します。 書き足す先の `target` は `YAML::Node &`（書き換える）、既定値の `defaults` は `const YAML::Node &`（読むだけ）です。 宣言を見るだけで、どちらの引数が変わるかが分かります。"
-msgstr ""
+msgstr "`YAML::Node` is a yaml-cpp type that represents a YAML tree. `target`, the destination being added to, is a `YAML::Node &` (modified), and the default values `defaults` are a `const YAML::Node &` (read only). The declaration alone tells you which parameter changes."
 
 #, python-brace-format
 msgid "`miso/include/miso/time.hpp` の `Time` は、設定を `const Config &config` で受け取って、終了時刻などを読み出します（クラスのコンストラクタという仕組みで、{ref}`第 4 章 <edu-ch04>` で説明します）。"
-msgstr ""
+msgstr "`Time` in `miso/include/miso/time.hpp` receives the configuration as `const Config &config` and reads the end time and other values from it (this uses a mechanism called a class constructor, explained in {ref}`Chapter 4 <edu-ch04>`)."
 
 msgid "1.5 引数の受け取り方の使い分け"
-msgstr ""
+msgstr "1.5 Choosing how to receive parameters"
 
 msgid "関数でしたいこと"
-msgstr ""
+msgstr "What the function needs to do"
 
 msgid "宣言"
-msgstr ""
+msgstr "Declaration"
 
 msgid "Fortran で近いもの"
-msgstr ""
+msgstr "Closest in Fortran"
 
 msgid "数値 1 個など、コピーの軽い値を使う"
-msgstr ""
+msgstr "Use a value that is cheap to copy, such as a single number"
 
 msgid "`T value`"
 msgstr ""
 
 msgid "`intent(in)`（値を使うだけ）"
-msgstr ""
+msgstr "`intent(in)` (only uses the value)"
 
 msgid "コピーに手間がかかるデータを読む"
-msgstr ""
+msgstr "Read data that is expensive to copy"
 
 msgid "`const T &value`"
 msgstr ""
@@ -181,7 +181,7 @@ msgid "`intent(in)`"
 msgstr ""
 
 msgid "呼び出し元の変数を書き換える"
-msgstr ""
+msgstr "Modify the caller's variable"
 
 msgid "`T &value`"
 msgstr ""
@@ -190,217 +190,227 @@ msgid "`intent(out)`, `intent(inout)`"
 msgstr ""
 
 msgid "**`int` や `double` 1 個を読むだけなら、値渡しが基本です。** 数値 1 個のコピーは安く、参照にしても速くなるとは限りません。 `std::string`、`std::vector`、`Config` のように中身が大きくなりうる型を読むだけなら `const T &` にします。 書き換えるなら、数値 1 個でも `T &` にします。 この使い分けは [C++ Core Guidelines の F.16](https://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines#rf-in) と [F.17](https://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines#rf-inout) でも勧められています。"
-msgstr ""
+msgstr "**If you only read a single `int` or `double`, pass by value is the basic choice.** Copying one number is cheap, and using a reference does not necessarily make it faster. If you only read a type whose contents can be large, such as `std::string`, `std::vector`, or `Config`, use `const T &`. If you modify it, use `T &` even for a single number. This division is also recommended in [C++ Core Guidelines F.16](https://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines#rf-in) and [F.17](https://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines#rf-inout)."
 
 msgid "値渡しの引数に `const` を付けた `const T value` も書けます。これは「関数の中でこのコピーを書き換えない」という印で、呼び出し元には影響しません。"
-msgstr ""
+msgstr "You can also add `const` to a pass-by-value parameter, as in `const T value`. This is a marker that \"this copy is not modified inside the function\" and has no effect on the caller."
 
 msgid "**MISO の実例** — `miso/include/miso/time.hpp` の `Time::update` は、時刻刻み `dt` を `const Real dt`（書き換えないコピー）で受け取ります。"
-msgstr ""
+msgstr "**A real MISO example** — `Time::update` in `miso/include/miso/time.hpp` receives the time step `dt` as `const Real dt` (a copy that is not modified)."
 
 msgid "`demo/mhd2d_vortex/src/main.cpp` の `Model` は、設定を `Config &config` で受け取ります。"
-msgstr ""
+msgstr "`Model` in `demo/mhd2d_vortex/src/main.cpp` receives the configuration as `Config &config`."
 
 #, python-brace-format
 msgid "`const` が付いていないのは、受け取った `config` を基底クラス `ModelBase`（{ref}`第 5 章 <edu-ch05>`）に渡し、そこで書き換え可能な参照として持ち続けるためです（{ref}`5 節 <edu-ch03-lifetime>`）。 `:` の後ろの並びは、メンバの初期化（{ref}`第 4 章 <edu-ch04>`）です。ここでは「`config` をコピーせずに、そのまま渡している」と読めば十分です。"
-msgstr ""
+msgstr "It has no `const` because it passes the received `config` to the base class `ModelBase` ({ref}`Chapter 5 <edu-ch05>`) and keeps it there as a modifiable reference ({ref}`Section 5 <edu-ch03-lifetime>`). The list after `:` is member initialization ({ref}`Chapter 4 <edu-ch04>`). For now, it is enough to read it as \"pass `config` along as it is, without copying.\""
 
 msgid "2. ポインタ"
-msgstr ""
+msgstr "2\\. Pointers"
 
 msgid "2.1 アドレスとポインタ"
-msgstr ""
+msgstr "2.1 Addresses and pointers"
 
 msgid "変数はメモリ上のどこかに置かれています。その場所を表す値を**アドレス**と呼び、**アドレスを保持する変数をポインタ**（pointer）と呼びます。"
-msgstr ""
+msgstr "A variable is placed somewhere in memory. The value that represents that location is called an **address**, and a **variable that holds an address is called a pointer**."
 
 msgid "部分"
-msgstr ""
+msgstr "Part"
 
 msgid "意味"
-msgstr ""
+msgstr "Meaning"
 
 msgid "`double *`"
 msgstr ""
 
 msgid "「`double` を指すポインタ」という型"
-msgstr ""
+msgstr "The type \"pointer to `double`\""
 
 msgid "`p`"
 msgstr ""
 
 msgid "ポインタ変数の名前"
-msgstr ""
+msgstr "The name of the pointer variable"
 
 msgid "`&a`"
 msgstr ""
 
 msgid "`a` のアドレスを取り出す式"
-msgstr ""
+msgstr "An expression that takes the address of `a`"
 
 msgid "ポインタが指す先の値を使うには、式の中で `*p` と書きます（**間接参照**）。"
-msgstr ""
+msgstr "To use the value that a pointer points to, write `*p` in an expression (**dereference**)."
 
 msgid "`a` は数値 1.0 を、`p` は「その 1.0 が置かれている場所」を持っています。 アドレスの数値そのものを覚える必要はなく、**どの変数を指しているか**を追います。"
-msgstr ""
+msgstr "`a` holds the number 1.0, and `p` holds \"the location where that 1.0 is placed.\" You do not need to memorize the numerical value of an address; just trace **which variable it points to**."
 
 msgid "Fortran にも `pointer` 属性がありますが、Fortran のポインタは名前を書くだけで指す先の値になります。 C++ のポインタは、`p` と書けばアドレス、`*p` と書けば指す先の値で、両者を書き分けます。"
-msgstr ""
+msgstr "Fortran also has the `pointer` attribute, but a Fortran pointer simply refers to the target value when you write its name. A C++ pointer is an address when you write `p` and the target value when you write `*p`, and you must distinguish between the two."
 
 msgid "2.2 宣言と式で変わる * と &"
-msgstr ""
+msgstr "2.2 * and & change meaning between declarations and expressions"
 
 msgid "参照とポインタの両方に `&` と `*` が出てきます。**同じ記号でも、宣言に書く場合と式に書く場合で意味が変わります。**"
-msgstr ""
+msgstr "Both `&` and `*` appear in references and pointers. **The same symbol means different things in a declaration and in an expression.**"
 
 msgid "書く場所"
-msgstr ""
+msgstr "Where it is written"
 
 msgid "例"
-msgstr ""
+msgstr "Example"
 
 msgid "宣言の `&`"
-msgstr ""
+msgstr "`&` in a declaration"
 
 msgid "`double &r = a;`"
 msgstr ""
 
 msgid "`r` は `a` の参照"
-msgstr ""
+msgstr "`r` is a reference to `a`"
 
 msgid "式の `&`"
-msgstr ""
+msgstr "`&` in an expression"
 
 msgid "`a` のアドレス"
-msgstr ""
+msgstr "The address of `a`"
 
 msgid "宣言の `*`"
-msgstr ""
+msgstr "`*` in a declaration"
 
 msgid "`double *p = &a;`"
 msgstr ""
 
 msgid "`p` は `double` を指すポインタ"
-msgstr ""
+msgstr "`p` is a pointer to `double`"
 
 msgid "式の `*`"
-msgstr ""
+msgstr "`*` in an expression"
 
 msgid "`*p`"
 msgstr ""
 
 msgid "`p` が指す先の値"
-msgstr ""
+msgstr "The value that `p` points to"
 
 msgid "2 つの値の間の `*`, `&`"
-msgstr ""
+msgstr "`*`, `&` between two values"
 
 msgid "`a * b`, `i & 1`"
 msgstr ""
 
 msgid "掛け算、ビットごとの AND"
-msgstr ""
+msgstr "Multiplication, bitwise AND"
 
 msgid "`r` は `a` の別名なので `&r` も `a` のアドレスで、`&a`, `&r`, `p` はすべて同じ場所を表します。 宣言の `double *p` は「`*p` と書くと `double` になるような `p`」と読むと、式の `*p` とのつながりが分かります。"
-msgstr ""
+msgstr "`r` is another name for `a`, so `&r` is also the address of `a`, and `&a`, `&r`, and `p` all represent the same location. If you read the `double *p` in a declaration as \"a `p` such that writing `*p` gives a `double`,\" you can see the connection with `*p` in an expression."
 
 msgid "宣言でもう 1 つ注意する点があります。**`*` と `&` は型ではなく、それぞれの名前に付きます。**"
-msgstr ""
+msgstr "There is one more point to note in declarations. **`*` and `&` attach to each name, not to the type.**"
 
 msgid "**MISO の実例** — `miso/include/miso/grid.hpp` の `GridView` は、座標の配列をポインタで持っています（抜粋）。"
-msgstr ""
+msgstr "**A real MISO example** — `GridView` in `miso/include/miso/grid.hpp` holds the coordinate arrays through pointers (excerpt)."
 
 #, python-brace-format
 msgid "3 つとも `Real *` で、名前ごとに `*` を書いています。`nullptr` は {ref}`2.4 節 <edu-ch03-nullptr>` で説明します。 `GridView` が何を指すかは {ref}`4 節 <edu-ch03-arrays>` で読みます。"
+msgstr "All three are `Real *`, and `*` is written for each name. `nullptr` is explained in {ref}`Section 2.4 <edu-ch03-nullptr>`. What `GridView` points to is covered in {ref}`Section 4 <edu-ch03-arrays>`."
+
+msgid ""
+"<details>\n"
+"<summary>コラム：宣言を使い方に似せる C の設計と、参照の & の由来</summary>\n"
 msgstr ""
+"<details>\n"
+"<summary>Column: C's design of making declarations resemble usage, and the origin of & in references</summary>\n"
 
 msgid "`double *p` の `*` と `*p` の `*` が同じ記号なのは、C の設計者 Ritchie が「宣言は、その変数を式で使うときの形に似せる」と決めたためです。 `double *p` は「`*p` が `double` である」という宣言として読めます。 出典：[D. M. Ritchie, *The Development of the C Language*](https://www.nokia.com/bell-labs/about/dennis-m-ritchie/chist.html)（\"Embryonic C\" の節）。"
-msgstr ""
+msgstr "The `*` in `double *p` and the `*` in `*p` are the same symbol because Ritchie, the designer of C, decided that \"a declaration should resemble the form in which the variable is used in an expression.\" `double *p` can be read as the declaration \"`*p` is a `double`.\" Source: [D. M. Ritchie, *The Development of the C Language*](https://www.nokia.com/bell-labs/about/dennis-m-ritchie/chist.html) (the \"Embryonic C\" section)."
 
 msgid "参照は C++ で加わった機能です。Stroustrup は、参照を導入した主な理由として演算子のオーバーロード（行列 `A + B` を、大きなデータをコピーせずに書くこと）を挙げています。 同じ節には、Fortran の関数に値を渡すために const 参照を使う例も出てきます。 出典：[B. Stroustrup, *A History of C++: 1979–1991*, 3.3.4 節](https://www.stroustrup.com/hopl2.pdf#page=25)。 ただし、参照の記号に `&` を選んだ理由そのものを述べた設計者の説明は、これらの資料には見当たりません。アドレスと関わりの深い機能なので既存の `&` を使った、というのは推測です。"
-msgstr ""
+msgstr "References are a feature added in C++. Stroustrup gives operator overloading (writing a matrix expression `A + B` without copying large data) as the main reason for introducing references. The same section also gives an example of using a const reference to pass a value to a Fortran function. Source: [B. Stroustrup, *A History of C++: 1979–1991*, Section 3.3.4](https://www.stroustrup.com/hopl2.pdf#page=25). However, we found no explanation by the designer in these sources of why `&` was chosen as the symbol for references. That the existing `&` was used because the feature is closely related to addresses is a guess."
 
 msgid "宣言の `*` を型に寄せて `double* p` と書くか、名前に寄せて `double *p` と書くかは書式の好みで、意味は同じです。 Stroustrup は型を強調する `int* p` を好むと述べ、1 行に 1 つずつ宣言することを勧めています。 出典：[Stroustrup, *C++ Style and Technique FAQ*](https://www.stroustrup.com/bs_faq2.html#whitespace)。 MISO は clang-format の設定（`.clang-format`）で `double *p` の形に揃えています。"
+msgstr "Whether you attach the `*` of a declaration to the type, as in `double* p`, or to the name, as in `double *p`, is a matter of formatting style, and the meaning is the same. Stroustrup says he prefers `int* p`, which emphasizes the type, and recommends declaring one variable per line. Source: [Stroustrup, *C++ Style and Technique FAQ*](https://www.stroustrup.com/bs_faq2.html#whitespace). MISO uses the `double *p` form through its clang-format configuration (`.clang-format`)."
+
+msgid "</details>\n"
 msgstr ""
 
 msgid "2.3 指す先の付け替え"
-msgstr ""
+msgstr "2.3 Re-pointing"
 
 msgid "参照と違い、ポインタは後から別の変数を指すように変えられます。"
-msgstr ""
+msgstr "Unlike a reference, a pointer can later be changed to point to a different variable."
 
 msgid "`p = &b;` はポインタが持つアドレスを変える代入、`*p = 5.0;` は指す先の値を変える代入です。どちらを変えているかを、`*` の有無で見分けます。"
-msgstr ""
+msgstr "`p = &b;` is an assignment that changes the address the pointer holds, and `*p = 5.0;` is an assignment that changes the value it points to. You can tell which one is being changed by the presence of `*`."
 
 msgid "2.4 nullptr"
 msgstr ""
 
 msgid "`nullptr`（ヌルポインタ）は、**どこも指していない**ことを表すポインタの値です。Fortran の `nullify(p)` した状態、`associated(p)` が偽の状態に当たります。"
-msgstr ""
+msgstr "`nullptr` (the null pointer) is a pointer value that means **it points nowhere**. It corresponds to the state after `nullify(p)` in Fortran, in which `associated(p)` is false."
 
 msgid "`nullptr` のまま `*q` を読み書きしてはいけません。結果は**未定義動作**（言語が動作を保証しないこと）で、すぐ止まるとは限らず、誤った値で計算が進むこともあります。 関数の中で `double *q;` とだけ書いたポインタは、自動では `nullptr` になりません。初期値を決められないときは `nullptr` で初期化します。"
-msgstr ""
+msgstr "You must not read or write `*q` while it is `nullptr`. The result is **undefined behavior** (the language does not guarantee what happens); the program does not necessarily stop immediately, and the computation may continue with wrong values. A pointer declared in a function with just `double *q;` does not automatically become `nullptr`. If you cannot decide an initial value, initialize it with `nullptr`."
 
 msgid "**MISO の実例** — `miso/include/miso/array3d.hpp` の `Array3DView` は、データを指すポインタを `nullptr` で初期化しています（抜粋）。"
-msgstr ""
+msgstr "**A real MISO example** — `Array3DView` in `miso/include/miso/array3d.hpp` initializes the pointer to the data with `nullptr` (excerpt)."
 
 #, python-brace-format
 msgid "`T` は要素の型（`Real` など）を表すテンプレート引数です（{ref}`第 6 章 <edu-ch06>`）。ここでは `Real *data_ = nullptr;` と読めます。"
-msgstr ""
+msgstr "`T` is a template argument that represents the element type (such as `Real`) ({ref}`Chapter 6 <edu-ch06>`). Here you can read it as `Real *data_ = nullptr;`."
 
 msgid "2.5 ポインタを受け取る関数"
-msgstr ""
+msgstr "2.5 Functions that take pointers"
 
 msgid "関数がポインタを受け取ると、呼び出し元の変数のアドレスを通して値を書き込めます。参照引数と同じ働きを、C の書き方で表したものです。"
-msgstr ""
+msgstr "When a function receives a pointer, it can write a value through the address of the caller's variable. This does the same job as a reference parameter, expressed in the C style."
 
 msgid "参照引数との違いは、呼び出す側で `&rank` とアドレスを明示すること、そして `nullptr` も渡せることです。 C++ で新しく書く関数では、書き込む先が必ずあるなら参照引数を使うのが基本です。"
-msgstr ""
+msgstr "The differences from a reference parameter are that the caller explicitly gives the address as `&rank`, and that you can also pass `nullptr`. For a function newly written in C++, the basic choice is a reference parameter if the destination always exists."
 
 msgid "**MISO の実例** — MPI は C の関数として作られているので、結果をポインタ引数で返します。`miso/include/miso/env.hpp` の `mpi::Env::setup` より抜粋します。"
-msgstr ""
+msgstr "**A real MISO example** — MPI was designed as C functions, so it returns results through pointer parameters. The following is an excerpt from `mpi::Env::setup` in `miso/include/miso/env.hpp`."
 
 #, python-brace-format
 msgid "`MPI_Comm_rank` は、第 2 引数に渡したアドレスへ自分のランク番号を書き込みます。 `&world::rank` は、{ref}`第 2 章 <edu-ch02-namespaces>` で見た名前空間 `miso::mpi::world` の変数 `rank` のアドレスです。 Fortran の `call MPI_Comm_rank(comm, rank, ierr)` では引数がそのまま書き換えられますが、C の MPI ではアドレスを渡します（MPI は {ref}`第 8 章 <edu-ch08>` で扱います）。"
-msgstr ""
+msgstr "`MPI_Comm_rank` writes its own rank number to the address passed as the second argument. `&world::rank` is the address of the variable `rank` in the namespace `miso::mpi::world` that we saw in {ref}`Chapter 2 <edu-ch02-namespaces>`. In Fortran's `call MPI_Comm_rank(comm, rank, ierr)`, the argument is modified as it is, but in C MPI you pass an address (MPI is covered in {ref}`Chapter 8 <edu-ch08>`)."
 
 #, python-brace-format
 msgid "同じファイルの `mpi::Env` には、次の 2 行があります（クラスのコンストラクタで、{ref}`第 4 章 <edu-ch04>` で説明します）。"
-msgstr ""
+msgstr "`mpi::Env` in the same file has the following two lines (these are class constructors, explained in {ref}`Chapter 4 <edu-ch04>`)."
 
 #, python-brace-format
 msgid "`setup` は `void setup(int *argc, char ***argv)` と宣言され、`MPI_Init(argc, argv)` にそのまま渡します。 引数なしで作る場合は「コマンドライン引数はない」ことを `nullptr` で表し、`main` の `argc`, `argv` を受け取る場合はそのアドレスを渡しています。 `char **&argv` は「`char **` 型の変数 `argv` への参照」です。`char **` は {ref}`4 節 <edu-ch03-arrays>` で読みます。"
-msgstr ""
+msgstr "`setup` is declared as `void setup(int *argc, char ***argv)` and passes its arguments as they are to `MPI_Init(argc, argv)`. When the object is created without arguments, `nullptr` expresses that \"there are no command-line arguments\"; when it receives `argc` and `argv` of `main`, it passes their addresses. `char **&argv` is \"a reference to the variable `argv` of type `char **`.\" `char **` is covered in {ref}`Section 4 <edu-ch03-arrays>`."
 
 msgid "3. const の位置"
-msgstr ""
+msgstr "3\\. Position of const"
 
 msgid "ポインタには、**ポインタ自身（どこを指すか）**と、**指す先の値**の 2 つがあり、`const` でどちらを固定するかを選べます。 `*` を境目にして、`const` が左右どちらにあるかを見ます。"
-msgstr ""
+msgstr "A pointer involves two things, **the pointer itself (where it points)** and **the value it points to**, and `const` lets you choose which one is fixed. Using `*` as the dividing line, look at whether `const` is on the left or the right."
 
 msgid "**`*` より左の `const` は指す先に掛かります。** `const double *p` は「読むだけの `double` を指すポインタ」で、`*p = 2.0;` ができません。"
-msgstr ""
+msgstr "**A `const` to the left of `*` applies to the target.** `const double *p` is \"a pointer to a `double` that is only for reading,\" and `*p = 2.0;` is not allowed."
 
 msgid "**`*` より右の `const` はポインタ自身に掛かります。** `double *const p` は「指す先を変えられないポインタ」で、`p = &b;` ができません。"
-msgstr ""
+msgstr "**A `const` to the right of `*` applies to the pointer itself.** `double *const p` is \"a pointer whose target cannot be changed,\" and `p = &b;` is not allowed."
 
 msgid "`*p = 2.0;`（指す先の値を変える）"
-msgstr ""
+msgstr "`*p = 2.0;` (change the target's value)"
 
 msgid "`p = &b;`（指す先を変える）"
-msgstr ""
+msgstr "`p = &b;` (change the target)"
 
 msgid "`double *p`"
 msgstr ""
 
 msgid "できる"
-msgstr ""
+msgstr "Allowed"
 
 msgid "`const double *p`"
 msgstr ""
 
 msgid "できない"
-msgstr ""
+msgstr "Not allowed"
 
 msgid "`double *const p`"
 msgstr ""
@@ -409,272 +419,279 @@ msgid "`const double *const p`"
 msgstr ""
 
 msgid "`const double *p` と `double const *p` は同じ意味です（どちらも `const` が `*` の左）。 `const double &r` は、`const double *p` と同じく「この参照を通しては読むだけ」という意味です。参照はもともと付け替えられないので、右側の `const` に当たるものはありません。 どの場合も、元の変数 `a` を `a = 5.0;` と直接書き換えることは禁止されません。"
-msgstr ""
+msgstr "`const double *p` and `double const *p` mean the same thing (in both, `const` is to the left of `*`). `const double &r` means \"read only through this reference,\" just like `const double *p`. A reference cannot be rebound in the first place, so there is nothing corresponding to a `const` on the right side. In every case, directly modifying the original variable `a` with `a = 5.0;` is not prohibited."
 
 msgid "**MISO の実例** — `miso/include/miso/array1d.hpp` の `Array1DView` は、データの先頭を返す関数を 2 つ持っています（抜粋）。"
-msgstr ""
+msgstr "**A real MISO example** — `Array1DView` in `miso/include/miso/array1d.hpp` has two functions that return the beginning of the data (excerpt)."
 
 #, python-brace-format
 msgid "1 つ目は書き換えてよいポインタ `T *` を、2 つ目は読むだけのポインタ `const T *` を返します。 同じ名前で 2 つあり、読むだけの場面では 2 つ目が選ばれます。どちらが選ばれるかを決める末尾の `const` は {ref}`第 4 章 <edu-ch04>`、`noexcept`（例外を投げない印）も {ref}`第 4 章 <edu-ch04>` で扱います。 ここでは、戻り値の型の `T *` と `const T *` の違いが、「書き換えられるか、読むだけか」の違いだと読めれば十分です。"
-msgstr ""
+msgstr "The first returns a pointer `T *` that may be used for modification, and the second returns a read-only pointer `const T *`. There are two with the same name, and the second is chosen in read-only contexts. The trailing `const` that decides which one is chosen is covered in {ref}`Chapter 4 <edu-ch04>`, and `noexcept` (a marker that the function does not throw exceptions) is also covered in {ref}`Chapter 4 <edu-ch04>`. For now, it is enough to read the difference between the return types `T *` and `const T *` as the difference between \"can be modified\" and \"read only.\""
 
 msgid "4. 配列とポインタ"
-msgstr ""
+msgstr "4\\. Arrays and pointers"
 
 msgid "C++ の組込みの配列は、同じ型の値をメモリ上に連続して並べたものです。"
-msgstr ""
+msgstr "A built-in C++ array is a sequence of values of the same type placed contiguously in memory."
 
 msgid "配列の名前 `raw` を式で使うと、ほとんどの場面で先頭要素のアドレス（`&raw[0]`）になります。"
-msgstr ""
+msgstr "When you use the array name `raw` in an expression, in most situations it becomes the address of the first element (`&raw[0]`)."
 
 msgid "`p + 2` は「`p` から要素 2 個分先のアドレス」です（**ポインタ演算**）。バイト数ではなく要素の個数で数えます。"
-msgstr ""
+msgstr "`p + 2` is \"the address 2 elements past `p`\" (**pointer arithmetic**). It counts in numbers of elements, not bytes."
 
 msgid "`p[i]` は `*(p + i)` と同じ意味です。添字が 0 から始まるのは、先頭が「0 個先」だからです。"
-msgstr ""
+msgstr "`p[i]` means the same as `*(p + i)`. Indices start from 0 because the first element is \"0 places ahead.\""
 
 msgid "そのため、関数に配列を渡すと、実際に渡るのは先頭のアドレスだけで、**要素数は伝わりません**。要素数は別の引数で渡します。"
-msgstr ""
+msgstr "Therefore, when you pass an array to a function, what is actually passed is only the address of the first element, and **the number of elements is not conveyed**. Pass the number of elements as a separate parameter."
 
 msgid "`raw + 1` を渡すと、配列の途中から始まる部分を渡せます。Fortran で `call sub(a(2), 2)` と書いて途中から渡す使い方に似ています。 `const double *` なので、`sum` の中で配列を書き換えることはできません。"
-msgstr ""
+msgstr "If you pass `raw + 1`, you can pass the part that starts in the middle of the array. This is similar to writing `call sub(a(2), 2)` in Fortran to pass from the middle. Because it is a `const double *`, `sum` cannot modify the array."
 
 msgid "範囲を「先頭のアドレス」と「最後の要素の 1 つ後ろのアドレス」の組で表すこともよくあります。`p` から `p + n` までは `0 <= i < n` と同じ範囲です。"
-msgstr ""
+msgstr "It is also common to represent a range by a pair of \"the address of the first element\" and \"the address one past the last element.\" The range from `p` to `p + n` is the same as `0 <= i < n`."
 
 msgid "`std::vector` も要素を連続して並べており、`v.data()` で先頭のアドレスを得られます。"
-msgstr ""
+msgstr "`std::vector` also stores its elements contiguously, and `v.data()` gives the address of the first one."
 
 #, python-brace-format
 msgid "**MISO の実例 1** — `miso/include/miso/utility.hpp` の `util::clear_array` は、配列を 0 で埋めます（`template` と `using T = ...` の行は {ref}`第 6 章 <edu-ch06>` の内容なので、`T` を `Real` と読みます）。"
-msgstr ""
+msgstr "**A real MISO example 1** — `util::clear_array` in `miso/include/miso/utility.hpp` fills an array with 0 (the `template` and `using T = ...` lines belong to {ref}`Chapter 6 <edu-ch06>`, so read `T` as `Real`)."
 
 msgid "`arr.data()` から `arr.data() + arr.size()` までを `T(0)`（0 を要素の型にした値）で埋めています。上の `std::vector` の例と同じ形です。"
-msgstr ""
+msgstr "It fills the range from `arr.data()` to `arr.data() + arr.size()` with `T(0)` (the value 0 as the element type). It has the same form as the `std::vector` example above."
 
 #, python-brace-format
 msgid "**MISO の実例 2** — `miso/include/miso/array3d.hpp` の `Array3DView` は、3 次元配列を、1 次元に並んだデータの先頭を指すポインタ `data_` と、各方向の大きさ `shape_[3]` で表しています。 `a(i0, i1, i2)` と書いたときに要素を返す部分は次のとおりです（`operator()` の仕組みは {ref}`第 4 章 <edu-ch04>`、`assert` の行は省略しました）。"
-msgstr ""
+msgstr "**A real MISO example 2** — `Array3DView` in `miso/include/miso/array3d.hpp` represents a three-dimensional array with a pointer `data_` to the beginning of one-dimensionally arranged data and the size in each direction, `shape_[3]`. The part that returns an element when you write `a(i0, i1, i2)` is as follows (the mechanism of `operator()` is in {ref}`Chapter 4 <edu-ch04>`; the `assert` line is omitted)."
 
 #, python-brace-format
 msgid "3 つの添字から「先頭から何個目か」を計算し、`data_[...]` で 1 次元のデータを読んでいます。 最後の添字 `i2` が 1 増えると 1 個隣、`i1` が 1 増えると `shape_[2]` 個先です。最後の添字の方向に連続して並ぶので、Fortran（最初の添字の方向に連続）とは逆です。この並びが計算速度に関わることは {ref}`第 7 章 <edu-ch07>` で扱います。"
-msgstr ""
+msgstr "From the three indices, it computes \"how many elements from the beginning\" and reads the one-dimensional data with `data_[...]`. When the last index `i2` increases by 1, the element is 1 place away, and when `i1` increases by 1, it is `shape_[2]` places away. Elements are contiguous along the last index, which is the opposite of Fortran (contiguous along the first index). How this layout affects computation speed is covered in {ref}`Chapter 7 <edu-ch07>`."
 
 #, python-brace-format
 msgid "**MISO の実例 3** — `miso/include/miso/grid.hpp` の `Grid::view` は、`std::vector` の座標 `x`（{ref}`第 2 章 <edu-ch02-stdlib>`）の先頭アドレス `x.data()` を `GridView` に渡します（抜粋）。"
-msgstr ""
+msgstr "**A real MISO example 3** — `Grid::view` in `miso/include/miso/grid.hpp` passes the address `x.data()` of the first element of the `std::vector` coordinates `x` ({ref}`Chapter 2 <edu-ch02-stdlib>`) to `GridView` (excerpt)."
 
 #, python-brace-format
 msgid "`GridView` の `x` は {ref}`2.2 節 <edu-ch03-symbols-in-declaration>` で見た `Real *x` です。 {ref}`第 2 章 <edu-ch02-nested>` の初期条件で書いた `grid.x[i]` は、このポインタに添字を付けて、`Grid` が持つ `std::vector` の要素を読んでいたことになります。 `GridView` は座標のコピーを持たず、場所だけを持つ軽い型です。このように、データを所有せずに場所だけを持つ型を MISO では **View** と呼びます（{ref}`第 4 章 <edu-ch04>`）。"
-msgstr ""
+msgstr "The `x` of `GridView` is the `Real *x` we saw in {ref}`Section 2.2 <edu-ch03-symbols-in-declaration>`. The `grid.x[i]` that we wrote in the initial condition in {ref}`Chapter 2 <edu-ch02-nested>` therefore indexed this pointer to read elements of the `std::vector` held by `Grid`. `GridView` does not hold a copy of the coordinates; it is a lightweight type that holds only their location. In MISO, a type that holds only a location without owning the data is called a **View** ({ref}`Chapter 4 <edu-ch04>`)."
 
 #, python-brace-format
 msgid "**`main` の `char **argv`** — `char *` は 1 文字目を指すポインタで、C の文字列（末尾に終端の文字 `'\\0'` が付いた文字の並び）を表します。 `char **argv` は「`char *` を指すポインタ」、つまり文字列の配列の先頭です。`argv[i]` が `i` 番目のコマンドライン引数の文字列です。 {ref}`第 2 章 <edu-ch02-jumps>` の `parse_config_filepath` では、`std::string_view arg(argv[i]);` で `i` 番目の引数を読んでいました。"
-msgstr ""
+msgstr "**`char **argv` of `main`** — `char *` is a pointer to the first character and represents a C string (a sequence of characters with a terminating character `'\\0'` at the end). `char **argv` is \"a pointer to `char *`,\" that is, the beginning of an array of strings. `argv[i]` is the string of the `i`-th command-line argument. In `parse_config_filepath` in {ref}`Chapter 2 <edu-ch02-jumps>`, `std::string_view arg(argv[i]);` read the `i`-th argument."
 
 msgid "5. 変数の寿命とスコープ"
-msgstr ""
+msgstr "5\\. Variable lifetime and scope"
 
 #, python-brace-format
 msgid "関数の中で宣言した変数は、宣言した場所から、その変数を囲む `{ ... }` の終わりまで使えます。この範囲を**スコープ**と呼びます。 そして、通常の変数の実体は、そのブロックを抜けるときに消えます。変数が存在する期間を**寿命**と呼びます。"
-msgstr ""
+msgstr "A variable declared inside a function can be used from the place of declaration to the end of the enclosing `{ ... }`. This range is called its **scope**. The object behind an ordinary variable disappears when execution leaves that block. The period during which a variable exists is called its **lifetime**."
 
 msgid "ポインタや参照が残っていても、**指す先の寿命は延びません**。寿命が終わった変数を指すポインタや参照を、**ぶら下がりポインタ**・**ぶら下がり参照**（dangling pointer / reference）と呼びます。 これを読み書きすると未定義動作です。正しそうな値がたまたま読めることもあるので、気づきにくい誤りになります。"
-msgstr ""
+msgstr "Even if a pointer or reference remains, **the lifetime of its target is not extended**. A pointer or reference to a variable whose lifetime has ended is called a **dangling pointer** or **dangling reference**. Reading or writing through it is undefined behavior. Because it may happen to read a plausible value, it is a hard-to-notice mistake."
 
 msgid "Fortran でも、サブルーチンの局所変数（`save` 属性のないもの）は、サブルーチンを抜けると値が保証されません。C++ では、`for` の中や `if` の中のブロックでも同じことが起こります。"
-msgstr ""
+msgstr "In Fortran as well, the values of a subroutine's local variables (those without the `save` attribute) are not guaranteed after the subroutine returns. In C++, the same thing happens in a block inside a `for` or `if`."
 
 msgid "関数の中の変数への参照やポインタを返すのも、同じ誤りです。"
-msgstr ""
+msgstr "Returning a reference or pointer to a variable inside a function is the same mistake."
 
 msgid "g++ は `-Wall` で警告を出しますが、どの場合でも検出できるわけではありません。値を持ち帰るときは、`double good()` のように**値で返します**（[C++ Core Guidelines F.43](https://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines#rf-dangle)）。"
-msgstr ""
+msgstr "g++ gives a warning with `-Wall`, but it cannot detect every case. When you bring a value back, **return it by value**, as in `double good()` ([C++ Core Guidelines F.43](https://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines#rf-dangle))."
 
 msgid "`const` 参照の引数に数値や計算結果を渡すと、その値を入れた一時的な実体が作られます。`twice(1.0)` の `1.0` は、その文（`;` まで）が終わるまで存在します。関数の中で、その参照をどこかに保存して後で使ってはいけません。"
-msgstr ""
+msgstr "If you pass a number or a computed result to a `const` reference parameter, a temporary object holding that value is created. The `1.0` in `twice(1.0)` exists until the end of that statement (up to the `;`). Do not save that reference somewhere inside the function to use it later."
 
 msgid "同じブロックの中で宣言した変数は、**宣言と逆の順に**消えます。後から宣言した変数が先に消えるので、先に宣言した変数を後の変数が参照で持つのは安全です。"
-msgstr ""
+msgstr "Variables declared in the same block disappear **in the reverse order of declaration**. Variables declared later disappear first, so it is safe for a later variable to hold a reference to an earlier variable."
 
 msgid "**MISO の実例 1** — `miso/include/miso/mhd_model_base.hpp` の `ModelBase` は、設定 `Config` を参照のメンバとして持ち続けます（抜粋）。"
-msgstr ""
+msgstr "**A real MISO example 1** — `ModelBase` in `miso/include/miso/mhd_model_base.hpp` keeps the configuration `Config` as a reference member (excerpt)."
 
 #, python-brace-format
 msgid "参照をメンバに持つ型の変数は、参照先（ここでは `Config` の変数）より長生きしてはいけません。 `demo/mhd2d_vortex/src/main.cpp` の `main` では、`config` を先に、`model` を後に宣言しています（{ref}`第 2 章 <edu-ch02-program>`）。"
-msgstr ""
+msgstr "A variable of a type that has a reference member must not outlive the referent (here, the `Config` variable). In `main` in `demo/mhd2d_vortex/src/main.cpp`, `config` is declared first and `model` later ({ref}`Chapter 2 <edu-ch02-program>`)."
 
 msgid "`main` の終わりでは、後に宣言した `model` が先に消え、その後に `config` が消えます。`model` が使っている間、`config` は必ず存在します。"
-msgstr ""
+msgstr "At the end of `main`, `model`, declared later, disappears first, and then `config` disappears. While `model` is using it, `config` always exists."
 
 msgid "**MISO の実例 2** — `miso/include/miso/mhd_integrator_host.hpp` の `Integrator` も、格子を参照のメンバとして持ちます（抜粋）。"
-msgstr ""
+msgstr "**A real MISO example 2** — `Integrator` in `miso/include/miso/mhd_integrator_host.hpp` also holds the grid as a reference member (excerpt)."
 
 #, python-brace-format
 msgid "`Integrator` は時間積分のたびに格子を使いますが、格子のコピーは持ちません。格子の本体は `ModelBase` の `grid` で、`Integrator` はそれより長生きしない位置に置かれています。 `<Real, backend::Host>` はテンプレート引数（{ref}`第 6 章 <edu-ch06>`）です。"
-msgstr ""
+msgstr "`Integrator` uses the grid at every time integration step but does not hold a copy of it. The grid itself is `grid` in `ModelBase`, and `Integrator` is placed so that it does not outlive it. `<Real, backend::Host>` are template arguments ({ref}`Chapter 6 <edu-ch06>`)."
 
 #, python-brace-format
 msgid "**MISO の実例 3** — {ref}`4 節 <edu-ch03-arrays>` の `GridView` は、`Grid` の `std::vector` の要素を指すポインタを持つだけです。 したがって `GridView` を使えるのは、元の `Grid` が存在する間だけです。 また、`std::vector` は要素数を増やす（`push_back` など）と別の場所に確保し直すことがあり、そのとき古い `data()` のアドレスは使えなくなります。 MISO では、格子を作った後に座標の要素数を変えないので、この問題は起こりません。 所有する配列と、それを指す View の関係は {ref}`第 4 章 <edu-ch04>` で詳しく扱います。"
-msgstr ""
+msgstr "**A real MISO example 3** — `GridView` in {ref}`Section 4 <edu-ch03-arrays>` only holds pointers to the elements of the `std::vector` in `Grid`. Therefore, a `GridView` can be used only while the original `Grid` exists. Also, when the number of elements of a `std::vector` is increased (with `push_back` and so on), it may be reallocated to a different place, after which the old `data()` address can no longer be used. MISO does not change the number of coordinate elements after creating the grid, so this problem does not occur. The relationship between an array that owns data and a View that points to it is covered in detail in {ref}`Chapter 4 <edu-ch04>`."
 
 msgid "6. new・delete とスマートポインタ"
-msgstr ""
+msgstr "6\\. new, delete, and smart pointers"
 
 msgid "ブロックの寿命に縛られず、必要な大きさのメモリを実行時に確保したいことがあります。 C++ の基本の道具は `new` と `delete` です。Fortran の `allocate` と `deallocate` に当たります。"
-msgstr ""
+msgstr "Sometimes you want to allocate memory of the required size at run time, free from the lifetime of a block. The basic C++ tools are `new` and `delete`. They correspond to Fortran's `allocate` and `deallocate`."
 
 msgid "`new` で確保したメモリは、`delete` するまで残ります。これを直接書くと、次の誤りが起こりやすくなります。"
-msgstr ""
+msgstr "Memory allocated with `new` remains until you `delete` it. Writing these directly makes the following mistakes likely."
 
 msgid "解放し忘れる（**メモリリーク**）。途中で `return` したり例外が投げられたりすると、`delete` の行に届きません。"
-msgstr ""
+msgstr "Forgetting to free (a **memory leak**). If you `return` midway or an exception is thrown, execution never reaches the `delete` line."
 
 msgid "解放した後のメモリを使う、同じメモリを 2 回解放する。"
-msgstr ""
+msgstr "Using memory after it has been freed, or freeing the same memory twice."
 
 msgid "`new[]` に対して `delete`（`[]` なし）を使う。"
-msgstr ""
+msgstr "Using `delete` (without `[]`) on memory allocated with `new[]`."
 
 msgid "Fortran の `allocatable` 配列は、スコープを抜けると自動で解放されますが、C++ のポインタにはその仕組みがありません。 そのため、**現在の C++ では `new` と `delete` を直接書かず、解放を自動で行う型を使うのが基本です**（[C++ Core Guidelines R.11](https://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines#rr-newdelete)）。"
-msgstr ""
+msgstr "A Fortran `allocatable` array is freed automatically when it leaves its scope, but C++ pointers have no such mechanism. For that reason, **in modern C++ the basic approach is not to write `new` and `delete` directly but to use types that free memory automatically** ([C++ Core Guidelines R.11](https://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines#rr-newdelete))."
 
 #, python-brace-format
 msgid "**`std::vector`**：要素の並びが欲しいだけなら、まずこれを使います（{ref}`第 2 章 <edu-ch02-stdlib>`）。"
-msgstr ""
+msgstr "**`std::vector`**: If you just want a sequence of elements, use this first ({ref}`Chapter 2 <edu-ch02-stdlib>`)."
 
 msgid "**`std::unique_ptr`**（`<memory>`）：確保したメモリのただ 1 人の持ち主になるポインタです。`unique_ptr` の変数の寿命が終わると、自動で `delete` します。コピーはできません。"
-msgstr ""
+msgstr "**`std::unique_ptr`** (`<memory>`): a pointer that is the sole owner of the allocated memory. When the lifetime of the `unique_ptr` variable ends, it automatically calls `delete`. It cannot be copied."
 
 msgid "**`std::shared_ptr`**（`<memory>`）：複数の持ち主で共有するポインタです。持ち主の数を数えていて、最後の持ち主が消えたときに `delete` します。"
-msgstr ""
+msgstr "**`std::shared_ptr`** (`<memory>`): a pointer shared by multiple owners. It counts the owners and calls `delete` when the last owner disappears."
 
 #, python-brace-format
 msgid "`<double[]>` などの `<>` はテンプレート引数（{ref}`第 6 章 <edu-ch06>`）です。`make_unique`・`make_shared` は、確保とポインタの作成を一度に行う関数です。"
-msgstr ""
+msgstr "The `<>` in `<double[]>` and similar forms holds template arguments ({ref}`Chapter 6 <edu-ch06>`). `make_unique` and `make_shared` are functions that perform the allocation and the creation of the pointer in one step."
 
 msgid "**MISO の実例** — MISO の配列 `Array1D`〜`Array4D` は、中で `new[]` と `delete[]` を使っています。`miso/include/miso/array1d.hpp` の `Array1D<T, backend::Host>` より抜粋します。"
-msgstr ""
+msgstr "**A real MISO example** — MISO's arrays `Array1D` to `Array4D` use `new[]` and `delete[]` internally. The following is an excerpt from `Array1D<T, backend::Host>` in `miso/include/miso/array1d.hpp`."
 
 #, python-brace-format
 msgid "1 つ目は配列を作るときに実行される部分（コンストラクタ）で、`nx0` 個の要素を確保します。2 つ目は配列の変数の寿命が終わるときに自動で実行される部分（デストラクタ）で、確保したメモリを解放します。 `new` と `delete` の組を配列の型の中に閉じ込めることで、使う側は `delete` を書かずに済み、`std::vector` と同じように寿命が終われば解放されます。この仕組み（RAII）は {ref}`第 4 章 <edu-ch04>` で学びます。 GPU 用の `Array1D<T, backend::CUDA>` では、同じ場所で GPU のメモリを確保・解放しています（{ref}`第 9 章 <edu-ch09>`）。"
-msgstr ""
+msgstr "The first is the part executed when the array is created (the constructor), and it allocates `nx0` elements. The second is the part executed automatically when the lifetime of the array variable ends (the destructor), and it frees the allocated memory. By enclosing the pair of `new` and `delete` inside the array type, the user does not have to write `delete`, and, as with `std::vector`, the memory is freed when the lifetime ends. This mechanism (RAII) is covered in {ref}`Chapter 4 <edu-ch04>`. In `Array1D<T, backend::CUDA>` for the GPU, GPU memory is allocated and freed at the same places ({ref}`Chapter 9 <edu-ch09>`)."
 
 msgid "MISO 本体では `std::unique_ptr` は使っていません。`std::shared_ptr` も、GPU 用の縮約の作業領域を保持する `miso/include/miso/mhd_resistivity.hpp` の 1 か所だけです。メモリの確保は配列の型にまとめ、それ以外の場所は参照と View で受け渡しています。"
-msgstr ""
+msgstr "The MISO library does not use `std::unique_ptr`. `std::shared_ptr` is used in just one place, `miso/include/miso/mhd_resistivity.hpp`, which holds the work area for reduction on the GPU. Memory allocation is gathered in the array types, and everywhere else, data is handed over through references and Views."
 
 msgid "7. 練習"
-msgstr ""
+msgstr "7\\. Exercises"
 
 msgid "**練習 1**　次のコードを順に実行した後の `a`, `b`, `r`, `*p` の値を書いてください。また、`a` を変えたのはどの行かを説明してください。"
-msgstr ""
+msgstr "**Exercise 1** After running the following code in order, write the values of `a`, `b`, `r`, and `*p`. Also explain which lines changed `a`."
 
 #, python-brace-format
 msgid "**練習 2**　`miso/include/miso/boundary_condition.hpp` の `symmetric_index` で、`int &i_ghst` を `int i_ghst` に変えると、{ref}`1.3 節 <edu-ch03-output-arguments>` の確認プログラムの出力がどうなるかを説明してください（実際に変更する必要はありません）。"
-msgstr ""
+msgstr "**Exercise 2** In `symmetric_index` in `miso/include/miso/boundary_condition.hpp`, explain what happens to the output of the check program in {ref}`Section 1.3 <edu-ch03-output-arguments>` if you change `int &i_ghst` to `int i_ghst` (you do not need to actually make the change)."
 
 msgid "**練習 3**　次の 3 つの関数の宣言を、引数を通して何ができるか（読む・書き換える・指す先を変える）の観点で説明してください。"
-msgstr ""
+msgstr "**Exercise 3** Explain the following three function declarations in terms of what each can do through its parameters (read, modify, or change the target)."
 
 msgid "**練習 4**　次の関数の問題点を説明し、正しく直してください。"
+msgstr "**Exercise 4** Explain the problem with the following function and fix it correctly."
+
+msgid ""
+"<details>\n"
+"<summary>解答・解説</summary>\n"
 msgstr ""
+"<details>\n"
+"<summary>Answer and explanation</summary>\n"
 
 msgid "**練習 1**　最後は `a = 4.0`, `b = 5.0`, `r = 4.0`, `*p = 5.0` です。 `b = a;` で作った `b` は独立したコピーです。`r = 3.0;` で `a` が 3.0 に、`*p = 4.0;` で（`p` が `a` を指しているので）4.0 になります。 `p = &b;` で `p` は `b` を指すようになり、`*p = 5.0;` は `b` を変えます。`r` は `a` の別名のままなので 4.0 です。"
-msgstr ""
+msgstr "**Exercise 1** In the end, `a = 4.0`, `b = 5.0`, `r = 4.0`, and `*p = 5.0`. The `b` created by `b = a;` is an independent copy. `r = 3.0;` makes `a` 3.0, and `*p = 4.0;` makes it 4.0 (because `p` points to `a`). `p = &b;` makes `p` point to `b`, and `*p = 5.0;` changes `b`. `r` is still another name for `a`, so it is 4.0."
 
 msgid "**練習 2**　`i_ghst` が値渡しになるので、関数の中の代入はコピーにしか届きません。呼び出し元の `i_ghst` は初期値の `-1` のままで、出力の `i_ghst` はどちらの行も `-1` になります。`i_trgt` は参照のままなので、5 と 4 が表示されます。"
-msgstr ""
+msgstr "**Exercise 2** `i_ghst` is passed by value, so assignments inside the function reach only the copy. The caller's `i_ghst` stays at its initial value `-1`, and `i_ghst` in the output is `-1` on both lines. `i_trgt` is still a reference, so 5 and 4 are printed."
 
 msgid "**練習 3**　`f1` は `values` の指す先を読むだけで書き換えられません（`const` が `*` の左）。関数の中で `values` 自身を別のアドレスに変えることはできます（呼び出し元には影響しません）。 `f2` は指す先を書き換えられますが、`values` 自身を別のアドレスに変えられません（`const` が `*` の右）。 `f3` は `defaults` をコピーせずに読むだけです。`merge_yaml` の 2 つ目の引数と同じです。"
-msgstr ""
+msgstr "**Exercise 3** `f1` only reads what `values` points to and cannot modify it (`const` is to the left of `*`). Inside the function, it can change `values` itself to another address (this does not affect the caller). `f2` can modify what it points to but cannot change `values` itself to another address (`const` is to the right of `*`). `f3` only reads `defaults` without copying it. This is the same as the second parameter of `merge_yaml`."
 
 #, python-brace-format
 msgid "**練習 4**　`counts` は関数の中の配列なので、関数を抜けると寿命が終わります。返したアドレスはぶら下がりポインタになります（{ref}`5 節 <edu-ch03-lifetime>`）。また、`n` が 100 を超えると配列の外に書き込みます。 `std::vector` を値で返すように直します。"
-msgstr ""
+msgstr "**Exercise 4** `counts` is an array inside the function, so its lifetime ends when the function returns. The returned address becomes a dangling pointer ({ref}`Section 5 <edu-ch03-lifetime>`). Also, if `n` exceeds 100, it writes outside the array. Fix it to return a `std::vector` by value."
 
 #, python-brace-format
 msgid "`std::vector` を値で返しても、要素が 1 つずつコピーされることは通常ありません（中身を移すだけで済むように最適化されます。ムーブは {ref}`第 4 章 <edu-ch04>` で扱います）。"
-msgstr ""
+msgstr "Even if you return a `std::vector` by value, the elements are normally not copied one by one (it is optimized so that only the contents are moved; moves are covered in {ref}`Chapter 4 <edu-ch04>`)."
 
 msgid "8. 記号のまとめ"
-msgstr ""
+msgstr "8\\. Summary of symbols"
 
 msgid "書き方"
-msgstr ""
+msgstr "Notation"
 
 msgid "種類"
-msgstr ""
+msgstr "Kind"
 
 msgid "`T &r = a;`"
 msgstr ""
 
 msgid "`r` は `a` の参照（別名）。付け替えられない"
-msgstr ""
+msgstr "`r` is a reference (alias) to `a`. It cannot be rebound"
 
 msgid "`const T &r = a;`"
 msgstr ""
 
 msgid "`r` を通しては読むだけの参照"
-msgstr ""
+msgstr "A reference that only reads through `r`"
 
 msgid "`T *p = &a;`"
 msgstr ""
 
 msgid "`p` は `T` を指すポインタ。`&a` は `a` のアドレス"
-msgstr ""
+msgstr "`p` is a pointer to `T`. `&a` is the address of `a`"
 
 msgid "式"
-msgstr ""
+msgstr "Expression"
 
 msgid "`p[i]`"
 msgstr ""
 
 msgid "`*(p + i)`。`p` から `i` 個先の要素"
-msgstr ""
+msgstr "`*(p + i)`. The element `i` places past `p`"
 
 msgid "`const T *p`"
 msgstr ""
 
 msgid "指す先を読むだけ。`p` 自身は付け替えられる"
-msgstr ""
+msgstr "Only reads the target. `p` itself can be re-pointed"
 
 msgid "`T *const p`"
 msgstr ""
 
 msgid "`p` 自身を付け替えられない。指す先は書き換えられる"
-msgstr ""
+msgstr "`p` itself cannot be re-pointed. The target can be modified"
 
 msgid "`nullptr`"
 msgstr ""
 
 msgid "値"
-msgstr ""
+msgstr "Value"
 
 msgid "どこも指していないポインタ"
-msgstr ""
+msgstr "A pointer that points nowhere"
 
 msgid "`void f(T v)`"
 msgstr ""
 
 msgid "引数"
-msgstr ""
+msgstr "Parameter"
 
 msgid "値渡し（コピー）"
-msgstr ""
+msgstr "Pass by value (copy)"
 
 msgid "`void f(T &v)`"
 msgstr ""
 
 msgid "参照渡し。呼び出し元を書き換えられる"
-msgstr ""
+msgstr "Pass by reference. Can modify the caller's variable"
 
 msgid "`void f(const T &v)`"
 msgstr ""
 
 msgid "コピーせずに読むだけ"
-msgstr ""
+msgstr "Only reads, without copying"
 
 #, python-brace-format
 msgid "ほかの記号（`::`, `<>`, `->` など）も含めた一覧は {ref}`記号の早見表 <edu-ref-cpp>` にあります。 参照・ポインタの規則の詳細は、C++17 規格草案 N4659 の [参照](https://timsong-cpp.github.io/cppwp/n4659/dcl.ref)、[ポインタ](https://timsong-cpp.github.io/cppwp/n4659/dcl.ptr)、[参照の初期化](https://timsong-cpp.github.io/cppwp/n4659/dcl.init.ref) で確認できます。"
-msgstr ""
+msgstr "A list that also includes other symbols (`::`, `<>`, `->`, and so on) is in the {ref}`symbol quick reference <edu-ref-cpp>`. For details of the rules for references and pointers, see the C++17 draft standard N4659: [references](https://timsong-cpp.github.io/cppwp/n4659/dcl.ref), [pointers](https://timsong-cpp.github.io/cppwp/n4659/dcl.ptr), and [initialization of references](https://timsong-cpp.github.io/cppwp/n4659/dcl.init.ref)."
 

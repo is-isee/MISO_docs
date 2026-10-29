@@ -23,84 +23,84 @@ msgid "MISO education"
 msgstr ""
 
 msgid "Fortran で数値計算コードを書いてきた経験を足がかりに、MISO の C++ コードを読み、直し、自分で計算を足せるようになるための教材です。 変数・配列・ループ・サブルーチンの知識から始めます。Fortran の派生型やポインタ、C++ の知識は前提にしません。"
-msgstr ""
+msgstr "This course builds on your experience writing numerical code in Fortran. It aims to help you read and modify MISO's C++ code, and add your own computations. We start from what you know about variables, arrays, loops, and subroutines. We assume no knowledge of Fortran derived types, pointers, or C++."
 
 msgid "MISO は GitHub（<https://github.com/is-isee/MISO>）で公開しています。本文に示すソースのパス（`miso/include/miso/execution.hpp` など）は、MISO を clone したフォルダから辿ってください。 コマンド例の `/path/to/MISO` は、自分が MISO を置いた場所に置き換えます。"
-msgstr ""
+msgstr "MISO is available on GitHub (<https://github.com/is-isee/MISO>). Follow the source paths shown in the text (such as `miso/include/miso/execution.hpp`) from the folder where you cloned MISO. Replace `/path/to/MISO` in the command examples with the location where you placed MISO."
 
 msgid "本文"
-msgstr ""
+msgstr "Main text"
 
 msgid "教材は 4 部・11 章です。C++ で小さな計算を書くことから始め、配列と並列計算を学び、熱伝導を作ってから MISO の時間発展を読みます。"
-msgstr ""
+msgstr "The course has 4 parts and 11 chapters. We start by writing small computations in C++, learn arrays and parallel computing, build a heat conduction program, and then read MISO's time evolution."
 
 msgid "I．準備"
-msgstr ""
+msgstr "I. Preparation"
 
 #, python-brace-format
 msgid "{ref}`開発環境と CMake <edu-ch01>` — Ubuntu・Mac で道具を揃え、CMake の仕組みと MISO のビルド手順を学びます。"
-msgstr ""
+msgstr "{ref}`Development Environment and CMake <edu-ch01>` — Set up the tools on Ubuntu or Mac, and learn how CMake works and how to build MISO."
 
 msgid "II．C++ の基礎"
-msgstr ""
+msgstr "II. C++ Basics"
 
 #, python-brace-format
 msgid "{ref}`変数・関数・制御文 <edu-ch02>` — 短い逐次計算を書き、関数やファイルへ処理を分けます。"
-msgstr ""
+msgstr "{ref}`Variables, Functions, and Control Statements <edu-ch02>` — Write short serial computations, and split the work into functions and files."
 
 #, python-brace-format
 msgid "{ref}`参照・ポインタと寿命 <edu-ch03>` — どの変数を読み書きし、いつまで使えるかを追います。"
-msgstr ""
+msgstr "{ref}`References, Pointers, and Lifetime <edu-ch03>` — Trace which variables are read and written, and how long they remain usable."
 
 #, python-brace-format
 msgid "{ref}`クラス・構造体 <edu-ch04>` — データと操作をまとめ、初期化と後片付けを学びます。"
-msgstr ""
+msgstr "{ref}`Classes and Structs <edu-ch04>` — Bundle data and operations together, and learn initialization and cleanup."
 
 #, python-brace-format
 msgid "{ref}`継承と CRTP <edu-ch05>` — 共通の処理を基底クラスに置き、問題ごとの部品を派生クラスで与えます。"
-msgstr ""
+msgstr "{ref}`Inheritance and CRTP <edu-ch05>` — Put common processing in a base class, and supply the parts specific to each problem in derived classes."
 
 #, python-brace-format
 msgid "{ref}`テンプレート <edu-ch06>` — 型（`Real`）や計算場所（`Backend`）を指定した関数・クラスを読み書きします。"
-msgstr ""
+msgstr "{ref}`Templates <edu-ch06>` — Read and write functions and classes that are specialized on a type (`Real`) or a place of computation (`Backend`)."
 
 msgid "III．MISO における並列計算"
-msgstr ""
+msgstr "III. Parallel Computing in MISO"
 
 #, python-brace-format
 msgid "{ref}`配列・ラムダと CPU での並列ループ <edu-ch07>` — 配列を用意し、`for_each` と `reduce` で計算します。"
-msgstr ""
+msgstr "{ref}`Arrays, Lambdas, and Parallel Loops on the CPU <edu-ch07>` — Prepare arrays and compute with `for_each` and `reduce`."
 
 #, python-brace-format
 msgid "{ref}`MPI による領域分割 <edu-ch08>` — 領域を分け、隣の値の交換や全体の集計を行います。"
-msgstr ""
+msgstr "{ref}`Domain Decomposition with MPI <edu-ch08>` — Divide the domain, exchange neighboring values, and compute global sums."
 
 #, python-brace-format
 msgid "{ref}`GPU（CUDA）での計算とデータ転送 <edu-ch09>` — 計算場所とメモリを区別し、同じラムダを GPU で動かします。"
-msgstr ""
+msgstr "{ref}`Computing and Data Transfer on the GPU (CUDA) <edu-ch09>` — Distinguish the place of computation from memory, and run the same lambda on the GPU."
 
 msgid "IV．総合実習と本体の読解"
-msgstr ""
+msgstr "IV. Capstone Practice and Reading the Core Code"
 
 #, python-brace-format
 msgid "{ref}`熱伝導の計算 <edu-ch10>` — 差分・時間積分・境界処理を組み合わせ、逐次版を並列化します。"
-msgstr ""
+msgstr "{ref}`Heat Conduction <edu-ch10>` — Combine finite differences, time integration, and boundary handling, and parallelize the serial version."
 
 #, python-brace-format
 msgid "{ref}`MISO の時間発展を読む <edu-ch11>` — 自分で書いた小さな計算と、MISO 本体の役割分担を対応づけます。"
-msgstr ""
+msgstr "{ref}`Reading MISO's Time Evolution <edu-ch11>` — Map the small computations you wrote yourself onto the division of roles in MISO itself."
 
 msgid "Ubuntu と Mac の CPU だけでも、**第 1〜8 章 → 第 10 章の逐次・MPI 部分 → 第 11 章**と進められます。 第 9 章は GPU がなくても読めます。"
-msgstr ""
+msgstr "With only the CPU on Ubuntu or Mac, you can work through **Chapters 1–8 → the serial and MPI parts of Chapter 10 → Chapter 11**. You can read Chapter 9 even without a GPU."
 
 #, python-brace-format
 msgid "章内の練習の答えは「解答・解説」として折りたたんであります。 まとまったプログラムを作る課題は {ref}`実習一覧 <edu-practice>` に置き、本文の該当箇所から案内しています。"
-msgstr ""
+msgstr "The answers to the in-chapter exercises are collapsed under \"Solution and Explanation\". Assignments that build a complete program are collected in the {ref}`Practice List <edu-practice>`, and the relevant places in the text point to them."
 
 msgid "必要なときに参照する資料"
-msgstr ""
+msgstr "Reference material to consult when needed"
 
 #, python-brace-format
 msgid "{ref}`参考資料一覧 <edu-ref>` には、用語集、Fortran との対応表、記号の早見表、テストと結果の比較方法、GPU のトラブルシューティングをまとめています。 本文を読むために、先に通読する必要はありません。"
-msgstr ""
+msgstr "The {ref}`reference list <edu-ref>` collects the glossary, the Fortran correspondence table, a quick reference of symbols, how to test and compare results, and GPU troubleshooting. You do not need to read it through before reading the main text."
 

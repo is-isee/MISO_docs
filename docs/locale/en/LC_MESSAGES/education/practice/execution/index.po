@@ -20,51 +20,51 @@ msgstr ""
 "Generated-By: Babel 2.18.0\n"
 
 msgid "配列と並列ループの実習"
-msgstr ""
+msgstr "Practice: Arrays and Parallel Loops"
 
 #, python-brace-format
 msgid "{ref}`第 7 章 <edu-ch07>`で学んだ配列、View、`for_each`、`reduce` を使い、次の 3 つのプログラムを順に作ります。 まず CPU（`backend::Host`）で 3 つとも作ります。 {ref}`第 9 章 <edu-ch09>`を読んで GPU を使える段階になったら、同じソースを CUDA でも動かします。"
-msgstr ""
+msgstr "Using the arrays, views, `for_each`, and `reduce` that you learned in {ref}`Chapter 7 <edu-ch07>`, you build the following three programs in order. First build all three on the CPU (`backend::Host`). Once you have read {ref}`Chapter 9 <edu-ch09>` and can use a GPU, run the same sources with CUDA as well."
 
 #, python-brace-format
 msgid "{ref}`ベクトル加算 <edu-practice-execution-01>` — 配列を確保し、`for_each` で各要素を計算して、結果をホスト側の配列で確かめます。"
-msgstr ""
+msgstr "{ref}`Vector addition <edu-practice-execution-01>` — Allocate arrays, compute each element with `for_each`, and check the result in a host-side array."
 
 #, python-brace-format
 msgid "{ref}`縮約 <edu-practice-execution-02>` — `reduce` で配列の二乗和と最大値を求めます。"
-msgstr ""
+msgstr "{ref}`Reduction <edu-practice-execution-02>` — Use `reduce` to compute the sum of squares and the maximum of an array."
 
 #, python-brace-format
 msgid "{ref}`1 次元移流 <edu-practice-execution-03>` — ゴーストセルと周期境界、更新前後の 2 つの配列を使って時間発展を計算します。"
-msgstr ""
+msgstr "{ref}`1D advection <edu-practice-execution-03>` — Compute the time evolution using ghost cells, a periodic boundary, and two arrays for before and after the update."
 
 msgid "`main.cpp` と `CMakeLists.txt` は自分で書きます。 MISO 本体のビルドやデモの実行は必要ありません。"
-msgstr ""
+msgstr "You write `main.cpp` and `CMakeLists.txt` yourself. You do not need to build MISO itself or run its demos."
 
 msgid "CMake の設定"
-msgstr ""
+msgstr "CMake configuration"
 
 #, python-brace-format
 msgid "{ref}`第 1 章 <edu-ch01>`の「自分のプログラムから MISO を使う最小の CMake 設定」を使います。 `add_subdirectory` で MISO の `miso/` を読み込み、自分の実行ファイルに `MISO::MISO` をリンクする設定です。 MISO の場所は、CMake を実行するときに `-DMISO_DIR=/path/to/MISO` で渡します（`/path/to/MISO` は自分が MISO を置いた場所に置き換えます）。"
-msgstr ""
+msgstr "Use the \"minimal CMake configuration for using MISO from your own program\" in {ref}`Chapter 1 <edu-ch01>`. It loads MISO's `miso/` with `add_subdirectory` and links `MISO::MISO` to your executable. Pass the location of MISO when you run CMake, with `-DMISO_DIR=/path/to/MISO` (replace `/path/to/MISO` with the location where you placed MISO)."
 
 msgid "3 つの課題は、1 つの `CMakeLists.txt` に実行ファイルを 3 つ並べても、課題ごとにフォルダを分けてもかまいません。 `MISO::MISO` をリンクすると MPI と yaml-cpp もリンクされますが、この実習で読み込むヘッダは MPI を使わないので、`mpiexec` なしで実行できます。"
-msgstr ""
+msgstr "You may list all three executables in a single `CMakeLists.txt`, or use a separate folder for each assignment. Linking `MISO::MISO` also links MPI and yaml-cpp, but the headers you include in this practice do not use MPI, so you can run the programs without `mpiexec`."
 
 msgid "使うヘッダ"
-msgstr ""
+msgstr "Headers to use"
 
 msgid "`<miso/core.hpp>` はすべての共通ヘッダをまとめて読み込みますが、この実習では使う機能のヘッダだけを読み込みます。"
-msgstr ""
+msgstr "`<miso/core.hpp>` includes all the common headers at once, but in this practice you include only the headers for the features you use."
 
 msgid "機能"
-msgstr ""
+msgstr "Feature"
 
 msgid "ヘッダ"
-msgstr ""
+msgstr "Header"
 
 msgid "1 次元の配列 `Array1D` と `Array1DView`"
-msgstr ""
+msgstr "The 1D arrays `Array1D` and `Array1DView`"
 
 msgid "`<miso/array1d.hpp>`"
 msgstr ""
@@ -76,31 +76,31 @@ msgid "`<miso/execution.hpp>`"
 msgstr ""
 
 msgid "`util::sin`, `util::exp`, `util::fmod`, `util::fmax` などの数学関数"
-msgstr ""
+msgstr "Math functions such as `util::sin`, `util::exp`, `util::fmod`, and `util::fmax`"
 
 msgid "`<miso/utility.hpp>`"
 msgstr ""
 
 msgid "名前空間は、MISO のデモと同じく `using namespace miso;` と書いてよいです。"
-msgstr ""
+msgstr "As in MISO's demos, you may write `using namespace miso;` for the namespace."
 
 msgid "GPU へ切り替えられる書き方"
-msgstr ""
+msgstr "Writing code that can switch to the GPU"
 
 msgid "後で同じソースを CUDA でも動かすために、次の 2 点を守って書きます。"
-msgstr ""
+msgstr "So that you can later run the same sources with CUDA, follow these two points."
 
 msgid "**計算する場所を 1 か所で決めます。** `backend::Host` を何か所にも書かずに、型の別名 `Backend` を 1 つ用意して使います。"
-msgstr ""
+msgstr "**Decide the place of computation in one spot.** Instead of writing `backend::Host` in many places, define a single type alias `Backend` and use it."
 
 #, python-brace-format
 msgid "`__CUDACC__` は CUDA のコンパイラがコンパイルするときだけ定義されます（{ref}`第 7 章 <edu-ch07>`の `MISO_LAMBDA`）。 CPU のビルドでは `Backend` は `backend::Host` です。 配列は `Array1D<double, Backend>`、ループは `for_each(Backend{}, ...)` と書きます。"
-msgstr ""
+msgstr "`__CUDACC__` is defined only when the CUDA compiler is compiling (`MISO_LAMBDA` in {ref}`Chapter 7 <edu-ch07>`). In a CPU build, `Backend` is `backend::Host`. Write arrays as `Array1D<double, Backend>` and loops as `for_each(Backend{}, ...)`."
 
 msgid "**結果はホスト側の配列へ写してから読みます。** GPU に置いた配列は、CPU のループから直接読めません。 結果を確かめるときは、`Array1D<double, backend::Host>` を別に用意し、`copy_from` で写してから読みます。"
-msgstr ""
+msgstr "**Copy the result to a host-side array before reading it.** An array placed on the GPU cannot be read directly from a CPU loop. To check the result, prepare a separate `Array1D<double, backend::Host>`, copy into it with `copy_from`, and then read it."
 
 #, python-brace-format
 msgid "CPU のビルドでは `z` もホスト側にあるので、`copy_from` はただのコピーです。 CUDA のビルドでは、同じ 1 行が GPU から CPU への転送になります（{ref}`第 9 章 <edu-ch09>`）。"
-msgstr ""
+msgstr "In a CPU build, `z` is also on the host, so `copy_from` is just a copy. In a CUDA build, the same single line becomes a transfer from the GPU to the CPU ({ref}`Chapter 9 <edu-ch09>`)."
 

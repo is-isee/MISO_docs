@@ -20,51 +20,51 @@ msgstr ""
 "Generated-By: Babel 2.18.0\n"
 
 msgid "01. ベクトル加算"
-msgstr ""
+msgstr "01\\. Vector Addition"
 
 #, python-brace-format
 msgid "長さ `N` の配列 `x` と `y` から、`z[i] = x[i] + y[i]` を計算します。 {ref}`第 7 章 <edu-ch07>`の配列の確保、View、`for_each`、ホスト側での読み出しを組み合わせます。"
-msgstr ""
+msgstr "From arrays `x` and `y` of length `N`, compute `z[i] = x[i] + y[i]`. You combine the array allocation, views, `for_each`, and host-side readout from {ref}`Chapter 7 <edu-ch07>`."
 
 msgid "実装する内容"
-msgstr ""
+msgstr "What to implement"
 
 #, python-brace-format
 msgid "`N = 1000` とし、`Array1D<double, Backend>` で 3 つの配列 `x`, `y`, `z` を用意します（`Backend` は {ref}`実習の入口 <edu-practice-execution>`の書き方）。"
-msgstr ""
+msgstr "Set `N = 1000` and prepare three arrays `x`, `y`, and `z` as `Array1D<double, Backend>` (`Backend` is defined as in the {ref}`practice introduction <edu-practice-execution>`)."
 
 msgid "各配列から `view()` で View を取り出します。"
-msgstr ""
+msgstr "Get a view from each array with `view()`."
 
 msgid "`for_each` と `MISO_LAMBDA` で、`x[i] = 0.37 * i`、`y[i] = 1.3 * i` と初期化します。"
-msgstr ""
+msgstr "Initialize with `for_each` and `MISO_LAMBDA`: `x[i] = 0.37 * i` and `y[i] = 1.3 * i`."
 
 msgid "別の `for_each` で `z[i] = x[i] + y[i]` を計算します。"
-msgstr ""
+msgstr "Compute `z[i] = x[i] + y[i]` in a separate `for_each`."
 
 msgid "`Array1D<double, backend::Host>` を用意し、`copy_from` で `z` を写して確かめます。"
-msgstr ""
+msgstr "Prepare an `Array1D<double, backend::Host>`, copy `z` into it with `copy_from`, and check the result."
 
 msgid "`Array1D` の要素は確保しただけでは初期化されないので、3 で全要素に値を入れてから 4 で読みます。 ラムダ式の中では、`Array1D` ではなく View を使います。"
-msgstr ""
+msgstr "The elements of an `Array1D` are not initialized just by allocating it, so fill every element in step 3 before reading in step 4. Inside the lambda, use views, not `Array1D`."
 
 msgid "結果の確認"
-msgstr ""
+msgstr "Checking the result"
 
 msgid "ホスト側でも同じ初期化の式を別々に計算し、その 2 つの値を足して期待値を作ります。 `z[0] = 0`、`z[999]` は約 1668.33 になります。 全要素について差を求め、最大絶対誤差を表示してください。"
-msgstr ""
+msgstr "On the host, compute the same initialization expressions separately and add the two values to make the expected value. `z[0] = 0`, and `z[999]` is about 1668.33. Compute the difference for every element and print the maximum absolute error."
 
 msgid "あわせて、`1e-15 * max(1, |期待値|)` 以下の差を許容する比較で合格した要素数と、完全に一致した要素数を表示します。 期待値が 0 の点もあるため、期待値そのもので割る相対誤差は使いません。"
-msgstr ""
+msgstr "Also print the number of elements that pass a comparison allowing differences up to `1e-15 * max(1, |expected|)`, and the number of elements that match exactly. Some expected values are 0, so do not use a relative error that divides by the expected value itself."
 
 #, python-brace-format
 msgid "CPU でこの確認ができたら、{ref}`次の課題 <edu-practice-execution-02>`へ進めます。"
-msgstr ""
+msgstr "Once this check passes on the CPU, you can move on to the {ref}`next assignment <edu-practice-execution-02>`."
 
 msgid "GPU で実行する段階"
-msgstr ""
+msgstr "Running on the GPU"
 
 #, python-brace-format
 msgid "{ref}`第 9 章 <edu-ch09>`を読んだ後、同じソースを CUDA 用の別のビルドフォルダでビルドします。 入力を揃え、CPU と同じ比較を行います。 GPU では、乗算と加算を 1 つの命令にまとめる最適化（FMA）などで、丸めが CPU と変わる場合があります。 完全一致の数だけでなく、許容誤差による比較で確かめます。"
-msgstr ""
+msgstr "After reading {ref}`Chapter 9 <edu-ch09>`, build the same source in a separate build folder for CUDA. Use the same inputs and perform the same comparison as on the CPU. On the GPU, rounding can differ from the CPU because of optimizations such as FMA, which merges a multiplication and an addition into one instruction. Check with the tolerance-based comparison, not only the count of exact matches."
 

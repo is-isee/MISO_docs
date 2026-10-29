@@ -20,87 +20,87 @@ msgstr ""
 "Generated-By: Babel 2.18.0\n"
 
 msgid "03. 1 次元移流と周期境界"
-msgstr ""
+msgstr "03\\. 1D Advection and a Periodic Boundary"
 
 msgid "解く方程式"
-msgstr ""
+msgstr "The equation to solve"
 
 #, python-brace-format
 msgid "\\frac{\\partial u}{\\partial t} + a \\frac{\\partial u}{\\partial x} = 0, \\quad a > 0 \\text{ は定数}"
-msgstr ""
+msgstr "\\frac{\\partial u}{\\partial t} + a \\frac{\\partial u}{\\partial x} = 0, \\quad a > 0 \\text{ is a constant}"
 
 msgid "時間積分：陽的オイラー法"
-msgstr ""
+msgstr "Time integration: explicit Euler method"
 
 msgid "空間離散化：1 次精度の風上差分。`a > 0` なので、左隣との差を使います。"
-msgstr ""
+msgstr "Spatial discretization: first-order upwind difference. Since `a > 0`, use the difference with the left neighbor."
 
 #, python-brace-format
 msgid "u_i^{n+1} = u_i^n - \\frac{a \\Delta t}{\\Delta x}\\left(u_i^n - u_{i-1}^n\\right)"
 msgstr ""
 
 msgid "時間刻みは、クーラン数 $C = a \\Delta t / \\Delta x$ が 0 より大きく 1 以下になるように選びます。 ここでは $C = 0.37$ を使います。"
-msgstr ""
+msgstr "Choose the time step so that the Courant number $C = a \\Delta t / \\Delta x$ is greater than 0 and at most 1. Here we use $C = 0.37$."
 
 msgid "格子とゴーストセル"
-msgstr ""
+msgstr "Grid and ghost cells"
 
 msgid "物理セル `NX` 個の左右に、1 点ずつゴーストセルを置きます。 風上差分は左隣 `u[i-1]` しか読まないので左の 1 点で足りますが、MISO と同じく左右対称に置きます。 周期境界では、毎ステップ、ゴーストセルを反対側の物理セルの値で埋めてから更新します。"
-msgstr ""
+msgstr "Place one ghost cell on each side of the `NX` physical cells. The upwind difference reads only the left neighbor `u[i-1]`, so one point on the left would suffice, but we place them symmetrically on both sides, as MISO does. With a periodic boundary, at every step, fill the ghost cells with the values of the physical cells on the opposite side, and then update."
 
 msgid "実装する内容"
-msgstr ""
+msgstr "What to implement"
 
 msgid "長さ `NX + 2` の配列 `u` と `u_new` を、それぞれ `Array1D<double, Backend>` として確保します。"
-msgstr ""
+msgstr "Allocate arrays `u` and `u_new` of length `NX + 2`, each as an `Array1D<double, Backend>`."
 
 msgid "物理セルの初期値は周期的なガウシアンとします。 $L = 1$、$x_0 = 0.5$、$\\sigma = 0.05$ とし、物理セル `i` の座標を `x = (i - 1) * L / NX` とします。 $d = x - x_0$ を周期の幅 $L$ で折り返して $-L/2 \\le d \\le L/2$ にしてから、$\\exp(-d^2 / 2\\sigma^2)$ を計算します。 折り返しには `util::fmod(d, L)`（`d` を `L` で割った余り。結果は `-L` と `L` の間）を使い、余りが `L/2` より大きければ `L` を引き、`-L/2` より小さければ `L` を足します。"
-msgstr ""
+msgstr "Take the initial values of the physical cells to be a periodic Gaussian. Let $L = 1$, $x_0 = 0.5$, and $\\sigma = 0.05$, and let the coordinate of physical cell `i` be `x = (i - 1) * L / NX`. Wrap $d = x - x_0$ by the period $L$ into $-L/2 \\le d \\le L/2$, and then compute $\\exp(-d^2 / 2\\sigma^2)$. For the wrapping, use `util::fmod(d, L)` (the remainder of `d` divided by `L`; the result lies between `-L` and `L`). If the remainder is larger than `L/2`, subtract `L`; if it is smaller than `-L/2`, add `L`."
 
 msgid "この初期値の式は、厳密解との比較でも使うので関数にします。 ラムダ式の中から呼ぶので、`__host__ __device__ inline double gaussian(double x)` のように `__host__ __device__` を付けておきます（CPU ビルドでは何もしない指定です）。"
-msgstr ""
+msgstr "This initial-value formula is also used in the comparison with the exact solution, so make it a function. Because it is called from inside a lambda, mark it with `__host__ __device__`, as in `__host__ __device__ inline double gaussian(double x)` (in a CPU build this specifier does nothing)."
 
 #, python-brace-format
 msgid "各ステップの前に、左のゴーストセル `u[0]` へ最後の物理セル `u[NX]` を、右のゴーストセル `u[NX + 1]` へ最初の物理セル `u[1]` を写します。 この処理も、`Range1D{0, 1}`（1 回だけ実行する範囲）の `for_each` で書きます。"
-msgstr ""
+msgstr "Before each step, copy the last physical cell `u[NX]` into the left ghost cell `u[0]`, and the first physical cell `u[1]` into the right ghost cell `u[NX + 1]`. Write this step too as a `for_each` over `Range1D{0, 1}` (a range executed only once)."
 
 #, python-brace-format
 msgid "物理セルの範囲 `Range1D{1, NX + 1}` の `for_each` で、更新前の `u` を読み、更新後の値を `u_new` へ書きます。"
-msgstr ""
+msgstr "In a `for_each` over the physical-cell range `Range1D{1, NX + 1}`, read the pre-update `u` and write the updated values to `u_new`."
 
 msgid "ステップの最後に `std::swap(u, u_new)` で 2 つの配列の役割を入れ替えます。 `std::swap` には `<utility>` を読み込みます。"
-msgstr ""
+msgstr "At the end of the step, swap the roles of the two arrays with `std::swap(u, u_new)`. For `std::swap`, include `<utility>`."
 
 #, python-brace-format
 msgid "`Array1D` はコピーできませんが、ムーブはできます（{ref}`第 4 章 <edu-ch04>`）。 `std::swap` はムーブを使って中身のポインタを入れ替えるので、要素はコピーしません。 入れ替えの後、`u` という名前の変数は前の `u_new` のメモリを持っています。 **View は取り出したときのポインタを持ち続けるので、入れ替えの後は `u.view()` で View を取り直します。** ゴーストセルを埋める処理と更新の処理を、それぞれ配列を引数に取る関数にして、関数の中で View を取り出すと、取り直しを忘れません。"
-msgstr ""
+msgstr "`Array1D` cannot be copied, but it can be moved ({ref}`Chapter 4 <edu-ch04>`). `std::swap` uses moves to exchange the internal pointers, so no elements are copied. After the swap, the variable named `u` holds the memory that `u_new` held before. **A view keeps the pointer it had when you obtained it, so after the swap, obtain the view again with `u.view()`.** If you write the ghost-cell fill and the update as functions that take the arrays as arguments and obtain the views inside the functions, you will not forget to obtain them again."
 
 #, python-brace-format
 msgid "更新前の配列へ途中で書き込まないので、各セルは同じ時刻の隣の値を読めます（{ref}`第 7 章 <edu-ch07>`の「実行順に頼らない」）。"
-msgstr ""
+msgstr "You never write into the pre-update array midway, so each cell reads its neighbors' values at the same time level (\"do not depend on the execution order\" in {ref}`Chapter 7 <edu-ch07>`)."
 
 msgid "結果の確認"
-msgstr ""
+msgstr "Checking the result"
 
 msgid "まず `NX = 256` で 1 ステップだけ計算し、同じ入力とゴーストセルからホスト側の `for` 文で求めた値と比べます。 初期の振幅 1 を基準に、最大絶対誤差が `1e-14` 以下であることを確かめます。"
-msgstr ""
+msgstr "First compute just one step with `NX = 256`, and compare with the values obtained by a host-side `for` loop from the same input and ghost cells. Taking the initial amplitude 1 as the reference, check that the maximum absolute error is at most `1e-14`."
 
 msgid "次に時間を進め、初期分布を距離 $a t$ だけ平行移動した厳密解と比べます。 厳密解は、初期値の式の $x$ を $x - a t$ に置き換え、同じ周期の折り返しを使って求めます。 相対 L2 誤差は、物理セルだけで次のように求めます。"
-msgstr ""
+msgstr "Next, advance in time, and compare with the exact solution, which is the initial distribution translated by the distance $a t$. Obtain the exact solution by replacing $x$ in the initial-value formula with $x - a t$ and using the same periodic wrapping. Compute the relative L2 error over the physical cells only, as follows."
 
 msgid "E = \\sqrt{\\frac{\\sum_i (u_i-u_{\\mathrm{exact},i})^2}{\\sum_i u_{\\mathrm{exact},i}^2}}"
 msgstr ""
 
 msgid "分子と分母の和は、前の課題の `reduce` で求められます（`reduce` を 2 回呼びます）。 `NX` を 256、512、1024 と増やし、$C$ と終了時刻を揃えて誤差の変化を調べます。 たとえばステップ数を 200、400、800 とすれば、同じ時刻まで進みます。 この方法は 1 次精度なので、十分細かい格子では、格子幅を半分にすると誤差もおよそ半分になります。"
-msgstr ""
+msgstr "You can compute the sums in the numerator and denominator with the `reduce` from the previous assignment (call `reduce` twice). Increase `NX` to 256, 512, and 1024, keep $C$ and the end time the same, and examine how the error changes. For example, with 200, 400, and 800 steps, you advance to the same time. This method is first-order accurate, so on a sufficiently fine grid, halving the grid spacing roughly halves the error."
 
 #, python-brace-format
 msgid "CPU で 1 ステップの比較と時間発展を確かめたら、{ref}`第 8 章 <edu-ch08>`の MPI へ進めます。 GPU で同じ計算を動かす準備は、{ref}`第 9 章 <edu-ch09>`で学びます。"
-msgstr ""
+msgstr "Once you have checked the one-step comparison and the time evolution on the CPU, move on to the MPI of {ref}`Chapter 8 <edu-ch08>`. You will learn how to prepare to run the same computation on the GPU in {ref}`Chapter 9 <edu-ch09>`."
 
 msgid "GPU で実行する段階"
-msgstr ""
+msgstr "Running on the GPU"
 
 msgid "CUDA でも同じ入力で、1 ステップの比較と時間発展を行います。 ラムダ式の中から呼ぶ `gaussian` には `__host__ __device__` が必要です。 FMA などにより、CPU と GPU では丸めが異なる場合があります。 完全一致を一律に求めず、上の許容誤差と、格子を細かくしたときの誤差の変化で確かめます。"
-msgstr ""
+msgstr "With CUDA as well, do the one-step comparison and the time evolution with the same inputs. `gaussian`, which is called from inside a lambda, needs `__host__ __device__`. Because of FMA and similar effects, rounding may differ between the CPU and the GPU. Do not require an exact match across the board; check with the tolerance above and with how the error changes as the grid is refined."
 
