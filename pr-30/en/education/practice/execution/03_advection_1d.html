@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>03. 1 次元移流と周期境界 &mdash; MISO 0.0 documentation</title>
+  <title>03. 1D Advection and a Periodic Boundary &mdash; MISO 0.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../../../_static/graphviz.css?v=4ae1632d" />
@@ -29,8 +29,8 @@
     <script src="../../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
-    <link rel="next" title="実習 heat1d：熱伝導の計算" href="../heat1d/index.html" />
-    <link rel="prev" title="02. 縮約：二乗和と最大値" href="02_reduction.html" /> 
+    <link rel="next" title="Practice heat1d: Heat Conduction" href="../heat1d/index.html" />
+    <link rel="prev" title="02. Reduction: Sum of Squares and Maximum" href="02_reduction.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -60,25 +60,25 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../miso/index.html">MISO C++ documentation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../pymiso/index.html">pymiso Documentation</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../../index.html">MISO education</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="../../index.html#id1">本文</a></li>
-<li class="toctree-l2 current"><a class="reference internal" href="../../index.html#id2">必要なときに参照する資料</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../../index.html#id1">Main text</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../../index.html#id2">Reference material to consult when needed</a><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="../../01_environment_setup.html">1. Development Environment and CMake</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../02_cpp_basics.html">2. 変数・関数・制御文</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../03_references_and_pointers.html">3. 参照・ポインタと寿命</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../04_classes_and_structs.html">4. クラス・構造体</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../05_inheritance.html">5. 継承と CRTP</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../06_templates.html">6. テンプレート</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../07_arrays_and_parallel.html">7. 配列・ラムダと CPU での並列ループ</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../08_mpi.html">8. MPI による領域分割</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../09_gpu.html">9. GPU（CUDA）での計算とデータ転送</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../10_heat1d.html">10. 熱伝導の計算</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../11_reading_miso.html">11. MISO の時間発展を読む</a></li>
-<li class="toctree-l3 current"><a class="reference internal" href="../index.html">実習一覧</a><ul class="current">
-<li class="toctree-l4 current"><a class="reference internal" href="index.html">配列と並列ループの実習</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../heat1d/index.html">実習 heat1d：熱伝導の計算</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../02_cpp_basics.html">2. Variables, Functions, and Control Flow</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../03_references_and_pointers.html">3. References, Pointers, and Lifetime</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../04_classes_and_structs.html">4. Classes and Structs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../05_inheritance.html">5. Inheritance and CRTP</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../06_templates.html">6. Templates</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../07_arrays_and_parallel.html">7. Arrays, Lambdas, and Parallel Loops on the CPU</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../08_mpi.html">8. Domain Decomposition with MPI</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../09_gpu.html">9. Computing and Transferring Data on a GPU (CUDA)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../10_heat1d.html">10. Heat Conduction Calculation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../11_reading_miso.html">11. Reading MISO’s Time Evolution</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="../index.html">Practice List</a><ul class="current">
+<li class="toctree-l4 current"><a class="reference internal" href="index.html">Practice: Arrays and Parallel Loops</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../heat1d/index.html">Practice heat1d: Heat Conduction</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="../../reference/index.html">参考資料</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference/index.html">Reference Materials</a></li>
 </ul>
 </li>
 </ul>
@@ -110,9 +110,9 @@
   <ul class="wy-breadcrumbs">
       <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
           <li class="breadcrumb-item"><a href="../../index.html">MISO education</a></li>
-          <li class="breadcrumb-item"><a href="../index.html">実習一覧</a></li>
-          <li class="breadcrumb-item"><a href="index.html">配列と並列ループの実習</a></li>
-      <li class="breadcrumb-item active">03. 1 次元移流と周期境界</li>
+          <li class="breadcrumb-item"><a href="../index.html">Practice List</a></li>
+          <li class="breadcrumb-item"><a href="index.html">Practice: Arrays and Parallel Loops</a></li>
+      <li class="breadcrumb-item active">03. 1D Advection and a Periodic Boundary</li>
       <li class="wy-breadcrumbs-aside">
             <a href="../../../_sources/education/practice/execution/03_advection_1d.md.txt" rel="nofollow"> View page source</a>
       </li>
@@ -123,75 +123,52 @@
            <div itemprop="articleBody">
              
   <section class="tex2jax_ignore mathjax_ignore" id="edu-practice-execution-03">
-<span id="id1"></span><h1>03. 1 次元移流と周期境界<a class="headerlink" href="#edu-practice-execution-03" title="Link to this heading"></a></h1>
+<span id="id1"></span><h1>03. 1D Advection and a Periodic Boundary<a class="headerlink" href="#edu-practice-execution-03" title="Link to this heading"></a></h1>
 <section id="id2">
-<h2>解く方程式<a class="headerlink" href="#id2" title="Link to this heading"></a></h2>
+<h2>The equation to solve<a class="headerlink" href="#id2" title="Link to this heading"></a></h2>
 <div class="math notranslate nohighlight">
-\[\frac{\partial u}{\partial t} + a \frac{\partial u}{\partial x} = 0, \quad a &gt; 0 \text{ は定数}\]</div>
+\[::\]</div>
 <ul class="simple">
-<li><p>時間積分：陽的オイラー法</p></li>
-<li><p>空間離散化：1 次精度の風上差分。<code class="docutils literal notranslate"><span class="pre">a</span> <span class="pre">&gt;</span> <span class="pre">0</span></code> なので、左隣との差を使います。</p></li>
+<li><p>Time integration: explicit Euler method</p></li>
+<li><p>Spatial discretization: first-order upwind difference. Since <code class="docutils literal notranslate"><span class="pre">a</span> <span class="pre">&gt;</span> <span class="pre">0</span></code>, use the difference with the left neighbor.</p></li>
 </ul>
 <div class="math notranslate nohighlight">
 \[u_i^{n+1} = u_i^n - \frac{a \Delta t}{\Delta x}\left(u_i^n - u_{i-1}^n\right)\]</div>
-<p>時間刻みは、クーラン数 <span class="math notranslate nohighlight">\(C = a \Delta t / \Delta x\)</span> が 0 より大きく 1 以下になるように選びます。
-ここでは <span class="math notranslate nohighlight">\(C = 0.37\)</span> を使います。</p>
+<p>Choose the time step so that the Courant number <span class="math notranslate nohighlight">\(C = a \Delta t / \Delta x\)</span> is greater than 0 and at most 1. Here we use <span class="math notranslate nohighlight">\(C = 0.37\)</span>.</p>
 </section>
 <section id="id3">
-<h2>格子とゴーストセル<a class="headerlink" href="#id3" title="Link to this heading"></a></h2>
-<p>物理セル <code class="docutils literal notranslate"><span class="pre">NX</span></code> 個の左右に、1 点ずつゴーストセルを置きます。
-風上差分は左隣 <code class="docutils literal notranslate"><span class="pre">u[i-1]</span></code> しか読まないので左の 1 点で足りますが、MISO と同じく左右対称に置きます。
-周期境界では、毎ステップ、ゴーストセルを反対側の物理セルの値で埋めてから更新します。</p>
+<h2>Grid and ghost cells<a class="headerlink" href="#id3" title="Link to this heading"></a></h2>
+<p>Place one ghost cell on each side of the <code class="docutils literal notranslate"><span class="pre">NX</span></code> physical cells. The upwind difference reads only the left neighbor <code class="docutils literal notranslate"><span class="pre">u[i-1]</span></code>, so one point on the left would suffice, but we place them symmetrically on both sides, as MISO does. With a periodic boundary, at every step, fill the ghost cells with the values of the physical cells on the opposite side, and then update.</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>index   0  |  1  ...  NX  |  NX+1
     ghost   physical cells  ghost
 </pre></div>
 </div>
 </section>
 <section id="id4">
-<h2>実装する内容<a class="headerlink" href="#id4" title="Link to this heading"></a></h2>
+<h2>What to implement<a class="headerlink" href="#id4" title="Link to this heading"></a></h2>
 <ol class="arabic simple">
-<li><p>長さ <code class="docutils literal notranslate"><span class="pre">NX</span> <span class="pre">+</span> <span class="pre">2</span></code> の配列 <code class="docutils literal notranslate"><span class="pre">u</span></code> と <code class="docutils literal notranslate"><span class="pre">u_new</span></code> を、それぞれ <code class="docutils literal notranslate"><span class="pre">Array1D&lt;double,</span> <span class="pre">Backend&gt;</span></code> として確保します。</p></li>
-<li><p>物理セルの初期値は周期的なガウシアンとします。
-<span class="math notranslate nohighlight">\(L = 1\)</span>、<span class="math notranslate nohighlight">\(x_0 = 0.5\)</span>、<span class="math notranslate nohighlight">\(\sigma = 0.05\)</span> とし、物理セル <code class="docutils literal notranslate"><span class="pre">i</span></code> の座標を <code class="docutils literal notranslate"><span class="pre">x</span> <span class="pre">=</span> <span class="pre">(i</span> <span class="pre">-</span> <span class="pre">1)</span> <span class="pre">*</span> <span class="pre">L</span> <span class="pre">/</span> <span class="pre">NX</span></code> とします。
-<span class="math notranslate nohighlight">\(d = x - x_0\)</span> を周期の幅 <span class="math notranslate nohighlight">\(L\)</span> で折り返して <span class="math notranslate nohighlight">\(-L/2 \le d \le L/2\)</span> にしてから、<span class="math notranslate nohighlight">\(\exp(-d^2 / 2\sigma^2)\)</span> を計算します。
-折り返しには <code class="docutils literal notranslate"><span class="pre">util::fmod(d,</span> <span class="pre">L)</span></code>（<code class="docutils literal notranslate"><span class="pre">d</span></code> を <code class="docutils literal notranslate"><span class="pre">L</span></code> で割った余り。結果は <code class="docutils literal notranslate"><span class="pre">-L</span></code> と <code class="docutils literal notranslate"><span class="pre">L</span></code> の間）を使い、余りが <code class="docutils literal notranslate"><span class="pre">L/2</span></code> より大きければ <code class="docutils literal notranslate"><span class="pre">L</span></code> を引き、<code class="docutils literal notranslate"><span class="pre">-L/2</span></code> より小さければ <code class="docutils literal notranslate"><span class="pre">L</span></code> を足します。</p></li>
-<li><p>この初期値の式は、厳密解との比較でも使うので関数にします。
-ラムダ式の中から呼ぶので、<code class="docutils literal notranslate"><span class="pre">__host__</span> <span class="pre">__device__</span> <span class="pre">inline</span> <span class="pre">double</span> <span class="pre">gaussian(double</span> <span class="pre">x)</span></code> のように <code class="docutils literal notranslate"><span class="pre">__host__</span> <span class="pre">__device__</span></code> を付けておきます（CPU ビルドでは何もしない指定です）。</p></li>
-<li><p>各ステップの前に、左のゴーストセル <code class="docutils literal notranslate"><span class="pre">u[0]</span></code> へ最後の物理セル <code class="docutils literal notranslate"><span class="pre">u[NX]</span></code> を、右のゴーストセル <code class="docutils literal notranslate"><span class="pre">u[NX</span> <span class="pre">+</span> <span class="pre">1]</span></code> へ最初の物理セル <code class="docutils literal notranslate"><span class="pre">u[1]</span></code> を写します。
-この処理も、<code class="docutils literal notranslate"><span class="pre">Range1D{0,</span> <span class="pre">1}</span></code>（1 回だけ実行する範囲）の <code class="docutils literal notranslate"><span class="pre">for_each</span></code> で書きます。</p></li>
-<li><p>物理セルの範囲 <code class="docutils literal notranslate"><span class="pre">Range1D{1,</span> <span class="pre">NX</span> <span class="pre">+</span> <span class="pre">1}</span></code> の <code class="docutils literal notranslate"><span class="pre">for_each</span></code> で、更新前の <code class="docutils literal notranslate"><span class="pre">u</span></code> を読み、更新後の値を <code class="docutils literal notranslate"><span class="pre">u_new</span></code> へ書きます。</p></li>
-<li><p>ステップの最後に <code class="docutils literal notranslate"><span class="pre">std::swap(u,</span> <span class="pre">u_new)</span></code> で 2 つの配列の役割を入れ替えます。
-<code class="docutils literal notranslate"><span class="pre">std::swap</span></code> には <code class="docutils literal notranslate"><span class="pre">&lt;utility&gt;</span></code> を読み込みます。</p></li>
+<li><p>Allocate arrays <code class="docutils literal notranslate"><span class="pre">u</span></code> and <code class="docutils literal notranslate"><span class="pre">u_new</span></code> of length <code class="docutils literal notranslate"><span class="pre">NX</span> <span class="pre">+</span> <span class="pre">2</span></code>, each as an <code class="docutils literal notranslate"><span class="pre">Array1D&lt;double,</span> <span class="pre">Backend&gt;</span></code>.</p></li>
+<li><p>Take the initial values of the physical cells to be a periodic Gaussian. Let <span class="math notranslate nohighlight">\(L = 1\)</span>, <span class="math notranslate nohighlight">\(x_0 = 0.5\)</span>, and <span class="math notranslate nohighlight">\(\sigma = 0.05\)</span>, and let the coordinate of physical cell <code class="docutils literal notranslate"><span class="pre">i</span></code> be <code class="docutils literal notranslate"><span class="pre">x</span> <span class="pre">=</span> <span class="pre">(i</span> <span class="pre">-</span> <span class="pre">1)</span> <span class="pre">*</span> <span class="pre">L</span> <span class="pre">/</span> <span class="pre">NX</span></code>. Wrap <span class="math notranslate nohighlight">\(d = x - x_0\)</span> by the period <span class="math notranslate nohighlight">\(L\)</span> into <span class="math notranslate nohighlight">\(-L/2 \le d \le L/2\)</span>, and then compute <span class="math notranslate nohighlight">\(\exp(-d^2 / 2\sigma^2)\)</span>. For the wrapping, use <code class="docutils literal notranslate"><span class="pre">util::fmod(d,</span> <span class="pre">L)</span></code> (the remainder of <code class="docutils literal notranslate"><span class="pre">d</span></code> divided by <code class="docutils literal notranslate"><span class="pre">L</span></code>; the result lies between <code class="docutils literal notranslate"><span class="pre">-L</span></code> and <code class="docutils literal notranslate"><span class="pre">L</span></code>). If the remainder is larger than <code class="docutils literal notranslate"><span class="pre">L/2</span></code>, subtract <code class="docutils literal notranslate"><span class="pre">L</span></code>; if it is smaller than <code class="docutils literal notranslate"><span class="pre">-L/2</span></code>, add <code class="docutils literal notranslate"><span class="pre">L</span></code>.</p></li>
+<li><p>This initial-value formula is also used in the comparison with the exact solution, so make it a function. Because it is called from inside a lambda, mark it with <code class="docutils literal notranslate"><span class="pre">__host__</span> <span class="pre">__device__</span></code>, as in <code class="docutils literal notranslate"><span class="pre">__host__</span> <span class="pre">__device__</span> <span class="pre">inline</span> <span class="pre">double</span> <span class="pre">gaussian(double</span> <span class="pre">x)</span></code> (in a CPU build this specifier does nothing).</p></li>
+<li><p>Before each step, copy the last physical cell <code class="docutils literal notranslate"><span class="pre">u[NX]</span></code> into the left ghost cell <code class="docutils literal notranslate"><span class="pre">u[0]</span></code>, and the first physical cell <code class="docutils literal notranslate"><span class="pre">u[1]</span></code> into the right ghost cell <code class="docutils literal notranslate"><span class="pre">u[NX</span> <span class="pre">+</span> <span class="pre">1]</span></code>. Write this step too as a <code class="docutils literal notranslate"><span class="pre">for_each</span></code> over <code class="docutils literal notranslate"><span class="pre">Range1D{0,</span> <span class="pre">1}</span></code> (a range executed only once).</p></li>
+<li><p>In a <code class="docutils literal notranslate"><span class="pre">for_each</span></code> over the physical-cell range <code class="docutils literal notranslate"><span class="pre">Range1D{1,</span> <span class="pre">NX</span> <span class="pre">+</span> <span class="pre">1}</span></code>, read the pre-update <code class="docutils literal notranslate"><span class="pre">u</span></code> and write the updated values to <code class="docutils literal notranslate"><span class="pre">u_new</span></code>.</p></li>
+<li><p>At the end of the step, swap the roles of the two arrays with <code class="docutils literal notranslate"><span class="pre">std::swap(u,</span> <span class="pre">u_new)</span></code>. For <code class="docutils literal notranslate"><span class="pre">std::swap</span></code>, include <code class="docutils literal notranslate"><span class="pre">&lt;utility&gt;</span></code>.</p></li>
 </ol>
-<p><code class="docutils literal notranslate"><span class="pre">Array1D</span></code> はコピーできませんが、ムーブはできます（<a class="reference internal" href="../../04_classes_and_structs.html#edu-ch04"><span class="std std-ref">第 4 章</span></a>）。
-<code class="docutils literal notranslate"><span class="pre">std::swap</span></code> はムーブを使って中身のポインタを入れ替えるので、要素はコピーしません。
-入れ替えの後、<code class="docutils literal notranslate"><span class="pre">u</span></code> という名前の変数は前の <code class="docutils literal notranslate"><span class="pre">u_new</span></code> のメモリを持っています。
-<strong>View は取り出したときのポインタを持ち続けるので、入れ替えの後は <code class="docutils literal notranslate"><span class="pre">u.view()</span></code> で View を取り直します。</strong>
-ゴーストセルを埋める処理と更新の処理を、それぞれ配列を引数に取る関数にして、関数の中で View を取り出すと、取り直しを忘れません。</p>
-<p>更新前の配列へ途中で書き込まないので、各セルは同じ時刻の隣の値を読めます（<a class="reference internal" href="../../07_arrays_and_parallel.html#edu-ch07"><span class="std std-ref">第 7 章</span></a>の「実行順に頼らない」）。</p>
+<p><code class="docutils literal notranslate"><span class="pre">Array1D</span></code> cannot be copied, but it can be moved (<a class="reference internal" href="../../04_classes_and_structs.html#edu-ch04"><span class="std std-ref">Chapter 4</span></a>). <code class="docutils literal notranslate"><span class="pre">std::swap</span></code> uses moves to exchange the internal pointers, so no elements are copied. After the swap, the variable named <code class="docutils literal notranslate"><span class="pre">u</span></code> holds the memory that <code class="docutils literal notranslate"><span class="pre">u_new</span></code> held before. <strong>A view keeps the pointer it had when you obtained it, so after the swap, obtain the view again with <code class="docutils literal notranslate"><span class="pre">u.view()</span></code>.</strong> If you write the ghost-cell fill and the update as functions that take the arrays as arguments and obtain the views inside the functions, you will not forget to obtain them again.</p>
+<p>You never write into the pre-update array midway, so each cell reads its neighbors’ values at the same time level (“do not depend on the execution order” in <a class="reference internal" href="../../07_arrays_and_parallel.html#edu-ch07"><span class="std std-ref">Chapter 7</span></a>).</p>
 </section>
 <section id="id5">
-<h2>結果の確認<a class="headerlink" href="#id5" title="Link to this heading"></a></h2>
-<p>まず <code class="docutils literal notranslate"><span class="pre">NX</span> <span class="pre">=</span> <span class="pre">256</span></code> で 1 ステップだけ計算し、同じ入力とゴーストセルからホスト側の <code class="docutils literal notranslate"><span class="pre">for</span></code> 文で求めた値と比べます。
-初期の振幅 1 を基準に、最大絶対誤差が <code class="docutils literal notranslate"><span class="pre">1e-14</span></code> 以下であることを確かめます。</p>
-<p>次に時間を進め、初期分布を距離 <span class="math notranslate nohighlight">\(a t\)</span> だけ平行移動した厳密解と比べます。
-厳密解は、初期値の式の <span class="math notranslate nohighlight">\(x\)</span> を <span class="math notranslate nohighlight">\(x - a t\)</span> に置き換え、同じ周期の折り返しを使って求めます。
-相対 L2 誤差は、物理セルだけで次のように求めます。</p>
+<h2>Checking the result<a class="headerlink" href="#id5" title="Link to this heading"></a></h2>
+<p>First compute just one step with <code class="docutils literal notranslate"><span class="pre">NX</span> <span class="pre">=</span> <span class="pre">256</span></code>, and compare with the values obtained by a host-side <code class="docutils literal notranslate"><span class="pre">for</span></code> loop from the same input and ghost cells. Taking the initial amplitude 1 as the reference, check that the maximum absolute error is at most <code class="docutils literal notranslate"><span class="pre">1e-14</span></code>.</p>
+<p>Next, advance in time, and compare with the exact solution, which is the initial distribution translated by the distance <span class="math notranslate nohighlight">\(a t\)</span>. Obtain the exact solution by replacing <span class="math notranslate nohighlight">\(x\)</span> in the initial-value formula with <span class="math notranslate nohighlight">\(x - a t\)</span> and using the same periodic wrapping. Compute the relative L2 error over the physical cells only, as follows.</p>
 <div class="math notranslate nohighlight">
 \[E = \sqrt{\frac{\sum_i (u_i-u_{\mathrm{exact},i})^2}{\sum_i u_{\mathrm{exact},i}^2}}\]</div>
-<p>分子と分母の和は、前の課題の <code class="docutils literal notranslate"><span class="pre">reduce</span></code> で求められます（<code class="docutils literal notranslate"><span class="pre">reduce</span></code> を 2 回呼びます）。
-<code class="docutils literal notranslate"><span class="pre">NX</span></code> を 256、512、1024 と増やし、<span class="math notranslate nohighlight">\(C\)</span> と終了時刻を揃えて誤差の変化を調べます。
-たとえばステップ数を 200、400、800 とすれば、同じ時刻まで進みます。
-この方法は 1 次精度なので、十分細かい格子では、格子幅を半分にすると誤差もおよそ半分になります。</p>
-<p>CPU で 1 ステップの比較と時間発展を確かめたら、<a class="reference internal" href="../../08_mpi.html#edu-ch08"><span class="std std-ref">第 8 章</span></a>の MPI へ進めます。
-GPU で同じ計算を動かす準備は、<a class="reference internal" href="../../09_gpu.html#edu-ch09"><span class="std std-ref">第 9 章</span></a>で学びます。</p>
+<p>You can compute the sums in the numerator and denominator with the <code class="docutils literal notranslate"><span class="pre">reduce</span></code> from the previous assignment (call <code class="docutils literal notranslate"><span class="pre">reduce</span></code> twice). Increase <code class="docutils literal notranslate"><span class="pre">NX</span></code> to 256, 512, and 1024, keep <span class="math notranslate nohighlight">\(C\)</span> and the end time the same, and examine how the error changes. For example, with 200, 400, and 800 steps, you advance to the same time. This method is first-order accurate, so on a sufficiently fine grid, halving the grid spacing roughly halves the error.</p>
+<p>Once you have checked the one-step comparison and the time evolution on the CPU, move on to the MPI of <a class="reference internal" href="../../08_mpi.html#edu-ch08"><span class="std std-ref">Chapter 8</span></a>. You will learn how to prepare to run the same computation on the GPU in <a class="reference internal" href="../../09_gpu.html#edu-ch09"><span class="std std-ref">Chapter 9</span></a>.</p>
 </section>
 <section id="gpu">
-<h2>GPU で実行する段階<a class="headerlink" href="#gpu" title="Link to this heading"></a></h2>
-<p>CUDA でも同じ入力で、1 ステップの比較と時間発展を行います。
-ラムダ式の中から呼ぶ <code class="docutils literal notranslate"><span class="pre">gaussian</span></code> には <code class="docutils literal notranslate"><span class="pre">__host__</span> <span class="pre">__device__</span></code> が必要です。
-FMA などにより、CPU と GPU では丸めが異なる場合があります。
-完全一致を一律に求めず、上の許容誤差と、格子を細かくしたときの誤差の変化で確かめます。</p>
+<h2>Running on the GPU<a class="headerlink" href="#gpu" title="Link to this heading"></a></h2>
+<p>With CUDA as well, do the one-step comparison and the time evolution with the same inputs. <code class="docutils literal notranslate"><span class="pre">gaussian</span></code>, which is called from inside a lambda, needs <code class="docutils literal notranslate"><span class="pre">__host__</span> <span class="pre">__device__</span></code>. Because of FMA and similar effects, rounding may differ between the CPU and the GPU. Do not require an exact match across the board; check with the tolerance above and with how the error changes as the grid is refined.</p>
 </section>
 </section>
 
@@ -199,8 +176,8 @@ FMA などにより、CPU と GPU では丸めが異なる場合があります�
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="02_reduction.html" class="btn btn-neutral float-left" title="02. 縮約：二乗和と最大値" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="../heat1d/index.html" class="btn btn-neutral float-right" title="実習 heat1d：熱伝導の計算" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="02_reduction.html" class="btn btn-neutral float-left" title="02. Reduction: Sum of Squares and Maximum" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../heat1d/index.html" class="btn btn-neutral float-right" title="Practice heat1d: Heat Conduction" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

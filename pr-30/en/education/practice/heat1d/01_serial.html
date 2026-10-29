@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>01. 逐次版：CPU で熱伝導を解く &mdash; MISO 0.0 documentation</title>
+  <title>01. Serial Version: Solving Heat Conduction on the CPU &mdash; MISO 0.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../../../_static/graphviz.css?v=4ae1632d" />
@@ -29,8 +29,8 @@
     <script src="../../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
-    <link rel="next" title="02. MPI 版：領域を分けて解く" href="02_mpi.html" />
-    <link rel="prev" title="実習 heat1d：熱伝導の計算" href="index.html" /> 
+    <link rel="next" title="02. MPI Version: Dividing the Domain" href="02_mpi.html" />
+    <link rel="prev" title="Practice heat1d: Heat Conduction" href="index.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -60,25 +60,25 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../miso/index.html">MISO C++ documentation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../pymiso/index.html">pymiso Documentation</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../../index.html">MISO education</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="../../index.html#id1">本文</a></li>
-<li class="toctree-l2 current"><a class="reference internal" href="../../index.html#id2">必要なときに参照する資料</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../../index.html#id1">Main text</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../../index.html#id2">Reference material to consult when needed</a><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="../../01_environment_setup.html">1. Development Environment and CMake</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../02_cpp_basics.html">2. 変数・関数・制御文</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../03_references_and_pointers.html">3. 参照・ポインタと寿命</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../04_classes_and_structs.html">4. クラス・構造体</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../05_inheritance.html">5. 継承と CRTP</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../06_templates.html">6. テンプレート</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../07_arrays_and_parallel.html">7. 配列・ラムダと CPU での並列ループ</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../08_mpi.html">8. MPI による領域分割</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../09_gpu.html">9. GPU（CUDA）での計算とデータ転送</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../10_heat1d.html">10. 熱伝導の計算</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../11_reading_miso.html">11. MISO の時間発展を読む</a></li>
-<li class="toctree-l3 current"><a class="reference internal" href="../index.html">実習一覧</a><ul class="current">
-<li class="toctree-l4"><a class="reference internal" href="../execution/index.html">配列と並列ループの実習</a></li>
-<li class="toctree-l4 current"><a class="reference internal" href="index.html">実習 heat1d：熱伝導の計算</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../02_cpp_basics.html">2. Variables, Functions, and Control Flow</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../03_references_and_pointers.html">3. References, Pointers, and Lifetime</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../04_classes_and_structs.html">4. Classes and Structs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../05_inheritance.html">5. Inheritance and CRTP</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../06_templates.html">6. Templates</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../07_arrays_and_parallel.html">7. Arrays, Lambdas, and Parallel Loops on the CPU</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../08_mpi.html">8. Domain Decomposition with MPI</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../09_gpu.html">9. Computing and Transferring Data on a GPU (CUDA)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../10_heat1d.html">10. Heat Conduction Calculation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../11_reading_miso.html">11. Reading MISO’s Time Evolution</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="../index.html">Practice List</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="../execution/index.html">Practice: Arrays and Parallel Loops</a></li>
+<li class="toctree-l4 current"><a class="reference internal" href="index.html">Practice heat1d: Heat Conduction</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="../../reference/index.html">参考資料</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference/index.html">Reference Materials</a></li>
 </ul>
 </li>
 </ul>
@@ -110,9 +110,9 @@
   <ul class="wy-breadcrumbs">
       <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
           <li class="breadcrumb-item"><a href="../../index.html">MISO education</a></li>
-          <li class="breadcrumb-item"><a href="../index.html">実習一覧</a></li>
-          <li class="breadcrumb-item"><a href="index.html">実習 heat1d：熱伝導の計算</a></li>
-      <li class="breadcrumb-item active">01. 逐次版：CPU で熱伝導を解く</li>
+          <li class="breadcrumb-item"><a href="../index.html">Practice List</a></li>
+          <li class="breadcrumb-item"><a href="index.html">Practice heat1d: Heat Conduction</a></li>
+      <li class="breadcrumb-item active">01. Serial Version: Solving Heat Conduction on the CPU</li>
       <li class="wy-breadcrumbs-aside">
             <a href="../../../_sources/education/practice/heat1d/01_serial.md.txt" rel="nofollow"> View page source</a>
       </li>
@@ -123,19 +123,18 @@
            <div itemprop="articleBody">
              
   <section class="tex2jax_ignore mathjax_ignore" id="cpu">
-<span id="edu-practice-heat1d-01"></span><h1>01. 逐次版：CPU で熱伝導を解く<a class="headerlink" href="#cpu" title="Link to this heading"></a></h1>
-<p><a class="reference internal" href="index.html#edu-practice-heat1d"><span class="std std-ref">共通の設定</span></a> の問題を、1 プロセスの CPU で解くプログラム <code class="docutils literal notranslate"><span class="pre">heat1d_serial</span></code> を書きます。
-式と確かめ方は <a class="reference internal" href="../../10_heat1d.html#edu-ch10"><span class="std std-ref">第 10 章</span></a> で説明しています。</p>
+<span id="edu-practice-heat1d-01"></span><h1>01. Serial Version: Solving Heat Conduction on the CPU<a class="headerlink" href="#cpu" title="Link to this heading"></a></h1>
+<p>You write the program <code class="docutils literal notranslate"><span class="pre">heat1d_serial</span></code>, which solves the problem in the <a class="reference internal" href="index.html#edu-practice-heat1d"><span class="std std-ref">common setup</span></a> on a single-process CPU. The equations and how to check them are explained in <a class="reference internal" href="../../10_heat1d.html#edu-ch10"><span class="std std-ref">Chapter 10</span></a>.</p>
 <section id="id1">
-<h2>使うもの<a class="headerlink" href="#id1" title="Link to this heading"></a></h2>
+<h2>What you use<a class="headerlink" href="#id1" title="Link to this heading"></a></h2>
 <table class="docutils align-default">
 <thead>
-<tr class="row-odd"><th class="head"><p>もの</p></th>
-<th class="head"><p>ヘッダ</p></th>
+<tr class="row-odd"><th class="head"><p>Item</p></th>
+<th class="head"><p>Header</p></th>
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">miso::Array1D&lt;Real&gt;</span></code>（ホストの配列）</p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">miso::Array1D&lt;Real&gt;</span></code> (a host array)</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">miso/array1d.hpp</span></code></p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">miso::for_each</span></code>、<code class="docutils literal notranslate"><span class="pre">miso::reduce</span></code>、<code class="docutils literal notranslate"><span class="pre">miso::Range1D</span></code>、<code class="docutils literal notranslate"><span class="pre">MISO_LAMBDA</span></code>、<code class="docutils literal notranslate"><span class="pre">miso::backend::Host</span></code></p></td>
@@ -149,63 +148,61 @@
 </tr>
 </tbody>
 </table>
-<p><code class="docutils literal notranslate"><span class="pre">#include</span> <span class="pre">&lt;miso/array1d.hpp&gt;</span></code> のように、<code class="docutils literal notranslate"><span class="pre">miso/</span></code> を付けて読み込みます。</p>
+<p>Include it with the <code class="docutils literal notranslate"><span class="pre">miso/</span></code> prefix, as in <code class="docutils literal notranslate"><span class="pre">#include</span> <span class="pre">&lt;miso/array1d.hpp&gt;</span></code>.</p>
 </section>
 <section id="id2">
-<h2>作るもの<a class="headerlink" href="#id2" title="Link to this heading"></a></h2>
+<h2>What you build<a class="headerlink" href="#id2" title="Link to this heading"></a></h2>
 <section id="id3">
-<h3>配列<a class="headerlink" href="#id3" title="Link to this heading"></a></h3>
+<h3>Arrays<a class="headerlink" href="#id3" title="Link to this heading"></a></h3>
 <ul class="simple">
-<li><p>物理セル数 <span class="math notranslate nohighlight">\(N\)</span> に両端のゴーストセルを足して、<code class="docutils literal notranslate"><span class="pre">Array1D&lt;Real&gt;</span> <span class="pre">u(N</span> <span class="pre">+</span> <span class="pre">2)</span></code> と、更新先の <code class="docutils literal notranslate"><span class="pre">u_new(N</span> <span class="pre">+</span> <span class="pre">2)</span></code> を確保します。</p></li>
-<li><p>物理セル <span class="math notranslate nohighlight">\(j\)</span>（<span class="math notranslate nohighlight">\(j = 0, \dots, N-1\)</span>）は配列の添字 <code class="docutils literal notranslate"><span class="pre">j</span> <span class="pre">+</span> <span class="pre">1</span></code> に入ります。物理セルの範囲は <code class="docutils literal notranslate"><span class="pre">Range1D{1,</span> <span class="pre">N</span> <span class="pre">+</span> <span class="pre">1}</span></code> です。</p></li>
+<li><p>Add the ghost cells at both ends to the number of physical cells <span class="math notranslate nohighlight">\(N\)</span>, and allocate <code class="docutils literal notranslate"><span class="pre">Array1D&lt;Real&gt;</span> <span class="pre">u(N</span> <span class="pre">+</span> <span class="pre">2)</span></code> and the destination of the update, <code class="docutils literal notranslate"><span class="pre">u_new(N</span> <span class="pre">+</span> <span class="pre">2)</span></code>.</p></li>
+<li><p>Physical cell <span class="math notranslate nohighlight">\(j\)</span> (<span class="math notranslate nohighlight">\(j = 0, \dots, N-1\)</span>) is stored at array index <code class="docutils literal notranslate"><span class="pre">j</span> <span class="pre">+</span> <span class="pre">1</span></code>. The range of the physical cells is <code class="docutils literal notranslate"><span class="pre">Range1D{1,</span> <span class="pre">N</span> <span class="pre">+</span> <span class="pre">1}</span></code>.</p></li>
 </ul>
 </section>
 <section id="id4">
-<h3>手順<a class="headerlink" href="#id4" title="Link to this heading"></a></h3>
+<h3>Steps<a class="headerlink" href="#id4" title="Link to this heading"></a></h3>
 <ol class="arabic">
-<li><p><strong>初期条件</strong>：<code class="docutils literal notranslate"><span class="pre">for_each</span></code> で、物理セルに <span class="math notranslate nohighlight">\(\sin(\pi x_j)\)</span> を入れます。</p></li>
-<li><p><strong>時間積分</strong>：<span class="math notranslate nohighlight">\(n_\mathrm{steps}\)</span> 回、次を繰り返します。</p>
+<li><p><strong>Initial condition</strong>: With <code class="docutils literal notranslate"><span class="pre">for_each</span></code>, put <span class="math notranslate nohighlight">\(\sin(\pi x_j)\)</span> into the physical cells.</p></li>
+<li><p><strong>Time integration</strong>: Repeat the following <span class="math notranslate nohighlight">\(n_\mathrm{steps}\)</span> times.</p>
 <ol class="arabic">
-<li><p>ゴーストセルに境界条件の値を入れます：<code class="docutils literal notranslate"><span class="pre">u[0]</span> <span class="pre">=</span> <span class="pre">-u[1]</span></code>、<code class="docutils literal notranslate"><span class="pre">u[N+1]</span> <span class="pre">=</span> <span class="pre">-u[N]</span></code>。
-後で GPU に移せるよう、<code class="docutils literal notranslate"><span class="pre">for_each(backend::Host{},</span> <span class="pre">Range1D{0,</span> <span class="pre">1},</span> <span class="pre">...)</span></code> の中で書きます。</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">for_each</span></code> で、物理セルについて次の式を計算します。<code class="docutils literal notranslate"><span class="pre">u</span></code> を読み、<code class="docutils literal notranslate"><span class="pre">u_new</span></code> に書きます。</p>
+<li><p>Put the boundary-condition values into the ghost cells: <code class="docutils literal notranslate"><span class="pre">u[0]</span> <span class="pre">=</span> <span class="pre">-u[1]</span></code>, <code class="docutils literal notranslate"><span class="pre">u[N+1]</span> <span class="pre">=</span> <span class="pre">-u[N]</span></code>. So that you can move this to the GPU later, write it inside <code class="docutils literal notranslate"><span class="pre">for_each(backend::Host{},</span> <span class="pre">Range1D{0,</span> <span class="pre">1},</span> <span class="pre">...)</span></code>.</p></li>
+<li><p>With <code class="docutils literal notranslate"><span class="pre">for_each</span></code>, compute the following expression for the physical cells. Read <code class="docutils literal notranslate"><span class="pre">u</span></code> and write to <code class="docutils literal notranslate"><span class="pre">u_new</span></code>.</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>u_new[i] = u[i] + r * (u[i-1] - 2 u[i] + u[i+1])
 </pre></div>
 </div>
-<p><code class="docutils literal notranslate"><span class="pre">2</span></code> は <code class="docutils literal notranslate"><span class="pre">Real(2)</span></code> と書きます。<span class="math notranslate nohighlight">\(r = \kappa\Delta t/\Delta x^2\)</span> です。</p>
+<p>Write <code class="docutils literal notranslate"><span class="pre">2</span></code> as <code class="docutils literal notranslate"><span class="pre">Real(2)</span></code>. Here <span class="math notranslate nohighlight">\(r = \kappa\Delta t/\Delta x^2\)</span>.</p>
 </li>
-<li><p><code class="docutils literal notranslate"><span class="pre">std::swap(u,</span> <span class="pre">u_new);</span></code> で配列を入れ替えます。</p></li>
+<li><p>Swap the arrays with <code class="docutils literal notranslate"><span class="pre">std::swap(u,</span> <span class="pre">u_new);</span></code>.</p></li>
 </ol>
 </li>
-<li><p><strong>誤差</strong>：<code class="docutils literal notranslate"><span class="pre">reduce</span></code> で、離散解との最大の差と、解析解との最大の差を求めます。</p></li>
-<li><p><strong>出力</strong>：<a class="reference internal" href="index.html#edu-practice-heat1d"><span class="std std-ref">共通の設定</span></a> の 3 行を表示し、結果を <code class="docutils literal notranslate"><span class="pre">result_N&lt;N&gt;_serial.txt</span></code>（<span class="math notranslate nohighlight">\(N = 64\)</span> なら <code class="docutils literal notranslate"><span class="pre">result_N64_serial.txt</span></code>）に書き出します。</p></li>
+<li><p><strong>Error</strong>: With <code class="docutils literal notranslate"><span class="pre">reduce</span></code>, compute the maximum difference from the discrete solution and the maximum difference from the analytical solution.</p></li>
+<li><p><strong>Output</strong>: Print the 3 lines described in the <a class="reference internal" href="index.html#edu-practice-heat1d"><span class="std std-ref">common setup</span></a>, and write the result to <code class="docutils literal notranslate"><span class="pre">result_N&lt;N&gt;_serial.txt</span></code> (<code class="docutils literal notranslate"><span class="pre">result_N64_serial.txt</span></code> for <span class="math notranslate nohighlight">\(N = 64\)</span>).</p></li>
 </ol>
 </section>
 <section id="id5">
-<h3>気をつけること<a class="headerlink" href="#id5" title="Link to this heading"></a></h3>
+<h3>Points to watch<a class="headerlink" href="#id5" title="Link to this heading"></a></h3>
 <ul class="simple">
-<li><p>ラムダの中では <code class="docutils literal notranslate"><span class="pre">Array1D</span></code> ではなくビュー（<code class="docutils literal notranslate"><span class="pre">auto</span> <span class="pre">uv</span> <span class="pre">=</span> <span class="pre">u.view();</span></code>）を使います。</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">std::swap</span></code> の後は、ビューが入れ替え前のデータを指しています。ビューはステップのループの中で毎回取り直します。</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">reduce</span></code> の最大値の演算は <code class="docutils literal notranslate"><span class="pre">MISO_LAMBDA(Real</span> <span class="pre">a,</span> <span class="pre">Real</span> <span class="pre">b)</span> <span class="pre">{</span> <span class="pre">return</span> <span class="pre">a</span> <span class="pre">&gt;</span> <span class="pre">b</span> <span class="pre">?</span> <span class="pre">a</span> <span class="pre">:</span> <span class="pre">b;</span> <span class="pre">}</span></code> と書きます。初期値は <code class="docutils literal notranslate"><span class="pre">Real(0)</span></code> です（差の絶対値は 0 以上なので、<code class="docutils literal notranslate"><span class="pre">Real(0)</span></code> が最大値の単位元の代わりになります）。</p></li>
-<li><p>離散解の係数 <span class="math notranslate nohighlight">\(G^{n_\mathrm{steps}}\)</span> は、ホストで <code class="docutils literal notranslate"><span class="pre">std::pow(G,</span> <span class="pre">n_steps)</span></code>（<code class="docutils literal notranslate"><span class="pre">&lt;cmath&gt;</span></code>）として 1 回だけ計算し、ラムダに取り込みます。</p></li>
+<li><p>Inside lambdas, use a view (<code class="docutils literal notranslate"><span class="pre">auto</span> <span class="pre">uv</span> <span class="pre">=</span> <span class="pre">u.view();</span></code>), not the <code class="docutils literal notranslate"><span class="pre">Array1D</span></code>.</p></li>
+<li><p>After <code class="docutils literal notranslate"><span class="pre">std::swap</span></code>, the view points to the data from before the swap. Obtain the view again every time inside the step loop.</p></li>
+<li><p>Write the maximum operation of <code class="docutils literal notranslate"><span class="pre">reduce</span></code> as <code class="docutils literal notranslate"><span class="pre">MISO_LAMBDA(Real</span> <span class="pre">a,</span> <span class="pre">Real</span> <span class="pre">b)</span> <span class="pre">{</span> <span class="pre">return</span> <span class="pre">a</span> <span class="pre">&gt;</span> <span class="pre">b</span> <span class="pre">?</span> <span class="pre">a</span> <span class="pre">:</span> <span class="pre">b;</span> <span class="pre">}</span></code>. The initial value is <code class="docutils literal notranslate"><span class="pre">Real(0)</span></code> (the absolute value of a difference is at least 0, so <code class="docutils literal notranslate"><span class="pre">Real(0)</span></code> serves in place of the identity element of the maximum).</p></li>
+<li><p>Compute the coefficient of the discrete solution, <span class="math notranslate nohighlight">\(G^{n_\mathrm{steps}}\)</span>, only once on the host as <code class="docutils literal notranslate"><span class="pre">std::pow(G,</span> <span class="pre">n_steps)</span></code> (<code class="docutils literal notranslate"><span class="pre">&lt;cmath&gt;</span></code>), and capture it in the lambda.</p></li>
 </ul>
 </section>
 </section>
 <section id="id6">
-<h2>確かめること<a class="headerlink" href="#id6" title="Link to this heading"></a></h2>
+<h2>What to check<a class="headerlink" href="#id6" title="Link to this heading"></a></h2>
 <ol class="arabic">
-<li><p><strong>初期条件</strong>：時間積分を 0 ステップにして（または初期条件の直後に）書き出し、<span class="math notranslate nohighlight">\(u_j = \sin(\pi x_j)\)</span> になっていることを確かめます。</p></li>
-<li><p><strong>1 ステップ</strong>：<span class="math notranslate nohighlight">\(n_\mathrm{steps}\)</span> の代わりに 1 ステップだけ進め、離散解 <span class="math notranslate nohighlight">\(G\sin(\pi x_j)\)</span> との最大の差が <span class="math notranslate nohighlight">\(10^{-15}\)</span> 程度であることを確かめます。</p></li>
-<li><p><strong>既定の入力</strong>（<span class="math notranslate nohighlight">\(N = 64\)</span>）：次の値になることを確かめます。</p>
+<li><p><strong>Initial condition</strong>: Run the time integration for 0 steps (or write the output right after the initial condition), and check that <span class="math notranslate nohighlight">\(u_j = \sin(\pi x_j)\)</span>.</p></li>
+<li><p><strong>One step</strong>: Advance just one step instead of <span class="math notranslate nohighlight">\(n_\mathrm{steps}\)</span>, and check that the maximum difference from the discrete solution <span class="math notranslate nohighlight">\(G\sin(\pi x_j)\)</span> is about <span class="math notranslate nohighlight">\(10^{-15}\)</span>.</p></li>
+<li><p><strong>Default input</strong> (<span class="math notranslate nohighlight">\(N = 64\)</span>): Check that you get the following values.</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>N = 64, steps = 1024, r = 0.4000
 max error (discrete) = 1.249e-14
 max error (exact)    = 1.034113e-04
 </pre></div>
 </div>
-<p><code class="docutils literal notranslate"><span class="pre">max</span> <span class="pre">error</span> <span class="pre">(discrete)</span></code> は丸め誤差なので、コンパイラや書き方によって変わります。<span class="math notranslate nohighlight">\(10^{-12}\)</span> より十分小さければ問題ありません。
-<code class="docutils literal notranslate"><span class="pre">max</span> <span class="pre">error</span> <span class="pre">(exact)</span></code> は 4〜5 桁目まで一致するはずです。</p>
+<p><code class="docutils literal notranslate"><span class="pre">max</span> <span class="pre">error</span> <span class="pre">(discrete)</span></code> is a rounding error, so it changes with the compiler and the way you write the code. It is fine as long as it is well below <span class="math notranslate nohighlight">\(10^{-12}\)</span>. <code class="docutils literal notranslate"><span class="pre">max</span> <span class="pre">error</span> <span class="pre">(exact)</span></code> should agree to the 4th or 5th digit.</p>
 </li>
-<li><p><strong>収束次数</strong>：<span class="math notranslate nohighlight">\(N = 32, 64, 128, 256, 512\)</span> で実行し、<code class="docutils literal notranslate"><span class="pre">max</span> <span class="pre">error</span> <span class="pre">(exact)</span></code> を表にして、隣どうしの比と収束次数 <span class="math notranslate nohighlight">\(p = \log_2(E_N/E_{2N})\)</span> を求めます。</p>
+<li><p><strong>Order of convergence</strong>: Run with <span class="math notranslate nohighlight">\(N = 32, 64, 128, 256, 512\)</span>, tabulate <code class="docutils literal notranslate"><span class="pre">max</span> <span class="pre">error</span> <span class="pre">(exact)</span></code>, and compute the ratios of neighboring values and the order of convergence <span class="math notranslate nohighlight">\(p = \log_2(E_N/E_{2N})\)</span>.</p>
 <table class="docutils align-default">
 <thead>
 <tr class="row-odd"><th class="head"><p><span class="math notranslate nohighlight">\(N\)</span></p></th>
@@ -236,18 +233,15 @@ max error (exact)    = 1.034113e-04
 </tr>
 </tbody>
 </table>
-<p><span class="math notranslate nohighlight">\(p\)</span> がどれも 2.000 に近くなります。<code class="docutils literal notranslate"><span class="pre">max</span> <span class="pre">error</span> <span class="pre">(discrete)</span></code> は、どの <span class="math notranslate nohighlight">\(N\)</span> でも <span class="math notranslate nohighlight">\(10^{-11}\)</span> 以下です。</p>
+<p>Every <span class="math notranslate nohighlight">\(p\)</span> is close to 2.000. <code class="docutils literal notranslate"><span class="pre">max</span> <span class="pre">error</span> <span class="pre">(discrete)</span></code> is at most <span class="math notranslate nohighlight">\(10^{-11}\)</span> for every <span class="math notranslate nohighlight">\(N\)</span>.</p>
 </li>
-<li><p><strong>安定条件</strong>（任意）：<code class="docutils literal notranslate"><span class="pre">./heat1d_serial</span> <span class="pre">64</span> <span class="pre">0.6</span></code> を実行し、誤差が非常に大きくなる（計算が壊れる）ことを確かめます。
-<code class="docutils literal notranslate"><span class="pre">./heat1d_serial</span> <span class="pre">64</span> <span class="pre">0.5</span></code> では壊れないことも確かめます。</p></li>
+<li><p><strong>Stability condition</strong> (optional): Run <code class="docutils literal notranslate"><span class="pre">./heat1d_serial</span> <span class="pre">64</span> <span class="pre">0.6</span></code> and check that the error becomes very large (the computation breaks down). Also check that <code class="docutils literal notranslate"><span class="pre">./heat1d_serial</span> <span class="pre">64</span> <span class="pre">0.5</span></code> does not break down.</p></li>
 </ol>
-<p>離散解との差が大きいときは、ゴーストセルの値、物理セルの範囲（<code class="docutils literal notranslate"><span class="pre">Range1D</span></code> の上限は含まない）、<span class="math notranslate nohighlight">\(x_j\)</span> の式（<span class="math notranslate nohighlight">\(+1/2\)</span> と添字のずれ）を順に調べます。
-離散解とは合うのに解析解との差が表と違うときは、<span class="math notranslate nohighlight">\(\Delta t\)</span>、<span class="math notranslate nohighlight">\(n_\mathrm{steps}\)</span>、<span class="math notranslate nohighlight">\(t_\mathrm{end}\)</span> を調べます。</p>
+<p>If the difference from the discrete solution is large, check in order the ghost-cell values, the range of the physical cells (the upper limit of <code class="docutils literal notranslate"><span class="pre">Range1D</span></code> is excluded), and the expression for <span class="math notranslate nohighlight">\(x_j\)</span> (the <span class="math notranslate nohighlight">\(+1/2\)</span> and the index offset). If it agrees with the discrete solution but the difference from the analytical solution differs from the table, check <span class="math notranslate nohighlight">\(\Delta t\)</span>, <span class="math notranslate nohighlight">\(n_\mathrm{steps}\)</span>, and <span class="math notranslate nohighlight">\(t_\mathrm{end}\)</span>.</p>
 </section>
 <section id="id7">
-<h2>次へ進む目安<a class="headerlink" href="#id7" title="Link to this heading"></a></h2>
-<p>上の 3 と 4 の値が得られたら、<a class="reference internal" href="02_mpi.html#edu-practice-heat1d-02"><span class="std std-ref">02. MPI 版</span></a> へ進みます。
-書き出した <code class="docutils literal notranslate"><span class="pre">result_N64_serial.txt</span></code> などは、MPI 版との比較に使うので残しておきます。</p>
+<h2>Criteria for moving on<a class="headerlink" href="#id7" title="Link to this heading"></a></h2>
+<p>Once you obtain the values in 3 and 4 above, move on to the <a class="reference internal" href="02_mpi.html#edu-practice-heat1d-02"><span class="std std-ref">02. MPI version</span></a>. Keep the files you wrote, such as <code class="docutils literal notranslate"><span class="pre">result_N64_serial.txt</span></code>, because you will use them in the comparison with the MPI version.</p>
 </section>
 </section>
 
@@ -255,8 +249,8 @@ max error (exact)    = 1.034113e-04
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="index.html" class="btn btn-neutral float-left" title="実習 heat1d：熱伝導の計算" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="02_mpi.html" class="btn btn-neutral float-right" title="02. MPI 版：領域を分けて解く" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="index.html" class="btn btn-neutral float-left" title="Practice heat1d: Heat Conduction" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="02_mpi.html" class="btn btn-neutral float-right" title="02. MPI Version: Dividing the Domain" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

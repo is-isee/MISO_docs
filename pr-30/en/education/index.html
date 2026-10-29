@@ -58,27 +58,27 @@
 <li class="toctree-l1"><a class="reference internal" href="../miso/index.html">MISO C++ documentation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../pymiso/index.html">pymiso Documentation</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">MISO education</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#id1">本文</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#i">I．準備</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#ii-c">II．C++ の基礎</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#iii-miso">III．MISO における並列計算</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#iv">IV．総合実習と本体の読解</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id1">Main text</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#i">I. Preparation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#ii-c">II. C++ Basics</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#iii-miso">III. Parallel Computing in MISO</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#iv">IV. Capstone Practice and Reading the Core Code</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#id2">必要なときに参照する資料</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#id2">Reference material to consult when needed</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="01_environment_setup.html">1. Development Environment and CMake</a></li>
-<li class="toctree-l3"><a class="reference internal" href="02_cpp_basics.html">2. 変数・関数・制御文</a></li>
-<li class="toctree-l3"><a class="reference internal" href="03_references_and_pointers.html">3. 参照・ポインタと寿命</a></li>
-<li class="toctree-l3"><a class="reference internal" href="04_classes_and_structs.html">4. クラス・構造体</a></li>
-<li class="toctree-l3"><a class="reference internal" href="05_inheritance.html">5. 継承と CRTP</a></li>
-<li class="toctree-l3"><a class="reference internal" href="06_templates.html">6. テンプレート</a></li>
-<li class="toctree-l3"><a class="reference internal" href="07_arrays_and_parallel.html">7. 配列・ラムダと CPU での並列ループ</a></li>
-<li class="toctree-l3"><a class="reference internal" href="08_mpi.html">8. MPI による領域分割</a></li>
-<li class="toctree-l3"><a class="reference internal" href="09_gpu.html">9. GPU（CUDA）での計算とデータ転送</a></li>
-<li class="toctree-l3"><a class="reference internal" href="10_heat1d.html">10. 熱伝導の計算</a></li>
-<li class="toctree-l3"><a class="reference internal" href="11_reading_miso.html">11. MISO の時間発展を読む</a></li>
-<li class="toctree-l3"><a class="reference internal" href="practice/index.html">実習一覧</a></li>
-<li class="toctree-l3"><a class="reference internal" href="reference/index.html">参考資料</a></li>
+<li class="toctree-l3"><a class="reference internal" href="02_cpp_basics.html">2. Variables, Functions, and Control Flow</a></li>
+<li class="toctree-l3"><a class="reference internal" href="03_references_and_pointers.html">3. References, Pointers, and Lifetime</a></li>
+<li class="toctree-l3"><a class="reference internal" href="04_classes_and_structs.html">4. Classes and Structs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="05_inheritance.html">5. Inheritance and CRTP</a></li>
+<li class="toctree-l3"><a class="reference internal" href="06_templates.html">6. Templates</a></li>
+<li class="toctree-l3"><a class="reference internal" href="07_arrays_and_parallel.html">7. Arrays, Lambdas, and Parallel Loops on the CPU</a></li>
+<li class="toctree-l3"><a class="reference internal" href="08_mpi.html">8. Domain Decomposition with MPI</a></li>
+<li class="toctree-l3"><a class="reference internal" href="09_gpu.html">9. Computing and Transferring Data on a GPU (CUDA)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="10_heat1d.html">10. Heat Conduction Calculation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="11_reading_miso.html">11. Reading MISO’s Time Evolution</a></li>
+<li class="toctree-l3"><a class="reference internal" href="practice/index.html">Practice List</a></li>
+<li class="toctree-l3"><a class="reference internal" href="reference/index.html">Reference Materials</a></li>
 </ul>
 </li>
 </ul>
@@ -121,53 +121,48 @@
              
   <section class="tex2jax_ignore mathjax_ignore" id="miso-education">
 <span id="edu-index"></span><h1>MISO education<a class="headerlink" href="#miso-education" title="Link to this heading"></a></h1>
-<p>Fortran で数値計算コードを書いてきた経験を足がかりに、MISO の C++ コードを読み、直し、自分で計算を足せるようになるための教材です。
-変数・配列・ループ・サブルーチンの知識から始めます。Fortran の派生型やポインタ、C++ の知識は前提にしません。</p>
-<p>MISO は GitHub（<a class="reference external" href="https://github.com/is-isee/MISO">https://github.com/is-isee/MISO</a>）で公開しています。本文に示すソースのパス（<code class="docutils literal notranslate"><span class="pre">miso/include/miso/execution.hpp</span></code> など）は、MISO を clone したフォルダから辿ってください。
-コマンド例の <code class="docutils literal notranslate"><span class="pre">/path/to/MISO</span></code> は、自分が MISO を置いた場所に置き換えます。</p>
+<p>This course builds on your experience writing numerical code in Fortran. It aims to help you read and modify MISO’s C++ code, and add your own computations. We start from what you know about variables, arrays, loops, and subroutines. We assume no knowledge of Fortran derived types, pointers, or C++.</p>
+<p>MISO is available on GitHub (<a class="reference external" href="https://github.com/is-isee/MISO">https://github.com/is-isee/MISO</a>). Follow the source paths shown in the text (such as <code class="docutils literal notranslate"><span class="pre">miso/include/miso/execution.hpp</span></code>) from the folder where you cloned MISO. Replace <code class="docutils literal notranslate"><span class="pre">/path/to/MISO</span></code> in the command examples with the location where you placed MISO.</p>
 <section id="id1">
-<h2>本文<a class="headerlink" href="#id1" title="Link to this heading"></a></h2>
-<p>教材は 4 部・11 章です。C++ で小さな計算を書くことから始め、配列と並列計算を学び、熱伝導を作ってから MISO の時間発展を読みます。</p>
+<h2>Main text<a class="headerlink" href="#id1" title="Link to this heading"></a></h2>
+<p>The course has 4 parts and 11 chapters. We start by writing small computations in C++, learn arrays and parallel computing, build a heat conduction program, and then read MISO’s time evolution.</p>
 <section id="i">
-<h3>I．準備<a class="headerlink" href="#i" title="Link to this heading"></a></h3>
+<h3>I. Preparation<a class="headerlink" href="#i" title="Link to this heading"></a></h3>
 <ol class="arabic simple">
-<li><p><a class="reference internal" href="01_environment_setup.html#edu-ch01"><span class="std std-ref">開発環境と CMake</span></a> — Ubuntu・Mac で道具を揃え、CMake の仕組みと MISO のビルド手順を学びます。</p></li>
+<li><p><a class="reference internal" href="01_environment_setup.html#edu-ch01"><span class="std std-ref">Development Environment and CMake</span></a> — Set up the tools on Ubuntu or Mac, and learn how CMake works and how to build MISO.</p></li>
 </ol>
 </section>
 <section id="ii-c">
-<h3>II．C++ の基礎<a class="headerlink" href="#ii-c" title="Link to this heading"></a></h3>
+<h3>II. C++ Basics<a class="headerlink" href="#ii-c" title="Link to this heading"></a></h3>
 <ol class="arabic simple" start="2">
-<li><p><a class="reference internal" href="02_cpp_basics.html#edu-ch02"><span class="std std-ref">変数・関数・制御文</span></a> — 短い逐次計算を書き、関数やファイルへ処理を分けます。</p></li>
-<li><p><a class="reference internal" href="03_references_and_pointers.html#edu-ch03"><span class="std std-ref">参照・ポインタと寿命</span></a> — どの変数を読み書きし、いつまで使えるかを追います。</p></li>
-<li><p><a class="reference internal" href="04_classes_and_structs.html#edu-ch04"><span class="std std-ref">クラス・構造体</span></a> — データと操作をまとめ、初期化と後片付けを学びます。</p></li>
-<li><p><a class="reference internal" href="05_inheritance.html#edu-ch05"><span class="std std-ref">継承と CRTP</span></a> — 共通の処理を基底クラスに置き、問題ごとの部品を派生クラスで与えます。</p></li>
-<li><p><a class="reference internal" href="06_templates.html#edu-ch06"><span class="std std-ref">テンプレート</span></a> — 型（<code class="docutils literal notranslate"><span class="pre">Real</span></code>）や計算場所（<code class="docutils literal notranslate"><span class="pre">Backend</span></code>）を指定した関数・クラスを読み書きします。</p></li>
+<li><p><a class="reference internal" href="02_cpp_basics.html#edu-ch02"><span class="std std-ref">Variables, Functions, and Control Statements</span></a> — Write short serial computations, and split the work into functions and files.</p></li>
+<li><p><a class="reference internal" href="03_references_and_pointers.html#edu-ch03"><span class="std std-ref">References, Pointers, and Lifetime</span></a> — Trace which variables are read and written, and how long they remain usable.</p></li>
+<li><p><a class="reference internal" href="04_classes_and_structs.html#edu-ch04"><span class="std std-ref">Classes and Structs</span></a> — Bundle data and operations together, and learn initialization and cleanup.</p></li>
+<li><p><a class="reference internal" href="05_inheritance.html#edu-ch05"><span class="std std-ref">Inheritance and CRTP</span></a> — Put common processing in a base class, and supply the parts specific to each problem in derived classes.</p></li>
+<li><p><a class="reference internal" href="06_templates.html#edu-ch06"><span class="std std-ref">Templates</span></a> — Read and write functions and classes that are specialized on a type (<code class="docutils literal notranslate"><span class="pre">Real</span></code>) or a place of computation (<code class="docutils literal notranslate"><span class="pre">Backend</span></code>).</p></li>
 </ol>
 </section>
 <section id="iii-miso">
-<h3>III．MISO における並列計算<a class="headerlink" href="#iii-miso" title="Link to this heading"></a></h3>
+<h3>III. Parallel Computing in MISO<a class="headerlink" href="#iii-miso" title="Link to this heading"></a></h3>
 <ol class="arabic simple" start="7">
-<li><p><a class="reference internal" href="07_arrays_and_parallel.html#edu-ch07"><span class="std std-ref">配列・ラムダと CPU での並列ループ</span></a> — 配列を用意し、<code class="docutils literal notranslate"><span class="pre">for_each</span></code> と <code class="docutils literal notranslate"><span class="pre">reduce</span></code> で計算します。</p></li>
-<li><p><a class="reference internal" href="08_mpi.html#edu-ch08"><span class="std std-ref">MPI による領域分割</span></a> — 領域を分け、隣の値の交換や全体の集計を行います。</p></li>
-<li><p><a class="reference internal" href="09_gpu.html#edu-ch09"><span class="std std-ref">GPU（CUDA）での計算とデータ転送</span></a> — 計算場所とメモリを区別し、同じラムダを GPU で動かします。</p></li>
+<li><p><a class="reference internal" href="07_arrays_and_parallel.html#edu-ch07"><span class="std std-ref">Arrays, Lambdas, and Parallel Loops on the CPU</span></a> — Prepare arrays and compute with <code class="docutils literal notranslate"><span class="pre">for_each</span></code> and <code class="docutils literal notranslate"><span class="pre">reduce</span></code>.</p></li>
+<li><p><a class="reference internal" href="08_mpi.html#edu-ch08"><span class="std std-ref">Domain Decomposition with MPI</span></a> — Divide the domain, exchange neighboring values, and compute global sums.</p></li>
+<li><p><a class="reference internal" href="09_gpu.html#edu-ch09"><span class="std std-ref">Computing and Data Transfer on the GPU (CUDA)</span></a> — Distinguish the place of computation from memory, and run the same lambda on the GPU.</p></li>
 </ol>
 </section>
 <section id="iv">
-<h3>IV．総合実習と本体の読解<a class="headerlink" href="#iv" title="Link to this heading"></a></h3>
+<h3>IV. Capstone Practice and Reading the Core Code<a class="headerlink" href="#iv" title="Link to this heading"></a></h3>
 <ol class="arabic simple" start="10">
-<li><p><a class="reference internal" href="10_heat1d.html#edu-ch10"><span class="std std-ref">熱伝導の計算</span></a> — 差分・時間積分・境界処理を組み合わせ、逐次版を並列化します。</p></li>
-<li><p><a class="reference internal" href="11_reading_miso.html#edu-ch11"><span class="std std-ref">MISO の時間発展を読む</span></a> — 自分で書いた小さな計算と、MISO 本体の役割分担を対応づけます。</p></li>
+<li><p><a class="reference internal" href="10_heat1d.html#edu-ch10"><span class="std std-ref">Heat Conduction</span></a> — Combine finite differences, time integration, and boundary handling, and parallelize the serial version.</p></li>
+<li><p><a class="reference internal" href="11_reading_miso.html#edu-ch11"><span class="std std-ref">Reading MISO’s Time Evolution</span></a> — Map the small computations you wrote yourself onto the division of roles in MISO itself.</p></li>
 </ol>
-<p>Ubuntu と Mac の CPU だけでも、<strong>第 1〜8 章 → 第 10 章の逐次・MPI 部分 → 第 11 章</strong>と進められます。
-第 9 章は GPU がなくても読めます。</p>
-<p>章内の練習の答えは「解答・解説」として折りたたんであります。
-まとまったプログラムを作る課題は <a class="reference internal" href="practice/index.html#edu-practice"><span class="std std-ref">実習一覧</span></a> に置き、本文の該当箇所から案内しています。</p>
+<p>With only the CPU on Ubuntu or Mac, you can work through <strong>Chapters 1–8 → the serial and MPI parts of Chapter 10 → Chapter 11</strong>. You can read Chapter 9 even without a GPU.</p>
+<p>The answers to the in-chapter exercises are collapsed under “Solution and Explanation”. Assignments that build a complete program are collected in the <a class="reference internal" href="practice/index.html#edu-practice"><span class="std std-ref">Practice List</span></a>, and the relevant places in the text point to them.</p>
 </section>
 </section>
 <section id="id2">
-<h2>必要なときに参照する資料<a class="headerlink" href="#id2" title="Link to this heading"></a></h2>
-<p><a class="reference internal" href="reference/index.html#edu-ref"><span class="std std-ref">参考資料一覧</span></a> には、用語集、Fortran との対応表、記号の早見表、テストと結果の比較方法、GPU のトラブルシューティングをまとめています。
-本文を読むために、先に通読する必要はありません。</p>
+<h2>Reference material to consult when needed<a class="headerlink" href="#id2" title="Link to this heading"></a></h2>
+<p>The <a class="reference internal" href="reference/index.html#edu-ref"><span class="std std-ref">reference list</span></a> collects the glossary, the Fortran correspondence table, a quick reference of symbols, how to test and compare results, and GPU troubleshooting. You do not need to read it through before reading the main text.</p>
 <div class="toctree-wrapper compound">
 </div>
 </section>
