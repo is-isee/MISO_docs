@@ -52,15 +52,15 @@ MISO が `Backend` に応じて CPU 用と GPU 用の処理を選ぶ仕組み、
 ```cpp
 #include <iostream>
 
-template <typename T>  // T は、使うときに決める型の名前です
-T square(T x) {        // 引数と戻り値に、同じ T を使います
+template <typename T>  // T is a type name chosen at the point of use
+T square(T x) {        // same T for the argument and the return value
   return x * x;
 }
 
 int main() {
-  double a = square<double>(1.5);  // T を double と指定します。2.25
-  int b = square<int>(3);          // T を int と指定します。9
-  auto c = square(2.5f);           // 引数 2.5f（float）から、T を float と決めます。6.25
+  double a = square<double>(1.5);  // T is specified as double: 2.25
+  int b = square<int>(3);          // T is specified as int: 9
+  auto c = square(2.5f);           // T is deduced as float from the argument 2.5f: 6.25
   std::cout << a << " " << b << " " << c << "\n";
 }
 ```
@@ -85,8 +85,8 @@ int main() {
 ```cpp
 template <typename T> T max_of(T a, T b) { return a > b ? a : b; }
 
-double x = max_of(1, 2.5);          // エラー：T が int か double か決まりません
-double y = max_of<double>(1, 2.5);  // T を double と指定すれば、1 は 1.0 に変換されます
+double x = max_of(1, 2.5);          // error: T is ambiguous (int or double)
+double y = max_of<double>(1, 2.5);  // with T = double given explicitly, 1 is converted to 1.0
 ```
 
 g++ では次のような説明が出ます。
@@ -130,14 +130,14 @@ space_centered_4th(Array3DView<const Real> qq, Real dxyzi, int i, int j, int k,
 
 template <typename T>
 struct ValuePair {
-  T first;   // 2 つのメンバに、同じ型 T を使います
+  T first;   // same type T for both members
   T second;
   T sum() const { return first + second; }
 };
 
 int main() {
-  ValuePair<double> reals{1.5, 2.5};  // double のメンバを 2 つ持つ実体
-  ValuePair<int> integers{2, 3};      // int のメンバを 2 つ持つ実体
+  ValuePair<double> reals{1.5, 2.5};  // instance with two double members
+  ValuePair<int> integers{2, 3};      // instance with two int members
   std::cout << reals.sum() << " " << integers.sum() << "\n";  // 4 5
 }
 ```
@@ -174,7 +174,7 @@ template <typename Real> struct IdealEOS {
 
   /// @brief Construct the EOS from the configuration file
   explicit IdealEOS(const Config &config) : gm(config["eos"]["gm"].as<Real>()) {}
-  // （以下省略）
+  // (rest omitted)
 };
 ```
 
@@ -193,7 +193,7 @@ public:
 
   ExecContext<Real, Backend> exec_ctx;
   MHD<Real, Backend> mhd;
-  // （以下省略）
+  // (rest omitted)
 };
 ```
 
@@ -214,11 +214,11 @@ $\pi$ や $1/12$ のような定数を、`Real` の精度で使いたいこと�
 #include <cstdio>
 
 template <typename T>
-inline constexpr T third = static_cast<T>(1.0 / 3.0);  // 1/3 を T に変換した定数
+inline constexpr T third = static_cast<T>(1.0 / 3.0);  // constant: 1/3 converted to T
 
 int main() {
-  float a = third<float>;    // float に丸めた 1/3
-  double b = third<double>;  // double の 1/3
+  float a = third<float>;    // 1/3 rounded to float
+  double b = third<double>;  // 1/3 as double
   std::printf("%.17g\n%.17g\n", a, b);
 }
 ```
@@ -281,26 +281,26 @@ C++20 には `std::numbers::pi_v<T>` という同じ役割の変数テンプレ�
 ```cpp
 #include <iostream>
 
-struct Cpu {};  // メンバを持たない型（タグ型）
+struct Cpu {};  // type with no members (tag type)
 struct Gpu {};
 
-void run(Cpu, int n) { std::cout << "Cpu 版: n = " << n << "\n"; }
-void run(Gpu, int n) { std::cout << "Gpu 版: n = " << n << "\n"; }
+void run(Cpu, int n) { std::cout << "Cpu version: n = " << n << "\n"; }
+void run(Gpu, int n) { std::cout << "Gpu version: n = " << n << "\n"; }
 
 template <typename Backend>
 void compute(Backend b, int n) {
-  run(b, n);  // b の型（Cpu か Gpu）で、呼ばれる run が決まります
+  run(b, n);  // the type of b (Cpu or Gpu) selects which run is called
 }
 
 int main() {
-  compute(Cpu{}, 10);  // Backend は Cpu と推論されます
-  compute(Gpu{}, 20);  // Backend は Gpu と推論されます
+  compute(Cpu{}, 10);  // Backend is deduced as Cpu
+  compute(Gpu{}, 20);  // Backend is deduced as Gpu
 }
 ```
 
 ```text
-Cpu 版: n = 10
-Gpu 版: n = 20
+Cpu version: n = 10
+Gpu version: n = 20
 ```
 
 - `Cpu{}` は、`Cpu` 型の値を初期値なしで 1 つ作る式です。中身がないので、値に意味はなく、**型だけ**が情報になります。
@@ -336,13 +336,13 @@ struct CUDA {};
 ```cpp
 /// @brief 1D parallel (concurrent) for loop in the Host backend.
 template <class F> inline void for_each(backend::Host, Range1D range, F f) {
-  // CPU 用：普通の for 文（第 7 章）
+  // CPU: plain for loop (Chapter 7)
 }
 
 #ifdef __CUDACC__
 /// @brief 1D parallel (concurrent) for loop in the CUDA backend.
 template <class F> inline void for_each(backend::CUDA, Range1D range, F f) {
-  // GPU 用：カーネルを起動します（第 9 章）
+  // GPU: launch a kernel (Chapter 9)
 }
 #endif
 ```
@@ -359,8 +359,8 @@ template <class F> inline void for_each(backend::CUDA, Range1D range, F f) {
   template <typename Backend>
   void gas_pressure(Backend btag, mhd::FieldsView<const Real> qq,
                     Array3DView<Real> pr) const {
-    // （中略）
-    for_each(btag, range, /* ラムダ式 */);
+    // (omitted)
+    for_each(btag, range, /* lambda expression */);
   }
 ```
 
@@ -387,9 +387,9 @@ CPU 用の `Integrator`（`miso/include/miso/mhd_integrator_host.hpp`）は
 ```cpp
 #include <iostream>
 
-template <typename T> const char *type_name();  // 宣言だけ。本体はありません
-template <> const char *type_name<float>() { return "float"; }    // T = float のとき
-template <> const char *type_name<double>() { return "double"; }  // T = double のとき
+template <typename T> const char *type_name();  // declaration only; no definition
+template <> const char *type_name<float>() { return "float"; }    // when T = float
+template <> const char *type_name<double>() { return "double"; }  // when T = double
 
 int main() {
   std::cout << type_name<float>() << " " << type_name<double>() << "\n";  // float double
@@ -422,27 +422,27 @@ template <> inline MPI_Datatype data_type<double>() { return MPI_DOUBLE; }
 struct Cpu {};
 struct Gpu {};
 
-template <typename T, typename Backend> struct Storage;  // 宣言だけ（基本のテンプレート）
+template <typename T, typename Backend> struct Storage;  // declaration only (primary template)
 
-template <typename T> struct Storage<T, Cpu> {  // Backend が Cpu のときの定義
-  void describe() const { std::cout << "CPU のメモリに置きます\n"; }
+template <typename T> struct Storage<T, Cpu> {  // definition for Backend = Cpu
+  void describe() const { std::cout << "Placed in CPU memory\n"; }
 };
 
-template <typename T> struct Storage<T, Gpu> {  // Backend が Gpu のときの定義
-  void describe() const { std::cout << "GPU のメモリに置きます\n"; }
+template <typename T> struct Storage<T, Gpu> {  // definition for Backend = Gpu
+  void describe() const { std::cout << "Placed in GPU memory\n"; }
 };
 
 int main() {
-  Storage<float, Cpu> a;   // T = float として、Cpu 用の定義を使います
-  Storage<double, Gpu> b;  // T = double として、Gpu 用の定義を使います
+  Storage<float, Cpu> a;   // T = float, uses the Cpu definition
+  Storage<double, Gpu> b;  // T = double, uses the Gpu definition
   a.describe();
   b.describe();
 }
 ```
 
 ```text
-CPU のメモリに置きます
-GPU のメモリに置きます
+Placed in CPU memory
+Placed in GPU memory
 ```
 
 - 最初の `template <typename T, typename Backend> struct Storage;` を**基本のテンプレート**（primary template）と呼びます。ここでは宣言だけで、本体はありません。
@@ -465,13 +465,13 @@ template <typename T, typename Backend = backend::Host> class Array3D;
 
 /// @brief 3D Array in host memory.
 template <typename T> class Array3D<T, backend::Host> {
-  // new T[...] で CPU のメモリを確保します（第 4 章）
+  // allocate CPU memory with new T[...] (Chapter 4)
 };
 
 #ifdef __CUDACC__
 /// @brief 3D Array in CUDA device memory.
 template <typename T> class Array3D<T, backend::CUDA> {
-  // cudaMalloc で GPU のメモリを確保します（第 9 章）
+  // allocate GPU memory with cudaMalloc (Chapter 9)
 };
 #endif  // __CUDACC__
 ```
@@ -492,13 +492,13 @@ CPU 用の定義は `miso/include/miso/mhd_integrator_host.hpp`、GPU 用は `mi
 
 ```cpp
 template <typename Real> struct Integrator<Real, backend::Host> {
-  // （省略）
+  // (omitted)
 };
 ```
 
 ```cpp
 template <typename Real> struct Integrator<Real, backend::CUDA> {
-  // （省略）
+  // (omitted)
 };
 ```
 
@@ -529,7 +529,7 @@ GPU 用だけが CUDA のカーネルの形（`cuda::KernelShape3D`）や縮約�
 ```cpp
 template <bool Negate>
 double change_sign(double value) {
-  if constexpr (Negate) {  // Negate はコンパイル時に決まっています
+  if constexpr (Negate) {  // Negate is known at compile time
     return -value;
   } else {
     return value;
@@ -552,14 +552,14 @@ double change_sign(double value) {
 template <typename T>
 const char *precision_name() {
   if constexpr (std::is_same_v<T, float>) {
-    return "単精度";
+    return "single precision";
   } else {
-    return "倍精度以上";
+    return "double precision or higher";
   }
 }
 ```
 
-`precision_name<float>()` は「単精度」、`precision_name<double>()` は「倍精度以上」を返します。
+`precision_name<float>()` は `"single precision"`（単精度）、`precision_name<double>()` は `"double precision or higher"`（倍精度以上）を返します。
 
 選ばれなかった側が組み込まれないことには、もう一つ意味があります。
 テンプレート引数によっては**書けない**処理（その型にないメンバの呼び出しなど）を、選ばれない側に置いてもエラーになりません。
@@ -647,19 +647,19 @@ std::false_type::value  // false
 #include <iostream>
 #include <type_traits>
 
-// (1) 基本のテンプレート：何も当てはまらなければ false
+// (1) primary template: false if nothing else matches
 template <class T, class = void>
 struct has_gm : std::false_type {};
 
-// (2) 部分特殊化：T::gm が書けるときだけ当てはまり、true
+// (2) partial specialization: matches only when T::gm is valid; true
 template <class T>
 struct has_gm<T, std::void_t<decltype(&T::gm)>> : std::true_type {};
 
 struct Gas {
-  double gm;  // gm というメンバがあります
+  double gm;  // has a member gm
 };
 struct Dust {
-  double size;  // gm はありません
+  double size;  // has no gm
 };
 
 int main() {
@@ -701,9 +701,9 @@ struct has_dt_limit<T, std::void_t<decltype(std::declval<const T &>().dt_limit()
 `T` の実体を作らずに、`t.dt_limit()` が書けるかを調べられます。`const T &` から呼ぶので、`dt_limit` が `const` メンバ関数でなければ `false` になります。
 
 ```cpp
-struct A { double dt_limit() const { return 0.1; } };  // has_dt_limit<A>::value は true
-struct B { double dt_limit() { return 0.1; } };        // const がないので false
-struct C {};                                           // dt_limit がないので false
+struct A { double dt_limit() const { return 0.1; } };  // has_dt_limit<A>::value is true
+struct B { double dt_limit() { return 0.1; } };        // false: not const
+struct C {};                                           // false: no dt_limit
 ```
 
 #### MISO の例：has_eos と has_dt_limit
@@ -750,7 +750,7 @@ struct has_member_dt_limit<T, std::void_t<decltype(&T::dt_limit)>>
     auto dt = mhd.cfl(d.eos);
     if constexpr (has_dt_limit<Source>::value) {
       Real dt_src = static_cast<Real>(d.src.dt_limit());
-      // （中略：全ランクの最小値 dt_src_g を求めます）
+      // (omitted: compute dt_src_g, the minimum over all ranks)
       dt = std::min(dt, dt_src_g);
     }
     mhd.update(dt, d.eos, d.bc, d.src);
@@ -804,7 +804,7 @@ struct has_member_dt_limit<T, std::void_t<decltype(&T::dt_limit)>>
   }
 MISO_MHD_DEFINE_SOURCE_TERM(ro)
 MISO_MHD_DEFINE_SOURCE_TERM(vx)
-// （vy, vz, bx, by, bz, ei も同様）
+// (same for vy, vz, bx, by, bz, ei)
 #undef MISO_MHD_DEFINE_SOURCE_TERM
 ```
 
@@ -825,13 +825,13 @@ C++ では、隣り合う文字列は 1 つにつながるので、メッセー�
 
 ```cpp
 namespace impl_source {
-// vx という名前のメンバがあるか
+// has a member named vx?
 template <class Source, class = void>
 struct has_member_vx : std::false_type {};
 template <class Source>
 struct has_member_vx<Source, std::void_t<decltype(&Source::vx)>>
     : std::true_type {};
-// src.vx(qq, i, j, k) と呼べるか（src は const、qq は FieldsView<const Real>）
+// can src.vx(qq, i, j, k) be called? (src is const, qq is FieldsView<const Real>)
 template <class Source, class Real, class = void>
 struct has_vx : std::false_type {};
 template <class Source, class Real>
@@ -850,9 +850,9 @@ __host__ __device__ inline Real source_vx(const Source &src,
                     impl_source::has_vx<Source, Real>::value,
                 "Source::vx must be callable as vx(FieldsView<const Real>, int, int, int) const");
   if constexpr (impl_source::has_vx<Source, Real>::value) {
-    return src.vx(qq, i, j, k);  // vx があれば、それを呼びます
+    return src.vx(qq, i, j, k);  // call vx if it exists
   } else {
-    return Real(0);              // なければ 0 です
+    return Real(0);              // otherwise 0
   }
 }
 ```
@@ -869,14 +869,14 @@ __host__ __device__ inline Real source_vx(const Source &src,
 ```cpp
 struct SourceTerm {
   Real g_grav;
-  // （中略）
+  // (omitted)
 
   /// External force: y-direction
   __host__ __device__ inline Real vy(mhd::FieldsView<const Real> qq, int i, int j,
                                      int k) const noexcept {
     return -g_grav * qq.ro(i, j, k);
   }
-  // （以下省略）
+  // (rest omitted)
 };
 ```
 
@@ -921,12 +921,12 @@ MISO は C++17 で書かれているので、`std::void_t` の方法を使って
 #include <iostream>
 
 struct Reader {
-  template <class U> U get() const { return U(2.5); }  // メンバ関数テンプレート
+  template <class U> U get() const { return U(2.5); }  // member function template
 };
 
 template <class T>
 double read_twice(const T &r) {
-  // r の型 T はテンプレート引数なので、get がテンプレートかは実体化まで分かりません
+  // T, the type of r, is a template argument, so whether get is a template is unknown until instantiation
   return r.template get<double>() * 2;
 }
 

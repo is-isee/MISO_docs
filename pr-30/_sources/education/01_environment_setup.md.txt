@@ -184,8 +184,8 @@ sqrt(2) = 1.41421
 段階を分けて実行することもできます。`-c` は「コンパイルだけを行う」指定です。
 
 ```bash
-g++ -std=c++17 -O2 -c hello.cpp -o hello.o   # コンパイル：hello.o ができる
-g++ hello.o -o hello                          # リンク：hello ができる
+g++ -std=c++17 -O2 -c hello.cpp -o hello.o   # compile: produces hello.o
+g++ hello.o -o hello                          # link: produces hello
 ```
 
 ここでの「オブジェクトファイル」はコンパイル結果のファイルを指す用語で、クラスの実体（オブジェクト）とは別の意味です。
@@ -502,7 +502,7 @@ MPI での分割数（`mpi.x_procs` など）を変えられます。
 | `data/grid.bin` | 全体の格子の座標 |
 | `data/mpi/coords.csv` | 各プロセス（ランク）が担当する領域の位置 |
 | `data/time/time.NNNNNNNN.txt` | 各出力の時刻、出力番号、ステップ数 |
-| `data/mhd/mhd.<出力番号>.<ランク>.bin` | 各プロセスが担当する領域の MHD の変数（密度、速度、磁場など 9 つ） |
+| `data/mhd/mhd.<n_output>.<rank>.bin` | 各プロセスが担当する領域の MHD の変数（密度、速度、磁場など 9 つ） |
 
 `mhd.*.bin` はプロセスごとに分かれたバイナリファイルです。
 `config.yaml` の `io.continue: true` により、`data/` に結果があると、そこから計算を続けます。
@@ -571,7 +571,7 @@ cd "$HOME/miso-work/miso_check"
 #include <miso/core.hpp>
 
 int main(int argc, char **argv) {
-  miso::Env env(argc, argv);  // MPI を始め、終わりに片付ける
+  miso::Env env(argc, argv);  // starts MPI, and cleans up at the end
 
   const int n = 100;
   miso::Array1D<float, miso::backend::Host> a(n);

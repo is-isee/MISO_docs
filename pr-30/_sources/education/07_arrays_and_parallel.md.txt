@@ -62,8 +62,8 @@ MISO には次元ごとに 4 つの配列クラスがあります。
 1 次元の `Array1D` だけは丸括弧を持たず、角括弧 `a[i]` で要素を指定します。
 
 ```cpp
-miso::Array1D<double> x(100);           // double を 100 個。x[0]〜x[99]
-miso::Array3D<double> ro(16, 32, 8);    // ro(0,0,0)〜ro(15,31,7)
+miso::Array1D<double> x(100);           // 100 doubles: x[0] to x[99]
+miso::Array3D<double> ro(16, 32, 8);    // ro(0,0,0) to ro(15,31,7)
 ```
 
 添字はどの方向も 0 から始まり、最後は「大きさ − 1」です。
@@ -80,7 +80,7 @@ Fortran の `allocate` と同じく、値を読む前に必ず代入します。
 `a(i, j, k)` がその列の何番目にあるかは、`array3d.hpp` の `operator()` に書かれています。
 
 ```cpp
-// miso/include/miso/array3d.hpp の Array3D<T, backend::Host> から抜粋
+// excerpt from Array3D<T, backend::Host> in miso/include/miso/array3d.hpp
 T &operator()(int i0, int i1, int i2) const noexcept {
   ...
   return data_[(i0 * shape_[1] + i1) * shape_[2] + i2];
@@ -105,7 +105,7 @@ C++ の多次元配列や MISO の配列のように最後の添字が連続す�
 #include <miso/array3d.hpp>
 
 int main() {
-  miso::Array3D<double> a(2, 3, 4);  // 2 番目の型を省くと backend::Host
+  miso::Array3D<double> a(2, 3, 4);  // omitting the 2nd type gives backend::Host
   for (int i = 0; i < 2; ++i) {
     for (int j = 0; j < 3; ++j) {
       for (int k = 0; k < 4; ++k) {
@@ -113,12 +113,12 @@ int main() {
       }
     }
   }
-  // メモリ上の先頭から 6 個を、通し番号 a[n] で読む
+  // read the first 6 elements in memory by linear index a[n]
   for (int n = 0; n < 6; ++n) {
     std::cout << a[n] << " ";
   }
   std::cout << "\n";
-  // 添字を 1 つ増やしたとき、メモリ上で何要素進むか
+  // how many elements in memory one index increment advances
   std::cout << "k: " << &a(0, 0, 1) - &a(0, 0, 0) << "\n";
   std::cout << "j: " << &a(0, 1, 0) - &a(0, 0, 0) << "\n";
   std::cout << "i: " << &a(1, 0, 0) - &a(0, 0, 0) << "\n";
@@ -163,8 +163,8 @@ MISO の `Integrator::cfl`（`miso/include/miso/mhd_integrator_host.hpp`）も�
 
 ```cpp
 miso::Array3D<double> ro(16, 32, 8);
-auto rov = ro.view();               // Array3DView<double>：読み書きできる
-auto roc = ro.const_view();         // Array3DView<const double>：読むだけ
+auto rov = ro.view();               // Array3DView<double>: read/write
+auto roc = ro.const_view();         // Array3DView<const double>: read-only
 ```
 
 `Array3DView` が持つのは、先頭のポインタ `data_` と大きさ `shape_[3]` だけです。
@@ -203,7 +203,7 @@ subroutine scale_all(n, a, factor)
 contains
   real(8) function scaled(x)
     real(8), intent(in) :: x
-    scaled = factor * x   ! 親の手続きの変数 factor をそのまま使える
+    scaled = factor * x   ! uses the parent procedure's factor directly
   end function scaled
 end subroutine scale_all
 ```
@@ -211,7 +211,7 @@ end subroutine scale_all
 C++ では、関数の中の**式の位置**に、その場で関数を書けます。これがラムダ式です。
 
 ```cpp
-auto square = [](double x) { return x * x; };  // 引数 x を受け取り x*x を返す
+auto square = [](double x) { return x * x; };  // takes x and returns x*x
 std::cout << square(3.0) << "\n";              // 9
 ```
 
@@ -248,9 +248,9 @@ Fortran の内部手続き `scaled` は、親の手続きの変数 `factor` を�
 
 int main() {
   double factor = 2.0;
-  auto by_value = [=](double x) { return factor * x; };  // factor の値 2.0 をコピー
-  auto by_ref = [&](double x) { return factor * x; };    // factor そのものを参照
-  factor = 10.0;                                         // 作った後で外を変える
+  auto by_value = [=](double x) { return factor * x; };  // copy the value of factor (2.0)
+  auto by_ref = [&](double x) { return factor * x; };    // reference factor itself
+  factor = 10.0;                                         // change the outer variable after creation
   std::cout << by_value(3.0) << " " << by_ref(3.0) << "\n";
 }
 ```
@@ -266,7 +266,7 @@ Fortran の内部手続きのホスト結合は、`[&]` に近い動きです。
 
 ```cpp
 int count = 0;
-auto inc = [=]() { count += 1; };  // コンパイルエラー：read-only variable 'count'
+auto inc = [=]() { count += 1; };  // compile error: read-only variable 'count'
 ```
 
 外側の変数そのものを更新したいときは `[&]` を使います。
@@ -276,7 +276,7 @@ auto inc = [=]() { count += 1; };  // コンパイルエラー：read-only varia
 ```cpp
 miso::Array1D<double> a(3);
 auto av = a.view();
-auto set_one = [=](int i) { av[i] = 1.0; };  // av（ポインタと大きさ）のコピーを抱える
+auto set_one = [=](int i) { av[i] = 1.0; };  // holds a copy of av (pointer and size)
 set_one(2);
 std::cout << a[2] << "\n";  // 1
 ```
@@ -316,22 +316,22 @@ int main() {
 ```cpp
 #include <iostream>
 
-// [=](double x) { return factor * x; } とほぼ同じ働きをする構造体
+// struct that behaves almost like [=](double x) { return factor * x; }
 struct ScaleByValue {
-  double factor;  // 作ったときの値のコピー
+  double factor;  // copy of the value at creation
   double operator()(double x) const { return factor * x; }
 };
 
-// [&](double x) { return factor * x; } とほぼ同じ働きをする構造体
+// struct that behaves almost like [&](double x) { return factor * x; }
 struct ScaleByRef {
-  double &factor;  // 外の変数への参照
+  double &factor;  // reference to the outer variable
   double operator()(double x) const { return factor * x; }
 };
 
 int main() {
   double factor = 2.0;
-  ScaleByValue by_value{factor};  // メンバ factor を 2.0 で初期化
-  ScaleByRef by_ref{factor};      // メンバ factor を外の factor への参照にする
+  ScaleByValue by_value{factor};  // initialize member factor with 2.0
+  ScaleByRef by_ref{factor};      // bind member factor to the outer factor
   factor = 10.0;
   std::cout << by_value(3.0) << " " << by_ref(3.0) << "\n";  // 6 30
 }
@@ -374,14 +374,14 @@ GPU から CPU のメモリは読めないので、`[&]` のような CPU 上の
 #include <iostream>
 
 struct Gas {
-  double gm;  // 比熱比（メンバ変数）
+  double gm;  // ratio of specific heats (member variable)
 
-  // 圧力を計算するラムダ式を作って返す
+  // create and return a lambda that computes pressure
   auto pressure_function() const {
     return [=](double ro, double ei) { return (gm - 1.0) * ro * ei; };
   }
 
-  // メンバ変数をローカル変数にコピーしてから使う
+  // copy the member variable to a local variable before using it
   auto pressure_function_copy() const {
     const double gm_ = gm;
     return [=](double ro, double ei) { return (gm_ - 1.0) * ro * ei; };
@@ -393,7 +393,7 @@ int main() {
   auto f = gas.pressure_function();
   auto g = gas.pressure_function_copy();
   std::cout << f(1.0, 2.5) << " " << g(1.0, 2.5) << "\n";
-  gas.gm = 2.0;  // ラムダ式を作った後でメンバ変数を変える
+  gas.gm = 2.0;  // change the member variable after creating the lambda
   std::cout << f(1.0, 2.5) << " " << g(1.0, 2.5) << "\n";
 }
 ```
@@ -415,7 +415,7 @@ GPU では、`this` が CPU のメモリを指すことが問題になります�
 MISO の実物では、理想気体の状態方程式 `eos::IdealEOS` の `gas_pressure` がこの形です。
 
 ```cpp
-// miso/include/miso/eos.hpp の IdealEOS から抜粋
+// excerpt from IdealEOS in miso/include/miso/eos.hpp
 template <typename Real> struct IdealEOS {
   /// @brief Ratio of specific heats (gamma)
   Real gm;
@@ -455,11 +455,11 @@ CPU では計算結果は変わりませんが、GPU では `this` が CPU の�
 ```cpp
 template <class F> void apply_to_all(int n, F f) {
   for (int i = 0; i < n; ++i) {
-    f(i);  // 渡されたラムダ式を i を引数にして呼ぶ
+    f(i);  // call the given lambda with i
   }
 }
 
-// 使う側
+// caller side
 apply_to_all(5, [=](int i) { av[i] = 0.5 * i; });
 ```
 
@@ -475,7 +475,7 @@ MISO では、`for_each` などへ渡すラムダ式を `[=]` と書かずに `M
 `MISO_LAMBDA` は `miso/include/miso/execution.hpp` で定義されたマクロ（{ref}`第 2 章 <edu-ch02>`の `#define`）です。
 
 ```cpp
-// miso/include/miso/execution.hpp から抜粋
+// excerpt from miso/include/miso/execution.hpp
 #ifdef __CUDACC__
 #define MISO_LAMBDA [=] __host__ __device__
 #else
@@ -492,7 +492,7 @@ CUDA ビルドでは、`__host__ __device__` が加わります。
 CPU ビルドでは、`miso/include/miso/cuda_compat.hpp` が `__host__` と `__device__` を空の文字列として定義します。
 
 ```cpp
-// miso/include/miso/cuda_compat.hpp から抜粋
+// excerpt from miso/include/miso/cuda_compat.hpp
 #ifndef __device__
 #define __device__
 #endif
@@ -521,7 +521,7 @@ CPU（`backend::Host`）ではこれも動きますが、GPU と共用するコ�
 `for_each` に渡す添字の範囲は、`Range1D` と `Range3D` で表します（`miso/include/miso/execution.hpp`）。
 
 ```cpp
-// miso/include/miso/execution.hpp から抜粋（メンバ関数は省略）
+// excerpt from miso/include/miso/execution.hpp (member functions omitted)
 struct Range1D {
   int begin, end;
 };
@@ -538,7 +538,7 @@ struct Range3D {
 
 ```cpp
 miso::Range1D r1{0, n};                         // i = 0, 1, ..., n-1
-miso::Range3D r3{{0, nx}, {0, ny}, {0, nz}};    // 3 方向の範囲
+miso::Range3D r3{{0, nx}, {0, ny}, {0, nz}};    // ranges in the 3 directions
 ```
 
 `Range1D{0, n}` は、構造体のメンバを宣言の順に `begin = 0`, `end = n` で初期化する書き方です。
@@ -550,7 +550,7 @@ Fortran の `do i = 0, n - 1` に当たります。上限の書き方が 1 違�
 Host 版の定義は、ただの `for` 文です。
 
 ```cpp
-// miso/include/miso/execution.hpp から抜粋
+// excerpt from miso/include/miso/execution.hpp
 template <class F> inline void for_each(backend::Host, Range1D range, F f) {
   for (int i = range.begin; i < range.end; ++i) {
     f(i);
@@ -587,7 +587,7 @@ using namespace miso;
 int main() {
   const int nx = 2, ny = 3, nz = 4;
   Array3D<double, backend::Host> ro(nx, ny, nz);
-  auto rov = ro.view();  // ラムダ式に渡すのは View
+  auto rov = ro.view();  // pass the View to the lambda
 
   Range3D range{{0, nx}, {0, ny}, {0, nz}};
   for_each(backend::Host{}, range, MISO_LAMBDA(int i, int j, int k) {
@@ -633,7 +633,7 @@ Host 版は添字の順に実行しますが、CUDA 版は多数のスレッド�
 {ref}`2.4 節 <edu-ch07-this>`の `eos::IdealEOS::gas_pressure` を、もう一度読みます。
 
 ```cpp
-// miso/include/miso/eos.hpp から抜粋
+// excerpt from miso/include/miso/eos.hpp
 const Real gm_ = gm;  // device lambdas must not capture `this`
 Range1D range{0, qq.size()};
 for_each(
@@ -688,7 +688,7 @@ Fortran の `sum`, `maxval`, `minval` に当たります。
 MISO では `reduce` を使います（`miso/include/miso/execution.hpp`）。
 
 ```cpp
-// miso/include/miso/execution.hpp から抜粋
+// excerpt from miso/include/miso/execution.hpp
 template <class T, class F, class Op>
 inline T reduce(backend::Host, Range1D range, T init, F map, Op op) {
   T acc = init;
@@ -726,13 +726,13 @@ int main() {
     av[i] = 0.5 * i;  // 0, 0.5, 1, 1.5, 2
   });
 
-  const auto value = MISO_LAMBDA(int i) { return av[i]; };              // 各点の値
-  const auto plus = MISO_LAMBDA(double s, double t) { return s + t; };  // 2 つをまとめる
+  const auto value = MISO_LAMBDA(int i) { return av[i]; };              // value at each point
+  const auto plus = MISO_LAMBDA(double s, double t) { return s + t; };  // combine two values
   const double total = reduce(backend::Host{}, Range1D{0, n}, 0.0, value, plus);
   std::cout << total << "\n";  // 5
 
   const double wrong = reduce(backend::Host{}, Range1D{0, n}, 100.0, value, plus);
-  std::cout << wrong << "\n";  // 105（初期値も足される）
+  std::cout << wrong << "\n";  // 105 (the initial value is also added)
 }
 ```
 
@@ -777,7 +777,7 @@ CUDA 版の `Integrator::cfl` は `reduce` を使っています。
 GPU がなくても、`reduce` の使い方として読めます。
 
 ```cpp
-// miso/include/miso/mhd_integrator_cuda.cuh の Integrator::cfl から抜粋
+// excerpt from Integrator::cfl in miso/include/miso/mhd_integrator_cuda.cuh
 auto qq_v = qq.const_view();
 auto grid_v = grid.const_view();
 auto cs_v = cs.view();

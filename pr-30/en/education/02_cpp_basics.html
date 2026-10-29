@@ -28,7 +28,7 @@
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="3. 参照・ポインタと寿命" href="03_references_and_pointers.html" />
-    <link rel="prev" title="1. 開発環境と CMake" href="01_environment_setup.html" /> 
+    <link rel="prev" title="1. Development Environment and CMake" href="01_environment_setup.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -60,7 +60,7 @@
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">MISO education</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="index.html#id1">本文</a></li>
 <li class="toctree-l2 current"><a class="reference internal" href="index.html#id2">必要なときに参照する資料</a><ul class="current">
-<li class="toctree-l3"><a class="reference internal" href="01_environment_setup.html">1. 開発環境と CMake</a></li>
+<li class="toctree-l3"><a class="reference internal" href="01_environment_setup.html">1. Development Environment and CMake</a></li>
 <li class="toctree-l3 current"><a class="current reference internal" href="#">2. 変数・関数・制御文</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#id2">目次</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#edu-ch02-program">1. プログラムの形</a></li>
@@ -170,8 +170,8 @@ MISO の抜粋にこれらが出てきたときは、読み飛ばしてよい部
 <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;iostream&gt;</span>
 
 <span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
-<span class="w">  </span><span class="kt">double</span><span class="w"> </span><span class="n">dt</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.1</span><span class="p">;</span><span class="w">  </span><span class="c1">// 時間刻み</span>
-<span class="w">  </span><span class="kt">int</span><span class="w"> </span><span class="n">n_step</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">3</span><span class="p">;</span><span class="w">   </span><span class="c1">// ステップ数</span>
+<span class="w">  </span><span class="kt">double</span><span class="w"> </span><span class="n">dt</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.1</span><span class="p">;</span><span class="w">  </span><span class="c1">// time step</span>
+<span class="w">  </span><span class="kt">int</span><span class="w"> </span><span class="n">n_step</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">3</span><span class="p">;</span><span class="w">   </span><span class="c1">// number of steps</span>
 <span class="w">  </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">"time = "</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">dt</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">n_step</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
 <span class="p">}</span>
 </pre></div>
@@ -280,14 +280,14 @@ Fortran の <code class="docutils literal notranslate"><span class="pre">0.1</sp
 <span id="id6"></span><h3>2.2 初期化の書き方<a class="headerlink" href="#edu-ch02-initialization" title="Link to this heading"></a></h3>
 <p>初期値は <code class="docutils literal notranslate"><span class="pre">=</span></code>、丸括弧、波括弧のどれでも与えられます。</p>
 <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">int</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">48</span><span class="p">;</span>
-<span class="kt">int</span><span class="w"> </span><span class="nf">b</span><span class="p">(</span><span class="mi">48</span><span class="p">);</span><span class="w">   </span><span class="c1">// 丸括弧でも初期値は 48</span>
-<span class="kt">int</span><span class="w"> </span><span class="n">c</span><span class="p">{</span><span class="mi">48</span><span class="p">};</span><span class="w">   </span><span class="c1">// 波括弧でも初期値は 48</span>
-<span class="kt">int</span><span class="w"> </span><span class="n">zero</span><span class="p">{};</span><span class="w">  </span><span class="c1">// 空の波括弧は 0 で初期化する</span>
+<span class="kt">int</span><span class="w"> </span><span class="nf">b</span><span class="p">(</span><span class="mi">48</span><span class="p">);</span><span class="w">   </span><span class="c1">// parentheses also give the initial value 48</span>
+<span class="kt">int</span><span class="w"> </span><span class="n">c</span><span class="p">{</span><span class="mi">48</span><span class="p">};</span><span class="w">   </span><span class="c1">// braces also give the initial value 48</span>
+<span class="kt">int</span><span class="w"> </span><span class="n">zero</span><span class="p">{};</span><span class="w">  </span><span class="c1">// empty braces initialize to 0</span>
 </pre></div>
 </div>
 <p>波括弧は、値が変わってしまう変換をエラーにします。</p>
-<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">int</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">2.9</span><span class="p">;</span><span class="w">   </span><span class="c1">// コンパイルできる。小数部が捨てられて n は 2</span>
-<span class="kt">int</span><span class="w"> </span><span class="n">m</span><span class="p">{</span><span class="mf">2.9</span><span class="p">};</span><span class="w">    </span><span class="c1">// エラー：narrowing conversion of '2.8999999999999999e+0' from 'double' to 'int'</span>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">int</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">2.9</span><span class="p">;</span><span class="w">   </span><span class="c1">// compiles; the fractional part is dropped, so n is 2</span>
+<span class="kt">int</span><span class="w"> </span><span class="n">m</span><span class="p">{</span><span class="mf">2.9</span><span class="p">};</span><span class="w">    </span><span class="c1">// error: narrowing conversion of '2.8999999999999999e+0' from 'double' to 'int'</span>
 </pre></div>
 </div>
 <p>MISO のソースには 3 つの書き方がすべて出てきます。どれも「作るときに値を入れる」と読めば十分です。
@@ -296,16 +296,16 @@ Fortran の <code class="docutils literal notranslate"><span class="pre">0.1</sp
 <section id="const-constexpr">
 <span id="edu-ch02-const"></span><h3>2.3 const と constexpr<a class="headerlink" href="#const-constexpr" title="Link to this heading"></a></h3>
 <p><strong><code class="docutils literal notranslate"><span class="pre">const</span></code> は、初期化した後に書き換えないための指定</strong>です。Fortran の <code class="docutils literal notranslate"><span class="pre">parameter</span></code> に近いですが、実行時に決まる値でも初期化できます。</p>
-<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">const</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">nx</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">48</span><span class="p">;</span><span class="w">  </span><span class="c1">// nx は以後書き換えられない</span>
-<span class="kt">int</span><span class="w"> </span><span class="n">ny</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">nx</span><span class="p">;</span><span class="w">        </span><span class="c1">// nx の値をコピーした別の変数</span>
-<span class="n">ny</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">72</span><span class="p">;</span><span class="w">            </span><span class="c1">// ny だけが変わる。nx は 48 のまま</span>
-<span class="c1">// nx = 64;         // エラー：const の変数には代入できない</span>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">const</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">nx</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">48</span><span class="p">;</span><span class="w">  </span><span class="c1">// nx can no longer be modified</span>
+<span class="kt">int</span><span class="w"> </span><span class="n">ny</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">nx</span><span class="p">;</span><span class="w">        </span><span class="c1">// a separate variable holding a copy of nx</span>
+<span class="n">ny</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">72</span><span class="p">;</span><span class="w">            </span><span class="c1">// only ny changes; nx stays 48</span>
+<span class="c1">// nx = 64;         // error: cannot assign to a const variable</span>
 </pre></div>
 </div>
 <p><code class="docutils literal notranslate"><span class="pre">const</span> <span class="pre">int</span> <span class="pre">nx</span></code> と <code class="docutils literal notranslate"><span class="pre">int</span> <span class="pre">const</span> <span class="pre">nx</span></code> は同じ意味です。</p>
 <p><strong><code class="docutils literal notranslate"><span class="pre">constexpr</span></code> は、コンパイル時に値が決まる定数</strong>の宣言です。初期値もコンパイル時に計算できる式でなければなりません。</p>
 <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">constexpr</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">n_dim</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">3</span><span class="p">;</span>
-<span class="k">constexpr</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">n_faces</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">n_dim</span><span class="p">;</span><span class="w">  </span><span class="c1">// コンパイル時に 6 と決まる</span>
+<span class="k">constexpr</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">n_faces</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">n_dim</span><span class="p">;</span><span class="w">  </span><span class="c1">// fixed to 6 at compile time</span>
 </pre></div>
 </div>
 <p><code class="docutils literal notranslate"><span class="pre">const</span></code> は「書き換えない」、<code class="docutils literal notranslate"><span class="pre">constexpr</span></code> は「コンパイル時に決まる（したがって書き換えない）」です。
@@ -359,7 +359,7 @@ Fortran の <code class="docutils literal notranslate"><span class="pre">paramet
 <p><code class="docutils literal notranslate"><span class="pre">float</span></code> と <code class="docutils literal notranslate"><span class="pre">double</span></code> では、表せる桁数が違います。</p>
 <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">float</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.1f</span><span class="p">;</span>
 <span class="kt">double</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.1</span><span class="p">;</span>
-<span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="p">.</span><span class="n">precision</span><span class="p">(</span><span class="mi">17</span><span class="p">);</span><span class="w">           </span><span class="c1">// 17 桁で表示する</span>
+<span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="p">.</span><span class="n">precision</span><span class="p">(</span><span class="mi">17</span><span class="p">);</span><span class="w">           </span><span class="c1">// print with 17 digits</span>
 <span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">" "</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">"</span><span class="se">\n</span><span class="s">"</span><span class="p">;</span>
 </pre></div>
 </div>
@@ -377,8 +377,8 @@ MPI の関数に渡すため、<code class="docutils literal notranslate"><span 
 <section id="real">
 <span id="edu-ch02-real"></span><h3>2.6 型の別名と Real<a class="headerlink" href="#real" title="Link to this heading"></a></h3>
 <p><code class="docutils literal notranslate"><span class="pre">using</span> <span class="pre">新しい名前</span> <span class="pre">=</span> <span class="pre">型;</span></code> で、型に別名を付けられます。変数の宣言ではありません。</p>
-<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">using</span><span class="w"> </span><span class="n">Real</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kt">float</span><span class="p">;</span><span class="w">  </span><span class="c1">// Real は float の別名</span>
-<span class="n">Real</span><span class="w"> </span><span class="n">dt</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.1f</span><span class="p">;</span><span class="w">      </span><span class="c1">// float dt = 0.1f; と同じ</span>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">using</span><span class="w"> </span><span class="n">Real</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kt">float</span><span class="p">;</span><span class="w">  </span><span class="c1">// Real is an alias for float</span>
+<span class="n">Real</span><span class="w"> </span><span class="n">dt</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.1f</span><span class="p">;</span><span class="w">      </span><span class="c1">// same as float dt = 0.1f;</span>
 </pre></div>
 </div>
 <p>MISO のデモは、ファイルの冒頭で <code class="docutils literal notranslate"><span class="pre">Real</span></code> を決めています。<code class="docutils literal notranslate"><span class="pre">demo/mhd2d_vortex/src/main.cpp</span></code> より抜粋します。</p>
@@ -391,9 +391,9 @@ Fortran で <code class="docutils literal notranslate"><span class="pre">integer
 <p><code class="docutils literal notranslate"><span class="pre">Real</span></code> を使うときは、<strong>定数を <code class="docutils literal notranslate"><span class="pre">Real</span></code> に揃えて書く</strong>のが MISO の約束です。</p>
 <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">using</span><span class="w"> </span><span class="n">Real</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kt">float</span><span class="p">;</span>
 <span class="n">Real</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">1.0f</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mf">3.0f</span><span class="p">;</span>
-<span class="n">Real</span><span class="w"> </span><span class="n">h1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mf">0.5</span><span class="p">;</span><span class="w">        </span><span class="c1">// a を double に変換して double で計算し、結果を float に戻す</span>
-<span class="n">Real</span><span class="w"> </span><span class="n">h2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">Real</span><span class="p">(</span><span class="mf">0.5</span><span class="p">);</span><span class="w">  </span><span class="c1">// float どうしで計算する</span>
-<span class="k">auto</span><span class="w"> </span><span class="n">h3</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mf">0.5</span><span class="p">;</span><span class="w">        </span><span class="c1">// auto なので h3 は double になる</span>
+<span class="n">Real</span><span class="w"> </span><span class="n">h1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mf">0.5</span><span class="p">;</span><span class="w">        </span><span class="c1">// converts a to double, computes in double, then converts the result back to float</span>
+<span class="n">Real</span><span class="w"> </span><span class="n">h2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">Real</span><span class="p">(</span><span class="mf">0.5</span><span class="p">);</span><span class="w">  </span><span class="c1">// computes in float</span>
+<span class="k">auto</span><span class="w"> </span><span class="n">h3</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mf">0.5</span><span class="p">;</span><span class="w">        </span><span class="c1">// auto, so h3 is double</span>
 </pre></div>
 </div>
 <p><code class="docutils literal notranslate"><span class="pre">0.5</span></code> は <code class="docutils literal notranslate"><span class="pre">double</span></code> なので、<code class="docutils literal notranslate"><span class="pre">a</span> <span class="pre">*</span> <span class="pre">0.5</span></code> は <code class="docutils literal notranslate"><span class="pre">double</span></code> で計算されます。
@@ -411,10 +411,10 @@ Fortran で <code class="docutils literal notranslate"><span class="pre">integer
 <section id="edu-ch02-enum">
 <span id="id8"></span><h3>2.7 列挙型<a class="headerlink" href="#edu-ch02-enum" title="Link to this heading"></a></h3>
 <p>決まった選択肢のうちどれかを表す型を、<code class="docutils literal notranslate"><span class="pre">enum</span> <span class="pre">class</span></code> で作れます。</p>
-<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">enum</span><span class="w"> </span><span class="k">class</span><span class="w"> </span><span class="nc">Axis</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">X</span><span class="p">,</span><span class="w"> </span><span class="n">Y</span><span class="p">,</span><span class="w"> </span><span class="n">Z</span><span class="w"> </span><span class="p">};</span><span class="w">  </span><span class="c1">// 3 つの選択肢を持つ型 Axis</span>
-<span class="n">Axis</span><span class="w"> </span><span class="n">direction</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Axis</span><span class="o">::</span><span class="n">Y</span><span class="p">;</span><span class="w">     </span><span class="c1">// その 1 つを変数に入れる</span>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">enum</span><span class="w"> </span><span class="k">class</span><span class="w"> </span><span class="nc">Axis</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">X</span><span class="p">,</span><span class="w"> </span><span class="n">Y</span><span class="p">,</span><span class="w"> </span><span class="n">Z</span><span class="w"> </span><span class="p">};</span><span class="w">  </span><span class="c1">// type Axis with 3 choices</span>
+<span class="n">Axis</span><span class="w"> </span><span class="n">direction</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Axis</span><span class="o">::</span><span class="n">Y</span><span class="p">;</span><span class="w">     </span><span class="c1">// store one of them in a variable</span>
 <span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">direction</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">Axis</span><span class="o">::</span><span class="n">Y</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">  </span><span class="c1">// y 方向の処理</span>
+<span class="w">  </span><span class="c1">// handle the y direction</span>
 <span class="p">}</span>
 </pre></div>
 </div>
@@ -483,7 +483,7 @@ Fortran で <code class="docutils literal notranslate"><span class="pre">integer
 <p>範囲の判定は <code class="docutils literal notranslate"><span class="pre">0</span> <span class="pre">&lt;=</span> <span class="pre">i</span> <span class="pre">&amp;&amp;</span> <span class="pre">i</span> <span class="pre">&lt;</span> <span class="pre">n</span></code> と書きます。数学のような <code class="docutils literal notranslate"><span class="pre">0</span> <span class="pre">&lt;=</span> <span class="pre">i</span> <span class="pre">&lt;</span> <span class="pre">n</span></code> は意図どおりに動きません。</p>
 <p>値を 2 つから選ぶ<strong>条件演算子</strong> <code class="docutils literal notranslate"><span class="pre">条件</span> <span class="pre">?</span> <span class="pre">真のときの値</span> <span class="pre">:</span> <span class="pre">偽のときの値</span></code> もあります。</p>
 <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">double</span><span class="w"> </span><span class="n">dt</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.2</span><span class="p">;</span>
-<span class="kt">double</span><span class="w"> </span><span class="n">limited</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">dt</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mf">0.1</span><span class="p">)</span><span class="w"> </span><span class="o">?</span><span class="w"> </span><span class="mf">0.1</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">dt</span><span class="p">;</span><span class="w">  </span><span class="c1">// 条件が真なので 0.1</span>
+<span class="kt">double</span><span class="w"> </span><span class="n">limited</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">dt</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mf">0.1</span><span class="p">)</span><span class="w"> </span><span class="o">?</span><span class="w"> </span><span class="mf">0.1</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">dt</span><span class="p">;</span><span class="w">  </span><span class="c1">// the condition is true, so 0.1</span>
 </pre></div>
 </div>
 <p><strong>MISO の実例</strong> — <code class="docutils literal notranslate"><span class="pre">miso/include/miso/env.hpp</span></code> の <code class="docutils literal notranslate"><span class="pre">is_root</span></code> は、比較の結果（<code class="docutils literal notranslate"><span class="pre">bool</span></code>）をそのまま返します。</p>
@@ -507,12 +507,12 @@ Fortran で <code class="docutils literal notranslate"><span class="pre">integer
 <section id="if-else">
 <span id="edu-ch02-if"></span><h3>4.1 if と else<a class="headerlink" href="#if-else" title="Link to this heading"></a></h3>
 <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">double</span><span class="w"> </span><span class="n">dt</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.2</span><span class="p">;</span>
-<span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">dt</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mf">0.1</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">   </span><span class="c1">// 0.2 &gt; 0.1 なので、こちらを実行する</span>
+<span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">dt</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mf">0.1</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">   </span><span class="c1">// 0.2 &gt; 0.1, so this branch runs</span>
 <span class="w">  </span><span class="n">dt</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.1</span><span class="p">;</span>
 <span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
-<span class="w">  </span><span class="n">dt</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.05</span><span class="p">;</span><span class="w">      </span><span class="c1">// この例では実行されない</span>
+<span class="w">  </span><span class="n">dt</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.05</span><span class="p">;</span><span class="w">      </span><span class="c1">// not executed in this example</span>
 <span class="p">}</span>
-<span class="c1">// dt は 0.1</span>
+<span class="c1">// dt is 0.1</span>
 </pre></div>
 </div>
 <p>Fortran の <code class="docutils literal notranslate"><span class="pre">if</span> <span class="pre">(...)</span> <span class="pre">then</span> <span class="pre">...</span> <span class="pre">else</span> <span class="pre">...</span> <span class="pre">end</span> <span class="pre">if</span></code> に当たります。
@@ -531,10 +531,10 @@ Fortran で <code class="docutils literal notranslate"><span class="pre">integer
 <section id="for">
 <span id="edu-ch02-for"></span><h3>4.2 for と添字の範囲<a class="headerlink" href="#for" title="Link to this heading"></a></h3>
 <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">int</span><span class="w"> </span><span class="n">total</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
-<span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">3</span><span class="p">;</span><span class="w"> </span><span class="o">++</span><span class="n">i</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">  </span><span class="c1">// i = 0, 1, 2 のときに実行する</span>
-<span class="w">  </span><span class="n">total</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">i</span><span class="p">;</span><span class="w">                  </span><span class="c1">// total は 0 → 1 → 3</span>
+<span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">3</span><span class="p">;</span><span class="w"> </span><span class="o">++</span><span class="n">i</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">  </span><span class="c1">// runs for i = 0, 1, 2</span>
+<span class="w">  </span><span class="n">total</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">i</span><span class="p">;</span><span class="w">                  </span><span class="c1">// total goes 0 -&gt; 1 -&gt; 3</span>
 <span class="p">}</span>
-<span class="c1">// total は 3。for の中で宣言した i は、ここでは使えない</span>
+<span class="c1">// total is 3. i, declared inside the for, cannot be used here</span>
 </pre></div>
 </div>
 <p>丸括弧の中は、<code class="docutils literal notranslate"><span class="pre">;</span></code> で区切った 3 つの部分からなります。</p>
@@ -606,12 +606,12 @@ Fortran の <code class="docutils literal notranslate"><span class="pre">do</spa
 <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">int</span><span class="w"> </span><span class="n">visits</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
 <span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">k</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">k</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span><span class="w"> </span><span class="o">++</span><span class="n">k</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
 <span class="w">  </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">j</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">j</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">3</span><span class="p">;</span><span class="w"> </span><span class="o">++</span><span class="n">j</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">4</span><span class="p">;</span><span class="w"> </span><span class="o">++</span><span class="n">i</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">  </span><span class="c1">// 最も内側の i が最も速く変わる</span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">4</span><span class="p">;</span><span class="w"> </span><span class="o">++</span><span class="n">i</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">  </span><span class="c1">// the innermost i changes fastest</span>
 <span class="w">      </span><span class="o">++</span><span class="n">visits</span><span class="p">;</span>
 <span class="w">    </span><span class="p">}</span>
 <span class="w">  </span><span class="p">}</span>
 <span class="p">}</span>
-<span class="c1">// visits は 2 × 3 × 4 = 24</span>
+<span class="c1">// visits is 2 x 3 x 4 = 24</span>
 </pre></div>
 </div>
 <p>Fortran の入れ子の <code class="docutils literal notranslate"><span class="pre">do</span></code> と同じです。通常の <code class="docutils literal notranslate"><span class="pre">for</span></code> を書いただけでは並列には実行されません。並列に計算する書き方は <a class="reference internal" href="07_arrays_and_parallel.html#edu-ch07"><span class="std std-ref">第 7 章</span></a> で学びます。</p>
@@ -622,7 +622,7 @@ Fortran の <code class="docutils literal notranslate"><span class="pre">do</spa
 <span class="w">      </span><span class="n">qq</span><span class="p">.</span><span class="n">ro</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="w"> </span><span class="n">j</span><span class="p">,</span><span class="w"> </span><span class="n">k</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">1.0</span><span class="p">;</span>
 <span class="w">      </span><span class="n">qq</span><span class="p">.</span><span class="n">vx</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="w"> </span><span class="n">j</span><span class="p">,</span><span class="w"> </span><span class="n">k</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">-</span><span class="n">v0</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">util</span><span class="o">::</span><span class="n">sin</span><span class="p">(</span><span class="mf">2.0</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">pi</span><span class="o">&lt;</span><span class="n">Real</span><span class="o">&gt;</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">grid</span><span class="p">.</span><span class="n">y</span><span class="p">[</span><span class="n">j</span><span class="p">]);</span>
 <span class="w">      </span><span class="n">qq</span><span class="p">.</span><span class="n">vy</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="w"> </span><span class="n">j</span><span class="p">,</span><span class="w"> </span><span class="n">k</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">+</span><span class="n">v0</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">util</span><span class="o">::</span><span class="n">sin</span><span class="p">(</span><span class="mf">2.0</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">pi</span><span class="o">&lt;</span><span class="n">Real</span><span class="o">&gt;</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">grid</span><span class="p">.</span><span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
-<span class="w">      </span><span class="c1">// （以下、他の変数も同様）</span>
+<span class="w">      </span><span class="c1">// (same for the other variables)</span>
 <span class="w">    </span><span class="p">}</span>
 <span class="w">  </span><span class="p">}</span>
 <span class="p">}</span>
@@ -638,11 +638,11 @@ Fortran の <code class="docutils literal notranslate"><span class="pre">do</spa
 <p>回数ではなく条件で繰り返すときは <code class="docutils literal notranslate"><span class="pre">while</span></code> を使います。Fortran の <code class="docutils literal notranslate"><span class="pre">do</span> <span class="pre">while</span></code> に当たります。</p>
 <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">double</span><span class="w"> </span><span class="n">residual</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">1.0</span><span class="p">;</span>
 <span class="kt">int</span><span class="w"> </span><span class="n">iterations</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
-<span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="n">residual</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mf">0.1</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">  </span><span class="c1">// 実行する前に毎回条件を調べる</span>
+<span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="n">residual</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mf">0.1</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">  </span><span class="c1">// check the condition before every iteration</span>
 <span class="w">  </span><span class="n">residual</span><span class="w"> </span><span class="o">*=</span><span class="w"> </span><span class="mf">0.5</span><span class="p">;</span>
 <span class="w">  </span><span class="o">++</span><span class="n">iterations</span><span class="p">;</span>
 <span class="p">}</span>
-<span class="c1">// residual は 0.0625、iterations は 4</span>
+<span class="c1">// residual is 0.0625, iterations is 4</span>
 </pre></div>
 </div>
 <p>ブロックの中で条件に関わる変数を更新しないと、ループが終わりません。
@@ -684,14 +684,14 @@ Fortran の <code class="docutils literal notranslate"><span class="pre">do</spa
 <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">int</span><span class="w"> </span><span class="n">total</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
 <span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">6</span><span class="p">;</span><span class="w"> </span><span class="o">++</span><span class="n">i</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
 <span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">i</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">2</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="k">continue</span><span class="p">;</span><span class="w">  </span><span class="c1">// 足し込みを飛ばして ++i へ進む</span>
+<span class="w">    </span><span class="k">continue</span><span class="p">;</span><span class="w">  </span><span class="c1">// skip the addition and go to ++i</span>
 <span class="w">  </span><span class="p">}</span>
 <span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">i</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">5</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="k">break</span><span class="p">;</span><span class="w">     </span><span class="c1">// ループを終える</span>
+<span class="w">    </span><span class="k">break</span><span class="p">;</span><span class="w">     </span><span class="c1">// exit the loop</span>
 <span class="w">  </span><span class="p">}</span>
-<span class="w">  </span><span class="n">total</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">i</span><span class="p">;</span><span class="w">  </span><span class="c1">// 足すのは 0, 1, 3, 4</span>
+<span class="w">  </span><span class="n">total</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">i</span><span class="p">;</span><span class="w">  </span><span class="c1">// adds 0, 1, 3, 4</span>
 <span class="p">}</span>
-<span class="c1">// total は 8</span>
+<span class="c1">// total is 8</span>
 </pre></div>
 </div>
 <p><strong>C++ の <code class="docutils literal notranslate"><span class="pre">continue</span></code> は Fortran の <code class="docutils literal notranslate"><span class="pre">continue</span></code> 文（何もしない文）とは別物です。</strong> Fortran の <code class="docutils literal notranslate"><span class="pre">cycle</span></code> に当たります。
@@ -733,14 +733,14 @@ Fortran の <code class="docutils literal notranslate"><span class="pre">do</spa
 <span class="k">case</span><span class="w"> </span><span class="no">Axis</span><span class="o">::</span><span class="no">X</span><span class="p">:</span>
 <span class="w">  </span><span class="n">n</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">64</span><span class="p">;</span>
 <span class="w">  </span><span class="k">break</span><span class="p">;</span>
-<span class="k">case</span><span class="w"> </span><span class="no">Axis</span><span class="o">::</span><span class="no">Y</span><span class="p">:</span><span class="w">  </span><span class="c1">// ここから実行する</span>
+<span class="k">case</span><span class="w"> </span><span class="no">Axis</span><span class="o">::</span><span class="no">Y</span><span class="p">:</span><span class="w">  </span><span class="c1">// execution starts here</span>
 <span class="w">  </span><span class="n">n</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">32</span><span class="p">;</span>
-<span class="w">  </span><span class="k">break</span><span class="p">;</span><span class="w">       </span><span class="c1">// switch を抜ける</span>
+<span class="w">  </span><span class="k">break</span><span class="p">;</span><span class="w">       </span><span class="c1">// leave the switch</span>
 <span class="k">case</span><span class="w"> </span><span class="no">Axis</span><span class="o">::</span><span class="no">Z</span><span class="p">:</span>
 <span class="w">  </span><span class="n">n</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
 <span class="w">  </span><span class="k">break</span><span class="p">;</span>
 <span class="p">}</span>
-<span class="c1">// n は 32</span>
+<span class="c1">// n is 32</span>
 </pre></div>
 </div>
 <p><strong><code class="docutils literal notranslate"><span class="pre">case</span></code> の境目では処理は止まりません。</strong> <code class="docutils literal notranslate"><span class="pre">break</span></code> を書き忘れると、次の <code class="docutils literal notranslate"><span class="pre">case</span></code> の処理も続けて実行します。
@@ -787,9 +787,9 @@ Fortran の <code class="docutils literal notranslate"><span class="pre">do</spa
 <section id="edu-ch02-function-basics">
 <span id="id14"></span><h3>5.1 宣言・定義・呼び出し<a class="headerlink" href="#edu-ch02-function-basics" title="Link to this heading"></a></h3>
 <p>C++ では、値を返す処理も、Fortran のサブルーチンに当たる処理も、すべて関数として書きます。</p>
-<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">double</span><span class="w"> </span><span class="nf">square</span><span class="p">(</span><span class="kt">double</span><span class="w"> </span><span class="n">x</span><span class="p">);</span><span class="w">   </span><span class="c1">// 宣言</span>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">double</span><span class="w"> </span><span class="nf">square</span><span class="p">(</span><span class="kt">double</span><span class="w"> </span><span class="n">x</span><span class="p">);</span><span class="w">   </span><span class="c1">// declaration</span>
 
-<span class="kt">double</span><span class="w"> </span><span class="nf">square</span><span class="p">(</span><span class="kt">double</span><span class="w"> </span><span class="n">x</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">  </span><span class="c1">// 定義</span>
+<span class="kt">double</span><span class="w"> </span><span class="nf">square</span><span class="p">(</span><span class="kt">double</span><span class="w"> </span><span class="n">x</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">  </span><span class="c1">// definition</span>
 <span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">x</span><span class="p">;</span>
 <span class="p">}</span>
 </pre></div>
@@ -829,7 +829,7 @@ Fortran の <code class="docutils literal notranslate"><span class="pre">do</spa
 <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">double</span><span class="w"> </span><span class="nf">scale</span><span class="p">(</span><span class="kt">double</span><span class="w"> </span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="n">factor</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">1.0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
 <span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">factor</span><span class="p">;</span>
 <span class="p">}</span>
-<span class="c1">// scale(2.0) は 2.0、scale(2.0, 3.0) は 6.0</span>
+<span class="c1">// scale(2.0) is 2.0, scale(2.0, 3.0) is 6.0</span>
 </pre></div>
 </div>
 <p><strong>MISO の実例</strong> — <code class="docutils literal notranslate"><span class="pre">miso/include/miso/env.hpp</span></code> の <code class="docutils literal notranslate"><span class="pre">rank</span></code> は、引数を取らず <code class="docutils literal notranslate"><span class="pre">int</span></code> を返す関数です。</p>
@@ -848,11 +848,11 @@ Fortran の <code class="docutils literal notranslate"><span class="pre">do</spa
 <span id="id15"></span><h3>5.2 値渡し<a class="headerlink" href="#edu-ch02-pass-by-value" title="Link to this heading"></a></h3>
 <p>引数を <code class="docutils literal notranslate"><span class="pre">double</span> <span class="pre">x</span></code> と書くと、呼び出し元の値の<strong>コピー</strong>が関数に渡ります。関数の中で <code class="docutils literal notranslate"><span class="pre">x</span></code> を書き換えても、呼び出し元の変数は変わりません。</p>
 <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span><span class="w"> </span><span class="nf">set_copy</span><span class="p">(</span><span class="kt">double</span><span class="w"> </span><span class="n">value</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">  </span><span class="n">value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">5.0</span><span class="p">;</span><span class="w">  </span><span class="c1">// 関数の中のコピーだけが変わる</span>
+<span class="w">  </span><span class="n">value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">5.0</span><span class="p">;</span><span class="w">  </span><span class="c1">// only the copy inside the function changes</span>
 <span class="p">}</span>
 
 <span class="kt">double</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">1.0</span><span class="p">;</span>
-<span class="n">set_copy</span><span class="p">(</span><span class="n">a</span><span class="p">);</span><span class="w">    </span><span class="c1">// 呼び出した後も a は 1.0</span>
+<span class="n">set_copy</span><span class="p">(</span><span class="n">a</span><span class="p">);</span><span class="w">    </span><span class="c1">// a is still 1.0 after the call</span>
 </pre></div>
 </div>
 <p><strong>Fortran では、引数は通常、呼び出し元の変数そのものとして扱われ、サブルーチンの中で書き換えると呼び出し元も変わります。C++ の <code class="docutils literal notranslate"><span class="pre">double</span> <span class="pre">value</span></code> という引数はそうなりません。</strong>
@@ -881,15 +881,15 @@ MHD の出力ファイル名 <code class="docutils literal notranslate"><span cl
 <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">int</span><span class="w"> </span><span class="nf">square</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">x</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">x</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
 <span class="kt">double</span><span class="w"> </span><span class="nf">square</span><span class="p">(</span><span class="kt">double</span><span class="w"> </span><span class="n">x</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">x</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
 
-<span class="kt">int</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">square</span><span class="p">(</span><span class="mi">3</span><span class="p">);</span><span class="w">       </span><span class="c1">// int 版を呼ぶ。n は 9</span>
-<span class="kt">double</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">square</span><span class="p">(</span><span class="mf">1.5</span><span class="p">);</span><span class="w">  </span><span class="c1">// double 版を呼ぶ。y は 2.25</span>
+<span class="kt">int</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">square</span><span class="p">(</span><span class="mi">3</span><span class="p">);</span><span class="w">       </span><span class="c1">// calls the int version; n is 9</span>
+<span class="kt">double</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">square</span><span class="p">(</span><span class="mf">1.5</span><span class="p">);</span><span class="w">  </span><span class="c1">// calls the double version; y is 2.25</span>
 </pre></div>
 </div>
 <p>どちらを呼ぶかは、渡した引数の型からコンパイル時に決まります。戻り値の型だけが違う関数は区別できません。
 Fortran では、総称名を <code class="docutils literal notranslate"><span class="pre">interface</span></code> で宣言して個別の関数をまとめますが、C++ では同じ名前で定義を並べるだけです。</p>
 <p><strong>MISO の実例</strong> — <code class="docutils literal notranslate"><span class="pre">miso/include/miso/utility.hpp</span></code> の名前空間 <code class="docutils literal notranslate"><span class="pre">miso::util</span></code> には、<code class="docutils literal notranslate"><span class="pre">float</span></code> 用と <code class="docutils literal notranslate"><span class="pre">double</span></code> 用の数学関数が並んでいます。
 ソースには <code class="docutils literal notranslate"><span class="pre">MISO_MATH_UTILS(sqrt,</span> <span class="pre">sqrtf)</span></code> という 1 行しかありませんが、これはマクロ（<a class="reference internal" href="#edu-ch02-preprocessor"><span class="std std-ref">10 節</span></a>）で、CPU 向けにビルドすると次の 2 つの関数定義に置き換わります。</p>
-<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="c1">// MISO_MATH_UTILS(sqrt, sqrtf) を展開した結果（説明のため改行を整えた）</span>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="c1">// result of expanding MISO_MATH_UTILS(sqrt, sqrtf) (line breaks adjusted for clarity)</span>
 <span class="kr">inline</span><span class="w"> </span><span class="kt">float</span><span class="w"> </span><span class="nf">sqrt</span><span class="p">(</span><span class="kt">float</span><span class="w"> </span><span class="n">x</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">sqrt</span><span class="p">(</span><span class="n">x</span><span class="p">);</span><span class="w"> </span><span class="p">}</span>
 <span class="kr">inline</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="nf">sqrt</span><span class="p">(</span><span class="kt">double</span><span class="w"> </span><span class="n">x</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">sqrt</span><span class="p">(</span><span class="n">x</span><span class="p">);</span><span class="w"> </span><span class="p">}</span>
 </pre></div>
@@ -906,8 +906,8 @@ Fortran では、総称名を <code class="docutils literal notranslate"><span c
 <span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
 <span class="w">  </span><span class="k">using</span><span class="w"> </span><span class="n">Real</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kt">float</span><span class="p">;</span>
 <span class="w">  </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">miso</span><span class="o">::</span><span class="n">util</span><span class="o">::</span><span class="n">zfill</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="mi">8</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">"</span><span class="se">\n</span><span class="s">"</span><span class="p">;</span>
-<span class="w">  </span><span class="n">Real</span><span class="w"> </span><span class="n">r</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">miso</span><span class="o">::</span><span class="n">util</span><span class="o">::</span><span class="n">sqrt</span><span class="p">(</span><span class="n">Real</span><span class="p">(</span><span class="mi">2</span><span class="p">));</span><span class="w">    </span><span class="c1">// float 版</span>
-<span class="w">  </span><span class="kt">double</span><span class="w"> </span><span class="n">d</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">miso</span><span class="o">::</span><span class="n">util</span><span class="o">::</span><span class="n">sqrt</span><span class="p">(</span><span class="mf">2.0</span><span class="p">);</span><span class="w">      </span><span class="c1">// double 版</span>
+<span class="w">  </span><span class="n">Real</span><span class="w"> </span><span class="n">r</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">miso</span><span class="o">::</span><span class="n">util</span><span class="o">::</span><span class="n">sqrt</span><span class="p">(</span><span class="n">Real</span><span class="p">(</span><span class="mi">2</span><span class="p">));</span><span class="w">    </span><span class="c1">// float version</span>
+<span class="w">  </span><span class="kt">double</span><span class="w"> </span><span class="n">d</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">miso</span><span class="o">::</span><span class="n">util</span><span class="o">::</span><span class="n">sqrt</span><span class="p">(</span><span class="mf">2.0</span><span class="p">);</span><span class="w">      </span><span class="c1">// double version</span>
 <span class="w">  </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="p">.</span><span class="n">precision</span><span class="p">(</span><span class="mi">10</span><span class="p">);</span>
 <span class="w">  </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">r</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">" "</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">d</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">"</span><span class="se">\n</span><span class="s">"</span><span class="p">;</span>
 <span class="w">  </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">miso</span><span class="o">::</span><span class="n">pi</span><span class="o">&lt;</span><span class="n">Real</span><span class="o">&gt;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">" "</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">miso</span><span class="o">::</span><span class="n">pi</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">"</span><span class="se">\n</span><span class="s">"</span><span class="p">;</span>
@@ -951,8 +951,8 @@ Fortran では、総称名を <code class="docutils literal notranslate"><span c
 <span id="id18"></span><h2>6. ファイル分割とヘッダ<a class="headerlink" href="#edu-ch02-headers" title="Link to this heading"></a></h2>
 <p>プログラムが長くなると、関数を別のファイルに分けます。
 C++ では、<strong>ほかのファイルから使う宣言や定義をヘッダ（<code class="docutils literal notranslate"><span class="pre">.hpp</span></code>）に書き、使う側で <code class="docutils literal notranslate"><span class="pre">#include</span></code> します</strong>。</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>physics.hpp   関数を書いたヘッダ
-main.cpp      #include "physics.hpp" して関数を使う
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>physics.hpp   header with the function
+main.cpp      includes "physics.hpp" and uses the function
 </pre></div>
 </div>
 <p><code class="docutils literal notranslate"><span class="pre">#include</span> <span class="pre">&quot;physics.hpp&quot;</span></code> は、コンパイルの前にその位置へファイルの中身をそのまま貼り込む指定です。
@@ -1015,7 +1015,7 @@ MISO の中のヘッダどうしは、同じディレクトリにあるので <c
 <span class="p">}</span>
 
 <span class="k">namespace</span><span class="w"> </span><span class="nn">grid</span><span class="w"> </span><span class="p">{</span>
-<span class="kt">int</span><span class="w"> </span><span class="n">gamma</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">3</span><span class="p">;</span><span class="w">  </span><span class="c1">// 名前は同じでも、eos::gamma とは別の変数</span>
+<span class="kt">int</span><span class="w"> </span><span class="n">gamma</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">3</span><span class="p">;</span><span class="w">  </span><span class="c1">// same name, but a different variable from eos::gamma</span>
 <span class="p">}</span>
 
 <span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
@@ -1097,19 +1097,19 @@ MISO の中のヘッダどうしは、同じディレクトリにあるので <c
 
 <span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
 <span class="w">  </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="n">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"mhd"</span><span class="p">;</span>
-<span class="w">  </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="n">file</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">name</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s">".00000003.bin"</span><span class="p">;</span><span class="w">  </span><span class="c1">// + で連結する</span>
-<span class="w">  </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">file</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">" ("</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">file</span><span class="p">.</span><span class="n">size</span><span class="p">()</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">" 文字)</span><span class="se">\n</span><span class="s">"</span><span class="p">;</span>
+<span class="w">  </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="n">file</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">name</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s">".00000003.bin"</span><span class="p">;</span><span class="w">  </span><span class="c1">// concatenate with +</span>
+<span class="w">  </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">file</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">" ("</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">file</span><span class="p">.</span><span class="n">size</span><span class="p">()</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">" chars)</span><span class="se">\n</span><span class="s">"</span><span class="p">;</span>
 
-<span class="w">  </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;</span><span class="w"> </span><span class="n">x</span><span class="p">(</span><span class="mi">4</span><span class="p">);</span><span class="w">  </span><span class="c1">// double を 4 個。すべて 0.0</span>
+<span class="w">  </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;</span><span class="w"> </span><span class="n">x</span><span class="p">(</span><span class="mi">4</span><span class="p">);</span><span class="w">  </span><span class="c1">// 4 doubles, all 0.0</span>
 <span class="w">  </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="k">static_cast</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">(</span><span class="n">x</span><span class="p">.</span><span class="n">size</span><span class="p">());</span><span class="w"> </span><span class="o">++</span><span class="n">i</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.5</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">i</span><span class="p">;</span><span class="w">           </span><span class="c1">// 添字は 0 から 3</span>
+<span class="w">    </span><span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.5</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">i</span><span class="p">;</span><span class="w">           </span><span class="c1">// indices run from 0 to 3</span>
 <span class="w">  </span><span class="p">}</span>
-<span class="w">  </span><span class="n">x</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="mf">2.0</span><span class="p">);</span><span class="w">           </span><span class="c1">// 末尾に追加して 5 個</span>
+<span class="w">  </span><span class="n">x</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="mf">2.0</span><span class="p">);</span><span class="w">           </span><span class="c1">// append to the end, making 5</span>
 <span class="w">  </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">x</span><span class="p">.</span><span class="n">size</span><span class="p">()</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">" "</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">x</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">"</span><span class="se">\n</span><span class="s">"</span><span class="p">;</span>
 <span class="p">}</span>
 </pre></div>
 </div>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>mhd.00000003.bin (16 文字)
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>mhd.00000003.bin (16 chars)
 5 2
 </pre></div>
 </div>
@@ -1159,9 +1159,9 @@ MISO の中のヘッダどうしは、同じディレクトリにあるので <c
 呼び出し側で <code class="docutils literal notranslate"><span class="pre">try</span></code> と <code class="docutils literal notranslate"><span class="pre">catch</span></code> を使うと、例外を受け止めて処理を続けられます。</p>
 <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">try</span><span class="w"> </span><span class="p">{</span>
 <span class="w">  </span><span class="n">checked_dt</span><span class="p">(</span><span class="mf">0.1</span><span class="p">);</span>
-<span class="w">  </span><span class="n">checked_dt</span><span class="p">(</span><span class="mf">-1.0</span><span class="p">);</span><span class="w">  </span><span class="c1">// ここで例外が投げられる</span>
-<span class="w">  </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">"ここは表示されません</span><span class="se">\n</span><span class="s">"</span><span class="p">;</span>
-<span class="p">}</span><span class="w"> </span><span class="k">catch</span><span class="w"> </span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">runtime_error</span><span class="w"> </span><span class="o">&amp;</span><span class="n">e</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">  </span><span class="c1">// const と &amp; は第 3 章で説明する</span>
+<span class="w">  </span><span class="n">checked_dt</span><span class="p">(</span><span class="mf">-1.0</span><span class="p">);</span><span class="w">  </span><span class="c1">// an exception is thrown here</span>
+<span class="w">  </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">"not printed</span><span class="se">\n</span><span class="s">"</span><span class="p">;</span>
+<span class="p">}</span><span class="w"> </span><span class="k">catch</span><span class="w"> </span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">runtime_error</span><span class="w"> </span><span class="o">&amp;</span><span class="n">e</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">  </span><span class="c1">// const and &amp; are explained in Chapter 3</span>
 <span class="w">  </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">"error: "</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">e</span><span class="p">.</span><span class="n">what</span><span class="p">()</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">"</span><span class="se">\n</span><span class="s">"</span><span class="p">;</span>
 <span class="p">}</span>
 </pre></div>
@@ -1318,7 +1318,7 @@ g++<span class="w"> </span>-std<span class="o">=</span>c++17<span class="w"> </s
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="01_environment_setup.html" class="btn btn-neutral float-left" title="1. 開発環境と CMake" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="01_environment_setup.html" class="btn btn-neutral float-left" title="1. Development Environment and CMake" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
         <a href="03_references_and_pointers.html" class="btn btn-neutral float-right" title="3. 参照・ポインタと寿命" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 

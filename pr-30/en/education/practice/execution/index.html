@@ -60,7 +60,7 @@
 <li class="toctree-l1 current"><a class="reference internal" href="../../index.html">MISO education</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="../../index.html#id1">本文</a></li>
 <li class="toctree-l2 current"><a class="reference internal" href="../../index.html#id2">必要なときに参照する資料</a><ul class="current">
-<li class="toctree-l3"><a class="reference internal" href="../../01_environment_setup.html">1. 開発環境と CMake</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../01_environment_setup.html">1. Development Environment and CMake</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../02_cpp_basics.html">2. 変数・関数・制御文</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../03_references_and_pointers.html">3. 参照・ポインタと寿命</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../04_classes_and_structs.html">4. クラス・構造体</a></li>
@@ -186,7 +186,7 @@ CPU のビルドでは <code class="docutils literal notranslate"><span class="p
 GPU に置いた配列は、CPU のループから直接読めません。
 結果を確かめるときは、<code class="docutils literal notranslate"><span class="pre">Array1D&lt;double,</span> <span class="pre">backend::Host&gt;</span></code> を別に用意し、<code class="docutils literal notranslate"><span class="pre">copy_from</span></code> で写してから読みます。</p>
 <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">Array1D</span><span class="o">&lt;</span><span class="kt">double</span><span class="p">,</span><span class="w"> </span><span class="n">backend</span><span class="o">::</span><span class="n">Host</span><span class="o">&gt;</span><span class="w"> </span><span class="n">h</span><span class="p">(</span><span class="n">n</span><span class="p">);</span>
-<span class="n">h</span><span class="p">.</span><span class="n">copy_from</span><span class="p">(</span><span class="n">z</span><span class="p">);</span><span class="w">  </span><span class="c1">// z の要素を h へ写す</span>
+<span class="n">h</span><span class="p">.</span><span class="n">copy_from</span><span class="p">(</span><span class="n">z</span><span class="p">);</span><span class="w">  </span><span class="c1">// copy the elements of z to h</span>
 </pre></div>
 </div>
 <p>CPU のビルドでは <code class="docutils literal notranslate"><span class="pre">z</span></code> もホスト側にあるので、<code class="docutils literal notranslate"><span class="pre">copy_from</span></code> はただのコピーです。

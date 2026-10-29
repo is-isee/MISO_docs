@@ -62,7 +62,7 @@
 <li class="toctree-l1 current"><a class="reference internal" href="../../index.html">MISO education</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="../../index.html#id1">本文</a></li>
 <li class="toctree-l2 current"><a class="reference internal" href="../../index.html#id2">必要なときに参照する資料</a><ul class="current">
-<li class="toctree-l3"><a class="reference internal" href="../../01_environment_setup.html">1. 開発環境と CMake</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../01_environment_setup.html">1. Development Environment and CMake</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../02_cpp_basics.html">2. 変数・関数・制御文</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../03_references_and_pointers.html">3. 参照・ポインタと寿命</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../04_classes_and_structs.html">4. クラス・構造体</a></li>
@@ -142,8 +142,8 @@
 <p>物理セル <code class="docutils literal notranslate"><span class="pre">NX</span></code> 個の左右に、1 点ずつゴーストセルを置きます。
 風上差分は左隣 <code class="docutils literal notranslate"><span class="pre">u[i-1]</span></code> しか読まないので左の 1 点で足りますが、MISO と同じく左右対称に置きます。
 周期境界では、毎ステップ、ゴーストセルを反対側の物理セルの値で埋めてから更新します。</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>添字    0  |  1  ...  NX  |  NX+1
-     ゴースト   物理セル     ゴースト
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>index   0  |  1  ...  NX  |  NX+1
+    ghost   physical cells  ghost
 </pre></div>
 </div>
 </section>

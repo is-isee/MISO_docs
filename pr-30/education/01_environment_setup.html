@@ -340,8 +340,8 @@ git<span class="w"> </span>clone<span class="w"> </span>https://github.com/is-is
 <li><p><strong>リンク</strong>：オブジェクトファイルと、使っているライブラリの中身を結び付け、実行ファイルを作ります。</p></li>
 </ol>
 <p>段階を分けて実行することもできます。<code class="docutils literal notranslate"><span class="pre">-c</span></code> は「コンパイルだけを行う」指定です。</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>g++<span class="w"> </span>-std<span class="o">=</span>c++17<span class="w"> </span>-O2<span class="w"> </span>-c<span class="w"> </span>hello.cpp<span class="w"> </span>-o<span class="w"> </span>hello.o<span class="w">   </span><span class="c1"># コンパイル：hello.o ができる</span>
-g++<span class="w"> </span>hello.o<span class="w"> </span>-o<span class="w"> </span>hello<span class="w">                          </span><span class="c1"># リンク：hello ができる</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>g++<span class="w"> </span>-std<span class="o">=</span>c++17<span class="w"> </span>-O2<span class="w"> </span>-c<span class="w"> </span>hello.cpp<span class="w"> </span>-o<span class="w"> </span>hello.o<span class="w">   </span><span class="c1"># compile: produces hello.o</span>
+g++<span class="w"> </span>hello.o<span class="w"> </span>-o<span class="w"> </span>hello<span class="w">                          </span><span class="c1"># link: produces hello</span>
 </pre></div>
 </div>
 <p>ここでの「オブジェクトファイル」はコンパイル結果のファイルを指す用語で、クラスの実体（オブジェクト）とは別の意味です。</p>
@@ -694,7 +694,7 @@ MPI での分割数（<code class="docutils literal notranslate"><span class="pr
 <tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">data/time/time.NNNNNNNN.txt</span></code></p></td>
 <td><p>各出力の時刻、出力番号、ステップ数</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">data/mhd/mhd.&lt;出力番号&gt;.&lt;ランク&gt;.bin</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">data/mhd/mhd.&lt;n_output&gt;.&lt;rank&gt;.bin</span></code></p></td>
 <td><p>各プロセスが担当する領域の MHD の変数（密度、速度、磁場など 9 つ）</p></td>
 </tr>
 </tbody>
@@ -753,7 +753,7 @@ python<span class="w"> </span>plot_data.py
 <span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;miso/core.hpp&gt;</span>
 
 <span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">argc</span><span class="p">,</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">**</span><span class="n">argv</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">  </span><span class="n">miso</span><span class="o">::</span><span class="n">Env</span><span class="w"> </span><span class="n">env</span><span class="p">(</span><span class="n">argc</span><span class="p">,</span><span class="w"> </span><span class="n">argv</span><span class="p">);</span><span class="w">  </span><span class="c1">// MPI を始め、終わりに片付ける</span>
+<span class="w">  </span><span class="n">miso</span><span class="o">::</span><span class="n">Env</span><span class="w"> </span><span class="n">env</span><span class="p">(</span><span class="n">argc</span><span class="p">,</span><span class="w"> </span><span class="n">argv</span><span class="p">);</span><span class="w">  </span><span class="c1">// starts MPI, and cleans up at the end</span>
 
 <span class="w">  </span><span class="k">const</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">100</span><span class="p">;</span>
 <span class="w">  </span><span class="n">miso</span><span class="o">::</span><span class="n">Array1D</span><span class="o">&lt;</span><span class="kt">float</span><span class="p">,</span><span class="w"> </span><span class="n">miso</span><span class="o">::</span><span class="n">backend</span><span class="o">::</span><span class="n">Host</span><span class="o">&gt;</span><span class="w"> </span><span class="n">a</span><span class="p">(</span><span class="n">n</span><span class="p">);</span>

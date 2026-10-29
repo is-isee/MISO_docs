@@ -162,12 +162,12 @@
 <span class="k">public</span><span class="o">:</span>
 <span class="w">  </span><span class="k">explicit</span><span class="w"> </span><span class="n">Simulation</span><span class="p">(</span><span class="kt">double</span><span class="w"> </span><span class="n">tend</span><span class="p">)</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">tend</span><span class="p">(</span><span class="n">tend</span><span class="p">)</span><span class="w"> </span><span class="p">{}</span>
 
-<span class="w">  </span><span class="kt">double</span><span class="w"> </span><span class="n">time</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.0</span><span class="p">;</span><span class="w">  </span><span class="c1">// 現在の時刻</span>
-<span class="w">  </span><span class="kt">double</span><span class="w"> </span><span class="n">tend</span><span class="p">;</span><span class="w">        </span><span class="c1">// 終了時刻</span>
-<span class="w">  </span><span class="kt">int</span><span class="w"> </span><span class="n">n_step</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w">     </span><span class="c1">// 進めたステップ数</span>
+<span class="w">  </span><span class="kt">double</span><span class="w"> </span><span class="n">time</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.0</span><span class="p">;</span><span class="w">  </span><span class="c1">// current time</span>
+<span class="w">  </span><span class="kt">double</span><span class="w"> </span><span class="n">tend</span><span class="p">;</span><span class="w">        </span><span class="c1">// end time</span>
+<span class="w">  </span><span class="kt">int</span><span class="w"> </span><span class="n">n_step</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w">     </span><span class="c1">// number of steps advanced</span>
 
 <span class="k">protected</span><span class="o">:</span>
-<span class="w">  </span><span class="kt">void</span><span class="w"> </span><span class="n">advance</span><span class="p">(</span><span class="kt">double</span><span class="w"> </span><span class="n">dt</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">  </span><span class="c1">// 時刻とステップ数を進めます</span>
+<span class="w">  </span><span class="kt">void</span><span class="w"> </span><span class="n">advance</span><span class="p">(</span><span class="kt">double</span><span class="w"> </span><span class="n">dt</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">  </span><span class="c1">// advances the time and the step count</span>
 <span class="w">    </span><span class="n">time</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">dt</span><span class="p">;</span>
 <span class="w">    </span><span class="o">++</span><span class="n">n_step</span><span class="p">;</span>
 <span class="w">  </span><span class="p">}</span>
@@ -175,13 +175,13 @@
 
 <span class="k">class</span><span class="w"> </span><span class="nc">Decay</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="k">public</span><span class="w"> </span><span class="n">Simulation</span><span class="w"> </span><span class="p">{</span>
 <span class="k">public</span><span class="o">:</span>
-<span class="w">  </span><span class="kt">double</span><span class="w"> </span><span class="n">u</span><span class="p">;</span><span class="w">  </span><span class="c1">// Decay で追加するメンバ</span>
+<span class="w">  </span><span class="kt">double</span><span class="w"> </span><span class="n">u</span><span class="p">;</span><span class="w">  </span><span class="c1">// member added in Decay</span>
 
 <span class="w">  </span><span class="n">Decay</span><span class="p">(</span><span class="kt">double</span><span class="w"> </span><span class="n">tend</span><span class="p">,</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="n">u0</span><span class="p">)</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Simulation</span><span class="p">(</span><span class="n">tend</span><span class="p">),</span><span class="w"> </span><span class="n">u</span><span class="p">(</span><span class="n">u0</span><span class="p">)</span><span class="w"> </span><span class="p">{}</span>
 
 <span class="w">  </span><span class="kt">void</span><span class="w"> </span><span class="n">step</span><span class="p">(</span><span class="kt">double</span><span class="w"> </span><span class="n">dt</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="n">u</span><span class="w"> </span><span class="o">-=</span><span class="w"> </span><span class="n">dt</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">u</span><span class="p">;</span><span class="w">   </span><span class="c1">// du/dt = -u をオイラー法で 1 ステップ進めます</span>
-<span class="w">    </span><span class="n">advance</span><span class="p">(</span><span class="n">dt</span><span class="p">);</span><span class="w">   </span><span class="c1">// 基底クラスの protected な関数を呼べます</span>
+<span class="w">    </span><span class="n">u</span><span class="w"> </span><span class="o">-=</span><span class="w"> </span><span class="n">dt</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">u</span><span class="p">;</span><span class="w">   </span><span class="c1">// advances du/dt = -u by one step with the Euler method</span>
+<span class="w">    </span><span class="n">advance</span><span class="p">(</span><span class="n">dt</span><span class="p">);</span><span class="w">   </span><span class="c1">// can call the protected function of the base class</span>
 <span class="w">  </span><span class="p">}</span>
 <span class="p">};</span>
 </pre></div>
@@ -194,9 +194,9 @@
 <span class="n">d</span><span class="p">.</span><span class="n">step</span><span class="p">(</span><span class="mf">0.125</span><span class="p">);</span>
 <span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">d</span><span class="p">.</span><span class="n">time</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">" "</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">d</span><span class="p">.</span><span class="n">n_step</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">" "</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">d</span><span class="p">.</span><span class="n">u</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">"</span><span class="se">\n</span><span class="s">"</span><span class="p">;</span><span class="w">  </span><span class="c1">// 0.25 2 0.765625</span>
 
-<span class="n">Simulation</span><span class="w"> </span><span class="o">&amp;</span><span class="n">s</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">d</span><span class="p">;</span><span class="w">  </span><span class="c1">// d の Simulation の部分を参照します</span>
+<span class="n">Simulation</span><span class="w"> </span><span class="o">&amp;</span><span class="n">s</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">d</span><span class="p">;</span><span class="w">  </span><span class="c1">// refers to the Simulation part of d</span>
 <span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">s</span><span class="p">.</span><span class="n">time</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">" "</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">s</span><span class="p">.</span><span class="n">tend</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">"</span><span class="se">\n</span><span class="s">"</span><span class="p">;</span><span class="w">                  </span><span class="c1">// 0.25 1</span>
-<span class="c1">// s.u = 2.0;       // エラー：Simulation には u がありません</span>
+<span class="c1">// s.u = 2.0;       // error: Simulation has no u</span>
 </pre></div>
 </div>
 <p><code class="docutils literal notranslate"><span class="pre">d.time</span></code> のように、引き継いだメンバは <code class="docutils literal notranslate"><span class="pre">Decay</span></code> のメンバと同じように使えます。
@@ -259,11 +259,11 @@
 <span class="w">  </span><span class="kt">double</span><span class="w"> </span><span class="n">tend</span><span class="p">;</span>
 <span class="w">  </span><span class="kt">int</span><span class="w"> </span><span class="n">n_step</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
 
-<span class="w">  </span><span class="kt">void</span><span class="w"> </span><span class="nf">update</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">advance</span><span class="p">(</span><span class="mf">0.25</span><span class="p">);</span><span class="w"> </span><span class="p">}</span><span class="w">  </span><span class="c1">// 既定の 1 ステップ：時刻だけを進めます</span>
+<span class="w">  </span><span class="kt">void</span><span class="w"> </span><span class="nf">update</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">advance</span><span class="p">(</span><span class="mf">0.25</span><span class="p">);</span><span class="w"> </span><span class="p">}</span><span class="w">  </span><span class="c1">// default single step: advances only the time</span>
 
 <span class="w">  </span><span class="kt">void</span><span class="w"> </span><span class="nf">run</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="n">time</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">tend</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">      </span><span class="n">update</span><span class="p">();</span><span class="w">  </span><span class="c1">// どの update() が呼ばれるかに注意します</span>
+<span class="w">      </span><span class="n">update</span><span class="p">();</span><span class="w">  </span><span class="c1">// note which update() is called</span>
 <span class="w">    </span><span class="p">}</span>
 <span class="w">  </span><span class="p">}</span>
 
@@ -280,7 +280,7 @@
 
 <span class="w">  </span><span class="n">Decay</span><span class="p">(</span><span class="kt">double</span><span class="w"> </span><span class="n">tend</span><span class="p">,</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="n">u0</span><span class="p">)</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Simulation</span><span class="p">(</span><span class="n">tend</span><span class="p">),</span><span class="w"> </span><span class="n">u</span><span class="p">(</span><span class="n">u0</span><span class="p">)</span><span class="w"> </span><span class="p">{}</span>
 
-<span class="w">  </span><span class="kt">void</span><span class="w"> </span><span class="n">update</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">  </span><span class="c1">// 基底クラスと同じ名前の関数を定義します</span>
+<span class="w">  </span><span class="kt">void</span><span class="w"> </span><span class="n">update</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">  </span><span class="c1">// defines a function with the same name as in the base class</span>
 <span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="n">dt</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.125</span><span class="p">;</span>
 <span class="w">    </span><span class="n">u</span><span class="w"> </span><span class="o">-=</span><span class="w"> </span><span class="n">dt</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">u</span><span class="p">;</span>
 <span class="w">    </span><span class="n">advance</span><span class="p">(</span><span class="n">dt</span><span class="p">);</span>
@@ -289,12 +289,12 @@
 </pre></div>
 </div>
 <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">Decay</span><span class="w"> </span><span class="nf">a</span><span class="p">(</span><span class="mf">1.0</span><span class="p">,</span><span class="w"> </span><span class="mf">1.0</span><span class="p">);</span>
-<span class="n">a</span><span class="p">.</span><span class="n">update</span><span class="p">();</span><span class="w">              </span><span class="c1">// Decay::update() が呼ばれます</span>
-<span class="n">a</span><span class="p">.</span><span class="n">Simulation</span><span class="o">::</span><span class="n">update</span><span class="p">();</span><span class="w">  </span><span class="c1">// 基底クラスの update() を名指しで呼びます</span>
+<span class="n">a</span><span class="p">.</span><span class="n">update</span><span class="p">();</span><span class="w">              </span><span class="c1">// Decay::update() is called</span>
+<span class="n">a</span><span class="p">.</span><span class="n">Simulation</span><span class="o">::</span><span class="n">update</span><span class="p">();</span><span class="w">  </span><span class="c1">// calls the base class update() by name</span>
 <span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="n">time</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">" "</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="n">n_step</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">" "</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="n">u</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">"</span><span class="se">\n</span><span class="s">"</span><span class="p">;</span><span class="w">  </span><span class="c1">// 0.375 2 0.875</span>
 
 <span class="n">Decay</span><span class="w"> </span><span class="nf">b</span><span class="p">(</span><span class="mf">1.0</span><span class="p">,</span><span class="w"> </span><span class="mf">1.0</span><span class="p">);</span>
-<span class="n">b</span><span class="p">.</span><span class="n">run</span><span class="p">();</span><span class="w">                 </span><span class="c1">// run() の中の update() は Simulation::update() です</span>
+<span class="n">b</span><span class="p">.</span><span class="n">run</span><span class="p">();</span><span class="w">                 </span><span class="c1">// update() inside run() is Simulation::update()</span>
 <span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">b</span><span class="p">.</span><span class="n">time</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">" "</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">b</span><span class="p">.</span><span class="n">n_step</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">" "</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">b</span><span class="p">.</span><span class="n">u</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">"</span><span class="se">\n</span><span class="s">"</span><span class="p">;</span><span class="w">  </span><span class="c1">// 1 4 1</span>
 </pre></div>
 </div>
@@ -319,16 +319,16 @@ MISO は CRTP を使っています。比較のため、先に仮想関数を短
 <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">Simulation</span><span class="w"> </span><span class="p">{</span>
 <span class="k">public</span><span class="o">:</span>
 <span class="w">  </span><span class="c1">// ...</span>
-<span class="w">  </span><span class="k">virtual</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="n">update</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">advance</span><span class="p">(</span><span class="mf">0.25</span><span class="p">);</span><span class="w"> </span><span class="p">}</span><span class="w">  </span><span class="c1">// virtual を付けます</span>
-<span class="w">  </span><span class="k">virtual</span><span class="w"> </span><span class="o">~</span><span class="n">Simulation</span><span class="p">()</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">default</span><span class="p">;</span><span class="w">          </span><span class="c1">// virtual なデストラクタを加えます</span>
-<span class="w">  </span><span class="c1">// ...（run() と advance() は同じ）</span>
+<span class="w">  </span><span class="k">virtual</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="n">update</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">advance</span><span class="p">(</span><span class="mf">0.25</span><span class="p">);</span><span class="w"> </span><span class="p">}</span><span class="w">  </span><span class="c1">// add virtual</span>
+<span class="w">  </span><span class="k">virtual</span><span class="w"> </span><span class="o">~</span><span class="n">Simulation</span><span class="p">()</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">default</span><span class="p">;</span><span class="w">          </span><span class="c1">// add a virtual destructor</span>
+<span class="w">  </span><span class="c1">// ... (run() and advance() are the same)</span>
 <span class="p">};</span>
 
 <span class="k">class</span><span class="w"> </span><span class="nc">Decay</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="k">public</span><span class="w"> </span><span class="n">Simulation</span><span class="w"> </span><span class="p">{</span>
 <span class="k">public</span><span class="o">:</span>
 <span class="w">  </span><span class="c1">// ...</span>
-<span class="w">  </span><span class="kt">void</span><span class="w"> </span><span class="n">update</span><span class="p">()</span><span class="w"> </span><span class="k">override</span><span class="w"> </span><span class="p">{</span><span class="w">  </span><span class="c1">// override を付けます</span>
-<span class="w">    </span><span class="c1">// ...（中身は同じ）</span>
+<span class="w">  </span><span class="kt">void</span><span class="w"> </span><span class="n">update</span><span class="p">()</span><span class="w"> </span><span class="k">override</span><span class="w"> </span><span class="p">{</span><span class="w">  </span><span class="c1">// add override</span>
+<span class="w">    </span><span class="c1">// ... (the body is the same)</span>
 <span class="w">  </span><span class="p">}</span>
 <span class="p">};</span>
 </pre></div>
@@ -357,7 +357,7 @@ MISO で必要なのは「demo ごとに、コンパイルするときに決ま�
 <p>5.2 節の問題は、基底クラス <code class="docutils literal notranslate"><span class="pre">Simulation</span></code> が派生クラス <code class="docutils literal notranslate"><span class="pre">Decay</span></code> を知らないことでした。
 それなら、<strong>派生クラスの型を基底クラスに教えれば</strong>、基底クラスの中から派生クラスの関数を呼べます。
 型を後から渡す仕組みには、テンプレート（<a class="reference internal" href="06_templates.html#edu-ch06"><span class="std std-ref">第 6 章</span></a>）を使います。</p>
-<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">class</span><span class="w"> </span><span class="nc">Derived</span><span class="o">&gt;</span><span class="w">  </span><span class="c1">// Derived は、後から指定する派生クラスの型です</span>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">class</span><span class="w"> </span><span class="nc">Derived</span><span class="o">&gt;</span><span class="w">  </span><span class="c1">// Derived is the type of the derived class, specified later</span>
 <span class="k">class</span><span class="w"> </span><span class="nc">Simulation</span><span class="w"> </span><span class="p">{</span>
 <span class="k">public</span><span class="o">:</span>
 <span class="w">  </span><span class="k">explicit</span><span class="w"> </span><span class="n">Simulation</span><span class="p">(</span><span class="kt">double</span><span class="w"> </span><span class="n">tend</span><span class="p">)</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">tend</span><span class="p">(</span><span class="n">tend</span><span class="p">)</span><span class="w"> </span><span class="p">{}</span>
@@ -366,11 +366,11 @@ MISO で必要なのは「demo ごとに、コンパイルするときに決ま�
 <span class="w">  </span><span class="kt">double</span><span class="w"> </span><span class="n">tend</span><span class="p">;</span>
 <span class="w">  </span><span class="kt">int</span><span class="w"> </span><span class="n">n_step</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
 
-<span class="w">  </span><span class="kt">void</span><span class="w"> </span><span class="nf">update</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">advance</span><span class="p">(</span><span class="mf">0.25</span><span class="p">);</span><span class="w"> </span><span class="p">}</span><span class="w">  </span><span class="c1">// 既定の 1 ステップ</span>
+<span class="w">  </span><span class="kt">void</span><span class="w"> </span><span class="nf">update</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">advance</span><span class="p">(</span><span class="mf">0.25</span><span class="p">);</span><span class="w"> </span><span class="p">}</span><span class="w">  </span><span class="c1">// default single step</span>
 
 <span class="w">  </span><span class="kt">void</span><span class="w"> </span><span class="nf">run</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="n">time</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">tend</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">      </span><span class="n">derived</span><span class="p">().</span><span class="n">update</span><span class="p">();</span><span class="w">  </span><span class="c1">// 派生クラスの update() を呼びます</span>
+<span class="w">      </span><span class="n">derived</span><span class="p">().</span><span class="n">update</span><span class="p">();</span><span class="w">  </span><span class="c1">// calls the derived class's update()</span>
 <span class="w">    </span><span class="p">}</span>
 <span class="w">  </span><span class="p">}</span>
 
@@ -380,11 +380,11 @@ MISO で必要なのは「demo ごとに、コンパイルするときに決ま�
 <span class="w">    </span><span class="o">++</span><span class="n">n_step</span><span class="p">;</span>
 <span class="w">  </span><span class="p">}</span>
 
-<span class="w">  </span><span class="c1">// *this を派生クラスの参照として扱います</span>
+<span class="w">  </span><span class="c1">// treats *this as a reference to the derived class</span>
 <span class="w">  </span><span class="n">Derived</span><span class="w"> </span><span class="o">&amp;</span><span class="n">derived</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="k">static_cast</span><span class="o">&lt;</span><span class="n">Derived</span><span class="w"> </span><span class="o">&amp;&gt;</span><span class="p">(</span><span class="o">*</span><span class="k">this</span><span class="p">);</span><span class="w"> </span><span class="p">}</span>
 <span class="p">};</span>
 
-<span class="k">class</span><span class="w"> </span><span class="nc">Decay</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="k">public</span><span class="w"> </span><span class="n">Simulation</span><span class="o">&lt;</span><span class="n">Decay</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span><span class="w">  </span><span class="c1">// 自分自身の型を基底に渡します</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">Decay</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="k">public</span><span class="w"> </span><span class="n">Simulation</span><span class="o">&lt;</span><span class="n">Decay</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span><span class="w">  </span><span class="c1">// passes its own type to the base</span>
 <span class="k">public</span><span class="o">:</span>
 <span class="w">  </span><span class="kt">double</span><span class="w"> </span><span class="n">u</span><span class="p">;</span>
 
@@ -397,18 +397,18 @@ MISO で必要なのは「demo ごとに、コンパイルするときに決ま�
 <span class="w">  </span><span class="p">}</span>
 <span class="p">};</span>
 
-<span class="k">class</span><span class="w"> </span><span class="nc">Clock</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="k">public</span><span class="w"> </span><span class="n">Simulation</span><span class="o">&lt;</span><span class="n">Clock</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span><span class="w">  </span><span class="c1">// update() を定義しません</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">Clock</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="k">public</span><span class="w"> </span><span class="n">Simulation</span><span class="o">&lt;</span><span class="n">Clock</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span><span class="w">  </span><span class="c1">// does not define update()</span>
 <span class="k">public</span><span class="o">:</span>
 <span class="w">  </span><span class="k">explicit</span><span class="w"> </span><span class="n">Clock</span><span class="p">(</span><span class="kt">double</span><span class="w"> </span><span class="n">tend</span><span class="p">)</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Simulation</span><span class="p">(</span><span class="n">tend</span><span class="p">)</span><span class="w"> </span><span class="p">{}</span>
 <span class="p">};</span>
 </pre></div>
 </div>
 <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">Decay</span><span class="w"> </span><span class="nf">d</span><span class="p">(</span><span class="mf">1.0</span><span class="p">,</span><span class="w"> </span><span class="mf">1.0</span><span class="p">);</span>
-<span class="n">d</span><span class="p">.</span><span class="n">run</span><span class="p">();</span><span class="w">  </span><span class="c1">// Decay::update() が 8 回呼ばれます</span>
+<span class="n">d</span><span class="p">.</span><span class="n">run</span><span class="p">();</span><span class="w">  </span><span class="c1">// Decay::update() is called 8 times</span>
 <span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">d</span><span class="p">.</span><span class="n">time</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">" "</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">d</span><span class="p">.</span><span class="n">n_step</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">" "</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">d</span><span class="p">.</span><span class="n">u</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">"</span><span class="se">\n</span><span class="s">"</span><span class="p">;</span><span class="w">  </span><span class="c1">// 1 8 0.343609</span>
 
 <span class="n">Clock</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="mf">1.0</span><span class="p">);</span>
-<span class="n">c</span><span class="p">.</span><span class="n">run</span><span class="p">();</span><span class="w">  </span><span class="c1">// 基底の update() が 4 回呼ばれます</span>
+<span class="n">c</span><span class="p">.</span><span class="n">run</span><span class="p">();</span><span class="w">  </span><span class="c1">// the base update() is called 4 times</span>
 <span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">c</span><span class="p">.</span><span class="n">time</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">" "</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">c</span><span class="p">.</span><span class="n">n_step</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">"</span><span class="se">\n</span><span class="s">"</span><span class="p">;</span><span class="w">                </span><span class="c1">// 1 4</span>
 </pre></div>
 </div>
@@ -488,7 +488,7 @@ MISO の demo は、1 つの実行ファイルで 1 つの問題を解くので�
 <span class="w">      </span><span class="o">:</span><span class="w"> </span><span class="n">config</span><span class="p">(</span><span class="n">cfg</span><span class="p">),</span><span class="w"> </span><span class="n">mpi_shape</span><span class="p">(</span><span class="n">cfg</span><span class="p">),</span><span class="w"> </span><span class="n">time</span><span class="p">(</span><span class="n">cfg</span><span class="p">),</span><span class="w"> </span><span class="n">grid</span><span class="p">(</span><span class="n">cfg</span><span class="p">,</span><span class="w"> </span><span class="n">mpi_shape</span><span class="p">),</span>
 <span class="w">        </span><span class="n">exec_ctx</span><span class="p">(</span><span class="n">mpi_shape</span><span class="p">,</span><span class="w"> </span><span class="n">grid</span><span class="p">),</span><span class="w"> </span><span class="n">mhd</span><span class="p">(</span><span class="n">cfg</span><span class="p">,</span><span class="w"> </span><span class="n">grid</span><span class="p">,</span><span class="w"> </span><span class="n">exec_ctx</span><span class="p">)</span><span class="w"> </span><span class="p">{}</span>
 
-<span class="w">  </span><span class="c1">// ...（update(), save_metadata(), save_state(), load_state(), save_if_needed()）</span>
+<span class="w">  </span><span class="c1">// ... (update(), save_metadata(), save_state(), load_state(), save_if_needed())</span>
 
 <span class="w">  </span><span class="kt">void</span><span class="w"> </span><span class="n">run</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="c1">// Ensure to call methods in the derived class</span>
@@ -497,7 +497,7 @@ MISO の demo は、1 つの実行ファイルで 1 つの問題を解くので�
 <span class="w">    </span><span class="c1">// Assert that d has eos, ic, bc, and src as member variables.</span>
 <span class="w">    </span><span class="k">static_assert</span><span class="p">(</span><span class="n">has_eos</span><span class="o">&lt;</span><span class="n">Derived</span><span class="o">&gt;::</span><span class="n">value</span><span class="p">,</span>
 <span class="w">                  </span><span class="s">"Derived must have member variable 'eos'."</span><span class="p">);</span>
-<span class="w">    </span><span class="c1">// ...（ic, bc, src についても同じ検査）</span>
+<span class="w">    </span><span class="c1">// ... (the same check for ic, bc, and src)</span>
 
 <span class="w">    </span><span class="n">mhd</span><span class="p">.</span><span class="n">apply_initial_condition</span><span class="p">(</span><span class="n">d</span><span class="p">.</span><span class="n">ic</span><span class="p">,</span><span class="w"> </span><span class="n">d</span><span class="p">.</span><span class="n">bc</span><span class="p">);</span>
 <span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">config</span><span class="p">[</span><span class="s">"io"</span><span class="p">][</span><span class="s">"continue"</span><span class="p">].</span><span class="k">template</span><span class="w"> </span><span class="n">as</span><span class="o">&lt;</span><span class="kt">bool</span><span class="o">&gt;</span><span class="p">()</span><span class="w"> </span><span class="o">&amp;&amp;</span>
@@ -620,9 +620,9 @@ MISO の demo は、1 つの実行ファイルで 1 つの問題を解くので�
 <span class="w">  </span><span class="c1">/// @details The derived class may provide its own `update()` method.</span>
 <span class="w">  </span><span class="kt">void</span><span class="w"> </span><span class="nf">update</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="k">auto</span><span class="w"> </span><span class="o">&amp;</span><span class="n">d</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">derived</span><span class="p">();</span>
-<span class="w">    </span><span class="c1">// ...（ソース項の型を調べる準備と検査）</span>
+<span class="w">    </span><span class="c1">// ... (preparation and checks for detecting the source term type)</span>
 <span class="w">    </span><span class="k">auto</span><span class="w"> </span><span class="n">dt</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">mhd</span><span class="p">.</span><span class="n">cfl</span><span class="p">(</span><span class="n">d</span><span class="p">.</span><span class="n">eos</span><span class="p">);</span>
-<span class="w">    </span><span class="c1">// ...（ソース項が時間刻みの上限 dt_limit() を持てば、dt をそれ以下にします）</span>
+<span class="w">    </span><span class="c1">// ... (if the source term has the time step upper limit dt_limit(), limits dt to at most that)</span>
 <span class="w">    </span><span class="n">mhd</span><span class="p">.</span><span class="n">update</span><span class="p">(</span><span class="n">dt</span><span class="p">,</span><span class="w"> </span><span class="n">d</span><span class="p">.</span><span class="n">eos</span><span class="p">,</span><span class="w"> </span><span class="n">d</span><span class="p">.</span><span class="n">bc</span><span class="p">,</span><span class="w"> </span><span class="n">d</span><span class="p">.</span><span class="n">src</span><span class="p">);</span>
 <span class="w">    </span><span class="n">time</span><span class="p">.</span><span class="n">update</span><span class="p">(</span><span class="n">dt</span><span class="p">);</span>
 <span class="w">  </span><span class="p">}</span>
@@ -694,7 +694,7 @@ MISO の demo は、1 つの実行ファイルで 1 つの問題を解くので�
 <summary>解答・解説</summary>
 <p><code class="docutils literal notranslate"><span class="pre">Model</span></code> に次の関数を加えます（表示に <code class="docutils literal notranslate"><span class="pre">std::cout</span></code> を使うので、<code class="docutils literal notranslate"><span class="pre">#include</span> <span class="pre">&lt;iostream&gt;</span></code> も加えます）。</p>
 <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="w">  </span><span class="kt">void</span><span class="w"> </span><span class="nf">update</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="n">ModelBase</span><span class="o">::</span><span class="n">update</span><span class="p">();</span><span class="w">  </span><span class="c1">// 既定の 1 ステップ（dt の計算、MHD の更新、時刻）</span>
+<span class="w">    </span><span class="n">ModelBase</span><span class="o">::</span><span class="n">update</span><span class="p">();</span><span class="w">  </span><span class="c1">// default single step (computes dt, updates MHD, advances time)</span>
 <span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">time</span><span class="p">.</span><span class="n">n_step</span><span class="w"> </span><span class="o">%</span><span class="w"> </span><span class="mi">10</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
 <span class="w">      </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">"n_step = "</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">time</span><span class="p">.</span><span class="n">n_step</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">", time = "</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">time</span><span class="p">.</span><span class="n">time</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">"</span><span class="se">\n</span><span class="s">"</span><span class="p">;</span>
 <span class="w">    </span><span class="p">}</span>

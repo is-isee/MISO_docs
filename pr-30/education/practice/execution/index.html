@@ -187,7 +187,7 @@ CPU のビルドでは <code class="docutils literal notranslate"><span class="p
 GPU に置いた配列は、CPU のループから直接読めません。
 結果を確かめるときは、<code class="docutils literal notranslate"><span class="pre">Array1D&lt;double,</span> <span class="pre">backend::Host&gt;</span></code> を別に用意し、<code class="docutils literal notranslate"><span class="pre">copy_from</span></code> で写してから読みます。</p>
 <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">Array1D</span><span class="o">&lt;</span><span class="kt">double</span><span class="p">,</span><span class="w"> </span><span class="n">backend</span><span class="o">::</span><span class="n">Host</span><span class="o">&gt;</span><span class="w"> </span><span class="n">h</span><span class="p">(</span><span class="n">n</span><span class="p">);</span>
-<span class="n">h</span><span class="p">.</span><span class="n">copy_from</span><span class="p">(</span><span class="n">z</span><span class="p">);</span><span class="w">  </span><span class="c1">// z の要素を h へ写す</span>
+<span class="n">h</span><span class="p">.</span><span class="n">copy_from</span><span class="p">(</span><span class="n">z</span><span class="p">);</span><span class="w">  </span><span class="c1">// copy the elements of z to h</span>
 </pre></div>
 </div>
 <p>CPU のビルドでは <code class="docutils literal notranslate"><span class="pre">z</span></code> もホスト側にあるので、<code class="docutils literal notranslate"><span class="pre">copy_from</span></code> はただのコピーです。

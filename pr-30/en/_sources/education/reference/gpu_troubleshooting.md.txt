@@ -54,9 +54,9 @@ CPU ビルドでは正しく動き、HMM が有効な一部の GPU 環境でも�
 第 9 章 5.1 の例では、表示が次のように変わりました。
 
 ```text
-# そのまま実行
+# run as is
 CUDA Error: an illegal memory access was encountered .../miso/include/miso/array1d.hpp 109
-# CUDA_LAUNCH_BLOCKING=1 を付けて実行
+# run with CUDA_LAUNCH_BLOCKING=1
 CUDA Error: an illegal memory access was encountered .../miso/include/miso/execution.hpp 91
 ```
 
@@ -67,7 +67,7 @@ CUDA Error: an illegal memory access was encountered .../miso/include/miso/execu
 
 ```bash
 compute-sanitizer ./this_capture
-mpiexec -np 2 compute-sanitizer ./build/mhd2d_vortex --config=config.yaml   # MPI の場合
+mpiexec -np 2 compute-sanitizer ./build/mhd2d_vortex --config=config.yaml   # with MPI
 ```
 
 第 9 章 5.1 の例での表示（抜粋）です。

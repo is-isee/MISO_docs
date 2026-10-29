@@ -177,7 +177,7 @@ Ubuntu・Mac の CPU だけで、課題 1・2 と、課題 3 の CPU 用ビル�
 <code class="docutils literal notranslate"><span class="pre">main(int</span> <span class="pre">argc,</span> <span class="pre">char</span> <span class="pre">**argv)</span></code> の <code class="docutils literal notranslate"><span class="pre">argv[1]</span></code> を <code class="docutils literal notranslate"><span class="pre">std::atoi</span></code>、<code class="docutils literal notranslate"><span class="pre">argv[2]</span></code> を <code class="docutils literal notranslate"><span class="pre">std::atof</span></code>（<code class="docutils literal notranslate"><span class="pre">&lt;cstdlib&gt;</span></code>）で数に直します。</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./heat1d_serial<span class="w">          </span><span class="c1"># N = 64, r_max = 0.4</span>
 ./heat1d_serial<span class="w"> </span><span class="m">128</span><span class="w">      </span><span class="c1"># N = 128</span>
-./heat1d_serial<span class="w"> </span><span class="m">64</span><span class="w"> </span><span class="m">0</span>.6<span class="w">   </span><span class="c1"># 安定条件を超える r で試す</span>
+./heat1d_serial<span class="w"> </span><span class="m">64</span><span class="w"> </span><span class="m">0</span>.6<span class="w">   </span><span class="c1"># try an r that exceeds the stability condition</span>
 </pre></div>
 </div>
 <p>各課題のプログラムは、最後に次を表示します。</p>

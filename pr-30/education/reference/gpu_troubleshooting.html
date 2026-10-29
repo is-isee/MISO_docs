@@ -221,9 +221,9 @@ CPU ビルドでは正しく動き、HMM が有効な一部の GPU 環境でも�
 <p><strong>環境変数 <code class="docutils literal notranslate"><span class="pre">CUDA_LAUNCH_BLOCKING=1</span></code></strong> を付けて実行すると、カーネルの起動が終了まで待つようになり、
 起動直後の <code class="docutils literal notranslate"><span class="pre">MISO_CUDA_CHECK(cudaGetLastError())</span></code> でエラーが報告されます。
 第 9 章 5.1 の例では、表示が次のように変わりました。</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span># そのまま実行
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span># run as is
 CUDA Error: an illegal memory access was encountered .../miso/include/miso/array1d.hpp 109
-# CUDA_LAUNCH_BLOCKING=1 を付けて実行
+# run with CUDA_LAUNCH_BLOCKING=1
 CUDA Error: an illegal memory access was encountered .../miso/include/miso/execution.hpp 91
 </pre></div>
 </div>
@@ -231,7 +231,7 @@ CUDA Error: an illegal memory access was encountered .../miso/include/miso/execu
 さらに、<code class="docutils literal notranslate"><span class="pre">for_each</span></code> を呼んだ場所を調べるには、自分のコードの <code class="docutils literal notranslate"><span class="pre">for_each</span></code> の直後に <code class="docutils literal notranslate"><span class="pre">MISO_CUDA_CHECK(cudaDeviceSynchronize());</span></code> を一時的に足して範囲を狭めます。</p>
 <p><strong><code class="docutils literal notranslate"><span class="pre">compute-sanitizer</span></code></strong>（CUDA Toolkit に含まれる）で実行すると、不正な読み書きをしたカーネルとスレッドが表示されます。</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>compute-sanitizer<span class="w"> </span>./this_capture
-mpiexec<span class="w"> </span>-np<span class="w"> </span><span class="m">2</span><span class="w"> </span>compute-sanitizer<span class="w"> </span>./build/mhd2d_vortex<span class="w"> </span>--config<span class="o">=</span>config.yaml<span class="w">   </span><span class="c1"># MPI の場合</span>
+mpiexec<span class="w"> </span>-np<span class="w"> </span><span class="m">2</span><span class="w"> </span>compute-sanitizer<span class="w"> </span>./build/mhd2d_vortex<span class="w"> </span>--config<span class="o">=</span>config.yaml<span class="w">   </span><span class="c1"># with MPI</span>
 </pre></div>
 </div>
 <p>第 9 章 5.1 の例での表示（抜粋）です。</p>

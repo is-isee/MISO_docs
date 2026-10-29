@@ -117,15 +117,15 @@ Fortran で書いていた処理を、C++ と MISO でどう書くかを引く�
 次の短いプログラムは、MISO の `Array3D` で要素がメモリの先頭から何番目にあるかを表示します（説明用の例）。
 
 ```cpp
-// order.cpp: Array3D のメモリ上の並びを確かめる
+// order.cpp: check the memory layout of Array3D
 #include <iostream>
 
 #include <miso/array3d.hpp>
 
 int main() {
   miso::Array3D<double> a(2, 3, 4);  // a(i, j, k): i < 2, j < 3, k < 4
-  const double *p = a.data();       // 先頭の要素のアドレス
-  // 要素のアドレスと先頭のアドレスの差 = 先頭から何番目か
+  const double *p = a.data();       // address of the first element
+  // difference between an element's address and the first address = offset from the start
   std::cout << "a(0,0,1): " << &a(0, 0, 1) - p << "\n";
   std::cout << "a(0,1,0): " << &a(0, 1, 0) - p << "\n";
   std::cout << "a(1,0,0): " << &a(1, 0, 0) - p << "\n";

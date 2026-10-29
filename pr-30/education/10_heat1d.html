@@ -276,9 +276,9 @@ MISO で解く MHD の問題では、多くの場合このような解はあり�
 そこで配列の両端に 1 つずつ余分なセルを足し、そこに境界条件から決まる値を入れておきます。
 この余分なセルを <strong>ゴーストセル</strong>（ghost cell）と呼びます。MISO の格子も、同じ考え方で <code class="docutils literal notranslate"><span class="pre">i_margin</span></code> 個のゴーストセルを持ちます（<a class="reference internal" href="08_mpi.html#edu-ch08"><span class="std std-ref">第 8 章</span></a>）。</p>
 <p>配列の添字は次のようにします。C++ の配列は 0 始まりなので、物理セル <span class="math notranslate nohighlight">\(j\)</span> は配列の添字 <code class="docutils literal notranslate"><span class="pre">i</span> <span class="pre">=</span> <span class="pre">j</span> <span class="pre">+</span> <span class="pre">1</span></code> に入ります。</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>配列の添字 i :   0  |  1   2   ...   N  |  N+1
-               ghost|   物理セル N 個     | ghost
-物理セル   j :      |  0   1   ...  N-1  |
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>array index i :  0  |  1   2   ...   N  |  N+1
+               ghost|  N physical cells | ghost
+cell index j :      |  0   1   ...  N-1  |
 </pre></div>
 </div>
 <p>ゴーストセルの値を先に入れておけば、物理セルの更新は、すべて同じ式</p>
@@ -551,9 +551,9 @@ MPI の基本（ランク、<code class="docutils literal notranslate"><span cla
 <h3>各ランクの格子<a class="headerlink" href="#id20" title="Link to this heading"></a></h3>
 <p>全体のセル数 <span class="math notranslate nohighlight">\(N\)</span> を <span class="math notranslate nohighlight">\(P\)</span> ランクで等分し、各ランクは <span class="math notranslate nohighlight">\(n = N/P\)</span> 個の物理セルを持ちます（<span class="math notranslate nohighlight">\(N\)</span> が <span class="math notranslate nohighlight">\(P\)</span> で割り切れる場合だけを扱います）。
 ランク <span class="math notranslate nohighlight">\(p\)</span> の配列は <code class="docutils literal notranslate"><span class="pre">n</span> <span class="pre">+</span> <span class="pre">2</span></code> 要素で、ローカルな添字 <code class="docutils literal notranslate"><span class="pre">i</span></code>（1〜<code class="docutils literal notranslate"><span class="pre">n</span></code>）の物理セルは、全体の番号 <span class="math notranslate nohighlight">\(j = p\,n + (i - 1)\)</span> にあたります。</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>全体（N = 8, P = 2）:   j = 0 1 2 3 | 4 5 6 7
-ランク 0 の配列      :  [g] 0 1 2 3 [g]      g はゴーストセル
-ランク 1 の配列      :          [g] 4 5 6 7 [g]
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>overall (N = 8, P = 2): j = 0 1 2 3 | 4 5 6 7
+rank 0 array          :  [g] 0 1 2 3 [g]      g is a ghost cell
+rank 1 array          :           [g] 4 5 6 7 [g]
 </pre></div>
 </div>
 <p>初期条件の <span class="math notranslate nohighlight">\(x_j\)</span> は、全体の番号 <span class="math notranslate nohighlight">\(j\)</span> から逐次版と同じ式 <span class="math notranslate nohighlight">\(x_j = (j + 1/2)\Delta x\)</span> で求めます。
@@ -598,7 +598,7 @@ MPI の基本（ランク、<code class="docutils literal notranslate"><span cla
 全体の最大誤差は、それらの最大値です。<code class="docutils literal notranslate"><span class="pre">MPI_Allreduce</span></code> に <code class="docutils literal notranslate"><span class="pre">MPI_MAX</span></code> を指定して求めます。</p>
 <p>ファイルに書き出すときは、<code class="docutils literal notranslate"><span class="pre">MPI_Gather</span></code> で全ランクの物理セルをランク 0 に集めます。
 各ランクが同じ個数（<span class="math notranslate nohighlight">\(n\)</span> 個）を送ると、ランク 0 の受信用の配列にランク番号の順に並ぶので、全体の番号 <span class="math notranslate nohighlight">\(j\)</span> の順になります。</p>
-<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="c1">// 引数: 送る場所, 送る個数, 型, 受け取る場所, 1 ランクから受け取る個数, 型, 受け取るランク, コミュニケータ</span>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="c1">// args: send buffer, send count, type, receive buffer, receive count per rank, type, source rank, communicator</span>
 <span class="n">MPI_Gather</span><span class="p">(</span><span class="o">&amp;</span><span class="n">u</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span><span class="w"> </span><span class="n">n</span><span class="p">,</span><span class="w"> </span><span class="n">MPI_DOUBLE</span><span class="p">,</span><span class="w"> </span><span class="n">u_all</span><span class="p">.</span><span class="n">data</span><span class="p">(),</span><span class="w"> </span><span class="n">n</span><span class="p">,</span><span class="w"> </span><span class="n">MPI_DOUBLE</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="n">comm</span><span class="p">);</span>
 </pre></div>
 </div>
@@ -692,7 +692,7 @@ MISO 本体でも同じことをしています。<code class="docutils literal 
 <p><strong>練習 10.5</strong> 次の構造体のメンバ関数を GPU 版でビルドして実行すると、<code class="docutils literal notranslate"><span class="pre">illegal</span> <span class="pre">memory</span> <span class="pre">access</span></code> で止まります（説明用の例です）。
 原因の行を挙げ、直し方を説明してください。</p>
 <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">struct</span><span class="w"> </span><span class="nc">Boundary</span><span class="w"> </span><span class="p">{</span>
-<span class="w">  </span><span class="kt">int</span><span class="w"> </span><span class="n">n</span><span class="p">;</span><span class="w">  </span><span class="c1">// 物理セル数</span>
+<span class="w">  </span><span class="kt">int</span><span class="w"> </span><span class="n">n</span><span class="p">;</span><span class="w">  </span><span class="c1">// number of physical cells</span>
 <span class="w">  </span><span class="kt">void</span><span class="w"> </span><span class="nf">apply</span><span class="p">(</span><span class="n">Array1D</span><span class="o">&lt;</span><span class="n">Real</span><span class="p">,</span><span class="w"> </span><span class="n">Backend</span><span class="o">&gt;</span><span class="w"> </span><span class="o">&amp;</span><span class="n">u</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="k">auto</span><span class="w"> </span><span class="n">uv</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">u</span><span class="p">.</span><span class="n">view</span><span class="p">();</span>
 <span class="w">    </span><span class="n">for_each</span><span class="p">(</span><span class="n">Backend</span><span class="p">{},</span><span class="w"> </span><span class="n">Range1D</span><span class="p">{</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">},</span><span class="w"> </span><span class="n">MISO_LAMBDA</span><span class="p">(</span><span class="kt">int</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>

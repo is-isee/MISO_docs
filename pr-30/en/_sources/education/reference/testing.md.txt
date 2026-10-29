@@ -169,10 +169,10 @@ doctest のヘッダは、MISO のテストをビルドしたフォルダの `_d
 TEST_CASE("Sum of 0.1f" * doctest::test_suite("example")) {
   float s = 0.0f;
   for (int i = 0; i < 10; ++i) {
-    s += 0.1f;  // 0.1 を 10 回足す
+    s += 0.1f;  // add 0.1 ten times
   }
-  CHECK(s == doctest::Approx(1.0));  // 相対 1e-5 程度まで近ければ成功
-  CHECK(s == 1.0f);                  // ビット単位で同じなら成功
+  CHECK(s == doctest::Approx(1.0));  // passes if close to within about 1e-5 relative
+  CHECK(s == 1.0f);                  // passes only if bitwise identical
 }
 ```
 
@@ -277,7 +277,7 @@ diff -rq run_a/data run_b/data
 何も表示されなければ、すべての出力がビット単位で同一です。
 
 ビット単位の比較は、出力の並びが同じときだけ使えます。
-MPI の分割数や分割方向を変えると、各ランクのファイル（`mhd.<出力番号>.<ランク>.bin`）が受け持つ範囲が変わるので、
+MPI の分割数や分割方向を変えると、各ランクのファイル（`mhd.<n_output>.<rank>.bin`）が受け持つ範囲が変わるので、
 中身の値が同じでもファイルは一致しません。その場合は、次のように全体の配列に組み立ててから比べます。
 
 ### 全体の配列で比べる（pymiso）
@@ -296,7 +296,7 @@ import pymiso
 dir_a, dir_b = sys.argv[1], sys.argv[2]
 a = pymiso.Data(data_dir=dir_a)
 b = pymiso.Data(data_dir=dir_b)
-n = min(a.n_output, b.n_output)  # 両方にある最後の出力
+n = min(a.n_output, b.n_output)  # last output present in both
 a.load(n)
 b.load(n)
 print(f"n_output = {n}, time = {a.time.time:.6g}, {b.time.time:.6g}")
@@ -304,9 +304,9 @@ print(f"n_output = {n}, time = {a.time.time:.6g}, {b.time.time:.6g}")
 for var in ["ro", "vx", "vy", "vz", "bx", "by", "bz", "ei"]:
     qa = getattr(a, var).astype(np.float64)
     qb = getattr(b, var).astype(np.float64)
-    scale = np.max(np.abs(qa))  # 代表値（最大の大きさ）で割る
+    scale = np.max(np.abs(qa))  # divide by a representative value (the maximum magnitude)
     if scale == 0.0:
-        print(f"{var}: 両方 0 の変数です")
+        print(f"{var}: variable is 0 in both")
         continue
     err = np.max(np.abs(qa - qb)) / scale
     print(f"{var}: max|a-b|/max|a| = {err:.3e}")

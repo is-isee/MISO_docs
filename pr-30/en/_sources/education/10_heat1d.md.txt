@@ -157,9 +157,9 @@ $r_\mathrm{max} = 0.6$ では $n_\mathrm{steps} = 683$、$r \approx 0.5997$ に�
 配列の添字は次のようにします。C++ の配列は 0 始まりなので、物理セル $j$ は配列の添字 `i = j + 1` に入ります。
 
 ```text
-配列の添字 i :   0  |  1   2   ...   N  |  N+1
-               ghost|   物理セル N 個     | ghost
-物理セル   j :      |  0   1   ...  N-1  |
+array index i :  0  |  1   2   ...   N  |  N+1
+               ghost|  N physical cells | ghost
+cell index j :      |  0   1   ...  N-1  |
 ```
 
 ゴーストセルの値を先に入れておけば、物理セルの更新は、すべて同じ式
@@ -413,9 +413,9 @@ MPI の基本（ランク、`MPI_Sendrecv`、`MPI_Allreduce`）は {ref}`第 8 �
 ランク $p$ の配列は `n + 2` 要素で、ローカルな添字 `i`（1〜`n`）の物理セルは、全体の番号 $j = p\,n + (i - 1)$ にあたります。
 
 ```text
-全体（N = 8, P = 2）:   j = 0 1 2 3 | 4 5 6 7
-ランク 0 の配列      :  [g] 0 1 2 3 [g]      g はゴーストセル
-ランク 1 の配列      :          [g] 4 5 6 7 [g]
+overall (N = 8, P = 2): j = 0 1 2 3 | 4 5 6 7
+rank 0 array          :  [g] 0 1 2 3 [g]      g is a ghost cell
+rank 1 array          :           [g] 4 5 6 7 [g]
 ```
 
 初期条件の $x_j$ は、全体の番号 $j$ から逐次版と同じ式 $x_j = (j + 1/2)\Delta x$ で求めます。
@@ -454,7 +454,7 @@ $\Delta x$、$\Delta t$、$n_\mathrm{steps}$ も全体の $N$ から決め、ラ
 各ランクが同じ個数（$n$ 個）を送ると、ランク 0 の受信用の配列にランク番号の順に並ぶので、全体の番号 $j$ の順になります。
 
 ```cpp
-// 引数: 送る場所, 送る個数, 型, 受け取る場所, 1 ランクから受け取る個数, 型, 受け取るランク, コミュニケータ
+// args: send buffer, send count, type, receive buffer, receive count per rank, type, source rank, communicator
 MPI_Gather(&u[1], n, MPI_DOUBLE, u_all.data(), n, MPI_DOUBLE, 0, comm);
 ```
 
@@ -565,7 +565,7 @@ MISO 本体でも同じことをしています。`miso/include/miso/mhd_integra
 
 ```cpp
 struct Boundary {
-  int n;  // 物理セル数
+  int n;  // number of physical cells
   void apply(Array1D<Real, Backend> &u) {
     auto uv = u.view();
     for_each(Backend{}, Range1D{0, 1}, MISO_LAMBDA(int) {
