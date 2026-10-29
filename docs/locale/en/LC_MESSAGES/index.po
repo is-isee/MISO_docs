@@ -26,10 +26,10 @@ msgid "MISO documentation"
 msgstr ""
 
 msgid "MISO (Mhd ISee Open source code)は、磁気流体力学(MHD)シミュレーションを実行するためのオープンソースソフトウェアです。"
-msgstr ""
+msgstr "MISO (Mhd ISee Open source code) is open-source software for magnetohydrodynamic (MHD) simulations."
 
 msgid "名古屋大学宇宙地球環境研究所(ISEE) 総合解析研究部(Integrated Studies Division)/CIDASを中心に開発されています。"
-msgstr ""
+msgstr "It is developed mainly by the Integrated Studies Division / CIDAS, Institute for Space-Earth Environmental Research (ISEE), Nagoya University."
 
 msgid "Last update : |today|"
 msgstr ""

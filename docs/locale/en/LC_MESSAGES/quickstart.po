@@ -23,13 +23,13 @@ msgid "Quick Start"
 msgstr ""
 
 msgid "本セクションでは、MISOのインストール方法と使用方法の概要を説明します。"
-msgstr ""
+msgstr "This section gives an overview of how to install and use MISO."
 
 msgid "Installation"
 msgstr ""
 
 msgid "MISOはGitHub (<https://github.com/is-isee/MISO>) で入手できます。リポジトリをクローンするには、次のコマンドを使用します。"
-msgstr ""
+msgstr "MISO is available on GitHub (<https://github.com/is-isee/MISO>). To clone the repository, run the following command."
 
 msgid "Usage"
 msgstr ""
@@ -38,37 +38,37 @@ msgid "CPU version"
 msgstr ""
 
 msgid "MISOのコンパイルにはCMakeを用います。 例えば、2D Orszag-Tang渦問題を実行してみましょう。"
-msgstr ""
+msgstr "MISO is compiled with CMake. As an example, let us run the 2D Orszag-Tang vortex problem."
 
 msgid "これで、実行ファイル build/mhd2d_vortex が生成されます。"
-msgstr ""
+msgstr "This produces the executable build/mhd2d_vortex."
 
 msgid "2D Orszag-Tang渦問題は以下のように実行することができます。"
-msgstr ""
+msgstr "The 2D Orszag-Tang vortex problem can be run as follows."
 
 msgid "MPIを使用している場合、適切な環境変数・オプションを要求されることがあります。OpenMPIを使用している場合には、自動で環境変数を設定したうえで上記のコマンドを実行するシェルスクリプトが demo/mhd2d_vortex/app_run.sh に用意されています。"
-msgstr ""
+msgstr "With MPI, appropriate environment variables and options may be required. For Open MPI, the shell script demo/mhd2d_vortex/app_run.sh sets the environment variables automatically and runs the command above."
 
 msgid "demo/mhd2d_vortex/data にシミュレーション結果が保存されます。 途中で計算を停止した場合でも、保存されたデータから再開されます。計算を最初からやり直すには、 demo/mhd2d_vortex/data/ ディレクトリを削除してください。以下のようにしてもデータを削除することができます。"
-msgstr ""
+msgstr "The simulation results are saved in demo/mhd2d_vortex/data. If the run is stopped partway, it resumes from the saved data. To restart the run from the beginning, delete the demo/mhd2d_vortex/data/ directory. You can also delete the data as follows."
 
 msgid "シミュレーションパラメータは、 demo/mhd2d_vortex/config.yaml ファイルを編集することで制御できます。例えば、格子点数は次のように変更できます。"
-msgstr ""
+msgstr "The simulation parameters are controlled by editing demo/mhd2d_vortex/config.yaml. For example, the number of grid points can be changed as follows."
 
 msgid "CUDA version"
 msgstr ""
 
 msgid "CUDA版の実行には、NVIDIA HPC SDKが必要です。 CUDA版をコンパイルする場合は、CMakeのオプションで `-DUSE_CUDA=ON` を指定します。"
-msgstr ""
+msgstr "The CUDA version requires the NVIDIA HPC SDK. To compile the CUDA version, pass the CMake option `-DUSE_CUDA=ON`."
 
 msgid "実行ファイル build/mhd2d_vortex やその実行方法はCPU版と同様です。 実行時に必要なオプションや環境変数の設定方法が環境により変わる場合があるため、以下は例として参考にしてください。"
-msgstr ""
+msgstr "The executable build/mhd2d_vortex and how to run it are the same as for the CPU version. The required runtime options and environment variables may depend on your environment, so treat the following as an example."
 
 msgid "GPU版で複数のプロセスを使用する場合は、オプションとして \"--map-by ppr:N:node\" (N は 1 ノードあたりのプロセス数) や \"-x CUDA_VISIBLE_DEVICES=M,L,...\" (M, L, ... は各ノードで利用可能とする CUDA デバイス番号) などを指定することを推奨します。例えば、 2 ノード、ノード当たり 2 プロセス、各プロセスが 1 CUDA デバイスを使用し、合計 4 プロセスで実行する場合は、次のようになります。"
-msgstr ""
+msgstr "When running the GPU version with multiple processes, we recommend options such as \"--map-by ppr:N:node\" (N is the number of processes per node) and \"-x CUDA_VISIBLE_DEVICES=M,L,...\" (M, L, ... are the CUDA device numbers available on each node). For example, to run 4 processes in total on 2 nodes with 2 processes per node and 1 CUDA device per process:"
 
 msgid "なお、設定ファイルは、`demo/mhd2d_vortex/config.yaml`に配置されています。 1次元衝撃波管(`demo/hd1d_shock_tube`, `demo/mhd1d_shock_tube`)の問題の場合は、`x`, `y`, `z`の各方向の設定ファイルがそれぞれ以下の配置されています。"
-msgstr ""
+msgstr "The configuration file is `demo/mhd2d_vortex/config.yaml`. For the 1D shock tube problems (`demo/hd1d_shock_tube`, `demo/mhd1d_shock_tube`), there is a configuration file for each of the `x`, `y`, and `z` directions:"
 
 msgid "`demo/hd1d_shock_tube/config/config_x.yaml`"
 msgstr ""
@@ -80,23 +80,23 @@ msgid "`demo/hd1d_shock_tube/config/config_z.yaml`"
 msgstr ""
 
 msgid "ファイルを指定する場合は、実行時にコマンドライン引数を利用してください。"
-msgstr ""
+msgstr "To choose a file, pass it as a command-line argument at run time."
 
 msgid "デフォルトでは`x`方向が指定されています。"
-msgstr ""
+msgstr "The `x` direction is used by default."
 
 msgid "Python module pymiso"
 msgstr ""
 
 msgid "MISOでは、解析のためのPythonモジュールを提供しています。リポジトリのルートディレクトリで、以下のようにしてインストールしてください。"
-msgstr ""
+msgstr "MISO provides a Python module for analysis. Install it from the root directory of the repository as follows."
 
 msgid "シミュレーション結果は以下のように読み込むことができます。"
-msgstr ""
+msgstr "The simulation results can be read as follows."
 
 msgid "各デモ問題には可視化用のスクリプトが含まれています。例えば、2D Orszag-Tang渦問題の結果を可視化するには、 demo/mhd2d_vortex/plot_data.py を実行します。"
-msgstr ""
+msgstr "Each demo problem includes a visualization script. For example, to visualize the results of the 2D Orszag-Tang vortex problem, run demo/mhd2d_vortex/plot_data.py."
 
 msgid "実行後、シミュレーション結果の画像ファイルが demo/mhd2d_vortex/figs に保存されます。"
-msgstr ""
+msgstr "The resulting image files are saved in demo/mhd2d_vortex/figs."
 
