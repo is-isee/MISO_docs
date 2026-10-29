@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MISO \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-10-29 09:37+0900\n"
+"POT-Creation-Date: 2026-10-29 13:10+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: en\n"
@@ -314,7 +314,7 @@ msgstr ""
 msgid "3. 設定ファイルと既定値"
 msgstr ""
 
-msgid "3.1 config.yaml のセクション"
+msgid "3.1 `config.yaml` のセクション"
 msgstr ""
 
 msgid "`demo/mhd2d_vortex/config.yaml` には、次のセクションがあります。"
@@ -1385,4 +1385,7 @@ msgstr ""
 #, python-brace-format
 msgid "{ref}`目次 <edu-index>` · {ref}`前の章 <edu-ch10>` · {ref}`Fortran との対応表 <edu-ref-fortran-map>`"
 msgstr ""
+
+#~ msgid "3.1 config.yaml のセクション"
+#~ msgstr ""
 

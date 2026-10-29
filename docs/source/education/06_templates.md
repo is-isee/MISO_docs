@@ -234,7 +234,7 @@ int main() {
 - `static_cast<T>(...)` は、`double` で計算した `1.0 / 3.0` を `T` に変換します。
 - `inline` は、この定義をヘッダに置き、複数の `.cpp` から読み込んでもよいことを表します（C++17 から変数にも付けられます）。
 
-### MISO の例：constants.hpp
+### MISO の例：`constants.hpp`
 
 `miso/include/miso/constants.hpp` の全体です。
 
@@ -310,7 +310,7 @@ Gpu 版: n = 20
 このように、選択の目印にする中身のない型を**タグ型**（tag type）と呼び、
 タグ型の引数でオーバーロードを選ぶ書き方を**タグディスパッチ**（tag dispatch）と呼びます。
 
-### MISO の例：backend.hpp と for_each
+### MISO の例：`backend.hpp` と `for_each`
 
 MISO のタグ型は `miso/include/miso/backend.hpp` にある 2 つです。
 

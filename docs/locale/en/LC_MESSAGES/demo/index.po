@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MISO \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-10-29 09:37+0900\n"
+"POT-Creation-Date: 2026-10-29 13:10+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: en\n"
@@ -25,9 +25,12 @@ msgstr ""
 msgid "Test Problems"
 msgstr ""
 
-msgid "本セクションでは、MISOで利用可能なテスト問題について説明します。demoディレクトリ以下に、各問題のディレクトリが設置してあり、main.cpp、およびconfig.yamlなどの設定ファイルが含まれています。"
+msgid "本セクションでは、MISOで利用可能なテスト問題について説明します。``demo``\\ ディレクトリ以下に、各問題のディレクトリが設置してあり、``main.cpp``、および\\ ``config.yaml``\\ などの設定ファイルが含まれています。"
 msgstr ""
 
 msgid ":doc:`../customization/index` で説明するように、よりカスタマイズした境界条件や外力を設定している場合もあります。"
 msgstr ""
+
+#~ msgid "本セクションでは、MISOで利用可能なテスト問題について説明します。demoディレクトリ以下に、各問題のディレクトリが設置してあり、main.cpp、およびconfig.yamlなどの設定ファイルが含まれています。"
+#~ msgstr ""
 

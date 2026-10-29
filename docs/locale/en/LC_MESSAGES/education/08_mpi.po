@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MISO \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-10-29 09:37+0900\n"
+"POT-Creation-Date: 2026-10-29 13:10+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: en\n"
@@ -214,7 +214,7 @@ msgstr ""
 msgid "3. ランクの並びと隣のランク：mpi::Shape"
 msgstr ""
 
-msgid "config.yaml の mpi セクション"
+msgid "`config.yaml` の mpi セクション"
 msgstr ""
 
 msgid "MISO は 3 次元の格子を、x, y, z の各方向に何個ずつ分けるかを設定ファイルで指定します。 `demo/mhd2d_vortex/config.yaml` の該当部分です。"
@@ -663,7 +663,7 @@ msgstr ""
 msgid "10. MISO のデモを MPI で動かす"
 msgstr ""
 
-msgid "app_run.sh と OpenMPI の環境変数"
+msgid "`app_run.sh` と OpenMPI の環境変数"
 msgstr ""
 
 msgid "デモのビルドと実行の基本は第 1 章で扱いました。 `demo/mhd2d_vortex/app_run.sh` の実行部分を見ると、MPI での起動の仕方が分かります（抜粋）。"
@@ -774,4 +774,10 @@ msgstr ""
 
 msgid "GPU を使う場合のハロー交換と、ランクと GPU の対応づけは第 9 章で扱います。 CPU だけで進める場合は、第 10 章の熱伝導の実習で、この章の 1 次元のハロー交換と `MPI_Allreduce` を自分で書きます。"
 msgstr ""
+
+#~ msgid "config.yaml の mpi セクション"
+#~ msgstr ""
+
+#~ msgid "app_run.sh と OpenMPI の環境変数"
+#~ msgstr ""
 

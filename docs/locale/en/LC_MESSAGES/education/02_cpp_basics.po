@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MISO \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-10-29 09:37+0900\n"
+"POT-Creation-Date: 2026-10-29 13:10+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: en\n"
@@ -1057,7 +1057,7 @@ msgstr ""
 msgid "行末の `\\` は「次の行に続く」という意味で、マクロの定義は 1 行として扱われます。 `MISO_MATH_UTILS(sqrt, sqrtf)` と書くと、`name` が `sqrt` に置き換わり、`float` 版と `double` 版の 2 つの関数定義になります。 （`namef` の `sqrtf` は、GPU 用の定義の側で `float` 用の関数名として使われます。） 同じ形の関数を何組も書く手間を、マクロで省いています。"
 msgstr ""
 
-msgid "11. 練習：demo の main.cpp の冒頭を読む"
+msgid "11. 練習：demo の `main.cpp` の冒頭を読む"
 msgstr ""
 
 msgid "`demo/mhd2d_vortex/src/main.cpp` の冒頭は次のとおりです。各行（または各まとまり）が何をしているかを、この章の用語を使って説明してください。"
@@ -1085,4 +1085,7 @@ msgstr ""
 #, python-brace-format
 msgid "文法の詳細は C++17 規格草案 N4659 の [`if`・`switch`](https://timsong-cpp.github.io/cppwp/n4659/stmt.select)、 [`for`](https://timsong-cpp.github.io/cppwp/n4659/stmt.for)、 [`while`・`do`](https://timsong-cpp.github.io/cppwp/n4659/stmt.iter)、 [`break`・`continue`・`return`](https://timsong-cpp.github.io/cppwp/n4659/stmt.jump)、 [`&&`](https://timsong-cpp.github.io/cppwp/n4659/expr.log.and)・[`||`](https://timsong-cpp.github.io/cppwp/n4659/expr.log.or)、 [条件演算子](https://timsong-cpp.github.io/cppwp/n4659/expr.cond)で確認できます。 慣れない用語は {ref}`用語集 <edu-ref-glossary>`、Fortran の書き方との対応は {ref}`Fortran との対応表 <edu-ref-fortran-map>` で引けます。"
 msgstr ""
+
+#~ msgid "11. 練習：demo の main.cpp の冒頭を読む"
+#~ msgstr ""
 

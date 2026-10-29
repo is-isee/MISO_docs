@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MISO \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-10-29 09:37+0900\n"
+"POT-Creation-Date: 2026-10-29 13:10+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: en\n"
@@ -195,7 +195,7 @@ msgstr ""
 msgid "`inline` は、この定義をヘッダに置き、複数の `.cpp` から読み込んでもよいことを表します（C++17 から変数にも付けられます）。"
 msgstr ""
 
-msgid "MISO の例：constants.hpp"
+msgid "MISO の例：`constants.hpp`"
 msgstr ""
 
 msgid "`miso/include/miso/constants.hpp` の全体です。"
@@ -227,7 +227,7 @@ msgstr ""
 msgid "このように、選択の目印にする中身のない型を**タグ型**（tag type）と呼び、 タグ型の引数でオーバーロードを選ぶ書き方を**タグディスパッチ**（tag dispatch）と呼びます。"
 msgstr ""
 
-msgid "MISO の例：backend.hpp と for_each"
+msgid "MISO の例：`backend.hpp` と `for_each`"
 msgstr ""
 
 msgid "MISO のタグ型は `miso/include/miso/backend.hpp` にある 2 つです。"
@@ -631,4 +631,10 @@ msgstr ""
 
 msgid "`vx`・`vz`・`ei` は 0 を返すだけですが、定義されているので呼ばれます（定義を省いても結果は同じです）。 `SourceTerm` には `dt_limit` がないので、`has_dt_limit<SourceTerm>::value` は `false` です。 `if constexpr` の中は組み込まれず、時間刻みは CFL 条件（`mhd.cfl(d.eos)`）だけで決まります。"
 msgstr ""
+
+#~ msgid "MISO の例：constants.hpp"
+#~ msgstr ""
+
+#~ msgid "MISO の例：backend.hpp と for_each"
+#~ msgstr ""
 
