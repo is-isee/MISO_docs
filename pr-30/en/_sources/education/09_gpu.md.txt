@@ -502,7 +502,7 @@ CPU だけでビルドするとき、`__host__` と `__device__` は g++ が知�
 一方、`__global__` は定義していません。カーネルと `<<< >>>` の起動は CPU ビルドに意味がないので、
 CUDA 版の `for_each`・`reduce` や手書きのカーネルは `#ifdef __CUDACC__` の中に置いてあります。
 
-### 4.3 CPU と GPU で同じ main.cpp を動かす
+### 4.3 CPU と GPU で同じ `main.cpp` を動かす
 
 `for_each` と `reduce` を使い、$\int_0^1 x^2\,dx = 1/3$ を中点則で計算する例です。
 `Backend` を切り替えるだけで、同じコードが CPU でも GPU でも動きます。

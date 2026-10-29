@@ -331,7 +331,7 @@ CPU ビルドでは <code class="docutils literal notranslate"><span class="pre"
 <section id="mpi-shape">
 <span id="edu-ch08-shape"></span><h2>3. ランクの並びと隣のランク：mpi::Shape<a class="headerlink" href="#mpi-shape" title="Link to this heading"></a></h2>
 <section id="config-yaml-mpi">
-<h3>config.yaml の mpi セクション<a class="headerlink" href="#config-yaml-mpi" title="Link to this heading"></a></h3>
+<h3><code class="docutils literal notranslate"><span class="pre">config.yaml</span></code> の mpi セクション<a class="headerlink" href="#config-yaml-mpi" title="Link to this heading"></a></h3>
 <p>MISO は 3 次元の格子を、x, y, z の各方向に何個ずつ分けるかを設定ファイルで指定します。
 <code class="docutils literal notranslate"><span class="pre">demo/mhd2d_vortex/config.yaml</span></code> の該当部分です。</p>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">grid</span><span class="p">:</span>
@@ -1033,7 +1033,7 @@ rank 3: dt_local = 0.025, dt_global = 0.025, count = 4
 <section id="miso-mpi">
 <span id="edu-ch08-run"></span><h2>10. MISO のデモを MPI で動かす<a class="headerlink" href="#miso-mpi" title="Link to this heading"></a></h2>
 <section id="app-run-sh-openmpi">
-<h3>app_run.sh と OpenMPI の環境変数<a class="headerlink" href="#app-run-sh-openmpi" title="Link to this heading"></a></h3>
+<h3><code class="docutils literal notranslate"><span class="pre">app_run.sh</span></code> と OpenMPI の環境変数<a class="headerlink" href="#app-run-sh-openmpi" title="Link to this heading"></a></h3>
 <p>デモのビルドと実行の基本は第 1 章で扱いました。
 <code class="docutils literal notranslate"><span class="pre">demo/mhd2d_vortex/app_run.sh</span></code> の実行部分を見ると、MPI での起動の仕方が分かります（抜粋）。</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Number of processes</span>

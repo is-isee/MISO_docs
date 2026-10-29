@@ -148,7 +148,7 @@ struct Model : public mhd::ModelBase<Model, Real, Backend> {
 (edu-ch11-config)=
 ## 3. 設定ファイルと既定値
 
-### 3.1 config.yaml のセクション
+### 3.1 `config.yaml` のセクション
 
 `demo/mhd2d_vortex/config.yaml` には、次のセクションがあります。
 

@@ -186,7 +186,7 @@ CPU ビルドでは `mpi::Env` だけが動きます。`cuda::Env` は第 9 章�
 (edu-ch08-shape)=
 ## 3. ランクの並びと隣のランク：mpi::Shape
 
-### config.yaml の mpi セクション
+### `config.yaml` の mpi セクション
 
 MISO は 3 次元の格子を、x, y, z の各方向に何個ずつ分けるかを設定ファイルで指定します。
 `demo/mhd2d_vortex/config.yaml` の該当部分です。
@@ -966,7 +966,7 @@ MISO では他に、`Config` のコンストラクタ（`miso/include/miso/confi
 (edu-ch08-run)=
 ## 10. MISO のデモを MPI で動かす
 
-### app_run.sh と OpenMPI の環境変数
+### `app_run.sh` と OpenMPI の環境変数
 
 デモのビルドと実行の基本は第 1 章で扱いました。
 `demo/mhd2d_vortex/app_run.sh` の実行部分を見ると、MPI での起動の仕方が分かります（抜粋）。

@@ -56,7 +56,7 @@ $$
 ## Results
 
 Pythonを用いて可視化し、$x$, $y$, $z$方向の結果を比較できます。
-画像ファイルは demo/mhd1d_shock_tube/figsに保存されます。
+画像ファイルは`demo/mhd1d_shock_tube/figs`に保存されます。
 
 ```shell
 cd demo/mhd1d_shock_tube

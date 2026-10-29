@@ -672,7 +672,7 @@ MISO は <code class="docutils literal notranslate"><span class="pre">miso/CMake
 CUDA 版の <code class="docutils literal notranslate"><span class="pre">for_each</span></code>・<code class="docutils literal notranslate"><span class="pre">reduce</span></code> や手書きのカーネルは <code class="docutils literal notranslate"><span class="pre">#ifdef</span> <span class="pre">__CUDACC__</span></code> の中に置いてあります。</p>
 </section>
 <section id="cpu-gpu-main-cpp">
-<h3>4.3 CPU と GPU で同じ main.cpp を動かす<a class="headerlink" href="#cpu-gpu-main-cpp" title="Link to this heading"></a></h3>
+<h3>4.3 CPU と GPU で同じ <code class="docutils literal notranslate"><span class="pre">main.cpp</span></code> を動かす<a class="headerlink" href="#cpu-gpu-main-cpp" title="Link to this heading"></a></h3>
 <p><code class="docutils literal notranslate"><span class="pre">for_each</span></code> と <code class="docutils literal notranslate"><span class="pre">reduce</span></code> を使い、<span class="math notranslate nohighlight">\(\int_0^1 x^2\,dx = 1/3\)</span> を中点則で計算する例です。
 <code class="docutils literal notranslate"><span class="pre">Backend</span></code> を切り替えるだけで、同じコードが CPU でも GPU でも動きます。
 <code class="docutils literal notranslate"><span class="pre">reduce</span></code> の CUDA 版の仕組みは 6 節で説明します。ここでは呼び方が Host 版と同じであることを見てください。</p>
