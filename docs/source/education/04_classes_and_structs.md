@@ -33,7 +33,7 @@ struct GridSize {
   int nz = 1;
 
   int cell_count() const {
-    return nx * ny * nz;  // 3 方向の格子数を掛けて、セルの総数を返します
+    return nx * ny * nz;  // multiplies the cell counts in the 3 directions and returns the total number of cells
   }
 };
 ```
@@ -57,12 +57,12 @@ C++ では、データに加えて、そのデータを使う関数（ここで�
 型を使って変数を作り、メンバを使う例です。
 
 ```cpp
-GridSize a{4, 3, 2};  // a の nx, ny, nz を 4, 3, 2 で初期化します
-GridSize b{8, 3, 2};  // b は a とは別に、自分の nx, ny, nz を持ちます
-a.nx = 5;             // a.nx だけが 5 になります。b.nx は 8 のままです
+GridSize a{4, 3, 2};  // initializes a's nx, ny, nz to 4, 3, 2
+GridSize b{8, 3, 2};  // b has its own nx, ny, nz, separate from a
+a.nx = 5;             // only a.nx becomes 5. b.nx stays 8
 std::cout << a.cell_count() << " " << b.cell_count() << "\n";  // 30 48
 
-GridSize c;           // 宣言に書いた初期値 1 を使います。c.cell_count() は 1 です
+GridSize c;           // uses the initial value 1 written in the declaration. c.cell_count() is 1
 ```
 
 `a` と `b` は、それぞれが自分の `nx`, `ny`, `nz` を保存する場所を持っています。
@@ -76,8 +76,8 @@ GridSize c;           // 宣言に書いた初期値 1 を使います。c.cell_
 ポインタからメンバを使うときは、`.` の代わりに `->` を書きます。
 
 ```cpp
-GridSize *p = &a;  // p は a を指します
-p->ny = 6;         // (*p).ny = 6 と同じです。a.ny が 6 になります
+GridSize *p = &a;  // p points to a
+p->ny = 6;         // same as (*p).ny = 6. a.ny becomes 6
 ```
 
 `p->ny` は「`p` の指す先のオブジェクトの `ny`」です。
@@ -90,19 +90,19 @@ C++ でデータと関数をまとめた型を**クラス**（class）と呼び�
 ### MISO の例：時刻を管理する Time
 
 `miso/include/miso/time.hpp` の `Time` は、時刻やステップ数をまとめた構造体です。
-メンバ変数の部分を抜き出します（元のコメント `/// @brief ...` を、日本語の短いコメントに置き換えています）。
+メンバ変数の部分を抜き出します（元のコメント `/// @brief ...` を、英語の短いコメントに置き換えています）。
 
 ```cpp
 template <typename Real> struct Time {
-  Real time;                  // 現在の時刻
-  Real tend;                  // 終了時刻
-  Real dt_output;             // 出力の時間間隔
-  int n_step;                 // 時間ステップの番号
-  int n_output;               // 出力の番号
-  int n_output_digits;        // 出力ファイル名の桁数
-  std::string time_save_dir;  // 時刻のファイルを書くディレクトリ
-  bool io_enabled;            // 入出力をするかどうか
-  // ...（メンバ関数は 4.3 節以降で読みます）
+  Real time;                  // current time
+  Real tend;                  // end time
+  Real dt_output;             // time interval between outputs
+  int n_step;                 // time step number
+  int n_output;               // output number
+  int n_output_digits;        // number of digits in output file names
+  std::string time_save_dir;  // directory where the time file is written
+  bool io_enabled;            // whether to do input/output
+  // ... (member functions are covered from Section 4.3)
 };
 ```
 
@@ -129,13 +129,13 @@ while (time.time < time.tend) {
 ```cpp
 class Axis {
 public:
-  // n 個のセルで区間 [x_min, x_max] を等分します
+  // divides the interval [x_min, x_max] into n equal cells
   explicit Axis(int n, double x_min = 0.0, double x_max = 1.0)
       : n_(n), x_min_(x_min), dx_((x_max - x_min) / n) {}
 
-  int size() const { return n_; }      // セル数を読むだけです
-  double dx() const { return dx_; }    // 格子間隔を読むだけです
-  double x(int i) const {              // i 番目のセル中心の座標です（i は 0 から）
+  int size() const { return n_; }      // only reads the number of cells
+  double dx() const { return dx_; }    // only reads the grid spacing
+  double x(int i) const {              // coordinate of the center of cell i (i starts from 0)
     return x_min_ + (i + 0.5) * dx_;
   }
 
@@ -154,11 +154,11 @@ private:
 使う側では、次のように書きます。
 
 ```cpp
-Axis a(4);              // 区間 [0, 1] を 4 等分します
-Axis b(10, -1.0, 1.0);  // 区間 [-1, 1] を 10 等分します
+Axis a(4);              // divides the interval [0, 1] into 4
+Axis b(10, -1.0, 1.0);  // divides the interval [-1, 1] into 10
 std::cout << a.size() << " " << a.dx() << " " << a.x(0) << "\n";  // 4 0.25 0.125
 std::cout << b.size() << " " << b.dx() << " " << b.x(9) << "\n";  // 10 0.2 0.9
-// a.n_ = 8;           // エラー：private のメンバには外から代入できません
+// a.n_ = 8;           // error: a private member cannot be assigned from outside
 ```
 
 コメントにした最後の行を有効にすると、g++ は `'int Axis::n_' is private within this context` というエラーを出します。
@@ -223,7 +223,7 @@ public:
       : n_(n), x_min_(x_min), dx_((x_max - x_min) / n_) {}
 
 private:
-  double dx_;  // n_ より先に宣言しているので、最初に初期化されます
+  double dx_;  // declared before n_, so it is initialized first
   int n_;
   double x_min_;
 };
@@ -242,11 +242,11 @@ g++ に `-Wall` を付けると、順番の違い（`-Wreorder`）と、値の�
 
 ```cpp
 struct Scaled {
-  const double factor;   // 作った後は変えません
-  double &target;        // 外の変数を参照します（第 3 章）
+  const double factor;   // not changed after construction
+  double &target;        // refers to an outside variable (Chapter 3)
 
   Scaled(double f, double &t) : factor(f), target(t) {}
-  // Scaled(double f, double &t) { factor = f; target = t; }  // エラー
+  // Scaled(double f, double &t) { factor = f; target = t; }  // error
 };
 ```
 
@@ -269,7 +269,7 @@ struct Scaled {
     }
 
     initialize();
-    // ...（time_save_dir を決めてディレクトリを作ります）
+    // ... (decides time_save_dir and creates the directory)
   }
 ```
 
@@ -294,9 +294,9 @@ struct Scaled {
 ```cpp
 double length(const Axis &axis) { return axis.size() * axis.dx(); }
 
-// Axis c = 4;   // explicit がなければ、Axis(4) が自動で作られます
-// length(4);    // explicit がなければ、一時的な Axis(4) が作られて渡されます
-length(Axis(8));  // 作ることを明示すれば、explicit があっても使えます（1 を返します）
+// Axis c = 4;   // without explicit, Axis(4) is created automatically
+// length(4);    // without explicit, a temporary Axis(4) is created and passed
+length(Axis(8));  // explicitly creating it works even with explicit (returns 1)
 ```
 
 型を変える処理を自分で書かず、コンパイラに任せる変換を**暗黙の型変換**と呼びます。
@@ -336,8 +336,8 @@ template <typename Real> struct IdealEOS {
 この区別は、`const` を付けたオブジェクトや `const` 参照から呼べる関数を決めます。
 
 ```cpp
-const Axis a(4);   // 作った後の変更を禁止します
-int n = a.size();  // 末尾が const の関数は呼べます
+const Axis a(4);   // forbids changes after construction
+int n = a.size();  // functions with a trailing const can be called
 ```
 
 `const Axis&` で受け取った引数（前の `length` 関数）からも、末尾が `const` の `size()` と `dx()` だけが呼べます。
@@ -348,12 +348,12 @@ int n = a.size();  // 末尾が const の関数は呼べます
 ```cpp
   /// @brief update time parameters
   void update(const Real dt) {
-    time += dt;  // メンバを書き換えるので、末尾に const がありません
+    time += dt;  // modifies members, so no trailing const
     n_step++;
   };
 
   /// @brief Save time parameters to file
-  void save() const {  // メンバを読んでファイルに書くだけです
+  void save() const {  // only reads members and writes to a file
     // ...
   }
 ```
@@ -367,7 +367,7 @@ int n = a.size();  // 末尾が const の関数は呼べます
 `a.size()` と呼ぶと、`size()` の中の `this` は `a` を指し、`n_` は `this->n_` の省略です。
 
 ```cpp
-int size() const { return this->n_; }  // return n_; と同じです
+int size() const { return this->n_; }  // same as return n_;
 ```
 
 `this` はポインタなので、指す先のオブジェクトそのものは `*this` と書きます。
@@ -391,11 +391,11 @@ Fortran の `allocate` と `deallocate` の組を、C++ ではクラスに任せ
 class Buffer {
 public:
   explicit Buffer(int n) : data_(new double[n]), n_(n) {
-    std::printf("確保しました（%d 要素）\n", n_);
+    std::printf("allocated (%d elements)\n", n_);
   }
   ~Buffer() {
-    std::printf("解放します（%d 要素）\n", n_);
-    delete[] data_;  // コンストラクタの new[] と対にします
+    std::printf("releasing (%d elements)\n", n_);
+    delete[] data_;  // pairs with new[] in the constructor
   }
 
 private:
@@ -404,23 +404,23 @@ private:
 };
 
 int main() {
-  std::puts("ブロックの前");
+  std::puts("before block");
   {
-    Buffer work(100);  // ここでコンストラクタが呼ばれます
-    std::puts("使っている間");
-  }  // work の寿命が終わり、デストラクタが自動で呼ばれます
-  std::puts("ブロックの後");
+    Buffer work(100);  // the constructor is called here
+    std::puts("while in use");
+  }  // the lifetime of work ends, and the destructor is called automatically
+  std::puts("after block");
 }
 ```
 
 実行結果は次のとおりです。
 
 ```text
-ブロックの前
-確保しました（100 要素）
-使っている間
-解放します（100 要素）
-ブロックの後
+before block
+allocated (100 elements)
+while in use
+releasing (100 elements)
+after block
 ```
 
 デストラクタを呼ぶ行を自分で書く必要はありません。
@@ -447,7 +447,7 @@ public:
     const std::size_t array_size = static_cast<size_t>(shape_[0]) *
                                    static_cast<size_t>(shape_[1]) *
                                    static_cast<size_t>(shape_[2]);
-    // ...（array_size が int の範囲に収まることを確かめます）
+    // ... (checks that array_size fits in the range of int)
     data_ = new T[array_size];
   }
 
@@ -514,9 +514,9 @@ MPI の内容は {ref}`第 8 章 <edu-ch08>` で説明します。
 ```cpp
 class Buffer {
 public:
-  // ...（コンストラクタとデストラクタは前と同じ）
-  Buffer(const Buffer &) = delete;             // コピーして作ることを禁止します
-  Buffer &operator=(const Buffer &) = delete;  // コピーの代入を禁止します
+  // ... (the constructor and destructor are the same as before)
+  Buffer(const Buffer &) = delete;             // forbids creating by copy
+  Buffer &operator=(const Buffer &) = delete;  // forbids copy assignment
 };
 ```
 
@@ -532,9 +532,9 @@ public:
 これを**ムーブ**（move）と呼びます。`Buffer` にムーブのためのコンストラクタを加えます。
 
 ```cpp
-  Buffer(Buffer &&other) noexcept      // ムーブして作ります
+  Buffer(Buffer &&other) noexcept      // creates by move
       : data_(other.data_), n_(other.n_) {
-    other.data_ = nullptr;  // 元のオブジェクトは配列を手放します
+    other.data_ = nullptr;  // the source object gives up the array
     other.n_ = 0;
   }
 ```
@@ -550,16 +550,16 @@ public:
 ```cpp
 int main() {
   Buffer a(10);
-  // Buffer b = a;          // エラー：コピーは禁止しています
-  Buffer c = std::move(a);  // a の配列を c へ移します。新しい確保はしません
+  // Buffer b = a;          // error: copying is forbidden
+  Buffer c = std::move(a);  // moves a's array to c. No new allocation
   std::printf("a.size() = %d, c.size() = %d\n", a.size(), c.size());
 }
 ```
 
 ```text
-確保しました（10 要素）
+allocated (10 elements)
 a.size() = 0, c.size() = 10
-解放します（10 要素）
+releasing (10 elements)
 ```
 
 `std::move(a)` は、`a` を「中身を移してよいオブジェクト」として扱う指定で、それ自体は何も移しません。
@@ -597,7 +597,7 @@ template <typename Real> struct Fields<Real, backend::Host> {
 
   Fields(const int i_total, const int j_total, const int k_total)
       : ro(i_total, j_total, k_total), vx(i_total, j_total, k_total),
-        // ...（vy から ph まで同じ）
+        // ... (same from vy to ph)
         ph(i_total, j_total, k_total) {}
   // ...
   // Prohibit copy semantics
@@ -621,11 +621,11 @@ demo の中で、関数が `Array3D` を返す例が `demo/mhd2d_reconnection/sr
 ```cpp
 inline Array3D<Real, Backend> make_eta(const Grid<Real, backend::Host> &grid,
                                        const Parameters &par) {
-  // ...（CPU で値を計算し、Backend の配列 eta へ写します）
+  // ... (computes values on the CPU and copies them to the Backend array eta)
   return eta;
 }
 
-// Model のコンストラクタの初期化子リストの一部
+// part of the member initializer list of the Model constructor
       eta(make_eta(grid, par)),
 ```
 
@@ -659,7 +659,7 @@ public:
   Array2(const Array2 &) = delete;
   Array2 &operator=(const Array2 &) = delete;
 
-  // a(i, j) と書くと、この関数が呼ばれます
+  // writing a(i, j) calls this function
   double &operator()(int i, int j) { return data_[i * n1_ + j]; }
 
   int extent(int dim) const { return dim == 0 ? n0_ : n1_; }
@@ -674,11 +674,11 @@ private:
 Array2 a(2, 3);
 for (int i = 0; i < a.extent(0); ++i) {
   for (int j = 0; j < a.extent(1); ++j) {
-    a(i, j) = 10 * i + j;  // 戻り値は参照なので、要素に代入できます
+    a(i, j) = 10 * i + j;  // the return value is a reference, so an element can be assigned to
   }
 }
 std::cout << a(1, 2) << "\n";  // 12
-double &e = a(0, 1);           // 要素 (0, 1) の別名です
+double &e = a(0, 1);           // alias of element (0, 1)
 e = -1.0;
 std::cout << a(0, 1) << "\n";  // -1
 ```
@@ -745,26 +745,26 @@ Fortran は最初の添字が連続なので、並びが逆です。並びの違
 これを **View**（ビュー）と呼びます。
 
 ```cpp
-// 所有しない View：先頭のアドレスと大きさだけを持ちます
+// non-owning View: holds only the address of the first element and the size
 struct Array2View {
   double *data;
   int n0, n1;
   double &operator()(int i, int j) const { return data[i * n1 + j]; }
 };
 
-// 所有する配列：確保と解放を受け持ちます
+// owning array: handles allocation and release
 class Array2 {
 public:
-  // ...（コンストラクタ、デストラクタ、コピーの禁止は前と同じ）
+  // ... (the constructor, destructor, and copy prohibition are the same as before)
   Array2View view() { return Array2View{data_, n0_, n1_}; }
   // ...
 };
 
-// View を値で受け取ります。コピーされるのはアドレスと大きさだけです
+// takes the View by value. Only the address and the size are copied
 void fill(Array2View v, double value) {
   for (int i = 0; i < v.n0; ++i) {
     for (int j = 0; j < v.n1; ++j) {
-      v(i, j) = value;  // 元の Array2 の要素を書き換えます
+      v(i, j) = value;  // modifies elements of the original Array2
     }
   }
 }
@@ -802,9 +802,9 @@ private:
       : data_(data), shape_{nx0, nx1, nx2} {}
 
 public:
-  // ...（data(), extent(), size(), operator[]）
+  // ... (data(), extent(), size(), operator[])
   __host__ __device__ T &operator()(int i0, int i1, int i2) const noexcept {
-    // ...（assert による検査）
+    // ... (check with assert)
     return data_[(i0 * shape_[1] + i1) * shape_[2] + i2];
   }
 
@@ -851,7 +851,7 @@ MISO のヘッダだけを使う短いプログラムで確かめます。
 
 using Real = float;
 
-// 書き込み用の View を値で受け取り、元の配列の要素を書き換えます
+// takes a writable View by value and modifies elements of the original array
 void fill(miso::Array3DView<Real> a) {
   for (int i = 0; i < a.extent(0); ++i) {
     for (int j = 0; j < a.extent(1); ++j) {
@@ -862,24 +862,24 @@ void fill(miso::Array3DView<Real> a) {
   }
 }
 
-// 読み取り専用の View を受け取り、合計を返します
+// takes a read-only View and returns the sum
 Real total(miso::Array3DView<const Real> a) {
   Real s = 0;
   for (int n = 0; n < a.size(); ++n) {
     s += a[n];
-    // a[n] = 0;  // エラー：const Real の要素には代入できません
+    // a[n] = 0;  // error: cannot assign to an element of const Real
   }
   return s;
 }
 
 int main() {
-  miso::Array3D<Real> a(2, 3, 4);  // 2 x 3 x 4 の配列を確保します
+  miso::Array3D<Real> a(2, 3, 4);  // allocates a 2 x 3 x 4 array
   fill(a.view());
-  std::cout << a(1, 2, 3) << " " << a[23] << "\n";  // 同じ要素です
+  std::cout << a(1, 2, 3) << " " << a[23] << "\n";  // the same element
   std::cout << total(a.const_view()) << "\n";
 
-  // miso::Array3D<Real> b = a;          // エラー：コピーは禁止されています
-  miso::Array3D<Real> b = std::move(a);  // 配列の持ち主を a から b へ移します
+  // miso::Array3D<Real> b = a;          // error: copying is forbidden
+  miso::Array3D<Real> b = std::move(a);  // moves ownership of the array from a to b
   std::cout << a.extent(0) << " " << b.extent(0) << "\n";
 }
 ```
@@ -912,7 +912,7 @@ g++ -std=c++17 -I/path/to/MISO/miso/include check_array3d.cpp -o check_array3d
 template <typename T>  // Use T to represent Real or const Real
 struct FieldsView {
   Array3DView<T> ro, vx, vy, vz, bx, by, bz, ei, ph;
-  // ...（9 つの View を受け取る explicit なコンストラクタ、extent(), size()）
+  // ... (explicit constructor taking 9 Views, extent(), size())
 };
 ```
 
@@ -959,13 +959,13 @@ struct InitialCondition {
     for (int k = 0; k < grid.k_total; ++k) {
       for (int j = 0; j < grid.j_total; ++j) {
         for (int i = 0; i < grid.i_total; ++i) {
-          // ...（速度・磁場などを 0 にし、座標 xyz を選びます）
+          // ... (sets velocity, magnetic field, etc. to 0 and selects the coordinates xyz)
           if (xyz < 0.5) {
             qq.ro(i, j, k) = rol;
             qq.ei(i, j, k) = prl / (eos.gm - 1.0) / qq.ro(i, j, k);
             qq.vx(i, j, k) = vvl;
           } else {
-            // ...（右側の状態）
+            // ... (right-hand state)
           }
         }
       }

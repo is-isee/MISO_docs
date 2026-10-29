@@ -64,7 +64,7 @@ GPU に置いた配列は、CPU のループから直接読めません。
 
 ```cpp
 Array1D<double, backend::Host> h(n);
-h.copy_from(z);  // z の要素を h へ写す
+h.copy_from(z);  // copy the elements of z to h
 ```
 
 CPU のビルドでは `z` もホスト側にあるので、`copy_from` はただのコピーです。

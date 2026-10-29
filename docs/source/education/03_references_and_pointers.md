@@ -31,11 +31,11 @@ MISO では、設定や格子を参照で受け取って持ち続けたり、配
 
 ```cpp
 double a = 1.0;
-double b = a;   // a の値をコピーした、別の変数 b
-double &r = a;  // a の別名 r（参照）
+double b = a;   // b is a separate variable holding a copy of a
+double &r = a;  // r is another name (reference) for a
 
-b = 2.0;        // b だけが 2.0 になる
-r = 3.0;        // r は a そのものなので、a が 3.0 になる
+b = 2.0;        // only b becomes 2.0
+r = 3.0;        // r is a itself, so a becomes 3.0
 // a = 3.0, b = 2.0, r = 3.0
 ```
 
@@ -52,17 +52,17 @@ r = 3.0;        // r は a そのものなので、a が 3.0 になる
 関数の引数を参照にすると、呼び出し元の変数そのものを関数の中で使えます。
 
 ```cpp
-void set_copy(double value) {      // 値渡し：value はコピー
+void set_copy(double value) {      // pass by value: value is a copy
   value = 5.0;
 }
 
-void set_original(double &value) { // 参照渡し：value は呼び出し元の変数の別名
+void set_original(double &value) { // pass by reference: value is an alias of the caller's variable
   value = 5.0;
 }
 
 double c = 1.0;
-set_copy(c);      // c は 1.0 のまま
-set_original(c);  // c は 5.0 になる
+set_copy(c);      // c stays 1.0
+set_original(c);  // c becomes 5.0
 ```
 
 呼び出す側はどちらも `set_copy(c)`・`set_original(c)` と書き、見た目は同じです。
@@ -81,14 +81,14 @@ Fortran のサブルーチンが `intent(out)` の引数に結果を書くのと
 
 ```cpp
 void sum_and_difference(double a, double b, double &total, double &difference) {
-  total = a + b;       // 呼び出し元の total に書き込む
-  difference = a - b;  // 呼び出し元の difference に書き込む
+  total = a + b;       // writes to the caller's total
+  difference = a - b;  // writes to the caller's difference
 }
 
 double total = 0.0;
 double difference = 0.0;
 sum_and_difference(3.0, 1.0, total, difference);
-// total は 4.0、difference は 2.0
+// total is 4.0, difference is 2.0
 ```
 
 `a` と `b` は値渡しで計算に使う値を受け取り、`total` と `difference` は参照で結果を書き込む先を受け取っています。
@@ -123,8 +123,8 @@ __host__ __device__ inline void symmetric_index(int i, int i_total, int i_margin
 #include <miso/core.hpp>
 
 int main() {
-  const int i_total = 8;   // ゴーストセルを含む格子点数
-  const int i_margin = 2;  // ゴーストセルの幅
+  const int i_total = 8;   // number of grid points including ghost cells
+  const int i_margin = 2;  // width of the ghost cells
   for (int i = 0; i < i_margin; ++i) {
     int i_ghst = -1;
     int i_trgt = -1;
@@ -150,8 +150,8 @@ int main() {
 
 ```cpp
 double twice(const double &value) {
-  return 2.0 * value;  // 読むことはできる
-  // value = 5.0;      // エラー：const 参照を通して書き換えることはできない
+  return 2.0 * value;  // reading is allowed
+  // value = 5.0;      // error: cannot modify through a const reference
 }
 ```
 
@@ -220,8 +220,8 @@ Model(Config &config) : ModelBase(config), eos(config), ic(eos), bc(), src() {}
 変数はメモリ上のどこかに置かれています。その場所を表す値を**アドレス**と呼び、**アドレスを保持する変数をポインタ**（pointer）と呼びます。
 
 ```cpp
-double a = 1.0;   // 数値を入れる変数
-double *p = &a;   // a のアドレスを保持するポインタ p。「p は a を指す」と言う
+double a = 1.0;   // variable holding a number
+double *p = &a;   // pointer p holding the address of a; we say "p points to a"
 ```
 
 | 部分 | 意味 |
@@ -233,8 +233,8 @@ double *p = &a;   // a のアドレスを保持するポインタ p。「p は a
 ポインタが指す先の値を使うには、式の中で `*p` と書きます（**間接参照**）。
 
 ```cpp
-double copied = *p;  // p が指す a の値を読む。copied は 1.0
-*p = 2.0;            // p が指す a を書き換える。a は 2.0
+double copied = *p;  // reads the value of a, which p points to; copied is 1.0
+*p = 2.0;            // modifies a, which p points to; a becomes 2.0
 ```
 
 `a` は数値 1.0 を、`p` は「その 1.0 が置かれている場所」を持っています。
@@ -250,10 +250,10 @@ C++ のポインタは、`p` と書けばアドレス、`*p` と書けば指す�
 
 ```cpp
 double a = 1.0;
-double &r = a;   // 宣言の &：r を a の参照（別名）として作る
-double *p = &a;  // 宣言の *：p をポインタとして作る。式の &a：a のアドレス
-*p = 2.0;        // 式の *：p が指す先（a）に代入する。a も r も 2.0
-r = 3.0;         // a に代入する。a も *p も 3.0
+double &r = a;   // & in a declaration: makes r a reference (alias) to a
+double *p = &a;  // * in a declaration: makes p a pointer. & in an expression: address of a
+*p = 2.0;        // * in an expression: assigns to what p points to (a). a and r are both 2.0
+r = 3.0;         // assigns to a. a and *p are both 3.0
 ```
 
 | 書く場所 | 例 | 意味 |
@@ -270,8 +270,8 @@ r = 3.0;         // a に代入する。a も *p も 3.0
 宣言でもう 1 つ注意する点があります。**`*` と `&` は型ではなく、それぞれの名前に付きます。**
 
 ```cpp
-double *p, q;   // p はポインタ、q はただの double
-double *x = nullptr, *y = nullptr;  // x も y もポインタ
+double *p, q;   // p is a pointer, q is just a double
+double *x = nullptr, *y = nullptr;  // x and y are both pointers
 ```
 
 **MISO の実例** — `miso/include/miso/grid.hpp` の `GridView` は、座標の配列をポインタで持っています（抜粋）。
@@ -311,9 +311,9 @@ MISO は clang-format の設定（`.clang-format`）で `double *p` の形に揃
 ```cpp
 double a = 1.0;
 double b = 4.0;
-double *p = &a;  // p は a を指す
-p = &b;          // p の指す先を b に変える。a と b の値は変わらない
-*p = 5.0;        // 今は b を指しているので b が 5.0 になる。a は 1.0 のまま
+double *p = &a;  // p points to a
+p = &b;          // changes what p points to, to b. The values of a and b do not change
+*p = 5.0;        // p now points to b, so b becomes 5.0. a stays 1.0
 ```
 
 `p = &b;` はポインタが持つアドレスを変える代入、`*p = 5.0;` は指す先の値を変える代入です。どちらを変えているかを、`*` の有無で見分けます。
@@ -324,8 +324,8 @@ p = &b;          // p の指す先を b に変える。a と b の値は変わ�
 `nullptr`（ヌルポインタ）は、**どこも指していない**ことを表すポインタの値です。Fortran の `nullify(p)` した状態、`associated(p)` が偽の状態に当たります。
 
 ```cpp
-double *q = nullptr;  // まだ何も指していない
-if (q != nullptr) {   // 指す先があるときだけ使う
+double *q = nullptr;  // points to nothing yet
+if (q != nullptr) {   // use it only when it points to something
   *q = 1.0;
 }
 ```
@@ -347,12 +347,12 @@ T *data_ = nullptr;
 関数がポインタを受け取ると、呼び出し元の変数のアドレスを通して値を書き込めます。参照引数と同じ働きを、C の書き方で表したものです。
 
 ```cpp
-void get_rank(int *rank) {  // 書き込む先のアドレスを受け取る
-  *rank = 3;                // 指す先に書き込む
+void get_rank(int *rank) {  // receives the address to write to
+  *rank = 3;                // writes to what it points to
 }
 
 int rank = -1;
-get_rank(&rank);            // rank のアドレスを渡す。rank は 3 になる
+get_rank(&rank);            // pass the address of rank; rank becomes 3
 ```
 
 参照引数との違いは、呼び出す側で `&rank` とアドレスを明示すること、そして `nullptr` も渡せることです。
@@ -396,13 +396,13 @@ Env(int &argc, char **&argv) { setup(&argc, &argv); }
 double a = 1.0;
 double b = 4.0;
 
-const double *p = &a;  // 指す先を読むだけ
-// *p = 2.0;           // エラー：assignment of read-only location '* p'
-p = &b;                // できる：p 自身は const ではない
+const double *p = &a;  // only reads what it points to
+// *p = 2.0;           // error: assignment of read-only location '* p'
+p = &b;                // OK: p itself is not const
 
-double *const q = &a;  // 指す先を固定
-*q = 2.0;              // できる：a が 2.0 になる
-// q = &b;             // エラー：assignment of read-only variable 'q'
+double *const q = &a;  // fixes what it points to
+*q = 2.0;              // OK: a becomes 2.0
+// q = &b;             // error: assignment of read-only variable 'q'
 ```
 
 | 宣言 | `*p = 2.0;`（指す先の値を変える） | `p = &b;`（指す先を変える） |
@@ -436,9 +436,9 @@ __host__ __device__ const T *data() const noexcept { return data_; }
 C++ の組込みの配列は、同じ型の値をメモリ上に連続して並べたものです。
 
 ```cpp
-double raw[4] = {0.0, 1.0, 2.0, 3.0};  // double を 4 個。添字は 0〜3
-double *p = raw;                        // 配列の名前は、先頭要素 raw[0] のアドレスになる
-std::cout << *(p + 2) << " " << p[2] << "\n";  // どちらも raw[2] で、2 2
+double raw[4] = {0.0, 1.0, 2.0, 3.0};  // 4 doubles; indices 0 to 3
+double *p = raw;                        // the array name becomes the address of the first element raw[0]
+std::cout << *(p + 2) << " " << p[2] << "\n";  // both are raw[2], so 2 2
 ```
 
 - 配列の名前 `raw` を式で使うと、ほとんどの場面で先頭要素のアドレス（`&raw[0]`）になります。
@@ -448,7 +448,7 @@ std::cout << *(p + 2) << " " << p[2] << "\n";  // どちらも raw[2] で、2 2
 そのため、関数に配列を渡すと、実際に渡るのは先頭のアドレスだけで、**要素数は伝わりません**。要素数は別の引数で渡します。
 
 ```cpp
-double sum(const double *values, int n) {  // 先頭のアドレスと要素数
+double sum(const double *values, int n) {  // address of the first element and the number of elements
   double total = 0.0;
   for (int i = 0; i < n; ++i) {
     total += values[i];
@@ -457,7 +457,7 @@ double sum(const double *values, int n) {  // 先頭のアドレスと要素数
 }
 
 sum(raw, 4);      // 0 + 1 + 2 + 3 = 6
-sum(raw + 1, 2);  // raw[1] から 2 個：1 + 2 = 3
+sum(raw + 1, 2);  // 2 elements from raw[1]: 1 + 2 = 3
 ```
 
 `raw + 1` を渡すと、配列の途中から始まる部分を渡せます。Fortran で `call sub(a(2), 2)` と書いて途中から渡す使い方に似ています。
@@ -469,8 +469,8 @@ sum(raw + 1, 2);  // raw[1] から 2 個：1 + 2 = 3
 
 ```cpp
 #include <algorithm>  // std::fill
-std::vector<double> v(5, 1.0);                  // 1.0 を 5 個
-std::fill(v.data(), v.data() + v.size(), 0.0);  // [先頭, 先頭 + 5) を 0.0 で埋める
+std::vector<double> v(5, 1.0);                  // 5 copies of 1.0
+std::fill(v.data(), v.data() + v.size(), 0.0);  // fills [begin, begin + 5) with 0.0
 ```
 
 **MISO の実例 1** — `miso/include/miso/utility.hpp` の `util::clear_array` は、配列を 0 で埋めます（`template` と `using T = ...` の行は {ref}`第 6 章 <edu-ch06>` の内容なので、`T` を `Real` と読みます）。
@@ -519,12 +519,12 @@ return GridView<Real>(i_total, j_total, k_total, is, js, ks, i_margin,
 そして、通常の変数の実体は、そのブロックを抜けるときに消えます。変数が存在する期間を**寿命**と呼びます。
 
 ```cpp
-double *p = nullptr;   // p は外側のブロックにある
+double *p = nullptr;   // p is in the outer block
 {
-  double local = 1.0;  // local はこのブロックの中だけに存在する
-  p = &local;          // p に local のアドレスを保存する
-}                      // local の寿命が終わる。p は残る
-// ここで *p を読み書きしてはいけない
+  double local = 1.0;  // local exists only inside this block
+  p = &local;          // stores the address of local in p
+}                      // the lifetime of local ends. p remains
+// do not read or write *p here
 ```
 
 ポインタや参照が残っていても、**指す先の寿命は延びません**。寿命が終わった変数を指すポインタや参照を、**ぶら下がりポインタ**・**ぶら下がり参照**（dangling pointer / reference）と呼びます。
@@ -537,7 +537,7 @@ Fortran でも、サブルーチンの局所変数（`save` 属性のないも�
 ```cpp
 double &bad() {
   double local = 1.0;
-  return local;  // 関数を抜けると local は消える
+  return local;  // local is destroyed when the function returns
 }
 ```
 
@@ -594,11 +594,11 @@ C++ の基本の道具は `new` と `delete` です。Fortran の `allocate` と
 
 ```cpp
 int n = 4;
-double *raw = new double[n];  // double を n 個確保し、先頭のアドレスを raw に入れる
+double *raw = new double[n];  // allocates n doubles and puts the address of the first one in raw
 for (int i = 0; i < n; ++i) {
   raw[i] = i;
 }
-delete[] raw;                 // 自分で解放する（配列には delete[]）
+delete[] raw;                 // release it yourself (delete[] for arrays)
 raw = nullptr;
 ```
 
@@ -619,14 +619,14 @@ Fortran の `allocatable` 配列は、スコープを抜けると自動で解放
 #include <memory>
 
 int n = 4;
-std::unique_ptr<double[]> u = std::make_unique<double[]>(n);  // n 個、0 で初期化
+std::unique_ptr<double[]> u = std::make_unique<double[]>(n);  // n elements, initialized to 0
 u[1] = 1.5;
 
 std::shared_ptr<double> s1 = std::make_shared<double>(2.0);
-std::shared_ptr<double> s2 = s1;   // 同じ double を共有する
-*s2 = 3.0;                         // *s1 も 3.0
-// s1.use_count() は 2（持ち主が 2 つ）
-// ブロックの終わりで u, s1, s2 は自動で解放される。delete は書かない
+std::shared_ptr<double> s2 = s1;   // shares the same double
+*s2 = 3.0;                         // *s1 is also 3.0
+// s1.use_count() is 2 (two owners)
+// u, s1, s2 are released automatically at the end of the block. No delete needed
 ```
 
 `<double[]>` などの `<>` はテンプレート引数（{ref}`第 6 章 <edu-ch06>`）です。`make_unique`・`make_shared` は、確保とポインタの作成を一度に行う関数です。
@@ -707,7 +707,7 @@ int *make_counts(int n) {
 #include <vector>
 
 std::vector<int> make_counts(int n) {
-  std::vector<int> counts(n, 0);  // n 個、すべて 0
+  std::vector<int> counts(n, 0);  // n elements, all 0
   return counts;
 }
 ```
