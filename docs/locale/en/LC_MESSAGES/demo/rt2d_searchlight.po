@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MISO \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-10-29 09:37+0900\n"
+"POT-Creation-Date: 2026-10-30 17:19+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: en\n"
@@ -22,7 +22,7 @@ msgid "2D RT Test: Searchlight Beam"
 msgstr ""
 
 #, python-brace-format
-msgid "サーチライト問題は、輻射輸送 (RT) ソルバの標準的なテスト問題です。境界の一部から細い光束 (サーチライト) を計算領域に入射させ、光束がどの程度広がらずに伝わるかを見ることで、短特性法(short characteristics) {cite}`kunasz_1988JQSRT..39...67K` の数値拡散の大きさを確認します。"
+msgid "サーチライト問題は、輻射輸送 (RT) ソルバの標準的なテスト問題です。境界の一部から細い光束 (サーチライト) を計算領域に入射させ、光束がどの程度広がらずに伝わるかを見ることで、短い特性法(short characteristics) {cite}`kunasz_1988JQSRT..39...67K` の数値拡散の大きさを確認します。"
 msgstr "The searchlight problem is a standard test problem for radiative transfer (RT) solvers. A thin beam of light (the searchlight) is injected into the computational domain from part of the boundary, and we check the amount of numerical diffusion of the short characteristics method {cite}`kunasz_1988JQSRT..39...67K` by seeing how little the beam spreads as it propagates."
 
 msgid "MISOのRTソルバは、離散化した方向ごとに輻射輸送方程式"
@@ -34,7 +34,7 @@ msgid ""
 "\\frac{dI}{ds} = -\\kappa \\left(I - S\\right)\n"
 msgstr ""
 
-msgid "を短特性法で積分します。ここで$I$は輻射強度、$s$は光線に沿った距離、$\\kappa$は吸収係数、$S$は源泉関数です。角度積分にはCarlsonのA4求積 (24方向) を用います。"
+msgid "を短い特性法で積分します。ここで$I$は輻射強度、$s$は光線に沿った距離、$\\kappa$は吸収係数、$S$は源泉関数です。角度積分にはCarlsonのA4求積 (24方向) を用います。"
 msgstr "for each discretized direction with the short characteristics method. Here $I$ is the intensity, $s$ is the distance along the ray, $\\kappa$ is the absorption coefficient, and $S$ is the source function. For the angular integration we use Carlson's A4 quadrature (24 directions)."
 
 msgid "Location"

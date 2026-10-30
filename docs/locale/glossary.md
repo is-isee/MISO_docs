@@ -84,7 +84,7 @@ Claude Code の上位モデルで作業しているときも、訳はサブエ�
 | 偶・奇（対称性） | even / odd | |
 | ジュール加熱 | Joule heating | |
 | ガウス単位系 | Gaussian units | |
-| 短特性法 | short characteristics method | |
+| 短い特性法 | short characteristics method | |
 | 輻射流束 | radiative flux | |
 | 方向余弦 | direction cosine | |
 | 求積 | quadrature | |
