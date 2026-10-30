@@ -3,7 +3,6 @@
 # This file is distributed under the same license as the MISO package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: MISO \n"
@@ -46,7 +45,7 @@ msgstr "II. C++ Basics"
 
 #, python-brace-format
 msgid "{ref}`変数・関数・制御文 <edu-ch02>` — 短い逐次計算を書き、関数やファイルへ処理を分けます。"
-msgstr "{ref}`Variables, Functions, and Control Statements <edu-ch02>` — Write short serial computations, and split the work into functions and files."
+msgstr "{ref}`Variables, Functions, and Control Flow <edu-ch02>` — Write short serial computations, and split the work into functions and files."
 
 #, python-brace-format
 msgid "{ref}`参照・ポインタと寿命 <edu-ch03>` — どの変数を読み書きし、いつまで使えるかを追います。"
@@ -77,14 +76,14 @@ msgstr "{ref}`Domain Decomposition with MPI <edu-ch08>` — Divide the domain, e
 
 #, python-brace-format
 msgid "{ref}`GPU（CUDA）での計算とデータ転送 <edu-ch09>` — 計算場所とメモリを区別し、同じラムダを GPU で動かします。"
-msgstr "{ref}`Computing and Data Transfer on the GPU (CUDA) <edu-ch09>` — Distinguish the place of computation from memory, and run the same lambda on the GPU."
+msgstr "{ref}`Computing and Transferring Data on a GPU (CUDA) <edu-ch09>` — Distinguish the place of computation from memory, and run the same lambda on the GPU."
 
 msgid "IV．総合実習と本体の読解"
 msgstr "IV. Capstone Practice and Reading the Core Code"
 
 #, python-brace-format
 msgid "{ref}`熱伝導の計算 <edu-ch10>` — 差分・時間積分・境界処理を組み合わせ、逐次版を並列化します。"
-msgstr "{ref}`Heat Conduction <edu-ch10>` — Combine finite differences, time integration, and boundary handling, and parallelize the serial version."
+msgstr "{ref}`Heat Conduction Calculation <edu-ch10>` — Combine finite differences, time integration, and boundary handling, and parallelize the serial version."
 
 #, python-brace-format
 msgid "{ref}`MISO の時間発展を読む <edu-ch11>` — 自分で書いた小さな計算と、MISO 本体の役割分担を対応づけます。"
@@ -95,7 +94,7 @@ msgstr "With only the CPU on Ubuntu or Mac, you can work through **Chapters 1–
 
 #, python-brace-format
 msgid "章内の練習の答えは「解答・解説」として折りたたんであります。 まとまったプログラムを作る課題は {ref}`実習一覧 <edu-practice>` に置き、本文の該当箇所から案内しています。"
-msgstr "The answers to the in-chapter exercises are collapsed under \"Solution and Explanation\". Assignments that build a complete program are collected in the {ref}`Practice List <edu-practice>`, and the relevant places in the text point to them."
+msgstr "The answers to the in-chapter exercises are collapsed under \"Answer and explanation\". Assignments that build a complete program are collected in the {ref}`Practice List <edu-practice>`, and the relevant places in the text point to them."
 
 msgid "必要なときに参照する資料"
 msgstr "Reference material to consult when needed"

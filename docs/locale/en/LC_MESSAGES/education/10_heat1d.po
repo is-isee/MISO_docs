@@ -3,7 +3,6 @@
 # This file is distributed under the same license as the MISO package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: MISO \n"
@@ -222,7 +221,7 @@ msgstr "If you halve the grid spacing, the upper limit of $\\Delta t$ becomes on
 
 #, python-brace-format
 msgid "実習では、$r$ の上限を $r_\\mathrm{max} = 0.4$ とし、終了時刻にちょうど着くように $\\Delta t$ を決めます。"
-msgstr "In the practice, we set the upper limit of $r$ to $r_\\mathrm{max} = 0.4$ and choose $\\Delta t$ so that the run ends exactly at the end time."
+msgstr "In the Practice, we set the upper limit of $r$ to $r_\\mathrm{max} = 0.4$ and choose $\\Delta t$ so that the run ends exactly at the end time."
 
 msgid "n_\\mathrm{steps} = \\left\\lceil \\frac{t_\\mathrm{end}}{r_\\mathrm{max}\\,\\Delta x^2/\\kappa} \\right\\rceil,\\qquad \\Delta t = \\frac{t_\\mathrm{end}}{n_\\mathrm{steps}}"
 msgstr ""
@@ -248,7 +247,7 @@ msgstr "Since $\\Delta x = 1/64$ and $\\Delta x^2 = 1/4096$, we have $r_\\mathrm
 
 #, python-brace-format
 msgid "$r_\\mathrm{max} = 0.6$ では $n_\\mathrm{steps} = 683$、$r \\approx 0.5997$ になり、セルごとに符号が入れ替わる成分の増幅率は $1 - 4r \\approx -1.4$ です。 初期条件 $\\sin(\\pi x)$ にはこの成分はほとんど含まれませんが、丸め誤差（$10^{-16}$ 程度）として必ず混ざります。 それが 1 ステップごとに 1.4 倍され、683 ステップ後には $1.4^{683} \\approx 10^{100}$ 倍になるので、計算が壊れます。 実際に実習の逐次版で `r = 0.6` を与えると、最大誤差は $10^{82}$ 程度になります。"
-msgstr "With $r_\\mathrm{max} = 0.6$, we get $n_\\mathrm{steps} = 683$ and $r \\approx 0.5997$, and the amplification factor of the sign-alternating component is $1 - 4r \\approx -1.4$. The initial condition $\\sin(\\pi x)$ contains almost none of this component, but it is always mixed in as rounding error (about $10^{-16}$). It is multiplied by 1.4 at every step, and after 683 steps it has grown by a factor of $1.4^{683} \\approx 10^{100}$, so the calculation breaks down. In fact, if you give `r = 0.6` to the serial version of the practice, the maximum error becomes about $10^{82}$."
+msgstr "With $r_\\mathrm{max} = 0.6$, we get $n_\\mathrm{steps} = 683$ and $r \\approx 0.5997$, and the amplification factor of the sign-alternating component is $1 - 4r \\approx -1.4$. The initial condition $\\sin(\\pi x)$ contains almost none of this component, but it is always mixed in as rounding error (about $10^{-16}$). It is multiplied by 1.4 at every step, and after 683 steps it has grown by a factor of $1.4^{683} \\approx 10^{100}$, so the calculation breaks down. In fact, if you give `r = 0.6` to the serial version of the Practice, the maximum error becomes about $10^{82}$."
 
 msgid "</details>\n"
 msgstr ""
@@ -378,7 +377,7 @@ msgstr ""
 
 #, python-brace-format
 msgid "$p \\approx 2$ になれば、差分の近似が期待どおりの精度を持っていることになります。 実習の条件（$r_\\mathrm{max} = 0.4$）での値は次のとおりです。"
-msgstr "If $p \\approx 2$, the finite-difference approximation has the expected accuracy. The values under the practice conditions ($r_\\mathrm{max} = 0.4$) are as follows."
+msgstr "If $p \\approx 2$, the finite-difference approximation has the expected accuracy. The values under the Practice conditions ($r_\\mathrm{max} = 0.4$) are as follows."
 
 msgid "$N$"
 msgstr ""
@@ -496,7 +495,7 @@ msgstr "The term $-1/12$ comes from the error of the central difference in space
 
 #, python-brace-format
 msgid "2 つの項は符号が逆なので、$r = 1/6$ にすると主要項が打ち消し合い、誤差は $\\Delta x^4$ に比例するようになります。 実習の逐次版で `r = 0.16666666666666667` を与えると、$N = 64$ で誤差は $1.6\\times10^{-8}$ 程度まで下がります （$n_\\mathrm{steps}$ を切り上げるので $r$ がわずかに 1/6 からずれ、きれいな 4 次にはなりません）。 この打ち消しは、この方程式と差分の組み合わせに特有のもので、一般の問題では期待できません。"
-msgstr "The two terms have opposite signs, so with $r = 1/6$ the leading terms cancel and the error becomes proportional to $\\Delta x^4$. If you give `r = 0.16666666666666667` to the serial version of the practice, the error drops to about $1.6\\times10^{-8}$ at $N = 64$ (because $n_\\mathrm{steps}$ is rounded up, $r$ deviates slightly from 1/6, and you do not get a clean fourth-order behavior). This cancellation is specific to this combination of equation and difference scheme, and you cannot expect it for general problems."
+msgstr "The two terms have opposite signs, so with $r = 1/6$ the leading terms cancel and the error becomes proportional to $\\Delta x^4$. If you give `r = 0.16666666666666667` to the serial version of the Practice, the error drops to about $1.6\\times10^{-8}$ at $N = 64$ (because $n_\\mathrm{steps}$ is rounded up, $r$ deviates slightly from 1/6, and you do not get a clean fourth-order behavior). This cancellation is specific to this combination of equation and difference scheme, and you cannot expect it for general problems."
 
 msgid "MPI 版では、全体の格子、初期条件、$\\Delta t$、更新式を、ランク数によらず同じにします。 各セルの更新は、そのセルと左右の隣の値だけで決まり、計算の順番（足し算の順序）も変わりません。 そのため、ゴーストセルに正しい値が届いていれば、**ランク数を変えても結果はビット単位で一致します**。 逐次版とも一致します。"
 msgstr "In the MPI version, the global grid, the initial condition, $\\Delta t$, and the update formula are the same regardless of the number of ranks. The update of each cell is determined only by that cell and its left and right neighbors, and the order of the computation (the order of the additions) does not change either. Therefore, as long as the correct values reach the ghost cells, **the results are bitwise identical even if you change the number of ranks**. They also match the serial version."
@@ -513,14 +512,14 @@ msgstr "When comparing the GPU version with the CPU version, bitwise agreement i
 
 #, python-brace-format
 msgid "計算結果の比べ方は {ref}`参考資料「テストと結果の比較」 <edu-ref-testing>` にもまとめています。"
-msgstr "How to compare computed results is also summarized in the {ref}`reference material \"Testing and comparing results\" <edu-ref-testing>`."
+msgstr "How to compare computed results is also summarized in the {ref}`reference material \"Testing and Comparing Results\" <edu-ref-testing>`."
 
 msgid "逐次版の組み立て"
 msgstr "Building the serial version"
 
 #, python-brace-format
 msgid "{ref}`実習 01 <edu-practice-heat1d-01>` では、ここまでの式を MISO の `Array1D`・`for_each`・`reduce` で書きます。 配列とループの基本は {ref}`第 7 章 <edu-ch07>` で説明したとおりです。ここでは、この実習で気をつける点を説明します。"
-msgstr "In {ref}`Practice 01 <edu-practice-heat1d-01>`, you write the formulas so far using MISO's `Array1D`, `for_each`, and `reduce`. The basics of arrays and loops were explained in {ref}`Chapter 7 <edu-ch07>`. Here we explain the points to watch for in this practice."
+msgstr "In {ref}`Practice 01 <edu-practice-heat1d-01>`, you write the formulas so far using MISO's `Array1D`, `for_each`, and `reduce`. The basics of arrays and loops were explained in {ref}`Chapter 7 <edu-ch07>`. Here we explain the points to watch for in this Practice."
 
 msgid "値の型"
 msgstr "Value type"
@@ -615,7 +614,7 @@ msgstr "MPI version: domain decomposition and ghost cell exchange"
 
 #, python-brace-format
 msgid "{ref}`実習 02 <edu-practice-heat1d-02>` では、逐次版を $P$ ランクで分担します。 MPI の基本（ランク、`MPI_Sendrecv`、`MPI_Allreduce`）は {ref}`第 8 章 <edu-ch08>` で説明しました。 この実習では、MISO の `mpi::Shape` は使わず、1 次元の分割と交換を自分で書きます。"
-msgstr "In {ref}`Practice 02 <edu-practice-heat1d-02>`, you split the serial version across $P$ ranks. The basics of MPI (ranks, `MPI_Sendrecv`, `MPI_Allreduce`) were explained in {ref}`Chapter 8 <edu-ch08>`. In this practice, you do not use MISO's `mpi::Shape`; you write the 1D decomposition and exchange yourself."
+msgstr "In {ref}`Practice 02 <edu-practice-heat1d-02>`, you split the serial version across $P$ ranks. The basics of MPI (ranks, `MPI_Sendrecv`, `MPI_Allreduce`) were explained in {ref}`Chapter 8 <edu-ch08>`. In this Practice, you do not use MISO's `mpi::Shape`; you write the 1D decomposition and exchange yourself."
 
 msgid "各ランクの格子"
 msgstr "Grid on each rank"
@@ -682,7 +681,7 @@ msgid "ファイルに書き出すときは、`MPI_Gather` で全ランクの物
 msgstr "When writing to a file, gather the physical cells of all ranks onto rank 0 with `MPI_Gather`. If every rank sends the same number of elements ($n$), they are arranged in the receive array on rank 0 in rank order, which is the order of the global number $j$."
 
 msgid "受け取る場所 `u_all` は、ランク 0 だけが $N$ 要素を用意すれば足ります（他のランクでは使われません）。 なお、実習で $N$ が $P$ で割り切れない場合に使う `MPI_Abort(comm, 1)` は、そのコミュニケータのすべてのプロセスを終了させる関数です。"
-msgstr "For the receive location `u_all`, only rank 0 needs to prepare $N$ elements (it is not used on the other ranks). Note that `MPI_Abort(comm, 1)`, which the practice uses when $N$ is not divisible by $P$, is a function that terminates all processes in that communicator."
+msgstr "For the receive location `u_all`, only rank 0 needs to prepare $N$ elements (it is not used on the other ranks). Note that `MPI_Abort(comm, 1)`, which the Practice uses when $N$ is not divisible by $P$, is a function that terminates all processes in that communicator."
 
 msgid "**練習 10.4** MPI 版で、全体の最大誤差はランク数によらず逐次版とビット単位で一致します。 一方、全セルの値の合計（$\\sum_j u_j$）を各ランクで計算して `MPI_Allreduce`（`MPI_SUM`）で足し合わせると、ランク数によって最後の桁が変わることがあります。 この違いが生じる理由を説明してください。"
 msgstr "**Exercise 10.4** In the MPI version, the global maximum error matches the serial version bitwise regardless of the number of ranks. On the other hand, if each rank computes the sum of the values over all cells ($\\sum_j u_j$) and you add them up with `MPI_Allreduce` (`MPI_SUM`), the last digit may change with the number of ranks. Explain why this difference occurs."
@@ -736,7 +735,7 @@ msgid "ゴーストセルの交換"
 msgstr "Ghost cell exchange"
 
 msgid "`MPI_Sendrecv` に GPU のメモリのアドレスを渡せるかは、MPI が GPU に対応しているか（CUDA-aware MPI、第 9 章）によります。 この実習では、どの MPI でも動くように、送受信する値をいったんホストの配列に写します。"
-msgstr "Whether you can pass a GPU memory address to `MPI_Sendrecv` depends on whether the MPI supports GPUs (CUDA-aware MPI, Chapter 9). In this practice, so that it works with any MPI, we first copy the values to be sent and received to host arrays."
+msgstr "Whether you can pass a GPU memory address to `MPI_Sendrecv` depends on whether the MPI supports GPUs (CUDA-aware MPI, Chapter 9). In this Practice, so that it works with any MPI, we first copy the values to be sent and received to host arrays."
 
 msgid "送る 2 つの値（最初と最後の物理セル）を、`for_each` で GPU 上の小さな配列 `send`（2 要素）に詰める。"
 msgstr "Pack the two values to send (the first and last physical cells) into a small array `send` (2 elements) on the GPU with `for_each`."
@@ -789,7 +788,7 @@ msgstr "Run the GPU version with the same $N$ and number of ranks as the MPI ver
 
 #, python-brace-format
 msgid "GPU 版をビルドするには、CMake に `-DMISO_USE_CUDA=ON` を与え、ソースを CUDA としてコンパイルさせます。 設定の詳細は実習の仕様に書いています。GPU で困ったときは {ref}`参考資料「GPU で困ったとき」 <edu-ref-gpu-troubleshooting>` を参照してください。"
-msgstr "To build the GPU version, give CMake `-DMISO_USE_CUDA=ON` so that the source is compiled as CUDA. The details of the configuration are in the practice specification. If you run into trouble with the GPU, see the {ref}`reference material \"Troubleshooting GPUs\" <edu-ref-gpu-troubleshooting>`."
+msgstr "To build the GPU version, give CMake `-DMISO_USE_CUDA=ON` so that the source is compiled as CUDA. The details of the configuration are in the Practice specification. If you run into trouble with the GPU, see the {ref}`reference material \"GPU Troubleshooting\" <edu-ref-gpu-troubleshooting>`."
 
 msgid "MISO 本体との対応"
 msgstr "Correspondence with MISO itself"

@@ -3,7 +3,6 @@
 # This file is distributed under the same license as the MISO package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: MISO \n"
@@ -31,7 +30,7 @@ msgstr "What to implement"
 
 #, python-brace-format
 msgid "`N = 1000` とし、`Array1D<double, Backend>` で 3 つの配列 `x`, `y`, `z` を用意します（`Backend` は {ref}`実習の入口 <edu-practice-execution>`の書き方）。"
-msgstr "Set `N = 1000` and prepare three arrays `x`, `y`, and `z` as `Array1D<double, Backend>` (`Backend` is defined as in the {ref}`practice introduction <edu-practice-execution>`)."
+msgstr "Set `N = 1000` and prepare three arrays `x`, `y`, and `z` as `Array1D<double, Backend>` (`Backend` is defined as in the {ref}`Practice introduction <edu-practice-execution>`)."
 
 msgid "各配列から `view()` で View を取り出します。"
 msgstr "Get a view from each array with `view()`."

@@ -3,7 +3,6 @@
 # This file is distributed under the same license as the MISO package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: MISO \n"
@@ -74,7 +73,7 @@ msgid "必要な道具"
 msgstr "Required tools"
 
 msgid "この教材は CPU だけで進められます。GPU がなくても、C++ の練習、MISO の配列と並列ループ、MPI による領域分割、 1 次元熱伝導の実習、MISO のデモの実行まで行えます。"
-msgstr "You can work through this course with a CPU alone. Even without a GPU, you can practice C++, use MISO's arrays and parallel loops, decompose the domain with MPI, do the 1D heat conduction practice, and run MISO's demos."
+msgstr "You can work through this course with a CPU alone. Even without a GPU, you can practice C++, use MISO's arrays and parallel loops, decompose the domain with MPI, do the 1D heat conduction Practice, and run MISO's demos."
 
 msgid "道具"
 msgstr "Tool"
@@ -555,7 +554,7 @@ msgstr "`INTERFACE` specifies \"pass this to the targets that use `MISO::MISO`.\
 
 #, python-brace-format
 msgid "**FetchContent** は、必要なソースを CMake の設定の段階でインターネットから取得する仕組みです。 yaml-cpp を入れていない場合や、ユニットテスト用の doctest（{ref}`テストと計算結果の比較 <edu-ref-testing>` で説明します）を取得する場合に使われるので、 最初の設定にはインターネットへの接続が必要です。"
-msgstr "**FetchContent** is a mechanism that fetches the needed sources from the internet at the CMake configure stage. It is used when yaml-cpp is not installed, and when fetching doctest for the unit tests (explained in {ref}`Testing and comparing results <edu-ref-testing>`), so the first configuration requires an internet connection."
+msgstr "**FetchContent** is a mechanism that fetches the needed sources from the internet at the CMake configure stage. It is used when yaml-cpp is not installed, and when fetching doctest for the unit tests (explained in {ref}`Testing and Comparing Results <edu-ref-testing>`), so the first configuration requires an internet connection."
 
 msgid "ビルドとテストの実行"
 msgstr "Building and running the tests"
@@ -574,7 +573,7 @@ msgstr "The run succeeded if the following is displayed at the end (the number o
 
 #, python-brace-format
 msgid "先頭の 2 行は、このコマンドの間だけ Open MPI の動作を変える**環境変数**です。 テストの一部は MPI の 2 プロセスで動くため、CPU のコア数が少ない計算機やコンテナでも実行できるようにしています。 意味と、テストの読み方、テストを絞って実行する方法は {ref}`テストと計算結果の比較 <edu-ref-testing>` にまとめています。"
-msgstr "The first two lines are **environment variables** that change the behavior of Open MPI only for this command. Some of the tests run with two MPI processes, so these settings let them run even on computers or containers with few CPU cores. The meaning, how to read the tests, and how to run only selected tests are covered in {ref}`Testing and comparing results <edu-ref-testing>`."
+msgstr "The first two lines are **environment variables** that change the behavior of Open MPI only for this command. Some of the tests run with two MPI processes, so these settings let them run even on computers or containers with few CPU cores. The meaning, how to read the tests, and how to run only selected tests are covered in {ref}`Testing and Comparing Results <edu-ref-testing>`."
 
 msgid "デモの実行と出力の読み込み"
 msgstr "Running a Demo and Reading Its Output"
@@ -656,7 +655,7 @@ msgid "自分のプログラムから MISO を使う"
 msgstr "Using MISO from Your Own Program"
 
 msgid "第 7 章と第 10 章の実習では、MISO のフォルダの外に自分のフォルダを作り、MISO の部品を使うプログラムを書きます。 そのための最小の CMake の設定を作り、MISO が使えることを確かめます。"
-msgstr "In the practice of Chapter 7 and Chapter 10, you create your own folder outside the MISO folder and write programs that use MISO components. Here we create the minimal CMake configuration for that and check that MISO works."
+msgstr "In the Practice of Chapter 7 and Chapter 10, you create your own folder outside the MISO folder and write programs that use MISO components. Here we create the minimal CMake configuration for that and check that MISO works."
 
 msgid "作るもの"
 msgstr "What to create"
@@ -846,5 +845,5 @@ msgstr "What to Read Next"
 
 #, python-brace-format
 msgid "準備ができたら、{ref}`第 2 章：変数・関数・制御文 <edu-ch02>` へ進みます。 この章で作った `miso_check` のフォルダと `CMakeLists.txt` の形は、{ref}`第 7 章 <edu-ch07>` と {ref}`第 10 章 <edu-ch10>` の実習で使います。"
-msgstr "When you are ready, go on to {ref}`Chapter 2: Variables, Functions, and Control Statements <edu-ch02>`. The folder of `miso_check` that you created in this chapter and the form of its `CMakeLists.txt` will be used in the practice of {ref}`Chapter 7 <edu-ch07>` and {ref}`Chapter 10 <edu-ch10>`."
+msgstr "When you are ready, go on to {ref}`Chapter 2: Variables, Functions, and Control Flow <edu-ch02>`. The folder of `miso_check` that you created in this chapter and the form of its `CMakeLists.txt` will be used in the Practice of {ref}`Chapter 7 <edu-ch07>` and {ref}`Chapter 10 <edu-ch10>`."
 

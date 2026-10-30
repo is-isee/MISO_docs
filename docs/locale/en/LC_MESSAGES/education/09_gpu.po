@@ -3,7 +3,6 @@
 # This file is distributed under the same license as the MISO package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: MISO \n"
@@ -706,7 +705,7 @@ msgstr "6.5 Order of reduction and rounding error"
 
 #, python-brace-format
 msgid "Host 版は前から順に、CUDA 版はトーナメントの形で合わせます。 最小値・最大値なら順序によらず同じ値になりますが、浮動小数点の合計は順序で丸め誤差が変わります。 4.3 の例で `integral` の最後の桁が CPU と GPU で違ったのはこのためです。 CPU と GPU の結果を比べるときは、{ref}`テストと計算結果の比較 <edu-ref-testing>` を参照して、許す誤差を決めます。"
-msgstr "The Host version combines from the front in order, and the CUDA version combines in a tournament shape. For a minimum or a maximum the value is the same regardless of order, but for a floating-point sum the rounding error changes with the order. This is why the last digit of `integral` differed between the CPU and the GPU in the example of Section 4.3. When you compare CPU and GPU results, decide on the tolerance by referring to {ref}`Tests and comparing computed results <edu-ref-testing>`."
+msgstr "The Host version combines from the front in order, and the CUDA version combines in a tournament shape. For a minimum or a maximum the value is the same regardless of order, but for a floating-point sum the rounding error changes with the order. This is why the last digit of `integral` differed between the CPU and the GPU in the example of Section 4.3. When you compare CPU and GPU results, decide on the tolerance by referring to {ref}`Testing and Comparing Results <edu-ref-testing>`."
 
 msgid ""
 "<details>\n"
@@ -828,7 +827,7 @@ msgstr "If there is an error, `check_error` displays `CUDA Error: <message> <fil
 
 #, python-brace-format
 msgid "起きた場所を突き止めるには、CUDA Toolkit に含まれる `compute-sanitizer` で実行します。 どのカーネルのどのスレッドが不正な読み書きをしたかが表示されます。 使い方と 5.1 の例での表示は {ref}`GPU で困ったとき <edu-ref-gpu-troubleshooting>` にまとめています。"
-msgstr "To pin down where it occurred, run with `compute-sanitizer`, which is included in the CUDA Toolkit. It displays which thread of which kernel made an illegal read or write. How to use it, and the display for the example of Section 5.1, are summarized in {ref}`When you get stuck on a GPU <edu-ref-gpu-troubleshooting>`."
+msgstr "To pin down where it occurred, run with `compute-sanitizer`, which is included in the CUDA Toolkit. It displays which thread of which kernel made an illegal read or write. How to use it, and the display for the example of Section 5.1, are summarized in {ref}`GPU Troubleshooting <edu-ref-gpu-troubleshooting>`."
 
 msgid "8. GPU の選択と MPI"
 msgstr "8\\. Selecting a GPU and MPI"
@@ -949,7 +948,7 @@ msgstr "MISO's `miso/CMakeLists.txt` sets `CMAKE_CUDA_ARCHITECTURES` to `native`
 
 #, python-brace-format
 msgid "使う GPU に合わない値でビルドすると、ビルドは通っても実行時にカーネルの起動が失敗します（{ref}`GPU で困ったとき <edu-ref-gpu-troubleshooting>`）。"
-msgstr "If you build with a value that does not match the GPU you use, the build succeeds but the kernel launch fails at run time ({ref}`When you get stuck on a GPU <edu-ref-gpu-troubleshooting>`)."
+msgstr "If you build with a value that does not match the GPU you use, the build succeeds but the kernel launch fails at run time ({ref}`GPU Troubleshooting <edu-ref-gpu-troubleshooting>`)."
 
 msgid "9.2 ユニットテストと demo"
 msgstr "9.2 Unit tests and demos"
@@ -968,7 +967,7 @@ msgstr "10\\. Running a Program Made on a CPU on a GPU"
 
 #, python-brace-format
 msgid "第 7 章で作った {ref}`配列計算の実習 <edu-practice-execution>`（ベクトル加算、縮約、1 次元移流）を、GPU 用のビルドフォルダでビルドして動かします。 4.4 の CMake 設定を自分の `CMakeLists.txt` に足します。`Backend` は、{ref}`実習の入口 <edu-practice-execution>`の `#ifdef __CUDACC__` で切り替えます（4.3 の `USE_CUDA` で切り替えても結果は同じです）。 書き直すときは、次の点を確かめてください。"
-msgstr "Build and run the {ref}`array computation practice <edu-practice-execution>` from Chapter 7 (vector addition, reduction, and one-dimensional advection) in a build folder for the GPU. Add the CMake configuration of Section 4.4 to your own `CMakeLists.txt`. Switch `Backend` with the `#ifdef __CUDACC__` of the {ref}`entrance to the practice <edu-practice-execution>` (switching with the `USE_CUDA` of Section 4.3 gives the same result). When you rewrite it, check the following points."
+msgstr "Build and run the {ref}`array computation Practice <edu-practice-execution>` from Chapter 7 (vector addition, reduction, and one-dimensional advection) in a build folder for the GPU. Add the CMake configuration of Section 4.4 to your own `CMakeLists.txt`. Switch `Backend` with the `#ifdef __CUDACC__` of the {ref}`entrance to the Practice <edu-practice-execution>` (switching with the `USE_CUDA` of Section 4.3 gives the same result). When you rewrite it, check the following points."
 
 msgid "`for_each`・`reduce` に渡すラムダは `MISO_LAMBDA` で書き、`[&]` を使っていない。"
 msgstr "The lambdas passed to `for_each` and `reduce` are written with `MISO_LAMBDA`, and `[&]` is not used."

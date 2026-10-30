@@ -3,7 +3,6 @@
 # This file is distributed under the same license as the MISO package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: MISO \n"
@@ -49,13 +48,13 @@ msgid "{ref}`第 1 章 <edu-ch01>`の「自分のプログラムから MISO を�
 msgstr "Use the \"minimal CMake configuration for using MISO from your own program\" in {ref}`Chapter 1 <edu-ch01>`. It loads MISO's `miso/` with `add_subdirectory` and links `MISO::MISO` to your executable. Pass the location of MISO when you run CMake, with `-DMISO_DIR=/path/to/MISO` (replace `/path/to/MISO` with the location where you placed MISO)."
 
 msgid "3 つの課題は、1 つの `CMakeLists.txt` に実行ファイルを 3 つ並べても、課題ごとにフォルダを分けてもかまいません。 `MISO::MISO` をリンクすると MPI と yaml-cpp もリンクされますが、この実習で読み込むヘッダは MPI を使わないので、`mpiexec` なしで実行できます。"
-msgstr "You may list all three executables in a single `CMakeLists.txt`, or use a separate folder for each assignment. Linking `MISO::MISO` also links MPI and yaml-cpp, but the headers you include in this practice do not use MPI, so you can run the programs without `mpiexec`."
+msgstr "You may list all three executables in a single `CMakeLists.txt`, or use a separate folder for each assignment. Linking `MISO::MISO` also links MPI and yaml-cpp, but the headers you include in this Practice do not use MPI, so you can run the programs without `mpiexec`."
 
 msgid "使うヘッダ"
 msgstr "Headers to use"
 
 msgid "`<miso/core.hpp>` はすべての共通ヘッダをまとめて読み込みますが、この実習では使う機能のヘッダだけを読み込みます。"
-msgstr "`<miso/core.hpp>` includes all the common headers at once, but in this practice you include only the headers for the features you use."
+msgstr "`<miso/core.hpp>` includes all the common headers at once, but in this Practice you include only the headers for the features you use."
 
 msgid "機能"
 msgstr "Feature"

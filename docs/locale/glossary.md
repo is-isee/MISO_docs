@@ -17,6 +17,7 @@ Claude Code の上位モデルで作業しているときも、訳はサブエ�
 
 - インラインコード（`` `...` ``、rst の ``` ``...`` ```）、数式（`$...$`、`$$...$$`、`:math:`）、URL。
   ただし、インラインコードの中の日本語の型紙は英語にする（`static_cast<型>(値)` → `static_cast<type>(value)`、`assert(条件)` → `assert(condition)`）。
+- インラインコードの中の `|` は、msgid に合わせる。msgid が `` `||` `` なら、訳でも `\|` にエスケープしない（エスケープした記号がそのまま出る）。
 - `{ref}`、`{doc}`、`:ref:`、`:cite:` などのロールの**ターゲット**（`<edu-ch02>` の部分）。表示文は訳す。
 - `|today|` などの置換、`**` や `*` の強調の記号（中の語は訳す）。
 - 英語のままの見出し（`Quick Start`、`Boundary Condition` など）は `msgstr` を空のままにする。空なら原文が出る。
@@ -65,7 +66,7 @@ Claude Code の上位モデルで作業しているときも、訳はサブエ�
 | 内部エネルギー・運動エネルギー・磁気エネルギー・全エネルギー | internal / kinetic / magnetic / total energy | |
 | 比熱比 | ratio of specific heats | 記号だけなら adiabatic index $\gamma$ も可 |
 | 重力加速度 | gravitational acceleration | |
-| 電気抵抗 | (electrical) resistivity | 係数は resistivity、現象は resistance |
+| 電気抵抗 | (electrical) resistivity | 現象を指すときは resistive diffusion / resistive dissipation。resistance は回路の量（Ω）なので使わない |
 | 特性速度 | characteristic speed | |
 | 輻射強度・平均強度・入射強度 | intensity / mean intensity / incident intensity | |
 | 源泉関数 | source function | |
@@ -78,7 +79,7 @@ Claude Code の上位モデルで作業しているときも、訳はサブエ�
 | ペチェック型の速いリコネクション | Petschek-type fast reconnection | |
 | スローショック・ファストショック | slow shock / fast shock | 逆向きの → reverse、縦向きの → vertical |
 | 完全導体の壁 | perfectly conducting wall | |
-| 鏡映対称 | mirror-symmetric | |
+| 鏡映対称 | mirror symmetry | 形容詞は mirror-symmetric |
 | 擬ベクトル | pseudovector | |
 | 偶・奇（対称性） | even / odd | |
 | ジュール加熱 | Joule heating | |
@@ -90,8 +91,8 @@ Claude Code の上位モデルで作業しているときも、訳はサブエ�
 | 数値拡散 | numerical diffusion | |
 | 親クラス・子クラス | parent class / child class | education の表の「基底クラス・派生クラス」と同じもの |
 | シグネチャ | signature | |
-| 実習（実習のページとその節） | practice | 「実習一覧」→ Practice List、「実習 heat1d」→ Practice heat1d |
-| 練習（章の中の「練習 N」） | Exercise | 実習（practice）と区別する |
+| 実習（実習のページとその節） | Practice | Chapter・Section・Exercise と同じく大文字で始める。「実習一覧」→ Practice List、「第 10 章の実習」→ the Practice of Chapter 10 |
+| 練習（章の中の「練習 N」） | Exercise | 実習（Practice）と区別する |
 | 課題 | assignment | |
 | この教材 | this course | |
 | 第 N 章・N 節 | Chapter N / Section N | |
@@ -101,4 +102,4 @@ Claude Code の上位モデルで作業しているときも、訳はサブエ�
 | 可視化用のスクリプト | visualization script | |
 | 計算を再開する | restart (a run) | |
 | 名古屋大学宇宙地球環境研究所（ISEE） | Institute for Space-Earth Environmental Research (ISEE), Nagoya University | |
-| 総合解析研究部 | Division of Integrated Studies | |
+| 総合解析研究部 | Division for Integrated Studies | |

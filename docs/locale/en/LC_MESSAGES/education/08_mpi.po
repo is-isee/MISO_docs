@@ -3,7 +3,6 @@
 # This file is distributed under the same license as the MISO package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: MISO \n"
@@ -792,5 +791,5 @@ msgid "時間刻みは `MPI_Allreduce`（`MPI_MIN`）で全ランクの最小値
 msgstr "The time step is synchronized to the minimum over all ranks with `MPI_Allreduce` (`MPI_MIN`). All ranks call collective communication in the same order."
 
 msgid "GPU を使う場合のハロー交換と、ランクと GPU の対応づけは第 9 章で扱います。 CPU だけで進める場合は、第 10 章の熱伝導の実習で、この章の 1 次元のハロー交換と `MPI_Allreduce` を自分で書きます。"
-msgstr "The halo exchange when using a GPU, and the mapping between ranks and GPUs, are covered in Chapter 9. If you proceed with the CPU only, in the heat conduction practice of Chapter 10 you will write the one-dimensional halo exchange and the `MPI_Allreduce` of this chapter yourself."
+msgstr "The halo exchange when using a GPU, and the mapping between ranks and GPUs, are covered in Chapter 9. If you proceed with the CPU only, in the heat conduction Practice of Chapter 10 you will write the one-dimensional halo exchange and the `MPI_Allreduce` of this chapter yourself."
 

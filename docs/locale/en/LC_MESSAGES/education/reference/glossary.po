@@ -3,7 +3,6 @@
 # This file is distributed under the same license as the MISO package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: MISO \n"
@@ -23,7 +22,7 @@ msgid "用語集"
 msgstr "Glossary"
 
 msgid "本文に出てくる用語を、初めて説明する章の順に並べています。詳しい説明は「初出」の章を読んでください。 元の資料やコンパイラのエラーは英語なので、英語も併記します。"
-msgstr "Terms are listed in the order of the chapter that first explains them. For details, read the chapter given under \"First appears\"."
+msgstr "Terms are listed in the order of the chapter that first explains them. For details, read the chapter given under \"First appears\". The original documentation and compiler error messages are in English, so the English terms are listed as well."
 
 msgid "I．準備"
 msgstr "I\\. Setup"
@@ -261,7 +260,7 @@ msgid "short-circuit evaluation"
 msgstr ""
 
 msgid "`&&`・`||` で、左側だけで結果が決まれば右側を評価しないこと"
-msgstr "With `&&` and `\\|\\|`, not evaluating the right side if the left side alone determines the result"
+msgstr "With `&&` and `||`, not evaluating the right side if the left side alone determines the result"
 
 msgid "条件演算子"
 msgstr "conditional operator"

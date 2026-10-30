@@ -3,7 +3,6 @@
 # This file is distributed under the same license as the MISO package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: MISO \n"
@@ -28,7 +27,7 @@ msgstr "In {ref}`Chapter 2 <edu-ch02>`, you learned how to pass a copy of a valu
 
 #, python-brace-format
 msgid "記号の意味だけを確かめたいときは {ref}`記号の早見表 <edu-ref-cpp>` も使えます。"
-msgstr "If you only want to check what the symbols mean, you can also use the {ref}`symbol quick reference <edu-ref-cpp>`."
+msgstr "If you only want to check what the symbols mean, you can also use the {ref}`Symbol Quick Reference <edu-ref-cpp>`."
 
 msgid "目次"
 msgstr "Contents"
@@ -693,5 +692,5 @@ msgstr "Only reads, without copying"
 
 #, python-brace-format
 msgid "ほかの記号（`::`, `<>`, `->` など）も含めた一覧は {ref}`記号の早見表 <edu-ref-cpp>` にあります。 参照・ポインタの規則の詳細は、C++17 規格草案 N4659 の [参照](https://timsong-cpp.github.io/cppwp/n4659/dcl.ref)、[ポインタ](https://timsong-cpp.github.io/cppwp/n4659/dcl.ptr)、[参照の初期化](https://timsong-cpp.github.io/cppwp/n4659/dcl.init.ref) で確認できます。"
-msgstr "A list that also includes other symbols (`::`, `<>`, `->`, and so on) is in the {ref}`symbol quick reference <edu-ref-cpp>`. For details of the rules for references and pointers, see the C++17 draft standard N4659: [references](https://timsong-cpp.github.io/cppwp/n4659/dcl.ref), [pointers](https://timsong-cpp.github.io/cppwp/n4659/dcl.ptr), and [initialization of references](https://timsong-cpp.github.io/cppwp/n4659/dcl.init.ref)."
+msgstr "A list that also includes other symbols (`::`, `<>`, `->`, and so on) is in the {ref}`Symbol Quick Reference <edu-ref-cpp>`. For details of the rules for references and pointers, see the C++17 draft standard N4659: [references](https://timsong-cpp.github.io/cppwp/n4659/dcl.ref), [pointers](https://timsong-cpp.github.io/cppwp/n4659/dcl.ptr), and [initialization of references](https://timsong-cpp.github.io/cppwp/n4659/dcl.init.ref)."
 

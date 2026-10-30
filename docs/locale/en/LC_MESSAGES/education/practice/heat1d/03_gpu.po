@@ -3,7 +3,6 @@
 # This file is distributed under the same license as the MISO package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: MISO \n"
@@ -180,5 +179,5 @@ msgstr "Criteria for moving on"
 
 #, python-brace-format
 msgid "CPU 用のビルドで MPI 版と一致し、GPU を使える場合は GPU 用のビルドで上の 2〜4 を確かめたら、熱伝導の実習は完了です。 {ref}`第 11 章 <edu-ch11>` へ進み、MISO 本体の時間発展を読みます。"
-msgstr "Once the CPU build matches the MPI version and, if you can use a GPU, you have checked 2 to 4 above with the GPU build, the heat conduction practice is complete. Move on to {ref}`Chapter 11 <edu-ch11>` and read MISO's time evolution."
+msgstr "Once the CPU build matches the MPI version and, if you can use a GPU, you have checked 2 to 4 above with the GPU build, the heat conduction Practice is complete. Move on to {ref}`Chapter 11 <edu-ch11>` and read MISO's time evolution."
 

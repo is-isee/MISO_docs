@@ -3,7 +3,6 @@
 # This file is distributed under the same license as the MISO package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: MISO \n"
@@ -43,7 +42,7 @@ msgstr "The examples in this chapter use only MISO's headers. If you add `miso/i
 
 #, python-brace-format
 msgid "この章で読み込むヘッダ（`array1d.hpp`, `array3d.hpp`, `execution.hpp`, `utility.hpp`）は、MPI や yaml-cpp を必要としません。 CMake から MISO を使う設定は、章末の実習で {ref}`第 1 章 <edu-ch01>`の設定を使います。"
-msgstr "The headers read in this chapter (`array1d.hpp`, `array3d.hpp`, `execution.hpp`, and `utility.hpp`) do not require MPI or yaml-cpp. For the CMake setup to use MISO, the end-of-chapter practice uses the setup from {ref}`Chapter 1 <edu-ch01>`."
+msgstr "The headers read in this chapter (`array1d.hpp`, `array3d.hpp`, `execution.hpp`, and `utility.hpp`) do not require MPI or yaml-cpp. For the CMake setup to use MISO, the end-of-chapter Practice uses the setup from {ref}`Chapter 1 <edu-ch01>`."
 
 msgid "目次"
 msgstr "Contents"

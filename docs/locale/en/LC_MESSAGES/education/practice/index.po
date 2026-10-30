@@ -3,7 +3,6 @@
 # This file is distributed under the same license as the MISO package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: MISO \n"
@@ -41,14 +40,14 @@ msgstr "{ref}`Vector Addition, Reduction, and 1D Advection <edu-practice-executi
 
 #, python-brace-format
 msgid "{ref}`第 9 章：GPU（CUDA）での計算とデータ転送 <edu-ch09>`"
-msgstr "{ref}`Chapter 9: Computing and Data Transfer on the GPU (CUDA) <edu-ch09>`"
+msgstr "{ref}`Chapter 9: Computing and Transferring Data on a GPU (CUDA) <edu-ch09>`"
 
 msgid "第 7 章と同じ課題を GPU で動かします"
 msgstr "Run the same assignments as in Chapter 7 on the GPU"
 
 #, python-brace-format
 msgid "{ref}`第 10 章：熱伝導の計算 <edu-ch10>`"
-msgstr "{ref}`Chapter 10: Heat Conduction <edu-ch10>`"
+msgstr "{ref}`Chapter 10: Heat Conduction Calculation <edu-ch10>`"
 
 #, python-brace-format
 msgid "{ref}`逐次計算から MPI・GPU への拡張 <edu-practice-heat1d>`"
