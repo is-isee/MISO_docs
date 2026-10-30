@@ -117,13 +117,13 @@
              
   <section class="tex2jax_ignore mathjax_ignore" id="d-rt-test-searchlight-beam">
 <h1>2D RT Test: Searchlight Beam<a class="headerlink" href="#d-rt-test-searchlight-beam" title="Link to this heading"></a></h1>
-<p>サーチライト問題は、輻射輸送 (RT) ソルバの標準的なテスト問題です。境界の一部から細い光束 (サーチライト) を計算領域に入射させ、光束がどの程度広がらずに伝わるかを見ることで、短特性法(short characteristics) <span class="bibtex-citation" id="id1">[<a class="reference internal" href="../references.html#id6" title="P. Kunasz and L. H. Auer. Short characteristic integration of radiative transfer problems. Journal of Quantitative Spectroscopy and Radiative Transfer, 39(1):67-79, January 1988. doi:10.1016/0022-4073(88)90021-0.">Kunasz and Auer, 1988</a>]</span> の数値拡散の大きさを確認します。</p>
+<p>サーチライト問題は、輻射輸送 (RT) ソルバの標準的なテスト問題です。境界の一部から細い光束 (サーチライト) を計算領域に入射させ、光束がどの程度広がらずに伝わるかを見ることで、短い特性法(short characteristics) <span class="bibtex-citation" id="id1">[<a class="reference internal" href="../references.html#id6" title="P. Kunasz and L. H. Auer. Short characteristic integration of radiative transfer problems. Journal of Quantitative Spectroscopy and Radiative Transfer, 39(1):67-79, January 1988. doi:10.1016/0022-4073(88)90021-0.">Kunasz and Auer, 1988</a>]</span> の数値拡散の大きさを確認します。</p>
 <p>MISOのRTソルバは、離散化した方向ごとに輻射輸送方程式</p>
 <div class="math notranslate nohighlight">
 \[
 \frac{dI}{ds} = -\kappa \left(I - S\right)
 \]</div>
-<p>を短特性法で積分します。ここで<span class="math notranslate nohighlight">\(I\)</span>は輻射強度、<span class="math notranslate nohighlight">\(s\)</span>は光線に沿った距離、<span class="math notranslate nohighlight">\(\kappa\)</span>は吸収係数、<span class="math notranslate nohighlight">\(S\)</span>は源泉関数です。角度積分にはCarlsonのA4求積 (24方向) を用います。</p>
+<p>を短い特性法で積分します。ここで<span class="math notranslate nohighlight">\(I\)</span>は輻射強度、<span class="math notranslate nohighlight">\(s\)</span>は光線に沿った距離、<span class="math notranslate nohighlight">\(\kappa\)</span>は吸収係数、<span class="math notranslate nohighlight">\(S\)</span>は源泉関数です。角度積分にはCarlsonのA4求積 (24方向) を用います。</p>
 <section id="location">
 <h2>Location<a class="headerlink" href="#location" title="Link to this heading"></a></h2>
 <p><code class="docutils literal notranslate"><span class="pre">demo/rt2d_searchlight/</span></code></p>
