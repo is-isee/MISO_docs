@@ -1,0 +1,203 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>02. Reduction: Sum of Squares and Maximum &mdash; MISO 0.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/graphviz.css?v=4ae1632d" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/collapsible-lists/css/tree_view.css?v=a885cde7" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/custom.css" />
+
+  
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options.js?v=837179f8"></script>
+      <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../../../_static/copybutton.js?v=f281be69"></script>
+      <script src="../../../_static/collapsible-lists/js/CollapsibleLists.compressed.js?v=73120307"></script>
+      <script src="../../../_static/collapsible-lists/js/apply-collapsible-lists.js?v=660e4f45"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="03. 1D Advection and a Periodic Boundary" href="03_advection_1d.html" />
+    <link rel="prev" title="01. Vector Addition" href="01_vector_add.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            MISO
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../../quickstart.html">Quick Start</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../demo/index.html">Test Problems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../customization/index.html">Customization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../miso/index.html">MISO C++ documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../pymiso/index.html">pymiso Documentation</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../index.html">MISO education</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../../index.html#id1">Main text</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../../index.html#id2">Reference material to consult when needed</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../../01_environment_setup.html">1. Development Environment and CMake</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../02_cpp_basics.html">2. Variables, Functions, and Control Flow</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../03_references_and_pointers.html">3. References, Pointers, and Lifetime</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../04_classes_and_structs.html">4. Classes and Structs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../05_inheritance.html">5. Inheritance and CRTP</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../06_templates.html">6. Templates</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../07_arrays_and_parallel.html">7. Arrays, Lambdas, and Parallel Loops on the CPU</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../08_mpi.html">8. Domain Decomposition with MPI</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../09_gpu.html">9. Computing and Transferring Data on a GPU (CUDA)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../10_heat1d.html">10. Heat Conduction Calculation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../11_reading_miso.html">11. Reading MISO’s Time Evolution</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="../index.html">Practice List</a><ul class="current">
+<li class="toctree-l4 current"><a class="reference internal" href="index.html">Practice: Arrays and Parallel Loops</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../heat1d/index.html">Practice heat1d: Heat Conduction</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference/index.html">Reference Materials</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../references.html">References</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">MISO</a>
+      </nav>
+
+      <div class="wy-nav-content">
+<div id="language-links" style="margin-bottom: 1em; font-size: 100%;">
+    Language:
+    
+    <strong>English</strong> |
+    <a href="../../../../education/practice/execution/02_reduction.html">日本語</a>
+    
+</div>
+
+
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">MISO education</a></li>
+          <li class="breadcrumb-item"><a href="../index.html">Practice List</a></li>
+          <li class="breadcrumb-item"><a href="index.html">Practice: Arrays and Parallel Loops</a></li>
+      <li class="breadcrumb-item active">02. Reduction: Sum of Squares and Maximum</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../../_sources/education/practice/execution/02_reduction.md.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section class="tex2jax_ignore mathjax_ignore" id="edu-practice-execution-02">
+<span id="id1"></span><h1>02. Reduction: Sum of Squares and Maximum<a class="headerlink" href="#edu-practice-execution-02" title="Link to this heading"></a></h1>
+<p>Using the setup from the previous assignment, compute the sum of squares and the maximum of an array with <code class="docutils literal notranslate"><span class="pre">reduce</span></code>. You extend the sum example from <a class="reference internal" href="../../07_arrays_and_parallel.html#edu-ch07"><span class="std std-ref">Chapter 7</span></a> to two cases: the sum of squares and the maximum.</p>
+<section id="id2">
+<h2>What to implement<a class="headerlink" href="#id2" title="Link to this heading"></a></h2>
+<p>Initialize an array <code class="docutils literal notranslate"><span class="pre">x</span></code> of length <code class="docutils literal notranslate"><span class="pre">N</span></code> with <code class="docutils literal notranslate"><span class="pre">for_each</span></code> as <code class="docutils literal notranslate"><span class="pre">x[i]</span> <span class="pre">=</span> <span class="pre">util::sin(0.001</span> <span class="pre">*</span> <span class="pre">i)</span></code>, and compute the following two quantities.</p>
+<ul class="simple">
+<li><p>Sum of squares <code class="docutils literal notranslate"><span class="pre">Σ</span> <span class="pre">x[i]²</span></code></p></li>
+<li><p>Maximum <code class="docutils literal notranslate"><span class="pre">max</span> <span class="pre">x[i]</span></code></p></li>
+</ul>
+<p>MISO’s <code class="docutils literal notranslate"><span class="pre">reduce</span></code> returns one value per call, so you call <code class="docutils literal notranslate"><span class="pre">reduce</span></code> twice. For each, decide and write the following three things.</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p></p></th>
+<th class="head"><p>Sum of squares</p></th>
+<th class="head"><p>Maximum</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>A lambda that returns the value at each point (<code class="docutils literal notranslate"><span class="pre">map</span></code>)</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">x[i]</span> <span class="pre">*</span> <span class="pre">x[i]</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">x[i]</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>A lambda that combines two values (<code class="docutils literal notranslate"><span class="pre">op</span></code>)</p></td>
+<td><p>Sum</p></td>
+<td><p>The larger one</p></td>
+</tr>
+<tr class="row-even"><td><p>Initial value (<code class="docutils literal notranslate"><span class="pre">init</span></code>)</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">0.0</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">std::numeric_limits&lt;double&gt;::lowest()</span></code></p></td>
+</tr>
+</tbody>
+</table>
+<p>Use an initial value that does not change the result when combined (the identity element). For <code class="docutils literal notranslate"><span class="pre">std::numeric_limits</span></code>, include <code class="docutils literal notranslate"><span class="pre">&lt;limits&gt;</span></code>. To pick the larger value, you can use <code class="docutils literal notranslate"><span class="pre">util::fmax(a,</span> <span class="pre">b)</span></code>. <code class="docutils literal notranslate"><span class="pre">util::max2</span></code> rounds a <code class="docutils literal notranslate"><span class="pre">double</span></code> to a <code class="docutils literal notranslate"><span class="pre">float</span></code> (MISO #189), so we do not use it here.</p>
+<p>Check first with <code class="docutils literal notranslate"><span class="pre">N</span> <span class="pre">=</span> <span class="pre">1000</span></code>, then with <code class="docutils literal notranslate"><span class="pre">N</span> <span class="pre">=</span> <span class="pre">1000000</span></code>.</p>
+</section>
+<section id="id3">
+<h2>Checking the result<a class="headerlink" href="#id3" title="Link to this heading"></a></h2>
+<p>Copy <code class="docutils literal notranslate"><span class="pre">x</span></code> into a host-side array with <code class="docutils literal notranslate"><span class="pre">copy_from</span></code>, and compute the expected values from that same array with an ordinary <code class="docutils literal notranslate"><span class="pre">for</span></code> loop. The maximum only compares and selects values, so if this array contains no NaN (a value that cannot be represented as a number), you can check it for an exact match.</p>
+<p>For the sum of squares, the last digits change with the order of addition. For the host-side expected value, convert each element to <code class="docutils literal notranslate"><span class="pre">long</span> <span class="pre">double</span></code>, square it, and add in <code class="docutils literal notranslate"><span class="pre">long</span> <span class="pre">double</span></code>. Whether <code class="docutils literal notranslate"><span class="pre">long</span> <span class="pre">double</span></code> has more digits than <code class="docutils literal notranslate"><span class="pre">double</span></code> depends on the environment. For this input and the <code class="docutils literal notranslate"><span class="pre">N</span></code> above, use a comparison that allows differences up to <code class="docutils literal notranslate"><span class="pre">1e-12</span> <span class="pre">*</span> <span class="pre">max(1,</span> <span class="pre">|expected|)</span></code>, and also print the actual difference. When you change to another input or size, do not reuse the same tolerance unconditionally; decide it by considering the number of additions and the rounding error.</p>
+<p>Once this is confirmed on the CPU, move on to <a class="reference internal" href="03_advection_1d.html#edu-practice-execution-03"><span class="std std-ref">1D advection</span></a>.</p>
+</section>
+<section id="gpu">
+<h2>Running on the GPU<a class="headerlink" href="#gpu" title="Link to this heading"></a></h2>
+<p>After reading <a class="reference internal" href="../../09_gpu.html#edu-ch09"><span class="std std-ref">Chapter 9</span></a>, run the same assignment with CUDA. Copy the array built on the GPU to the host and compare it with the expected value computed from that array. Also record how much the sum of squares differs between the CPU and the GPU. Both the implementation of the math functions used for initialization and the order of addition in <code class="docutils literal notranslate"><span class="pre">reduce</span></code> can cause the difference.</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="01_vector_add.html" class="btn btn-neutral float-left" title="01. Vector Addition" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="03_advection_1d.html" class="btn btn-neutral float-right" title="03. 1D Advection and a Periodic Boundary" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Integrated Studies, ISEE, Nagoya University.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

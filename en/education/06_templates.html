@@ -1,0 +1,986 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>6. Templates &mdash; MISO 0.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=4ae1632d" />
+      <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../_static/collapsible-lists/css/tree_view.css?v=a885cde7" />
+      <link rel="stylesheet" type="text/css" href="../_static/custom.css" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=837179f8"></script>
+      <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../_static/copybutton.js?v=f281be69"></script>
+      <script src="../_static/collapsible-lists/js/CollapsibleLists.compressed.js?v=73120307"></script>
+      <script src="../_static/collapsible-lists/js/apply-collapsible-lists.js?v=660e4f45"></script>
+      <script>window.MathJax = {"tex": {"macros": {"bm": ["{\\boldsymbol{#1}}", 1]}}, "options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+      <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="7. Arrays, Lambdas, and Parallel Loops on the CPU" href="07_arrays_and_parallel.html" />
+    <link rel="prev" title="5. Inheritance and CRTP" href="05_inheritance.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            MISO
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../quickstart.html">Quick Start</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../demo/index.html">Test Problems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../customization/index.html">Customization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../miso/index.html">MISO C++ documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../pymiso/index.html">pymiso Documentation</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">MISO education</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="index.html#id1">Main text</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html#id2">Reference material to consult when needed</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="01_environment_setup.html">1. Development Environment and CMake</a></li>
+<li class="toctree-l3"><a class="reference internal" href="02_cpp_basics.html">2. Variables, Functions, and Control Flow</a></li>
+<li class="toctree-l3"><a class="reference internal" href="03_references_and_pointers.html">3. References, Pointers, and Lifetime</a></li>
+<li class="toctree-l3"><a class="reference internal" href="04_classes_and_structs.html">4. Classes and Structs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="05_inheritance.html">5. Inheritance and CRTP</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">6. Templates</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id2">Contents</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#edu-ch06-intro">Introduction</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#edu-ch06-function-templates">6.1 Function Templates</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#edu-ch06-class-templates">6.2 Class Templates</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#edu-ch06-variable-templates">6.3 Variable Templates</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#edu-ch06-tag-dispatch">6.4 Selecting Overloads with Tag Types</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#edu-ch06-specialization">6.5 Template Specialization</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#if-constexpr-static-assert">6.6 if constexpr and static_assert</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#edu-ch06-type-traits">6.7 Mechanisms for Examining the Properties of Types</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#edu-ch06-exercises">Exercises: Specifying and Selecting Templates</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="07_arrays_and_parallel.html">7. Arrays, Lambdas, and Parallel Loops on the CPU</a></li>
+<li class="toctree-l3"><a class="reference internal" href="08_mpi.html">8. Domain Decomposition with MPI</a></li>
+<li class="toctree-l3"><a class="reference internal" href="09_gpu.html">9. Computing and Transferring Data on a GPU (CUDA)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="10_heat1d.html">10. Heat Conduction Calculation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="11_reading_miso.html">11. Reading MISO’s Time Evolution</a></li>
+<li class="toctree-l3"><a class="reference internal" href="practice/index.html">Practice List</a></li>
+<li class="toctree-l3"><a class="reference internal" href="reference/index.html">Reference Materials</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../references.html">References</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">MISO</a>
+      </nav>
+
+      <div class="wy-nav-content">
+<div id="language-links" style="margin-bottom: 1em; font-size: 100%;">
+    Language:
+    
+    <strong>English</strong> |
+    <a href="../../education/06_templates.html">日本語</a>
+    
+</div>
+
+
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">MISO education</a></li>
+      <li class="breadcrumb-item active">6. Templates</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/education/06_templates.md.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section class="tex2jax_ignore mathjax_ignore" id="edu-ch06">
+<span id="id1"></span><h1>6. Templates<a class="headerlink" href="#edu-ch06" title="Link to this heading"></a></h1>
+<section id="id2">
+<h2>Contents<a class="headerlink" href="#id2" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p><a class="reference internal" href="#edu-ch06-intro"><span class="std std-ref">Introduction</span></a></p></li>
+<li><p><a class="reference internal" href="#edu-ch06-function-templates"><span class="std std-ref">6.1 Function templates</span></a></p></li>
+<li><p><a class="reference internal" href="#edu-ch06-class-templates"><span class="std std-ref">6.2 Class templates</span></a></p></li>
+<li><p><a class="reference internal" href="#edu-ch06-variable-templates"><span class="std std-ref">6.3 Variable templates</span></a></p></li>
+<li><p><a class="reference internal" href="#edu-ch06-tag-dispatch"><span class="std std-ref">6.4 Selecting overloads with tag types</span></a></p></li>
+<li><p><a class="reference internal" href="#edu-ch06-specialization"><span class="std std-ref">6.5 Template specialization</span></a></p></li>
+<li><p><a class="reference internal" href="#edu-ch06-if-constexpr"><span class="std std-ref">6.6 if constexpr and static_assert</span></a></p></li>
+<li><p><a class="reference internal" href="#edu-ch06-type-traits"><span class="std std-ref">6.7 Mechanisms for examining the properties of types</span></a></p>
+<ul>
+<li><p><a class="reference internal" href="#edu-ch06-true-false-type"><span class="std std-ref">6.7.1 Structs that hold a type’s property as a value</span></a></p></li>
+<li><p><a class="reference internal" href="#edu-ch06-void-t"><span class="std std-ref">6.7.2 Checking for members with std::void_t</span></a></p></li>
+<li><p><a class="reference internal" href="#edu-ch06-source-term-macro"><span class="std std-ref">6.7.3 Combining macros and templates (source terms)</span></a></p></li>
+<li><p><a class="reference internal" href="#edu-ch06-dot-template"><span class="std std-ref">6.7.4 .template inside templates</span></a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#edu-ch06-exercises"><span class="std std-ref">Exercises: specifying and selecting templates</span></a></p></li>
+</ul>
+</section>
+<section id="edu-ch06-intro">
+<span id="id3"></span><h2>Introduction<a class="headerlink" href="#edu-ch06-intro" title="Link to this heading"></a></h2>
+<p>MISO’s computations run in single precision (<code class="docutils literal notranslate"><span class="pre">float</span></code>) or double precision (<code class="docutils literal notranslate"><span class="pre">double</span></code>), on a CPU or a GPU. The demo’s <code class="docutils literal notranslate"><span class="pre">main.cpp</span></code> chooses among them with the following two lines (excerpt from <code class="docutils literal notranslate"><span class="pre">demo/mhd2d_vortex/src/main.cpp</span></code>).</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">using</span><span class="w"> </span><span class="n">Real</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kt">float</span><span class="p">;</span>
+
+<span class="cp">#ifdef USE_CUDA</span>
+<span class="k">using</span><span class="w"> </span><span class="n">Backend</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">backend</span><span class="o">::</span><span class="n">CUDA</span><span class="p">;</span>
+<span class="cp">#else</span>
+<span class="k">using</span><span class="w"> </span><span class="n">Backend</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">backend</span><span class="o">::</span><span class="n">Host</span><span class="p">;</span>
+<span class="cp">#endif</span>
+</pre></div>
+</div>
+<p>The library side (<code class="docutils literal notranslate"><span class="pre">miso/include/miso/</span></code>) does not have separate code for <code class="docutils literal notranslate"><span class="pre">float</span></code> and <code class="docutils literal notranslate"><span class="pre">double</span></code>, or for CPU and GPU. Types are left as “names to be specified later,” and when the user provides <code class="docutils literal notranslate"><span class="pre">Real</span></code> and <code class="docutils literal notranslate"><span class="pre">Backend</span></code>, the compiler creates the concrete functions and classes. This mechanism is called a <strong>template</strong>.</p>
+<p>In <a class="reference internal" href="05_inheritance.html#edu-ch05"><span class="std std-ref">Chapter 5</span></a>, we used only the act of passing types into the angle brackets of <code class="docutils literal notranslate"><span class="pre">ModelBase&lt;Model,</span> <span class="pre">Real,</span> <span class="pre">Backend&gt;</span></code>. This chapter starts with how to write templates for functions, classes, and variables, then reads how MISO selects CPU or GPU processing according to <code class="docutils literal notranslate"><span class="pre">Backend</span></code>, and how it checks at compile time whether a model has the required members. You do not need to be able to write the last Section 6.7 yourself; being able to read MISO’s source is enough.</p>
+</section>
+<section id="edu-ch06-function-templates">
+<span id="id4"></span><h2>6.1 Function Templates<a class="headerlink" href="#edu-ch06-function-templates" title="Link to this heading"></a></h2>
+<p>The expression for computing a square is <code class="docutils literal notranslate"><span class="pre">x</span> <span class="pre">*</span> <span class="pre">x</span></code> for both integers and real numbers. In the overloading of <a class="reference internal" href="02_cpp_basics.html#edu-ch02"><span class="std std-ref">Chapter 2</span></a>, we defined separate functions for <code class="docutils literal notranslate"><span class="pre">int</span></code> and <code class="docutils literal notranslate"><span class="pre">double</span></code>. If the form of the processing is the same regardless of type, you can replace the type part with a placeholder name <code class="docutils literal notranslate"><span class="pre">T</span></code> and combine them into one definition.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;iostream&gt;</span>
+
+<span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">T</span><span class="o">&gt;</span><span class="w">  </span><span class="c1">// T is a type name chosen at the point of use</span>
+<span class="n">T</span><span class="w"> </span><span class="n">square</span><span class="p">(</span><span class="n">T</span><span class="w"> </span><span class="n">x</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">        </span><span class="c1">// same T for the argument and the return value</span>
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">x</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kt">int</span><span class="w"> </span><span class="n">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="kt">double</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">square</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;</span><span class="p">(</span><span class="mf">1.5</span><span class="p">);</span><span class="w">  </span><span class="c1">// T is specified as double: 2.25</span>
+<span class="w">  </span><span class="kt">int</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">square</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">(</span><span class="mi">3</span><span class="p">);</span><span class="w">          </span><span class="c1">// T is specified as int: 9</span>
+<span class="w">  </span><span class="k">auto</span><span class="w"> </span><span class="n">c</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">square</span><span class="p">(</span><span class="mf">2.5f</span><span class="p">);</span><span class="w">           </span><span class="c1">// T is deduced as float from the argument 2.5f: 6.25</span>
+<span class="w">  </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">" "</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">" "</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">c</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">"</span><span class="se">\n</span><span class="s">"</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>2.25 9 6.25
+</pre></div>
+</div>
+<p>A function defined this way is called a <strong>function template</strong>.</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">template</span> <span class="pre">&lt;typename</span> <span class="pre">T&gt;</span></code> is a declaration that “in the following definition, <code class="docutils literal notranslate"><span class="pre">T</span></code> is used as the name of a type.” Writing <code class="docutils literal notranslate"><span class="pre">class</span></code> instead of <code class="docutils literal notranslate"><span class="pre">typename</span></code> means the same. Even if you write <code class="docutils literal notranslate"><span class="pre">class</span></code>, <code class="docutils literal notranslate"><span class="pre">T</span></code> is not limited to class types.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">double</span></code> written in the angle brackets of <code class="docutils literal notranslate"><span class="pre">square&lt;double&gt;</span></code> is called a <strong>template argument</strong>. <code class="docutils literal notranslate"><span class="pre">(1.5)</span></code> is a value argument, and has a different role.</p></li>
+<li><p>If you omit the angle brackets, as in <code class="docutils literal notranslate"><span class="pre">square(2.5f)</span></code>, the compiler determines <code class="docutils literal notranslate"><span class="pre">T</span></code> from the argument’s type. This is called <strong>template argument deduction</strong>.</p></li>
+</ul>
+<p>When <code class="docutils literal notranslate"><span class="pre">square&lt;double&gt;</span></code> is used, the compiler creates a function with <code class="docutils literal notranslate"><span class="pre">T</span></code> replaced by <code class="docutils literal notranslate"><span class="pre">double</span></code>. This is called <strong>instantiation</strong>. The type is not swapped at run time; instead, a function for each type is prepared at compile time. <code class="docutils literal notranslate"><span class="pre">square&lt;int&gt;</span></code> and <code class="docutils literal notranslate"><span class="pre">square&lt;double&gt;</span></code> are separate functions with similar names.</p>
+<p>Deduction requires that the type be determined uniquely. The following <code class="docutils literal notranslate"><span class="pre">max_of</span></code> uses the same <code class="docutils literal notranslate"><span class="pre">T</span></code> for both arguments, so passing a mix of <code class="docutils literal notranslate"><span class="pre">int</span></code> and <code class="docutils literal notranslate"><span class="pre">double</span></code> is a compile error.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">T</span><span class="o">&gt;</span><span class="w"> </span><span class="n">T</span><span class="w"> </span><span class="n">max_of</span><span class="p">(</span><span class="n">T</span><span class="w"> </span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="n">T</span><span class="w"> </span><span class="n">b</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="o">?</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">b</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+
+<span class="kt">double</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">max_of</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mf">2.5</span><span class="p">);</span><span class="w">          </span><span class="c1">// error: T is ambiguous (int or double)</span>
+<span class="kt">double</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">max_of</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mf">2.5</span><span class="p">);</span><span class="w">  </span><span class="c1">// with T = double given explicitly, 1 is converted to 1.0</span>
+</pre></div>
+</div>
+<p>g++ gives an explanation like the following.</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>error: no matching function for call to 'max_of(int, double)'
+note:   deduced conflicting types for parameter 'T' ('int' and 'double')
+</pre></div>
+</div>
+<p><strong>Put the definition of a template in the header.</strong> The compiler needs to see the function body at instantiation, so for a template you write not only the declaration but also the body in a place visible to the user. MISO is header-only (a library of only <code class="docutils literal notranslate"><span class="pre">.hpp</span></code> files) because most of it is templates. In <a class="reference internal" href="02_cpp_basics.html#edu-ch02"><span class="std std-ref">Chapter 2</span></a>, we explained that ordinary functions placed in a header need <code class="docutils literal notranslate"><span class="pre">inline</span></code>. For function templates, the same definition is allowed to appear in multiple <code class="docutils literal notranslate"><span class="pre">.cpp</span></code> files, so no link problem occurs without <code class="docutils literal notranslate"><span class="pre">inline</span></code>. In MISO, some templates also have <code class="docutils literal notranslate"><span class="pre">inline</span></code>. Adding it does not change the meaning.</p>
+<section id="miso-4">
+<h3>A MISO example: fourth-order central difference<a class="headerlink" href="#miso-4" title="Link to this heading"></a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">space_centered_4th</span></code> in <code class="docutils literal notranslate"><span class="pre">miso/include/miso/mhd_integrator.hpp</span></code> is a function template in which <code class="docutils literal notranslate"><span class="pre">Real</span></code> is decided later. We show only the declaration part (the body is read in Chapter 11).</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">Real</span><span class="o">&gt;</span>
+<span class="n">__host__</span><span class="w"> </span><span class="n">__device__</span><span class="w"> </span><span class="kr">inline</span><span class="w"> </span><span class="n">Real</span>
+<span class="n">space_centered_4th</span><span class="p">(</span><span class="n">Array3DView</span><span class="o">&lt;</span><span class="k">const</span><span class="w"> </span><span class="n">Real</span><span class="o">&gt;</span><span class="w"> </span><span class="n">qq</span><span class="p">,</span><span class="w"> </span><span class="n">Real</span><span class="w"> </span><span class="n">dxyzi</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">j</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">k</span><span class="p">,</span>
+<span class="w">                   </span><span class="kt">int</span><span class="w"> </span><span class="n">is</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">js</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">ks</span><span class="p">);</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">__host__</span> <span class="pre">__device__</span></code> is a specification that makes this function callable from both the CPU and the GPU (<a class="reference internal" href="09_gpu.html#edu-ch09"><span class="std std-ref">Chapter 9</span></a>). In CPU-only builds, it is replaced with an empty string.</p></li>
+<li><p>The caller does not write <code class="docutils literal notranslate"><span class="pre">&lt;Real&gt;</span></code>, as in <code class="docutils literal notranslate"><span class="pre">space_centered_4th(qq_view,</span> <span class="pre">dxi,</span> <span class="pre">i,</span> <span class="pre">j,</span> <span class="pre">k,</span> <span class="pre">1,</span> <span class="pre">0,</span> <span class="pre">0)</span></code>. If the type of <code class="docutils literal notranslate"><span class="pre">qq_view</span></code> is <code class="docutils literal notranslate"><span class="pre">Array3DView&lt;const</span> <span class="pre">float&gt;</span></code>, <code class="docutils literal notranslate"><span class="pre">Real</span></code> is deduced to be <code class="docutils literal notranslate"><span class="pre">float</span></code>. A <code class="docutils literal notranslate"><span class="pre">Real</span></code> inside the angle brackets of another template, as in <code class="docutils literal notranslate"><span class="pre">Array3DView&lt;const</span> <span class="pre">Real&gt;</span></code>, also serves as a clue for deduction.</p></li>
+</ul>
+</section>
+</section>
+<section id="edu-ch06-class-templates">
+<span id="id5"></span><h2>6.2 Class Templates<a class="headerlink" href="#edu-ch06-class-templates" title="Link to this heading"></a></h2>
+<p>Classes (structs) also have a mechanism for specifying types later. The following is a <strong>class template</strong> that bundles two values of the same type and a member function that adds them.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;iostream&gt;</span>
+
+<span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">T</span><span class="o">&gt;</span>
+<span class="k">struct</span><span class="w"> </span><span class="nc">ValuePair</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="n">T</span><span class="w"> </span><span class="n">first</span><span class="p">;</span><span class="w">   </span><span class="c1">// same type T for both members</span>
+<span class="w">  </span><span class="n">T</span><span class="w"> </span><span class="n">second</span><span class="p">;</span>
+<span class="w">  </span><span class="n">T</span><span class="w"> </span><span class="nf">sum</span><span class="p">()</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">first</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">second</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+<span class="p">};</span>
+
+<span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="n">ValuePair</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;</span><span class="w"> </span><span class="n">reals</span><span class="p">{</span><span class="mf">1.5</span><span class="p">,</span><span class="w"> </span><span class="mf">2.5</span><span class="p">};</span><span class="w">  </span><span class="c1">// instance with two double members</span>
+<span class="w">  </span><span class="n">ValuePair</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">integers</span><span class="p">{</span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">};</span><span class="w">      </span><span class="c1">// instance with two int members</span>
+<span class="w">  </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">reals</span><span class="p">.</span><span class="n">sum</span><span class="p">()</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">" "</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">integers</span><span class="p">.</span><span class="n">sum</span><span class="p">()</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">"</span><span class="se">\n</span><span class="s">"</span><span class="p">;</span><span class="w">  </span><span class="c1">// 4 5</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">ValuePair&lt;double&gt;</span></code> as a whole is the name of one type. <code class="docutils literal notranslate"><span class="pre">ValuePair&lt;int&gt;</span></code> is a different type, and they cannot be assigned to each other. Both are created from the same definition, but <code class="docutils literal notranslate"><span class="pre">ValuePair</span></code> alone is not a type (C++17 also has a mechanism that deduces what is inside the angle brackets from the initial values, but this course does not use it).</p>
+<p>The angle brackets of <code class="docutils literal notranslate"><span class="pre">std::vector&lt;double&gt;</span></code> and <code class="docutils literal notranslate"><span class="pre">Array3D&lt;Real&gt;</span></code> in <a class="reference internal" href="04_classes_and_structs.html#edu-ch04"><span class="std std-ref">Chapter 4</span></a> are also template arguments of this kind.</p>
+<section id="id6">
+<h3>Default values for template arguments<a class="headerlink" href="#id6" title="Link to this heading"></a></h3>
+<p>As with function arguments, template arguments can have default values. The declaration in <code class="docutils literal notranslate"><span class="pre">miso/include/miso/array3d.hpp</span></code> is as follows.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="c1">/// @brief 3D Array in general execution/memory space.</span>
+<span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">T</span><span class="p">,</span><span class="w"> </span><span class="k">typename</span><span class="w"> </span><span class="nc">Backend</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">backend</span><span class="o">::</span><span class="n">Host</span><span class="o">&gt;</span><span class="w"> </span><span class="k">class</span><span class="w"> </span><span class="nc">Array3D</span><span class="p">;</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">T</span></code> is the element type, and <code class="docutils literal notranslate"><span class="pre">Backend</span></code> is where the array is placed. Writing <code class="docutils literal notranslate"><span class="pre">Array3D&lt;float&gt;</span></code> means <code class="docutils literal notranslate"><span class="pre">Array3D&lt;float,</span> <span class="pre">backend::Host&gt;</span></code>, and it is placed in CPU memory. To place it in GPU memory, write the second argument: <code class="docutils literal notranslate"><span class="pre">Array3D&lt;float,</span> <span class="pre">backend::CUDA&gt;</span></code>. <code class="docutils literal notranslate"><span class="pre">Fields</span></code> (<code class="docutils literal notranslate"><span class="pre">mhd_fields.hpp</span></code>), <code class="docutils literal notranslate"><span class="pre">Grid</span></code> (<code class="docutils literal notranslate"><span class="pre">grid.hpp</span></code>), and others also set the default of <code class="docutils literal notranslate"><span class="pre">Backend</span></code> to <code class="docutils literal notranslate"><span class="pre">backend::Host</span></code> in the same way.</p>
+</section>
+<section id="miso-real">
+<h3>A MISO example: classes that take Real<a class="headerlink" href="#miso-real" title="Link to this heading"></a></h3>
+<p>Many MISO classes are class templates that take <code class="docutils literal notranslate"><span class="pre">Real</span></code>. Reduced to just the member variables and the constructor, the ideal-gas equation of state in <code class="docutils literal notranslate"><span class="pre">miso/include/miso/eos.hpp</span></code> looks like this.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">Real</span><span class="o">&gt;</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">IdealEOS</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="c1">/// @brief Ratio of specific heats (gamma)</span>
+<span class="w">  </span><span class="n">Real</span><span class="w"> </span><span class="n">gm</span><span class="p">;</span>
+
+<span class="w">  </span><span class="c1">/// @brief Construct the EOS from the configuration file</span>
+<span class="w">  </span><span class="k">explicit</span><span class="w"> </span><span class="n">IdealEOS</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">Config</span><span class="w"> </span><span class="o">&amp;</span><span class="n">config</span><span class="p">)</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">gm</span><span class="p">(</span><span class="n">config</span><span class="p">[</span><span class="s">"eos"</span><span class="p">][</span><span class="s">"gm"</span><span class="p">].</span><span class="n">as</span><span class="o">&lt;</span><span class="n">Real</span><span class="o">&gt;</span><span class="p">())</span><span class="w"> </span><span class="p">{}</span>
+<span class="w">  </span><span class="c1">// (rest omitted)</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+<p>The demo declares <code class="docutils literal notranslate"><span class="pre">eos::IdealEOS&lt;Real&gt;</span> <span class="pre">eos;</span></code>. If <code class="docutils literal notranslate"><span class="pre">Real</span></code> is <code class="docutils literal notranslate"><span class="pre">float</span></code>, <code class="docutils literal notranslate"><span class="pre">gm</span></code> becomes a <code class="docutils literal notranslate"><span class="pre">float</span></code> member. The <code class="docutils literal notranslate"><span class="pre">as&lt;Real&gt;</span></code> in <code class="docutils literal notranslate"><span class="pre">config[&quot;eos&quot;][&quot;gm&quot;].as&lt;Real&gt;()</span></code> is also a call of a function template that extracts a value from the configuration file as type <code class="docutils literal notranslate"><span class="pre">Real</span></code> (a yaml-cpp feature).</p>
+<p><code class="docutils literal notranslate"><span class="pre">ModelBase</span></code> from <a class="reference internal" href="05_inheritance.html#edu-ch05"><span class="std std-ref">Chapter 5</span></a> is a class template with three template arguments.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">class</span><span class="w"> </span><span class="nc">Derived</span><span class="p">,</span><span class="w"> </span><span class="k">class</span><span class="w"> </span><span class="nc">Real</span><span class="p">,</span><span class="w"> </span><span class="k">class</span><span class="w"> </span><span class="nc">Backend</span><span class="o">&gt;</span><span class="w"> </span><span class="k">class</span><span class="w"> </span><span class="nc">ModelBase</span><span class="w"> </span><span class="p">{</span>
+<span class="k">public</span><span class="o">:</span>
+<span class="w">  </span><span class="n">Config</span><span class="w"> </span><span class="o">&amp;</span><span class="n">config</span><span class="p">;</span>
+<span class="w">  </span><span class="n">mpi</span><span class="o">::</span><span class="n">Shape</span><span class="w"> </span><span class="n">mpi_shape</span><span class="p">;</span>
+<span class="w">  </span><span class="n">Time</span><span class="o">&lt;</span><span class="n">Real</span><span class="o">&gt;</span><span class="w"> </span><span class="n">time</span><span class="p">;</span>
+<span class="w">  </span><span class="n">Grid</span><span class="o">&lt;</span><span class="n">Real</span><span class="p">,</span><span class="w"> </span><span class="n">backend</span><span class="o">::</span><span class="n">Host</span><span class="o">&gt;</span><span class="w"> </span><span class="n">grid</span><span class="p">;</span>
+
+<span class="w">  </span><span class="n">ExecContext</span><span class="o">&lt;</span><span class="n">Real</span><span class="p">,</span><span class="w"> </span><span class="n">Backend</span><span class="o">&gt;</span><span class="w"> </span><span class="n">exec_ctx</span><span class="p">;</span>
+<span class="w">  </span><span class="n">MHD</span><span class="o">&lt;</span><span class="n">Real</span><span class="p">,</span><span class="w"> </span><span class="n">Backend</span><span class="o">&gt;</span><span class="w"> </span><span class="n">mhd</span><span class="p">;</span>
+<span class="w">  </span><span class="c1">// (rest omitted)</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+<p>(Excerpt from <code class="docutils literal notranslate"><span class="pre">miso/include/miso/mhd_model_base.hpp</span></code>)</p>
+<p>The received <code class="docutils literal notranslate"><span class="pre">Real</span></code> and <code class="docutils literal notranslate"><span class="pre">Backend</span></code> are passed as they are to the template arguments of <code class="docutils literal notranslate"><span class="pre">Time&lt;Real&gt;</span></code> and <code class="docutils literal notranslate"><span class="pre">MHD&lt;Real,</span> <span class="pre">Backend&gt;</span></code>. Once the demo decides <code class="docutils literal notranslate"><span class="pre">Real</span></code> and <code class="docutils literal notranslate"><span class="pre">Backend</span></code>, they propagate in turn to the member classes, and the types of all of MISO are determined. Here only <code class="docutils literal notranslate"><span class="pre">grid</span></code> is <code class="docutils literal notranslate"><span class="pre">backend::Host</span></code> regardless of <code class="docutils literal notranslate"><span class="pre">Backend</span></code>, because the grid coordinates are first prepared on the CPU side.</p>
+</section>
+</section>
+<section id="edu-ch06-variable-templates">
+<span id="id7"></span><h2>6.3 Variable Templates<a class="headerlink" href="#edu-ch06-variable-templates" title="Link to this heading"></a></h2>
+<p>Sometimes you want to use constants such as <span class="math notranslate nohighlight">\(\pi\)</span> and <span class="math notranslate nohighlight">\(1/12\)</span> at the precision of <code class="docutils literal notranslate"><span class="pre">Real</span></code>. If you mix a <code class="docutils literal notranslate"><span class="pre">double</span></code> constant into a <code class="docutils literal notranslate"><span class="pre">float</span></code> computation, the whole computation is done in <code class="docutils literal notranslate"><span class="pre">double</span></code> and then converted back to <code class="docutils literal notranslate"><span class="pre">float</span></code>, which slows things down or produces warnings about type mismatch. To prepare a constant for each type, use templates for variables as well. This is called a <strong>variable template</strong>.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;cstdio&gt;</span>
+
+<span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">T</span><span class="o">&gt;</span>
+<span class="kr">inline</span><span class="w"> </span><span class="k">constexpr</span><span class="w"> </span><span class="n">T</span><span class="w"> </span><span class="n">third</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">static_cast</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">(</span><span class="mf">1.0</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mf">3.0</span><span class="p">);</span><span class="w">  </span><span class="c1">// constant: 1/3 converted to T</span>
+
+<span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="kt">float</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">third</span><span class="o">&lt;</span><span class="kt">float</span><span class="o">&gt;</span><span class="p">;</span><span class="w">    </span><span class="c1">// 1/3 rounded to float</span>
+<span class="w">  </span><span class="kt">double</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">third</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;</span><span class="p">;</span><span class="w">  </span><span class="c1">// 1/3 as double</span>
+<span class="w">  </span><span class="n">std</span><span class="o">::</span><span class="n">printf</span><span class="p">(</span><span class="s">"%.17g</span><span class="se">\n</span><span class="s">%.17g</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span><span class="w"> </span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="n">b</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>0.3333333432674408
+0.33333333333333331
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">third&lt;float&gt;</span></code> and <code class="docutils literal notranslate"><span class="pre">third&lt;double&gt;</span></code> are separate constants, each holding a value at the precision of its type.</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">constexpr</span></code> indicates a constant whose value is determined at compile time (<a class="reference internal" href="02_cpp_basics.html#edu-ch02"><span class="std std-ref">Chapter 2</span></a>).</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">static_cast&lt;T&gt;(...)</span></code> converts <code class="docutils literal notranslate"><span class="pre">1.0</span> <span class="pre">/</span> <span class="pre">3.0</span></code>, computed in <code class="docutils literal notranslate"><span class="pre">double</span></code>, to <code class="docutils literal notranslate"><span class="pre">T</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">inline</span></code> indicates that this definition is placed in a header and may be included from multiple <code class="docutils literal notranslate"><span class="pre">.cpp</span></code> files (it can be applied to variables from C++17).</p></li>
+</ul>
+<section id="miso-constants-hpp">
+<h3>A MISO example: <code class="docutils literal notranslate"><span class="pre">constants.hpp</span></code><a class="headerlink" href="#miso-constants-hpp" title="Link to this heading"></a></h3>
+<p>This is the whole of <code class="docutils literal notranslate"><span class="pre">miso/include/miso/constants.hpp</span></code>.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="cp">#pragma once</span>
+
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;cmath&gt;</span>
+
+<span class="k">namespace</span><span class="w"> </span><span class="nn">miso</span><span class="w"> </span><span class="p">{</span>
+
+<span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">Real</span><span class="o">&gt;</span>
+<span class="kr">inline</span><span class="w"> </span><span class="k">constexpr</span><span class="w"> </span><span class="n">Real</span><span class="w"> </span><span class="n">inv12</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">static_cast</span><span class="o">&lt;</span><span class="n">Real</span><span class="o">&gt;</span><span class="p">(</span><span class="mf">1.0</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mf">12.0</span><span class="p">);</span>
+
+<span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">Real</span><span class="o">&gt;</span><span class="w"> </span><span class="kr">inline</span><span class="w"> </span><span class="k">constexpr</span><span class="w"> </span><span class="n">Real</span><span class="w"> </span><span class="n">pi</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">static_cast</span><span class="o">&lt;</span><span class="n">Real</span><span class="o">&gt;</span><span class="p">(</span><span class="n">M_PI</span><span class="p">);</span>
+
+<span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">Real</span><span class="o">&gt;</span>
+<span class="kr">inline</span><span class="w"> </span><span class="k">constexpr</span><span class="w"> </span><span class="n">Real</span><span class="w"> </span><span class="n">pii4</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">static_cast</span><span class="o">&lt;</span><span class="n">Real</span><span class="o">&gt;</span><span class="p">(</span><span class="mf">1.0</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="p">(</span><span class="mf">4.0</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">M_PI</span><span class="p">));</span><span class="w">  </span><span class="c1">// 1 / 4π</span>
+
+<span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">Real</span><span class="o">&gt;</span>
+<span class="kr">inline</span><span class="w"> </span><span class="k">constexpr</span><span class="w"> </span><span class="n">Real</span><span class="w"> </span><span class="n">pii8</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">static_cast</span><span class="o">&lt;</span><span class="n">Real</span><span class="o">&gt;</span><span class="p">(</span><span class="mf">1.0</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="p">(</span><span class="mf">8.0</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">M_PI</span><span class="p">));</span><span class="w">  </span><span class="c1">// 1 / 8π</span>
+
+<span class="p">}</span><span class="w">  </span><span class="c1">// namespace miso</span>
+</pre></div>
+</div>
+<p>The user writes <code class="docutils literal notranslate"><span class="pre">pi&lt;Real&gt;</span></code> and <code class="docutils literal notranslate"><span class="pre">pii4&lt;Real&gt;</span></code>. For example, the initial condition in <code class="docutils literal notranslate"><span class="pre">demo/mhd2d_vortex/src/main.cpp</span></code> has <code class="docutils literal notranslate"><span class="pre">util::sin(2.0</span> <span class="pre">*</span> <span class="pre">pi&lt;Real&gt;</span> <span class="pre">*</span> <span class="pre">grid.y[j])</span></code>, and the differences in <code class="docutils literal notranslate"><span class="pre">mhd_integrator.hpp</span></code> multiply by <code class="docutils literal notranslate"><span class="pre">inv12&lt;Real&gt;</span></code>. If you print <code class="docutils literal notranslate"><span class="pre">miso::pii4&lt;float&gt;</span></code> and <code class="docutils literal notranslate"><span class="pre">miso::pii4&lt;double&gt;</span></code>, the precision differs as follows.</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>0.07957746833562851
+0.079577471545947673
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">M_PI</span></code> is not a constant of the C++ standard, but a macro that <code class="docutils literal notranslate"><span class="pre">&lt;cmath&gt;</span></code> provides in many environments. C++20 has a variable template with the same role, <code class="docutils literal notranslate"><span class="pre">std::numbers::pi_v&lt;T&gt;</span></code>, but MISO is C++17, so it defines its own.</p>
+</section>
+</section>
+<section id="edu-ch06-tag-dispatch">
+<span id="id8"></span><h2>6.4 Selecting Overloads with Tag Types<a class="headerlink" href="#edu-ch06-tag-dispatch" title="Link to this heading"></a></h2>
+<p>Consider a situation where you want to select CPU or GPU processing at compile time while keeping the same call form. In the overloading of <a class="reference internal" href="02_cpp_basics.html#edu-ch02"><span class="std std-ref">Chapter 2</span></a>, the function called was determined by the argument types. So we prepare empty types that only express “which one to compute with” and pass them as arguments.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;iostream&gt;</span>
+
+<span class="k">struct</span><span class="w"> </span><span class="nc">Cpu</span><span class="w"> </span><span class="p">{};</span><span class="w">  </span><span class="c1">// type with no members (tag type)</span>
+<span class="k">struct</span><span class="w"> </span><span class="nc">Gpu</span><span class="w"> </span><span class="p">{};</span>
+
+<span class="kt">void</span><span class="w"> </span><span class="nf">run</span><span class="p">(</span><span class="n">Cpu</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">n</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">"Cpu version: n = "</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">"</span><span class="se">\n</span><span class="s">"</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+<span class="kt">void</span><span class="w"> </span><span class="nf">run</span><span class="p">(</span><span class="n">Gpu</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">n</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">"Gpu version: n = "</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">"</span><span class="se">\n</span><span class="s">"</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+
+<span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">Backend</span><span class="o">&gt;</span>
+<span class="kt">void</span><span class="w"> </span><span class="n">compute</span><span class="p">(</span><span class="n">Backend</span><span class="w"> </span><span class="n">b</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">n</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="n">run</span><span class="p">(</span><span class="n">b</span><span class="p">,</span><span class="w"> </span><span class="n">n</span><span class="p">);</span><span class="w">  </span><span class="c1">// the type of b (Cpu or Gpu) selects which run is called</span>
+<span class="p">}</span>
+
+<span class="kt">int</span><span class="w"> </span><span class="n">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="n">compute</span><span class="p">(</span><span class="n">Cpu</span><span class="p">{},</span><span class="w"> </span><span class="mi">10</span><span class="p">);</span><span class="w">  </span><span class="c1">// Backend is deduced as Cpu</span>
+<span class="w">  </span><span class="n">compute</span><span class="p">(</span><span class="n">Gpu</span><span class="p">{},</span><span class="w"> </span><span class="mi">20</span><span class="p">);</span><span class="w">  </span><span class="c1">// Backend is deduced as Gpu</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Cpu version: n = 10
+Gpu version: n = 20
+</pre></div>
+</div>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Cpu{}</span></code> is an expression that creates one value of type <code class="docutils literal notranslate"><span class="pre">Cpu</span></code> with no initial value. It has no contents, so the value carries no meaning, and <strong>only the type</strong> is information.</p></li>
+<li><p>As in <code class="docutils literal notranslate"><span class="pre">void</span> <span class="pre">run(Cpu,</span> <span class="pre">int</span> <span class="pre">n)</span></code>, you can omit the name of an unused argument. It is an argument only for distinguishing types.</p></li>
+<li><p>Which <code class="docutils literal notranslate"><span class="pre">run</span></code> the <code class="docutils literal notranslate"><span class="pre">run(b,</span> <span class="pre">n)</span></code> inside <code class="docutils literal notranslate"><span class="pre">compute</span></code> calls is determined at compile time. It is not branching with <code class="docutils literal notranslate"><span class="pre">if</span></code> at run time.</p></li>
+</ul>
+<p>An empty type used as a selection marker in this way is called a <strong>tag type</strong>, and the style of selecting an overload by a tag-type argument is called <strong>tag dispatch</strong>.</p>
+<section id="miso-backend-hpp-for-each">
+<h3>A MISO example: <code class="docutils literal notranslate"><span class="pre">backend.hpp</span></code> and <code class="docutils literal notranslate"><span class="pre">for_each</span></code><a class="headerlink" href="#miso-backend-hpp-for-each" title="Link to this heading"></a></h3>
+<p>MISO’s tag types are the two in <code class="docutils literal notranslate"><span class="pre">miso/include/miso/backend.hpp</span></code>.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">namespace</span><span class="w"> </span><span class="nn">miso</span><span class="w"> </span><span class="p">{</span>
+<span class="k">namespace</span><span class="w"> </span><span class="nn">backend</span><span class="w"> </span><span class="p">{</span>
+
+<span class="c1">/// @brief Tag type representing CPU (host) execution backend.</span>
+<span class="c1">/// @details Used for compile-time backend dispatch and specialization.</span>
+<span class="k">struct</span><span class="w"> </span><span class="nc">Host</span><span class="w"> </span><span class="p">{};</span>
+
+<span class="c1">/// @brief Tag type representing CUDA (GPU device) execution backend.</span>
+<span class="c1">/// @details Used for compile-time backend dispatch and specialization.</span>
+<span class="k">struct</span><span class="w"> </span><span class="nc">CUDA</span><span class="w"> </span><span class="p">{};</span>
+
+<span class="p">}</span><span class="w">  </span><span class="c1">// namespace backend</span>
+<span class="p">}</span><span class="w">  </span><span class="c1">// namespace miso</span>
+</pre></div>
+</div>
+<p>The parallel loop <code class="docutils literal notranslate"><span class="pre">for_each</span></code> (<code class="docutils literal notranslate"><span class="pre">miso/include/miso/execution.hpp</span></code>) selects CPU or GPU by the tag type of its first argument. We omit the body and show only the form of the declarations.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="c1">/// @brief 1D parallel (concurrent) for loop in the Host backend.</span>
+<span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">class</span><span class="w"> </span><span class="nc">F</span><span class="o">&gt;</span><span class="w"> </span><span class="kr">inline</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="n">for_each</span><span class="p">(</span><span class="n">backend</span><span class="o">::</span><span class="n">Host</span><span class="p">,</span><span class="w"> </span><span class="n">Range1D</span><span class="w"> </span><span class="n">range</span><span class="p">,</span><span class="w"> </span><span class="n">F</span><span class="w"> </span><span class="n">f</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="c1">// CPU: plain for loop (Chapter 7)</span>
+<span class="p">}</span>
+
+<span class="cp">#ifdef __CUDACC__</span>
+<span class="c1">/// @brief 1D parallel (concurrent) for loop in the CUDA backend.</span>
+<span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">class</span><span class="w"> </span><span class="nc">F</span><span class="o">&gt;</span><span class="w"> </span><span class="kr">inline</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="n">for_each</span><span class="p">(</span><span class="n">backend</span><span class="o">::</span><span class="n">CUDA</span><span class="p">,</span><span class="w"> </span><span class="n">Range1D</span><span class="w"> </span><span class="n">range</span><span class="p">,</span><span class="w"> </span><span class="n">F</span><span class="w"> </span><span class="n">f</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="c1">// GPU: launch a kernel (Chapter 9)</span>
+<span class="p">}</span>
+<span class="cp">#endif</span>
+</pre></div>
+</div>
+<p>(They are replaced with explanatory comments. The versions for the three-dimensional <code class="docutils literal notranslate"><span class="pre">Range3D</span></code> are lined up in the same form.)</p>
+<ul class="simple">
+<li><p>The first argument is an unnamed tag type. It has the same form as <code class="docutils literal notranslate"><span class="pre">run(Cpu,</span> <span class="pre">int)</span></code> above.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">F</span></code> is the type of the lambda expression (an unnamed function) passed as the loop body. Lambda expressions are explained in <a class="reference internal" href="07_arrays_and_parallel.html#edu-ch07"><span class="std std-ref">Chapter 7</span></a>.</p></li>
+<li><p>The CUDA version is inside <code class="docutils literal notranslate"><span class="pre">#ifdef</span> <span class="pre">__CUDACC__</span></code> and is defined only when building with the CUDA compiler (nvcc). If you pass <code class="docutils literal notranslate"><span class="pre">backend::CUDA{}</span></code> in a CPU-only build, there is no matching <code class="docutils literal notranslate"><span class="pre">for_each</span></code>, so it is a compile error.</p></li>
+</ul>
+<p>An example that receives a tag and passes it down is the member function of <code class="docutils literal notranslate"><span class="pre">IdealEOS</span></code> in <code class="docutils literal notranslate"><span class="pre">miso/include/miso/eos.hpp</span></code> (the body is read in Chapter 7).</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="w">  </span><span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">Backend</span><span class="o">&gt;</span>
+<span class="w">  </span><span class="kt">void</span><span class="w"> </span><span class="n">gas_pressure</span><span class="p">(</span><span class="n">Backend</span><span class="w"> </span><span class="n">btag</span><span class="p">,</span><span class="w"> </span><span class="n">mhd</span><span class="o">::</span><span class="n">FieldsView</span><span class="o">&lt;</span><span class="k">const</span><span class="w"> </span><span class="n">Real</span><span class="o">&gt;</span><span class="w"> </span><span class="n">qq</span><span class="p">,</span>
+<span class="w">                    </span><span class="n">Array3DView</span><span class="o">&lt;</span><span class="n">Real</span><span class="o">&gt;</span><span class="w"> </span><span class="n">pr</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// (omitted)</span>
+<span class="w">    </span><span class="n">for_each</span><span class="p">(</span><span class="n">btag</span><span class="p">,</span><span class="w"> </span><span class="n">range</span><span class="p">,</span><span class="w"> </span><span class="cm">/* lambda expression */</span><span class="p">);</span>
+<span class="w">  </span><span class="p">}</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">gas_pressure</span></code> is a member function that is made a template inside a class template (a <strong>member function template</strong>). The CPU <code class="docutils literal notranslate"><span class="pre">Integrator</span></code> (<code class="docutils literal notranslate"><span class="pre">miso/include/miso/mhd_integrator_host.hpp</span></code>) calls <code class="docutils literal notranslate"><span class="pre">eos.gas_pressure(backend::Host{},</span> <span class="pre">qq_argm.const_view(),</span> <span class="pre">pr.view());</span></code>, and the GPU one passes <code class="docutils literal notranslate"><span class="pre">backend::CUDA{}</span></code>. Passing <code class="docutils literal notranslate"><span class="pre">backend::Host{}</span></code> makes <code class="docutils literal notranslate"><span class="pre">Backend</span></code> deduced as <code class="docutils literal notranslate"><span class="pre">backend::Host</span></code>, and the CPU version of the inner <code class="docutils literal notranslate"><span class="pre">for_each</span></code> is selected as well. The equation-of-state side needs to be written only once, without distinguishing CPU and GPU.</p>
+<p>A tag value can be created not only as <code class="docutils literal notranslate"><span class="pre">backend::Host{}</span></code> but also as <code class="docutils literal notranslate"><span class="pre">Backend{}</span></code> from the type name <code class="docutils literal notranslate"><span class="pre">Backend</span></code>. <code class="docutils literal notranslate"><span class="pre">ReduceWorkspace</span></code> in <code class="docutils literal notranslate"><span class="pre">miso/include/miso/mhd_resistivity.hpp</span></code> has the call <code class="docutils literal notranslate"><span class="pre">miso::reduce(Backend{},</span> <span class="pre">range,</span> <span class="pre">init,</span> <span class="pre">f,</span> <span class="pre">op)</span></code>.</p>
+</section>
+</section>
+<section id="edu-ch06-specialization">
+<span id="id9"></span><h2>6.5 Template Specialization<a class="headerlink" href="#edu-ch06-specialization" title="Link to this heading"></a></h2>
+<p>Function templates and class templates use the same definition for every type. If you want to use a different definition only for a specific type, you add a definition for that type. This is called <strong>specialization</strong>.</p>
+<section id="id10">
+<h3>6.5.1 Explicit specialization<a class="headerlink" href="#id10" title="Link to this heading"></a></h3>
+<p>A definition in which all template arguments are decided is called an <strong>explicit specialization</strong> (also called a full specialization). It is written with an empty angle bracket, <code class="docutils literal notranslate"><span class="pre">template</span> <span class="pre">&lt;&gt;</span></code>.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;iostream&gt;</span>
+
+<span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">T</span><span class="o">&gt;</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">type_name</span><span class="p">();</span><span class="w">  </span><span class="c1">// declaration only; no definition</span>
+<span class="k">template</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">type_name</span><span class="o">&lt;</span><span class="kt">float</span><span class="o">&gt;</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="s">"float"</span><span class="p">;</span><span class="w"> </span><span class="p">}</span><span class="w">    </span><span class="c1">// when T = float</span>
+<span class="k">template</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">type_name</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="s">"double"</span><span class="p">;</span><span class="w"> </span><span class="p">}</span><span class="w">  </span><span class="c1">// when T = double</span>
+
+<span class="kt">int</span><span class="w"> </span><span class="n">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">type_name</span><span class="o">&lt;</span><span class="kt">float</span><span class="o">&gt;</span><span class="p">()</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">" "</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">type_name</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;</span><span class="p">()</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">"</span><span class="se">\n</span><span class="s">"</span><span class="p">;</span><span class="w">  </span><span class="c1">// float double</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>There are no arguments, so deduction is impossible, and you call it by specifying the type explicitly, as in <code class="docutils literal notranslate"><span class="pre">type_name&lt;float&gt;()</span></code>. Calling <code class="docutils literal notranslate"><span class="pre">type_name&lt;int&gt;()</span></code> gives an error at link time because there is no definition with a body.</p>
+<p>In MISO, <code class="docutils literal notranslate"><span class="pre">miso/include/miso/mpi_util.hpp</span></code> uses this form to return the MPI data type corresponding to <code class="docutils literal notranslate"><span class="pre">Real</span></code>.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="c1">/// @brief MPI Datatype corresponding to Real type</span>
+<span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">Real</span><span class="o">&gt;</span><span class="w"> </span><span class="n">MPI_Datatype</span><span class="w"> </span><span class="n">data_type</span><span class="p">();</span>
+<span class="k">template</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="kr">inline</span><span class="w"> </span><span class="n">MPI_Datatype</span><span class="w"> </span><span class="n">data_type</span><span class="o">&lt;</span><span class="kt">float</span><span class="o">&gt;</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">MPI_FLOAT</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+<span class="k">template</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="kr">inline</span><span class="w"> </span><span class="n">MPI_Datatype</span><span class="w"> </span><span class="n">data_type</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">MPI_DOUBLE</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+</pre></div>
+</div>
+<p>If you write <code class="docutils literal notranslate"><span class="pre">mpi::data_type&lt;Real&gt;()</span></code>, <code class="docutils literal notranslate"><span class="pre">MPI_FLOAT</span></code> is returned when <code class="docutils literal notranslate"><span class="pre">Real</span></code> is <code class="docutils literal notranslate"><span class="pre">float</span></code> (<a class="reference internal" href="08_mpi.html#edu-ch08"><span class="std std-ref">Chapter 8</span></a>). An explicit specialization is no longer a template but an ordinary function, so it needs <code class="docutils literal notranslate"><span class="pre">inline</span></code> to be placed in a header.</p>
+</section>
+<section id="id11">
+<h3>6.5.2 Partial specialization<a class="headerlink" href="#id11" title="Link to this heading"></a></h3>
+<p>For class templates, you can also write a definition that fixes <strong>only some</strong> of the template arguments. This is called <strong>partial specialization</strong>. This is an example where the element type <code class="docutils literal notranslate"><span class="pre">T</span></code> is left free and the contents change for each placement <code class="docutils literal notranslate"><span class="pre">Backend</span></code>.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;iostream&gt;</span>
+
+<span class="k">struct</span><span class="w"> </span><span class="nc">Cpu</span><span class="w"> </span><span class="p">{};</span>
+<span class="k">struct</span><span class="w"> </span><span class="nc">Gpu</span><span class="w"> </span><span class="p">{};</span>
+
+<span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">T</span><span class="p">,</span><span class="w"> </span><span class="k">typename</span><span class="w"> </span><span class="nc">Backend</span><span class="o">&gt;</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">Storage</span><span class="p">;</span><span class="w">  </span><span class="c1">// declaration only (primary template)</span>
+
+<span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">T</span><span class="o">&gt;</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">Storage</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span><span class="w"> </span><span class="n">Cpu</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span><span class="w">  </span><span class="c1">// definition for Backend = Cpu</span>
+<span class="w">  </span><span class="kt">void</span><span class="w"> </span><span class="nf">describe</span><span class="p">()</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">"Placed in CPU memory</span><span class="se">\n</span><span class="s">"</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+<span class="p">};</span>
+
+<span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">T</span><span class="o">&gt;</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">Storage</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span><span class="w"> </span><span class="n">Gpu</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span><span class="w">  </span><span class="c1">// definition for Backend = Gpu</span>
+<span class="w">  </span><span class="kt">void</span><span class="w"> </span><span class="nf">describe</span><span class="p">()</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">"Placed in GPU memory</span><span class="se">\n</span><span class="s">"</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+<span class="p">};</span>
+
+<span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="n">Storage</span><span class="o">&lt;</span><span class="kt">float</span><span class="p">,</span><span class="w"> </span><span class="n">Cpu</span><span class="o">&gt;</span><span class="w"> </span><span class="n">a</span><span class="p">;</span><span class="w">   </span><span class="c1">// T = float, uses the Cpu definition</span>
+<span class="w">  </span><span class="n">Storage</span><span class="o">&lt;</span><span class="kt">double</span><span class="p">,</span><span class="w"> </span><span class="n">Gpu</span><span class="o">&gt;</span><span class="w"> </span><span class="n">b</span><span class="p">;</span><span class="w">  </span><span class="c1">// T = double, uses the Gpu definition</span>
+<span class="w">  </span><span class="n">a</span><span class="p">.</span><span class="n">describe</span><span class="p">();</span>
+<span class="w">  </span><span class="n">b</span><span class="p">.</span><span class="n">describe</span><span class="p">();</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Placed in CPU memory
+Placed in GPU memory
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>The first <code class="docutils literal notranslate"><span class="pre">template</span> <span class="pre">&lt;typename</span> <span class="pre">T,</span> <span class="pre">typename</span> <span class="pre">Backend&gt;</span> <span class="pre">struct</span> <span class="pre">Storage;</span></code> is called the <strong>primary template</strong>. Here it is only a declaration, with no body.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">template</span> <span class="pre">&lt;typename</span> <span class="pre">T&gt;</span> <span class="pre">struct</span> <span class="pre">Storage&lt;T,</span> <span class="pre">Cpu&gt;</span></code> is the definition for when “<code class="docutils literal notranslate"><span class="pre">T</span></code> is free and the second is <code class="docutils literal notranslate"><span class="pre">Cpu</span></code>.” In the angle brackets after <code class="docutils literal notranslate"><span class="pre">template</span></code>, write only the <code class="docutils literal notranslate"><span class="pre">T</span></code> that is not yet decided.</p></li>
+<li><p>When you write <code class="docutils literal notranslate"><span class="pre">Storage&lt;float,</span> <span class="pre">Cpu&gt;</span></code>, the compiler looks for a matching partial specialization and uses it. If none matches, it uses the primary template. In this example, the primary template has no body, so <code class="docutils literal notranslate"><span class="pre">Storage&lt;float,</span> <span class="pre">int&gt;</span></code> is a compile error.</p></li>
+</ul>
+<p>For each partial specialization, you can freely change both member variables and member functions. It is normal to keep the names and arguments the same so that the user can call member functions of the same name.</p>
+<p>Function templates have no partial specialization. That is why the CPU and GPU versions of <code class="docutils literal notranslate"><span class="pre">for_each</span></code> are written separately with the tag-type overloads of Section 6.4 rather than with specialization.</p>
+</section>
+<section id="miso-array3d-integrator">
+<h3>A MISO example: Array3D and Integrator<a class="headerlink" href="#miso-array3d-integrator" title="Link to this heading"></a></h3>
+<p>After the declaration seen in Section 6.2, <code class="docutils literal notranslate"><span class="pre">miso/include/miso/array3d.hpp</span></code> defines a partial specialization for each <code class="docutils literal notranslate"><span class="pre">Backend</span></code>. We show them with the bodies omitted.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="c1">/// @brief 3D Array in general execution/memory space.</span>
+<span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">T</span><span class="p">,</span><span class="w"> </span><span class="k">typename</span><span class="w"> </span><span class="nc">Backend</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">backend</span><span class="o">::</span><span class="n">Host</span><span class="o">&gt;</span><span class="w"> </span><span class="k">class</span><span class="w"> </span><span class="nc">Array3D</span><span class="p">;</span>
+
+<span class="c1">/// @brief 3D Array in host memory.</span>
+<span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">T</span><span class="o">&gt;</span><span class="w"> </span><span class="k">class</span><span class="w"> </span><span class="nc">Array3D</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span><span class="w"> </span><span class="n">backend</span><span class="o">::</span><span class="n">Host</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="c1">// allocate CPU memory with new T[...] (Chapter 4)</span>
+<span class="p">};</span>
+
+<span class="cp">#ifdef __CUDACC__</span>
+<span class="c1">/// @brief 3D Array in CUDA device memory.</span>
+<span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">T</span><span class="o">&gt;</span><span class="w"> </span><span class="k">class</span><span class="w"> </span><span class="nc">Array3D</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span><span class="w"> </span><span class="n">backend</span><span class="o">::</span><span class="n">CUDA</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="c1">// allocate GPU memory with cudaMalloc (Chapter 9)</span>
+<span class="p">};</span>
+<span class="cp">#endif  </span><span class="c1">// __CUDACC__</span>
+</pre></div>
+</div>
+<p>(They are replaced with explanatory comments.)</p>
+<p>This is the same form as <code class="docutils literal notranslate"><span class="pre">Storage</span></code> above. <code class="docutils literal notranslate"><span class="pre">Array3D&lt;float,</span> <span class="pre">backend::Host&gt;</span></code> and <code class="docutils literal notranslate"><span class="pre">Array3D&lt;float,</span> <span class="pre">backend::CUDA&gt;</span></code> both have member functions of the same names, such as <code class="docutils literal notranslate"><span class="pre">view()</span></code>, <code class="docutils literal notranslate"><span class="pre">extent()</span></code>, and <code class="docutils literal notranslate"><span class="pre">copy_from()</span></code>, but differ in how memory is allocated and released. <code class="docutils literal notranslate"><span class="pre">Array1D</span></code>, <code class="docutils literal notranslate"><span class="pre">Array2D</span></code>, <code class="docutils literal notranslate"><span class="pre">Array4D</span></code>, <code class="docutils literal notranslate"><span class="pre">Fields</span></code>, and <code class="docutils literal notranslate"><span class="pre">Grid</span></code> are built the same way.</p>
+<p><code class="docutils literal notranslate"><span class="pre">Integrator</span></code>, which handles time integration, also has only a declaration as its primary template (<code class="docutils literal notranslate"><span class="pre">miso/include/miso/mhd_integrator.hpp</span></code>).</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">Real</span><span class="p">,</span><span class="w"> </span><span class="k">typename</span><span class="w"> </span><span class="nc">Backend</span><span class="o">&gt;</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">Integrator</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>The CPU definition is in <code class="docutils literal notranslate"><span class="pre">miso/include/miso/mhd_integrator_host.hpp</span></code>, and the GPU one is in <code class="docutils literal notranslate"><span class="pre">miso/include/miso/mhd_integrator_cuda.cuh</span></code>.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">Real</span><span class="o">&gt;</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">Integrator</span><span class="o">&lt;</span><span class="n">Real</span><span class="p">,</span><span class="w"> </span><span class="n">backend</span><span class="o">::</span><span class="n">Host</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="c1">// (omitted)</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">Real</span><span class="o">&gt;</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">Integrator</span><span class="o">&lt;</span><span class="n">Real</span><span class="p">,</span><span class="w"> </span><span class="n">backend</span><span class="o">::</span><span class="n">CUDA</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="c1">// (omitted)</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+<p>At the end of <code class="docutils literal notranslate"><span class="pre">mhd_integrator.hpp</span></code>, the CPU one is always included, and the GPU one only when <code class="docutils literal notranslate"><span class="pre">__CUDACC__</span></code> is defined.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">"mhd_integrator_host.hpp"</span>
+
+<span class="cp">#ifdef __CUDACC__</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">"mhd_integrator_cuda.cuh"</span>
+<span class="cp">#endif</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">MHD&lt;Real,</span> <span class="pre">Backend&gt;</span></code> (<code class="docutils literal notranslate"><span class="pre">miso/include/miso/mhd_solver.hpp</span></code>), which uses <code class="docutils literal notranslate"><span class="pre">Integrator</span></code>, has <code class="docutils literal notranslate"><span class="pre">Integrator&lt;Real,</span> <span class="pre">Backend&gt;</span> <span class="pre">integrator;</span></code> as a member and just calls <code class="docutils literal notranslate"><span class="pre">integrator.update(...)</span></code> and <code class="docutils literal notranslate"><span class="pre">integrator.cfl(...)</span></code>. Once <code class="docutils literal notranslate"><span class="pre">Backend</span></code> is decided, which definition is used is decided too. The two definitions are aligned so that both have <code class="docutils literal notranslate"><span class="pre">update</span></code>, <code class="docutils literal notranslate"><span class="pre">cfl</span></code>, and <code class="docutils literal notranslate"><span class="pre">apply_boundary_condition</span></code> with the same names and argument lists, and only the GPU one has members such as the CUDA kernel shape (<code class="docutils literal notranslate"><span class="pre">cuda::KernelShape3D</span></code>) and the workspace for reduction.</p>
+</section>
+</section>
+<section id="if-constexpr-static-assert">
+<span id="edu-ch06-if-constexpr"></span><h2>6.6 if constexpr and static_assert<a class="headerlink" href="#if-constexpr-static-assert" title="Link to this heading"></a></h2>
+<section id="if-constexpr">
+<h3>if constexpr<a class="headerlink" href="#if-constexpr" title="Link to this heading"></a></h3>
+<p>Template arguments can be not only types but also <code class="docutils literal notranslate"><span class="pre">bool</span></code> and <code class="docutils literal notranslate"><span class="pre">int</span></code> values. The following is a function that specifies, by a template argument, whether to flip the sign.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="kt">bool</span><span class="w"> </span><span class="n">Negate</span><span class="o">&gt;</span>
+<span class="kt">double</span><span class="w"> </span><span class="n">change_sign</span><span class="p">(</span><span class="kt">double</span><span class="w"> </span><span class="n">value</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="k">constexpr</span><span class="w"> </span><span class="p">(</span><span class="n">Negate</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">  </span><span class="c1">// Negate is known at compile time</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="o">-</span><span class="n">value</span><span class="p">;</span>
+<span class="w">  </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">value</span><span class="p">;</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">change_sign&lt;true&gt;(3.0)</span></code> returns −3, and <code class="docutils literal notranslate"><span class="pre">change_sign&lt;false&gt;(3.0)</span></code> returns 3. <code class="docutils literal notranslate"><span class="pre">if</span> <span class="pre">constexpr</span></code> is a branch used when the condition is determined at compile time. At instantiation, the side not chosen is not built into the function. Only <code class="docutils literal notranslate"><span class="pre">return</span> <span class="pre">-value;</span></code> remains in <code class="docutils literal notranslate"><span class="pre">change_sign&lt;true&gt;</span></code>. The ordinary <code class="docutils literal notranslate"><span class="pre">if</span></code> of <a class="reference internal" href="02_cpp_basics.html#edu-ch02"><span class="std std-ref">Chapter 2</span></a> can take a condition determined at run time, but both sides are compiled. The condition of <code class="docutils literal notranslate"><span class="pre">if</span> <span class="pre">constexpr</span></code> can only be an expression whose value is determined at compile time.</p>
+<p>To change the processing according to the type, use <code class="docutils literal notranslate"><span class="pre">std::is_same_v&lt;A,</span> <span class="pre">B&gt;</span></code> from <code class="docutils literal notranslate"><span class="pre">&lt;type_traits&gt;</span></code>. It is a compile-time constant that is <code class="docutils literal notranslate"><span class="pre">true</span></code> if <code class="docutils literal notranslate"><span class="pre">A</span></code> and <code class="docutils literal notranslate"><span class="pre">B</span></code> are the same type and <code class="docutils literal notranslate"><span class="pre">false</span></code> otherwise.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;type_traits&gt;</span>
+
+<span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">T</span><span class="o">&gt;</span>
+<span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">precision_name</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="k">constexpr</span><span class="w"> </span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">is_same_v</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span><span class="w"> </span><span class="kt">float</span><span class="o">&gt;</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="s">"single precision"</span><span class="p">;</span>
+<span class="w">  </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="s">"double precision or higher"</span><span class="p">;</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">precision_name&lt;float&gt;()</span></code> returns <code class="docutils literal notranslate"><span class="pre">&quot;single</span> <span class="pre">precision&quot;</span></code>, and <code class="docutils literal notranslate"><span class="pre">precision_name&lt;double&gt;()</span></code> returns <code class="docutils literal notranslate"><span class="pre">&quot;double</span> <span class="pre">precision</span> <span class="pre">or</span> <span class="pre">higher&quot;</span></code>.</p>
+<p>That the side not chosen is not built in has another implication. Processing that <strong>cannot be written</strong> for some template arguments (such as calling a member the type does not have) does not cause an error if you put it on the side that is not chosen. The MISO example in Section 6.7 uses this property.</p>
+</section>
+<section id="static-assert">
+<h3>static_assert<a class="headerlink" href="#static-assert" title="Link to this heading"></a></h3>
+<p>When you want to put a condition on a template argument, use <code class="docutils literal notranslate"><span class="pre">static_assert</span></code> (a compile-time check).</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;type_traits&gt;</span>
+
+<span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">T</span><span class="o">&gt;</span>
+<span class="n">T</span><span class="w"> </span><span class="n">half</span><span class="p">(</span><span class="n">T</span><span class="w"> </span><span class="n">x</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">static_assert</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">is_floating_point_v</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">,</span><span class="w"> </span><span class="s">"T must be float or double"</span><span class="p">);</span>
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">static_assert(condition,</span> <span class="pre">&quot;message&quot;);</span></code> makes it a compile error and prints the message if the condition is <code class="docutils literal notranslate"><span class="pre">false</span></code>. <code class="docutils literal notranslate"><span class="pre">half(3.0)</span></code> compiles as is, but <code class="docutils literal notranslate"><span class="pre">half(3)</span></code> makes <code class="docutils literal notranslate"><span class="pre">T</span></code> an <code class="docutils literal notranslate"><span class="pre">int</span></code>, so it stops with the following error.</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>error: static assertion failed: T must be float or double
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">std::is_floating_point_v&lt;T&gt;</span></code> is a constant that is <code class="docutils literal notranslate"><span class="pre">true</span></code> if <code class="docutils literal notranslate"><span class="pre">T</span></code> is a floating-point type such as <code class="docutils literal notranslate"><span class="pre">float</span></code> or <code class="docutils literal notranslate"><span class="pre">double</span></code>. Unlike the run-time <code class="docutils literal notranslate"><span class="pre">assert</span></code>, <code class="docutils literal notranslate"><span class="pre">static_assert</span></code> does not disappear in Release builds. It can find incorrect usage before the program runs.</p>
+<p>You can check the details of the grammar in the C++17 draft standard N4659: <a class="reference external" href="https://timsong-cpp.github.io/cppwp/n4659/temp.param">template parameters</a>, <a class="reference external" href="https://timsong-cpp.github.io/cppwp/n4659/stmt.if"><code class="docutils literal notranslate"><span class="pre">if</span> <span class="pre">constexpr</span></code></a>, and <a class="reference external" href="https://timsong-cpp.github.io/cppwp/n4659/meta">type properties (type traits)</a>.</p>
+</section>
+<section id="miso">
+<h3>A MISO example: branching in the reduction kernel<a class="headerlink" href="#miso" title="Link to this heading"></a></h3>
+<p>In the GPU reduction (<code class="docutils literal notranslate"><span class="pre">reduce</span></code>) in <code class="docutils literal notranslate"><span class="pre">miso/include/miso/execution.hpp</span></code>, how the indices are extracted changes depending on whether the range is one-dimensional or three-dimensional. <code class="docutils literal notranslate"><span class="pre">Range</span></code> is a template argument, and takes either <code class="docutils literal notranslate"><span class="pre">Range1D</span></code>, which represents a one-dimensional range, or <code class="docutils literal notranslate"><span class="pre">Range3D</span></code>, which represents a three-dimensional range (<a class="reference internal" href="07_arrays_and_parallel.html#edu-ch07"><span class="std std-ref">Chapter 7</span></a>).</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="k">constexpr</span><span class="w"> </span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">is_same_v</span><span class="o">&lt;</span><span class="n">Range</span><span class="p">,</span><span class="w"> </span><span class="n">Range1D</span><span class="o">&gt;</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="k">const</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">range</span><span class="p">.</span><span class="n">unravel</span><span class="p">(</span><span class="n">idx</span><span class="p">);</span>
+<span class="w">      </span><span class="n">v</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">map</span><span class="p">(</span><span class="n">i</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="n">Index3D</span><span class="w"> </span><span class="n">p</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">range</span><span class="p">.</span><span class="n">unravel</span><span class="p">(</span><span class="n">idx</span><span class="p">);</span>
+<span class="w">      </span><span class="n">v</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">map</span><span class="p">(</span><span class="n">p</span><span class="p">.</span><span class="n">i0</span><span class="p">,</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">i1</span><span class="p">,</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">i2</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">unravel</span></code> of <code class="docutils literal notranslate"><span class="pre">Range1D</span></code> returns an <code class="docutils literal notranslate"><span class="pre">int</span></code>, and <code class="docutils literal notranslate"><span class="pre">unravel</span></code> of <code class="docutils literal notranslate"><span class="pre">Range3D</span></code> returns an <code class="docutils literal notranslate"><span class="pre">Index3D</span></code> (a triple of indices). Written with an ordinary <code class="docutils literal notranslate"><span class="pre">if</span></code>, <code class="docutils literal notranslate"><span class="pre">Index3D</span> <span class="pre">p</span> <span class="pre">=</span> <span class="pre">range.unravel(idx);</span></code> would also be compiled for <code class="docutils literal notranslate"><span class="pre">Range1D</span></code>, and the types would not match, causing an error. With <code class="docutils literal notranslate"><span class="pre">if</span> <span class="pre">constexpr</span></code>, only the side that fits the type is built in.</p>
+</section>
+</section>
+<section id="edu-ch06-type-traits">
+<span id="id12"></span><h2>6.7 Mechanisms for Examining the Properties of Types<a class="headerlink" href="#edu-ch06-type-traits" title="Link to this heading"></a></h2>
+<p>Users of MISO prepare the members <code class="docutils literal notranslate"><span class="pre">eos</span></code>, <code class="docutils literal notranslate"><span class="pre">ic</span></code>, <code class="docutils literal notranslate"><span class="pre">bc</span></code>, and <code class="docutils literal notranslate"><span class="pre">src</span></code> in a model that inherits from <code class="docutils literal notranslate"><span class="pre">ModelBase</span></code> (<a class="reference internal" href="05_inheritance.html#edu-ch05"><span class="std std-ref">Chapter 5</span></a>). In the source term <code class="docutils literal notranslate"><span class="pre">src</span></code>, you write only the terms you need (for example, <code class="docutils literal notranslate"><span class="pre">vy</span></code> for gravity), and terms you did not write are treated as 0. To achieve this, you must check at compile time “whether this type has a member function <code class="docutils literal notranslate"><span class="pre">vy</span></code>,” and branch with <code class="docutils literal notranslate"><span class="pre">if</span> <span class="pre">constexpr</span></code> based on the result. This section explains the mechanism just enough for you to read it.</p>
+<section id="edu-ch06-true-false-type">
+<span id="id13"></span><h3>6.7.1 Structs that hold a type’s property as a value<a class="headerlink" href="#edu-ch06-true-false-type" title="Link to this heading"></a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">&lt;type_traits&gt;</span></code> has two structs that represent <code class="docutils literal notranslate"><span class="pre">true</span></code> or <code class="docutils literal notranslate"><span class="pre">false</span></code>.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">std</span><span class="o">::</span><span class="n">true_type</span><span class="o">::</span><span class="n">value</span><span class="w">   </span><span class="c1">// true</span>
+<span class="n">std</span><span class="o">::</span><span class="n">false_type</span><span class="o">::</span><span class="n">value</span><span class="w">  </span><span class="c1">// false</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">value</span></code> is a constant belonging to the class (<code class="docutils literal notranslate"><span class="pre">static</span> <span class="pre">constexpr</span> <span class="pre">bool</span></code>). It can be read as <code class="docutils literal notranslate"><span class="pre">type_name::value</span></code> without creating an instance. If a struct inherits from one of these two, that struct’s <code class="docutils literal notranslate"><span class="pre">::value</span></code> also becomes <code class="docutils literal notranslate"><span class="pre">true</span></code> or <code class="docutils literal notranslate"><span class="pre">false</span></code>.</p>
+<p><code class="docutils literal notranslate"><span class="pre">std::is_same_v&lt;A,</span> <span class="pre">B&gt;</span></code> in Section 6.6 is a short way of writing <code class="docutils literal notranslate"><span class="pre">std::is_same&lt;A,</span> <span class="pre">B&gt;::value</span></code>. <code class="docutils literal notranslate"><span class="pre">std::is_same&lt;A,</span> <span class="pre">B&gt;</span></code> is built to inherit <code class="docutils literal notranslate"><span class="pre">std::true_type</span></code> if <code class="docutils literal notranslate"><span class="pre">A</span></code> and <code class="docutils literal notranslate"><span class="pre">B</span></code> are the same and <code class="docutils literal notranslate"><span class="pre">std::false_type</span></code> otherwise. A class template that returns the result of examining a type through <code class="docutils literal notranslate"><span class="pre">::value</span></code> in this way is called a <strong>type trait</strong>.</p>
+</section>
+<section id="std-void-t">
+<span id="edu-ch06-void-t"></span><h3>6.7.2 Checking for members with std::void_t<a class="headerlink" href="#std-void-t" title="Link to this heading"></a></h3>
+<p>We build the type trait <code class="docutils literal notranslate"><span class="pre">has_gm</span></code>, which checks “whether type <code class="docutils literal notranslate"><span class="pre">T</span></code> has a member <code class="docutils literal notranslate"><span class="pre">gm</span></code>,” from two definitions.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;iostream&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;type_traits&gt;</span>
+
+<span class="c1">// (1) primary template: false if nothing else matches</span>
+<span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">class</span><span class="w"> </span><span class="nc">T</span><span class="p">,</span><span class="w"> </span><span class="k">class</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kt">void</span><span class="o">&gt;</span>
+<span class="k">struct</span><span class="w"> </span><span class="nc">has_gm</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">false_type</span><span class="w"> </span><span class="p">{};</span>
+
+<span class="c1">// (2) partial specialization: matches only when T::gm is valid; true</span>
+<span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">class</span><span class="w"> </span><span class="nc">T</span><span class="o">&gt;</span>
+<span class="k">struct</span><span class="w"> </span><span class="nc">has_gm</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">void_t</span><span class="o">&lt;</span><span class="k">decltype</span><span class="p">(</span><span class="o">&amp;</span><span class="n">T</span><span class="o">::</span><span class="n">gm</span><span class="p">)</span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">true_type</span><span class="w"> </span><span class="p">{};</span>
+
+<span class="k">struct</span><span class="w"> </span><span class="nc">Gas</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="kt">double</span><span class="w"> </span><span class="n">gm</span><span class="p">;</span><span class="w">  </span><span class="c1">// has a member gm</span>
+<span class="p">};</span>
+<span class="k">struct</span><span class="w"> </span><span class="nc">Dust</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="kt">double</span><span class="w"> </span><span class="n">size</span><span class="p">;</span><span class="w">  </span><span class="c1">// has no gm</span>
+<span class="p">};</span>
+
+<span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">has_gm</span><span class="o">&lt;</span><span class="n">Gas</span><span class="o">&gt;::</span><span class="n">value</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">" "</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">has_gm</span><span class="o">&lt;</span><span class="n">Dust</span><span class="o">&gt;::</span><span class="n">value</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">"</span><span class="se">\n</span><span class="s">"</span><span class="p">;</span><span class="w">  </span><span class="c1">// 1 0</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>We read the parts in order.</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">class</span> <span class="pre">=</span> <span class="pre">void</span></code> is an unnamed second template argument whose default is <code class="docutils literal notranslate"><span class="pre">void</span></code>. The user writes only one, <code class="docutils literal notranslate"><span class="pre">has_gm&lt;Gas&gt;</span></code>, and the second becomes <code class="docutils literal notranslate"><span class="pre">void</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&amp;T::gm</span></code> is an expression meaning “point to the member <code class="docutils literal notranslate"><span class="pre">gm</span></code> of <code class="docutils literal notranslate"><span class="pre">T</span></code>.” If <code class="docutils literal notranslate"><span class="pre">T</span></code> has no <code class="docutils literal notranslate"><span class="pre">gm</span></code>, this expression cannot be written.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">decltype(expression)</span></code> finds the type of the expression <strong>without evaluating it</strong>. Here only whether the expression can be written matters.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">std::void_t&lt;...&gt;</span></code> is a type that becomes <code class="docutils literal notranslate"><span class="pre">void</span></code> regardless of its contents, as long as what is inside the angle brackets can be written correctly.</p></li>
+</ul>
+<p>For <code class="docutils literal notranslate"><span class="pre">has_gm&lt;Gas&gt;</span></code>, the compiler reasons as follows.</p>
+<ol class="arabic simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">has_gm&lt;Gas&gt;</span></code>, with the default filled in, is <code class="docutils literal notranslate"><span class="pre">has_gm&lt;Gas,</span> <span class="pre">void&gt;</span></code>.</p></li>
+<li><p>Applying <code class="docutils literal notranslate"><span class="pre">T</span> <span class="pre">=</span> <span class="pre">Gas</span></code> to partial specialization (2), <code class="docutils literal notranslate"><span class="pre">std::void_t&lt;decltype(&amp;Gas::gm)&gt;</span></code> becomes <code class="docutils literal notranslate"><span class="pre">void</span></code>, and (2) becomes the definition for <code class="docutils literal notranslate"><span class="pre">has_gm&lt;Gas,</span> <span class="pre">void&gt;</span></code>.</p></li>
+<li><p>1 and 2 match, so (2) is used and <code class="docutils literal notranslate"><span class="pre">value</span></code> is <code class="docutils literal notranslate"><span class="pre">true</span></code>.</p></li>
+</ol>
+<p>For <code class="docutils literal notranslate"><span class="pre">has_gm&lt;Dust&gt;</span></code>, <code class="docutils literal notranslate"><span class="pre">&amp;Dust::gm</span></code> cannot be written in 2. In this case, the compiler does not report an error and merely removes (2) from the candidates. The remaining (1) is used, and <code class="docutils literal notranslate"><span class="pre">value</span></code> is <code class="docutils literal notranslate"><span class="pre">false</span></code>. The C++ rule that when applying template arguments produces a form that cannot be written, the candidate is simply removed without an error is called <strong>SFINAE</strong> (Substitution Failure Is Not An Error). The rule is in <a class="reference external" href="https://timsong-cpp.github.io/cppwp/n4659/temp.deduct">template argument deduction</a> in the C++17 draft standard.</p>
+<p>To check whether a member function <strong>can be called</strong> with a given argument list, write a call expression instead of <code class="docutils literal notranslate"><span class="pre">&amp;T::name</span></code>.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;utility&gt;</span><span class="w">  </span><span class="c1">// std::declval</span>
+
+<span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">class</span><span class="w"> </span><span class="nc">T</span><span class="p">,</span><span class="w"> </span><span class="k">class</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kt">void</span><span class="o">&gt;</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">has_dt_limit</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">false_type</span><span class="w"> </span><span class="p">{};</span>
+<span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">class</span><span class="w"> </span><span class="nc">T</span><span class="o">&gt;</span>
+<span class="k">struct</span><span class="w"> </span><span class="nc">has_dt_limit</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">void_t</span><span class="o">&lt;</span><span class="k">decltype</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">declval</span><span class="o">&lt;</span><span class="k">const</span><span class="w"> </span><span class="n">T</span><span class="w"> </span><span class="o">&amp;&gt;</span><span class="p">().</span><span class="n">dt_limit</span><span class="p">())</span><span class="o">&gt;&gt;</span>
+<span class="w">    </span><span class="o">:</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">true_type</span><span class="w"> </span><span class="p">{};</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">std::declval&lt;const</span> <span class="pre">T</span> <span class="pre">&amp;&gt;()</span></code> is a hypothetical expression meaning “if there were a value of type <code class="docutils literal notranslate"><span class="pre">const</span> <span class="pre">T</span> <span class="pre">&amp;</span></code>,” and can be used only inside <code class="docutils literal notranslate"><span class="pre">decltype</span></code>. It lets you check whether <code class="docutils literal notranslate"><span class="pre">t.dt_limit()</span></code> can be written without creating an instance of <code class="docutils literal notranslate"><span class="pre">T</span></code>. Because it is called through <code class="docutils literal notranslate"><span class="pre">const</span> <span class="pre">T</span> <span class="pre">&amp;</span></code>, the result is <code class="docutils literal notranslate"><span class="pre">false</span></code> unless <code class="docutils literal notranslate"><span class="pre">dt_limit</span></code> is a <code class="docutils literal notranslate"><span class="pre">const</span></code> member function.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">struct</span><span class="w"> </span><span class="nc">A</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="nf">dt_limit</span><span class="p">()</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="mf">0.1</span><span class="p">;</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="p">};</span><span class="w">  </span><span class="c1">// has_dt_limit&lt;A&gt;::value is true</span>
+<span class="k">struct</span><span class="w"> </span><span class="nc">B</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="nf">dt_limit</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="mf">0.1</span><span class="p">;</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="p">};</span><span class="w">        </span><span class="c1">// false: not const</span>
+<span class="k">struct</span><span class="w"> </span><span class="nc">C</span><span class="w"> </span><span class="p">{};</span><span class="w">                                           </span><span class="c1">// false: no dt_limit</span>
+</pre></div>
+</div>
+<section id="miso-has-eos-has-dt-limit">
+<h4>A MISO example: has_eos and has_dt_limit<a class="headerlink" href="#miso-has-eos-has-dt-limit" title="Link to this heading"></a></h4>
+<p>The beginning of <code class="docutils literal notranslate"><span class="pre">miso/include/miso/mhd_model_base.hpp</span></code> has type traits in the same form as above (excerpt).</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="c1">// SFINAE to check if the derived class has required member variables.</span>
+<span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">class</span><span class="w"> </span><span class="nc">T</span><span class="p">,</span><span class="w"> </span><span class="k">class</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kt">void</span><span class="o">&gt;</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">has_eos</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">false_type</span><span class="w"> </span><span class="p">{};</span>
+<span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">class</span><span class="w"> </span><span class="nc">T</span><span class="o">&gt;</span>
+<span class="k">struct</span><span class="w"> </span><span class="nc">has_eos</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">void_t</span><span class="o">&lt;</span><span class="k">decltype</span><span class="p">(</span><span class="o">&amp;</span><span class="n">T</span><span class="o">::</span><span class="n">eos</span><span class="p">)</span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">true_type</span><span class="w"> </span><span class="p">{};</span>
+
+<span class="c1">// Optional time step limit of the source term: Real dt_limit() const</span>
+<span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">class</span><span class="w"> </span><span class="nc">T</span><span class="p">,</span><span class="w"> </span><span class="k">class</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kt">void</span><span class="o">&gt;</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">has_dt_limit</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">false_type</span><span class="w"> </span><span class="p">{};</span>
+<span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">class</span><span class="w"> </span><span class="nc">T</span><span class="o">&gt;</span>
+<span class="k">struct</span><span class="w"> </span><span class="nc">has_dt_limit</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span>
+<span class="w">                    </span><span class="n">std</span><span class="o">::</span><span class="n">void_t</span><span class="o">&lt;</span><span class="k">decltype</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">declval</span><span class="o">&lt;</span><span class="k">const</span><span class="w"> </span><span class="n">T</span><span class="w"> </span><span class="o">&amp;&gt;</span><span class="p">().</span><span class="n">dt_limit</span><span class="p">())</span><span class="o">&gt;&gt;</span>
+<span class="w">    </span><span class="o">:</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">true_type</span><span class="w"> </span><span class="p">{};</span>
+<span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">class</span><span class="w"> </span><span class="nc">T</span><span class="p">,</span><span class="w"> </span><span class="k">class</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kt">void</span><span class="o">&gt;</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">has_member_dt_limit</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">false_type</span><span class="w"> </span><span class="p">{};</span>
+<span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">class</span><span class="w"> </span><span class="nc">T</span><span class="o">&gt;</span>
+<span class="k">struct</span><span class="w"> </span><span class="nc">has_member_dt_limit</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">void_t</span><span class="o">&lt;</span><span class="k">decltype</span><span class="p">(</span><span class="o">&amp;</span><span class="n">T</span><span class="o">::</span><span class="n">dt_limit</span><span class="p">)</span><span class="o">&gt;&gt;</span>
+<span class="w">    </span><span class="o">:</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">true_type</span><span class="w"> </span><span class="p">{};</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">has_ic</span></code>, <code class="docutils literal notranslate"><span class="pre">has_bc</span></code>, and <code class="docutils literal notranslate"><span class="pre">has_src</span></code> have the same form as <code class="docutils literal notranslate"><span class="pre">has_eos</span></code>. <code class="docutils literal notranslate"><span class="pre">ModelBase::run()</span></code> checks them with <code class="docutils literal notranslate"><span class="pre">static_assert</span></code> (excerpt).</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="w">    </span><span class="k">static_assert</span><span class="p">(</span><span class="n">has_eos</span><span class="o">&lt;</span><span class="n">Derived</span><span class="o">&gt;::</span><span class="n">value</span><span class="p">,</span>
+<span class="w">                  </span><span class="s">"Derived must have member variable 'eos'."</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>If you forget to write <code class="docutils literal notranslate"><span class="pre">eos</span></code> in the model, compilation stops with this message before the program runs.</p>
+<p><code class="docutils literal notranslate"><span class="pre">ModelBase::update()</span></code> uses the source term’s upper limit on the time step, <code class="docutils literal notranslate"><span class="pre">dt_limit()</span></code>, only when the source term has it (excerpt; the MPI part is omitted).</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="w">  </span><span class="kt">void</span><span class="w"> </span><span class="nf">update</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">auto</span><span class="w"> </span><span class="o">&amp;</span><span class="n">d</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">derived</span><span class="p">();</span>
+<span class="w">    </span><span class="k">using</span><span class="w"> </span><span class="n">Source</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">decltype</span><span class="p">(</span><span class="n">d</span><span class="p">.</span><span class="n">src</span><span class="p">);</span>
+<span class="w">    </span><span class="k">static_assert</span><span class="p">(</span><span class="o">!</span><span class="n">has_member_dt_limit</span><span class="o">&lt;</span><span class="n">Source</span><span class="o">&gt;::</span><span class="n">value</span><span class="w"> </span><span class="o">||</span>
+<span class="w">                      </span><span class="n">has_dt_limit</span><span class="o">&lt;</span><span class="n">Source</span><span class="o">&gt;::</span><span class="n">value</span><span class="p">,</span>
+<span class="w">                  </span><span class="s">"Source::dt_limit must be callable as dt_limit() const"</span><span class="p">);</span>
+<span class="w">    </span><span class="k">auto</span><span class="w"> </span><span class="n">dt</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">mhd</span><span class="p">.</span><span class="n">cfl</span><span class="p">(</span><span class="n">d</span><span class="p">.</span><span class="n">eos</span><span class="p">);</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="k">constexpr</span><span class="w"> </span><span class="p">(</span><span class="n">has_dt_limit</span><span class="o">&lt;</span><span class="n">Source</span><span class="o">&gt;::</span><span class="n">value</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="n">Real</span><span class="w"> </span><span class="n">dt_src</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">static_cast</span><span class="o">&lt;</span><span class="n">Real</span><span class="o">&gt;</span><span class="p">(</span><span class="n">d</span><span class="p">.</span><span class="n">src</span><span class="p">.</span><span class="n">dt_limit</span><span class="p">());</span>
+<span class="w">      </span><span class="c1">// (omitted: compute dt_src_g, the minimum over all ranks)</span>
+<span class="w">      </span><span class="n">dt</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">min</span><span class="p">(</span><span class="n">dt</span><span class="p">,</span><span class="w"> </span><span class="n">dt_src_g</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="n">mhd</span><span class="p">.</span><span class="n">update</span><span class="p">(</span><span class="n">dt</span><span class="p">,</span><span class="w"> </span><span class="n">d</span><span class="p">.</span><span class="n">eos</span><span class="p">,</span><span class="w"> </span><span class="n">d</span><span class="p">.</span><span class="n">bc</span><span class="p">,</span><span class="w"> </span><span class="n">d</span><span class="p">.</span><span class="n">src</span><span class="p">);</span>
+<span class="w">    </span><span class="n">time</span><span class="p">.</span><span class="n">update</span><span class="p">(</span><span class="n">dt</span><span class="p">);</span>
+<span class="w">  </span><span class="p">}</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">using</span> <span class="pre">Source</span> <span class="pre">=</span> <span class="pre">decltype(d.src);</span></code> gives the type of the member <code class="docutils literal notranslate"><span class="pre">src</span></code> the alias <code class="docutils literal notranslate"><span class="pre">Source</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">d.src.dt_limit()</span></code> inside <code class="docutils literal notranslate"><span class="pre">if</span> <span class="pre">constexpr</span></code> is an expression that cannot be written for a source term without <code class="docutils literal notranslate"><span class="pre">dt_limit</span></code>. As seen in Section 6.6, it is not built in when the condition is <code class="docutils literal notranslate"><span class="pre">false</span></code>, so there is no error.</p></li>
+<li><p>The condition of the <code class="docutils literal notranslate"><span class="pre">static_assert</span></code> is “there is no name <code class="docutils literal notranslate"><span class="pre">dt_limit</span></code>, <strong>or</strong> it can be called as <code class="docutils literal notranslate"><span class="pre">dt_limit()</span> <span class="pre">const</span></code>” (<code class="docutils literal notranslate"><span class="pre">!</span></code> is negation and <code class="docutils literal notranslate"><span class="pre">||</span></code> is “or”). If you wrote <code class="docutils literal notranslate"><span class="pre">dt_limit</span></code> but forgot <code class="docutils literal notranslate"><span class="pre">const</span></code>, checking with <code class="docutils literal notranslate"><span class="pre">has_dt_limit</span></code> alone would give <code class="docutils literal notranslate"><span class="pre">false</span></code> and it would be silently ignored. By checking separately for the presence of the name (<code class="docutils literal notranslate"><span class="pre">has_member_dt_limit</span></code>) and for callability (<code class="docutils literal notranslate"><span class="pre">has_dt_limit</span></code>), the code turns such a mistake into a compile error.</p></li>
+</ul>
+</section>
+</section>
+<section id="edu-ch06-source-term-macro">
+<span id="id14"></span><h3>6.7.3 Combining macros and templates (source terms)<a class="headerlink" href="#edu-ch06-source-term-macro" title="Link to this heading"></a></h3>
+<p>There are eight source terms, <code class="docutils literal notranslate"><span class="pre">ro</span></code>, <code class="docutils literal notranslate"><span class="pre">vx</span></code>, <code class="docutils literal notranslate"><span class="pre">vy</span></code>, <code class="docutils literal notranslate"><span class="pre">vz</span></code>, <code class="docutils literal notranslate"><span class="pre">bx</span></code>, <code class="docutils literal notranslate"><span class="pre">by</span></code>, <code class="docutils literal notranslate"><span class="pre">bz</span></code>, and <code class="docutils literal notranslate"><span class="pre">ei</span></code>, and each can be omitted. If you wrote the two kinds of type traits above and the function that fills in 0 for all eight, the same definition would be repeated eight times, differing only in the name. In <code class="docutils literal notranslate"><span class="pre">miso/include/miso/mhd_integrator.hpp</span></code>, this is written only once using a preprocessor macro (<a class="reference internal" href="02_cpp_basics.html#edu-ch02"><span class="std std-ref">Chapter 2</span></a>).</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="cp">#define MISO_MHD_DEFINE_SOURCE_TERM(name)                                      \</span>
+<span class="cp">  namespace impl_source {                                                      \</span>
+<span class="cp">  template &lt;class Source, class = void&gt;                                        \</span>
+<span class="cp">  struct has_member_##name : std::false_type {};                               \</span>
+<span class="cp">  template &lt;class Source&gt;                                                      \</span>
+<span class="cp">  struct has_member_##name&lt;Source, std::void_t&lt;decltype(&amp;Source::name)&gt;&gt;       \</span>
+<span class="cp">      : std::true_type {};                                                     \</span>
+<span class="cp">  template &lt;class Source, class Real, class = void&gt;                            \</span>
+<span class="cp">  struct has_##name : std::false_type {};                                      \</span>
+<span class="cp">  template &lt;class Source, class Real&gt;                                          \</span>
+<span class="cp">  struct has_##name&lt;Source, Real,                                              \</span>
+<span class="cp">                    std::void_t&lt;decltype(std::declval&lt;const Source &amp;&gt;().name(  \</span>
+<span class="cp">                        std::declval&lt;FieldsView&lt;const Real&gt;&gt;(), 0, 0, 0))&gt;&gt;    \</span>
+<span class="cp">      : std::true_type {};                                                     \</span>
+<span class="cp">  }                                                                            \</span>
+<span class="cp">  </span><span class="cm">/** @brief Source term of `name` (0 if the Source does not define it) */</span><span class="cp">     \</span>
+<span class="cp">  template &lt;typename Real, typename Source&gt;                                    \</span>
+<span class="cp">  __host__ __device__ inline Real source_##name(                               \</span>
+<span class="cp">      const Source &amp;src, const FieldsView&lt;const Real&gt; &amp;qq, int i, int j,       \</span>
+<span class="cp">      int k) {                                                                 \</span>
+<span class="cp">    static_assert(!impl_source::has_member_##name&lt;Source&gt;::value ||            \</span>
+<span class="cp">                      impl_source::has_##name&lt;Source, Real&gt;::value,            \</span>
+<span class="cp">                  "Source::" #name " must be callable as " #name               \</span>
+<span class="cp">                  "(FieldsView&lt;const Real&gt;, int, int, int) const");            \</span>
+<span class="cp">    if constexpr (impl_source::has_##name&lt;Source, Real&gt;::value) {              \</span>
+<span class="cp">      return src.name(qq, i, j, k);                                            \</span>
+<span class="cp">    } else {                                                                   \</span>
+<span class="cp">      return Real(0);                                                          \</span>
+<span class="cp">    }                                                                          \</span>
+<span class="cp">  }</span>
+<span class="n">MISO_MHD_DEFINE_SOURCE_TERM</span><span class="p">(</span><span class="n">ro</span><span class="p">)</span>
+<span class="n">MISO_MHD_DEFINE_SOURCE_TERM</span><span class="p">(</span><span class="n">vx</span><span class="p">)</span>
+<span class="c1">// (same for vy, vz, bx, by, bz, ei)</span>
+<span class="cp">#undef MISO_MHD_DEFINE_SOURCE_TERM</span>
+</pre></div>
+</div>
+<p>We read the macro symbols first.</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Symbol</p></th>
+<th class="head"><p>Meaning</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">\</span></code> at the end of a line</p></td>
+<td><p>Continues the macro definition onto the next line. A macro is originally written on one line</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">name</span></code></p></td>
+<td><p>The macro’s argument. For <code class="docutils literal notranslate"><span class="pre">MISO_MHD_DEFINE_SOURCE_TERM(vx)</span></code>, every <code class="docutils literal notranslate"><span class="pre">name</span></code> is replaced with <code class="docutils literal notranslate"><span class="pre">vx</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">has_##name</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">##</span></code> joins what is before and after into one name. If <code class="docutils literal notranslate"><span class="pre">name</span></code> is <code class="docutils literal notranslate"><span class="pre">vx</span></code>, it becomes <code class="docutils literal notranslate"><span class="pre">has_vx</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">#name</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">#</span></code> turns the argument into the string <code class="docutils literal notranslate"><span class="pre">&quot;vx&quot;</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">#undef</span></code></p></td>
+<td><p>Cancels the definition of a macro that is no longer needed</p></td>
+</tr>
+</tbody>
+</table>
+<p><code class="docutils literal notranslate"><span class="pre">&quot;Source::&quot;</span> <span class="pre">#name</span> <span class="pre">&quot;</span> <span class="pre">must</span> <span class="pre">be</span> <span class="pre">...&quot;</span></code> becomes strings placed side by side, like <code class="docutils literal notranslate"><span class="pre">&quot;Source::&quot;</span> <span class="pre">&quot;vx&quot;</span> <span class="pre">&quot;</span> <span class="pre">must</span> <span class="pre">be</span> <span class="pre">...&quot;</span></code>. In C++, adjacent strings are joined into one, so the message becomes <code class="docutils literal notranslate"><span class="pre">&quot;Source::vx</span> <span class="pre">must</span> <span class="pre">be</span> <span class="pre">callable</span> <span class="pre">as</span> <span class="pre">vx(...)</span> <span class="pre">const&quot;</span></code>.</p>
+<p>Expanding <code class="docutils literal notranslate"><span class="pre">MISO_MHD_DEFINE_SOURCE_TERM(vx)</span></code> by hand and formatting it for readability gives the following (it is expanded for explanation, and is not written in this form in the source).</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">namespace</span><span class="w"> </span><span class="nn">impl_source</span><span class="w"> </span><span class="p">{</span>
+<span class="c1">// has a member named vx?</span>
+<span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">class</span><span class="w"> </span><span class="nc">Source</span><span class="p">,</span><span class="w"> </span><span class="k">class</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kt">void</span><span class="o">&gt;</span>
+<span class="k">struct</span><span class="w"> </span><span class="nc">has_member_vx</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">false_type</span><span class="w"> </span><span class="p">{};</span>
+<span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">class</span><span class="w"> </span><span class="nc">Source</span><span class="o">&gt;</span>
+<span class="k">struct</span><span class="w"> </span><span class="nc">has_member_vx</span><span class="o">&lt;</span><span class="n">Source</span><span class="p">,</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">void_t</span><span class="o">&lt;</span><span class="k">decltype</span><span class="p">(</span><span class="o">&amp;</span><span class="n">Source</span><span class="o">::</span><span class="n">vx</span><span class="p">)</span><span class="o">&gt;&gt;</span>
+<span class="w">    </span><span class="o">:</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">true_type</span><span class="w"> </span><span class="p">{};</span>
+<span class="c1">// can src.vx(qq, i, j, k) be called? (src is const, qq is FieldsView&lt;const Real&gt;)</span>
+<span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">class</span><span class="w"> </span><span class="nc">Source</span><span class="p">,</span><span class="w"> </span><span class="k">class</span><span class="w"> </span><span class="nc">Real</span><span class="p">,</span><span class="w"> </span><span class="k">class</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kt">void</span><span class="o">&gt;</span>
+<span class="k">struct</span><span class="w"> </span><span class="nc">has_vx</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">false_type</span><span class="w"> </span><span class="p">{};</span>
+<span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">class</span><span class="w"> </span><span class="nc">Source</span><span class="p">,</span><span class="w"> </span><span class="k">class</span><span class="w"> </span><span class="nc">Real</span><span class="o">&gt;</span>
+<span class="k">struct</span><span class="w"> </span><span class="nc">has_vx</span><span class="o">&lt;</span><span class="n">Source</span><span class="p">,</span><span class="w"> </span><span class="n">Real</span><span class="p">,</span>
+<span class="w">              </span><span class="n">std</span><span class="o">::</span><span class="n">void_t</span><span class="o">&lt;</span><span class="k">decltype</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">declval</span><span class="o">&lt;</span><span class="k">const</span><span class="w"> </span><span class="n">Source</span><span class="w"> </span><span class="o">&amp;&gt;</span><span class="p">().</span><span class="n">vx</span><span class="p">(</span>
+<span class="w">                  </span><span class="n">std</span><span class="o">::</span><span class="n">declval</span><span class="o">&lt;</span><span class="n">FieldsView</span><span class="o">&lt;</span><span class="k">const</span><span class="w"> </span><span class="n">Real</span><span class="o">&gt;&gt;</span><span class="p">(),</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">))</span><span class="o">&gt;&gt;</span>
+<span class="w">    </span><span class="o">:</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">true_type</span><span class="w"> </span><span class="p">{};</span>
+<span class="p">}</span><span class="w">  </span><span class="c1">// namespace impl_source</span>
+
+<span class="cm">/** @brief Source term of `vx` (0 if the Source does not define it) */</span>
+<span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">Real</span><span class="p">,</span><span class="w"> </span><span class="k">typename</span><span class="w"> </span><span class="nc">Source</span><span class="o">&gt;</span>
+<span class="n">__host__</span><span class="w"> </span><span class="n">__device__</span><span class="w"> </span><span class="kr">inline</span><span class="w"> </span><span class="n">Real</span><span class="w"> </span><span class="n">source_vx</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">Source</span><span class="w"> </span><span class="o">&amp;</span><span class="n">src</span><span class="p">,</span>
+<span class="w">                                          </span><span class="k">const</span><span class="w"> </span><span class="n">FieldsView</span><span class="o">&lt;</span><span class="k">const</span><span class="w"> </span><span class="n">Real</span><span class="o">&gt;</span><span class="w"> </span><span class="o">&amp;</span><span class="n">qq</span><span class="p">,</span>
+<span class="w">                                          </span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">j</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">k</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">static_assert</span><span class="p">(</span><span class="o">!</span><span class="n">impl_source</span><span class="o">::</span><span class="n">has_member_vx</span><span class="o">&lt;</span><span class="n">Source</span><span class="o">&gt;::</span><span class="n">value</span><span class="w"> </span><span class="o">||</span>
+<span class="w">                    </span><span class="n">impl_source</span><span class="o">::</span><span class="n">has_vx</span><span class="o">&lt;</span><span class="n">Source</span><span class="p">,</span><span class="w"> </span><span class="n">Real</span><span class="o">&gt;::</span><span class="n">value</span><span class="p">,</span>
+<span class="w">                </span><span class="s">"Source::vx must be callable as vx(FieldsView&lt;const Real&gt;, int, int, int) const"</span><span class="p">);</span>
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="k">constexpr</span><span class="w"> </span><span class="p">(</span><span class="n">impl_source</span><span class="o">::</span><span class="n">has_vx</span><span class="o">&lt;</span><span class="n">Source</span><span class="p">,</span><span class="w"> </span><span class="n">Real</span><span class="o">&gt;::</span><span class="n">value</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">src</span><span class="p">.</span><span class="n">vx</span><span class="p">(</span><span class="n">qq</span><span class="p">,</span><span class="w"> </span><span class="n">i</span><span class="p">,</span><span class="w"> </span><span class="n">j</span><span class="p">,</span><span class="w"> </span><span class="n">k</span><span class="p">);</span><span class="w">  </span><span class="c1">// call vx if it exists</span>
+<span class="w">  </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">Real</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span><span class="w">              </span><span class="c1">// otherwise 0</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>It is the <code class="docutils literal notranslate"><span class="pre">has_member_dt_limit</span></code> and <code class="docutils literal notranslate"><span class="pre">has_dt_limit</span></code> of Section 6.7.2, and the <code class="docutils literal notranslate"><span class="pre">static_assert</span></code> and <code class="docutils literal notranslate"><span class="pre">if</span> <span class="pre">constexpr</span></code> of <code class="docutils literal notranslate"><span class="pre">update()</span></code>, combined for <code class="docutils literal notranslate"><span class="pre">vx</span></code>. <code class="docutils literal notranslate"><span class="pre">has_vx</span></code> also takes <code class="docutils literal notranslate"><span class="pre">Real</span></code> in order to determine the argument type <code class="docutils literal notranslate"><span class="pre">FieldsView&lt;const</span> <span class="pre">Real&gt;</span></code>.</p>
+<p>In the time integration (<code class="docutils literal notranslate"><span class="pre">update_sc4</span></code> in <code class="docutils literal notranslate"><span class="pre">miso/include/miso/mhd_integrator_host.hpp</span></code>), <code class="docutils literal notranslate"><span class="pre">source_vx(src,</span> <span class="pre">c_qq,</span> <span class="pre">i,</span> <span class="pre">j,</span> <span class="pre">k)</span></code> is added to the right-hand side of the equation of motion. <code class="docutils literal notranslate"><span class="pre">&lt;Real&gt;</span></code> is not written because <code class="docutils literal notranslate"><span class="pre">Real</span></code> is deduced from the type of <code class="docutils literal notranslate"><span class="pre">c_qq</span></code>, <code class="docutils literal notranslate"><span class="pre">FieldsView&lt;const</span> <span class="pre">Real&gt;</span></code> (Section 6.1). If <code class="docutils literal notranslate"><span class="pre">src</span></code> has no <code class="docutils literal notranslate"><span class="pre">vx</span></code>, <code class="docutils literal notranslate"><span class="pre">source_vx</span></code> becomes a function that merely returns <code class="docutils literal notranslate"><span class="pre">Real(0)</span></code>, and no extra computation remains.</p>
+<p>The source term in <code class="docutils literal notranslate"><span class="pre">demo/hd2d_rayleigh_taylor/src/main.cpp</span></code> defines four terms: <code class="docutils literal notranslate"><span class="pre">vx</span></code>, <code class="docutils literal notranslate"><span class="pre">vy</span></code>, <code class="docutils literal notranslate"><span class="pre">vz</span></code>, and <code class="docutils literal notranslate"><span class="pre">ei</span></code> (only <code class="docutils literal notranslate"><span class="pre">vy</span></code> is excerpted).</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">struct</span><span class="w"> </span><span class="nc">SourceTerm</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="n">Real</span><span class="w"> </span><span class="n">g_grav</span><span class="p">;</span>
+<span class="w">  </span><span class="c1">// (omitted)</span>
+
+<span class="w">  </span><span class="c1">/// External force: y-direction</span>
+<span class="w">  </span><span class="n">__host__</span><span class="w"> </span><span class="n">__device__</span><span class="w"> </span><span class="kr">inline</span><span class="w"> </span><span class="n">Real</span><span class="w"> </span><span class="n">vy</span><span class="p">(</span><span class="n">mhd</span><span class="o">::</span><span class="n">FieldsView</span><span class="o">&lt;</span><span class="k">const</span><span class="w"> </span><span class="n">Real</span><span class="o">&gt;</span><span class="w"> </span><span class="n">qq</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">j</span><span class="p">,</span>
+<span class="w">                                     </span><span class="kt">int</span><span class="w"> </span><span class="n">k</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="k">noexcept</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="o">-</span><span class="n">g_grav</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">qq</span><span class="p">.</span><span class="n">ro</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="w"> </span><span class="n">j</span><span class="p">,</span><span class="w"> </span><span class="n">k</span><span class="p">);</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="w">  </span><span class="c1">// (rest omitted)</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+<p>If you write <code class="docutils literal notranslate"><span class="pre">vy</span></code> without <code class="docutils literal notranslate"><span class="pre">const</span></code>, <code class="docutils literal notranslate"><span class="pre">has_member_vy</span></code> is <code class="docutils literal notranslate"><span class="pre">true</span></code> and <code class="docutils literal notranslate"><span class="pre">has_vy</span></code> is <code class="docutils literal notranslate"><span class="pre">false</span></code>, and compilation stops with the following message.</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>error: static assertion failed: Source::vy must be callable as vy(FieldsView&lt;const Real&gt;, int, int, int) const
+</pre></div>
+</div>
+::<p>In C++20, you can write “whether this expression can be written” directly with a <code class="docutils literal notranslate"><span class="pre">requires</span></code> expression. The same check as <code class="docutils literal notranslate"><span class="pre">has_dt_limit</span></code> can be written as follows (<code class="docutils literal notranslate"><span class="pre">-std=c++20</span></code> is required).</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">class</span><span class="w"> </span><span class="nc">T</span><span class="o">&gt;</span>
+<span class="k">concept</span><span class="w"> </span><span class="nc">HasDtLimit</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">requires</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">T</span><span class="w"> </span><span class="o">&amp;</span><span class="n">t</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">t</span><span class="p">.</span><span class="n">dt_limit</span><span class="p">();</span><span class="w"> </span><span class="p">};</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">HasDtLimit&lt;T&gt;</span></code> becomes <code class="docutils literal notranslate"><span class="pre">true</span></code> or <code class="docutils literal notranslate"><span class="pre">false</span></code>, and can be used as in <code class="docutils literal notranslate"><span class="pre">if</span> <span class="pre">constexpr</span> <span class="pre">(HasDtLimit&lt;Source&gt;)</span></code>. The method of Section 6.7.2 that combines <code class="docutils literal notranslate"><span class="pre">std::void_t</span></code> with partial specialization is a technique for doing the same thing up to C++17. MISO is written in C++17, so it uses the <code class="docutils literal notranslate"><span class="pre">std::void_t</span></code> method. The rules are in <a class="reference external" href="https://timsong-cpp.github.io/cppwp/n4861/temp.constr">constraints</a> and <a class="reference external" href="https://timsong-cpp.github.io/cppwp/n4861/expr.prim.req"><code class="docutils literal notranslate"><span class="pre">requires</span></code> expressions</a> in the C++20 draft standard N4861.</p>
+</details>
+</section>
+<section id="template">
+<span id="edu-ch06-dot-template"></span><h3>6.7.4 .template inside templates<a class="headerlink" href="#template" title="Link to this heading"></a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">ModelBase::run()</span></code> has the following line (<code class="docutils literal notranslate"><span class="pre">miso/include/miso/mhd_model_base.hpp</span></code>).</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">config</span><span class="p">[</span><span class="s">"io"</span><span class="p">][</span><span class="s">"continue"</span><span class="p">].</span><span class="k">template</span><span class="w"> </span><span class="n">as</span><span class="o">&lt;</span><span class="kt">bool</span><span class="o">&gt;</span><span class="p">()</span><span class="w"> </span><span class="o">&amp;&amp;</span>
+</pre></div>
+</div>
+<p>In <code class="docutils literal notranslate"><span class="pre">IdealEOS</span></code> in Section 6.2, we wrote <code class="docutils literal notranslate"><span class="pre">config[&quot;eos&quot;][&quot;gm&quot;].as&lt;Real&gt;()</span></code>, but here there is a <code class="docutils literal notranslate"><span class="pre">template</span></code> between <code class="docutils literal notranslate"><span class="pre">.</span></code> and <code class="docutils literal notranslate"><span class="pre">as</span></code>. This is a mark that tells the compiler “the name that follows is a function template.” It is needed in cases like the following.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;iostream&gt;</span>
+
+<span class="k">struct</span><span class="w"> </span><span class="nc">Reader</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">class</span><span class="w"> </span><span class="nc">U</span><span class="o">&gt;</span><span class="w"> </span><span class="n">U</span><span class="w"> </span><span class="n">get</span><span class="p">()</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">U</span><span class="p">(</span><span class="mf">2.5</span><span class="p">);</span><span class="w"> </span><span class="p">}</span><span class="w">  </span><span class="c1">// member function template</span>
+<span class="p">};</span>
+
+<span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">class</span><span class="w"> </span><span class="nc">T</span><span class="o">&gt;</span>
+<span class="kt">double</span><span class="w"> </span><span class="n">read_twice</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">T</span><span class="w"> </span><span class="o">&amp;</span><span class="n">r</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="c1">// T, the type of r, is a template argument, so whether get is a template is unknown until instantiation</span>
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="n">r</span><span class="p">.</span><span class="k">template</span><span class="w"> </span><span class="n">get</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;</span><span class="p">()</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kt">int</span><span class="w"> </span><span class="n">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="n">Reader</span><span class="w"> </span><span class="n">r</span><span class="p">;</span>
+<span class="w">  </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">r</span><span class="p">.</span><span class="n">get</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">()</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">" "</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">read_twice</span><span class="p">(</span><span class="n">r</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">"</span><span class="se">\n</span><span class="s">"</span><span class="p">;</span><span class="w">  </span><span class="c1">// 2 5</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>The type of <code class="docutils literal notranslate"><span class="pre">r</span></code> in <code class="docutils literal notranslate"><span class="pre">main</span></code> is determined to be <code class="docutils literal notranslate"><span class="pre">Reader</span></code>, so you can write <code class="docutils literal notranslate"><span class="pre">r.get&lt;int&gt;()</span></code> as it is. The type of <code class="docutils literal notranslate"><span class="pre">r</span></code> in <code class="docutils literal notranslate"><span class="pre">read_twice</span></code> is <code class="docutils literal notranslate"><span class="pre">T</span></code>, and what goes into <code class="docutils literal notranslate"><span class="pre">T</span></code> is not known until instantiation. In this case, the compiler reads <code class="docutils literal notranslate"><span class="pre">get</span></code> as a non-template name and tries to interpret <code class="docutils literal notranslate"><span class="pre">r.get</span> <span class="pre">&lt;</span> <span class="pre">double</span> <span class="pre">&gt;</span> <span class="pre">()</span></code> as comparisons, which causes an error. With <code class="docutils literal notranslate"><span class="pre">.template</span></code>, it reads <code class="docutils literal notranslate"><span class="pre">get&lt;double&gt;</span></code> as a template call. <code class="docutils literal notranslate"><span class="pre">typename</span></code>, which tells the compiler that something is a type name, as in <code class="docutils literal notranslate"><span class="pre">typename</span> <span class="pre">T::value_type</span></code>, is used for the same reason.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">config</span></code> in <code class="docutils literal notranslate"><span class="pre">ModelBase</span></code> has type <code class="docutils literal notranslate"><span class="pre">Config</span> <span class="pre">&amp;</span></code>, whose type is determined regardless of the template arguments, so this line compiles even if <code class="docutils literal notranslate"><span class="pre">.template</span></code> is omitted. Adding it where it is not needed does not change the meaning (the same style also appears in <code class="docutils literal notranslate"><span class="pre">miso/include/miso/mhd_resistivity.hpp</span></code>). When reading, it is enough to recognize it as “a mark for a template call,” and the compiler tells you with an error where you need to write it. The rules are in <a class="reference external" href="https://timsong-cpp.github.io/cppwp/n4659/temp.res">name resolution</a> in the C++17 draft standard.</p>
+</section>
+</section>
+<section id="edu-ch06-exercises">
+<span id="id15"></span><h2>Exercises: Specifying and Selecting Templates<a class="headerlink" href="#edu-ch06-exercises" title="Link to this heading"></a></h2>
+<ol class="arabic simple">
+<li><p>For <code class="docutils literal notranslate"><span class="pre">max_of</span></code> in Section 6.1, give the return type and value of <code class="docutils literal notranslate"><span class="pre">max_of(2,</span> <span class="pre">7)</span></code> and <code class="docutils literal notranslate"><span class="pre">max_of&lt;double&gt;(1,</span> <span class="pre">2.5)</span></code>.</p></li>
+<li><p>Write a variable template <code class="docutils literal notranslate"><span class="pre">two_pi&lt;T&gt;</span></code> that represents <span class="math notranslate nohighlight">\(2\pi\)</span>, and print <code class="docutils literal notranslate"><span class="pre">two_pi&lt;float&gt;</span></code> and <code class="docutils literal notranslate"><span class="pre">two_pi&lt;double&gt;</span></code> with <code class="docutils literal notranslate"><span class="pre">%.17g</span></code>.</p></li>
+<li><p>Add <code class="docutils literal notranslate"><span class="pre">struct</span> <span class="pre">Fpga</span> <span class="pre">{};</span></code> to <code class="docutils literal notranslate"><span class="pre">Cpu</span></code>, <code class="docutils literal notranslate"><span class="pre">Gpu</span></code>, <code class="docutils literal notranslate"><span class="pre">run</span></code>, and <code class="docutils literal notranslate"><span class="pre">compute</span></code> of Section 6.4, check what happens when you call <code class="docutils literal notranslate"><span class="pre">compute(Fpga{},</span> <span class="pre">1)</span></code>, and explain why.</p></li>
+<li><p>For the following types, answer which definition in which file under <code class="docutils literal notranslate"><span class="pre">miso/include/miso/</span></code> is used.</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Array3D&lt;float&gt;</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Integrator&lt;double,</span> <span class="pre">backend::Host&gt;</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Array3D&lt;float,</span> <span class="pre">backend::CUDA&gt;</span></code> in a CPU-only build</p></li>
+</ul>
+</li>
+<li><p>Following <code class="docutils literal notranslate"><span class="pre">has_gm</span></code> in Section 6.7.2, write <code class="docutils literal notranslate"><span class="pre">has_size&lt;T&gt;</span></code>, which checks whether there is a member <code class="docutils literal notranslate"><span class="pre">size</span></code>. Include <code class="docutils literal notranslate"><span class="pre">miso/include/miso/execution.hpp</span></code>, print <code class="docutils literal notranslate"><span class="pre">has_size&lt;miso::Range1D&gt;::value</span></code> and <code class="docutils literal notranslate"><span class="pre">has_size&lt;miso::Index3D&gt;::value</span></code>, and compare the results with the definitions in <code class="docutils literal notranslate"><span class="pre">execution.hpp</span></code>.</p></li>
+<li><p>Read <code class="docutils literal notranslate"><span class="pre">SourceTerm</span></code> in <code class="docutils literal notranslate"><span class="pre">demo/hd2d_rayleigh_taylor/src/main.cpp</span></code>, and, among the eight functions <code class="docutils literal notranslate"><span class="pre">source_ro</span></code> through <code class="docutils literal notranslate"><span class="pre">source_ei</span></code>, separate those that call a member of <code class="docutils literal notranslate"><span class="pre">SourceTerm</span></code> from those that return <code class="docutils literal notranslate"><span class="pre">Real(0)</span></code>. Also answer whether the inside of <code class="docutils literal notranslate"><span class="pre">if</span> <span class="pre">constexpr</span> <span class="pre">(has_dt_limit&lt;Source&gt;::value)</span></code> in <code class="docutils literal notranslate"><span class="pre">ModelBase::update()</span></code> is built in.</p></li>
+</ol>
+::<p><strong>1.</strong> For <code class="docutils literal notranslate"><span class="pre">max_of(2,</span> <span class="pre">7)</span></code>, both arguments are <code class="docutils literal notranslate"><span class="pre">int</span></code>, so <code class="docutils literal notranslate"><span class="pre">T</span></code> is deduced to be <code class="docutils literal notranslate"><span class="pre">int</span></code> and it returns the <code class="docutils literal notranslate"><span class="pre">int</span></code> 7. For <code class="docutils literal notranslate"><span class="pre">max_of&lt;double&gt;(1,</span> <span class="pre">2.5)</span></code>, <code class="docutils literal notranslate"><span class="pre">T</span></code> is specified as <code class="docutils literal notranslate"><span class="pre">double</span></code>, so <code class="docutils literal notranslate"><span class="pre">1</span></code> is converted to <code class="docutils literal notranslate"><span class="pre">1.0</span></code> and it returns the <code class="docutils literal notranslate"><span class="pre">double</span></code> 2.5. Even for a call that would be an error because <code class="docutils literal notranslate"><span class="pre">T</span></code> cannot be determined without a specification, if you specify it explicitly, ordinary type conversion is used.</p>
+<p><strong>2.</strong> Example:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;cstdio&gt;</span>
+
+<span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">T</span><span class="o">&gt;</span>
+<span class="kr">inline</span><span class="w"> </span><span class="k">constexpr</span><span class="w"> </span><span class="n">T</span><span class="w"> </span><span class="n">two_pi</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">static_cast</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">(</span><span class="mf">2.0</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mf">3.14159265358979323846</span><span class="p">);</span>
+
+<span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">printf</span><span class="p">(</span><span class="s">"%.17g</span><span class="se">\n</span><span class="s">%.17g</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span><span class="w"> </span><span class="n">two_pi</span><span class="o">&lt;</span><span class="kt">float</span><span class="o">&gt;</span><span class="p">,</span><span class="w"> </span><span class="n">two_pi</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;</span><span class="p">);</span><span class="w"> </span><span class="p">}</span>
+</pre></div>
+</div>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>6.2831854820251465
+6.2831853071795862
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">float</span></code> has about 7 significant digits, so the values differ from the 8th digit. Following <code class="docutils literal notranslate"><span class="pre">constants.hpp</span></code>, you may also use <code class="docutils literal notranslate"><span class="pre">M_PI</span></code> and write <code class="docutils literal notranslate"><span class="pre">static_cast&lt;T&gt;(2.0</span> <span class="pre">*</span> <span class="pre">M_PI)</span></code>.</p>
+<p><strong>3.</strong> It is a compile error. In g++, <code class="docutils literal notranslate"><span class="pre">no</span> <span class="pre">matching</span> <span class="pre">function</span> <span class="pre">for</span> <span class="pre">call</span> <span class="pre">to</span> <span class="pre">'run(Fpga&amp;,</span> <span class="pre">int&amp;)'</span></code> is shown. Instantiating <code class="docutils literal notranslate"><span class="pre">compute&lt;Fpga&gt;</span></code> makes <code class="docutils literal notranslate"><span class="pre">b</span></code> in <code class="docutils literal notranslate"><span class="pre">run(b,</span> <span class="pre">n)</span></code> have type <code class="docutils literal notranslate"><span class="pre">Fpga</span></code>, but no <code class="docutils literal notranslate"><span class="pre">run</span></code> that takes an <code class="docutils literal notranslate"><span class="pre">Fpga</span></code> is defined. Selecting overloads by tag types is done at compile time, so a missing corresponding function is found before running. The same applies when <code class="docutils literal notranslate"><span class="pre">for_each(backend::CUDA{},</span> <span class="pre">...)</span></code> is called in a CPU-only build of MISO.</p>
+<p><strong>4.</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Array3D&lt;float&gt;</span></code> becomes <code class="docutils literal notranslate"><span class="pre">Array3D&lt;float,</span> <span class="pre">backend::Host&gt;</span></code> by default, and the partial specialization <code class="docutils literal notranslate"><span class="pre">template</span> <span class="pre">&lt;typename</span> <span class="pre">T&gt;</span> <span class="pre">class</span> <span class="pre">Array3D&lt;T,</span> <span class="pre">backend::Host&gt;</span></code> in <code class="docutils literal notranslate"><span class="pre">array3d.hpp</span></code> is used.</p></li>
+<li><p>For <code class="docutils literal notranslate"><span class="pre">Integrator&lt;double,</span> <span class="pre">backend::Host&gt;</span></code>, <code class="docutils literal notranslate"><span class="pre">template</span> <span class="pre">&lt;typename</span> <span class="pre">Real&gt;</span> <span class="pre">struct</span> <span class="pre">Integrator&lt;Real,</span> <span class="pre">backend::Host&gt;</span></code> in <code class="docutils literal notranslate"><span class="pre">mhd_integrator_host.hpp</span></code> is used (<code class="docutils literal notranslate"><span class="pre">Real</span></code> is <code class="docutils literal notranslate"><span class="pre">double</span></code>).</p></li>
+<li><p>In a CPU-only build, the partial specialization of <code class="docutils literal notranslate"><span class="pre">Array3D&lt;T,</span> <span class="pre">backend::CUDA&gt;</span></code> is inside <code class="docutils literal notranslate"><span class="pre">#ifdef</span> <span class="pre">__CUDACC__</span></code>, so it is not defined. The primary template is only a declaration, so writing <code class="docutils literal notranslate"><span class="pre">Array3D&lt;float,</span> <span class="pre">backend::CUDA&gt;</span> <span class="pre">b(2,</span> <span class="pre">2,</span> <span class="pre">2);</span></code> gives the g++ compile error <code class="docutils literal notranslate"><span class="pre">has</span> <span class="pre">initializer</span> <span class="pre">but</span> <span class="pre">incomplete</span> <span class="pre">type</span></code> (a type without a definition).</p></li>
+</ul>
+<p><strong>5.</strong> Example:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;iostream&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;type_traits&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;miso/execution.hpp&gt;</span>
+
+<span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">class</span><span class="w"> </span><span class="nc">T</span><span class="p">,</span><span class="w"> </span><span class="k">class</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kt">void</span><span class="o">&gt;</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">has_size</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">false_type</span><span class="w"> </span><span class="p">{};</span>
+<span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">class</span><span class="w"> </span><span class="nc">T</span><span class="o">&gt;</span>
+<span class="k">struct</span><span class="w"> </span><span class="nc">has_size</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">void_t</span><span class="o">&lt;</span><span class="k">decltype</span><span class="p">(</span><span class="o">&amp;</span><span class="n">T</span><span class="o">::</span><span class="n">size</span><span class="p">)</span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">true_type</span><span class="w"> </span><span class="p">{};</span>
+
+<span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">has_size</span><span class="o">&lt;</span><span class="n">miso</span><span class="o">::</span><span class="n">Range1D</span><span class="o">&gt;::</span><span class="n">value</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">" "</span>
+<span class="w">            </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">has_size</span><span class="o">&lt;</span><span class="n">miso</span><span class="o">::</span><span class="n">Index3D</span><span class="o">&gt;::</span><span class="n">value</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">"</span><span class="se">\n</span><span class="s">"</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Compile with the location of MISO’s headers specified by <code class="docutils literal notranslate"><span class="pre">-I/path/to/MISO/miso/include</span></code>. The output is <code class="docutils literal notranslate"><span class="pre">1</span> <span class="pre">0</span></code>. <code class="docutils literal notranslate"><span class="pre">Range1D</span></code> in <code class="docutils literal notranslate"><span class="pre">execution.hpp</span></code> has the member function <code class="docutils literal notranslate"><span class="pre">size()</span></code>, and <code class="docutils literal notranslate"><span class="pre">Index3D</span></code> has only <code class="docutils literal notranslate"><span class="pre">int</span> <span class="pre">i0,</span> <span class="pre">i1,</span> <span class="pre">i2;</span></code>, which matches the result. <code class="docutils literal notranslate"><span class="pre">&amp;T::size</span></code> can be used for both member variables and member functions.</p>
+<p><strong>6.</strong> <code class="docutils literal notranslate"><span class="pre">SourceTerm</span></code> defines <code class="docutils literal notranslate"><span class="pre">vx</span></code>, <code class="docutils literal notranslate"><span class="pre">vy</span></code>, <code class="docutils literal notranslate"><span class="pre">vz</span></code>, and <code class="docutils literal notranslate"><span class="pre">ei</span></code>, all in the form <code class="docutils literal notranslate"><span class="pre">(mhd::FieldsView&lt;const</span> <span class="pre">Real&gt;,</span> <span class="pre">int,</span> <span class="pre">int,</span> <span class="pre">int)</span> <span class="pre">const</span></code>.</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Function</p></th>
+<th class="head"><p>Processing used</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">source_vx</span></code>, <code class="docutils literal notranslate"><span class="pre">source_vy</span></code>, <code class="docutils literal notranslate"><span class="pre">source_vz</span></code>, <code class="docutils literal notranslate"><span class="pre">source_ei</span></code></p></td>
+<td><p>Calls <code class="docutils literal notranslate"><span class="pre">src.vx(qq,</span> <span class="pre">i,</span> <span class="pre">j,</span> <span class="pre">k)</span></code> and so on</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">source_ro</span></code>, <code class="docutils literal notranslate"><span class="pre">source_bx</span></code>, <code class="docutils literal notranslate"><span class="pre">source_by</span></code>, <code class="docutils literal notranslate"><span class="pre">source_bz</span></code></p></td>
+<td><p>Returns <code class="docutils literal notranslate"><span class="pre">Real(0)</span></code></p></td>
+</tr>
+</tbody>
+</table>
+<p><code class="docutils literal notranslate"><span class="pre">vx</span></code>, <code class="docutils literal notranslate"><span class="pre">vz</span></code>, and <code class="docutils literal notranslate"><span class="pre">ei</span></code> just return 0, but they are defined, so they are called (the result is the same if the definitions are omitted). <code class="docutils literal notranslate"><span class="pre">SourceTerm</span></code> has no <code class="docutils literal notranslate"><span class="pre">dt_limit</span></code>, so <code class="docutils literal notranslate"><span class="pre">has_dt_limit&lt;SourceTerm&gt;::value</span></code> is <code class="docutils literal notranslate"><span class="pre">false</span></code>. The inside of <code class="docutils literal notranslate"><span class="pre">if</span> <span class="pre">constexpr</span></code> is not built in, and the time step is determined only by the CFL condition (<code class="docutils literal notranslate"><span class="pre">mhd.cfl(d.eos)</span></code>).</p>
+</details>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="05_inheritance.html" class="btn btn-neutral float-left" title="5. Inheritance and CRTP" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="07_arrays_and_parallel.html" class="btn btn-neutral float-right" title="7. Arrays, Lambdas, and Parallel Loops on the CPU" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Integrated Studies, ISEE, Nagoya University.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

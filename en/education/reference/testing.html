@@ -1,0 +1,596 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Testing and Comparing Results &mdash; MISO 0.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css?v=4ae1632d" />
+      <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../../_static/collapsible-lists/css/tree_view.css?v=a885cde7" />
+      <link rel="stylesheet" type="text/css" href="../../_static/custom.css" />
+
+  
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options.js?v=837179f8"></script>
+      <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../../_static/copybutton.js?v=f281be69"></script>
+      <script src="../../_static/collapsible-lists/js/CollapsibleLists.compressed.js?v=73120307"></script>
+      <script src="../../_static/collapsible-lists/js/apply-collapsible-lists.js?v=660e4f45"></script>
+      <script>window.MathJax = {"tex": {"macros": {"bm": ["{\\boldsymbol{#1}}", 1]}}, "options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+      <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="GPU Troubleshooting" href="gpu_troubleshooting.html" />
+    <link rel="prev" title="Symbol Quick Reference" href="cpp_reference.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            MISO
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../quickstart.html">Quick Start</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../demo/index.html">Test Problems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../customization/index.html">Customization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../miso/index.html">MISO C++ documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../pymiso/index.html">pymiso Documentation</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">MISO education</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../index.html#id1">Main text</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../index.html#id2">Reference material to consult when needed</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../01_environment_setup.html">1. Development Environment and CMake</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../02_cpp_basics.html">2. Variables, Functions, and Control Flow</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../03_references_and_pointers.html">3. References, Pointers, and Lifetime</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../04_classes_and_structs.html">4. Classes and Structs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../05_inheritance.html">5. Inheritance and CRTP</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../06_templates.html">6. Templates</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../07_arrays_and_parallel.html">7. Arrays, Lambdas, and Parallel Loops on the CPU</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../08_mpi.html">8. Domain Decomposition with MPI</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../09_gpu.html">9. Computing and Transferring Data on a GPU (CUDA)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../10_heat1d.html">10. Heat Conduction Calculation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../11_reading_miso.html">11. Reading MISO’s Time Evolution</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../practice/index.html">Practice List</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="index.html">Reference Materials</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="glossary.html">Glossary</a></li>
+<li class="toctree-l4"><a class="reference internal" href="fortran_map.html">Fortran Correspondence Table</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cpp_reference.html">Symbol Quick Reference</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">Testing and Comparing Results</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gpu_troubleshooting.html">GPU Troubleshooting</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../references.html">References</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">MISO</a>
+      </nav>
+
+      <div class="wy-nav-content">
+<div id="language-links" style="margin-bottom: 1em; font-size: 100%;">
+    Language:
+    
+    <strong>English</strong> |
+    <a href="../../../education/reference/testing.html">日本語</a>
+    
+</div>
+
+
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">MISO education</a></li>
+          <li class="breadcrumb-item"><a href="index.html">Reference Materials</a></li>
+      <li class="breadcrumb-item active">Testing and Comparing Results</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../_sources/education/reference/testing.md.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section class="tex2jax_ignore mathjax_ignore" id="edu-ref-testing">
+<span id="id1"></span><h1>Testing and Comparing Results<a class="headerlink" href="#edu-ref-testing" title="Link to this heading"></a></h1>
+<p>This page collects ways to confirm that you have not broken anything when you change MISO. The first half covers running and reading MISO’s unit tests (doctest and ctest); the second half covers how to compare demo output and a rule of thumb for <code class="docutils literal notranslate"><span class="pre">float</span></code> rounding error. It assumes the build procedure of <a class="reference internal" href="../01_environment_setup.html#edu-ch01"><span class="std std-ref">Chapter 1</span></a>.</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#edu-ref-testing-targets"><span class="std std-ref">What to compare</span></a></p></li>
+<li><p><a class="reference internal" href="#edu-ref-testing-run"><span class="std std-ref">Running the unit tests</span></a></p></li>
+<li><p><a class="reference internal" href="#edu-ref-testing-read"><span class="std std-ref">Reading a test</span></a></p></li>
+<li><p><a class="reference internal" href="#edu-ref-testing-compare"><span class="std std-ref">Comparing demo output</span></a></p></li>
+<li><p><a class="reference internal" href="#edu-ref-testing-rounding"><span class="std std-ref">Rule of thumb for float rounding error</span></a></p></li>
+<li><p><a class="reference internal" href="#edu-ref-testing-record"><span class="std std-ref">Recording the comparison conditions</span></a></p></li>
+</ul>
+<section id="edu-ref-testing-targets">
+<span id="id2"></span><h2>What to compare<a class="headerlink" href="#edu-ref-testing-targets" title="Link to this heading"></a></h2>
+<p>The degree of agreement you expect depends on what you compare.</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Comparison</p></th>
+<th class="head"><p>What it checks</p></th>
+<th class="head"><p>Expected agreement</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>The result of a component versus the expected value from a formula or hand calculation</p></td>
+<td><p>Indices, coefficients, and boundary handling</p></td>
+<td><p>Exact for integers. About the rounding error for real numbers</p></td>
+</tr>
+<tr class="row-odd"><td><p>Two runs with the same executable and the same settings</p></td>
+<td><p>That the result does not change from run to run</p></td>
+<td><p>Bit-for-bit identical</p></td>
+</tr>
+<tr class="row-even"><td><p>Before and after a change (a change that should not alter the computation)</p></td>
+<td><p>That the rewrite did not change the computation</p></td>
+<td><p>Bit-for-bit identical, or about the rounding error</p></td>
+</tr>
+<tr class="row-odd"><td><p>Runs with a different number or direction of MPI decomposition</p></td>
+<td><p>Domain decomposition and communication</p></td>
+<td><p>Bit-for-bit identical as a whole array, or about the rounding error</p></td>
+</tr>
+<tr class="row-even"><td><p>The CPU and GPU versions, and differences in compiler or optimization</p></td>
+<td><p>The effect of differences in the order of operations or in instructions</p></td>
+<td><p>About the rounding error (it grows with time evolution)</p></td>
+</tr>
+<tr class="row-odd"><td><p>Numerical and exact solutions</p></td>
+<td><p>The discretization (grid and time step) error</p></td>
+<td><p>That it becomes smaller as the grid is refined</p></td>
+</tr>
+</tbody>
+</table>
+<p>In a MISO PR, describe the effect on numerical results as one of “bit-for-bit identical”, “about the rounding error”, “discretization error”, or “physically changed” (MISO’s <code class="docutils literal notranslate"><span class="pre">dev/notes/rules_ai.md</span></code>). The methods on this page give you the material to judge which one applies.</p>
+<p>Compute the expected value from a formula or a separate simple computation, without using the function you want to check as it is. If you build the expected value with the same function, the function’s mistake also enters the expected value, and the comparison cannot find it.</p>
+</section>
+<section id="edu-ref-testing-run">
+<span id="id3"></span><h2>Running the unit tests<a class="headerlink" href="#edu-ref-testing-run" title="Link to this heading"></a></h2>
+<section id="ctest">
+<h3>Running them all together (ctest)<a class="headerlink" href="#ctest" title="Link to this heading"></a></h3>
+<p>MISO’s unit tests are in <code class="docutils literal notranslate"><span class="pre">miso/tests/</span></code>, and they are built together when you build MISO by itself (<code class="docutils literal notranslate"><span class="pre">ENABLE_TESTING</span></code> is <code class="docutils literal notranslate"><span class="pre">ON</span></code> by default). The build folder may be outside the MISO folder.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>cmake<span class="w"> </span>-S<span class="w"> </span>/path/to/MISO/miso<span class="w"> </span>-B<span class="w"> </span>build_miso<span class="w"> </span>-DMISO_USE_CUDA<span class="o">=</span>OFF
+cmake<span class="w"> </span>--build<span class="w"> </span>build_miso<span class="w"> </span>--parallel<span class="w"> </span><span class="m">4</span>
+<span class="nb">cd</span><span class="w"> </span>build_miso
+<span class="nv">OMPI_MCA_btl_vader_single_copy_mechanism</span><span class="o">=</span>none<span class="w"> </span><span class="se">\</span>
+<span class="nv">OMPI_MCA_rmaps_base_oversubscribe</span><span class="o">=</span>yes<span class="w"> </span><span class="se">\</span>
+ctest<span class="w"> </span>--output-on-failure
+</pre></div>
+</div>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>      Start  1: test_array1d_cpp
+ 1/15 Test  #1: test_array1d_cpp .................   Passed    0.01 sec
+...
+15/15 Test #15: test_parallel_grid_cpp ...........   Passed    2.08 sec
+
+100% tests passed, 0 tests failed out of 15
+</pre></div>
+</div>
+<p>The number and names of the tests change with the MISO version. <code class="docutils literal notranslate"><span class="pre">--output-on-failure</span></code> shows only the output of failed tests. It does not show the output of passing tests.</p>
+<p>An environment variable written in the form <code class="docutils literal notranslate"><span class="pre">NAME=value</span> <span class="pre">command</span></code> is in effect only during that command. The two environment variables change the behavior of Open MPI.</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Environment variable</p></th>
+<th class="head"><p>Meaning</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">OMPI_MCA_btl_vader_single_copy_mechanism=none</span></code></p></td>
+<td><p>Avoids a memory-copy mechanism for communication between processes on the same machine, which may be unavailable in containers and the like</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">OMPI_MCA_rmaps_base_oversubscribe=yes</span></code></p></td>
+<td><p>Allows launching more processes than there are CPU cores. This lets you run the 2-process tests even on a machine with few cores</p></td>
+</tr>
+</tbody>
+</table>
+<p>It may work on your own machine without them, but MISO’s procedure (<code class="docutils literal notranslate"><span class="pre">dev/notes/usage_ai.md</span></code>) and GitHub CI run in this form. Multi-process tests are also launched through <code class="docutils literal notranslate"><span class="pre">miso/shared/mpiexec_with_env.sh</span></code>, which also loads the settings in <code class="docutils literal notranslate"><span class="pre">miso/shared/openmpi_config.env</span></code>.</p>
+</section>
+<section id="id4">
+<h3>Selecting tests<a class="headerlink" href="#id4" title="Link to this heading"></a></h3>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Command</p></th>
+<th class="head"><p>What it does</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">ctest</span> <span class="pre">-N</span></code></p></td>
+<td><p>Lists the registered tests without running them</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">ctest</span> <span class="pre">-R</span> <span class="pre">array</span></code></p></td>
+<td><p>Runs only the tests whose names contain <code class="docutils literal notranslate"><span class="pre">array</span></code> (a regular expression)</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">ctest</span> <span class="pre">-R</span> <span class="pre">execution</span> <span class="pre">-V</span></code></p></td>
+<td><p>Runs the selected tests, showing the run command and all of the output</p></td>
+</tr>
+</tbody>
+</table>
+<p>The name of a test registered with ctest is the source file name followed by <code class="docutils literal notranslate"><span class="pre">_cpp</span></code> (<code class="docutils literal notranslate"><span class="pre">_cu</span></code> for the GPU version). <code class="docutils literal notranslate"><span class="pre">miso/tests/serial/CMakeLists.txt</span></code> and <code class="docutils literal notranslate"><span class="pre">miso/tests/parallel/CMakeLists.txt</span></code> collect the files matching <code class="docutils literal notranslate"><span class="pre">test_*.cpp</span></code> and register them automatically. If you put a new test file in <code class="docutils literal notranslate"><span class="pre">serial/</span></code>, it is registered the next time you run the configuration.</p>
+</section>
+<section id="id5">
+<h3>Running a test executable directly<a class="headerlink" href="#id5" title="Link to this heading"></a></h3>
+<p>Each test is an independent executable, located in <code class="docutils literal notranslate"><span class="pre">build_miso/tests/serial/</span></code> and <code class="docutils literal notranslate"><span class="pre">build_miso/tests/parallel/</span></code>. If you run it directly, you can narrow down what runs further with doctest options.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./tests/serial/test_execution_cpp<span class="w"> </span>--list-test-cases
+./tests/serial/test_execution_cpp<span class="w"> </span>--test-case<span class="o">=</span><span class="s2">"Test reduce 1D CPU"</span><span class="w"> </span>--success
+</pre></div>
+</div>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Option</p></th>
+<th class="head"><p>Meaning</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">--list-test-cases</span></code></p></td>
+<td><p>Lists the names of the test cases contained in the file</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">--test-case=name</span></code></p></td>
+<td><p>Runs only the test cases whose names match. You can use <code class="docutils literal notranslate"><span class="pre">*</span></code> (example: <code class="docutils literal notranslate"><span class="pre">&quot;Test</span> <span class="pre">reduce*&quot;</span></code>)</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">--success</span></code></p></td>
+<td><p>Also shows the successful checks</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">--no-colors</span></code></p></td>
+<td><p>Suppresses the control characters for text color. Use it when you save the log to a file</p></td>
+</tr>
+</tbody>
+</table>
+<p>The tests in <code class="docutils literal notranslate"><span class="pre">parallel/</span></code> run with multiple MPI processes. To launch one in the same form as ctest, do the following.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>/path/to/MISO/miso/shared/mpiexec_with_env.sh<span class="w"> </span>-n<span class="w"> </span><span class="m">2</span><span class="w"> </span>./tests/parallel/test_parallel_grid_cpp
+</pre></div>
+</div>
+<p>Each process prints a summary of its own results, so the summary appears twice. Check the summaries of all the processes.</p>
+<p>The GPU tests (<code class="docutils literal notranslate"><span class="pre">*.cu</span></code>) are built only with <code class="docutils literal notranslate"><span class="pre">-DMISO_USE_CUDA=ON</span></code>. See <a class="reference internal" href="../09_gpu.html#edu-ch09"><span class="std std-ref">Chapter 9</span></a>.</p>
+</section>
+</section>
+<section id="edu-ref-testing-read">
+<span id="id6"></span><h2>Reading a test<a class="headerlink" href="#edu-ref-testing-read" title="Link to this heading"></a></h2>
+<p>MISO’s unit tests are written with a testing library called <strong>doctest</strong>. doctest consists of a single header, and <code class="docutils literal notranslate"><span class="pre">FetchContent</span></code> in <code class="docutils literal notranslate"><span class="pre">miso/tests/CMakeLists.txt</span></code> fetches it from GitHub at configuration time.</p>
+<p>Let us read the first test in <code class="docutils literal notranslate"><span class="pre">miso/tests/serial/test_execution.cpp</span></code> (excerpt).</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="cp">#define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;doctest/doctest.h&gt;</span>
+
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;miso/array1d.hpp&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;miso/array3d.hpp&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;miso/execution.hpp&gt;</span>
+
+<span class="k">using</span><span class="w"> </span><span class="k">namespace</span><span class="w"> </span><span class="nn">miso</span><span class="p">;</span>
+
+<span class="n">TEST_CASE</span><span class="p">(</span><span class="s">"Test for_each 1D CPU"</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">doctest</span><span class="o">::</span><span class="n">test_suite</span><span class="p">(</span><span class="s">"execution"</span><span class="p">))</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="n">Range1D</span><span class="w"> </span><span class="n">range</span><span class="p">{</span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">4</span><span class="p">};</span>
+<span class="w">  </span><span class="n">Array1D</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span><span class="w"> </span><span class="n">backend</span><span class="o">::</span><span class="n">Host</span><span class="o">&gt;</span><span class="w"> </span><span class="n">arr</span><span class="p">(</span><span class="mi">5</span><span class="p">);</span>
+
+<span class="w">  </span><span class="k">auto</span><span class="w"> </span><span class="n">view</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">arr</span><span class="p">.</span><span class="n">view</span><span class="p">();</span>
+<span class="w">  </span><span class="n">for_each</span><span class="p">(</span><span class="n">backend</span><span class="o">::</span><span class="n">Host</span><span class="p">{},</span><span class="w"> </span><span class="n">range</span><span class="p">,</span><span class="w"> </span><span class="p">[</span><span class="o">&amp;</span><span class="p">](</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">view</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">i</span><span class="p">;</span><span class="w"> </span><span class="p">});</span>
+
+<span class="w">  </span><span class="c1">// This also works, but users should use the view interface as API.</span>
+<span class="w">  </span><span class="c1">// for_each&lt;backend::Host&gt;(range, [&amp;](int i) { arr[i] = i * i; });</span>
+
+<span class="w">  </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">4</span><span class="p">;</span><span class="w"> </span><span class="o">++</span><span class="n">i</span><span class="p">)</span>
+<span class="w">    </span><span class="n">REQUIRE</span><span class="p">(</span><span class="n">view</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">i</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Syntax</p></th>
+<th class="head"><p>Meaning</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">#define</span> <span class="pre">DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN</span></code></p></td>
+<td><p>This tells doctest to create the <code class="docutils literal notranslate"><span class="pre">main</span></code> function. You do not write <code class="docutils literal notranslate"><span class="pre">main</span></code> in the test file</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">TEST_CASE(&quot;name&quot;</span> <span class="pre">*</span> <span class="pre">doctest::test_suite(&quot;suite&quot;))</span></code></p></td>
+<td><p>Defines one test case. What is inside <code class="docutils literal notranslate"><span class="pre">{</span> <span class="pre">}</span></code> is the processing executed by that test. <code class="docutils literal notranslate"><span class="pre">test_suite</span></code> is the name of the suite that groups test cases</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">REQUIRE(condition)</span></code></p></td>
+<td><p>If the condition does not hold, it counts as a failure and the rest of that test case is not executed</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">CHECK(condition)</span></code></p></td>
+<td><p>If the condition does not hold, it is recorded as a failure, and execution continues</p></td>
+</tr>
+</tbody>
+</table>
+<p>This test runs a <code class="docutils literal notranslate"><span class="pre">for_each</span></code> that puts <code class="docutils literal notranslate"><span class="pre">i</span> <span class="pre">*</span> <span class="pre">i</span></code> only into indices 2 and 3, and checks those two values. It is an integer computation, so it requires an exact match with <code class="docutils literal notranslate"><span class="pre">==</span></code>. <code class="docutils literal notranslate"><span class="pre">for_each</span></code>, <code class="docutils literal notranslate"><span class="pre">Range1D</span></code>, <code class="docutils literal notranslate"><span class="pre">Array1D</span></code>, and lambda expressions are explained in <a class="reference internal" href="../07_arrays_and_parallel.html#edu-ch07"><span class="std std-ref">Chapter 7</span></a>.</p>
+<section id="doctest-approx">
+<h3>Comparing real numbers: <code class="docutils literal notranslate"><span class="pre">doctest::Approx</span></code><a class="headerlink" href="#doctest-approx" title="Link to this heading"></a></h3>
+<p>In real-number computations, even mathematically equivalent expressions can differ in the last digits depending on the order of computation (<a class="reference internal" href="#edu-ref-testing-rounding"><span class="std std-ref">a later section</span></a>). For this reason, to compare real numbers, use <code class="docutils literal notranslate"><span class="pre">doctest::Approx</span></code>, not <code class="docutils literal notranslate"><span class="pre">==</span></code>, to check that they are “close enough”.</p>
+<p>The following is an example that checks, in two ways, the result of adding 0.1 ten times in <code class="docutils literal notranslate"><span class="pre">float</span></code>. The doctest header is in <code class="docutils literal notranslate"><span class="pre">_deps/doctest-src/</span></code> in the folder where you built MISO’s tests.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="cp">#define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;doctest/doctest.h&gt;</span>
+
+<span class="n">TEST_CASE</span><span class="p">(</span><span class="s">"Sum of 0.1f"</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">doctest</span><span class="o">::</span><span class="n">test_suite</span><span class="p">(</span><span class="s">"example"</span><span class="p">))</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="kt">float</span><span class="w"> </span><span class="n">s</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.0f</span><span class="p">;</span>
+<span class="w">  </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">10</span><span class="p">;</span><span class="w"> </span><span class="o">++</span><span class="n">i</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">s</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="mf">0.1f</span><span class="p">;</span><span class="w">  </span><span class="c1">// add 0.1 ten times</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="w">  </span><span class="n">CHECK</span><span class="p">(</span><span class="n">s</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">doctest</span><span class="o">::</span><span class="n">Approx</span><span class="p">(</span><span class="mf">1.0</span><span class="p">));</span><span class="w">  </span><span class="c1">// passes if close to within about 1e-5 relative</span>
+<span class="w">  </span><span class="n">CHECK</span><span class="p">(</span><span class="n">s</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mf">1.0f</span><span class="p">);</span><span class="w">                  </span><span class="c1">// passes only if bitwise identical</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>g++<span class="w"> </span>-std<span class="o">=</span>c++17<span class="w"> </span>-I/path/to/build_miso/_deps/doctest-src<span class="w"> </span>test_sum.cpp<span class="w"> </span>-o<span class="w"> </span>test_sum
+./test_sum<span class="w"> </span>--no-colors
+</pre></div>
+</div>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>test_sum.cpp:10: ERROR: CHECK( s == 1.0f ) is NOT correct!
+  values: CHECK( 1 == 1 )
+
+===============================================================================
+[doctest] test cases: 1 | 0 passed | 1 failed | 0 skipped
+[doctest] assertions: 2 | 1 passed | 1 failed |
+[doctest] Status: FAILURE!
+</pre></div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">Approx</span></code> check succeeds, and the <code class="docutils literal notranslate"><span class="pre">==</span></code> check fails. <code class="docutils literal notranslate"><span class="pre">s</span></code> is <code class="docutils literal notranslate"><span class="pre">1.00000012</span></code>, which differs from 1 only in the last digit. In the failure message <code class="docutils literal notranslate"><span class="pre">values:</span> <span class="pre">CHECK(</span> <span class="pre">1</span> <span class="pre">==</span> <span class="pre">1</span> <span class="pre">)</span></code>, both sides look the same, but this is because the display has few digits. When a comparison of real numbers fails, increase the number of digits yourself and print the values to check. If even one test fails, the executable returns a nonzero exit code, and ctest shows that test as <code class="docutils literal notranslate"><span class="pre">Failed</span></code>.</p>
+<p><code class="docutils literal notranslate"><span class="pre">a</span> <span class="pre">==</span> <span class="pre">doctest::Approx(b)</span></code> succeeds when the following condition holds (the implementation in doctest 2.4.12).</p>
+<div class="math notranslate nohighlight">
+\[
+|a - b| &lt; \varepsilon \, \bigl(s + \max(|a|, |b|)\bigr)
+\]</div>
+<p>You specify <span class="math notranslate nohighlight">\(\varepsilon\)</span> with <code class="docutils literal notranslate"><span class="pre">.epsilon(value)</span></code> and <span class="math notranslate nohighlight">\(s\)</span> with <code class="docutils literal notranslate"><span class="pre">.scale(value)</span></code>. By default, <span class="math notranslate nohighlight">\(\varepsilon\)</span> is 100 times the machine epsilon of <code class="docutils literal notranslate"><span class="pre">float</span></code> (about <span class="math notranslate nohighlight">\(1.2\times10^{-5}\)</span>) and <span class="math notranslate nohighlight">\(s = 0\)</span>, so the comparison uses the relative error. With <code class="docutils literal notranslate"><span class="pre">.scale(1.0)</span></code>, for values near 0 the comparison uses <span class="math notranslate nohighlight">\(\varepsilon\)</span> as the tolerance of the absolute error. This is because, at a point where the expected value is 0, using a relative error makes any small difference a failure.</p>
+</section>
+<section id="miso">
+<h3>An example of an integration test in MISO<a class="headerlink" href="#miso" title="Link to this heading"></a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">miso/tests/parallel/test_hd1d_shock_tube.cpp</span></code> is a test that actually evolves a 1D shock tube (Sod’s problem) in time with MISO. It makes two kinds of comparison (excerpt).</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="w">  </span><span class="n">CHECK</span><span class="p">(</span><span class="n">ro_diff_sum</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">ro_sum</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mf">5.</span><span class="n">e</span><span class="mi">-2</span><span class="p">);</span>
+<span class="w">  </span><span class="n">CHECK</span><span class="p">(</span><span class="n">vx_diff_sum</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">vx_sum</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mf">5.</span><span class="n">e</span><span class="mi">-2</span><span class="p">);</span>
+
+<span class="w">  </span><span class="k">constexpr</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="n">single_precision_epsilon</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">1e-5</span><span class="p">;</span>
+<span class="w">  </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="kt">size_t</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">model_x</span><span class="p">.</span><span class="n">grid</span><span class="p">.</span><span class="n">i_total</span><span class="p">;</span><span class="w"> </span><span class="o">++</span><span class="n">i</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">CHECK</span><span class="p">(</span><span class="n">model_x</span><span class="p">.</span><span class="n">mhd</span><span class="p">.</span><span class="n">qq</span><span class="p">.</span><span class="n">ro</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">doctest</span><span class="o">::</span><span class="n">Approx</span><span class="p">(</span><span class="n">model_y</span><span class="p">.</span><span class="n">mhd</span><span class="p">.</span><span class="n">qq</span><span class="p">.</span><span class="n">ro</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+<span class="w">                                      </span><span class="p">.</span><span class="n">epsilon</span><span class="p">(</span><span class="n">single_precision_epsilon</span><span class="p">)</span>
+<span class="w">                                      </span><span class="p">.</span><span class="n">scale</span><span class="p">(</span><span class="mf">1.0</span><span class="p">));</span>
+</pre></div>
+</div>
+<p>The first is a comparison with the exact solution. It checks that the sum of the absolute differences divided by the sum of the values is less than 5%. The difference from the exact solution includes the discretization error, so the tolerance is fairly large.</p>
+<p>The second is a comparison between computations of the same problem placed along the x, y, and z directions. Mathematically these are the same computation, so it requires agreement to about the rounding error (<span class="math notranslate nohighlight">\(\varepsilon = 10^{-5}\)</span>).</p>
+</section>
+</section>
+<section id="edu-ref-testing-compare">
+<span id="id7"></span><h2>Comparing demo output<a class="headerlink" href="#edu-ref-testing-compare" title="Link to this heading"></a></h2>
+<p>To check whether a change to MISO has altered the computed results, run the demo before and after the change and compare the output.</p>
+<section id="id8">
+<h3>Runs for comparison<a class="headerlink" href="#id8" title="Link to this heading"></a></h3>
+<p>The output destination of a demo, <code class="docutils literal notranslate"><span class="pre">io.save_dir</span></code> (<code class="docutils literal notranslate"><span class="pre">data/</span></code> by default), is a path relative to the folder containing <code class="docutils literal notranslate"><span class="pre">config.yaml</span></code>. So if you create a separate folder for each run, copy <code class="docutils literal notranslate"><span class="pre">config.yaml</span></code> into it, and specify that file with <code class="docutils literal notranslate"><span class="pre">--config</span></code>, you can keep the outputs separate. This is an example of running twice, assuming <code class="docutils literal notranslate"><span class="pre">demo/mhd2d_vortex</span></code> has been built.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>mkdir<span class="w"> </span>-p<span class="w"> </span><span class="s2">"</span><span class="nv">$HOME</span><span class="s2">/miso-work/compare/run_a"</span><span class="w"> </span><span class="s2">"</span><span class="nv">$HOME</span><span class="s2">/miso-work/compare/run_b"</span>
+<span class="nb">cd</span><span class="w"> </span><span class="s2">"</span><span class="nv">$HOME</span><span class="s2">/miso-work/compare"</span>
+cp<span class="w"> </span>/path/to/MISO/demo/mhd2d_vortex/config.yaml<span class="w"> </span>run_a/
+cp<span class="w"> </span>/path/to/MISO/demo/mhd2d_vortex/config.yaml<span class="w"> </span>run_b/
+<span class="nb">set</span><span class="w"> </span>-a
+<span class="nb">source</span><span class="w"> </span>/path/to/MISO/demo/shared/openmpi_config.env
+<span class="nb">set</span><span class="w"> </span>+a
+mpiexec<span class="w"> </span>-np<span class="w"> </span><span class="m">2</span><span class="w"> </span>/path/to/MISO/demo/mhd2d_vortex/build/mhd2d_vortex<span class="w"> </span>--config<span class="o">=</span>run_a/config.yaml
+mpiexec<span class="w"> </span>-np<span class="w"> </span><span class="m">2</span><span class="w"> </span>/path/to/MISO/demo/mhd2d_vortex/build/mhd2d_vortex<span class="w"> </span>--config<span class="o">=</span>run_b/config.yaml
+</pre></div>
+</div>
+<p>From <code class="docutils literal notranslate"><span class="pre">set</span> <span class="pre">-a</span></code> to <code class="docutils literal notranslate"><span class="pre">set</span> <span class="pre">+a</span></code>, you make the environment variables written in <code class="docutils literal notranslate"><span class="pre">openmpi_config.env</span></code> take effect in this terminal (<code class="docutils literal notranslate"><span class="pre">app_run.sh</span></code> does the same thing).</p>
+<p>The demo’s <code class="docutils literal notranslate"><span class="pre">config.yaml</span></code> has <code class="docutils literal notranslate"><span class="pre">io.continue:</span> <span class="pre">true</span></code>, so if results already exist in the output destination, the run continues from them. Do each run for comparison in an empty folder.</p>
+<p>When comparing before and after a change, use the executables built from the respective versions of MISO. If you compare within the same MISO folder, either copy the pre-change executable under another name, or use separate build folders.</p>
+</section>
+<section id="cmp-diff-rq">
+<h3>Bit-for-bit comparison (<code class="docutils literal notranslate"><span class="pre">cmp</span></code>, <code class="docutils literal notranslate"><span class="pre">diff</span> <span class="pre">-rq</span></code>)<a class="headerlink" href="#cmp-diff-rq" title="Link to this heading"></a></h3>
+<p>Check whether two files differ by even one byte with <code class="docutils literal notranslate"><span class="pre">cmp</span></code>.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>cmp<span class="w"> </span>run_a/data/mhd/mhd.00000080.00000000.bin<span class="w"> </span>run_b/data/mhd/mhd.00000080.00000000.bin
+</pre></div>
+</div>
+<p>If they are the same it prints nothing; if they differ it prints the position of the first differing byte. You can compare whole folders with <code class="docutils literal notranslate"><span class="pre">diff</span> <span class="pre">-rq</span></code>.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>diff<span class="w"> </span>-rq<span class="w"> </span>run_a/data<span class="w"> </span>run_b/data
+</pre></div>
+</div>
+<p>If nothing is printed, all the outputs are bit-for-bit identical.</p>
+<p>Bit-for-bit comparison can be used only when the layout of the output is the same. If you change the number or direction of the MPI decomposition, the range covered by each rank’s file (<code class="docutils literal notranslate"><span class="pre">mhd.&lt;n_output&gt;.&lt;rank&gt;.bin</span></code>) changes, so the files do not match even when the values inside are the same. In that case, assemble them into a whole array as follows and then compare.</p>
+</section>
+<section id="pymiso">
+<h3>Comparing as a whole array (pymiso)<a class="headerlink" href="#pymiso" title="Link to this heading"></a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">pymiso.Data</span></code> reads the file of each rank and assembles them into a whole array (the ghost cells are removed). The following script takes the last output numbers of the two outputs and, for each variable, prints the maximum difference divided by a representative value (the maximum absolute value of that variable). Some points have an expected value of 0, so we divide by the representative value, not use a pointwise relative error.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">sys</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">pymiso</span>
+
+<span class="n">dir_a</span><span class="p">,</span> <span class="n">dir_b</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+<span class="n">a</span> <span class="o">=</span> <span class="n">pymiso</span><span class="o">.</span><span class="n">Data</span><span class="p">(</span><span class="n">data_dir</span><span class="o">=</span><span class="n">dir_a</span><span class="p">)</span>
+<span class="n">b</span> <span class="o">=</span> <span class="n">pymiso</span><span class="o">.</span><span class="n">Data</span><span class="p">(</span><span class="n">data_dir</span><span class="o">=</span><span class="n">dir_b</span><span class="p">)</span>
+<span class="n">n</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">n_output</span><span class="p">,</span> <span class="n">b</span><span class="o">.</span><span class="n">n_output</span><span class="p">)</span>  <span class="c1"># last output present in both</span>
+<span class="n">a</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
+<span class="n">b</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"n_output = </span><span class="si">{</span><span class="n">n</span><span class="si">}</span><span class="s2">, time = </span><span class="si">{</span><span class="n">a</span><span class="o">.</span><span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="si">:</span><span class="s2">.6g</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="n">b</span><span class="o">.</span><span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="si">:</span><span class="s2">.6g</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">var</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">"ro"</span><span class="p">,</span> <span class="s2">"vx"</span><span class="p">,</span> <span class="s2">"vy"</span><span class="p">,</span> <span class="s2">"vz"</span><span class="p">,</span> <span class="s2">"bx"</span><span class="p">,</span> <span class="s2">"by"</span><span class="p">,</span> <span class="s2">"bz"</span><span class="p">,</span> <span class="s2">"ei"</span><span class="p">]:</span>
+    <span class="n">qa</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">var</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">)</span>
+    <span class="n">qb</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">var</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">)</span>
+    <span class="n">scale</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">qa</span><span class="p">))</span>  <span class="c1"># divide by a representative value (the maximum magnitude)</span>
+    <span class="k">if</span> <span class="n">scale</span> <span class="o">==</span> <span class="mf">0.0</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">var</span><span class="si">}</span><span class="s2">: variable is 0 in both"</span><span class="p">)</span>
+        <span class="k">continue</span>
+    <span class="n">err</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">qa</span> <span class="o">-</span> <span class="n">qb</span><span class="p">))</span> <span class="o">/</span> <span class="n">scale</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">var</span><span class="si">}</span><span class="s2">: max|a-b|/max|a| = </span><span class="si">{</span><span class="n">err</span><span class="si">:</span><span class="s2">.3e</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Save it as <code class="docutils literal notranslate"><span class="pre">compare.py</span></code> and run it in the virtual environment where you installed pymiso in <a class="reference internal" href="../01_environment_setup.html#edu-ch01-demo"><span class="std std-ref">Chapter 1</span></a>.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>compare.py<span class="w"> </span>run_a/data<span class="w"> </span>run_b/data
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">a.time</span></code> is an object that handles the time file, and the time value is <code class="docutils literal notranslate"><span class="pre">a.time.time</span></code>. Convert the differences to <code class="docutils literal notranslate"><span class="pre">float64</span></code> before computing. If you subtract in <code class="docutils literal notranslate"><span class="pre">float32</span></code>, rounding also enters the difference itself. <code class="docutils literal notranslate"><span class="pre">vz</span></code> and <code class="docutils literal notranslate"><span class="pre">bz</span></code> are all 0 in this 2D problem, so they cannot be divided by the representative value.</p>
+</section>
+<section id="id9">
+<h3>Examples of comparison<a class="headerlink" href="#id9" title="Link to this heading"></a></h3>
+<p>These are the results of comparing under different conditions with the default settings of <code class="docutils literal notranslate"><span class="pre">demo/mhd2d_vortex</span></code> (128×128, 354 steps up to time 0.8, <code class="docutils literal notranslate"><span class="pre">Real</span></code> is <code class="docutils literal notranslate"><span class="pre">float</span></code>) (Ubuntu 24.04, GCC 13.3, Open MPI 4.1).</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>What was compared</p></th>
+<th class="head"><p><code class="docutils literal notranslate"><span class="pre">diff</span> <span class="pre">-rq</span></code></p></th>
+<th class="head"><p><code class="docutils literal notranslate"><span class="pre">compare.py</span></code> (time 0.8)</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Two runs with the same executable</p></td>
+<td><p>No difference</p></td>
+<td><p>All 0</p></td>
+</tr>
+<tr class="row-odd"><td><p>Executables built as Release and Debug</p></td>
+<td><p>No difference</p></td>
+<td><p>All 0</p></td>
+</tr>
+<tr class="row-even"><td><p>Changing the MPI decomposition from 2 in the x direction to 2 in the y direction</p></td>
+<td><p>All <code class="docutils literal notranslate"><span class="pre">mhd.*.bin</span></code> differ (and <code class="docutils literal notranslate"><span class="pre">mpi/coords.csv</span></code> too)</p></td>
+<td><p>All 0</p></td>
+</tr>
+<tr class="row-odd"><td><p>Executable built with <code class="docutils literal notranslate"><span class="pre">-DCMAKE_CXX_FLAGS=-march=native</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">mhd.*.bin</span></code> other than the initial values (output number 0), and the files of some times, differ</p></td>
+<td><p><span class="math notranslate nohighlight">\(1.7\times10^{-6}\)</span> to <span class="math notranslate nohighlight">\(5.7\times10^{-6}\)</span> depending on the variable</p></td>
+</tr>
+</tbody>
+</table>
+<p>The computation with a changed decomposition differed as files, but was bit-for-bit identical as a whole array. <code class="docutils literal notranslate"><span class="pre">-march=native</span></code> tells the compiler to use instructions specific to the CPU in use (such as FMA, which merges multiply and add). Because the rounding of operations changes, the result changes by about the rounding error. The time step determined by the CFL condition also changes in its last digits, and some output times differed in the 7th digit. The change of the difference with time in this comparison was as follows.</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Output number</p></th>
+<th class="head"><p>Time</p></th>
+<th class="head"><p>Difference in <code class="docutils literal notranslate"><span class="pre">ro</span></code> (the value from <code class="docutils literal notranslate"><span class="pre">compare.py</span></code>)</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>1</p></td>
+<td><p>0.01</p></td>
+<td><p><span class="math notranslate nohighlight">\(5.9\times10^{-7}\)</span></p></td>
+</tr>
+<tr class="row-odd"><td><p>10</p></td>
+<td><p>0.10</p></td>
+<td><p><span class="math notranslate nohighlight">\(9.3\times10^{-7}\)</span></p></td>
+</tr>
+<tr class="row-even"><td><p>40</p></td>
+<td><p>0.40</p></td>
+<td><p><span class="math notranslate nohighlight">\(1.6\times10^{-6}\)</span></p></td>
+</tr>
+<tr class="row-odd"><td><p>80</p></td>
+<td><p>0.80</p></td>
+<td><p><span class="math notranslate nohighlight">\(1.7\times10^{-6}\)</span></p></td>
+</tr>
+</tbody>
+</table>
+<p>Whether Release and Debug agree depends on the compiler and the machine. The result above is one example.</p>
+</section>
+</section>
+<section id="float">
+<span id="edu-ref-testing-rounding"></span><h2>Rule of thumb for float rounding error<a class="headerlink" href="#float" title="Link to this heading"></a></h2>
+<p>MISO’s demos and tests compute with <code class="docutils literal notranslate"><span class="pre">using</span> <span class="pre">Real</span> <span class="pre">=</span> <span class="pre">float;</span></code> (single precision). Real numbers are represented with a finite number of digits, so each computation rounds the result to a representable value. The difference between 1 and the next larger representable number is called the <strong>machine epsilon</strong>.</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Type</p></th>
+<th class="head"><p>Machine epsilon</p></th>
+<th class="head"><p>Approximate significant decimal digits</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">float</span></code> (single precision)</p></td>
+<td><p><span class="math notranslate nohighlight">\(2^{-23} \approx 1.19\times10^{-7}\)</span></p></td>
+<td><p>7 digits</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">double</span></code> (double precision)</p></td>
+<td><p><span class="math notranslate nohighlight">\(2^{-52} \approx 2.22\times10^{-16}\)</span></p></td>
+<td><p>16 digits</p></td>
+</tr>
+</tbody>
+</table>
+<p>The rounding error of one arithmetic operation is at most half the machine epsilon in relative terms. The result of adding <code class="docutils literal notranslate"><span class="pre">0.1f</span></code> ten times in the example above is <code class="docutils literal notranslate"><span class="pre">1.00000012</span></code>, and its difference from 1, <span class="math notranslate nohighlight">\(1.19\times10^{-7}\)</span>, is one machine epsilon of <code class="docutils literal notranslate"><span class="pre">float</span></code>.</p>
+<p>The following is a rule of thumb for judging a difference.</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Relative difference</p></th>
+<th class="head"><p>How to judge it (for <code class="docutils literal notranslate"><span class="pre">float</span></code>)</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>0</p></td>
+<td><p>Bit-for-bit identical. The order of computation has not changed either</p></td>
+</tr>
+<tr class="row-odd"><td><p>About <span class="math notranslate nohighlight">\(10^{-7}\)</span> to <span class="math notranslate nohighlight">\(10^{-5}\)</span></p></td>
+<td><p>About the rounding error. It arises from differences in the order of operations or in instructions (the order of addition, FMA, the implementation of math functions, the difference between CPU and GPU)</p></td>
+</tr>
+<tr class="row-even"><td><p>Larger than that</p></td>
+<td><p>The content of the computation may have changed. Check the input, the grid, the time step, the boundary conditions, and the expressions you changed</p></td>
+</tr>
+</tbody>
+</table>
+<p>This is a rule of thumb, not a fixed tolerance. Rounding errors accumulate at each time-evolution step, and in a flow where small differences grow, such as turbulence, the difference can become large after a long time. In such a comparison, check that the difference is about the rounding error at an early time, and also look at how the difference grows with time. In an expression with cancellation (the loss of significant digits in a subtraction of nearby values), the difference can become larger than the machine epsilon.</p>
+</section>
+<section id="edu-ref-testing-record">
+<span id="id10"></span><h2>Recording the comparison conditions<a class="headerlink" href="#edu-ref-testing-record" title="Link to this heading"></a></h2>
+<p>So that you can redo the same comparison later, record the following.</p>
+<ul class="simple">
+<li><p>The MISO version (the output of <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">log</span> <span class="pre">-1</span> <span class="pre">--oneline</span></code>) and the content of the change</p></li>
+<li><p>The compiler and its version, the build type, and whether it is the CPU or the GPU version</p></li>
+<li><p>The demo and <code class="docutils literal notranslate"><span class="pre">config.yaml</span></code> you used, and the number of MPI processes and the decomposition</p></li>
+<li><p>The output numbers and variables compared, the comparison method (<code class="docutils literal notranslate"><span class="pre">cmp</span></code>, <code class="docutils literal notranslate"><span class="pre">compare.py</span></code>, and so on), and the values obtained</p></li>
+</ul>
+<p>When you open a PR for MISO, write the commands you ran and the numbers you compared in the body of the PR (MISO’s <code class="docutils literal notranslate"><span class="pre">dev/notes/rules_ai.md</span></code>).</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="cpp_reference.html" class="btn btn-neutral float-left" title="Symbol Quick Reference" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="gpu_troubleshooting.html" class="btn btn-neutral float-right" title="GPU Troubleshooting" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Integrated Studies, ISEE, Nagoya University.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

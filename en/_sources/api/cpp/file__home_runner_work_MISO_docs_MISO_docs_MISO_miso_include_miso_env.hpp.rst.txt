@@ -1,0 +1,148 @@
+
+.. _file__home_runner_work_MISO_docs_MISO_docs_MISO_miso_include_miso_env.hpp:
+
+File env.hpp
+============
+
+|exhale_lsh| :ref:`Parent directory <dir__home_runner_work_MISO_docs_MISO_docs_MISO_miso_include_miso>` (``/home/runner/work/MISO_docs/MISO_docs/MISO/miso/include/miso``)
+
+.. |exhale_lsh| unicode:: U+021B0 .. UPWARDS ARROW WITH TIP LEFTWARDS
+
+
+.. contents:: Contents
+   :local:
+   :backlinks: none
+
+Definition (``/home/runner/work/MISO_docs/MISO_docs/MISO/miso/include/miso/env.hpp``)
+-------------------------------------------------------------------------------------
+
+
+.. toctree::
+   :maxdepth: 1
+
+   program_listing_file__home_runner_work_MISO_docs_MISO_docs_MISO_miso_include_miso_env.hpp.rst
+
+
+
+
+
+Includes
+--------
+
+
+- ``cuda_compat.hpp`` (:ref:`file__home_runner_work_MISO_docs_MISO_docs_MISO_miso_include_miso_cuda_compat.hpp`)
+
+- ``mpi.h``
+
+- ``stdexcept``
+
+
+
+Included By
+-----------
+
+
+- :ref:`file__home_runner_work_MISO_docs_MISO_docs_MISO_miso_include_miso_config.hpp`
+
+- :ref:`file__home_runner_work_MISO_docs_MISO_docs_MISO_miso_include_miso_core.hpp`
+
+- :ref:`file__home_runner_work_MISO_docs_MISO_docs_MISO_miso_include_miso_cuda_util.cuh`
+
+- :ref:`file__home_runner_work_MISO_docs_MISO_docs_MISO_miso_include_miso_grid.hpp`
+
+- :ref:`file__home_runner_work_MISO_docs_MISO_docs_MISO_miso_include_miso_mhd_checkpoint.hpp`
+
+- :ref:`file__home_runner_work_MISO_docs_MISO_docs_MISO_miso_include_miso_mhd_integrator_cuda.cuh`
+
+- :ref:`file__home_runner_work_MISO_docs_MISO_docs_MISO_miso_include_miso_mhd_integrator_host.hpp`
+
+- :ref:`file__home_runner_work_MISO_docs_MISO_docs_MISO_miso_include_miso_mhd_model_base.hpp`
+
+- :ref:`file__home_runner_work_MISO_docs_MISO_docs_MISO_miso_include_miso_mhd_solver.hpp`
+
+- :ref:`file__home_runner_work_MISO_docs_MISO_docs_MISO_miso_include_miso_mpi_util.hpp`
+
+- :ref:`file__home_runner_work_MISO_docs_MISO_docs_MISO_miso_include_miso_rt_host.hpp`
+
+- :ref:`file__home_runner_work_MISO_docs_MISO_docs_MISO_miso_include_miso_time.hpp`
+
+
+
+
+Namespaces
+----------
+
+
+- :ref:`namespace_miso`
+
+- :ref:`namespace_miso__cuda`
+
+- :ref:`namespace_miso__cuda__internal`
+
+- :ref:`namespace_miso__mpi`
+
+- :ref:`namespace_miso__mpi__local`
+
+- :ref:`namespace_miso__mpi__world`
+
+
+Classes
+-------
+
+
+- :ref:`exhale_struct_structmiso_1_1cuda_1_1Env`
+
+- :ref:`exhale_struct_structmiso_1_1Env`
+
+- :ref:`exhale_struct_structmiso_1_1mpi_1_1Env`
+
+
+Functions
+---------
+
+
+- :ref:`exhale_function_namespacemiso_1_1cuda_1a582f9bb45b24da312cb583e06401a8f6`
+
+- :ref:`exhale_function_namespacemiso_1_1cuda_1a79e9522de915f8464e0bae378d36e16a`
+
+- :ref:`exhale_function_namespacemiso_1_1cuda_1a6d7258fde7b82eb916ca7d6d292c2904`
+
+- :ref:`exhale_function_namespacemiso_1_1mpi_1a1cce9457017d7e2f6eac5dd4b5a5d67a`
+
+- :ref:`exhale_function_namespacemiso_1_1mpi_1a49c620226c2a8d8b9a1c80a99ba0f8d2`
+
+- :ref:`exhale_function_namespacemiso_1_1mpi_1a47745d4d5be914525f931a3373bbcd53`
+
+- :ref:`exhale_function_namespacemiso_1_1mpi_1aa2807903df1a025e5614dac27efc41c1`
+
+- :ref:`exhale_function_namespacemiso_1_1mpi_1ac32c9dd64bc4b8ec52090b3468b83251`
+
+- :ref:`exhale_function_namespacemiso_1_1mpi_1a375870c7472dce2e37f2aa9481e4f440`
+
+- :ref:`exhale_function_namespacemiso_1_1mpi_1ae98f835562870d3f111aed0c40d72e82`
+
+
+Variables
+---------
+
+
+- :ref:`exhale_variable_env_8hpp_1a31a3bfa751a84d3d11d8c4fa829cb368`
+
+- :ref:`exhale_variable_env_8hpp_1a297aee8a35a9e583fe0f2fe62521d41b`
+
+- :ref:`exhale_variable_env_8hpp_1a749d0631d40735c5c9d1a645ca6a0d14`
+
+- :ref:`exhale_variable_env_8hpp_1a0f2f15568047869997b3ba8bf4344a96`
+
+- :ref:`exhale_variable_env_8hpp_1a4e432f1c6194bac94494d2d5f869af3d`
+
+- :ref:`exhale_variable_env_8hpp_1a9239ced7d92e93f5980379953cca646a`
+
+- :ref:`exhale_variable_env_8hpp_1a5b49b9de8deb9d2e6f75d533d67b172e`
+
+- :ref:`exhale_variable_env_8hpp_1a474c8bd4d11cf24b05dbe8c2dd76c32e`
+
+- :ref:`exhale_variable_env_8hpp_1ae72795201daa29a03bdaf4c6aa6b6a47`
+
+- :ref:`exhale_variable_env_8hpp_1a297e37927ae6fdb6d79f89bda8bf4faf`
+

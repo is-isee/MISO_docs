@@ -1,0 +1,17 @@
+.. _exhale_class_classmiso_1_1UniformTableInterpolator1D:
+
+Template Class UniformTableInterpolator1D
+=========================================
+
+- Defined in :ref:`file__home_runner_work_MISO_docs_MISO_docs_MISO_miso_include_miso_table_interpolator.hpp`
+
+
+Class Documentation
+-------------------
+
+
+.. doxygenclass:: miso::UniformTableInterpolator1D
+   :project: CPP
+   :members:
+   :protected-members:
+   :undoc-members:

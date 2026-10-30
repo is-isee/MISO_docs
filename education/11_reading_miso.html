@@ -1,12 +1,12 @@
 
 
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" data-content_root="../">
+<html class="writer-html5" lang="ja" data-content_root="../">
 <head>
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>11. MISO の時間発展を読む &mdash; MISO 0.0 documentation</title>
+  <title>11. MISO の時間発展を読む &mdash; MISO 0.0 ドキュメント</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=4ae1632d" />
@@ -17,18 +17,19 @@
   
       <script src="../_static/jquery.js?v=5d32c60e"></script>
       <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../_static/documentation_options.js?v=837179f8"></script>
+      <script src="../_static/documentation_options.js?v=1a6bc256"></script>
       <script src="../_static/doctools.js?v=fd6eb6e6"></script>
       <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
       <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
       <script src="../_static/copybutton.js?v=f281be69"></script>
+      <script src="../_static/translations.js?v=4755f45a"></script>
       <script src="../_static/collapsible-lists/js/CollapsibleLists.compressed.js?v=73120307"></script>
       <script src="../_static/collapsible-lists/js/apply-collapsible-lists.js?v=660e4f45"></script>
       <script>window.MathJax = {"tex": {"macros": {"bm": ["{\\boldsymbol{#1}}", 1]}}, "options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
       <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script src="../_static/js/theme.js"></script>
-    <link rel="index" title="Index" href="../genindex.html" />
-    <link rel="search" title="Search" href="../search.html" />
+    <link rel="index" title="索引" href="../genindex.html" />
+    <link rel="search" title="検索" href="../search.html" />
     <link rel="next" title="実習一覧" href="practice/index.html" />
     <link rel="prev" title="10. 熱伝導の計算" href="10_heat1d.html" /> 
 </head>
@@ -110,8 +111,10 @@
       <div class="wy-nav-content">
 <div id="language-links" style="margin-bottom: 1em; font-size: 100%;">
     Language:
-    <a href="#" id="translate-link" target="_blank">English</a> |
-    <a href="#" id="original-link">日本語</a>
+    
+    <a href="../en/education/11_reading_miso.html">English</a> |
+    <strong>日本語</strong>
+    
 </div>
 
 
@@ -223,7 +226,7 @@ p = (\gamma - 1)\rho e, \qquad c_s = \sqrt{\gamma(\gamma - 1) e} = \sqrt{\gamma 
 \]</div>
 <p>を、<code class="docutils literal notranslate"><span class="pre">gas_pressure</span></code> と <code class="docutils literal notranslate"><span class="pre">sound_speed</span></code> の 2 つのメンバ関数で計算します。
 どちらも <code class="docutils literal notranslate"><span class="pre">for_each</span></code> で全格子点を処理します（<a class="reference internal" href="07_arrays_and_parallel.html#edu-ch07"><span class="std std-ref">第 7 章</span></a>）。</p>
-<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="c1">// miso/include/miso/eos.hpp の IdealEOS::gas_pressure（抜粋）</span>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="c1">// miso/include/miso/eos.hpp: IdealEOS::gas_pressure (excerpt)</span>
 <span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">Backend</span><span class="o">&gt;</span>
 <span class="kt">void</span><span class="w"> </span><span class="n">gas_pressure</span><span class="p">(</span><span class="n">Backend</span><span class="w"> </span><span class="n">btag</span><span class="p">,</span><span class="w"> </span><span class="n">mhd</span><span class="o">::</span><span class="n">FieldsView</span><span class="o">&lt;</span><span class="k">const</span><span class="w"> </span><span class="n">Real</span><span class="o">&gt;</span><span class="w"> </span><span class="n">qq</span><span class="p">,</span>
 <span class="w">                  </span><span class="n">Array3DView</span><span class="o">&lt;</span><span class="n">Real</span><span class="o">&gt;</span><span class="w"> </span><span class="n">pr</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="p">{</span>
@@ -331,7 +334,7 @@ p = (\gamma - 1)\rho e, \qquad c_s = \sqrt{\gamma(\gamma - 1) e} = \sqrt{\gamma 
 <section id="edu-ch11-config">
 <span id="id6"></span><h2>3. 設定ファイルと既定値<a class="headerlink" href="#edu-ch11-config" title="Link to this heading"></a></h2>
 <section id="config-yaml">
-<h3>3.1 config.yaml のセクション<a class="headerlink" href="#config-yaml" title="Link to this heading"></a></h3>
+<h3>3.1 <code class="docutils literal notranslate"><span class="pre">config.yaml</span></code> のセクション<a class="headerlink" href="#config-yaml" title="Link to this heading"></a></h3>
 <p><code class="docutils literal notranslate"><span class="pre">demo/mhd2d_vortex/config.yaml</span></code> には、次のセクションがあります。</p>
 <table class="docutils align-default">
 <thead>
@@ -377,7 +380,7 @@ p = (\gamma - 1)\rho e, \qquad c_s = \sqrt{\gamma(\gamma - 1) e} = \sqrt{\gamma 
 <section id="merge-yaml">
 <h3>3.2 既定値と merge_yaml<a class="headerlink" href="#merge-yaml" title="Link to this heading"></a></h3>
 <p>すべてのキーを毎回書かなくてよいように、MISO は既定値を <code class="docutils literal notranslate"><span class="pre">miso/include/miso/config_defaults.hpp</span></code> に YAML の文字列として持っています。</p>
-<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="c1">// miso/include/miso/config_defaults.hpp（抜粋。コメントの一部を省略）</span>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="c1">// miso/include/miso/config_defaults.hpp(excerpt; some comments omitted)</span>
 <span class="kr">inline</span><span class="w"> </span><span class="k">constexpr</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">config_default_yaml</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="sa">R</span><span class="s">"</span><span class="dl">yaml(</span>
 <span class="s">io:</span>
 <span class="s">  enabled: true</span>
@@ -418,10 +421,10 @@ YAML をそのまま C++ のソースに埋め込むために使っています�
 
 <span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">default_value</span><span class="p">.</span><span class="n">IsMap</span><span class="p">())</span><span class="w"> </span><span class="p">{</span>
 <span class="w">      </span><span class="n">YAML</span><span class="o">::</span><span class="n">Node</span><span class="w"> </span><span class="n">child</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">target</span><span class="p">[</span><span class="n">key</span><span class="p">];</span>
-<span class="w">      </span><span class="n">merge_yaml</span><span class="p">(</span><span class="n">child</span><span class="p">,</span><span class="w"> </span><span class="n">default_value</span><span class="p">);</span><span class="w">  </span><span class="c1">// 入れ子のセクションは再帰的に補う</span>
+<span class="w">      </span><span class="n">merge_yaml</span><span class="p">(</span><span class="n">child</span><span class="p">,</span><span class="w"> </span><span class="n">default_value</span><span class="p">);</span><span class="w">  </span><span class="c1">// fill nested sections recursively</span>
 <span class="w">      </span><span class="n">target</span><span class="p">[</span><span class="n">key</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">child</span><span class="p">;</span>
 <span class="w">    </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
-<span class="w">      </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">target</span><span class="p">[</span><span class="n">key</span><span class="p">])</span><span class="w"> </span><span class="p">{</span><span class="w">               </span><span class="c1">// ユーザーが書いていないキーだけ補う</span>
+<span class="w">      </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">target</span><span class="p">[</span><span class="n">key</span><span class="p">])</span><span class="w"> </span><span class="p">{</span><span class="w">               </span><span class="c1">// fill only keys the user did not write</span>
 <span class="w">        </span><span class="n">target</span><span class="p">[</span><span class="n">key</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">default_value</span><span class="p">;</span>
 <span class="w">      </span><span class="p">}</span>
 <span class="w">    </span><span class="p">}</span>
@@ -439,7 +442,7 @@ YAML をそのまま C++ のソースに埋め込むために使っています�
 <section id="id7">
 <h3>4.1 メンバの構築順<a class="headerlink" href="#id7" title="Link to this heading"></a></h3>
 <p><code class="docutils literal notranslate"><span class="pre">miso/include/miso/mhd_model_base.hpp</span></code> の <code class="docutils literal notranslate"><span class="pre">ModelBase</span></code> は、次のメンバを持ちます。</p>
-<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="c1">// miso/include/miso/mhd_model_base.hpp（抜粋）</span>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="c1">// miso/include/miso/mhd_model_base.hpp(excerpt)</span>
 <span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">class</span><span class="w"> </span><span class="nc">Derived</span><span class="p">,</span><span class="w"> </span><span class="k">class</span><span class="w"> </span><span class="nc">Real</span><span class="p">,</span><span class="w"> </span><span class="k">class</span><span class="w"> </span><span class="nc">Backend</span><span class="o">&gt;</span><span class="w"> </span><span class="k">class</span><span class="w"> </span><span class="nc">ModelBase</span><span class="w"> </span><span class="p">{</span>
 <span class="k">public</span><span class="o">:</span>
 <span class="w">  </span><span class="n">Config</span><span class="w"> </span><span class="o">&amp;</span><span class="n">config</span><span class="p">;</span>
@@ -492,7 +495,7 @@ YAML をそのまま C++ のソースに埋め込むために使っています�
 </tbody>
 </table>
 <p><code class="docutils literal notranslate"><span class="pre">mhd</span></code> の型 <code class="docutils literal notranslate"><span class="pre">MHD</span></code> は <code class="docutils literal notranslate"><span class="pre">miso/include/miso/mhd_solver.hpp</span></code> にあります。</p>
-<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="c1">// miso/include/miso/mhd_solver.hpp（抜粋）</span>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="c1">// miso/include/miso/mhd_solver.hpp(excerpt)</span>
 <span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">Real</span><span class="p">,</span><span class="w"> </span><span class="k">typename</span><span class="w"> </span><span class="nc">Backend</span><span class="o">&gt;</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">MHD</span><span class="w"> </span><span class="p">{</span>
 <span class="w">  </span><span class="n">Grid</span><span class="o">&lt;</span><span class="n">Real</span><span class="p">,</span><span class="w"> </span><span class="n">Backend</span><span class="o">&gt;</span><span class="w"> </span><span class="n">grid</span><span class="p">;</span>
 <span class="w">  </span><span class="n">Fields</span><span class="o">&lt;</span><span class="n">Real</span><span class="p">,</span><span class="w"> </span><span class="n">Backend</span><span class="o">&gt;</span><span class="w"> </span><span class="n">qq</span><span class="p">;</span>
@@ -515,7 +518,7 @@ YAML をそのまま C++ のソースに埋め込むために使っています�
 </section>
 <section id="run">
 <h3>4.2 run()：時間ループ<a class="headerlink" href="#run" title="Link to this heading"></a></h3>
-<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="c1">// miso/include/miso/mhd_model_base.hpp（抜粋）</span>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="c1">// miso/include/miso/mhd_model_base.hpp(excerpt)</span>
 <span class="kt">void</span><span class="w"> </span><span class="nf">run</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
 <span class="w">  </span><span class="c1">// Ensure to call methods in the derived class</span>
 <span class="w">  </span><span class="k">auto</span><span class="w"> </span><span class="o">&amp;</span><span class="n">d</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">derived</span><span class="p">();</span>
@@ -576,7 +579,7 @@ YAML をそのまま C++ のソースに埋め込むために使っています�
 </section>
 <section id="update-1">
 <h3>4.3 update()：1 ステップの入口<a class="headerlink" href="#update-1" title="Link to this heading"></a></h3>
-<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="c1">// miso/include/miso/mhd_model_base.hpp（抜粋）</span>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="c1">// miso/include/miso/mhd_model_base.hpp(excerpt)</span>
 <span class="kt">void</span><span class="w"> </span><span class="nf">update</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
 <span class="w">  </span><span class="k">auto</span><span class="w"> </span><span class="o">&amp;</span><span class="n">d</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">derived</span><span class="p">();</span>
 <span class="w">  </span><span class="k">using</span><span class="w"> </span><span class="n">Source</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">decltype</span><span class="p">(</span><span class="n">d</span><span class="p">.</span><span class="n">src</span><span class="p">);</span>
@@ -640,19 +643,19 @@ YAML をそのまま C++ のソースに埋め込むために使っています�
 </div>
 <p>1 ステップ全体を、関数の呼び出し順に並べると次のようになります。</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>ModelBase::update
-├─ MHD::cfl → Integrator::cfl                      時間刻み dt（6 節）
+├─ MHD::cfl → Integrator::cfl                      time step dt (section 6)
 ├─ MHD::update → Integrator::update
-│   ├─ divb_parameters_set(dt)                     c_h と τ を決める
-│   ├─ runge_kutta_4step                           4 段の時間積分（7 節）
-│   │   ├─ update_sc4(dt/4) → 境界条件とハロー交換
-│   │   ├─ update_sc4(dt/3) → 境界条件とハロー交換
-│   │   ├─ update_sc4(dt/2) → 境界条件とハロー交換
-│   │   └─ update_sc4(dt)   → 境界条件とハロー交換
-│   └─ apply_artificial_viscosity                   人工粘性（10 節）
-│       ├─ x 方向 → 境界条件とハロー交換
-│       ├─ y 方向 → 境界条件とハロー交換
-│       └─ z 方向 → 境界条件とハロー交換
-└─ Time::update                                    時刻を進める
+│   ├─ divb_parameters_set(dt)                     set c_h and τ
+│   ├─ runge_kutta_4step                           4-stage time integration (section 7)
+│   │   ├─ update_sc4(dt/4) → boundary conditions and halo exchange
+│   │   ├─ update_sc4(dt/3) → boundary conditions and halo exchange
+│   │   ├─ update_sc4(dt/2) → boundary conditions and halo exchange
+│   │   └─ update_sc4(dt)   → boundary conditions and halo exchange
+│   └─ apply_artificial_viscosity                   artificial viscosity (section 10)
+│       ├─ x direction → boundary conditions and halo exchange
+│       ├─ y direction → boundary conditions and halo exchange
+│       └─ z direction → boundary conditions and halo exchange
+└─ Time::update                                    advance the time
 </pre></div>
 </div>
 <p><code class="docutils literal notranslate"><span class="pre">divb_parameters_set</span></code> は、発散クリーニングの速さ <span class="math notranslate nohighlight">\(c_h\)</span> と減衰時間 <span class="math notranslate nohighlight">\(\tau\)</span> を、時間刻みに合わせて決めます。</p>
@@ -708,7 +711,7 @@ YAML をそのまま C++ のソースに埋め込むために使っています�
 \qquad c_A = \frac{|\boldsymbol{B}|}{\sqrt{4\pi\rho}}
 \]</div>
 <p><span class="math notranslate nohighlight">\(C\)</span> は設定の <code class="docutils literal notranslate"><span class="pre">mhd.cfl_number</span></code>、<span class="math notranslate nohighlight">\(c_A\)</span> は Alfvén 速度です。</p>
-<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="c1">// miso/include/miso/mhd_integrator_host.hpp の Integrator::cfl（抜粋）</span>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="c1">// miso/include/miso/mhd_integrator_host.hpp: Integrator::cfl (excerpt)</span>
 <span class="n">Real</span><span class="w"> </span><span class="n">dt</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">1.</span><span class="n">e10</span><span class="p">;</span>
 <span class="n">eos</span><span class="p">.</span><span class="n">sound_speed</span><span class="p">(</span><span class="n">backend</span><span class="o">::</span><span class="n">Host</span><span class="p">{},</span><span class="w"> </span><span class="n">qq</span><span class="p">.</span><span class="n">const_view</span><span class="p">(),</span><span class="w"> </span><span class="n">cs</span><span class="p">.</span><span class="n">view</span><span class="p">());</span>
 <span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">grid</span><span class="p">.</span><span class="n">i_margin</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">grid</span><span class="p">.</span><span class="n">i_total</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">grid</span><span class="p">.</span><span class="n">i_margin</span><span class="p">;</span><span class="w"> </span><span class="o">++</span><span class="n">i</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
@@ -807,19 +810,19 @@ q^{n+1} = \left(1 + h + \frac{h^2}{2} + \frac{h^3}{6} + \frac{h^4}{24}\right) q^
 \]</div>
 <p>となり、厳密解 <span class="math notranslate nohighlight">\(e^{h} q^n\)</span> の Taylor 展開と 4 次の項まで一致します。
 次の短いプログラムは、<span class="math notranslate nohighlight">\(dq/dt = -q\)</span> を同じ 4 段で <span class="math notranslate nohighlight">\(t = 1\)</span> まで解き、厳密解 <span class="math notranslate nohighlight">\(e^{-1}\)</span> との差を表示します。</p>
-<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="c1">// rk4_linear.cpp: MISO と同じ 4 段の係数で dq/dt = -q を解く（説明用の例）</span>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="c1">// rk4_linear.cpp: solve dq/dt = -q with the same 4-stage coefficients as MISO (illustrative example)</span>
 <span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;cmath&gt;</span>
 <span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;iostream&gt;</span>
 
 <span class="kt">double</span><span class="w"> </span><span class="nf">solve</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">n_step</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
 <span class="w">  </span><span class="k">const</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="n">dt</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">1.0</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">n_step</span><span class="p">;</span>
-<span class="w">  </span><span class="kt">double</span><span class="w"> </span><span class="n">q</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">1.0</span><span class="p">;</span><span class="w">                       </span><span class="c1">// 時刻 t の値（MISO の qq）</span>
+<span class="w">  </span><span class="kt">double</span><span class="w"> </span><span class="n">q</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">1.0</span><span class="p">;</span><span class="w">                       </span><span class="c1">// value at time t (qq in MISO)</span>
 <span class="w">  </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">n_step</span><span class="p">;</span><span class="w"> </span><span class="o">++</span><span class="n">n</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">q_argm</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">q</span><span class="p">;</span><span class="w">                  </span><span class="c1">// 右辺を評価する値（MISO の qq_argm）</span>
-<span class="w">    </span><span class="n">q_argm</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">q</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">dt</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mf">4.0</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="p">(</span><span class="o">-</span><span class="n">q_argm</span><span class="p">);</span><span class="w">  </span><span class="c1">// 1 段目</span>
-<span class="w">    </span><span class="n">q_argm</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">q</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">dt</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mf">3.0</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="p">(</span><span class="o">-</span><span class="n">q_argm</span><span class="p">);</span><span class="w">  </span><span class="c1">// 2 段目</span>
-<span class="w">    </span><span class="n">q_argm</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">q</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">dt</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mf">2.0</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="p">(</span><span class="o">-</span><span class="n">q_argm</span><span class="p">);</span><span class="w">  </span><span class="c1">// 3 段目</span>
-<span class="w">    </span><span class="n">q</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">q</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">dt</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="p">(</span><span class="o">-</span><span class="n">q_argm</span><span class="p">);</span><span class="w">             </span><span class="c1">// 4 段目で q を更新する</span>
+<span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">q_argm</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">q</span><span class="p">;</span><span class="w">                  </span><span class="c1">// value used to evaluate the right-hand side (qq_argm in MISO)</span>
+<span class="w">    </span><span class="n">q_argm</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">q</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">dt</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mf">4.0</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="p">(</span><span class="o">-</span><span class="n">q_argm</span><span class="p">);</span><span class="w">  </span><span class="c1">// stage 1</span>
+<span class="w">    </span><span class="n">q_argm</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">q</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">dt</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mf">3.0</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="p">(</span><span class="o">-</span><span class="n">q_argm</span><span class="p">);</span><span class="w">  </span><span class="c1">// stage 2</span>
+<span class="w">    </span><span class="n">q_argm</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">q</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">dt</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mf">2.0</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="p">(</span><span class="o">-</span><span class="n">q_argm</span><span class="p">);</span><span class="w">  </span><span class="c1">// stage 3</span>
+<span class="w">    </span><span class="n">q</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">q</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">dt</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="p">(</span><span class="o">-</span><span class="n">q_argm</span><span class="p">);</span><span class="w">             </span><span class="c1">// stage 4 updates q</span>
 <span class="w">  </span><span class="p">}</span>
 <span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="n">q</span><span class="p">;</span>
 <span class="p">}</span>
@@ -912,7 +915,7 @@ n_step = 40  error = 1.22274e-09
 <section id="update-sc4">
 <h3>8.2 update_sc4 の準備<a class="headerlink" href="#update-sc4" title="Link to this heading"></a></h3>
 <p><code class="docutils literal notranslate"><span class="pre">update_sc4</span></code> は、最初に右辺で何度も使う量を配列に用意します。</p>
-<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="c1">// miso/include/miso/mhd_integrator_host.hpp の update_sc4（抜粋。式を省略し、説明のコメントを足した）</span>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="c1">// miso/include/miso/mhd_integrator_host.hpp: update_sc4 (excerpt; formulas omitted, explanatory comments added)</span>
 <span class="n">eos</span><span class="p">.</span><span class="n">gas_pressure</span><span class="p">(</span><span class="n">backend</span><span class="o">::</span><span class="n">Host</span><span class="p">{},</span><span class="w"> </span><span class="n">qq_argm</span><span class="p">.</span><span class="n">const_view</span><span class="p">(),</span><span class="w"> </span><span class="n">pr</span><span class="p">.</span><span class="n">view</span><span class="p">());</span>
 
 <span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">grid</span><span class="p">.</span><span class="n">i_total</span><span class="p">;</span><span class="w"> </span><span class="o">++</span><span class="n">i</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
@@ -920,7 +923,7 @@ n_step = 40  error = 1.22274e-09
 <span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">k</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">k</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">grid</span><span class="p">.</span><span class="n">k_total</span><span class="p">;</span><span class="w"> </span><span class="o">++</span><span class="n">k</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
 <span class="w">      </span><span class="n">bb</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="w"> </span><span class="n">j</span><span class="p">,</span><span class="w"> </span><span class="n">k</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">...;</span><span class="w">  </span><span class="c1">// B^2</span>
 <span class="w">      </span><span class="n">ht</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="w"> </span><span class="n">j</span><span class="p">,</span><span class="w"> </span><span class="n">k</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">...;</span><span class="w">  </span><span class="c1">// ρe + p + B^2/4π + ρv^2/2</span>
-<span class="w">      </span><span class="n">vb</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="w"> </span><span class="n">j</span><span class="p">,</span><span class="w"> </span><span class="n">k</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">...;</span><span class="w">  </span><span class="c1">// v・B</span>
+<span class="w">      </span><span class="n">vb</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="w"> </span><span class="n">j</span><span class="p">,</span><span class="w"> </span><span class="n">k</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">...;</span><span class="w">  </span><span class="c1">// v·B</span>
 <span class="w">    </span><span class="p">}</span>
 <span class="w">  </span><span class="p">}</span>
 <span class="p">}</span>
@@ -953,14 +956,14 @@ n_step = 40  error = 1.22274e-09
 </tbody>
 </table>
 <p>差分を取るので、ゴーストセルを含む全格子点で計算します。どれも <code class="docutils literal notranslate"><span class="pre">qq_argm</span></code>（右辺を評価する値）から作ります。</p>
-<p>続いて、<code class="docutils literal notranslate"><span class="pre">const_view()</span></code> で読み取り専用の View を作り、名前を短くしています（<code class="docutils literal notranslate"><span class="pre">c_ro</span></code>, <code class="docutils literal notranslate"><span class="pre">c_vx</span></code>, … <code class="docutils literal notranslate"><span class="pre">c_ph</span></code>）。</p>
+<p>続いて、<code class="docutils literal notranslate"><span class="pre">const_view()</span></code> で読み取り専用の View を作り、名前を短くしています（<code class="docutils literal notranslate"><span class="pre">c_ro</span></code>, <code class="docutils literal notranslate"><span class="pre">c_vx</span></code>, ... <code class="docutils literal notranslate"><span class="pre">c_ph</span></code>）。</p>
 </section>
 <section id="id11">
 <h3>8.3 方程式とコードの対応<a class="headerlink" href="#id11" title="Link to this heading"></a></h3>
 <p>2 つ目の三重ループで、ゴーストセルを除いた格子点を更新します。
 段の時間刻みを <span class="math notranslate nohighlight">\(\Delta t'\)</span>（<code class="docutils literal notranslate"><span class="pre">dt</span></code> 引数。<span class="math notranslate nohighlight">\(\Delta t/4\)</span> など）、<code class="docutils literal notranslate"><span class="pre">space_centered_4th</span></code> を <span class="math notranslate nohighlight">\(D_x, D_y, D_z\)</span> と書きます。</p>
 <p><strong>連続の式</strong></p>
-<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="c1">// miso/include/miso/mhd_integrator_host.hpp の update_sc4（抜粋）</span>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="c1">// miso/include/miso/mhd_integrator_host.hpp: update_sc4 (excerpt)</span>
 <span class="n">qq_rslt</span><span class="p">.</span><span class="n">ro</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="w"> </span><span class="n">j</span><span class="p">,</span><span class="w"> </span><span class="n">k</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">qq_orgn</span><span class="p">.</span><span class="n">ro</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="w"> </span><span class="n">j</span><span class="p">,</span><span class="w"> </span><span class="n">k</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">dt</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="p">(</span>
 <span class="o">-</span><span class="n">space_centered_4th</span><span class="p">(</span><span class="n">c_ro</span><span class="p">,</span><span class="w"> </span><span class="n">c_vx</span><span class="p">,</span><span class="w"> </span><span class="n">dxi</span><span class="p">,</span><span class="w"> </span><span class="n">i</span><span class="p">,</span><span class="w"> </span><span class="n">j</span><span class="p">,</span><span class="w"> </span><span class="n">k</span><span class="p">,</span><span class="w"> </span><span class="n">grid</span><span class="p">.</span><span class="n">is</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span>
 <span class="o">-</span><span class="n">space_centered_4th</span><span class="p">(</span><span class="n">c_ro</span><span class="p">,</span><span class="w"> </span><span class="n">c_vy</span><span class="p">,</span><span class="w"> </span><span class="n">dyi</span><span class="p">,</span><span class="w"> </span><span class="n">i</span><span class="p">,</span><span class="w"> </span><span class="n">j</span><span class="p">,</span><span class="w"> </span><span class="n">k</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="n">grid</span><span class="p">.</span><span class="n">js</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span>
@@ -975,7 +978,7 @@ n_step = 40  error = 1.22274e-09
 \]</div>
 <p>右辺の <span class="math notranslate nohighlight">\(\rho v_x\)</span> などは <code class="docutils literal notranslate"><span class="pre">qq_argm</span></code> の値、左辺に足す <span class="math notranslate nohighlight">\(\rho^n\)</span> は <code class="docutils literal notranslate"><span class="pre">qq_orgn</span></code> の値です。7 節の式の形と一致します。</p>
 <p><strong>運動方程式（<span class="math notranslate nohighlight">\(x\)</span> 成分）</strong></p>
-<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="c1">// miso/include/miso/mhd_integrator_host.hpp の update_sc4（抜粋）</span>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="c1">// miso/include/miso/mhd_integrator_host.hpp: update_sc4 (excerpt)</span>
 <span class="n">qq_rslt</span><span class="p">.</span><span class="n">vx</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="w"> </span><span class="n">j</span><span class="p">,</span><span class="w"> </span><span class="n">k</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span>
 <span class="w">    </span><span class="n">qq_orgn</span><span class="p">.</span><span class="n">ro</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="w"> </span><span class="n">j</span><span class="p">,</span><span class="w"> </span><span class="n">k</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">qq_orgn</span><span class="p">.</span><span class="n">vx</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="w"> </span><span class="n">j</span><span class="p">,</span><span class="w"> </span><span class="n">k</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">dt</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="p">(</span>
 <span class="w">    </span><span class="o">-</span><span class="n">space_centered_4th</span><span class="p">(</span><span class="n">c_ro</span><span class="p">,</span><span class="w"> </span><span class="n">c_vx</span><span class="p">,</span><span class="w"> </span><span class="n">c_vx</span><span class="p">,</span><span class="w"> </span><span class="n">dxi</span><span class="p">,</span><span class="w"> </span><span class="n">i</span><span class="p">,</span><span class="w"> </span><span class="n">j</span><span class="p">,</span><span class="w"> </span><span class="n">k</span><span class="p">,</span><span class="w"> </span><span class="n">grid</span><span class="p">.</span><span class="n">is</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span>
@@ -1003,7 +1006,7 @@ v_x^{\text{rslt}} = \frac{1}{\rho^{\text{rslt}}}\left\{ \rho^n v_x^n + \Delta t'
 そのため、連続の式（<code class="docutils literal notranslate"><span class="pre">qq_rslt.ro</span></code>）を先に計算しておく必要があります。
 <code class="docutils literal notranslate"><span class="pre">pii4&lt;Real&gt;</span></code> と <code class="docutils literal notranslate"><span class="pre">pii8&lt;Real&gt;</span></code> は <span class="math notranslate nohighlight">\(1/4\pi\)</span> と <span class="math notranslate nohighlight">\(1/8\pi\)</span> です（<code class="docutils literal notranslate"><span class="pre">miso/include/miso/constants.hpp</span></code>）。<span class="math notranslate nohighlight">\(y, z\)</span> 成分も同じ形です。</p>
 <p><strong>誘導方程式（<span class="math notranslate nohighlight">\(x\)</span> 成分）</strong></p>
-<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="c1">// miso/include/miso/mhd_integrator_host.hpp の update_sc4（抜粋）</span>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="c1">// miso/include/miso/mhd_integrator_host.hpp: update_sc4 (excerpt)</span>
 <span class="n">qq_rslt</span><span class="p">.</span><span class="n">bx</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="w"> </span><span class="n">j</span><span class="p">,</span><span class="w"> </span><span class="n">k</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">qq_orgn</span><span class="p">.</span><span class="n">bx</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="w"> </span><span class="n">j</span><span class="p">,</span><span class="w"> </span><span class="n">k</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">dt</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="p">(</span>
 <span class="w">    </span><span class="o">-</span><span class="n">space_centered_4th</span><span class="p">(</span><span class="n">c_vy</span><span class="p">,</span><span class="w"> </span><span class="n">c_bx</span><span class="p">,</span><span class="w"> </span><span class="n">dyi</span><span class="p">,</span><span class="w"> </span><span class="n">i</span><span class="p">,</span><span class="w"> </span><span class="n">j</span><span class="p">,</span><span class="w"> </span><span class="n">k</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="n">grid</span><span class="p">.</span><span class="n">js</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span>
 <span class="w">    </span><span class="o">-</span><span class="n">space_centered_4th</span><span class="p">(</span><span class="n">c_vz</span><span class="p">,</span><span class="w"> </span><span class="n">c_bx</span><span class="p">,</span><span class="w"> </span><span class="n">dzi</span><span class="p">,</span><span class="w"> </span><span class="n">i</span><span class="p">,</span><span class="w"> </span><span class="n">j</span><span class="p">,</span><span class="w"> </span><span class="n">k</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="n">grid</span><span class="p">.</span><span class="n">ks</span><span class="p">)</span>
@@ -1027,13 +1030,13 @@ B_x^{\text{rslt}} = B_x^n + \Delta t' \left[ D_y(v_x B_y - v_y B_x) + D_z(v_x B_
 \]</div>
 <p><span class="math notranslate nohighlight">\(-c_h^2\nabla\cdot\boldsymbol{B}\)</span> の項を差分で進め、減衰の項 <span class="math notranslate nohighlight">\(-\phi/\tau\)</span> は、厳密解の因子 <span class="math notranslate nohighlight">\(e^{-\Delta t'/\tau}\)</span> を掛けて扱っています。</p>
 <p><strong>エネルギーの式</strong></p>
-<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="c1">// miso/include/miso/mhd_integrator_host.hpp の update_sc4（抜粋。一部を ... で省略）</span>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="c1">// miso/include/miso/mhd_integrator_host.hpp: update_sc4 (excerpt; parts elided with ...)</span>
 <span class="c1">// Et: total energy per unit volume</span>
 <span class="c1">// ei: is the internal energy per unit mass</span>
 <span class="k">const</span><span class="w"> </span><span class="n">Real</span><span class="w"> </span><span class="n">Et</span><span class="w"> </span><span class="o">=</span>
 <span class="w">    </span><span class="o">+</span><span class="w"> </span><span class="n">qq_orgn</span><span class="p">.</span><span class="n">ro</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">,</span><span class="n">k</span><span class="p">)</span><span class="o">*</span><span class="n">qq_orgn</span><span class="p">.</span><span class="n">ei</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">,</span><span class="n">k</span><span class="p">)</span>
-<span class="w">    </span><span class="o">+</span><span class="w"> </span><span class="mf">0.5</span><span class="o">*</span><span class="n">qq_orgn</span><span class="p">.</span><span class="n">ro</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="w"> </span><span class="n">j</span><span class="p">,</span><span class="w"> </span><span class="n">k</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="w"> </span><span class="p">...</span><span class="w"> </span><span class="p">)</span><span class="w">   </span><span class="c1">// qq_orgn の v^2</span>
-<span class="w">    </span><span class="o">+</span><span class="w"> </span><span class="n">pii8</span><span class="o">&lt;</span><span class="n">Real</span><span class="o">&gt;*</span><span class="p">(</span><span class="w"> </span><span class="p">...</span><span class="w"> </span><span class="p">);</span><span class="w">               </span><span class="c1">// qq_orgn の B^2</span>
+<span class="w">    </span><span class="o">+</span><span class="w"> </span><span class="mf">0.5</span><span class="o">*</span><span class="n">qq_orgn</span><span class="p">.</span><span class="n">ro</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="w"> </span><span class="n">j</span><span class="p">,</span><span class="w"> </span><span class="n">k</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="w"> </span><span class="p">...</span><span class="w"> </span><span class="p">)</span><span class="w">   </span><span class="c1">// v^2 of qq_orgn</span>
+<span class="w">    </span><span class="o">+</span><span class="w"> </span><span class="n">pii8</span><span class="o">&lt;</span><span class="n">Real</span><span class="o">&gt;*</span><span class="p">(</span><span class="w"> </span><span class="p">...</span><span class="w"> </span><span class="p">);</span><span class="w">               </span><span class="c1">// B^2 of qq_orgn</span>
 
 <span class="n">qq_rslt</span><span class="p">.</span><span class="n">ei</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="w"> </span><span class="n">j</span><span class="p">,</span><span class="w"> </span><span class="n">k</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="w"> </span><span class="n">Et</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">dt</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="p">(</span>
 <span class="w">    </span><span class="o">-</span><span class="n">space_centered_4th</span><span class="p">(</span><span class="n">c_ht</span><span class="p">,</span><span class="w"> </span><span class="n">c_vx</span><span class="p">,</span><span class="w"> </span><span class="n">dxi</span><span class="p">,</span><span class="w"> </span><span class="n">i</span><span class="p">,</span><span class="w"> </span><span class="n">j</span><span class="p">,</span><span class="w"> </span><span class="n">k</span><span class="p">,</span><span class="w"> </span><span class="n">grid</span><span class="p">.</span><span class="n">is</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span>
@@ -1045,8 +1048,8 @@ B_x^{\text{rslt}} = B_x^n + \Delta t' \left[ D_y(v_x B_y - v_y B_x) + D_z(v_x B_
 <span class="w">        </span><span class="o">+</span><span class="n">space_centered_4th</span><span class="p">(</span><span class="n">c_vb</span><span class="p">,</span><span class="w"> </span><span class="n">c_bz</span><span class="p">,</span><span class="w"> </span><span class="n">dzi</span><span class="p">,</span><span class="w"> </span><span class="n">i</span><span class="p">,</span><span class="w"> </span><span class="n">j</span><span class="p">,</span><span class="w"> </span><span class="n">k</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="n">grid</span><span class="p">.</span><span class="n">ks</span><span class="p">)</span>
 <span class="w">        </span><span class="p">)</span>
 <span class="w">    </span><span class="p">)</span>
-<span class="w">    </span><span class="mf">-0.5</span><span class="o">*</span><span class="n">qq_rslt</span><span class="p">.</span><span class="n">ro</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="w"> </span><span class="n">j</span><span class="p">,</span><span class="w"> </span><span class="n">k</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="w"> </span><span class="p">...</span><span class="w"> </span><span class="p">)</span><span class="w">   </span><span class="c1">// qq_rslt の v^2（新しい運動エネルギーを引く）</span>
-<span class="w">    </span><span class="o">-</span><span class="w"> </span><span class="n">pii8</span><span class="o">&lt;</span><span class="n">Real</span><span class="o">&gt;*</span><span class="p">(</span><span class="w"> </span><span class="p">...</span><span class="w"> </span><span class="p">)</span><span class="w">               </span><span class="c1">// qq_rslt の B^2（新しい磁気エネルギーを引く）</span>
+<span class="w">    </span><span class="mf">-0.5</span><span class="o">*</span><span class="n">qq_rslt</span><span class="p">.</span><span class="n">ro</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="w"> </span><span class="n">j</span><span class="p">,</span><span class="w"> </span><span class="n">k</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="w"> </span><span class="p">...</span><span class="w"> </span><span class="p">)</span><span class="w">   </span><span class="c1">// v^2 of qq_rslt (subtract the new kinetic energy)</span>
+<span class="w">    </span><span class="o">-</span><span class="w"> </span><span class="n">pii8</span><span class="o">&lt;</span><span class="n">Real</span><span class="o">&gt;*</span><span class="p">(</span><span class="w"> </span><span class="p">...</span><span class="w"> </span><span class="p">)</span><span class="w">               </span><span class="c1">// B^2 of qq_rslt (subtract the new magnetic energy)</span>
 <span class="w">    </span><span class="o">+</span><span class="w"> </span><span class="n">dt</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">source_ei</span><span class="p">(</span><span class="n">src</span><span class="p">,</span><span class="w"> </span><span class="n">c_qq</span><span class="p">,</span><span class="w"> </span><span class="n">i</span><span class="p">,</span><span class="w"> </span><span class="n">j</span><span class="p">,</span><span class="w"> </span><span class="n">k</span><span class="p">)</span>
 <span class="p">)</span><span class="o">/</span><span class="n">qq_rslt</span><span class="p">.</span><span class="n">ro</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="w"> </span><span class="n">j</span><span class="p">,</span><span class="w"> </span><span class="n">k</span><span class="p">);</span>
 </pre></div>
@@ -1066,7 +1069,7 @@ E^n + \Delta t' \left[ -D_j(h_t v_j) + \frac{1}{4\pi} D_j\big((\boldsymbol{v}\cd
 <h3>8.4 ソース項の取り出し<a class="headerlink" href="#id12" title="Link to this heading"></a></h3>
 <p><code class="docutils literal notranslate"><span class="pre">source_ro(src,</span> <span class="pre">c_qq,</span> <span class="pre">i,</span> <span class="pre">j,</span> <span class="pre">k)</span></code> などは、<code class="docutils literal notranslate"><span class="pre">miso/include/miso/mhd_integrator.hpp</span></code> のマクロ <code class="docutils literal notranslate"><span class="pre">MISO_MHD_DEFINE_SOURCE_TERM</span></code> が作る関数です。</p>
 <p>次は、マクロが <code class="docutils literal notranslate"><span class="pre">vy</span></code> について作る関数の本体を、マクロの引数 <code class="docutils literal notranslate"><span class="pre">name</span></code> を <code class="docutils literal notranslate"><span class="pre">vy</span></code> に置き換えて示したものです（説明のために展開しました）。</p>
-<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="c1">// miso/include/miso/mhd_integrator.hpp の MISO_MHD_DEFINE_SOURCE_TERM を vy で展開したもの（抜粋）</span>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="c1">// miso/include/miso/mhd_integrator.hpp: MISO_MHD_DEFINE_SOURCE_TERM expanded for vy (excerpt)</span>
 <span class="k">if</span><span class="w"> </span><span class="k">constexpr</span><span class="w"> </span><span class="p">(</span><span class="n">impl_source</span><span class="o">::</span><span class="n">has_vy</span><span class="o">&lt;</span><span class="n">Source</span><span class="p">,</span><span class="w"> </span><span class="n">Real</span><span class="o">&gt;::</span><span class="n">value</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
 <span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="n">src</span><span class="p">.</span><span class="n">vy</span><span class="p">(</span><span class="n">qq</span><span class="p">,</span><span class="w"> </span><span class="n">i</span><span class="p">,</span><span class="w"> </span><span class="n">j</span><span class="p">,</span><span class="w"> </span><span class="n">k</span><span class="p">);</span>
 <span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
@@ -1123,7 +1126,7 @@ CPU 版の <code class="docutils literal notranslate"><span class="pre">apply</s
 <section id="id15">
 <h3>9.3 物理境界の例<a class="headerlink" href="#id15" title="Link to this heading"></a></h3>
 <p><code class="docutils literal notranslate"><span class="pre">demo/hd2d_rayleigh_taylor/src/main.cpp</span></code> の <code class="docutils literal notranslate"><span class="pre">BoundaryCondition</span></code> は、<span class="math notranslate nohighlight">\(y\)</span> 方向の両端に対称境界を置きます。</p>
-<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="c1">// demo/hd2d_rayleigh_taylor/src/main.cpp の BoundaryCondition::apply（抜粋）</span>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="c1">// demo/hd2d_rayleigh_taylor/src/main.cpp: BoundaryCondition::apply (excerpt)</span>
 <span class="k">namespace</span><span class="w"> </span><span class="nn">bc</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nn">miso</span><span class="o">::</span><span class="nn">boundary_condition</span><span class="p">;</span>
 <span class="n">Backend</span><span class="w"> </span><span class="n">btag</span><span class="p">{};</span>
 
@@ -1148,7 +1151,7 @@ MISO は、RK4 のあとに人工粘性（人工拡散）を 1 回かけて、�
 実装は <code class="docutils literal notranslate"><span class="pre">miso/include/miso/mhd_artificial_viscosity_host.hpp</span></code> の <code class="docutils literal notranslate"><span class="pre">impl_host::ArtificialViscosity</span></code> で、方法は Rempel (2014, ApJ 789, 132) に基づきます（<code class="docutils literal notranslate"><span class="pre">config_defaults.hpp</span></code> のコメント）。</p>
 <section id="id17">
 <h3>10.1 方向ごとの更新<a class="headerlink" href="#id17" title="Link to this heading"></a></h3>
-<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="c1">// miso/include/miso/mhd_integrator_host.hpp（抜粋）</span>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="c1">// miso/include/miso/mhd_integrator_host.hpp(excerpt)</span>
 <span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">EOS</span><span class="p">,</span><span class="w"> </span><span class="k">typename</span><span class="w"> </span><span class="nc">BoundaryCondition</span><span class="o">&gt;</span>
 <span class="kt">void</span><span class="w"> </span><span class="n">apply_artificial_viscosity</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">Real</span><span class="w"> </span><span class="n">dt</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">EOS</span><span class="w"> </span><span class="o">&amp;</span><span class="n">eos</span><span class="p">,</span>
 <span class="w">                                </span><span class="k">const</span><span class="w"> </span><span class="n">BoundaryCondition</span><span class="w"> </span><span class="o">&amp;</span><span class="n">bc</span><span class="p">,</span>
@@ -1160,7 +1163,7 @@ MISO は、RK4 のあとに人工粘性（人工拡散）を 1 回かけて、�
 <span class="w">  </span><span class="n">qq</span><span class="p">.</span><span class="n">copy_from</span><span class="p">(</span><span class="n">qq_rslt</span><span class="p">);</span>
 <span class="w">  </span><span class="n">apply_boundary_condition</span><span class="p">(</span><span class="n">bc</span><span class="p">,</span><span class="w"> </span><span class="n">qq</span><span class="p">);</span>
 
-<span class="w">  </span><span class="p">...</span><span class="w">  </span><span class="c1">// y, z 方向も同じ 3 行（Direction::Y, Direction::Z）</span>
+<span class="w">  </span><span class="p">...</span><span class="w">  </span><span class="c1">// same 3 lines for y and z (Direction::Y, Direction::Z)</span>
 <span class="p">}</span>
 </pre></div>
 </div>
@@ -1250,7 +1253,7 @@ time =   0.03;  n_step =       13;  n_output =        3
 <td><p><code class="docutils literal notranslate"><span class="pre">Time::save</span></code></p></td>
 <td><p>最新の出力番号</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">mhd/mhd.&lt;出力番号&gt;.&lt;ランク&gt;.bin</span></code></p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">mhd/mhd.&lt;n_output&gt;.&lt;rank&gt;.bin</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">Checkpoint::save</span></code>（<code class="docutils literal notranslate"><span class="pre">miso/include/miso/mhd_checkpoint.hpp</span></code>）</p></td>
 <td><p>ランクごとの 9 変数</p></td>
 </tr>
@@ -1264,7 +1267,7 @@ Python では <code class="docutils literal notranslate"><span class="pre">pymis
 <section id="id22">
 <h3>11.3 再開<a class="headerlink" href="#id22" title="Link to this heading"></a></h3>
 <p><code class="docutils literal notranslate"><span class="pre">io.continue</span></code> が真（既定値も真）で、<code class="docutils literal notranslate"><span class="pre">time/n_output.txt</span></code> が残っていれば、<code class="docutils literal notranslate"><span class="pre">run()</span></code> は初期条件を作ったあとで <code class="docutils literal notranslate"><span class="pre">load_state()</span></code> を呼び、最新の出力から計算を続けます。
-<code class="docutils literal notranslate"><span class="pre">Time::load</span></code> はランク 0 で時刻ファイルを読んで <code class="docutils literal notranslate"><span class="pre">MPI_Bcast</span></code> で配り、<code class="docutils literal notranslate"><span class="pre">Checkpoint::load</span></code> は各ランクが自分の <code class="docutils literal notranslate"><span class="pre">mhd.&lt;出力番号&gt;.&lt;ランク&gt;.bin</span></code> を読みます。
+<code class="docutils literal notranslate"><span class="pre">Time::load</span></code> はランク 0 で時刻ファイルを読んで <code class="docutils literal notranslate"><span class="pre">MPI_Bcast</span></code> で配り、<code class="docutils literal notranslate"><span class="pre">Checkpoint::load</span></code> は各ランクが自分の <code class="docutils literal notranslate"><span class="pre">mhd.&lt;n_output&gt;.&lt;rank&gt;.bin</span></code> を読みます。
 出力をそのまま再開用のデータ（チェックポイント）として使う設計です。最初から計算し直すときは、<code class="docutils literal notranslate"><span class="pre">data/</span></code> を消すか <code class="docutils literal notranslate"><span class="pre">io.continue:</span> <span class="pre">false</span></code> にします。</p>
 </section>
 </section>
@@ -1339,7 +1342,7 @@ Python では <code class="docutils literal notranslate"><span class="pre">pymis
 <p>初期条件を作るときは、<code class="docutils literal notranslate"><span class="pre">MHD::apply_initial_condition</span></code> の最後で 1 回呼ばれます。</p>
 <p><code class="docutils literal notranslate"><span class="pre">MPI_Allreduce</span></code> は、<code class="docutils literal notranslate"><span class="pre">Integrator::cfl</span></code> で 1 回です。ソース項が <code class="docutils literal notranslate"><span class="pre">dt_limit()</span></code> を持つ場合は、<code class="docutils literal notranslate"><span class="pre">ModelBase::update</span></code> でもう 1 回呼ばれます。</p>
 <p>回数は、<code class="docutils literal notranslate"><span class="pre">apply</span></code> の中で呼び出し回数を数える境界条件を <code class="docutils literal notranslate"><span class="pre">bc</span></code> に使い、<code class="docutils literal notranslate"><span class="pre">update()</span></code> を直接呼んでも確かめられます。
-<code class="docutils literal notranslate"><span class="pre">apply</span></code> は <code class="docutils literal notranslate"><span class="pre">const</span></code> のメンバ関数なので、数える変数はメンバの外（たとえば <code class="docutils literal notranslate"><span class="pre">main.cpp</span></code> の外側の変数）に置きます。
+<code class="docutils literal notranslate"><span class="pre">apply</span></code> は <code class="docutils literal notranslate"><span class="pre">const</span></code> のメンバ関数なので、中でメンバ変数を書き換えられません。数える変数は境界条件の構造体の外（たとえば <code class="docutils literal notranslate"><span class="pre">main.cpp</span></code> で関数の外に宣言した変数）に置きます。
 この方法で数えると、初期条件で 1、1 ステップで 7、さらに 2 ステップで 14 になります。</p>
 </details>
 </section>
@@ -1383,7 +1386,7 @@ Python では <code class="docutils literal notranslate"><span class="pre">pymis
 <p>エネルギーについて：MISO のエネルギーの式は全エネルギー <span class="math notranslate nohighlight">\(E\)</span> の式で、内部エネルギーは <span class="math notranslate nohighlight">\(e = (E - \rho v^2/2 - B^2/8\pi)/\rho\)</span> で戻します。
 重力が流体にする仕事 <span class="math notranslate nohighlight">\(\rho\boldsymbol{v}\cdot\boldsymbol{g} = -g\rho v_y\)</span> を <span class="math notranslate nohighlight">\(S_E\)</span> に入れないと、重力で増えた運動エネルギーの分が <span class="math notranslate nohighlight">\(E\)</span> に足されないまま引かれ、内部エネルギーが減ります。
 全エネルギーを保存させるには、<code class="docutils literal notranslate"><span class="pre">ei</span></code> で <span class="math notranslate nohighlight">\(-g\rho v_y\)</span> を返します。</p>
-<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="c1">// ei のソース項の例（説明用）</span>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="c1">// example of the source term for ei (illustrative)</span>
 <span class="n">__host__</span><span class="w"> </span><span class="n">__device__</span><span class="w"> </span><span class="kr">inline</span><span class="w"> </span><span class="n">Real</span><span class="w"> </span><span class="n">ei</span><span class="p">(</span><span class="n">mhd</span><span class="o">::</span><span class="n">FieldsView</span><span class="o">&lt;</span><span class="k">const</span><span class="w"> </span><span class="n">Real</span><span class="o">&gt;</span><span class="w"> </span><span class="n">qq</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">j</span><span class="p">,</span>
 <span class="w">                                   </span><span class="kt">int</span><span class="w"> </span><span class="n">k</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="k">noexcept</span><span class="w"> </span><span class="p">{</span>
 <span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="o">-</span><span class="n">g_grav</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">qq</span><span class="p">.</span><span class="n">ro</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="w"> </span><span class="n">j</span><span class="p">,</span><span class="w"> </span><span class="n">k</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">qq</span><span class="p">.</span><span class="n">vy</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="w"> </span><span class="n">j</span><span class="p">,</span><span class="w"> </span><span class="n">k</span><span class="p">);</span>
@@ -1484,49 +1487,7 @@ ratio 32/64 = 15.8874
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script>
- 
-<script>
-    document.addEventListener("DOMContentLoaded", () => {
-        const currentUrl = window.location.href;
-        const isTranslated = currentUrl.includes(".translate.goog");
-        const translateLink = document.getElementById("translate-link");
-        const originalLink = document.getElementById("original-link");
-
-        // 翻訳URLを生成
-        const translateUrl =
-            "https://translate.google.com/translate?sl=ja&tl=en&u=" +
-            encodeURIComponent(currentUrl);
-
-        if (isTranslated) {
-            // --- 英語版(.translate.goog)にいる場合 ---
-            // English → ページを単にリロード
-            translateLink.removeAttribute("target");
-            translateLink.removeAttribute("href");
-            translateLink.addEventListener("click", (e) => {
-                e.preventDefault();
-                window.location.reload();
-            });
-
-            // 日本語 → 新タブで元URLを開く（翻訳解除）
-            const originalUrl = currentUrl.replace(
-                /^https:\/\/[^/]+\.translate\.goog/,
-                "https://is-isee.github.io"
-            );
-            originalLink.href = originalUrl;
-            originalLink.target = "_blank";
-            originalLink.rel = "noopener";
-        } else {
-            // --- 日本語版にいる場合 ---
-            translateLink.href = translateUrl;
-            translateLink.target = "_blank";
-
-            originalLink.href = currentUrl;
-            originalLink.target = "_self";
-        }
-    });
-</script>
-
+  </script> 
 
 </body>
 </html>

@@ -1,0 +1,739 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Symbol Quick Reference &mdash; MISO 0.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css?v=4ae1632d" />
+      <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../../_static/collapsible-lists/css/tree_view.css?v=a885cde7" />
+      <link rel="stylesheet" type="text/css" href="../../_static/custom.css" />
+
+  
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options.js?v=837179f8"></script>
+      <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../../_static/copybutton.js?v=f281be69"></script>
+      <script src="../../_static/collapsible-lists/js/CollapsibleLists.compressed.js?v=73120307"></script>
+      <script src="../../_static/collapsible-lists/js/apply-collapsible-lists.js?v=660e4f45"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Testing and Comparing Results" href="testing.html" />
+    <link rel="prev" title="Fortran Correspondence Table" href="fortran_map.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            MISO
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../quickstart.html">Quick Start</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../demo/index.html">Test Problems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../customization/index.html">Customization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../miso/index.html">MISO C++ documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../pymiso/index.html">pymiso Documentation</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">MISO education</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../index.html#id1">Main text</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../index.html#id2">Reference material to consult when needed</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../01_environment_setup.html">1. Development Environment and CMake</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../02_cpp_basics.html">2. Variables, Functions, and Control Flow</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../03_references_and_pointers.html">3. References, Pointers, and Lifetime</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../04_classes_and_structs.html">4. Classes and Structs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../05_inheritance.html">5. Inheritance and CRTP</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../06_templates.html">6. Templates</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../07_arrays_and_parallel.html">7. Arrays, Lambdas, and Parallel Loops on the CPU</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../08_mpi.html">8. Domain Decomposition with MPI</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../09_gpu.html">9. Computing and Transferring Data on a GPU (CUDA)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../10_heat1d.html">10. Heat Conduction Calculation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../11_reading_miso.html">11. Reading MISO’s Time Evolution</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../practice/index.html">Practice List</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="index.html">Reference Materials</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="glossary.html">Glossary</a></li>
+<li class="toctree-l4"><a class="reference internal" href="fortran_map.html">Fortran Correspondence Table</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">Symbol Quick Reference</a></li>
+<li class="toctree-l4"><a class="reference internal" href="testing.html">Testing and Comparing Results</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gpu_troubleshooting.html">GPU Troubleshooting</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../references.html">References</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">MISO</a>
+      </nav>
+
+      <div class="wy-nav-content">
+<div id="language-links" style="margin-bottom: 1em; font-size: 100%;">
+    Language:
+    
+    <strong>English</strong> |
+    <a href="../../../education/reference/cpp_reference.html">日本語</a>
+    
+</div>
+
+
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">MISO education</a></li>
+          <li class="breadcrumb-item"><a href="index.html">Reference Materials</a></li>
+      <li class="breadcrumb-item active">Symbol Quick Reference</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../_sources/education/reference/cpp_reference.md.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section class="tex2jax_ignore mathjax_ignore" id="edu-ref-cpp">
+<span id="id1"></span><h1>Symbol Quick Reference<a class="headerlink" href="#edu-ref-cpp" title="Link to this heading"></a></h1>
+<p>This is a table for checking the meaning of symbols and keywords while you read MISO’s code in the C++ chapters (Chapters 2–6) and in Chapters 7–9. You do not need to read it through. From the “Details” column of each row, you can go back to the chapter in the main text.</p>
+<section id="id2">
+<h2>Contents<a class="headerlink" href="#id2" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p><a class="reference internal" href="#edu-ref-cpp-basics"><span class="std std-ref">Basics of reading: declaration or expression?</span></a></p></li>
+<li><p><a class="reference internal" href="#edu-ref-cpp-star-amp"><span class="std std-ref">* and &amp; and &amp;&amp;</span></a></p></li>
+<li><p><a class="reference internal" href="#edu-ref-cpp-scope"><span class="std std-ref">Symbols that refer to names and members (:: . -&gt;)</span></a></p></li>
+<li><p><a class="reference internal" href="#edu-ref-cpp-brackets"><span class="std std-ref">Brackets (angle, square, round, and curly)</span></a></p></li>
+<li><p><a class="reference internal" href="#edu-ref-cpp-operators"><span class="std std-ref">Other operators</span></a></p></li>
+<li><p><a class="reference internal" href="#edu-ref-cpp-preprocessor"><span class="std std-ref">Preprocessor symbols (#)</span></a></p></li>
+<li><p><a class="reference internal" href="#edu-ref-cpp-keywords"><span class="std std-ref">Keywords</span></a></p></li>
+<li><p><a class="reference internal" href="#edu-ref-cpp-miso"><span class="std std-ref">MISO and CUDA symbols</span></a></p></li>
+<li><p><a class="reference internal" href="#edu-ref-cpp-reading"><span class="std std-ref">Order of checks when reading a declaration</span></a></p></li>
+</ul>
+</section>
+<section id="edu-ref-cpp-basics">
+<span id="id3"></span><h2>Basics of reading: declaration or expression?<a class="headerlink" href="#edu-ref-cpp-basics" title="Link to this heading"></a></h2>
+<p>In C++, the same symbol means different things in a <strong>declaration</strong> (a statement that creates a new name) and in an <strong>expression</strong> (a computation that uses an existing name). When you are unsure about a symbol, first check whether the line is creating a name or using one.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">double</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">1.0</span><span class="p">;</span>
+<span class="kt">double</span><span class="w"> </span><span class="o">*</span><span class="n">p</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&amp;</span><span class="n">a</span><span class="p">;</span><span class="w">  </span><span class="c1">// * in a declaration: p is a "pointer to double". &amp; in an expression: address of a</span>
+<span class="o">*</span><span class="n">p</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">2.0</span><span class="p">;</span><span class="w">        </span><span class="c1">// * in an expression: write 2.0 to what p points to (a)</span>
+<span class="kt">double</span><span class="w"> </span><span class="o">&amp;</span><span class="n">r</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">a</span><span class="p">;</span><span class="w">   </span><span class="c1">// &amp; in a declaration: r is an alias (reference) of a</span>
+</pre></div>
+</div>
+<p>In the tables below, read <code class="docutils literal notranslate"><span class="pre">a</span></code> and <code class="docutils literal notranslate"><span class="pre">b</span></code> as <code class="docutils literal notranslate"><span class="pre">double</span></code> variables, <code class="docutils literal notranslate"><span class="pre">p</span></code> as a pointer of type <code class="docutils literal notranslate"><span class="pre">double</span> <span class="pre">*</span></code>, and <code class="docutils literal notranslate"><span class="pre">T</span></code> as a template argument type.</p>
+</section>
+<section id="edu-ref-cpp-star-amp">
+<span id="id4"></span><h2>* and &amp; and &amp;&amp;<a class="headerlink" href="#edu-ref-cpp-star-amp" title="Link to this heading"></a></h2>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Form you see</p></th>
+<th class="head"><p>Declaration or expression</p></th>
+<th class="head"><p>Meaning</p></th>
+<th class="head"><p>Details</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">double</span> <span class="pre">*p</span> <span class="pre">=</span> <span class="pre">&amp;a;</span></code></p></td>
+<td><p>Declaration</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">p</span></code> is a pointer to a <code class="docutils literal notranslate"><span class="pre">double</span></code>. Writing <code class="docutils literal notranslate"><span class="pre">double*</span> <span class="pre">p</span></code> means the same</p></td>
+<td><p><a class="reference internal" href="../03_references_and_pointers.html#edu-ch03"><span class="std std-ref">Chapter 3</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">*p</span></code>、<code class="docutils literal notranslate"><span class="pre">*p</span> <span class="pre">=</span> <span class="pre">5.0;</span></code></p></td>
+<td><p>Expression</p></td>
+<td><p>Reads and writes the value that <code class="docutils literal notranslate"><span class="pre">p</span></code> points to</p></td>
+<td><p><a class="reference internal" href="../03_references_and_pointers.html#edu-ch03"><span class="std std-ref">Chapter 3</span></a></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">a</span> <span class="pre">*</span> <span class="pre">b</span></code></p></td>
+<td><p>Expression</p></td>
+<td><p>Multiplication</p></td>
+<td><p><a class="reference internal" href="../02_cpp_basics.html#edu-ch02"><span class="std std-ref">Chapter 2</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">double</span> <span class="pre">&amp;r</span> <span class="pre">=</span> <span class="pre">a;</span></code></p></td>
+<td><p>Declaration</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">r</span></code> is another name (a reference) for <code class="docutils literal notranslate"><span class="pre">a</span></code>. Assigning to <code class="docutils literal notranslate"><span class="pre">r</span></code> changes <code class="docutils literal notranslate"><span class="pre">a</span></code></p></td>
+<td><p><a class="reference internal" href="../03_references_and_pointers.html#edu-ch03"><span class="std std-ref">Chapter 3</span></a></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">void</span> <span class="pre">f(double</span> <span class="pre">&amp;x)</span></code></p></td>
+<td><p>Declaration (parameter)</p></td>
+<td><p>Pass by reference. If you change <code class="docutils literal notranslate"><span class="pre">x</span></code> inside the function, the caller’s variable changes</p></td>
+<td><p><a class="reference internal" href="../03_references_and_pointers.html#edu-ch03"><span class="std std-ref">Chapter 3</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">const</span> <span class="pre">Config</span> <span class="pre">&amp;config</span></code></p></td>
+<td><p>Declaration (parameter)</p></td>
+<td><p>Pass by reference for reading only. It does not copy and does not modify</p></td>
+<td><p><a class="reference internal" href="../03_references_and_pointers.html#edu-ch03"><span class="std std-ref">Chapter 3</span></a></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">&amp;a</span></code></p></td>
+<td><p>Expression</p></td>
+<td><p>Takes the address of <code class="docutils literal notranslate"><span class="pre">a</span></code></p></td>
+<td><p><a class="reference internal" href="../03_references_and_pointers.html#edu-ch03"><span class="std std-ref">Chapter 3</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">&amp;T::gm</span></code></p></td>
+<td><p>Expression</p></td>
+<td><p>An expression that points to member <code class="docutils literal notranslate"><span class="pre">gm</span></code> of class <code class="docutils literal notranslate"><span class="pre">T</span></code>. MISO uses it to check “whether <code class="docutils literal notranslate"><span class="pre">gm</span></code> exists”</p></td>
+<td><p><a class="reference internal" href="../06_templates.html#edu-ch06"><span class="std std-ref">Chapter 6</span></a></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">x</span> <span class="pre">&amp;&amp;</span> <span class="pre">y</span></code></p></td>
+<td><p>Expression</p></td>
+<td><p>Logical AND (and). It is Fortran’s <code class="docutils literal notranslate"><span class="pre">.and.</span></code></p></td>
+<td><p><a class="reference internal" href="../02_cpp_basics.html#edu-ch02"><span class="std std-ref">Chapter 2</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Array3D(Array3D</span> <span class="pre">&amp;&amp;other)</span></code></p></td>
+<td><p>Declaration (parameter)</p></td>
+<td><p>An rvalue reference. It is used to receive a move (a transfer of contents)</p></td>
+<td><p><a class="reference internal" href="../04_classes_and_structs.html#edu-ch04"><span class="std std-ref">Chapter 4</span></a></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">const</span> <span class="pre">double</span> <span class="pre">*p</span></code></p></td>
+<td><p>Declaration</p></td>
+<td><p>Forbids modification through <code class="docutils literal notranslate"><span class="pre">*p</span></code>. You can switch what <code class="docutils literal notranslate"><span class="pre">p</span></code> points to</p></td>
+<td><p><a class="reference internal" href="../03_references_and_pointers.html#edu-ch03"><span class="std std-ref">Chapter 3</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">double</span> <span class="pre">*const</span> <span class="pre">p</span></code></p></td>
+<td><p>Declaration</p></td>
+<td><p>Forbids switching what <code class="docutils literal notranslate"><span class="pre">p</span></code> points to. You can modify through <code class="docutils literal notranslate"><span class="pre">*p</span></code></p></td>
+<td><p><a class="reference internal" href="../03_references_and_pointers.html#edu-ch03"><span class="std std-ref">Chapter 3</span></a></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">T</span> <span class="pre">*data_</span></code></p></td>
+<td><p>Declaration (member)</p></td>
+<td><p>A pointer to the start of the array, held by <code class="docutils literal notranslate"><span class="pre">Array3DView</span></code> and others</p></td>
+<td><p><a class="reference internal" href="../04_classes_and_structs.html#edu-ch04"><span class="std std-ref">Chapter 4</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">char</span> <span class="pre">**argv</span></code></p></td>
+<td><p>Declaration (parameter)</p></td>
+<td><p>A pointer to a pointer. You see it in the command-line arguments of <code class="docutils literal notranslate"><span class="pre">main</span></code></p></td>
+<td><p><a class="reference internal" href="../03_references_and_pointers.html#edu-ch03"><span class="std std-ref">Chapter 3</span></a></p></td>
+</tr>
+</tbody>
+</table>
+<p>MISO’s source attaches <code class="docutils literal notranslate"><span class="pre">*</span></code> and <code class="docutils literal notranslate"><span class="pre">&amp;</span></code> to the name, as in <code class="docutils literal notranslate"><span class="pre">double</span> <span class="pre">*p</span></code> (the <code class="docutils literal notranslate"><span class="pre">.clang-format</span></code> setting). <code class="docutils literal notranslate"><span class="pre">double*</span> <span class="pre">p</span></code> and <code class="docutils literal notranslate"><span class="pre">double</span> <span class="pre">*p</span></code> mean the same thing.</p>
+</section>
+<section id="edu-ref-cpp-scope">
+<span id="id5"></span><h2>Symbols that refer to names and members (:: . -&gt;)<a class="headerlink" href="#edu-ref-cpp-scope" title="Link to this heading"></a></h2>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Form you see</p></th>
+<th class="head"><p>Meaning</p></th>
+<th class="head"><p>Details</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">std::cout</span></code>、<code class="docutils literal notranslate"><span class="pre">miso::mhd::MHD</span></code></p></td>
+<td><p>A name inside a namespace. <code class="docutils literal notranslate"><span class="pre">miso::mhd::</span></code> means “inside <code class="docutils literal notranslate"><span class="pre">mhd</span></code> inside <code class="docutils literal notranslate"><span class="pre">miso</span></code>”</p></td>
+<td><p><a class="reference internal" href="../02_cpp_basics.html#edu-ch02"><span class="std std-ref">Chapter 2</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">backend::Host</span></code></p></td>
+<td><p>A type inside the namespace <code class="docutils literal notranslate"><span class="pre">miso::backend</span></code>. After <code class="docutils literal notranslate"><span class="pre">using</span> <span class="pre">namespace</span> <span class="pre">miso;</span></code> you can omit <code class="docutils literal notranslate"><span class="pre">miso::</span></code></p></td>
+<td><p><a class="reference internal" href="../02_cpp_basics.html#edu-ch02"><span class="std std-ref">Chapter 2</span></a>, <a class="reference internal" href="../06_templates.html#edu-ch06"><span class="std std-ref">Chapter 6</span></a></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">::sinf(x)</span></code></p></td>
+<td><p>A leading <code class="docutils literal notranslate"><span class="pre">::</span></code> refers to a name outside the namespaces (the outermost one)</p></td>
+<td><p><a class="reference internal" href="../02_cpp_basics.html#edu-ch02"><span class="std std-ref">Chapter 2</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Shape::ndims</span></code>、<code class="docutils literal notranslate"><span class="pre">std::true_type::value</span></code></p></td>
+<td><p>A name belonging to a class (a <code class="docutils literal notranslate"><span class="pre">static</span></code> member). You can use it without creating an object</p></td>
+<td><p><a class="reference internal" href="../04_classes_and_structs.html#edu-ch04"><span class="std std-ref">Chapter 4</span></a>, <a class="reference internal" href="../06_templates.html#edu-ch06"><span class="std std-ref">Chapter 6</span></a></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">T::gm</span></code></p></td>
+<td><p>A member of the template argument <code class="docutils literal notranslate"><span class="pre">T</span></code></p></td>
+<td><p><a class="reference internal" href="../06_templates.html#edu-ch06"><span class="std std-ref">Chapter 6</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">grid.i_total</span></code>、<code class="docutils literal notranslate"><span class="pre">qq.ro(i,</span> <span class="pre">j,</span> <span class="pre">k)</span></code></p></td>
+<td><p>Uses a member of an object (or reference)</p></td>
+<td><p><a class="reference internal" href="../04_classes_and_structs.html#edu-ch04"><span class="std std-ref">Chapter 4</span></a></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">p-&gt;x</span></code></p></td>
+<td><p>Uses a member of what the pointer <code class="docutils literal notranslate"><span class="pre">p</span></code> points to. It is the same as <code class="docutils literal notranslate"><span class="pre">(*p).x</span></code></p></td>
+<td><p><a class="reference internal" href="../04_classes_and_structs.html#edu-ch04"><span class="std std-ref">Chapter 4</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">this-&gt;config</span></code></p></td>
+<td><p>Inside a member function, uses a member through <code class="docutils literal notranslate"><span class="pre">this</span></code>, the pointer to itself. Usually you omit <code class="docutils literal notranslate"><span class="pre">this-&gt;</span></code></p></td>
+<td><p><a class="reference internal" href="../04_classes_and_structs.html#edu-ch04"><span class="std std-ref">Chapter 4</span></a></p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="edu-ref-cpp-brackets">
+<span id="id6"></span><h2>Brackets (&lt;&gt; [] () {})<a class="headerlink" href="#edu-ref-cpp-brackets" title="Link to this heading"></a></h2>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Form you see</p></th>
+<th class="head"><p>Meaning</p></th>
+<th class="head"><p>Details</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">#include</span> <span class="pre">&lt;vector&gt;</span></code></p></td>
+<td><p>Includes a header in a fixed location, such as the standard library</p></td>
+<td><p><a class="reference internal" href="../01_environment_setup.html#edu-ch01"><span class="std std-ref">Chapter 1</span></a>, <a class="reference internal" href="../02_cpp_basics.html#edu-ch02"><span class="std std-ref">Chapter 2</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">#include</span> <span class="pre">&quot;array3d.hpp&quot;</span></code></p></td>
+<td><p>Looks for a header relative to the location of your own file and includes it</p></td>
+<td><p><a class="reference internal" href="../02_cpp_basics.html#edu-ch02"><span class="std std-ref">Chapter 2</span></a></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">a</span> <span class="pre">&lt;</span> <span class="pre">b</span></code>、<code class="docutils literal notranslate"><span class="pre">n</span> <span class="pre">&lt;&lt;</span> <span class="pre">1</span></code>、<code class="docutils literal notranslate"><span class="pre">std::cout</span> <span class="pre">&lt;&lt;</span> <span class="pre">x</span></code></p></td>
+<td><p>Comparison, bit shift, and output</p></td>
+<td><p><a class="reference internal" href="../02_cpp_basics.html#edu-ch02"><span class="std std-ref">Chapter 2</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">std::vector&lt;double&gt;</span></code>、<code class="docutils literal notranslate"><span class="pre">Array3D&lt;Real,</span> <span class="pre">Backend&gt;</span></code></p></td>
+<td><p>Template arguments. The angle brackets are part of the type name, forming a single name</p></td>
+<td><p><a class="reference internal" href="../06_templates.html#edu-ch06"><span class="std std-ref">Chapter 6</span></a></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">template</span> <span class="pre">&lt;typename</span> <span class="pre">Real&gt;</span></code></p></td>
+<td><p>Declares the name of a type to be decided later</p></td>
+<td><p><a class="reference internal" href="../06_templates.html#edu-ch06"><span class="std std-ref">Chapter 6</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">template</span> <span class="pre">&lt;&gt;</span></code></p></td>
+<td><p>A full specialization (a definition in which all template arguments are fixed)</p></td>
+<td><p><a class="reference internal" href="../06_templates.html#edu-ch06"><span class="std std-ref">Chapter 6</span></a></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">pi&lt;Real&gt;</span></code>、<code class="docutils literal notranslate"><span class="pre">mpi::data_type&lt;Real&gt;()</span></code></p></td>
+<td><p>Uses a variable template or function template by specifying a type</p></td>
+<td><p><a class="reference internal" href="../06_templates.html#edu-ch06"><span class="std std-ref">Chapter 6</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">static_cast&lt;Real&gt;(x)</span></code></p></td>
+<td><p>Converts <code class="docutils literal notranslate"><span class="pre">x</span></code> to type <code class="docutils literal notranslate"><span class="pre">Real</span></code></p></td>
+<td><p><a class="reference internal" href="../02_cpp_basics.html#edu-ch02"><span class="std std-ref">Chapter 2</span></a></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">kernel&lt;&lt;&lt;grid,</span> <span class="pre">block&gt;&gt;&gt;(...)</span></code></p></td>
+<td><p>A launch of a CUDA kernel. It is not a C++ symbol</p></td>
+<td><p><a class="reference internal" href="../09_gpu.html#edu-ch09"><span class="std std-ref">Chapter 9</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">x[i]</span></code>、<code class="docutils literal notranslate"><span class="pre">grid.x[i]</span></code></p></td>
+<td><p>An element of an array or <code class="docutils literal notranslate"><span class="pre">std::vector</span></code>. Indexing is <strong>zero-based</strong></p></td>
+<td><p><a class="reference internal" href="../02_cpp_basics.html#edu-ch02"><span class="std std-ref">Chapter 2</span></a>, <a class="reference internal" href="../07_arrays_and_parallel.html#edu-ch07"><span class="std std-ref">Chapter 7</span></a></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">double</span> <span class="pre">x[3];</span></code>、<code class="docutils literal notranslate"><span class="pre">int</span> <span class="pre">shape_[3]</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">[]</span></code> in a declaration creates an array with a fixed number of elements</p></td>
+<td><p><a class="reference internal" href="../03_references_and_pointers.html#edu-ch03"><span class="std std-ref">Chapter 3</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">new</span> <span class="pre">T[n]</span></code>、<code class="docutils literal notranslate"><span class="pre">delete[]</span> <span class="pre">data_</span></code></p></td>
+<td><p>Allocating and freeing an array</p></td>
+<td><p><a class="reference internal" href="../03_references_and_pointers.html#edu-ch03"><span class="std std-ref">Chapter 3</span></a>, <a class="reference internal" href="../04_classes_and_structs.html#edu-ch04"><span class="std std-ref">Chapter 4</span></a></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">T</span> <span class="pre">&amp;operator[](int</span> <span class="pre">idx)</span></code></p></td>
+<td><p>The definition of an operator that lets you write <code class="docutils literal notranslate"><span class="pre">a[idx]</span></code></p></td>
+<td><p><a class="reference internal" href="../04_classes_and_structs.html#edu-ch04"><span class="std std-ref">Chapter 4</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">[=]</span></code>、<code class="docutils literal notranslate"><span class="pre">[&amp;]</span></code>、<code class="docutils literal notranslate"><span class="pre">MISO_LAMBDA(int</span> <span class="pre">i)</span> <span class="pre">{</span> <span class="pre">...</span> <span class="pre">}</span></code></p></td>
+<td><p>The start of a lambda expression (an unnamed function). <code class="docutils literal notranslate"><span class="pre">[=]</span></code> captures outside variables by value copy, and <code class="docutils literal notranslate"><span class="pre">[&amp;]</span></code> by reference</p></td>
+<td><p><a class="reference internal" href="../07_arrays_and_parallel.html#edu-ch07"><span class="std std-ref">Chapter 7</span></a></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">f(x)</span></code>、<code class="docutils literal notranslate"><span class="pre">square&lt;double&gt;(1.5)</span></code></p></td>
+<td><p>A function call</p></td>
+<td><p><a class="reference internal" href="../02_cpp_basics.html#edu-ch02"><span class="std std-ref">Chapter 2</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">double</span> <span class="pre">f(double</span> <span class="pre">x);</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">()</span></code> in a declaration is the list of parameters</p></td>
+<td><p><a class="reference internal" href="../02_cpp_basics.html#edu-ch02"><span class="std std-ref">Chapter 2</span></a></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">qq.ro(i,</span> <span class="pre">j,</span> <span class="pre">k)</span></code></p></td>
+<td><p>Reading and writing an array element through <code class="docutils literal notranslate"><span class="pre">operator()</span></code>. A notation modeled on Fortran’s <code class="docutils literal notranslate"><span class="pre">ro(i,</span> <span class="pre">j,</span> <span class="pre">k)</span></code></p></td>
+<td><p><a class="reference internal" href="../04_classes_and_structs.html#edu-ch04"><span class="std std-ref">Chapter 4</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">T</span> <span class="pre">&amp;operator()(int</span> <span class="pre">i0,</span> <span class="pre">int</span> <span class="pre">i1,</span> <span class="pre">int</span> <span class="pre">i2)</span></code></p></td>
+<td><p>The definition of an operator that lets you write <code class="docutils literal notranslate"><span class="pre">a(i,</span> <span class="pre">j,</span> <span class="pre">k)</span></code></p></td>
+<td><p><a class="reference internal" href="../04_classes_and_structs.html#edu-ch04"><span class="std std-ref">Chapter 4</span></a></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Array3D&lt;Real&gt;</span> <span class="pre">pr(nx,</span> <span class="pre">ny,</span> <span class="pre">nz);</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">()</span></code> after a declaration holds the values passed to the constructor</p></td>
+<td><p><a class="reference internal" href="../04_classes_and_structs.html#edu-ch04"><span class="std std-ref">Chapter 4</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">(a</span> <span class="pre">+</span> <span class="pre">b)</span> <span class="pre">*</span> <span class="pre">c</span></code></p></td>
+<td><p>Parentheses that determine the order of computation</p></td>
+<td><p><a class="reference internal" href="../02_cpp_basics.html#edu-ch02"><span class="std std-ref">Chapter 2</span></a></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">if</span> <span class="pre">(...)</span> <span class="pre">{</span> <span class="pre">...</span> <span class="pre">}</span></code>、<code class="docutils literal notranslate"><span class="pre">for</span> <span class="pre">(...)</span> <span class="pre">{</span> <span class="pre">...</span> <span class="pre">}</span></code></p></td>
+<td><p>A group of statements (a block). A variable declared inside ends its lifetime at <code class="docutils literal notranslate"><span class="pre">}</span></code></p></td>
+<td><p><a class="reference internal" href="../02_cpp_basics.html#edu-ch02"><span class="std std-ref">Chapter 2</span></a>, <a class="reference internal" href="../03_references_and_pointers.html#edu-ch03"><span class="std std-ref">Chapter 3</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">struct</span> <span class="pre">Host</span> <span class="pre">{};</span></code></p></td>
+<td><p>The body of a class. <code class="docutils literal notranslate"><span class="pre">{}</span></code> means the contents are empty</p></td>
+<td><p><a class="reference internal" href="../04_classes_and_structs.html#edu-ch04"><span class="std std-ref">Chapter 4</span></a>, <a class="reference internal" href="../06_templates.html#edu-ch06"><span class="std std-ref">Chapter 6</span></a></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">int</span> <span class="pre">n{3};</span></code>、<code class="docutils literal notranslate"><span class="pre">Range1D</span> <span class="pre">range{0,</span> <span class="pre">n};</span></code></p></td>
+<td><p>Initialization with braces</p></td>
+<td><p><a class="reference internal" href="../02_cpp_basics.html#edu-ch02"><span class="std std-ref">Chapter 2</span></a>, <a class="reference internal" href="../04_classes_and_structs.html#edu-ch04"><span class="std std-ref">Chapter 4</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">backend::Host{}</span></code>、<code class="docutils literal notranslate"><span class="pre">Backend{}</span></code></p></td>
+<td><p>An expression that creates a value of a type without an initial value. Used to pass a tag type to a function</p></td>
+<td><p><a class="reference internal" href="../06_templates.html#edu-ch06"><span class="std std-ref">Chapter 6</span></a></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">:</span> <span class="pre">grid(grid),</span> <span class="pre">qq(grid)</span></code></p></td>
+<td><p>The member initializer list of a constructor (written between <code class="docutils literal notranslate"><span class="pre">)</span></code> and <code class="docutils literal notranslate"><span class="pre">{</span></code>)</p></td>
+<td><p><a class="reference internal" href="../04_classes_and_structs.html#edu-ch04"><span class="std std-ref">Chapter 4</span></a></p></td>
+</tr>
+</tbody>
+</table>
+<p>The distinction between <code class="docutils literal notranslate"><span class="pre">&lt;...&gt;</span></code> and <code class="docutils literal notranslate"><span class="pre">(...)</span></code> is important. In <code class="docutils literal notranslate"><span class="pre">Array3D&lt;float&gt;</span> <span class="pre">a(4,</span> <span class="pre">4,</span> <span class="pre">4);</span></code>, <code class="docutils literal notranslate"><span class="pre">float</span></code> specifies a type, and <code class="docutils literal notranslate"><span class="pre">4,</span> <span class="pre">4,</span> <span class="pre">4</span></code> are the values passed to the constructor.</p>
+</section>
+<section id="edu-ref-cpp-operators">
+<span id="id7"></span><h2>Other operators<a class="headerlink" href="#edu-ref-cpp-operators" title="Link to this heading"></a></h2>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Form you see</p></th>
+<th class="head"><p>Meaning</p></th>
+<th class="head"><p>Details</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">a</span> <span class="pre">=</span> <span class="pre">b</span></code></p></td>
+<td><p>Assignment. Comparison is <code class="docutils literal notranslate"><span class="pre">==</span></code></p></td>
+<td><p><a class="reference internal" href="../02_cpp_basics.html#edu-ch02"><span class="std std-ref">Chapter 2</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">a</span> <span class="pre">==</span> <span class="pre">b</span></code>、<code class="docutils literal notranslate"><span class="pre">a</span> <span class="pre">!=</span> <span class="pre">b</span></code></p></td>
+<td><p>Equal and not equal (Fortran’s <code class="docutils literal notranslate"><span class="pre">==</span></code> and <code class="docutils literal notranslate"><span class="pre">/=</span></code>)</p></td>
+<td><p><a class="reference internal" href="../02_cpp_basics.html#edu-ch02"><span class="std std-ref">Chapter 2</span></a></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">x</span> <span class="pre">||</span> <span class="pre">y</span></code>、<code class="docutils literal notranslate"><span class="pre">!x</span></code></p></td>
+<td><p>Logical OR (or) and negation (Fortran’s <code class="docutils literal notranslate"><span class="pre">.or.</span></code> and <code class="docutils literal notranslate"><span class="pre">.not.</span></code>)</p></td>
+<td><p><a class="reference internal" href="../02_cpp_basics.html#edu-ch02"><span class="std std-ref">Chapter 2</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">i</span> <span class="pre">%</span> <span class="pre">n</span></code></p></td>
+<td><p>The remainder of integer division (Fortran’s <code class="docutils literal notranslate"><span class="pre">mod(i,</span> <span class="pre">n)</span></code>)</p></td>
+<td><p><a class="reference internal" href="../02_cpp_basics.html#edu-ch02"><span class="std std-ref">Chapter 2</span></a></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">++i</span></code>、<code class="docutils literal notranslate"><span class="pre">i++</span></code></p></td>
+<td><p>Increases <code class="docutils literal notranslate"><span class="pre">i</span></code> by 1</p></td>
+<td><p><a class="reference internal" href="../02_cpp_basics.html#edu-ch02"><span class="std std-ref">Chapter 2</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">a</span> <span class="pre">+=</span> <span class="pre">b</span></code></p></td>
+<td><p>The same as <code class="docutils literal notranslate"><span class="pre">a</span> <span class="pre">=</span> <span class="pre">a</span> <span class="pre">+</span> <span class="pre">b</span></code>. There are also <code class="docutils literal notranslate"><span class="pre">-=</span></code>, <code class="docutils literal notranslate"><span class="pre">*=</span></code>, and <code class="docutils literal notranslate"><span class="pre">/=</span></code></p></td>
+<td><p><a class="reference internal" href="../02_cpp_basics.html#edu-ch02"><span class="std std-ref">Chapter 2</span></a></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">c</span> <span class="pre">?</span> <span class="pre">a</span> <span class="pre">:</span> <span class="pre">b</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">a</span></code> if <code class="docutils literal notranslate"><span class="pre">c</span></code> is true, <code class="docutils literal notranslate"><span class="pre">b</span></code> if false</p></td>
+<td><p><a class="reference internal" href="../02_cpp_basics.html#edu-ch02"><span class="std std-ref">Chapter 2</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">~Array3D()</span></code></p></td>
+<td><p>The name of the destructor (a cleanup function)</p></td>
+<td><p><a class="reference internal" href="../04_classes_and_structs.html#edu-ch04"><span class="std std-ref">Chapter 4</span></a></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">=</span> <span class="pre">default</span></code>、<code class="docutils literal notranslate"><span class="pre">=</span> <span class="pre">delete</span></code></p></td>
+<td><p>A specifier written in place of a function body. It makes the compiler provide the function or makes it unusable</p></td>
+<td><p><a class="reference internal" href="../04_classes_and_structs.html#edu-ch04"><span class="std std-ref">Chapter 4</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">:</span> <span class="pre">public</span> <span class="pre">ModelBase&lt;...&gt;</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">:</span></code> in a class declaration is inheritance</p></td>
+<td><p><a class="reference internal" href="../05_inheritance.html#edu-ch05"><span class="std std-ref">Chapter 5</span></a></p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="edu-ref-cpp-preprocessor">
+<span id="id8"></span><h2>Preprocessor symbols (#)<a class="headerlink" href="#edu-ref-cpp-preprocessor" title="Link to this heading"></a></h2>
+<p>Lines that start with <code class="docutils literal notranslate"><span class="pre">#</span></code> are processed by the preprocessor before compilation. This is text replacement, separate from C++ grammar.</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Form you see</p></th>
+<th class="head"><p>Meaning</p></th>
+<th class="head"><p>Details</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">#include</span></code></p></td>
+<td><p>Includes the contents of a file at that place</p></td>
+<td><p><a class="reference internal" href="../01_environment_setup.html#edu-ch01"><span class="std std-ref">Chapter 1</span></a>, <a class="reference internal" href="../02_cpp_basics.html#edu-ch02"><span class="std std-ref">Chapter 2</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">#pragma</span> <span class="pre">once</span></code></p></td>
+<td><p>Prevents the same header from being included twice</p></td>
+<td><p><a class="reference internal" href="../02_cpp_basics.html#edu-ch02"><span class="std std-ref">Chapter 2</span></a></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">#define</span> <span class="pre">NAME</span> <span class="pre">value</span></code></p></td>
+<td><p>Defines a macro that replaces <code class="docutils literal notranslate"><span class="pre">NAME</span></code> with the text that follows</p></td>
+<td><p><a class="reference internal" href="../02_cpp_basics.html#edu-ch02"><span class="std std-ref">Chapter 2</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">#ifdef</span> <span class="pre">USE_CUDA</span></code> 〜 <code class="docutils literal notranslate"><span class="pre">#else</span></code> 〜 <code class="docutils literal notranslate"><span class="pre">#endif</span></code></p></td>
+<td><p>Selects the part to compile depending on whether a macro is defined. It is the same as Fortran’s <code class="docutils literal notranslate"><span class="pre">#ifdef</span></code></p></td>
+<td><p><a class="reference internal" href="../02_cpp_basics.html#edu-ch02"><span class="std std-ref">Chapter 2</span></a></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">#ifdef</span> <span class="pre">__CUDACC__</span></code></p></td>
+<td><p>A part that is active only when building with the CUDA compiler (nvcc)</p></td>
+<td><p><a class="reference internal" href="../06_templates.html#edu-ch06"><span class="std std-ref">Chapter 6</span></a>, <a class="reference internal" href="../09_gpu.html#edu-ch09"><span class="std std-ref">Chapter 9</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">#undef</span> <span class="pre">NAME</span></code></p></td>
+<td><p>Cancels the definition of a macro</p></td>
+<td><p><a class="reference internal" href="../06_templates.html#edu-ch06"><span class="std std-ref">Chapter 6</span></a></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">\</span></code> at the end of a line</p></td>
+<td><p>Continues the macro definition onto the next line</p></td>
+<td><p><a class="reference internal" href="../06_templates.html#edu-ch06"><span class="std std-ref">Chapter 6</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">##</span></code> in a macro</p></td>
+<td><p>Joins the parts before and after into a single name (<code class="docutils literal notranslate"><span class="pre">has_##name</span></code> → <code class="docutils literal notranslate"><span class="pre">has_vx</span></code>)</p></td>
+<td><p><a class="reference internal" href="../06_templates.html#edu-ch06"><span class="std std-ref">Chapter 6</span></a></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">#name</span></code> in a macro</p></td>
+<td><p>Turns the argument into a string (<code class="docutils literal notranslate"><span class="pre">#name</span></code> → <code class="docutils literal notranslate"><span class="pre">&quot;vx&quot;</span></code>)</p></td>
+<td><p><a class="reference internal" href="../06_templates.html#edu-ch06"><span class="std std-ref">Chapter 6</span></a></p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="edu-ref-cpp-keywords">
+<span id="id9"></span><h2>Keywords<a class="headerlink" href="#edu-ref-cpp-keywords" title="Link to this heading"></a></h2>
+<p>This collects mainly those whose meaning changes depending on their position in a declaration.</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Keywords</p></th>
+<th class="head"><p>Form you see and its meaning</p></th>
+<th class="head"><p>Details</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">const</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">const</span> <span class="pre">Real</span> <span class="pre">gm_</span> <span class="pre">=</span> <span class="pre">gm;</span></code>: a variable whose value cannot be changed</p></td>
+<td><p><a class="reference internal" href="../02_cpp_basics.html#edu-ch02"><span class="std std-ref">Chapter 2</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">const</span> <span class="pre">T</span> <span class="pre">&amp;x</span></code>: a reference for reading only</p></td>
+<td><p><a class="reference internal" href="../03_references_and_pointers.html#edu-ch03"><span class="std std-ref">Chapter 3</span></a></p></td>
+</tr>
+<tr class="row-even"><td><p></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">const</span> <span class="pre">T</span> <span class="pre">*p</span></code> and <code class="docutils literal notranslate"><span class="pre">T</span> <span class="pre">*const</span> <span class="pre">p</span></code>: to the left of the <code class="docutils literal notranslate"><span class="pre">*</span></code> it fixes what is pointed to; to the right it fixes the pointer itself</p></td>
+<td><p><a class="reference internal" href="../03_references_and_pointers.html#edu-ch03"><span class="std std-ref">Chapter 3</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">int</span> <span class="pre">size()</span> <span class="pre">const</span></code>: a member function that does not change member variables</p></td>
+<td><p><a class="reference internal" href="../04_classes_and_structs.html#edu-ch04"><span class="std std-ref">Chapter 4</span></a></p></td>
+</tr>
+<tr class="row-even"><td><p></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">Array3DView&lt;const</span> <span class="pre">Real&gt;</span></code>: a view that only reads the elements</p></td>
+<td><p><a class="reference internal" href="../04_classes_and_structs.html#edu-ch04"><span class="std std-ref">Chapter 4</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">constexpr</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">constexpr</span> <span class="pre">int</span> <span class="pre">n_fields</span> <span class="pre">=</span> <span class="pre">9;</span></code>: a constant whose value is determined at compile time</p></td>
+<td><p><a class="reference internal" href="../02_cpp_basics.html#edu-ch02"><span class="std std-ref">Chapter 2</span></a></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">auto</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">auto</span> <span class="pre">dt</span> <span class="pre">=</span> <span class="pre">mhd.cfl(d.eos);</span></code>: determines the type from the initial value. <code class="docutils literal notranslate"><span class="pre">auto</span> <span class="pre">&amp;d</span> <span class="pre">=</span> <span class="pre">derived();</span></code> becomes a reference</p></td>
+<td><p><a class="reference internal" href="../02_cpp_basics.html#edu-ch02"><span class="std std-ref">Chapter 2</span></a>, <a class="reference internal" href="../03_references_and_pointers.html#edu-ch03"><span class="std std-ref">Chapter 3</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">using</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">using</span> <span class="pre">Real</span> <span class="pre">=</span> <span class="pre">float;</span></code>: a type alias</p></td>
+<td><p><a class="reference internal" href="../02_cpp_basics.html#edu-ch02"><span class="std std-ref">Chapter 2</span></a></p></td>
+</tr>
+<tr class="row-even"><td><p></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">using</span> <span class="pre">namespace</span> <span class="pre">miso;</span></code>: lets you use names in the namespace without <code class="docutils literal notranslate"><span class="pre">miso::</span></code></p></td>
+<td><p><a class="reference internal" href="../02_cpp_basics.html#edu-ch02"><span class="std std-ref">Chapter 2</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">using</span> <span class="pre">Source</span> <span class="pre">=</span> <span class="pre">decltype(d.src);</span></code>: gives an alias to a deduced type inside a template</p></td>
+<td><p><a class="reference internal" href="../06_templates.html#edu-ch06"><span class="std std-ref">Chapter 6</span></a></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">template</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">template</span> <span class="pre">&lt;typename</span> <span class="pre">T&gt;</span> <span class="pre">...</span></code>: a template declaration</p></td>
+<td><p><a class="reference internal" href="../06_templates.html#edu-ch06"><span class="std std-ref">Chapter 6</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">template</span> <span class="pre">&lt;&gt;</span> <span class="pre">...</span></code>: a full specialization</p></td>
+<td><p><a class="reference internal" href="../06_templates.html#edu-ch06"><span class="std std-ref">Chapter 6</span></a></p></td>
+</tr>
+<tr class="row-even"><td><p></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">x.template</span> <span class="pre">as&lt;bool&gt;()</span></code>: a marker showing that the name that follows is a template</p></td>
+<td><p><a class="reference internal" href="../06_templates.html#edu-ch06"><span class="std std-ref">Chapter 6</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">typename</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">template</span> <span class="pre">&lt;typename</span> <span class="pre">T&gt;</span></code>: shows that <code class="docutils literal notranslate"><span class="pre">T</span></code> is the name of a type. Writing <code class="docutils literal notranslate"><span class="pre">class</span></code> means the same</p></td>
+<td><p><a class="reference internal" href="../06_templates.html#edu-ch06"><span class="std std-ref">Chapter 6</span></a></p></td>
+</tr>
+<tr class="row-even"><td><p></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">typename</span> <span class="pre">T::value_type</span></code>: shows that a name belonging to a template argument is a type</p></td>
+<td><p><a class="reference internal" href="../06_templates.html#edu-ch06"><span class="std std-ref">Chapter 6</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">inline</span></code></p></td>
+<td><p>Attached to ordinary functions and variables whose definitions are placed in a header. It is not a specifier for making things faster</p></td>
+<td><p><a class="reference internal" href="../02_cpp_basics.html#edu-ch02"><span class="std std-ref">Chapter 2</span></a>, <a class="reference internal" href="../06_templates.html#edu-ch06"><span class="std std-ref">Chapter 6</span></a></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">static</span></code></p></td>
+<td><p>Inside a class, a member that belongs to the class regardless of any object</p></td>
+<td><p><a class="reference internal" href="../04_classes_and_structs.html#edu-ch04"><span class="std std-ref">Chapter 4</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">explicit</span></code></p></td>
+<td><p>Forbids implicit type conversion by a constructor</p></td>
+<td><p><a class="reference internal" href="../04_classes_and_structs.html#edu-ch04"><span class="std std-ref">Chapter 4</span></a></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">noexcept</span></code></p></td>
+<td><p>Indicates that the function does not let exceptions escape</p></td>
+<td><p><a class="reference internal" href="../04_classes_and_structs.html#edu-ch04"><span class="std std-ref">Chapter 4</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">virtual</span></code></p></td>
+<td><p>A virtual function whose derived-class version is chosen at run time. MISO does not use it</p></td>
+<td><p><a class="reference internal" href="../05_inheritance.html#edu-ch05"><span class="std std-ref">Chapter 5</span></a></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">decltype(expression)</span></code></p></td>
+<td><p>Determines the type of an expression without evaluating it</p></td>
+<td><p><a class="reference internal" href="../06_templates.html#edu-ch06"><span class="std std-ref">Chapter 6</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">if</span> <span class="pre">constexpr</span></code></p></td>
+<td><p>A branch whose condition is determined at compile time. The side not selected is not included</p></td>
+<td><p><a class="reference internal" href="../06_templates.html#edu-ch06"><span class="std std-ref">Chapter 6</span></a></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">static_assert</span></code></p></td>
+<td><p>Makes it a compile error if the condition is false</p></td>
+<td><p><a class="reference internal" href="../06_templates.html#edu-ch06"><span class="std std-ref">Chapter 6</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">nullptr</span></code></p></td>
+<td><p>A pointer that points nowhere</p></td>
+<td><p><a class="reference internal" href="../03_references_and_pointers.html#edu-ch03"><span class="std std-ref">Chapter 3</span></a></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">this</span></code></p></td>
+<td><p>Inside a member function, a pointer to itself. Using it inside a lambda causes problems on the GPU</p></td>
+<td><p><a class="reference internal" href="../04_classes_and_structs.html#edu-ch04"><span class="std std-ref">Chapter 4</span></a>, <a class="reference internal" href="../07_arrays_and_parallel.html#edu-ch07"><span class="std std-ref">Chapter 7</span></a>, <a class="reference internal" href="../09_gpu.html#edu-ch09"><span class="std std-ref">Chapter 9</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">struct</span></code>、<code class="docutils literal notranslate"><span class="pre">class</span></code></p></td>
+<td><p>A class declaration. <code class="docutils literal notranslate"><span class="pre">struct</span></code> is <code class="docutils literal notranslate"><span class="pre">public</span></code> by default, and <code class="docutils literal notranslate"><span class="pre">class</span></code> is <code class="docutils literal notranslate"><span class="pre">private</span></code> by default</p></td>
+<td><p><a class="reference internal" href="../04_classes_and_structs.html#edu-ch04"><span class="std std-ref">Chapter 4</span></a></p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="miso-cuda">
+<span id="edu-ref-cpp-miso"></span><h2>MISO and CUDA symbols<a class="headerlink" href="#miso-cuda" title="Link to this heading"></a></h2>
+<p>These are not C++ keywords, but names provided by MISO and CUDA.</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Form you see</p></th>
+<th class="head"><p>Meaning</p></th>
+<th class="head"><p>Details</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Real</span></code></p></td>
+<td><p>The floating-point type that the demos fix with <code class="docutils literal notranslate"><span class="pre">using</span> <span class="pre">Real</span> <span class="pre">=</span> <span class="pre">float;</span></code>. On the library side it is a template argument</p></td>
+<td><p><a class="reference internal" href="../02_cpp_basics.html#edu-ch02"><span class="std std-ref">Chapter 2</span></a>, <a class="reference internal" href="../06_templates.html#edu-ch06"><span class="std std-ref">Chapter 6</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Backend</span></code>、<code class="docutils literal notranslate"><span class="pre">backend::Host</span></code>、<code class="docutils literal notranslate"><span class="pre">backend::CUDA</span></code></p></td>
+<td><p>Tag types that represent the place of computation and memory (<code class="docutils literal notranslate"><span class="pre">miso/include/miso/backend.hpp</span></code>)</p></td>
+<td><p><a class="reference internal" href="../06_templates.html#edu-ch06"><span class="std std-ref">Chapter 6</span></a></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">MISO_LAMBDA</span></code></p></td>
+<td><p>A macro that marks the start of a lambda expression. In a CPU build it is <code class="docutils literal notranslate"><span class="pre">[=]</span></code>, and in a CUDA build it is <code class="docutils literal notranslate"><span class="pre">[=]</span> <span class="pre">__host__</span> <span class="pre">__device__</span></code> (<code class="docutils literal notranslate"><span class="pre">miso/include/miso/execution.hpp</span></code>)</p></td>
+<td><p><a class="reference internal" href="../07_arrays_and_parallel.html#edu-ch07"><span class="std std-ref">Chapter 7</span></a>, <a class="reference internal" href="../09_gpu.html#edu-ch09"><span class="std std-ref">Chapter 9</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">__host__</span></code>、<code class="docutils literal notranslate"><span class="pre">__device__</span></code></p></td>
+<td><p>A specifier for whether a function can be called from the CPU or the GPU. It is empty in a CPU-only build (<code class="docutils literal notranslate"><span class="pre">miso/include/miso/cuda_compat.hpp</span></code>)</p></td>
+<td><p><a class="reference internal" href="../09_gpu.html#edu-ch09"><span class="std std-ref">Chapter 9</span></a></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">__global__</span></code></p></td>
+<td><p>A specifier for a kernel function that runs on the GPU</p></td>
+<td><p><a class="reference internal" href="../09_gpu.html#edu-ch09"><span class="std std-ref">Chapter 9</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">MPI_Comm</span></code>, <code class="docutils literal notranslate"><span class="pre">MPI_Allreduce</span></code>, and so on</p></td>
+<td><p>Types and functions of the MPI library</p></td>
+<td><p><a class="reference internal" href="../08_mpi.html#edu-ch08"><span class="std std-ref">Chapter 8</span></a></p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="edu-ref-cpp-reading">
+<span id="id10"></span><h2>Order of checks when reading a declaration<a class="headerlink" href="#edu-ref-cpp-reading" title="Link to this heading"></a></h2>
+<p>Read a long declaration by splitting it up in the following order.</p>
+<ol class="arabic simple">
+<li><p><strong>Find the name.</strong> Check whether it declares a variable, a function, or a type.</p></li>
+<li><p><strong>Read the type.</strong> The type includes everything up to <code class="docutils literal notranslate"><span class="pre">&lt;...&gt;</span></code>. If <code class="docutils literal notranslate"><span class="pre">template</span> <span class="pre">&lt;...&gt;</span></code> comes before, the names inside the angle brackets are types decided later.</p></li>
+<li><p><strong>Distinguish value, reference, and pointer.</strong> Look at whether <code class="docutils literal notranslate"><span class="pre">&amp;</span></code> or <code class="docutils literal notranslate"><span class="pre">*</span></code> is attached to the name.</p></li>
+<li><p><strong>Check what <code class="docutils literal notranslate"><span class="pre">const</span></code> applies to.</strong> Distinguish whether it is the value, what is pointed to, the pointer itself, or the member function.</p></li>
+<li><p><strong>Check how it is created and its lifetime.</strong> Trace which objects the initial value, parameters, and return value use, and how long they remain usable.</p></li>
+</ol>
+<p>As an example, let us read a declaration from <code class="docutils literal notranslate"><span class="pre">miso/include/miso/mhd_integrator.hpp</span></code> in parts.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">Real</span><span class="p">,</span><span class="w"> </span><span class="k">typename</span><span class="w"> </span><span class="nc">Source</span><span class="o">&gt;</span>
+<span class="n">__host__</span><span class="w"> </span><span class="n">__device__</span><span class="w"> </span><span class="kr">inline</span><span class="w"> </span><span class="n">Real</span><span class="w"> </span><span class="n">source_vx</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">Source</span><span class="w"> </span><span class="o">&amp;</span><span class="n">src</span><span class="p">,</span>
+<span class="w">                                          </span><span class="k">const</span><span class="w"> </span><span class="n">FieldsView</span><span class="o">&lt;</span><span class="k">const</span><span class="w"> </span><span class="n">Real</span><span class="o">&gt;</span><span class="w"> </span><span class="o">&amp;</span><span class="n">qq</span><span class="p">,</span>
+<span class="w">                                          </span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">j</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">k</span><span class="p">);</span>
+</pre></div>
+</div>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Part</p></th>
+<th class="head"><p>How to read it</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">template</span> <span class="pre">&lt;typename</span> <span class="pre">Real,</span> <span class="pre">typename</span> <span class="pre">Source&gt;</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">Real</span></code> and <code class="docutils literal notranslate"><span class="pre">Source</span></code> are types decided later</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">__host__</span> <span class="pre">__device__</span></code></p></td>
+<td><p>A function that can be called from both the CPU and the GPU</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">inline</span></code></p></td>
+<td><p>A function placed in a header</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Real</span> <span class="pre">source_vx(...)</span></code></p></td>
+<td><p>The name is <code class="docutils literal notranslate"><span class="pre">source_vx</span></code> and the return type is <code class="docutils literal notranslate"><span class="pre">Real</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">const</span> <span class="pre">Source</span> <span class="pre">&amp;src</span></code></p></td>
+<td><p>Receives the source-term object as a reference for reading only</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">const</span> <span class="pre">FieldsView&lt;const</span> <span class="pre">Real&gt;</span> <span class="pre">&amp;qq</span></code></p></td>
+<td><p>Receives a view that only reads the elements (<code class="docutils literal notranslate"><span class="pre">FieldsView&lt;const</span> <span class="pre">Real&gt;</span></code>) as a reference for reading only</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">int</span> <span class="pre">i,</span> <span class="pre">int</span> <span class="pre">j,</span> <span class="pre">int</span> <span class="pre">k</span></code></p></td>
+<td><p>Receives the grid-point indices by value</p></td>
+</tr>
+</tbody>
+</table>
+<p>For the details of the grammar, see the C++17 draft standard N4659: <a class="reference external" href="https://timsong-cpp.github.io/cppwp/n4659/dcl.ref">declaring references</a>, <a class="reference external" href="https://timsong-cpp.github.io/cppwp/n4659/dcl.type.cv">the rules for <code class="docutils literal notranslate"><span class="pre">const</span></code></a>, and <a class="reference external" href="https://timsong-cpp.github.io/cppwp/n4659/temp">templates</a>.</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="fortran_map.html" class="btn btn-neutral float-left" title="Fortran Correspondence Table" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="testing.html" class="btn btn-neutral float-right" title="Testing and Comparing Results" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Integrated Studies, ISEE, Nagoya University.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,12 +1,12 @@
 
 
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" data-content_root="../">
+<html class="writer-html5" lang="ja" data-content_root="../">
 <head>
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>8. MPI による領域分割 &mdash; MISO 0.0 documentation</title>
+  <title>8. MPI による領域分割 &mdash; MISO 0.0 ドキュメント</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=4ae1632d" />
@@ -17,18 +17,19 @@
   
       <script src="../_static/jquery.js?v=5d32c60e"></script>
       <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../_static/documentation_options.js?v=837179f8"></script>
+      <script src="../_static/documentation_options.js?v=1a6bc256"></script>
       <script src="../_static/doctools.js?v=fd6eb6e6"></script>
       <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
       <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
       <script src="../_static/copybutton.js?v=f281be69"></script>
+      <script src="../_static/translations.js?v=4755f45a"></script>
       <script src="../_static/collapsible-lists/js/CollapsibleLists.compressed.js?v=73120307"></script>
       <script src="../_static/collapsible-lists/js/apply-collapsible-lists.js?v=660e4f45"></script>
       <script>window.MathJax = {"tex": {"macros": {"bm": ["{\\boldsymbol{#1}}", 1]}}, "options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
       <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script src="../_static/js/theme.js"></script>
-    <link rel="index" title="Index" href="../genindex.html" />
-    <link rel="search" title="Search" href="../search.html" />
+    <link rel="index" title="索引" href="../genindex.html" />
+    <link rel="search" title="検索" href="../search.html" />
     <link rel="next" title="9. GPU（CUDA）での計算とデータ転送" href="09_gpu.html" />
     <link rel="prev" title="7. 配列・ラムダと CPU での並列ループ" href="07_arrays_and_parallel.html" /> 
 </head>
@@ -108,8 +109,10 @@
       <div class="wy-nav-content">
 <div id="language-links" style="margin-bottom: 1em; font-size: 100%;">
     Language:
-    <a href="#" id="translate-link" target="_blank">English</a> |
-    <a href="#" id="original-link">日本語</a>
+    
+    <a href="../en/education/08_mpi.html">English</a> |
+    <strong>日本語</strong>
+    
 </div>
 
 
@@ -174,16 +177,16 @@ CPU で MISO を並列に動かす手段は、この章で扱う MPI だけで�
 <span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;mpi.h&gt;</span>
 
 <span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">argc</span><span class="p">,</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">**</span><span class="n">argv</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">  </span><span class="n">MPI_Init</span><span class="p">(</span><span class="o">&amp;</span><span class="n">argc</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">argv</span><span class="p">);</span><span class="w">  </span><span class="c1">// MPI を使い始める（全ランクが呼ぶ）</span>
+<span class="w">  </span><span class="n">MPI_Init</span><span class="p">(</span><span class="o">&amp;</span><span class="n">argc</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">argv</span><span class="p">);</span><span class="w">  </span><span class="c1">// start using MPI (called by all ranks)</span>
 
-<span class="w">  </span><span class="kt">int</span><span class="w"> </span><span class="n">rank</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w">  </span><span class="c1">// 自分の番号</span>
-<span class="w">  </span><span class="kt">int</span><span class="w"> </span><span class="n">size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w">  </span><span class="c1">// 全体のランク数</span>
-<span class="w">  </span><span class="n">MPI_Comm_rank</span><span class="p">(</span><span class="n">MPI_COMM_WORLD</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">rank</span><span class="p">);</span><span class="w">  </span><span class="c1">// rank に書き込まれる</span>
-<span class="w">  </span><span class="n">MPI_Comm_size</span><span class="p">(</span><span class="n">MPI_COMM_WORLD</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">size</span><span class="p">);</span><span class="w">  </span><span class="c1">// size に書き込まれる</span>
+<span class="w">  </span><span class="kt">int</span><span class="w"> </span><span class="n">rank</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w">  </span><span class="c1">// own rank number</span>
+<span class="w">  </span><span class="kt">int</span><span class="w"> </span><span class="n">size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w">  </span><span class="c1">// total number of ranks</span>
+<span class="w">  </span><span class="n">MPI_Comm_rank</span><span class="p">(</span><span class="n">MPI_COMM_WORLD</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">rank</span><span class="p">);</span><span class="w">  </span><span class="c1">// written to rank</span>
+<span class="w">  </span><span class="n">MPI_Comm_size</span><span class="p">(</span><span class="n">MPI_COMM_WORLD</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">size</span><span class="p">);</span><span class="w">  </span><span class="c1">// written to size</span>
 
 <span class="w">  </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">"rank "</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">rank</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">" / size "</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">size</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
 
-<span class="w">  </span><span class="n">MPI_Finalize</span><span class="p">();</span><span class="w">  </span><span class="c1">// MPI を使い終える（全ランクが呼ぶ）</span>
+<span class="w">  </span><span class="n">MPI_Finalize</span><span class="p">();</span><span class="w">  </span><span class="c1">// finish using MPI (called by all ranks)</span>
 <span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
 <span class="p">}</span>
 </pre></div>
@@ -259,7 +262,7 @@ rank 3 / size 4
 <p><code class="docutils literal notranslate"><span class="pre">MPI_Init</span></code> も <code class="docutils literal notranslate"><span class="pre">MPI_Finalize</span></code> も、ここには現れません。
 どちらも <code class="docutils literal notranslate"><span class="pre">Env</span></code> が受け持ちます（<code class="docutils literal notranslate"><span class="pre">miso/include/miso/env.hpp</span></code>）。
 MPI の部分は <code class="docutils literal notranslate"><span class="pre">miso::mpi::Env</span></code> です。抜粋します。
-この章の抜粋で <code class="docutils literal notranslate"><span class="pre">//</span> <span class="pre">...（説明）</span></code> の形のコメントは、省いた部分を示すためにこの教材で足したものです。</p>
+この章の抜粋で <code class="docutils literal notranslate"><span class="pre">//</span> <span class="pre">...(description)</span></code> の形のコメントは、省いた部分を示すためにこの教材で足したものです。</p>
 <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">struct</span><span class="w"> </span><span class="nc">Env</span><span class="w"> </span><span class="p">{</span>
 <span class="w">  </span><span class="kt">bool</span><span class="w"> </span><span class="n">owns_mpi</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">false</span><span class="p">;</span>
 
@@ -273,15 +276,15 @@ MPI の部分は <code class="docutils literal notranslate"><span class="pre">mi
 <span class="w">    </span><span class="n">world</span><span class="o">::</span><span class="n">comm</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">MPI_COMM_WORLD</span><span class="p">;</span>
 <span class="w">    </span><span class="n">MPI_Comm_rank</span><span class="p">(</span><span class="n">world</span><span class="o">::</span><span class="n">comm</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">world</span><span class="o">::</span><span class="n">rank</span><span class="p">);</span>
 <span class="w">    </span><span class="n">MPI_Comm_size</span><span class="p">(</span><span class="n">world</span><span class="o">::</span><span class="n">comm</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">world</span><span class="o">::</span><span class="n">size</span><span class="p">);</span>
-<span class="w">    </span><span class="c1">// ...（ノード内のランクを調べる処理。第 9 章で使います）</span>
+<span class="w">    </span><span class="c1">// ...(finds the ranks within the node; used in Chapter 9)</span>
 <span class="w">    </span><span class="n">world</span><span class="o">::</span><span class="n">is_initialized</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">true</span><span class="p">;</span>
 <span class="w">  </span><span class="p">}</span>
 
 <span class="w">  </span><span class="n">Env</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="o">&amp;</span><span class="n">argc</span><span class="p">,</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">**&amp;</span><span class="n">argv</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">setup</span><span class="p">(</span><span class="o">&amp;</span><span class="n">argc</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">argv</span><span class="p">);</span><span class="w"> </span><span class="p">}</span>
-<span class="w">  </span><span class="c1">// ...（引数のないコンストラクタもある）</span>
+<span class="w">  </span><span class="c1">// ...(there is also a constructor with no arguments)</span>
 
 <span class="w">  </span><span class="o">~</span><span class="n">Env</span><span class="p">()</span><span class="w"> </span><span class="k">noexcept</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="c1">// ...（ノード内のコミュニケータを解放する処理）</span>
+<span class="w">    </span><span class="c1">// ...(frees the intra-node communicator)</span>
 <span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">is_mpi_finalized</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">false</span><span class="p">;</span>
 <span class="w">    </span><span class="n">MPI_Finalized</span><span class="p">(</span><span class="o">&amp;</span><span class="n">is_mpi_finalized</span><span class="p">);</span>
 <span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">owns_mpi</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="o">!</span><span class="n">is_mpi_finalized</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
@@ -328,7 +331,7 @@ CPU ビルドでは <code class="docutils literal notranslate"><span class="pre"
 <section id="mpi-shape">
 <span id="edu-ch08-shape"></span><h2>3. ランクの並びと隣のランク：mpi::Shape<a class="headerlink" href="#mpi-shape" title="Link to this heading"></a></h2>
 <section id="config-yaml-mpi">
-<h3>config.yaml の mpi セクション<a class="headerlink" href="#config-yaml-mpi" title="Link to this heading"></a></h3>
+<h3><code class="docutils literal notranslate"><span class="pre">config.yaml</span></code> の mpi セクション<a class="headerlink" href="#config-yaml-mpi" title="Link to this heading"></a></h3>
 <p>MISO は 3 次元の格子を、x, y, z の各方向に何個ずつ分けるかを設定ファイルで指定します。
 <code class="docutils literal notranslate"><span class="pre">demo/mhd2d_vortex/config.yaml</span></code> の該当部分です。</p>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">grid</span><span class="p">:</span>
@@ -372,7 +375,7 @@ CPU ビルドでは <code class="docutils literal notranslate"><span class="pre"
 <span class="w">    </span><span class="n">MPI_Cart_create</span><span class="p">(</span><span class="n">MPI_COMM_WORLD</span><span class="p">,</span><span class="w"> </span><span class="n">ndims</span><span class="p">,</span><span class="w"> </span><span class="n">dims</span><span class="p">,</span><span class="w"> </span><span class="n">periods</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">cart_comm</span><span class="p">);</span>
 <span class="w">    </span><span class="n">MPI_Comm_rank</span><span class="p">(</span><span class="n">cart_comm</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">myrank</span><span class="p">);</span>
 <span class="w">    </span><span class="n">MPI_Comm_size</span><span class="p">(</span><span class="n">cart_comm</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">n_procs</span><span class="p">);</span>
-<span class="w">    </span><span class="c1">// ...（プロセス数の確認）</span>
+<span class="w">    </span><span class="c1">// ...(check the number of processes)</span>
 
 <span class="w">    </span><span class="n">MPI_Cart_coords</span><span class="p">(</span><span class="n">cart_comm</span><span class="p">,</span><span class="w"> </span><span class="n">myrank</span><span class="p">,</span><span class="w"> </span><span class="n">ndims</span><span class="p">,</span><span class="w"> </span><span class="n">coord</span><span class="p">);</span>
 <span class="w">    </span><span class="n">MISO_MPI_CHECK</span><span class="p">(</span><span class="n">MPI_Cart_shift</span><span class="p">(</span><span class="n">cart_comm</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">x_procs_neg</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">x_procs_pos</span><span class="p">));</span>
@@ -424,8 +427,8 @@ MISO は実行の最初に、この対応を <code class="docutils literal notra
 <section id="id7">
 <h3>担当するセルとゴーストセル<a class="headerlink" href="#id7" title="Link to this heading"></a></h3>
 <p>1 次元で考えます。全体 16 セルを 2 ランクで分けると、各ランクは 8 セルを担当します。</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>全体の添字   0  1  2  3  4  5  6  7 | 8  9 10 11 12 13 14 15
-担当                ランク 0         |         ランク 1
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>global index 0  1  2  3  4  5  6  7 | 8  9 10 11 12 13 14 15
+owner               rank 0          |         rank 1
 </pre></div>
 </div>
 <p>MISO の空間微分は 4 次の中心差分で、セル <code class="docutils literal notranslate"><span class="pre">i</span></code> の微分に <code class="docutils literal notranslate"><span class="pre">i-2</span></code> から <code class="docutils literal notranslate"><span class="pre">i+2</span></code> までの値を使います。
@@ -433,9 +436,9 @@ MISO は実行の最初に、この対応を <code class="docutils literal notra
 そこで、配列の両端に余分なセルを <code class="docutils literal notranslate"><span class="pre">margin</span></code> 個ずつ用意し、隣から受け取った値を置きます。
 これを<strong>ゴーストセル</strong>（ghost cell）または<strong>のりしろ</strong>と呼びます。隣から値を受け取って埋める処理を<strong>ハロー交換</strong>（halo exchange）と呼びます。</p>
 <p><code class="docutils literal notranslate"><span class="pre">margin:</span> <span class="pre">2</span></code> のとき、ランク 1 の x 方向の配列は次のようになります。</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>ランク 1 のローカルの添字  0  1 | 2  3  4  5  6  7  8  9 | 10 11
-役割                     ゴースト |     担当する 8 セル     | ゴースト
-全体の添字               6  7 | 8  9 10 11 12 13 14 15 | 16 17
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>rank 1 local index         0  1 | 2  3  4  5  6  7  8  9 | 10 11
+role                      ghost |     8 owned cells     | ghost
+global index               6  7 | 8  9 10 11 12 13 14 15 | 16 17
 </pre></div>
 </div>
 <p>右端のゴーストの全体の添字 16, 17 は、周期境界ならランク 0 の 0, 1 にあたります。
@@ -447,7 +450,7 @@ MISO は実行の最初に、この対応を <code class="docutils literal notra
 全体の格子ではありません。コンストラクタの抜粋です。</p>
 <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">margin</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">config</span><span class="p">[</span><span class="s">"grid"</span><span class="p">][</span><span class="s">"margin"</span><span class="p">].</span><span class="n">as</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">();</span>
 <span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">i_size_g</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">config</span><span class="p">[</span><span class="s">"grid"</span><span class="p">][</span><span class="s">"i_size"</span><span class="p">].</span><span class="n">as</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">();</span>
-<span class="w">    </span><span class="c1">// ...（j_size_g, k_size_g も同様）</span>
+<span class="w">    </span><span class="c1">// ...(same for j_size_g, k_size_g)</span>
 
 <span class="w">    </span><span class="n">i_size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">i_size_g</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">mpi_shape</span><span class="p">.</span><span class="n">x_procs</span><span class="p">;</span>
 <span class="w">    </span><span class="n">j_size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">j_size_g</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">mpi_shape</span><span class="p">.</span><span class="n">y_procs</span><span class="p">;</span>
@@ -498,16 +501,16 @@ MISO は、全ランクが同じ数のセルを担当する分け方だけを扱
 <span class="k">using</span><span class="w"> </span><span class="n">Real</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kt">float</span><span class="p">;</span>
 
 <span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">argc</span><span class="p">,</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">**</span><span class="n">argv</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">  </span><span class="n">Env</span><span class="w"> </span><span class="n">env</span><span class="p">(</span><span class="n">argc</span><span class="p">,</span><span class="w"> </span><span class="n">argv</span><span class="p">);</span><span class="w">                </span><span class="c1">// MPI_Init（デストラクタで MPI_Finalize）</span>
-<span class="w">  </span><span class="n">Config</span><span class="w"> </span><span class="n">config</span><span class="p">(</span><span class="s">"shape_check.yaml"</span><span class="p">);</span><span class="w">  </span><span class="c1">// 設定ファイルを読む</span>
-<span class="w">  </span><span class="n">mpi</span><span class="o">::</span><span class="n">Shape</span><span class="w"> </span><span class="n">mpi_shape</span><span class="p">(</span><span class="n">config</span><span class="p">);</span><span class="w">       </span><span class="c1">// ランクの並びと隣のランク</span>
-<span class="w">  </span><span class="n">Grid</span><span class="o">&lt;</span><span class="n">Real</span><span class="p">,</span><span class="w"> </span><span class="n">backend</span><span class="o">::</span><span class="n">Host</span><span class="o">&gt;</span><span class="w"> </span><span class="n">grid</span><span class="p">(</span><span class="n">config</span><span class="p">,</span><span class="w"> </span><span class="n">mpi_shape</span><span class="p">);</span><span class="w">  </span><span class="c1">// このランクの格子</span>
+<span class="w">  </span><span class="n">Env</span><span class="w"> </span><span class="n">env</span><span class="p">(</span><span class="n">argc</span><span class="p">,</span><span class="w"> </span><span class="n">argv</span><span class="p">);</span><span class="w">                </span><span class="c1">// MPI_Init (MPI_Finalize in the destructor)</span>
+<span class="w">  </span><span class="n">Config</span><span class="w"> </span><span class="n">config</span><span class="p">(</span><span class="s">"shape_check.yaml"</span><span class="p">);</span><span class="w">  </span><span class="c1">// read the configuration file</span>
+<span class="w">  </span><span class="n">mpi</span><span class="o">::</span><span class="n">Shape</span><span class="w"> </span><span class="n">mpi_shape</span><span class="p">(</span><span class="n">config</span><span class="p">);</span><span class="w">       </span><span class="c1">// rank layout and neighboring ranks</span>
+<span class="w">  </span><span class="n">Grid</span><span class="o">&lt;</span><span class="n">Real</span><span class="p">,</span><span class="w"> </span><span class="n">backend</span><span class="o">::</span><span class="n">Host</span><span class="o">&gt;</span><span class="w"> </span><span class="n">grid</span><span class="p">(</span><span class="n">config</span><span class="p">,</span><span class="w"> </span><span class="n">mpi_shape</span><span class="p">);</span><span class="w">  </span><span class="c1">// grid of this rank</span>
 
 <span class="w">  </span><span class="k">namespace</span><span class="w"> </span><span class="nn">bc</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nn">miso</span><span class="o">::</span><span class="nn">boundary_condition</span><span class="p">;</span>
 <span class="w">  </span><span class="k">const</span><span class="w"> </span><span class="kt">bool</span><span class="w"> </span><span class="n">x_inner</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">bc</span><span class="o">::</span><span class="n">is_physical_boundary</span><span class="p">(</span><span class="n">Direction</span><span class="o">::</span><span class="n">X</span><span class="p">,</span><span class="w"> </span><span class="n">Side</span><span class="o">::</span><span class="n">INNER</span><span class="p">,</span><span class="w"> </span><span class="n">mpi_shape</span><span class="p">);</span>
 <span class="w">  </span><span class="k">const</span><span class="w"> </span><span class="kt">bool</span><span class="w"> </span><span class="n">y_inner</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">bc</span><span class="o">::</span><span class="n">is_physical_boundary</span><span class="p">(</span><span class="n">Direction</span><span class="o">::</span><span class="n">Y</span><span class="p">,</span><span class="w"> </span><span class="n">Side</span><span class="o">::</span><span class="n">INNER</span><span class="p">,</span><span class="w"> </span><span class="n">mpi_shape</span><span class="p">);</span>
 
-<span class="w">  </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">r</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">r</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">mpi</span><span class="o">::</span><span class="n">size</span><span class="p">();</span><span class="w"> </span><span class="o">++</span><span class="n">r</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">  </span><span class="c1">// 表示が混ざらないよう 1 ランクずつ</span>
+<span class="w">  </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">r</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">r</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">mpi</span><span class="o">::</span><span class="n">size</span><span class="p">();</span><span class="w"> </span><span class="o">++</span><span class="n">r</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">  </span><span class="c1">// one rank at a time so the output does not interleave</span>
 <span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">r</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">mpi</span><span class="o">::</span><span class="n">rank</span><span class="p">())</span><span class="w"> </span><span class="p">{</span>
 <span class="w">      </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">"rank "</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">mpi</span><span class="o">::</span><span class="n">rank</span><span class="p">()</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">": coord = ("</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">mpi_shape</span><span class="p">.</span><span class="n">coord</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
 <span class="w">                </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">", "</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">mpi_shape</span><span class="p">.</span><span class="n">coord</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">")"</span>
@@ -648,21 +651,21 @@ rank 3: coord = (1, 1), x_neg/x_pos = 1/1, y_neg/y_pos = 2/-2
 <span class="w">  </span><span class="n">MPI_Comm_rank</span><span class="p">(</span><span class="n">MPI_COMM_WORLD</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">rank</span><span class="p">);</span>
 <span class="w">  </span><span class="n">MPI_Comm_size</span><span class="p">(</span><span class="n">MPI_COMM_WORLD</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">size</span><span class="p">);</span>
 
-<span class="w">  </span><span class="k">const</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">4</span><span class="p">;</span><span class="w">                    </span><span class="c1">// 各ランクが担当するセル数</span>
-<span class="w">  </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;</span><span class="w"> </span><span class="n">u</span><span class="p">(</span><span class="n">n</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mf">-1.0</span><span class="p">);</span><span class="w"> </span><span class="c1">// u[0] と u[n+1] がゴーストセル</span>
+<span class="w">  </span><span class="k">const</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">4</span><span class="p">;</span><span class="w">                    </span><span class="c1">// number of cells owned by each rank</span>
+<span class="w">  </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;</span><span class="w"> </span><span class="n">u</span><span class="p">(</span><span class="n">n</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mf">-1.0</span><span class="p">);</span><span class="w"> </span><span class="c1">// u[0] and u[n+1] are ghost cells</span>
 <span class="w">  </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="n">n</span><span class="p">;</span><span class="w"> </span><span class="o">++</span><span class="n">i</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="n">u</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">rank</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="p">(</span><span class="n">i</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="p">);</span><span class="w">        </span><span class="c1">// 値 = 全体の添字</span>
+<span class="w">    </span><span class="n">u</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">rank</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="p">(</span><span class="n">i</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="p">);</span><span class="w">        </span><span class="c1">// value = global index</span>
 <span class="w">  </span><span class="p">}</span>
 
-<span class="w">  </span><span class="c1">// 周期境界での左右の隣</span>
+<span class="w">  </span><span class="c1">// left and right neighbors under periodic boundaries</span>
 <span class="w">  </span><span class="k">const</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">left</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">rank</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">size</span><span class="p">)</span><span class="w"> </span><span class="o">%</span><span class="w"> </span><span class="n">size</span><span class="p">;</span>
 <span class="w">  </span><span class="k">const</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">right</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">rank</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="o">%</span><span class="w"> </span><span class="n">size</span><span class="p">;</span>
 
-<span class="w">  </span><span class="c1">// (1) 右へ u[n] を送り、左から u[0] へ受け取る</span>
+<span class="w">  </span><span class="c1">// (1) send u[n] to the right, receive into u[0] from the left</span>
 <span class="w">  </span><span class="n">MPI_Sendrecv</span><span class="p">(</span><span class="o">&amp;</span><span class="n">u</span><span class="p">[</span><span class="n">n</span><span class="p">],</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">MPI_DOUBLE</span><span class="p">,</span><span class="w"> </span><span class="n">right</span><span class="p">,</span><span class="w"> </span><span class="mi">100</span><span class="p">,</span>
 <span class="w">               </span><span class="o">&amp;</span><span class="n">u</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">MPI_DOUBLE</span><span class="p">,</span><span class="w"> </span><span class="n">left</span><span class="p">,</span><span class="w"> </span><span class="mi">100</span><span class="p">,</span>
 <span class="w">               </span><span class="n">MPI_COMM_WORLD</span><span class="p">,</span><span class="w"> </span><span class="n">MPI_STATUS_IGNORE</span><span class="p">);</span>
-<span class="w">  </span><span class="c1">// (2) 左へ u[1] を送り、右から u[n+1] へ受け取る</span>
+<span class="w">  </span><span class="c1">// (2) send u[1] to the left, receive into u[n+1] from the right</span>
 <span class="w">  </span><span class="n">MPI_Sendrecv</span><span class="p">(</span><span class="o">&amp;</span><span class="n">u</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">MPI_DOUBLE</span><span class="p">,</span><span class="w"> </span><span class="n">left</span><span class="p">,</span><span class="w"> </span><span class="mi">200</span><span class="p">,</span>
 <span class="w">               </span><span class="o">&amp;</span><span class="n">u</span><span class="p">[</span><span class="n">n</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">],</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">MPI_DOUBLE</span><span class="p">,</span><span class="w"> </span><span class="n">right</span><span class="p">,</span><span class="w"> </span><span class="mi">200</span><span class="p">,</span>
 <span class="w">               </span><span class="n">MPI_COMM_WORLD</span><span class="p">,</span><span class="w"> </span><span class="n">MPI_STATUS_IGNORE</span><span class="p">);</span>
@@ -743,7 +746,7 @@ rank 1: ghost left = 3, inner = 4..7, ghost right = 0
 <span class="w">  </span><span class="n">MPI_Irecv</span><span class="p">(</span><span class="o">&amp;</span><span class="n">u</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">MPI_DOUBLE</span><span class="p">,</span><span class="w"> </span><span class="n">left</span><span class="p">,</span><span class="w"> </span><span class="mi">100</span><span class="p">,</span><span class="w"> </span><span class="n">MPI_COMM_WORLD</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">reqs</span><span class="p">[</span><span class="mi">1</span><span class="p">]);</span>
 <span class="w">  </span><span class="n">MPI_Isend</span><span class="p">(</span><span class="o">&amp;</span><span class="n">u</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">MPI_DOUBLE</span><span class="p">,</span><span class="w"> </span><span class="n">left</span><span class="p">,</span><span class="w"> </span><span class="mi">200</span><span class="p">,</span><span class="w"> </span><span class="n">MPI_COMM_WORLD</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">reqs</span><span class="p">[</span><span class="mi">2</span><span class="p">]);</span>
 <span class="w">  </span><span class="n">MPI_Irecv</span><span class="p">(</span><span class="o">&amp;</span><span class="n">u</span><span class="p">[</span><span class="n">n</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">],</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">MPI_DOUBLE</span><span class="p">,</span><span class="w"> </span><span class="n">right</span><span class="p">,</span><span class="w"> </span><span class="mi">200</span><span class="p">,</span><span class="w"> </span><span class="n">MPI_COMM_WORLD</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">reqs</span><span class="p">[</span><span class="mi">3</span><span class="p">]);</span>
-<span class="w">  </span><span class="c1">// ここまでは「始めた」だけ。u[0], u[n+1] はまだ読まない</span>
+<span class="w">  </span><span class="c1">// only started so far; do not read u[0], u[n+1] yet</span>
 <span class="w">  </span><span class="n">MPI_Waitall</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="w"> </span><span class="n">reqs</span><span class="p">,</span><span class="w"> </span><span class="n">MPI_STATUSES_IGNORE</span><span class="p">);</span>
 </pre></div>
 </div>
@@ -767,7 +770,7 @@ rank 1: ghost left = 3, inner = 4..7, ghost right = 0
 <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">Real</span><span class="o">&gt;</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">HaloExchanger</span><span class="o">&lt;</span><span class="n">Real</span><span class="p">,</span><span class="w"> </span><span class="n">backend</span><span class="o">::</span><span class="n">Host</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span>
 <span class="w">  </span><span class="c1">// MPI communication buffers</span>
 <span class="w">  </span><span class="n">Array4D</span><span class="o">&lt;</span><span class="n">Real</span><span class="o">&gt;</span><span class="w"> </span><span class="n">recv_x_pos</span><span class="p">,</span><span class="w"> </span><span class="n">recv_x_neg</span><span class="p">;</span>
-<span class="w">  </span><span class="c1">// ...（y, z と send_* も同様）</span>
+<span class="w">  </span><span class="c1">// ...(same for y, z and send_*)</span>
 
 <span class="w">  </span><span class="n">Grid</span><span class="o">&lt;</span><span class="n">Real</span><span class="p">,</span><span class="w"> </span><span class="n">backend</span><span class="o">::</span><span class="n">Host</span><span class="o">&gt;</span><span class="w"> </span><span class="o">&amp;</span><span class="n">grid</span><span class="p">;</span>
 <span class="w">  </span><span class="n">mpi</span><span class="o">::</span><span class="n">Shape</span><span class="w"> </span><span class="o">&amp;</span><span class="n">mpi_shape</span><span class="p">;</span>
@@ -807,7 +810,7 @@ x 方向に送るのは端の <code class="docutils literal notranslate"><span c
 </div>
 <p>読み方を順に説明します。</p>
 <ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">vars</span></code> は、<code class="docutils literal notranslate"><span class="pre">apply</span></code> の最初で作る 9 つの変数（<code class="docutils literal notranslate"><span class="pre">ro</span></code>, <code class="docutils literal notranslate"><span class="pre">vx</span></code>, …, <code class="docutils literal notranslate"><span class="pre">ph</span></code>）へのポインタの配列です。<code class="docutils literal notranslate"><span class="pre">(*vars[v])(i,</span> <span class="pre">j,</span> <span class="pre">k)</span></code> は <code class="docutils literal notranslate"><span class="pre">v</span></code> 番目の変数の <code class="docutils literal notranslate"><span class="pre">(i,</span> <span class="pre">j,</span> <span class="pre">k)</span></code> の値です。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">vars</span></code> は、<code class="docutils literal notranslate"><span class="pre">apply</span></code> の最初で作る 9 つの変数（<code class="docutils literal notranslate"><span class="pre">ro</span></code>, <code class="docutils literal notranslate"><span class="pre">vx</span></code>, ..., <code class="docutils literal notranslate"><span class="pre">ph</span></code>）へのポインタの配列です。<code class="docutils literal notranslate"><span class="pre">(*vars[v])(i,</span> <span class="pre">j,</span> <span class="pre">k)</span></code> は <code class="docutils literal notranslate"><span class="pre">v</span></code> 番目の変数の <code class="docutils literal notranslate"><span class="pre">(i,</span> <span class="pre">j,</span> <span class="pre">k)</span></code> の値です。</p></li>
 <li><p>正の側の隣がいて（<code class="docutils literal notranslate"><span class="pre">MPI_PROC_NULL</span></code> でない）、x 方向が 1 セルでない（<code class="docutils literal notranslate"><span class="pre">i_size</span> <span class="pre">&gt;</span> <span class="pre">1</span></code>）ときだけ交換します。</p></li>
 <li><p>詰めるのは <code class="docutils literal notranslate"><span class="pre">i_total</span> <span class="pre">-</span> <span class="pre">2</span> <span class="pre">*</span> <span class="pre">i_margin</span></code> から <code class="docutils literal notranslate"><span class="pre">i_total</span> <span class="pre">-</span> <span class="pre">i_margin</span> <span class="pre">-</span> <span class="pre">1</span></code> まで、つまり担当範囲の右端の <code class="docutils literal notranslate"><span class="pre">i_margin</span></code> 枚です。</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">send_x_pos.data()</span></code> はバッファの先頭のポインタ、<code class="docutils literal notranslate"><span class="pre">send_x_pos.size()</span></code> は要素数です。</p></li>
@@ -818,7 +821,7 @@ x 方向に送るのは端の <code class="docutils literal notranslate"><span c
 タグ 100 は「正の向きへ送った値」、タグ 200 は「負の向きへ送った値」を表します。
 あるランクが正の側へタグ 100 で送った値は、受け取る側から見ると負の側から届く値なので、<code class="docutils literal notranslate"><span class="pre">recv_x_neg</span></code> がタグ 100 で受け取ります。
 前節の確認プログラムの (1)（右へ送るタグ 100）と (2)（左へ送るタグ 200）と同じ対応です。</p>
-<p><code class="docutils literal notranslate"><span class="pre">req_count++</span></code> は、今の <code class="docutils literal notranslate"><span class="pre">req_count</span></code> を添字に使ってから 1 増やす書き方です。始めた通信の札が <code class="docutils literal notranslate"><span class="pre">reqs[0]</span></code>, <code class="docutils literal notranslate"><span class="pre">reqs[1]</span></code>, … と順に入ります。</p>
+<p><code class="docutils literal notranslate"><span class="pre">req_count++</span></code> は、今の <code class="docutils literal notranslate"><span class="pre">req_count</span></code> を添字に使ってから 1 増やす書き方です。始めた通信の札が <code class="docutils literal notranslate"><span class="pre">reqs[0]</span></code>, <code class="docutils literal notranslate"><span class="pre">reqs[1]</span></code>, ... と順に入ります。</p>
 </section>
 <section id="id14">
 <h3>完了を待って配列へ戻す<a class="headerlink" href="#id14" title="Link to this heading"></a></h3>
@@ -830,7 +833,7 @@ x 方向に送るのは端の <code class="docutils literal notranslate"><span c
 
 <span class="w">    </span><span class="c1">// positive x-direction</span>
 <span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">mpi_shape</span><span class="p">.</span><span class="n">x_procs_pos</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">MPI_PROC_NULL</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">grid</span><span class="p">.</span><span class="n">i_size</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">      </span><span class="c1">// ...（v, i, j, k の 4 重ループ）</span>
+<span class="w">      </span><span class="c1">// ...(4-level loop over v, i, j, k)</span>
 <span class="w">              </span><span class="p">(</span><span class="o">*</span><span class="n">vars</span><span class="p">[</span><span class="n">v</span><span class="p">])(</span><span class="n">grid</span><span class="p">.</span><span class="n">i_total</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">grid</span><span class="p">.</span><span class="n">i_margin</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">i</span><span class="p">,</span><span class="w"> </span><span class="n">j</span><span class="p">,</span><span class="w"> </span><span class="n">k</span><span class="p">)</span><span class="w"> </span><span class="o">=</span>
 <span class="w">                  </span><span class="n">recv_x_pos</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="w"> </span><span class="n">j</span><span class="p">,</span><span class="w"> </span><span class="n">k</span><span class="p">,</span><span class="w"> </span><span class="n">v</span><span class="p">);</span>
 </pre></div>
@@ -888,7 +891,7 @@ x 方向の交換で埋まったゴーストの値が、y 方向の交換で斜�
 <span class="w">  </span><span class="k">case</span><span class="w"> </span><span class="no">Direction</span><span class="o">::</span><span class="no">X</span><span class="p">:</span>
 <span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="p">(</span><span class="n">side</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">Side</span><span class="o">::</span><span class="n">INNER</span><span class="p">)</span><span class="w"> </span><span class="o">?</span><span class="w"> </span><span class="p">(</span><span class="n">mpi_shape</span><span class="p">.</span><span class="n">x_procs_neg</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">MPI_PROC_NULL</span><span class="p">)</span>
 <span class="w">                                 </span><span class="o">:</span><span class="w"> </span><span class="p">(</span><span class="n">mpi_shape</span><span class="p">.</span><span class="n">x_procs_pos</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">MPI_PROC_NULL</span><span class="p">);</span>
-<span class="w">  </span><span class="c1">// ...（Y, Z も同様）</span>
+<span class="w">  </span><span class="c1">// ...(same for Y, Z)</span>
 <span class="w">  </span><span class="p">}</span>
 <span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="nb">false</span><span class="p">;</span>
 <span class="p">}</span>
@@ -904,7 +907,7 @@ x 方向の交換で埋まったゴーストの値が、y 方向の交換で斜�
 
 <span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">bc</span><span class="o">::</span><span class="n">is_physical_boundary</span><span class="p">(</span><span class="n">Direction</span><span class="o">::</span><span class="n">Y</span><span class="p">,</span><span class="w"> </span><span class="n">Side</span><span class="o">::</span><span class="n">INNER</span><span class="p">,</span><span class="w"> </span><span class="n">mpi_shape</span><span class="p">))</span><span class="w"> </span><span class="p">{</span>
 <span class="w">      </span><span class="n">bc</span><span class="o">::</span><span class="n">symmetric</span><span class="p">(</span><span class="n">btag</span><span class="p">,</span><span class="w"> </span><span class="n">qq</span><span class="p">.</span><span class="n">ro</span><span class="p">,</span><span class="w"> </span><span class="n">grid</span><span class="p">,</span><span class="w"> </span><span class="n">Sign</span><span class="o">::</span><span class="n">Pos</span><span class="p">,</span><span class="w"> </span><span class="n">Direction</span><span class="o">::</span><span class="n">Y</span><span class="p">,</span><span class="w"> </span><span class="n">Side</span><span class="o">::</span><span class="n">INNER</span><span class="p">);</span>
-<span class="w">      </span><span class="c1">// ...（他の 8 変数も同様。Side::OUTER の側も同じ形）</span>
+<span class="w">      </span><span class="c1">// ...(same for the other 8 variables; the Side::OUTER side has the same form)</span>
 <span class="w">    </span><span class="p">}</span>
 <span class="w">  </span><span class="p">}</span>
 </pre></div>
@@ -946,7 +949,7 @@ x 方向は周期境界なので、どのランクでも <code class="docutils l
 <span class="w">  </span><span class="n">MPI_Comm_rank</span><span class="p">(</span><span class="n">MPI_COMM_WORLD</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">rank</span><span class="p">);</span>
 <span class="w">  </span><span class="n">MPI_Comm_size</span><span class="p">(</span><span class="n">MPI_COMM_WORLD</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">size</span><span class="p">);</span>
 
-<span class="w">  </span><span class="c1">// 各ランクが自分の領域で求めた時間刻みの候補（ここでは作り物の値）</span>
+<span class="w">  </span><span class="c1">// each rank's time step candidate from its own region (dummy values here)</span>
 <span class="w">  </span><span class="kt">double</span><span class="w"> </span><span class="n">dt_local</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.1</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="p">(</span><span class="n">rank</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">);</span>
 <span class="w">  </span><span class="kt">double</span><span class="w"> </span><span class="n">dt_global</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.0</span><span class="p">;</span>
 <span class="w">  </span><span class="n">MPI_Allreduce</span><span class="p">(</span><span class="o">&amp;</span><span class="n">dt_local</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">dt_global</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">MPI_DOUBLE</span><span class="p">,</span><span class="w"> </span><span class="n">MPI_MIN</span><span class="p">,</span><span class="w"> </span><span class="n">MPI_COMM_WORLD</span><span class="p">);</span>
@@ -1004,7 +1007,7 @@ rank 3: dt_local = 0.025, dt_global = 0.025, count = 4
 <span class="w">      </span><span class="n">MPI_Allreduce</span><span class="p">(</span><span class="o">&amp;</span><span class="n">dt_src</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">dt_src_g</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">mpi</span><span class="o">::</span><span class="n">data_type</span><span class="o">&lt;</span><span class="n">Real</span><span class="o">&gt;</span><span class="p">(),</span><span class="w"> </span><span class="n">MPI_MIN</span><span class="p">,</span>
 <span class="w">                    </span><span class="n">mpi</span><span class="o">::</span><span class="n">comm</span><span class="p">());</span>
 <span class="w">      </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">dt_src_g</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="n">Real</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="k">throw</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">runtime_error</span><span class="p">(</span><span class="cm">/* ...（エラーの説明）... */</span><span class="p">);</span>
+<span class="w">        </span><span class="k">throw</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">runtime_error</span><span class="p">(</span><span class="cm">/* ...(error description)... */</span><span class="p">);</span>
 <span class="w">      </span><span class="p">}</span>
 </pre></div>
 </div>
@@ -1030,7 +1033,7 @@ rank 3: dt_local = 0.025, dt_global = 0.025, count = 4
 <section id="miso-mpi">
 <span id="edu-ch08-run"></span><h2>10. MISO のデモを MPI で動かす<a class="headerlink" href="#miso-mpi" title="Link to this heading"></a></h2>
 <section id="app-run-sh-openmpi">
-<h3>app_run.sh と OpenMPI の環境変数<a class="headerlink" href="#app-run-sh-openmpi" title="Link to this heading"></a></h3>
+<h3><code class="docutils literal notranslate"><span class="pre">app_run.sh</span></code> と OpenMPI の環境変数<a class="headerlink" href="#app-run-sh-openmpi" title="Link to this heading"></a></h3>
 <p>デモのビルドと実行の基本は第 1 章で扱いました。
 <code class="docutils literal notranslate"><span class="pre">demo/mhd2d_vortex/app_run.sh</span></code> の実行部分を見ると、MPI での起動の仕方が分かります（抜粋）。</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Number of processes</span>
@@ -1092,7 +1095,7 @@ time =   0.02;  n_step =        9;  n_output =        2
 </section>
 <section id="id23">
 <h3>出力ファイルとランク<a class="headerlink" href="#id23" title="Link to this heading"></a></h3>
-<p><code class="docutils literal notranslate"><span class="pre">data/</span></code> の下の <code class="docutils literal notranslate"><span class="pre">mhd/mhd.&lt;出力番号&gt;.&lt;ランク&gt;.bin</span></code>（例：<code class="docutils literal notranslate"><span class="pre">mhd.00000001.00000000.bin</span></code>）は、ランクごとの MHD 変数です。各ランクは自分の配列（ゴーストセル込み）だけを書きます。
+<p><code class="docutils literal notranslate"><span class="pre">data/</span></code> の下の <code class="docutils literal notranslate"><span class="pre">mhd/mhd.&lt;n_output&gt;.&lt;rank&gt;.bin</span></code>（例：<code class="docutils literal notranslate"><span class="pre">mhd.00000001.00000000.bin</span></code>）は、ランクごとの MHD 変数です。各ランクは自分の配列（ゴーストセル込み）だけを書きます。
 <code class="docutils literal notranslate"><span class="pre">grid.bin</span></code> は全体の格子で、ランク 0 だけが書きます。
 <code class="docutils literal notranslate"><span class="pre">mpi/coords.csv</span></code> は、<a class="reference internal" href="#edu-ch08-shape"><span class="std std-ref">3 節</span></a> で見たランクと位置の対応で、<code class="docutils literal notranslate"><span class="pre">x_procs:</span> <span class="pre">2</span></code> なら <code class="docutils literal notranslate"><span class="pre">0,0,0,0</span></code> と <code class="docutils literal notranslate"><span class="pre">1,1,0,0</span></code> の 2 行が並びます。
 <code class="docutils literal notranslate"><span class="pre">pymiso.Data</span></code> は <code class="docutils literal notranslate"><span class="pre">coords.csv</span></code> と各ランクのファイルを読み、ゴーストを除いて全体の配列（<code class="docutils literal notranslate"><span class="pre">ro</span></code> など）を組み立てます。
@@ -1204,49 +1207,7 @@ CPU だけで進める場合は、第 10 章の熱伝導の実習で、この章
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script>
- 
-<script>
-    document.addEventListener("DOMContentLoaded", () => {
-        const currentUrl = window.location.href;
-        const isTranslated = currentUrl.includes(".translate.goog");
-        const translateLink = document.getElementById("translate-link");
-        const originalLink = document.getElementById("original-link");
-
-        // 翻訳URLを生成
-        const translateUrl =
-            "https://translate.google.com/translate?sl=ja&tl=en&u=" +
-            encodeURIComponent(currentUrl);
-
-        if (isTranslated) {
-            // --- 英語版(.translate.goog)にいる場合 ---
-            // English → ページを単にリロード
-            translateLink.removeAttribute("target");
-            translateLink.removeAttribute("href");
-            translateLink.addEventListener("click", (e) => {
-                e.preventDefault();
-                window.location.reload();
-            });
-
-            // 日本語 → 新タブで元URLを開く（翻訳解除）
-            const originalUrl = currentUrl.replace(
-                /^https:\/\/[^/]+\.translate\.goog/,
-                "https://is-isee.github.io"
-            );
-            originalLink.href = originalUrl;
-            originalLink.target = "_blank";
-            originalLink.rel = "noopener";
-        } else {
-            // --- 日本語版にいる場合 ---
-            translateLink.href = translateUrl;
-            translateLink.target = "_blank";
-
-            originalLink.href = currentUrl;
-            originalLink.target = "_self";
-        }
-    });
-</script>
-
+  </script> 
 
 </body>
 </html>

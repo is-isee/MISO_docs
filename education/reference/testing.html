@@ -1,12 +1,12 @@
 
 
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" data-content_root="../../">
+<html class="writer-html5" lang="ja" data-content_root="../../">
 <head>
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>テストと計算結果の比較 &mdash; MISO 0.0 documentation</title>
+  <title>テストと計算結果の比較 &mdash; MISO 0.0 ドキュメント</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css?v=4ae1632d" />
@@ -17,18 +17,19 @@
   
       <script src="../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../_static/documentation_options.js?v=837179f8"></script>
+      <script src="../../_static/documentation_options.js?v=1a6bc256"></script>
       <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
       <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
       <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
       <script src="../../_static/copybutton.js?v=f281be69"></script>
+      <script src="../../_static/translations.js?v=4755f45a"></script>
       <script src="../../_static/collapsible-lists/js/CollapsibleLists.compressed.js?v=73120307"></script>
       <script src="../../_static/collapsible-lists/js/apply-collapsible-lists.js?v=660e4f45"></script>
       <script>window.MathJax = {"tex": {"macros": {"bm": ["{\\boldsymbol{#1}}", 1]}}, "options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
       <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script src="../../_static/js/theme.js"></script>
-    <link rel="index" title="Index" href="../../genindex.html" />
-    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="index" title="索引" href="../../genindex.html" />
+    <link rel="search" title="検索" href="../../search.html" />
     <link rel="next" title="GPU で困ったとき" href="gpu_troubleshooting.html" />
     <link rel="prev" title="記号の早見表" href="cpp_reference.html" /> 
 </head>
@@ -101,8 +102,10 @@
       <div class="wy-nav-content">
 <div id="language-links" style="margin-bottom: 1em; font-size: 100%;">
     Language:
-    <a href="#" id="translate-link" target="_blank">English</a> |
-    <a href="#" id="original-link">日本語</a>
+    
+    <a href="../../en/education/reference/testing.html">English</a> |
+    <strong>日本語</strong>
+    
 </div>
 
 
@@ -346,10 +349,10 @@ doctest のヘッダは、MISO のテストをビルドしたフォルダの <co
 <span class="n">TEST_CASE</span><span class="p">(</span><span class="s">"Sum of 0.1f"</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">doctest</span><span class="o">::</span><span class="n">test_suite</span><span class="p">(</span><span class="s">"example"</span><span class="p">))</span><span class="w"> </span><span class="p">{</span>
 <span class="w">  </span><span class="kt">float</span><span class="w"> </span><span class="n">s</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.0f</span><span class="p">;</span>
 <span class="w">  </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">10</span><span class="p">;</span><span class="w"> </span><span class="o">++</span><span class="n">i</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="n">s</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="mf">0.1f</span><span class="p">;</span><span class="w">  </span><span class="c1">// 0.1 を 10 回足す</span>
+<span class="w">    </span><span class="n">s</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="mf">0.1f</span><span class="p">;</span><span class="w">  </span><span class="c1">// add 0.1 ten times</span>
 <span class="w">  </span><span class="p">}</span>
-<span class="w">  </span><span class="n">CHECK</span><span class="p">(</span><span class="n">s</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">doctest</span><span class="o">::</span><span class="n">Approx</span><span class="p">(</span><span class="mf">1.0</span><span class="p">));</span><span class="w">  </span><span class="c1">// 相対 1e-5 程度まで近ければ成功</span>
-<span class="w">  </span><span class="n">CHECK</span><span class="p">(</span><span class="n">s</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mf">1.0f</span><span class="p">);</span><span class="w">                  </span><span class="c1">// ビット単位で同じなら成功</span>
+<span class="w">  </span><span class="n">CHECK</span><span class="p">(</span><span class="n">s</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">doctest</span><span class="o">::</span><span class="n">Approx</span><span class="p">(</span><span class="mf">1.0</span><span class="p">));</span><span class="w">  </span><span class="c1">// passes if close to within about 1e-5 relative</span>
+<span class="w">  </span><span class="n">CHECK</span><span class="p">(</span><span class="n">s</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mf">1.0f</span><span class="p">);</span><span class="w">                  </span><span class="c1">// passes only if bitwise identical</span>
 <span class="p">}</span>
 </pre></div>
 </div>
@@ -437,7 +440,7 @@ mpiexec<span class="w"> </span>-np<span class="w"> </span><span class="m">2</spa
 </div>
 <p>何も表示されなければ、すべての出力がビット単位で同一です。</p>
 <p>ビット単位の比較は、出力の並びが同じときだけ使えます。
-MPI の分割数や分割方向を変えると、各ランクのファイル（<code class="docutils literal notranslate"><span class="pre">mhd.&lt;出力番号&gt;.&lt;ランク&gt;.bin</span></code>）が受け持つ範囲が変わるので、
+MPI の分割数や分割方向を変えると、各ランクのファイル（<code class="docutils literal notranslate"><span class="pre">mhd.&lt;n_output&gt;.&lt;rank&gt;.bin</span></code>）が受け持つ範囲が変わるので、
 中身の値が同じでもファイルは一致しません。その場合は、次のように全体の配列に組み立ててから比べます。</p>
 </section>
 <section id="pymiso">
@@ -454,7 +457,7 @@ MPI の分割数や分割方向を変えると、各ランクのファイル（<
 <span class="n">dir_a</span><span class="p">,</span> <span class="n">dir_b</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
 <span class="n">a</span> <span class="o">=</span> <span class="n">pymiso</span><span class="o">.</span><span class="n">Data</span><span class="p">(</span><span class="n">data_dir</span><span class="o">=</span><span class="n">dir_a</span><span class="p">)</span>
 <span class="n">b</span> <span class="o">=</span> <span class="n">pymiso</span><span class="o">.</span><span class="n">Data</span><span class="p">(</span><span class="n">data_dir</span><span class="o">=</span><span class="n">dir_b</span><span class="p">)</span>
-<span class="n">n</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">n_output</span><span class="p">,</span> <span class="n">b</span><span class="o">.</span><span class="n">n_output</span><span class="p">)</span>  <span class="c1"># 両方にある最後の出力</span>
+<span class="n">n</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">n_output</span><span class="p">,</span> <span class="n">b</span><span class="o">.</span><span class="n">n_output</span><span class="p">)</span>  <span class="c1"># last output present in both</span>
 <span class="n">a</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
 <span class="n">b</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"n_output = </span><span class="si">{</span><span class="n">n</span><span class="si">}</span><span class="s2">, time = </span><span class="si">{</span><span class="n">a</span><span class="o">.</span><span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="si">:</span><span class="s2">.6g</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="n">b</span><span class="o">.</span><span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="si">:</span><span class="s2">.6g</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
@@ -462,9 +465,9 @@ MPI の分割数や分割方向を変えると、各ランクのファイル（<
 <span class="k">for</span> <span class="n">var</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">"ro"</span><span class="p">,</span> <span class="s2">"vx"</span><span class="p">,</span> <span class="s2">"vy"</span><span class="p">,</span> <span class="s2">"vz"</span><span class="p">,</span> <span class="s2">"bx"</span><span class="p">,</span> <span class="s2">"by"</span><span class="p">,</span> <span class="s2">"bz"</span><span class="p">,</span> <span class="s2">"ei"</span><span class="p">]:</span>
     <span class="n">qa</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">var</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">)</span>
     <span class="n">qb</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">var</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">)</span>
-    <span class="n">scale</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">qa</span><span class="p">))</span>  <span class="c1"># 代表値（最大の大きさ）で割る</span>
+    <span class="n">scale</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">qa</span><span class="p">))</span>  <span class="c1"># divide by a representative value (the maximum magnitude)</span>
     <span class="k">if</span> <span class="n">scale</span> <span class="o">==</span> <span class="mf">0.0</span><span class="p">:</span>
-        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">var</span><span class="si">}</span><span class="s2">: 両方 0 の変数です"</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">var</span><span class="si">}</span><span class="s2">: variable is 0 in both"</span><span class="p">)</span>
         <span class="k">continue</span>
     <span class="n">err</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">qa</span> <span class="o">-</span> <span class="n">qb</span><span class="p">))</span> <span class="o">/</span> <span class="n">scale</span>
     <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">var</span><span class="si">}</span><span class="s2">: max|a-b|/max|a| = </span><span class="si">{</span><span class="n">err</span><span class="si">:</span><span class="s2">.3e</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
@@ -631,49 +634,7 @@ MPI の分割数や分割方向を変えると、各ランクのファイル（<
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script>
- 
-<script>
-    document.addEventListener("DOMContentLoaded", () => {
-        const currentUrl = window.location.href;
-        const isTranslated = currentUrl.includes(".translate.goog");
-        const translateLink = document.getElementById("translate-link");
-        const originalLink = document.getElementById("original-link");
-
-        // 翻訳URLを生成
-        const translateUrl =
-            "https://translate.google.com/translate?sl=ja&tl=en&u=" +
-            encodeURIComponent(currentUrl);
-
-        if (isTranslated) {
-            // --- 英語版(.translate.goog)にいる場合 ---
-            // English → ページを単にリロード
-            translateLink.removeAttribute("target");
-            translateLink.removeAttribute("href");
-            translateLink.addEventListener("click", (e) => {
-                e.preventDefault();
-                window.location.reload();
-            });
-
-            // 日本語 → 新タブで元URLを開く（翻訳解除）
-            const originalUrl = currentUrl.replace(
-                /^https:\/\/[^/]+\.translate\.goog/,
-                "https://is-isee.github.io"
-            );
-            originalLink.href = originalUrl;
-            originalLink.target = "_blank";
-            originalLink.rel = "noopener";
-        } else {
-            // --- 日本語版にいる場合 ---
-            translateLink.href = translateUrl;
-            translateLink.target = "_blank";
-
-            originalLink.href = currentUrl;
-            originalLink.target = "_self";
-        }
-    });
-</script>
-
+  </script> 
 
 </body>
 </html>

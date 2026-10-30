@@ -1,0 +1,26 @@
+.. _exhale_struct_structmiso_1_1mhd_1_1has__dt__limit:
+
+Template Struct has_dt_limit
+============================
+
+- Defined in :ref:`file__home_runner_work_MISO_docs_MISO_docs_MISO_miso_include_miso_mhd_model_base.hpp`
+
+
+Inheritance Relationships
+-------------------------
+
+Base Type
+*********
+
+- ``public std::false_type``
+
+
+Struct Documentation
+--------------------
+
+
+.. doxygenstruct:: miso::mhd::has_dt_limit
+   :project: CPP
+   :members:
+   :protected-members:
+   :undoc-members:

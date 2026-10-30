@@ -44,13 +44,13 @@ Fortran の配列は、宣言すればどのループからでも読み書きで
 GPU では、配列をどちらのメモリに置いたかを、プログラムを書く側が管理します。
 
 ```text
-   ホスト（CPU）                         デバイス（GPU）
+   host (CPU)                            device (GPU)
   +--------------------+               +--------------------+
-  | 主記憶             |  cudaMemcpy   | GPU のメモリ        |
+  | main memory        |  cudaMemcpy   | GPU memory         |
   |  a_host[0..n-1]  --+-------------->+-- a_dev[0..n-1]    |
   |                  <-+---------------+--                  |
-  +--------------------+   (PCIe など)  +--------------------+
-     ループの進行、入出力                  格子点ごとの計算
+  +--------------------+  (PCIe etc.)  +--------------------+
+     loop control, I/O                   per-grid-point computation
 ```
 
 ホストとデバイスの間の転送は、デバイス内のメモリの読み書きに比べてずっと遅い経路です。
@@ -98,14 +98,14 @@ CUDA のコードは、NVIDIA の CUDA Toolkit に含まれるコンパイラ `n
 要素数 1000 を、ブロックあたり 256 スレッドで覆うと次のようになります。
 
 ```text
-ブロック数 = (1000 + 256 - 1) / 256 = 4   （整数の割り算。切り上げになる）
+number of blocks = (1000 + 256 - 1) / 256 = 4   (integer division; rounds up)
 
 blockIdx.x :   0            1            2            3
 threadIdx.x:   0 ... 255    0 ... 255    0 ... 255    0 ... 255
-通し番号 i :   0 ... 255  256 ... 511  512 ... 767  768 ... 1023
+global i   :   0 ... 255  256 ... 511  512 ... 767  768 ... 1023
                                                     ~~~~~~~~~~~~
-                                                    i = 1000〜1023 は配列の外。
-                                                    何もせずに終わらせる
+                                                    i = 1000 to 1023 is outside the array.
+                                                    do nothing and exit
 ```
 
 スレッドはブロック単位で起動するので、全スレッド数は要素数ちょうどにはなりません。
@@ -124,43 +124,43 @@ threadIdx.x:   0 ... 255    0 ... 255    0 ... 255    0 ... 255
 #include <cstdio>
 #include <vector>
 
-// GPU で動く関数（カーネル）。1 つのスレッドが 1 要素を担当する
+// function that runs on the GPU (kernel); one thread handles one element
 __global__ void add_kernel(int n, const float *a, const float *b, float *c) {
-  int i = blockIdx.x * blockDim.x + threadIdx.x;  // 通し番号
-  if (i < n) {                                    // はみ出したスレッドは何もしない
+  int i = blockIdx.x * blockDim.x + threadIdx.x;  // global index
+  if (i < n) {                                    // threads past the end do nothing
     c[i] = a[i] + b[i];
   }
 }
 
 int main() {
   const int n = 1000;
-  std::vector<float> a(n), b(n), c(n);  // ホスト（CPU）側の配列
+  std::vector<float> a(n), b(n), c(n);  // arrays on the host (CPU)
   for (int i = 0; i < n; ++i) {
     a[i] = 1.0f * i;
     b[i] = 2.0f * i;
   }
 
-  // デバイス（GPU）側の配列を確保する
+  // allocate arrays on the device (GPU)
   float *a_d = nullptr, *b_d = nullptr, *c_d = nullptr;
   cudaMalloc(&a_d, sizeof(float) * n);
   cudaMalloc(&b_d, sizeof(float) * n);
   cudaMalloc(&c_d, sizeof(float) * n);
 
-  // ホスト → デバイス
+  // host → device
   cudaMemcpy(a_d, a.data(), sizeof(float) * n, cudaMemcpyHostToDevice);
   cudaMemcpy(b_d, b.data(), sizeof(float) * n, cudaMemcpyHostToDevice);
 
-  // 256 スレッドのブロックを、n 要素を覆うだけ並べて起動する
+  // launch enough blocks of 256 threads to cover n elements
   const int block = 256;
-  const int grid = (n + block - 1) / block;  // 切り上げ: 4
+  const int grid = (n + block - 1) / block;  // round up: 4
   add_kernel<<<grid, block>>>(n, a_d, b_d, c_d);
-  cudaError_t err = cudaGetLastError();  // 起動そのものの失敗を調べる
+  cudaError_t err = cudaGetLastError();  // check for a launch failure
   if (err != cudaSuccess) {
     std::printf("launch error: %s\n", cudaGetErrorString(err));
     return 1;
   }
 
-  // デバイス → ホスト（カーネルの終了を待ってから写す）
+  // device → host (copy after waiting for the kernel to finish)
   cudaMemcpy(c.data(), c_d, sizeof(float) * n, cudaMemcpyDeviceToHost);
 
   std::printf("grid = %d, block = %d\n", grid, block);
@@ -287,8 +287,8 @@ Fortran で配列の上限を超えて書いた場合と同じ種類の誤りで
 MISO では、`cudaMalloc` などを直接書く代わりに、配列クラスの 2 つ目のテンプレート引数でメモリの場所を選びます（第 6 章）。
 
 ```cpp
-Array3D<Real, backend::Host> a_host(nx, ny, nz);  // ホストのメモリ
-Array3D<Real, backend::CUDA> a_dev(nx, ny, nz);   // デバイスのメモリ
+Array3D<Real, backend::Host> a_host(nx, ny, nz);  // host memory
+Array3D<Real, backend::CUDA> a_dev(nx, ny, nz);   // device memory
 ```
 
 `miso/include/miso/array3d.hpp` の CUDA 版のコンストラクタとデストラクタです。
@@ -301,7 +301,7 @@ private:
 
 public:
   Array3D(int nx0, int nx1, int nx2) : shape_{nx0, nx1, nx2} {
-    // （大きさの検査を省略）
+    // (size check omitted)
     MISO_CUDA_CHECK(cudaMalloc(&data_, sizeof(T) * array_size));
   }
 
@@ -342,7 +342,7 @@ public:
 ```cpp
   /// @brief Return reference to the element at the given indices.
   __host__ __device__ T &operator()(int i0, int i1, int i2) const noexcept {
-    // （添字の範囲の assert を省略）
+    // (index range assert omitted)
     return data_[(i0 * shape_[1] + i1) * shape_[2] + i2];
   }
 ```
@@ -417,29 +417,29 @@ template <class F> inline void for_each(backend::CUDA, Range1D range, F f) {
 カーネルの引数は値渡しなので、この構造体がまるごとデバイスへ写ります。
 
 ```text
-ホスト側のコード                               デバイス（GPU）
+host-side code                                 device (GPU)
 --------------------------------------         -----------------------------------------
-auto fv = f.view();   // ポインタ + 大きさ
+auto fv = f.view();   // pointer + size
 const Real dx = ...;
 
 MISO_LAMBDA(int i) { fv[i] = ... dx ...; }
-   │  コンパイラが作る構造体:
-   │    struct ラムダ型 {
-   │      Array1DView<Real> fv;  // 写し
-   │      Real dx;               // 写し
+   │  struct generated by the compiler:
+   │    struct LambdaType {
+   │      Array1DView<Real> fv;  // copy
+   │      Real dx;               // copy
    │      __device__ void operator()(int i) const;
    │    };
    ▼
-for_each(backend::CUDA{}, Range1D{0, n}, ラムダ)
+for_each(backend::CUDA{}, Range1D{0, n}, lambda)
    │
    └─ for_each_kernel<<<grid, 256>>>(range, f)
-          │  引数 range と f（fv, dx の値）を
-          │  カーネル起動時にデバイスへ写す   ──────▶  全スレッドが同じ f の写しを読む
-                                                      スレッド idx=0   : f(range.begin + 0)
-                                                      スレッド idx=1   : f(range.begin + 1)
+          │  args range and f (values of fv, dx)
+          │  copied to device at launch   ─────────▶  all threads read the same copy of f
+                                                      thread idx=0   : f(range.begin + 0)
+                                                      thread idx=1   : f(range.begin + 1)
                                                         ...
-                                                      スレッド idx=n-1 : f(range.begin + n-1)
-                                                      idx >= n のスレッドは何もしない
+                                                      thread idx=n-1 : f(range.begin + n-1)
+                                                      threads with idx >= n do nothing
 ```
 
 デバイスへ写るのは、ラムダが取り込んだ値（View のポインタと大きさ、`dx` などの数値）だけです。
@@ -484,7 +484,7 @@ CPU だけでビルドするとき、`__host__` と `__device__` は g++ が知�
 `miso/include/miso/cuda_compat.hpp` が、そのときは空の語として定義します。
 
 ```cpp
-#else  // __CUDACC__（nvcc 以外でコンパイルするとき）
+#else  // __CUDACC__(when compiling with a compiler other than nvcc)
 
 #ifndef __device__
 #define __device__
@@ -502,7 +502,7 @@ CPU だけでビルドするとき、`__host__` と `__device__` は g++ が知�
 一方、`__global__` は定義していません。カーネルと `<<< >>>` の起動は CPU ビルドに意味がないので、
 CUDA 版の `for_each`・`reduce` や手書きのカーネルは `#ifdef __CUDACC__` の中に置いてあります。
 
-### 4.3 CPU と GPU で同じ main.cpp を動かす
+### 4.3 CPU と GPU で同じ `main.cpp` を動かす
 
 `for_each` と `reduce` を使い、$\int_0^1 x^2\,dx = 1/3$ を中点則で計算する例です。
 `Backend` を切り替えるだけで、同じコードが CPU でも GPU でも動きます。
@@ -523,27 +523,27 @@ using Backend = backend::Host;
 #endif
 
 int main(int argc, char **argv) {
-  Env env(argc, argv);  // MPI の初期化と、CUDA ビルドでは GPU の選択
+  Env env(argc, argv);  // initialize MPI; in a CUDA build, also select the GPU
 
   const int n = 1000;
   const Real dx = Real(1) / n;
 
-  Array1D<Real, Backend> f(n);  // Backend が CUDA なら GPU のメモリに確保
-  auto fv = f.view();           // ラムダへ渡す軽い View
+  Array1D<Real, Backend> f(n);  // allocated in GPU memory if Backend is CUDA
+  auto fv = f.view();           // lightweight View passed to the lambda
 
-  // 各要素 f[i] = x^2（x はセルの中心）を計算する
+  // compute f[i] = x^2 for each element (x is the cell center)
   for_each(Backend{}, Range1D{0, n}, MISO_LAMBDA(int i) {
     const Real x = (i + Real(0.5)) * dx;
     fv[i] = x * x;
   });
 
-  // f[i] * dx の総和（0 から 1 までの x^2 の積分、厳密値は 1/3）
+  // sum of f[i] * dx (integral of x^2 from 0 to 1; exact value is 1/3)
   const Real integral = reduce(
       Backend{}, Range1D{0, n}, Real(0),
       MISO_LAMBDA(int i) { return fv[i] * dx; },
       MISO_LAMBDA(Real a, Real b) { return a + b; });
 
-  // 確認のため、CPU 側の配列へ写して 1 要素を表示する
+  // for checking, copy to a CPU array and print one element
   Array1D<Real, backend::Host> f_host(n);
   f_host.copy_from(f);
 
@@ -565,11 +565,11 @@ int main(int argc, char **argv) {
 CPU ビルドと、GPU ビルドの出力です（GPU は RTX 4090 で確かめました）。
 
 ```text
-# CPU（backend::Host）
+# CPU (backend::Host)
 f[999]   = 0.9990003
 integral = 0.3333332
 
-# GPU（backend::CUDA）
+# GPU (backend::CUDA)
 f[999]   = 0.9990003
 integral = 0.3333333
 ```
@@ -624,7 +624,7 @@ CPU ビルドと GPU ビルドで同じファイルを使うためです。
 cmake -B build_cpu -S .
 cmake --build build_cpu -j
 
-# GPU（nvcc に PATH が通っていること。89 は RTX 40 シリーズの例）
+# GPU (nvcc must be on PATH; 89 is an example for the RTX 40 series)
 cmake -B build_gpu -S . -DUSE_CUDA=ON -DCMAKE_CUDA_ARCHITECTURES=89
 cmake --build build_gpu -j
 ```
@@ -667,12 +667,12 @@ GPU では、これが問題になります。`this` はホストのメモリに
 デバイスのスレッドが `this->factor` を読もうとすると、ホストの番地を読むことになります。
 
 ```text
-ホストのメモリ                     デバイス（GPU）
-+------------------+               ラムダの写し
+host memory                        device (GPU)
++------------------+               lambda copy
 | Scaler s         |                 this = 0x7fff....  ──┐
-|   factor = 3     | ◀── 0x7fff....                          │ デバイスからは
-+------------------+                                      │ 読めない番地
-                                   this->factor を読む ◀──┘ → illegal memory access
+|   factor = 3     | ◀── 0x7fff....                       │ not readable
++------------------+                                      │ from the device
+                                   reads this->factor  ◀──┘ → illegal memory access
 ```
 
 次の例は、同じことをする 2 つのメンバ関数を比べています（説明用のコードです）。
@@ -681,13 +681,13 @@ GPU では、これが問題になります。`this` はホストのメモリに
 struct Scaler {
   Real factor = 3;
 
-  // 誤り: ラムダの中でメンバ変数 factor を直接使う
+  // wrong: use the member variable factor directly inside the lambda
   void apply_wrong(Array1DView<Real> a) const {
     for_each(Backend{}, Range1D{0, a.size()},
              MISO_LAMBDA(int i) { a[i] = factor * i; });
   }
 
-  // 正しい: ラムダの前でローカル変数へコピーする
+  // correct: copy to a local variable before the lambda
   void apply_right(Array1DView<Real> a) const {
     const Real factor_ = factor;
     for_each(Backend{}, Range1D{0, a.size()},
@@ -699,11 +699,11 @@ struct Scaler {
 `main` で `apply_right` と `apply_wrong` を順に呼び、それぞれの後に `a_host.copy_from(a)` でホストへ写して `a[3]` を表示しました。
 
 ```text
-# CPU（backend::Host）
+# CPU (backend::Host)
 right: a[3] = 9
 wrong: a[3] = 9
 
-# GPU（backend::CUDA）
+# GPU (backend::CUDA)
 right: a[3] = 9
 CUDA Error: an illegal memory access was encountered .../miso/include/miso/array1d.hpp 109
 ```
@@ -722,7 +722,7 @@ GPU では `apply_wrong` のカーネルが不正なメモリアクセスで止�
 MISO の `dev/notes/usage_ai.md` には、この規則が例とともに書かれています。
 
 ```cpp
-const Real gm_ = gm;  // メンバ変数をローカルにコピー
+const Real gm_ = gm;  // copy the member variable to a local
 for_each(btag, range, MISO_LAMBDA(int i) { pr[i] = (gm_ - Real(1)) * qq.ro[i] * qq.ei[i]; });
 ```
 
@@ -802,16 +802,16 @@ GPU で同じことをするには工夫が要ります。
 1 ブロックのスレッド数を 8 として、8 個の値の合計を求める様子です。
 
 ```text
-共有メモリ s[]:   s0  s1  s2  s3  s4  s5  s6  s7     各スレッドが自分の値を書く
+shared mem s[]:   s0  s1  s2  s3  s4  s5  s6  s7     each thread writes its own value
                    │   │   │   │   │   │   │   │
-                   │   │   │   │   │   │   │   │      __syncthreads()（全員が書き終わるまで待つ）
-offset = 4:       s0+s4 s1+s5 s2+s6 s3+s7              スレッド 0〜3 が、4 つ先の値と合わせる
+                   │   │   │   │   │   │   │   │      __syncthreads() (wait until everyone has written)
+offset = 4:       s0+s4 s1+s5 s2+s6 s3+s7              threads 0-3 add the value 4 ahead
                    │     │     │     │                __syncthreads()
-offset = 2:     (s0+s4)+(s2+s6)  (s1+s5)+(s3+s7)       スレッド 0〜1
+offset = 2:     (s0+s4)+(s2+s6)  (s1+s5)+(s3+s7)       threads 0-1
                    │               │                  __syncthreads()
-offset = 1:     s0+s1+...+s7                          スレッド 0
+offset = 1:     s0+s1+...+s7                          thread 0
                    │
-                 ブロックの結果 → out[blockIdx.x]
+                 block result → out[blockIdx.x]
 ```
 
 8 個の値は 3 段（$\log_2 8$）で 1 つになります。
@@ -848,14 +848,14 @@ __device__ inline T block_reduce_shared(T *s, int tid, int n, Op op) {
 ブロックが 64 個あれば、64 個の値が残ります。MISO の `reduce` は、これを 1 つになるまでカーネルを繰り返して縮約します。
 
 ```text
-段階 1: reduce_stage_kernel        map(i) を計算し、ブロックごとに縮約
-        n 個の要素 ──▶ buf0[grid]   （grid = n / 256 の切り上げ）
+stage 1: reduce_stage_kernel       compute map(i) and reduce per block
+        n elements ──▶ buf0[grid]   (grid = n / 256, rounded up)
 
-段階 2 以降: reduce_stage_array_kernel
-        buf0[grid] ──▶ buf1[g]  ──▶ buf0[...] ── ... ──▶ 1 個
-        （buf0 と buf1 を入れ替えながら、1 個になるまで繰り返す）
+stage 2 onward: reduce_stage_array_kernel
+        buf0[grid] ──▶ buf1[g]  ──▶ buf0[...] ── ... ──▶ 1 value
+        (swap buf0 and buf1 and repeat until one value remains)
 
-最後: cudaMemcpyAsync で 1 個の値をホストへ写し、cudaStreamSynchronize で待つ
+last: copy the single value to the host with cudaMemcpyAsync and wait with cudaStreamSynchronize
 ```
 
 段階 1 の `reduce_stage_kernel`（`miso/include/miso/execution.hpp`）では、範囲の中のスレッドが `map` で自分の値を作り、
@@ -891,7 +891,7 @@ Host 版の `init` は「最初の値」として 1 回だけ加わるので、�
 
 ```text
 init = 0: CPU 10, GPU 10
-init = 5: CPU 15, GPU 1240   ← 範囲外の 246 スレッドぶんの 5 も足される
+init = 5: CPU 15, GPU 1240   ← the 5 for each of the 246 out-of-range threads is also added
 ```
 
 ### 6.5 縮約の順序と丸め誤差

@@ -157,7 +157,7 @@
 | 状態方程式 | equation of state (EOS) | 密度と内部エネルギーから、圧力や音速を求める関係 | {ref}`11 <edu-ch11>` |
 | 発散クリーニング | (hyperbolic) divergence cleaning | 補助変数 $\phi$ で $\nabla\cdot\boldsymbol{B}$ の誤差を波として運び出し、減衰させる方法 | {ref}`11 <edu-ch11>` |
 | CFL 条件 | CFL condition | 最も速い波が 1 ステップで格子間隔を越えないように $\Delta t$ を決める条件 | {ref}`11 <edu-ch11>` |
-| Alfvén 速度 | Alfvén speed | 磁場に沿って伝わる波の速さ $|\boldsymbol{B}|/\sqrt{4\pi\rho}$ | {ref}`11 <edu-ch11>` |
+| Alfvén 速度 | Alfvén speed | 磁場に沿って伝わる波の速さ $\lvert\boldsymbol{B}\rvert/\sqrt{4\pi\rho}$ | {ref}`11 <edu-ch11>` |
 | 人工粘性 | artificial viscosity | 急な変化の近くだけに拡散を加えて、数値的な振動を抑える処理 | {ref}`11 <edu-ch11>` |
 | 制限子 | limiter | 傾きの符号がそろうときだけ最小の傾きを採るなど、勾配の大きさを制限する関数（minmod など） | {ref}`11 <edu-ch11>` |
 | 流束 | flux | セルの境界を通って移る量 | {ref}`11 <edu-ch11>` |

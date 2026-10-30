@@ -1,12 +1,12 @@
 
 
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" data-content_root="../">
+<html class="writer-html5" lang="ja" data-content_root="../">
 <head>
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Grid &mdash; MISO 0.0 documentation</title>
+  <title>Grid &mdash; MISO 0.0 ドキュメント</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=4ae1632d" />
@@ -17,16 +17,17 @@
   
       <script src="../_static/jquery.js?v=5d32c60e"></script>
       <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../_static/documentation_options.js?v=837179f8"></script>
+      <script src="../_static/documentation_options.js?v=1a6bc256"></script>
       <script src="../_static/doctools.js?v=fd6eb6e6"></script>
       <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
       <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
       <script src="../_static/copybutton.js?v=f281be69"></script>
+      <script src="../_static/translations.js?v=4755f45a"></script>
       <script src="../_static/collapsible-lists/js/CollapsibleLists.compressed.js?v=73120307"></script>
       <script src="../_static/collapsible-lists/js/apply-collapsible-lists.js?v=660e4f45"></script>
     <script src="../_static/js/theme.js"></script>
-    <link rel="index" title="Index" href="../genindex.html" />
-    <link rel="search" title="Search" href="../search.html" />
+    <link rel="index" title="索引" href="../genindex.html" />
+    <link rel="search" title="検索" href="../search.html" />
     <link rel="next" title="MPI" href="pymiso.MPI.html" />
     <link rel="prev" title="Data" href="pymiso.Data.html" /> 
 </head>
@@ -82,8 +83,10 @@
       <div class="wy-nav-content">
 <div id="language-links" style="margin-bottom: 1em; font-size: 100%;">
     Language:
-    <a href="#" id="translate-link" target="_blank">English</a> |
-    <a href="#" id="original-link">日本語</a>
+    
+    <a href="../en/api/pymiso.Grid.html">English</a> |
+    <strong>日本語</strong>
+    
 </div>
 
 
@@ -106,8 +109,8 @@
 <h1>Grid<a class="headerlink" href="#grid" title="Link to this heading"></a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="pymiso.Grid">
-<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">pymiso.</span></span><span class="sig-name descname"><span class="pre">Grid</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">conf</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="pymiso.Conf.html#pymiso.Conf" title="pymiso.conf.Conf"><span class="pre">Conf</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pymiso/grid.html#Grid"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pymiso.Grid" title="Link to this definition"></a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">pymiso.</span></span><span class="sig-name descname"><span class="pre">Grid</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">conf</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="pymiso.Conf.html#pymiso.Conf" title="pymiso.conf.Conf"><span class="pre">Conf</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pymiso/grid.html#Grid"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#pymiso.Grid" title="Link to this definition"></a></dt>
+<dd><p>ベースクラス: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>Class for handling simulation grids from the <code class="docutils literal notranslate"><span class="pre">grid.bin</span></code> file</p>
 <p class="rubric">Methods Summary</p>
 <table class="autosummary longtable docutils align-default">
@@ -123,33 +126,33 @@
 <p class="rubric">Methods Documentation</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="pymiso.Grid.load">
-<span class="sig-name descname"><span class="pre">load</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">conf</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="pymiso.Conf.html#pymiso.Conf" title="pymiso.conf.Conf"><span class="pre">Conf</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pymiso/grid.html#Grid.load"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pymiso.Grid.load" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">load</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">conf</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="pymiso.Conf.html#pymiso.Conf" title="pymiso.conf.Conf"><span class="pre">Conf</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pymiso/grid.html#Grid.load"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#pymiso.Grid.load" title="Link to this definition"></a></dt>
 <dd><p>Load the <code class="docutils literal notranslate"><span class="pre">grid.bin</span></code> file and set the grid points as attributes</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>conf</strong> (<a class="reference internal" href="pymiso.Conf.html#pymiso.Conf" title="pymiso.Conf"><em>Conf</em></a>) – Instance of <a class="reference internal" href="pymiso.Conf.html#pymiso.Conf" title="pymiso.Conf"><code class="xref py py-class docutils literal notranslate"><span class="pre">Conf</span></code></a> class</p>
+<dt class="field-odd">パラメータ<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>conf</strong> (<a class="reference internal" href="pymiso.Conf.html#pymiso.Conf" title="pymiso.Conf"><em>Conf</em></a>) -- Instance of <a class="reference internal" href="pymiso.Conf.html#pymiso.Conf" title="pymiso.Conf"><code class="xref py py-class docutils literal notranslate"><span class="pre">Conf</span></code></a> class</p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pymiso.Grid.set_ijk_params">
-<span class="sig-name descname"><span class="pre">set_ijk_params</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">conf</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="pymiso.Conf.html#pymiso.Conf" title="pymiso.conf.Conf"><span class="pre">Conf</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pymiso/grid.html#Grid.set_ijk_params"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pymiso.Grid.set_ijk_params" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">set_ijk_params</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">conf</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="pymiso.Conf.html#pymiso.Conf" title="pymiso.conf.Conf"><span class="pre">Conf</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pymiso/grid.html#Grid.set_ijk_params"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#pymiso.Grid.set_ijk_params" title="Link to this definition"></a></dt>
 <dd><p>Set start, end, margin, size, etc. for each direction</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>conf</strong> (<a class="reference internal" href="pymiso.Conf.html#pymiso.Conf" title="pymiso.Conf"><em>Conf</em></a>) – Instance of <a class="reference internal" href="pymiso.Conf.html#pymiso.Conf" title="pymiso.Conf"><code class="xref py py-class docutils literal notranslate"><span class="pre">Conf</span></code></a> class</p>
+<dt class="field-odd">パラメータ<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>conf</strong> (<a class="reference internal" href="pymiso.Conf.html#pymiso.Conf" title="pymiso.Conf"><em>Conf</em></a>) -- Instance of <a class="reference internal" href="pymiso.Conf.html#pymiso.Conf" title="pymiso.Conf"><code class="xref py py-class docutils literal notranslate"><span class="pre">Conf</span></code></a> class</p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pymiso.Grid.__init__">
-<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">conf</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="pymiso.Conf.html#pymiso.Conf" title="pymiso.conf.Conf"><span class="pre">Conf</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pymiso/grid.html#Grid.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pymiso.Grid.__init__" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">conf</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="pymiso.Conf.html#pymiso.Conf" title="pymiso.conf.Conf"><span class="pre">Conf</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pymiso/grid.html#Grid.__init__"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#pymiso.Grid.__init__" title="Link to this definition"></a></dt>
 <dd><p>Initialize the <a class="reference internal" href="#pymiso.Grid" title="pymiso.Grid"><code class="xref py py-class docutils literal notranslate"><span class="pre">Grid</span></code></a> class instance</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>conf</strong> (<a class="reference internal" href="pymiso.Conf.html#pymiso.Conf" title="pymiso.Conf"><em>Conf</em></a>) – Instance of <a class="reference internal" href="pymiso.Conf.html#pymiso.Conf" title="pymiso.Conf"><code class="xref py py-class docutils literal notranslate"><span class="pre">Conf</span></code></a> class</p>
+<dt class="field-odd">パラメータ<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>conf</strong> (<a class="reference internal" href="pymiso.Conf.html#pymiso.Conf" title="pymiso.Conf"><em>Conf</em></a>) -- Instance of <a class="reference internal" href="pymiso.Conf.html#pymiso.Conf" title="pymiso.Conf"><code class="xref py py-class docutils literal notranslate"><span class="pre">Conf</span></code></a> class</p>
 </dd>
 </dl>
 </dd></dl>
@@ -187,49 +190,7 @@
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script>
- 
-<script>
-    document.addEventListener("DOMContentLoaded", () => {
-        const currentUrl = window.location.href;
-        const isTranslated = currentUrl.includes(".translate.goog");
-        const translateLink = document.getElementById("translate-link");
-        const originalLink = document.getElementById("original-link");
-
-        // 翻訳URLを生成
-        const translateUrl =
-            "https://translate.google.com/translate?sl=ja&tl=en&u=" +
-            encodeURIComponent(currentUrl);
-
-        if (isTranslated) {
-            // --- 英語版(.translate.goog)にいる場合 ---
-            // English → ページを単にリロード
-            translateLink.removeAttribute("target");
-            translateLink.removeAttribute("href");
-            translateLink.addEventListener("click", (e) => {
-                e.preventDefault();
-                window.location.reload();
-            });
-
-            // 日本語 → 新タブで元URLを開く（翻訳解除）
-            const originalUrl = currentUrl.replace(
-                /^https:\/\/[^/]+\.translate\.goog/,
-                "https://is-isee.github.io"
-            );
-            originalLink.href = originalUrl;
-            originalLink.target = "_blank";
-            originalLink.rel = "noopener";
-        } else {
-            // --- 日本語版にいる場合 ---
-            translateLink.href = translateUrl;
-            translateLink.target = "_blank";
-
-            originalLink.href = currentUrl;
-            originalLink.target = "_self";
-        }
-    });
-</script>
-
+  </script> 
 
 </body>
 </html>

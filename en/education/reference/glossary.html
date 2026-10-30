@@ -1,0 +1,930 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Glossary &mdash; MISO 0.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css?v=4ae1632d" />
+      <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../../_static/collapsible-lists/css/tree_view.css?v=a885cde7" />
+      <link rel="stylesheet" type="text/css" href="../../_static/custom.css" />
+
+  
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options.js?v=837179f8"></script>
+      <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../../_static/copybutton.js?v=f281be69"></script>
+      <script src="../../_static/collapsible-lists/js/CollapsibleLists.compressed.js?v=73120307"></script>
+      <script src="../../_static/collapsible-lists/js/apply-collapsible-lists.js?v=660e4f45"></script>
+      <script>window.MathJax = {"tex": {"macros": {"bm": ["{\\boldsymbol{#1}}", 1]}}, "options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+      <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Fortran Correspondence Table" href="fortran_map.html" />
+    <link rel="prev" title="Reference Materials" href="index.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            MISO
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../quickstart.html">Quick Start</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../demo/index.html">Test Problems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../customization/index.html">Customization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../miso/index.html">MISO C++ documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../pymiso/index.html">pymiso Documentation</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">MISO education</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../index.html#id1">Main text</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../index.html#id2">Reference material to consult when needed</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../01_environment_setup.html">1. Development Environment and CMake</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../02_cpp_basics.html">2. Variables, Functions, and Control Flow</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../03_references_and_pointers.html">3. References, Pointers, and Lifetime</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../04_classes_and_structs.html">4. Classes and Structs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../05_inheritance.html">5. Inheritance and CRTP</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../06_templates.html">6. Templates</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../07_arrays_and_parallel.html">7. Arrays, Lambdas, and Parallel Loops on the CPU</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../08_mpi.html">8. Domain Decomposition with MPI</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../09_gpu.html">9. Computing and Transferring Data on a GPU (CUDA)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../10_heat1d.html">10. Heat Conduction Calculation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../11_reading_miso.html">11. Reading MISO’s Time Evolution</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../practice/index.html">Practice List</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="index.html">Reference Materials</a><ul class="current">
+<li class="toctree-l4 current"><a class="current reference internal" href="#">Glossary</a></li>
+<li class="toctree-l4"><a class="reference internal" href="fortran_map.html">Fortran Correspondence Table</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cpp_reference.html">Symbol Quick Reference</a></li>
+<li class="toctree-l4"><a class="reference internal" href="testing.html">Testing and Comparing Results</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gpu_troubleshooting.html">GPU Troubleshooting</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../references.html">References</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">MISO</a>
+      </nav>
+
+      <div class="wy-nav-content">
+<div id="language-links" style="margin-bottom: 1em; font-size: 100%;">
+    Language:
+    
+    <strong>English</strong> |
+    <a href="../../../education/reference/glossary.html">日本語</a>
+    
+</div>
+
+
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">MISO education</a></li>
+          <li class="breadcrumb-item"><a href="index.html">Reference Materials</a></li>
+      <li class="breadcrumb-item active">Glossary</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../_sources/education/reference/glossary.md.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section class="tex2jax_ignore mathjax_ignore" id="edu-ref-glossary">
+<span id="id1"></span><h1>Glossary<a class="headerlink" href="#edu-ref-glossary" title="Link to this heading"></a></h1>
+<p>Terms are listed in the order of the chapter that first explains them. For details, read the chapter given under “First appears”. The original documentation and compiler error messages are in English, so the English terms are listed as well.</p>
+<section id="i">
+<h2>I. Setup<a class="headerlink" href="#i" title="Link to this heading"></a></h2>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Term</p></th>
+<th class="head"><p>English</p></th>
+<th class="head"><p>Description</p></th>
+<th class="head"><p>First appears</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>compile</p></td>
+<td><p>compile</p></td>
+<td><p>The stage that translates each source file into machine code and produces an object file</p></td>
+<td><p><a class="reference internal" href="../01_environment_setup.html#edu-ch01"><span class="std std-ref">1</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p>link</p></td>
+<td><p>link</p></td>
+<td><p>The stage that joins object files and libraries to produce an executable</p></td>
+<td><p><a class="reference internal" href="../01_environment_setup.html#edu-ch01"><span class="std std-ref">1</span></a></p></td>
+</tr>
+<tr class="row-even"><td><p>object file</p></td>
+<td><p>object file</p></td>
+<td><p>The file produced as the result of compilation (<code class="docutils literal notranslate"><span class="pre">.o</span></code>)</p></td>
+<td><p><a class="reference internal" href="../01_environment_setup.html#edu-ch01"><span class="std std-ref">1</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p>header (file)</p></td>
+<td><p>header (file)</p></td>
+<td><p>A file that holds declarations and definitions and is read in with <code class="docutils literal notranslate"><span class="pre">#include</span></code> (<code class="docutils literal notranslate"><span class="pre">.hpp</span></code>)</p></td>
+<td><p><a class="reference internal" href="../01_environment_setup.html#edu-ch01"><span class="std std-ref">1</span></a></p></td>
+</tr>
+<tr class="row-even"><td><p>header-only</p></td>
+<td><p>header-only</p></td>
+<td><p>A form in which all definitions are written in headers, so it can be used without building a library beforehand. MISO takes this form</p></td>
+<td><p><a class="reference internal" href="../01_environment_setup.html#edu-ch01"><span class="std std-ref">1</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p>target</p></td>
+<td><p>target</p></td>
+<td><p>The name of something CMake builds (an executable or a library)</p></td>
+<td><p><a class="reference internal" href="../01_environment_setup.html#edu-ch01"><span class="std std-ref">1</span></a></p></td>
+</tr>
+<tr class="row-even"><td><p>cache variable</p></td>
+<td><p>cache variable</p></td>
+<td><p>A setting passed with <code class="docutils literal notranslate"><span class="pre">cmake</span> <span class="pre">-D</span></code> and kept in <code class="docutils literal notranslate"><span class="pre">CMakeCache.txt</span></code></p></td>
+<td><p><a class="reference internal" href="../01_environment_setup.html#edu-ch01"><span class="std std-ref">1</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p>build type</p></td>
+<td><p>build type</p></td>
+<td><p>A combination of optimization and debug information, such as Release or Debug</p></td>
+<td><p><a class="reference internal" href="../01_environment_setup.html#edu-ch01"><span class="std std-ref">1</span></a></p></td>
+</tr>
+<tr class="row-even"><td><p>FetchContent</p></td>
+<td><p>FetchContent</p></td>
+<td><p>A CMake mechanism that fetches the source of dependency libraries at the configure stage</p></td>
+<td><p><a class="reference internal" href="../01_environment_setup.html#edu-ch01"><span class="std std-ref">1</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p>unit test</p></td>
+<td><p>unit test</p></td>
+<td><p>A program that checks the behavior of each component</p></td>
+<td><p><a class="reference internal" href="../01_environment_setup.html#edu-ch01"><span class="std std-ref">1</span></a></p></td>
+</tr>
+<tr class="row-even"><td><p>environment variable</p></td>
+<td><p>environment variable</p></td>
+<td><p>A “name=value” setting passed from the shell to commands</p></td>
+<td><p><a class="reference internal" href="../01_environment_setup.html#edu-ch01"><span class="std std-ref">1</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p>virtual environment (venv)</p></td>
+<td><p>virtual environment (venv)</p></td>
+<td><p>A Python execution environment independent of others</p></td>
+<td><p><a class="reference internal" href="../01_environment_setup.html#edu-ch01"><span class="std std-ref">1</span></a></p></td>
+</tr>
+<tr class="row-even"><td><p>doctest</p></td>
+<td><p>doctest</p></td>
+<td><p>The C++ testing library used for MISO unit tests</p></td>
+<td><p><a class="reference internal" href="testing.html#edu-ref-testing"><span class="std std-ref">Testing</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p>machine epsilon</p></td>
+<td><p>machine epsilon</p></td>
+<td><p>The difference between 1 and the next representable floating-point number</p></td>
+<td><p><a class="reference internal" href="testing.html#edu-ref-testing"><span class="std std-ref">Testing</span></a></p></td>
+</tr>
+<tr class="row-even"><td><p>rounding error</p></td>
+<td><p>rounding error</p></td>
+<td><p>The error caused by rounding to a finite number of digits</p></td>
+<td><p><a class="reference internal" href="testing.html#edu-ref-testing"><span class="std std-ref">Testing</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p>cancellation</p></td>
+<td><p>cancellation</p></td>
+<td><p>The loss of significant digits when subtracting nearly equal values</p></td>
+<td><p><a class="reference internal" href="testing.html#edu-ref-testing"><span class="std std-ref">Testing</span></a></p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="ii-c">
+<h2>II. C++ Basics<a class="headerlink" href="#ii-c" title="Link to this heading"></a></h2>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Term</p></th>
+<th class="head"><p>English</p></th>
+<th class="head"><p>Description</p></th>
+<th class="head"><p>First appears</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>declaration</p></td>
+<td><p>declaration</p></td>
+<td><p>Telling the compiler a name and its type</p></td>
+<td><p><a class="reference internal" href="../02_cpp_basics.html#edu-ch02"><span class="std std-ref">2</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p>initialization</p></td>
+<td><p>initialization</p></td>
+<td><p>Giving a variable its first value when it is created</p></td>
+<td><p><a class="reference internal" href="../02_cpp_basics.html#edu-ch02"><span class="std std-ref">2</span></a></p></td>
+</tr>
+<tr class="row-even"><td><p>implicit conversion</p></td>
+<td><p>implicit conversion</p></td>
+<td><p>A conversion the compiler performs automatically, for example in an expression that mixes values of different types</p></td>
+<td><p><a class="reference internal" href="../02_cpp_basics.html#edu-ch02"><span class="std std-ref">2</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p>static_cast</p></td>
+<td><p>static_cast</p></td>
+<td><p>A way of writing a type conversion at compile time</p></td>
+<td><p><a class="reference internal" href="../02_cpp_basics.html#edu-ch02"><span class="std std-ref">2</span></a></p></td>
+</tr>
+<tr class="row-even"><td><p>type alias</p></td>
+<td><p>type alias</p></td>
+<td><p>Another name given to an existing type, as in <code class="docutils literal notranslate"><span class="pre">using</span> <span class="pre">Real</span> <span class="pre">=</span> <span class="pre">float;</span></code></p></td>
+<td><p><a class="reference internal" href="../02_cpp_basics.html#edu-ch02"><span class="std std-ref">2</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p>enumeration</p></td>
+<td><p>enumeration (<code class="docutils literal notranslate"><span class="pre">enum</span> <span class="pre">class</span></code>)</p></td>
+<td><p>A type that represents one of a fixed set of choices (such as <code class="docutils literal notranslate"><span class="pre">Direction::X</span></code>)</p></td>
+<td><p><a class="reference internal" href="../02_cpp_basics.html#edu-ch02"><span class="std std-ref">2</span></a></p></td>
+</tr>
+<tr class="row-even"><td><p>block</p></td>
+<td><p>block</p></td>
+<td><p>A group of statements enclosed in <code class="docutils literal notranslate"><span class="pre">{</span> <span class="pre">}</span></code></p></td>
+<td><p><a class="reference internal" href="../02_cpp_basics.html#edu-ch02"><span class="std std-ref">2</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p>short-circuit evaluation</p></td>
+<td><p>short-circuit evaluation</p></td>
+<td><p>With <code class="docutils literal notranslate"><span class="pre">&amp;&amp;</span></code> and <code class="docutils literal notranslate"><span class="pre">||</span></code>, not evaluating the right side if the left side alone determines the result</p></td>
+<td><p><a class="reference internal" href="../02_cpp_basics.html#edu-ch02"><span class="std std-ref">2</span></a></p></td>
+</tr>
+<tr class="row-even"><td><p>conditional operator</p></td>
+<td><p>conditional operator</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">c</span> <span class="pre">?</span> <span class="pre">a</span> <span class="pre">:</span> <span class="pre">b</span></code>. It gives <code class="docutils literal notranslate"><span class="pre">a</span></code> if <code class="docutils literal notranslate"><span class="pre">c</span></code> is true and <code class="docutils literal notranslate"><span class="pre">b</span></code> if false</p></td>
+<td><p><a class="reference internal" href="../02_cpp_basics.html#edu-ch02"><span class="std std-ref">2</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p>return value</p></td>
+<td><p>return value</p></td>
+<td><p>The value a function returns with <code class="docutils literal notranslate"><span class="pre">return</span></code></p></td>
+<td><p><a class="reference internal" href="../02_cpp_basics.html#edu-ch02"><span class="std std-ref">2</span></a></p></td>
+</tr>
+<tr class="row-even"><td><p>pass by value</p></td>
+<td><p>pass by value</p></td>
+<td><p>Passing a copy of the value as a function argument</p></td>
+<td><p><a class="reference internal" href="../02_cpp_basics.html#edu-ch02"><span class="std std-ref">2</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p>default argument</p></td>
+<td><p>default argument</p></td>
+<td><p>The argument value used when it is omitted</p></td>
+<td><p><a class="reference internal" href="../02_cpp_basics.html#edu-ch02"><span class="std std-ref">2</span></a></p></td>
+</tr>
+<tr class="row-even"><td><p>overload</p></td>
+<td><p>overload</p></td>
+<td><p>Defining several functions with the same name but different argument types or numbers</p></td>
+<td><p><a class="reference internal" href="../02_cpp_basics.html#edu-ch02"><span class="std std-ref">2</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p>inline</p></td>
+<td><p>inline</p></td>
+<td><p>A specifier that allows the same definition to appear in several source files. Needed for functions in headers</p></td>
+<td><p><a class="reference internal" href="../02_cpp_basics.html#edu-ch02"><span class="std std-ref">2</span></a></p></td>
+</tr>
+<tr class="row-even"><td><p>namespace</p></td>
+<td><p>namespace</p></td>
+<td><p>A mechanism that divides names into groups (<code class="docutils literal notranslate"><span class="pre">miso::</span></code>, <code class="docutils literal notranslate"><span class="pre">std::</span></code>)</p></td>
+<td><p><a class="reference internal" href="../02_cpp_basics.html#edu-ch02"><span class="std std-ref">2</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p>standard library</p></td>
+<td><p>standard library</p></td>
+<td><p>The set of components that come with C++ (such as <code class="docutils literal notranslate"><span class="pre">std::vector</span></code> and <code class="docutils literal notranslate"><span class="pre">std::string</span></code>)</p></td>
+<td><p><a class="reference internal" href="../02_cpp_basics.html#edu-ch02"><span class="std std-ref">2</span></a></p></td>
+</tr>
+<tr class="row-even"><td><p>exception</p></td>
+<td><p>exception</p></td>
+<td><p>An error notification that is thrown with <code class="docutils literal notranslate"><span class="pre">throw</span></code> and received with <code class="docutils literal notranslate"><span class="pre">catch</span></code></p></td>
+<td><p><a class="reference internal" href="../02_cpp_basics.html#edu-ch02"><span class="std std-ref">2</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p>preprocessor / macro</p></td>
+<td><p>preprocessor / macro</p></td>
+<td><p>Text replacement done before compilation (<code class="docutils literal notranslate"><span class="pre">#define</span></code>, <code class="docutils literal notranslate"><span class="pre">#ifdef</span></code>)</p></td>
+<td><p><a class="reference internal" href="../02_cpp_basics.html#edu-ch02"><span class="std std-ref">2</span></a></p></td>
+</tr>
+<tr class="row-even"><td><p>reference</p></td>
+<td><p>reference</p></td>
+<td><p>Another name for an existing variable (<code class="docutils literal notranslate"><span class="pre">T&amp;</span></code>)</p></td>
+<td><p><a class="reference internal" href="../03_references_and_pointers.html#edu-ch03"><span class="std std-ref">3</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p>pass by reference</p></td>
+<td><p>pass by reference</p></td>
+<td><p>Receiving a function argument by reference</p></td>
+<td><p><a class="reference internal" href="../03_references_and_pointers.html#edu-ch03"><span class="std std-ref">3</span></a></p></td>
+</tr>
+<tr class="row-even"><td><p>output parameter</p></td>
+<td><p>output parameter</p></td>
+<td><p>An argument a function receives as the place to write its result</p></td>
+<td><p><a class="reference internal" href="../03_references_and_pointers.html#edu-ch03"><span class="std std-ref">3</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p>address</p></td>
+<td><p>address</p></td>
+<td><p>A number that represents a location in memory</p></td>
+<td><p><a class="reference internal" href="../03_references_and_pointers.html#edu-ch03"><span class="std std-ref">3</span></a></p></td>
+</tr>
+<tr class="row-even"><td><p>pointer</p></td>
+<td><p>pointer</p></td>
+<td><p>A variable whose value is an address (<code class="docutils literal notranslate"><span class="pre">T*</span></code>)</p></td>
+<td><p><a class="reference internal" href="../03_references_and_pointers.html#edu-ch03"><span class="std std-ref">3</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p>dereference</p></td>
+<td><p>dereference</p></td>
+<td><p>Using what a pointer points to, as in <code class="docutils literal notranslate"><span class="pre">*p</span></code></p></td>
+<td><p><a class="reference internal" href="../03_references_and_pointers.html#edu-ch03"><span class="std std-ref">3</span></a></p></td>
+</tr>
+<tr class="row-even"><td><p>null pointer</p></td>
+<td><p>null pointer (<code class="docutils literal notranslate"><span class="pre">nullptr</span></code>)</p></td>
+<td><p>A pointer that points to nothing</p></td>
+<td><p><a class="reference internal" href="../03_references_and_pointers.html#edu-ch03"><span class="std std-ref">3</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p>pointer arithmetic</p></td>
+<td><p>pointer arithmetic</p></td>
+<td><p>Pointing to the element <code class="docutils literal notranslate"><span class="pre">i</span></code> positions ahead with <code class="docutils literal notranslate"><span class="pre">p</span> <span class="pre">+</span> <span class="pre">i</span></code></p></td>
+<td><p><a class="reference internal" href="../03_references_and_pointers.html#edu-ch03"><span class="std std-ref">3</span></a></p></td>
+</tr>
+<tr class="row-even"><td><p>undefined behavior</p></td>
+<td><p>undefined behavior</p></td>
+<td><p>An operation whose result the language does not guarantee. Anything may happen</p></td>
+<td><p><a class="reference internal" href="../03_references_and_pointers.html#edu-ch03"><span class="std std-ref">3</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p>scope</p></td>
+<td><p>scope</p></td>
+<td><p>The range in which a name can be used</p></td>
+<td><p><a class="reference internal" href="../03_references_and_pointers.html#edu-ch03"><span class="std std-ref">3</span></a></p></td>
+</tr>
+<tr class="row-even"><td><p>lifetime</p></td>
+<td><p>lifetime</p></td>
+<td><p>The period during which a variable or object actually exists</p></td>
+<td><p><a class="reference internal" href="../03_references_and_pointers.html#edu-ch03"><span class="std std-ref">3</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p>dangling reference / pointer</p></td>
+<td><p>dangling reference / pointer</p></td>
+<td><p>A reference or pointer that still points to something whose lifetime has ended</p></td>
+<td><p><a class="reference internal" href="../03_references_and_pointers.html#edu-ch03"><span class="std std-ref">3</span></a></p></td>
+</tr>
+<tr class="row-even"><td><p>memory leak</p></td>
+<td><p>memory leak</p></td>
+<td><p>Forgetting to free allocated memory</p></td>
+<td><p><a class="reference internal" href="../03_references_and_pointers.html#edu-ch03"><span class="std std-ref">3</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p>smart pointer</p></td>
+<td><p>smart pointer</p></td>
+<td><p>A pointer that frees automatically when its lifetime ends (<code class="docutils literal notranslate"><span class="pre">std::unique_ptr</span></code>, <code class="docutils literal notranslate"><span class="pre">std::shared_ptr</span></code>)</p></td>
+<td><p><a class="reference internal" href="../03_references_and_pointers.html#edu-ch03"><span class="std std-ref">3</span></a></p></td>
+</tr>
+<tr class="row-even"><td><p>class / struct</p></td>
+<td><p>class / struct</p></td>
+<td><p>A type that bundles data and functions. For <code class="docutils literal notranslate"><span class="pre">struct</span></code>, the default access is public</p></td>
+<td><p><a class="reference internal" href="../04_classes_and_structs.html#edu-ch04"><span class="std std-ref">4</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p>member variable / member function</p></td>
+<td><p>member variable / member function</p></td>
+<td><p>Variables and functions declared inside a class</p></td>
+<td><p><a class="reference internal" href="../04_classes_and_structs.html#edu-ch04"><span class="std std-ref">4</span></a></p></td>
+</tr>
+<tr class="row-even"><td><p>object / instance</p></td>
+<td><p>object / instance</p></td>
+<td><p>An entity created according to a type that stores values</p></td>
+<td><p><a class="reference internal" href="../04_classes_and_structs.html#edu-ch04"><span class="std std-ref">4</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p>encapsulation</p></td>
+<td><p>encapsulation</p></td>
+<td><p>Deciding which operations are public and not letting the data inside be touched directly</p></td>
+<td><p><a class="reference internal" href="../04_classes_and_structs.html#edu-ch04"><span class="std std-ref">4</span></a></p></td>
+</tr>
+<tr class="row-even"><td><p>constructor</p></td>
+<td><p>constructor</p></td>
+<td><p>A function called automatically when an object is created</p></td>
+<td><p><a class="reference internal" href="../04_classes_and_structs.html#edu-ch04"><span class="std std-ref">4</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p>member initializer list</p></td>
+<td><p>member initializer list</p></td>
+<td><p>The list of member initializations written after the <code class="docutils literal notranslate"><span class="pre">:</span></code> of a constructor. Initialization follows the order in which the members are declared</p></td>
+<td><p><a class="reference internal" href="../04_classes_and_structs.html#edu-ch04"><span class="std std-ref">4</span></a></p></td>
+</tr>
+<tr class="row-even"><td><p>explicit</p></td>
+<td><p>explicit</p></td>
+<td><p>A specifier that forbids implicit type conversion by a constructor</p></td>
+<td><p><a class="reference internal" href="../04_classes_and_structs.html#edu-ch04"><span class="std std-ref">4</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p>const member function</p></td>
+<td><p>const member function</p></td>
+<td><p>A function that promises not to modify members (the trailing <code class="docutils literal notranslate"><span class="pre">const</span></code>)</p></td>
+<td><p><a class="reference internal" href="../04_classes_and_structs.html#edu-ch04"><span class="std std-ref">4</span></a></p></td>
+</tr>
+<tr class="row-even"><td><p>this</p></td>
+<td><p>this</p></td>
+<td><p>A pointer to the object on which the member function was called</p></td>
+<td><p><a class="reference internal" href="../04_classes_and_structs.html#edu-ch04"><span class="std std-ref">4</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p>destructor</p></td>
+<td><p>destructor</p></td>
+<td><p>A cleanup function called automatically when the lifetime ends</p></td>
+<td><p><a class="reference internal" href="../04_classes_and_structs.html#edu-ch04"><span class="std std-ref">4</span></a></p></td>
+</tr>
+<tr class="row-even"><td><p>RAII</p></td>
+<td><p>Resource Acquisition Is Initialization</p></td>
+<td><p>A technique that ties the acquisition and release of resources to the lifetime of an object</p></td>
+<td><p><a class="reference internal" href="../04_classes_and_structs.html#edu-ch04"><span class="std std-ref">4</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p>copy constructor</p></td>
+<td><p>copy constructor</p></td>
+<td><p>A constructor that creates an object from another object of the same type</p></td>
+<td><p><a class="reference internal" href="../04_classes_and_structs.html#edu-ch04"><span class="std std-ref">4</span></a></p></td>
+</tr>
+<tr class="row-even"><td><p>move</p></td>
+<td><p>move</p></td>
+<td><p>Transferring ownership of the contents (<code class="docutils literal notranslate"><span class="pre">std::move</span></code>)</p></td>
+<td><p><a class="reference internal" href="../04_classes_and_structs.html#edu-ch04"><span class="std std-ref">4</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">=</span> <span class="pre">delete</span></code> / <code class="docutils literal notranslate"><span class="pre">=</span> <span class="pre">default</span></code></p></td>
+<td><p>deleted / defaulted function</p></td>
+<td><p>A specifier that forbids the use of a function / a specifier that uses the compiler’s default definition</p></td>
+<td><p><a class="reference internal" href="../04_classes_and_structs.html#edu-ch04"><span class="std std-ref">4</span></a></p></td>
+</tr>
+<tr class="row-even"><td><p>operator overloading</p></td>
+<td><p>operator overloading</p></td>
+<td><p>Defining a class-specific meaning for operators such as <code class="docutils literal notranslate"><span class="pre">()</span></code> and <code class="docutils literal notranslate"><span class="pre">[]</span></code></p></td>
+<td><p><a class="reference internal" href="../04_classes_and_structs.html#edu-ch04"><span class="std std-ref">4</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p>ownership</p></td>
+<td><p>ownership</p></td>
+<td><p>Being responsible for cleaning up a resource</p></td>
+<td><p><a class="reference internal" href="../04_classes_and_structs.html#edu-ch04"><span class="std std-ref">4</span></a></p></td>
+</tr>
+<tr class="row-even"><td><p>View</p></td>
+<td><p>view</p></td>
+<td><p>A lightweight object that neither allocates nor frees memory and only holds the starting address and the size (such as <code class="docutils literal notranslate"><span class="pre">Array3DView</span></code>)</p></td>
+<td><p><a class="reference internal" href="../04_classes_and_structs.html#edu-ch04"><span class="std std-ref">4</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p>friend</p></td>
+<td><p>friend</p></td>
+<td><p>A declaration that allows a specified class or function to use private members</p></td>
+<td><p><a class="reference internal" href="../04_classes_and_structs.html#edu-ch04"><span class="std std-ref">4</span></a></p></td>
+</tr>
+<tr class="row-even"><td><p>inheritance / base class / derived class</p></td>
+<td><p>inheritance / base class / derived class</p></td>
+<td><p>Creating a new class (derived) that inherits the members of an existing class (base)</p></td>
+<td><p><a class="reference internal" href="../05_inheritance.html#edu-ch05"><span class="std std-ref">5</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p>protected</p></td>
+<td><p>protected</p></td>
+<td><p>An access level that cannot be used from outside but can be used from derived classes</p></td>
+<td><p><a class="reference internal" href="../05_inheritance.html#edu-ch05"><span class="std std-ref">5</span></a></p></td>
+</tr>
+<tr class="row-even"><td><p>name hiding</p></td>
+<td><p>name hiding</p></td>
+<td><p>A function in a derived class hiding a base-class function of the same name</p></td>
+<td><p><a class="reference internal" href="../05_inheritance.html#edu-ch05"><span class="std std-ref">5</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p>virtual function / override</p></td>
+<td><p>virtual function / override</p></td>
+<td><p>A function chosen at run time according to the actual type of the object, and its redefinition. MISO does not use them</p></td>
+<td><p><a class="reference internal" href="../05_inheritance.html#edu-ch05"><span class="std std-ref">5</span></a></p></td>
+</tr>
+<tr class="row-even"><td><p>CRTP</p></td>
+<td><p>Curiously Recurring Template Pattern</p></td>
+<td><p>A pattern that passes the derived class itself as a template argument of the base class. MISO’s <code class="docutils literal notranslate"><span class="pre">ModelBase</span></code> uses it</p></td>
+<td><p><a class="reference internal" href="../05_inheritance.html#edu-ch05"><span class="std std-ref">5</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p>template</p></td>
+<td><p>template</p></td>
+<td><p>A mechanism that creates functions, classes, and variables by specifying types or values later</p></td>
+<td><p><a class="reference internal" href="../06_templates.html#edu-ch06"><span class="std std-ref">6</span></a></p></td>
+</tr>
+<tr class="row-even"><td><p>template argument</p></td>
+<td><p>template argument</p></td>
+<td><p>The types or values given inside <code class="docutils literal notranslate"><span class="pre">&lt;&gt;</span></code> (<code class="docutils literal notranslate"><span class="pre">Array3D&lt;float,</span> <span class="pre">backend::Host&gt;</span></code>)</p></td>
+<td><p><a class="reference internal" href="../06_templates.html#edu-ch06"><span class="std std-ref">6</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p>template argument deduction</p></td>
+<td><p>template argument deduction</p></td>
+<td><p>Determining template arguments from the types of function arguments</p></td>
+<td><p><a class="reference internal" href="../06_templates.html#edu-ch06"><span class="std std-ref">6</span></a></p></td>
+</tr>
+<tr class="row-even"><td><p>instantiation</p></td>
+<td><p>instantiation</p></td>
+<td><p>Applying types to create a concrete function or class at compile time</p></td>
+<td><p><a class="reference internal" href="../06_templates.html#edu-ch06"><span class="std std-ref">6</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p>variable template</p></td>
+<td><p>variable template</p></td>
+<td><p>A constant that has a value for each type (<code class="docutils literal notranslate"><span class="pre">pii4&lt;Real&gt;</span></code>)</p></td>
+<td><p><a class="reference internal" href="../06_templates.html#edu-ch06"><span class="std std-ref">6</span></a></p></td>
+</tr>
+<tr class="row-even"><td><p>member function template</p></td>
+<td><p>member function template</p></td>
+<td><p>A member function made into a template</p></td>
+<td><p><a class="reference internal" href="../06_templates.html#edu-ch06"><span class="std std-ref">6</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p>tag type</p></td>
+<td><p>tag type</p></td>
+<td><p>An empty struct whose type alone serves as a marker for selection (<code class="docutils literal notranslate"><span class="pre">backend::Host</span></code>)</p></td>
+<td><p><a class="reference internal" href="../06_templates.html#edu-ch06"><span class="std std-ref">6</span></a></p></td>
+</tr>
+<tr class="row-even"><td><p>tag dispatch</p></td>
+<td><p>tag dispatch</p></td>
+<td><p>A way of choosing which function (overload) to call by a tag-type argument</p></td>
+<td><p><a class="reference internal" href="../06_templates.html#edu-ch06"><span class="std std-ref">6</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p>specialization</p></td>
+<td><p>specialization</p></td>
+<td><p>A separate definition used only for specific template arguments</p></td>
+<td><p><a class="reference internal" href="../06_templates.html#edu-ch06"><span class="std std-ref">6</span></a></p></td>
+</tr>
+<tr class="row-even"><td><p>explicit (full) specialization</p></td>
+<td><p>explicit (full) specialization</p></td>
+<td><p>A specialization that fixes all the arguments (<code class="docutils literal notranslate"><span class="pre">template</span> <span class="pre">&lt;&gt;</span></code>)</p></td>
+<td><p><a class="reference internal" href="../06_templates.html#edu-ch06"><span class="std std-ref">6</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p>partial specialization</p></td>
+<td><p>partial specialization</p></td>
+<td><p>A specialization that fixes only some of the arguments</p></td>
+<td><p><a class="reference internal" href="../06_templates.html#edu-ch06"><span class="std std-ref">6</span></a></p></td>
+</tr>
+<tr class="row-even"><td><p>primary template</p></td>
+<td><p>primary template</p></td>
+<td><p>The first declaration, on which specializations are based</p></td>
+<td><p><a class="reference internal" href="../06_templates.html#edu-ch06"><span class="std std-ref">6</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p>type trait</p></td>
+<td><p>type trait</p></td>
+<td><p>A class template that returns a property of a type through <code class="docutils literal notranslate"><span class="pre">::value</span></code> (<code class="docutils literal notranslate"><span class="pre">std::is_same</span></code>)</p></td>
+<td><p><a class="reference internal" href="../06_templates.html#edu-ch06"><span class="std std-ref">6</span></a></p></td>
+</tr>
+<tr class="row-even"><td><p>SFINAE</p></td>
+<td><p>Substitution Failure Is Not An Error</p></td>
+<td><p>A rule that removes a candidate whose template-argument substitution fails from the candidates instead of reporting an error</p></td>
+<td><p><a class="reference internal" href="../06_templates.html#edu-ch06"><span class="std std-ref">6</span></a></p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="iii-miso">
+<h2>III. Parallel Computing in MISO<a class="headerlink" href="#iii-miso" title="Link to this heading"></a></h2>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Term</p></th>
+<th class="head"><p>English</p></th>
+<th class="head"><p>Description</p></th>
+<th class="head"><p>First appears</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>row-major / column-major</p></td>
+<td><p>row-major / column-major</p></td>
+<td><p>A layout in which the last index (C++, MISO) or the first index (Fortran) is contiguous in memory</p></td>
+<td><p><a class="reference internal" href="../07_arrays_and_parallel.html#edu-ch07"><span class="std std-ref">7</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p>lambda expression</p></td>
+<td><p>lambda expression</p></td>
+<td><p>A nameless function written in place, at the position of an expression</p></td>
+<td><p><a class="reference internal" href="../07_arrays_and_parallel.html#edu-ch07"><span class="std std-ref">7</span></a></p></td>
+</tr>
+<tr class="row-even"><td><p>capture</p></td>
+<td><p>capture</p></td>
+<td><p>A lambda expression taking in outer variables by value (<code class="docutils literal notranslate"><span class="pre">[=]</span></code>) or by reference (<code class="docutils literal notranslate"><span class="pre">[&amp;]</span></code>)</p></td>
+<td><p><a class="reference internal" href="../07_arrays_and_parallel.html#edu-ch07"><span class="std std-ref">7</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p>half-open interval</p></td>
+<td><p>half-open interval</p></td>
+<td><p>A range <code class="docutils literal notranslate"><span class="pre">[begin,</span> <span class="pre">end)</span></code> that includes the start and excludes the end</p></td>
+<td><p><a class="reference internal" href="../07_arrays_and_parallel.html#edu-ch07"><span class="std std-ref">7</span></a></p></td>
+</tr>
+<tr class="row-even"><td><p>reduction</p></td>
+<td><p>reduction</p></td>
+<td><p>An operation that computes a single value, such as the sum or the maximum, from all elements (<code class="docutils literal notranslate"><span class="pre">reduce</span></code>)</p></td>
+<td><p><a class="reference internal" href="../07_arrays_and_parallel.html#edu-ch07"><span class="std std-ref">7</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p>identity element</p></td>
+<td><p>identity element</p></td>
+<td><p>A value that leaves the other operand unchanged when combined with <code class="docutils literal notranslate"><span class="pre">op</span></code> (0 for a sum). Used as the initial value of <code class="docutils literal notranslate"><span class="pre">reduce</span></code></p></td>
+<td><p><a class="reference internal" href="../07_arrays_and_parallel.html#edu-ch07"><span class="std std-ref">7</span></a></p></td>
+</tr>
+<tr class="row-even"><td><p>FMA</p></td>
+<td><p>fused multiply-add</p></td>
+<td><p>An instruction that performs a multiplication and an addition with a single rounding. It can cause slightly different results on the CPU and the GPU</p></td>
+<td><p><a class="reference internal" href="../07_arrays_and_parallel.html#edu-ch07"><span class="std std-ref">7</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p>process</p></td>
+<td><p>process</p></td>
+<td><p>A unit of program execution that runs with its own memory</p></td>
+<td><p><a class="reference internal" href="../08_mpi.html#edu-ch08"><span class="std std-ref">8</span></a></p></td>
+</tr>
+<tr class="row-even"><td><p>rank</p></td>
+<td><p>rank</p></td>
+<td><p>The 0-based number given to a process within a communicator</p></td>
+<td><p><a class="reference internal" href="../08_mpi.html#edu-ch08"><span class="std std-ref">8</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p>communicator</p></td>
+<td><p>communicator</p></td>
+<td><p>The group of processes that take part in communication (such as <code class="docutils literal notranslate"><span class="pre">MPI_COMM_WORLD</span></code>)</p></td>
+<td><p><a class="reference internal" href="../08_mpi.html#edu-ch08"><span class="std std-ref">8</span></a></p></td>
+</tr>
+<tr class="row-even"><td><p>SPMD</p></td>
+<td><p>Single Program, Multiple Data</p></td>
+<td><p>A form in which each process runs the same program on different data</p></td>
+<td><p><a class="reference internal" href="../08_mpi.html#edu-ch08"><span class="std std-ref">8</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p>domain decomposition</p></td>
+<td><p>domain decomposition</p></td>
+<td><p>Dividing the computational domain and assigning the parts to the processes</p></td>
+<td><p><a class="reference internal" href="../08_mpi.html#edu-ch08"><span class="std std-ref">8</span></a></p></td>
+</tr>
+<tr class="row-even"><td><p>ghost cell</p></td>
+<td><p>ghost cell</p></td>
+<td><p>Cells added at both ends of an array to hold the neighbor’s values or boundary-condition values</p></td>
+<td><p><a class="reference internal" href="../08_mpi.html#edu-ch08"><span class="std std-ref">8</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p>halo exchange</p></td>
+<td><p>halo exchange</p></td>
+<td><p>Communication that fills ghost cells with values from the neighboring rank</p></td>
+<td><p><a class="reference internal" href="../08_mpi.html#edu-ch08"><span class="std std-ref">8</span></a></p></td>
+</tr>
+<tr class="row-even"><td><p>tag</p></td>
+<td><p>tag</p></td>
+<td><p>In MPI, an integer that matches a send with a receive</p></td>
+<td><p><a class="reference internal" href="../08_mpi.html#edu-ch08"><span class="std std-ref">8</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p>deadlock</p></td>
+<td><p>deadlock</p></td>
+<td><p>A state in which processes wait for each other and cannot proceed</p></td>
+<td><p><a class="reference internal" href="../08_mpi.html#edu-ch08"><span class="std std-ref">8</span></a></p></td>
+</tr>
+<tr class="row-even"><td><p>non-blocking communication</p></td>
+<td><p>non-blocking communication</p></td>
+<td><p>Communication that only starts and returns, and waits for completion later (<code class="docutils literal notranslate"><span class="pre">MPI_Isend</span></code>)</p></td>
+<td><p><a class="reference internal" href="../08_mpi.html#edu-ch08"><span class="std std-ref">8</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p>collective communication</p></td>
+<td><p>collective communication</p></td>
+<td><p>Communication in which all processes of a communicator take part (<code class="docutils literal notranslate"><span class="pre">MPI_Allreduce</span></code>)</p></td>
+<td><p><a class="reference internal" href="../08_mpi.html#edu-ch08"><span class="std std-ref">8</span></a></p></td>
+</tr>
+<tr class="row-even"><td><p>pack / unpack</p></td>
+<td><p>pack / unpack</p></td>
+<td><p>Packing values into a send buffer / restoring them from the received buffer into an array</p></td>
+<td><p><a class="reference internal" href="../08_mpi.html#edu-ch08"><span class="std std-ref">8</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p>physical / internal boundary</p></td>
+<td><p>physical / internal boundary</p></td>
+<td><p>A boundary at the edge of the computational domain / a boundary with a neighboring rank</p></td>
+<td><p><a class="reference internal" href="../08_mpi.html#edu-ch08"><span class="std std-ref">8</span></a></p></td>
+</tr>
+<tr class="row-even"><td><p>MPI_PROC_NULL</p></td>
+<td><p>MPI_PROC_NULL</p></td>
+<td><p>A rank value meaning there is no partner. Sending to or receiving from it does nothing</p></td>
+<td><p><a class="reference internal" href="../08_mpi.html#edu-ch08"><span class="std std-ref">8</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p>MCA</p></td>
+<td><p>Modular Component Architecture</p></td>
+<td><p>A mechanism for selecting Open MPI internal components (environment variables <code class="docutils literal notranslate"><span class="pre">OMPI_MCA_*</span></code>)</p></td>
+<td><p><a class="reference internal" href="../08_mpi.html#edu-ch08"><span class="std std-ref">8</span></a></p></td>
+</tr>
+<tr class="row-even"><td><p>host</p></td>
+<td><p>host</p></td>
+<td><p>The CPU side and its memory</p></td>
+<td><p><a class="reference internal" href="../09_gpu.html#edu-ch09"><span class="std std-ref">9</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p>device</p></td>
+<td><p>device</p></td>
+<td><p>The GPU side and its memory</p></td>
+<td><p><a class="reference internal" href="../09_gpu.html#edu-ch09"><span class="std std-ref">9</span></a></p></td>
+</tr>
+<tr class="row-even"><td><p>kernel</p></td>
+<td><p>kernel</p></td>
+<td><p>A function marked with <code class="docutils literal notranslate"><span class="pre">__global__</span></code> that is executed by many GPU threads</p></td>
+<td><p><a class="reference internal" href="../09_gpu.html#edu-ch09"><span class="std std-ref">9</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p>thread</p></td>
+<td><p>thread</p></td>
+<td><p>The smallest unit that executes a kernel</p></td>
+<td><p><a class="reference internal" href="../09_gpu.html#edu-ch09"><span class="std std-ref">9</span></a></p></td>
+</tr>
+<tr class="row-even"><td><p>(thread) block</p></td>
+<td><p>(thread) block</p></td>
+<td><p>A group of threads. Shared memory and <code class="docutils literal notranslate"><span class="pre">__syncthreads</span></code> work within it</p></td>
+<td><p><a class="reference internal" href="../09_gpu.html#edu-ch09"><span class="std std-ref">9</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p>grid</p></td>
+<td><p>grid</p></td>
+<td><p>All the blocks arranged in a single launch</p></td>
+<td><p><a class="reference internal" href="../09_gpu.html#edu-ch09"><span class="std std-ref">9</span></a></p></td>
+</tr>
+<tr class="row-even"><td><p>shared memory</p></td>
+<td><p>shared memory</p></td>
+<td><p>Small, fast memory shared by the threads of the same block</p></td>
+<td><p><a class="reference internal" href="../09_gpu.html#edu-ch09"><span class="std std-ref">9</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p>extended lambda</p></td>
+<td><p>extended lambda</p></td>
+<td><p>A lambda marked with <code class="docutils literal notranslate"><span class="pre">__host__</span> <span class="pre">__device__</span></code>. Requires nvcc’s <code class="docutils literal notranslate"><span class="pre">--expt-extended-lambda</span></code></p></td>
+<td><p><a class="reference internal" href="../09_gpu.html#edu-ch09"><span class="std std-ref">9</span></a></p></td>
+</tr>
+<tr class="row-even"><td><p>asynchronous / synchronization</p></td>
+<td><p>asynchronous / synchronization</p></td>
+<td><p>The host moving on without waiting for the launched GPU work / waiting for that work to complete</p></td>
+<td><p><a class="reference internal" href="../09_gpu.html#edu-ch09"><span class="std std-ref">9</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p>stream</p></td>
+<td><p>stream</p></td>
+<td><p>A queue of work for the GPU. Work in it is executed in the order submitted</p></td>
+<td><p><a class="reference internal" href="../09_gpu.html#edu-ch09"><span class="std std-ref">9</span></a></p></td>
+</tr>
+<tr class="row-even"><td><p>CUDA-aware MPI</p></td>
+<td><p>CUDA-aware MPI</p></td>
+<td><p>MPI that can send and receive GPU memory addresses directly</p></td>
+<td><p><a class="reference internal" href="../09_gpu.html#edu-ch09"><span class="std std-ref">9</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p>compute capability</p></td>
+<td><p>compute capability</p></td>
+<td><p>A number that represents the GPU generation. Used for <code class="docutils literal notranslate"><span class="pre">CMAKE_CUDA_ARCHITECTURES</span></code></p></td>
+<td><p><a class="reference internal" href="../09_gpu.html#edu-ch09"><span class="std std-ref">9</span></a></p></td>
+</tr>
+<tr class="row-even"><td><p>HMM</p></td>
+<td><p>Heterogeneous Memory Management</p></td>
+<td><p>A mechanism that lets the GPU read host memory. In environments where it is enabled, mistakes in capturing <code class="docutils literal notranslate"><span class="pre">this</span></code> do not show up</p></td>
+<td><p><a class="reference internal" href="../09_gpu.html#edu-ch09"><span class="std std-ref">9</span></a></p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="iv">
+<h2>IV. Capstone Practice and Reading the MISO Source<a class="headerlink" href="#iv" title="Link to this heading"></a></h2>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Term</p></th>
+<th class="head"><p>English</p></th>
+<th class="head"><p>Description</p></th>
+<th class="head"><p>First appears</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>heat equation</p></td>
+<td><p>heat equation</p></td>
+<td><p><span class="math notranslate nohighlight">\(\partial u/\partial t = \kappa\,\partial^2 u/\partial x^2\)</span>. The equation by which temperature diffuses</p></td>
+<td><p><a class="reference internal" href="../10_heat1d.html#edu-ch10"><span class="std std-ref">10</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p>analytical solution</p></td>
+<td><p>analytical solution</p></td>
+<td><p>An exact solution that can be written as a formula</p></td>
+<td><p><a class="reference internal" href="../10_heat1d.html#edu-ch10"><span class="std std-ref">10</span></a></p></td>
+</tr>
+<tr class="row-even"><td><p>central difference</p></td>
+<td><p>central difference</p></td>
+<td><p>A difference that approximates the derivative using the left and right neighbors</p></td>
+<td><p><a class="reference internal" href="../10_heat1d.html#edu-ch10"><span class="std std-ref">10</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p>explicit method</p></td>
+<td><p>explicit method</p></td>
+<td><p>A method that computes the values at the next time from the values at the current time only</p></td>
+<td><p><a class="reference internal" href="../10_heat1d.html#edu-ch10"><span class="std std-ref">10</span></a></p></td>
+</tr>
+<tr class="row-even"><td><p>forward Euler method</p></td>
+<td><p>forward Euler method</p></td>
+<td><p>A first-order method that approximates the time derivative with a forward difference</p></td>
+<td><p><a class="reference internal" href="../10_heat1d.html#edu-ch10"><span class="std std-ref">10</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p>diffusion number</p></td>
+<td><p>diffusion number</p></td>
+<td><p><span class="math notranslate nohighlight">\(r = \kappa\Delta t/\Delta x^2\)</span>. It appears in the stability condition</p></td>
+<td><p><a class="reference internal" href="../10_heat1d.html#edu-ch10"><span class="std std-ref">10</span></a></p></td>
+</tr>
+<tr class="row-even"><td><p>stability condition</p></td>
+<td><p>stability condition</p></td>
+<td><p>The upper limit of <span class="math notranslate nohighlight">\(\Delta t\)</span> for which the calculation does not diverge (<span class="math notranslate nohighlight">\(r \le 1/2\)</span> for the explicit method for heat conduction)</p></td>
+<td><p><a class="reference internal" href="../10_heat1d.html#edu-ch10"><span class="std std-ref">10</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p>amplification factor</p></td>
+<td><p>amplification factor</p></td>
+<td><p>The factor applied to the amplitude of a wave in one step</p></td>
+<td><p><a class="reference internal" href="../10_heat1d.html#edu-ch10"><span class="std std-ref">10</span></a></p></td>
+</tr>
+<tr class="row-even"><td><p>discrete solution</p></td>
+<td><p>discrete solution</p></td>
+<td><p>The exact solution of the difference equation itself</p></td>
+<td><p><a class="reference internal" href="../10_heat1d.html#edu-ch10"><span class="std std-ref">10</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p>truncation error</p></td>
+<td><p>truncation error</p></td>
+<td><p>The error caused by approximating derivatives with differences</p></td>
+<td><p><a class="reference internal" href="../10_heat1d.html#edu-ch10"><span class="std std-ref">10</span></a></p></td>
+</tr>
+<tr class="row-even"><td><p>order of convergence</p></td>
+<td><p>order of convergence</p></td>
+<td><p>The exponent of the rate at which the error decreases as the grid is refined</p></td>
+<td><p><a class="reference internal" href="../10_heat1d.html#edu-ch10"><span class="std std-ref">10</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p>equation of state (EOS)</p></td>
+<td><p>equation of state (EOS)</p></td>
+<td><p>The relation that gives the pressure and sound speed from the density and internal energy</p></td>
+<td><p><a class="reference internal" href="../11_reading_miso.html#edu-ch11"><span class="std std-ref">11</span></a></p></td>
+</tr>
+<tr class="row-even"><td><p>(hyperbolic) divergence cleaning</p></td>
+<td><p>(hyperbolic) divergence cleaning</p></td>
+<td><p>A method that carries the error in <span class="math notranslate nohighlight">\(\nabla\cdot\boldsymbol{B}\)</span> away as a wave with an auxiliary variable <span class="math notranslate nohighlight">\(\phi\)</span> and damps it</p></td>
+<td><p><a class="reference internal" href="../11_reading_miso.html#edu-ch11"><span class="std std-ref">11</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p>CFL condition</p></td>
+<td><p>CFL condition</p></td>
+<td><p>The condition that sets <span class="math notranslate nohighlight">\(\Delta t\)</span> so that the fastest wave does not cross more than one grid spacing in one step</p></td>
+<td><p><a class="reference internal" href="../11_reading_miso.html#edu-ch11"><span class="std std-ref">11</span></a></p></td>
+</tr>
+<tr class="row-even"><td><p>Alfvén speed</p></td>
+<td><p>Alfvén speed</p></td>
+<td><p>Speed of waves propagating along the magnetic field, <span class="math notranslate nohighlight">\(\lvert\boldsymbol{B}\rvert/\sqrt{4\pi\rho}\)</span></p></td>
+<td><p><a class="reference internal" href="../11_reading_miso.html#edu-ch11"><span class="std std-ref">11</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p>artificial viscosity</p></td>
+<td><p>artificial viscosity</p></td>
+<td><p>A treatment that adds diffusion only near abrupt changes to suppress numerical oscillations</p></td>
+<td><p><a class="reference internal" href="../11_reading_miso.html#edu-ch11"><span class="std std-ref">11</span></a></p></td>
+</tr>
+<tr class="row-even"><td><p>limiter</p></td>
+<td><p>limiter</p></td>
+<td><p>A function that limits the magnitude of the gradient, for example by taking the smallest slope only when the signs of the slopes agree (such as minmod)</p></td>
+<td><p><a class="reference internal" href="../11_reading_miso.html#edu-ch11"><span class="std std-ref">11</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p>flux</p></td>
+<td><p>flux</p></td>
+<td><p>The quantity that passes through a cell boundary</p></td>
+<td><p><a class="reference internal" href="../11_reading_miso.html#edu-ch11"><span class="std std-ref">11</span></a></p></td>
+</tr>
+<tr class="row-even"><td><p>source term</p></td>
+<td><p>source term</p></td>
+<td><p>An external force or heating added to the right-hand side of an equation</p></td>
+<td><p><a class="reference internal" href="../11_reading_miso.html#edu-ch11"><span class="std std-ref">11</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p>hydrostatic equilibrium</p></td>
+<td><p>hydrostatic equilibrium</p></td>
+<td><p>The state in which gravity and the pressure gradient are balanced</p></td>
+<td><p><a class="reference internal" href="../11_reading_miso.html#edu-ch11"><span class="std std-ref">11</span></a></p></td>
+</tr>
+<tr class="row-even"><td><p>checkpoint</p></td>
+<td><p>checkpoint</p></td>
+<td><p>The state saved so that a calculation can be restarted</p></td>
+<td><p><a class="reference internal" href="../11_reading_miso.html#edu-ch11"><span class="std std-ref">11</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p>raw string literal</p></td>
+<td><p>raw string literal</p></td>
+<td><p>A string of the form <code class="docutils literal notranslate"><span class="pre">R&quot;x(</span> <span class="pre">...</span> <span class="pre">)x&quot;</span></code> that can contain newlines and <code class="docutils literal notranslate"><span class="pre">&quot;</span></code> as they are</p></td>
+<td><p><a class="reference internal" href="../11_reading_miso.html#edu-ch11"><span class="std std-ref">11</span></a></p></td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="index.html" class="btn btn-neutral float-left" title="Reference Materials" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="fortran_map.html" class="btn btn-neutral float-right" title="Fortran Correspondence Table" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Integrated Studies, ISEE, Nagoya University.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

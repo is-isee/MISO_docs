@@ -1,0 +1,269 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>2D MHD Test: Petschek Reconnection &mdash; MISO 0.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=4ae1632d" />
+      <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../_static/collapsible-lists/css/tree_view.css?v=a885cde7" />
+      <link rel="stylesheet" type="text/css" href="../_static/custom.css" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=837179f8"></script>
+      <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../_static/copybutton.js?v=f281be69"></script>
+      <script src="../_static/collapsible-lists/js/CollapsibleLists.compressed.js?v=73120307"></script>
+      <script src="../_static/collapsible-lists/js/apply-collapsible-lists.js?v=660e4f45"></script>
+      <script>window.MathJax = {"tex": {"macros": {"bm": ["{\\boldsymbol{#1}}", 1]}}, "options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+      <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="3D MHD Test: Magnetosphere" href="mhd3d_magnetosphere.html" />
+    <link rel="prev" title="2D MHD Test: Orszag-Tang Vortex" href="mhd2d_vortex.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            MISO
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../quickstart.html">Quick Start</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Test Problems</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="hd1d_shock_tube.html">1D HD Test: Sod’s Shock Tube</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mhd1d_shock_tube.html">1D MHD Test: Magnetized Sod’s Shock Tube</a></li>
+<li class="toctree-l2"><a class="reference internal" href="hd2d_kelvin_helmholtz.html">2D HD Test: Kelvin-Helmholtz Instability</a></li>
+<li class="toctree-l2"><a class="reference internal" href="hd2d_rayleigh_taylor.html">2D HD Test: Rayleigh Taylor Instability</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mhd2d_vortex.html">2D MHD Test: Orszag-Tang Vortex</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">2D MHD Test: Petschek Reconnection</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#location">Location</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#geometry">Geometry</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#initial-conditions">Initial Conditions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#boundary-conditions">Boundary Conditions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#results">Results</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="mhd3d_magnetosphere.html">3D MHD Test: Magnetosphere</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rt2d_searchlight.html">2D RT Test: Searchlight Beam</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../customization/index.html">Customization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../miso/index.html">MISO C++ documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../pymiso/index.html">pymiso Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../education/index.html">MISO education</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../references.html">References</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">MISO</a>
+      </nav>
+
+      <div class="wy-nav-content">
+<div id="language-links" style="margin-bottom: 1em; font-size: 100%;">
+    Language:
+    
+    <strong>English</strong> |
+    <a href="../../demo/mhd2d_reconnection.html">日本語</a>
+    
+</div>
+
+
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">Test Problems</a></li>
+      <li class="breadcrumb-item active">2D MHD Test: Petschek Reconnection</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/demo/mhd2d_reconnection.md.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section class="tex2jax_ignore mathjax_ignore" id="d-mhd-test-petschek-reconnection">
+<h1>2D MHD Test: Petschek Reconnection<a class="headerlink" href="#d-mhd-test-petschek-reconnection" title="Link to this heading"></a></h1>
+<p>This problem investigates the shock structure of the plasmoid that forms at the tip of the outflow (jet) in magnetic reconnection in a low-beta plasma. We use the setup of run 2 (<span class="math notranslate nohighlight">\(\beta_\mathrm{up} = 0.2\)</span>) in <span class="bibtex-citation" id="id1">[<a class="reference internal" href="../references.html#id7" title="S. Zenitani. Magnetohydrodynamic structure of a plasmoid in fast reconnection in low-beta plasmas: Shock-shock interactions. Physics of Plasmas, 22(3):032114, 2015. doi:10.1063/1.4916104.">Zenitani, 2015</a>]</span>.</p>
+<p>When the resistivity is increased only near the X-point, Petschek-type fast reconnection occurs, and an outflow forms between the Petschek slow shocks extending obliquely from the X-point. This outflow sweeps up the plasma and the reconnected magnetic field lines, and forms one large plasmoid at the tip of the jet. At low beta, the speed of the outflow pushing the plasmoid (about the upstream Alfvén speed) exceeds the sound speed, so several shocks form around the plasmoid. Whether these shocks and discontinuities can be captured is the highlight of this test problem.</p>
+<p>The resistivity is given by the source term <code class="docutils literal notranslate"><span class="pre">mhd::ResistiveSource</span></code>. A diffusion term due to the resistivity is added to the induction equation, and the corresponding energy flux is added to the equation for the total energy <span class="math notranslate nohighlight">\(e\)</span> (in Gaussian units). The Joule heating goes into the internal energy.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align*}
+\frac{\partial \bm{B}}{\partial t} &amp;= [...] - \nabla \times \left(\eta \nabla \times \bm{B}\right), \\
+\frac{\partial e}{\partial t} &amp;= [...] - \nabla \cdot \left[\frac{\eta}{4\pi} \left(\nabla \times \bm{B}\right) \times \bm{B}\right]
+\end{align*}
+\end{split}\]</div>
+<section id="location">
+<h2>Location<a class="headerlink" href="#location" title="Link to this heading"></a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">demo/mhd2d_reconnection/</span></code></p>
+</section>
+<section id="geometry">
+<h2>Geometry<a class="headerlink" href="#geometry" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(0 \leq x \leq 150\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(0 \leq z \leq 30\)</span></p></li>
+</ul>
+<p>As in the paper, we solve in the <span class="math notranslate nohighlight">\(x\)</span>-<span class="math notranslate nohighlight">\(z\)</span> plane (<span class="math notranslate nohighlight">\(x\)</span>: outflow direction, <span class="math notranslate nohighlight">\(z\)</span>: inflow direction, <span class="math notranslate nohighlight">\(y\)</span>: out-of-plane direction). We place the X-point at the origin and, using symmetry, compute only the first quadrant. The default grid is <span class="math notranslate nohighlight">\(1500 \times 300\)</span> (grid spacing <span class="math notranslate nohighlight">\(0.1\)</span>). The paper computes the region <span class="math notranslate nohighlight">\([0, 200] \times [0, 150]\)</span> with <span class="math notranslate nohighlight">\(12000 \times 9000\)</span> grid points (grid spacing <span class="math notranslate nohighlight">\(1/60\)</span>), so our domain is smaller and the resolution is lower.</p>
+</section>
+<section id="initial-conditions">
+<h2>Initial Conditions<a class="headerlink" href="#initial-conditions" title="Link to this heading"></a></h2>
+<p>The equations below are written in the units of the paper. MISO uses Gaussian units, so the magnetic field is multiplied by <span class="math notranslate nohighlight">\(\sqrt{4\pi}\)</span> in the code. The ratio of specific heats is <span class="math notranslate nohighlight">\(\gamma = 5/3\)</span>.</p>
+<p>The initial state is a Harris current sheet.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align*}
+\rho &amp;= 1 + \frac{\cosh^{-2} z}{\beta_\mathrm{up}}, \\
+p &amp;= \frac{1}{2}\left(\beta_\mathrm{up} + \cosh^{-2} z\right), \\
+\bm{v} &amp;= 0, \\
+B_x &amp;= \tanh z,
+\end{align*}
+\end{split}\]</div>
+<p>Here <span class="math notranslate nohighlight">\(\beta_\mathrm{up} = 0.2\)</span> is the upstream plasma beta. To start the reconnection, we add the following perturbation to the vector potential <span class="math notranslate nohighlight">\(A_y\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[
+\delta A_y = -a \exp\left(-\frac{x^2 + z^2}{4}\right)
+\]</div>
+<p>where <span class="math notranslate nohighlight">\(a = 0.06\)</span>. From <span class="math notranslate nohighlight">\(\delta \bm{B} = \nabla \times (\delta A_y \bm{e}_y)\)</span>, we obtain</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align*}
+\delta B_x &amp;= -\frac{a}{2} z \exp\left(-\frac{x^2 + z^2}{4}\right), \\
+\delta B_z &amp;= \frac{a}{2} x \exp\left(-\frac{x^2 + z^2}{4}\right).
+\end{align*}
+\end{split}\]</div>
+<p>The resistivity is localized near the origin.</p>
+<div class="math notranslate nohighlight">
+\[
+\eta = \eta_0 + \left(\eta_1 - \eta_0\right) \cosh^{-2} \sqrt{x^2 + z^2}
+\]</div>
+<p>Here <span class="math notranslate nohighlight">\(\eta_0 = 1/1000\)</span> and <span class="math notranslate nohighlight">\(\eta_1 = 1/60\)</span>. <span class="math notranslate nohighlight">\(\beta_\mathrm{up}\)</span>, <span class="math notranslate nohighlight">\(\eta_0\)</span>, <span class="math notranslate nohighlight">\(\eta_1\)</span>, and <span class="math notranslate nohighlight">\(a\)</span> can be changed in the <code class="docutils literal notranslate"><span class="pre">reconnection</span></code> section of <code class="docutils literal notranslate"><span class="pre">config.yaml</span></code>.</p>
+</section>
+<section id="boundary-conditions">
+<h2>Boundary Conditions<a class="headerlink" href="#boundary-conditions" title="Link to this heading"></a></h2>
+<p>At all boundaries, the density and internal energy are symmetric (even). The parity of the other variables is given in the table below.</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(x = 0\)</span>, <span class="math notranslate nohighlight">\(x = 150\)</span>, <span class="math notranslate nohighlight">\(z = 0\)</span>: mirror-symmetric boundaries. The velocity normal to the boundary, the magnetic field parallel to the boundary (a pseudovector), and the GLM potential <span class="math notranslate nohighlight">\(\psi\)</span> (proportional to <span class="math notranslate nohighlight">\(\nabla \cdot \bm{B}\)</span>) are antisymmetric (odd).</p></li>
+<li><p><span class="math notranslate nohighlight">\(z = 30\)</span>: a perfectly conducting wall. The velocity and magnetic field normal to the boundary are antisymmetric.</p></li>
+</ul>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head text-center"><p>Boundary</p></th>
+<th class="head text-center"><p><span class="math notranslate nohighlight">\(v_x\)</span></p></th>
+<th class="head text-center"><p><span class="math notranslate nohighlight">\(v_y\)</span></p></th>
+<th class="head text-center"><p><span class="math notranslate nohighlight">\(v_z\)</span></p></th>
+<th class="head text-center"><p><span class="math notranslate nohighlight">\(B_x\)</span></p></th>
+<th class="head text-center"><p><span class="math notranslate nohighlight">\(B_y\)</span></p></th>
+<th class="head text-center"><p><span class="math notranslate nohighlight">\(B_z\)</span></p></th>
+<th class="head text-center"><p><span class="math notranslate nohighlight">\(\psi\)</span></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-center"><p><span class="math notranslate nohighlight">\(x = 0\)</span>, <span class="math notranslate nohighlight">\(x = 150\)</span></p></td>
+<td class="text-center"><p>odd</p></td>
+<td class="text-center"><p>even</p></td>
+<td class="text-center"><p>even</p></td>
+<td class="text-center"><p>even</p></td>
+<td class="text-center"><p>odd</p></td>
+<td class="text-center"><p>odd</p></td>
+<td class="text-center"><p>odd</p></td>
+</tr>
+<tr class="row-odd"><td class="text-center"><p><span class="math notranslate nohighlight">\(z = 0\)</span></p></td>
+<td class="text-center"><p>even</p></td>
+<td class="text-center"><p>even</p></td>
+<td class="text-center"><p>odd</p></td>
+<td class="text-center"><p>odd</p></td>
+<td class="text-center"><p>odd</p></td>
+<td class="text-center"><p>even</p></td>
+<td class="text-center"><p>odd</p></td>
+</tr>
+<tr class="row-even"><td class="text-center"><p><span class="math notranslate nohighlight">\(z = 30\)</span></p></td>
+<td class="text-center"><p>even</p></td>
+<td class="text-center"><p>even</p></td>
+<td class="text-center"><p>odd</p></td>
+<td class="text-center"><p>even</p></td>
+<td class="text-center"><p>even</p></td>
+<td class="text-center"><p>odd</p></td>
+<td class="text-center"><p>even</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="results">
+<h2>Results<a class="headerlink" href="#results" title="Link to this heading"></a></h2>
+<p>A Python script for visualization is provided. The movie of the results and the figure at the final time are saved in <code class="docutils literal notranslate"><span class="pre">demo/mhd2d_reconnection/figs</span></code>.</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>demo/mhd2d_reconnection
+python<span class="w"> </span>plot_data.py
+</pre></div>
+</div>
+<p>As in Fig. 1 of <span class="bibtex-citation" id="id2">[<a class="reference internal" href="../references.html#id7" title="S. Zenitani. Magnetohydrodynamic structure of a plasmoid in fast reconnection in low-beta plasmas: Shock-shock interactions. Physics of Plasmas, 22(3):032114, 2015. doi:10.1063/1.4916104.">Zenitani, 2015</a>]</span>, we plot <span class="math notranslate nohighlight">\(v_x\)</span> in the upper half (<span class="math notranslate nohighlight">\(z &gt; 0\)</span>) and <span class="math notranslate nohighlight">\(\nabla \cdot \bm{v}\)</span> in the lower half with <span class="math notranslate nohighlight">\(z\)</span> flipped. For readability, the <span class="math notranslate nohighlight">\(z\)</span> direction is stretched by a factor of 2. Shocks are compressive layers, so they appear as lines of <span class="math notranslate nohighlight">\(\nabla \cdot \bm{v} &lt; 0\)</span> (blue). The paper shows the Petschek slow shocks, the reverse fast shocks behind the plasmoid, and the vertical slow shocks behind and in front of the plasmoid.</p>
+<p>The movie below shows the time evolution from <span class="math notranslate nohighlight">\(t = 0\)</span> to <span class="math notranslate nohighlight">\(250\)</span>, computed with the grid spacing reduced to 1/3 of the default (<span class="math notranslate nohighlight">\(0.033\)</span>, <span class="math notranslate nohighlight">\(4500 \times 900\)</span> grid points). The shock width is 3 to 4 grid cells, so at the default resolution (grid spacing <span class="math notranslate nohighlight">\(0.1\)</span>) the shocks look thicker. The paper (grid spacing <span class="math notranslate nohighlight">\(1/60\)</span>) uses an even finer grid.</p>
+<p><img alt="mhd2d_reconnection" src="../_images/reconnection.gif" /></p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="mhd2d_vortex.html" class="btn btn-neutral float-left" title="2D MHD Test: Orszag-Tang Vortex" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="mhd3d_magnetosphere.html" class="btn btn-neutral float-right" title="3D MHD Test: Magnetosphere" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Integrated Studies, ISEE, Nagoya University.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

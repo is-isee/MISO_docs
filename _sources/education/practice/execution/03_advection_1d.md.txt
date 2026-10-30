@@ -20,8 +20,8 @@ $$u_i^{n+1} = u_i^n - \frac{a \Delta t}{\Delta x}\left(u_i^n - u_{i-1}^n\right)$
 周期境界では、毎ステップ、ゴーストセルを反対側の物理セルの値で埋めてから更新します。
 
 ```text
-添字    0  |  1  ...  NX  |  NX+1
-     ゴースト   物理セル     ゴースト
+index   0  |  1  ...  NX  |  NX+1
+    ghost   physical cells  ghost
 ```
 
 ## 実装する内容

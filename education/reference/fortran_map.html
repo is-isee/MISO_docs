@@ -1,12 +1,12 @@
 
 
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" data-content_root="../../">
+<html class="writer-html5" lang="ja" data-content_root="../../">
 <head>
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Fortran との対応表 &mdash; MISO 0.0 documentation</title>
+  <title>Fortran との対応表 &mdash; MISO 0.0 ドキュメント</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css?v=4ae1632d" />
@@ -17,18 +17,19 @@
   
       <script src="../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../_static/documentation_options.js?v=837179f8"></script>
+      <script src="../../_static/documentation_options.js?v=1a6bc256"></script>
       <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
       <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
       <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
       <script src="../../_static/copybutton.js?v=f281be69"></script>
+      <script src="../../_static/translations.js?v=4755f45a"></script>
       <script src="../../_static/collapsible-lists/js/CollapsibleLists.compressed.js?v=73120307"></script>
       <script src="../../_static/collapsible-lists/js/apply-collapsible-lists.js?v=660e4f45"></script>
       <script>window.MathJax = {"tex": {"macros": {"bm": ["{\\boldsymbol{#1}}", 1]}}, "options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
       <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script src="../../_static/js/theme.js"></script>
-    <link rel="index" title="Index" href="../../genindex.html" />
-    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="index" title="索引" href="../../genindex.html" />
+    <link rel="search" title="検索" href="../../search.html" />
     <link rel="next" title="記号の早見表" href="cpp_reference.html" />
     <link rel="prev" title="用語集" href="glossary.html" /> 
 </head>
@@ -101,8 +102,10 @@
       <div class="wy-nav-content">
 <div id="language-links" style="margin-bottom: 1em; font-size: 100%;">
     Language:
-    <a href="#" id="translate-link" target="_blank">English</a> |
-    <a href="#" id="original-link">日本語</a>
+    
+    <a href="../../en/education/reference/fortran_map.html">English</a> |
+    <strong>日本語</strong>
+    
 </div>
 
 
@@ -415,7 +418,7 @@
 <td><p><a class="reference internal" href="../02_cpp_basics.html#edu-ch02"><span class="std std-ref">第 2 章</span></a>、<a class="reference internal" href="../07_arrays_and_parallel.html#edu-ch07"><span class="std std-ref">第 7 章</span></a></p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">real</span> <span class="pre">::</span> <span class="pre">q(nx,</span> <span class="pre">ny,</span> <span class="pre">nz,</span> <span class="pre">9)</span></code>（変数を 4 番目の添字に並べる）</p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">Fields</span></code> の 9 つのメンバ <code class="docutils literal notranslate"><span class="pre">ro</span></code>, <code class="docutils literal notranslate"><span class="pre">vx</span></code>, … <code class="docutils literal notranslate"><span class="pre">ph</span></code>（それぞれ <code class="docutils literal notranslate"><span class="pre">Array3D</span></code>）</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">Fields</span></code> の 9 つのメンバ <code class="docutils literal notranslate"><span class="pre">ro</span></code>, <code class="docutils literal notranslate"><span class="pre">vx</span></code>, ... <code class="docutils literal notranslate"><span class="pre">ph</span></code>（それぞれ <code class="docutils literal notranslate"><span class="pre">Array3D</span></code>）</p></td>
 <td><p>MISO は変数ごとに別の配列を持ちます（<code class="docutils literal notranslate"><span class="pre">miso/include/miso/mhd_fields.hpp</span></code>）</p></td>
 <td><p><a class="reference internal" href="../04_classes_and_structs.html#edu-ch04"><span class="std std-ref">第 4 章</span></a>、<a class="reference internal" href="../11_reading_miso.html#edu-ch11"><span class="std std-ref">第 11 章</span></a></p></td>
 </tr>
@@ -483,15 +486,15 @@
 </tbody>
 </table>
 <p>次の短いプログラムは、MISO の <code class="docutils literal notranslate"><span class="pre">Array3D</span></code> で要素がメモリの先頭から何番目にあるかを表示します（説明用の例）。</p>
-<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="c1">// order.cpp: Array3D のメモリ上の並びを確かめる</span>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="c1">// order.cpp: check the memory layout of Array3D</span>
 <span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;iostream&gt;</span>
 
 <span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;miso/array3d.hpp&gt;</span>
 
 <span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
 <span class="w">  </span><span class="n">miso</span><span class="o">::</span><span class="n">Array3D</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;</span><span class="w"> </span><span class="n">a</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="mi">4</span><span class="p">);</span><span class="w">  </span><span class="c1">// a(i, j, k): i &lt; 2, j &lt; 3, k &lt; 4</span>
-<span class="w">  </span><span class="k">const</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="o">*</span><span class="n">p</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="n">data</span><span class="p">();</span><span class="w">       </span><span class="c1">// 先頭の要素のアドレス</span>
-<span class="w">  </span><span class="c1">// 要素のアドレスと先頭のアドレスの差 = 先頭から何番目か</span>
+<span class="w">  </span><span class="k">const</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="o">*</span><span class="n">p</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="n">data</span><span class="p">();</span><span class="w">       </span><span class="c1">// address of the first element</span>
+<span class="w">  </span><span class="c1">// difference between an element's address and the first address = offset from the start</span>
 <span class="w">  </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">"a(0,0,1): "</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="o">&amp;</span><span class="n">a</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">p</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">"</span><span class="se">\n</span><span class="s">"</span><span class="p">;</span>
 <span class="w">  </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">"a(0,1,0): "</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="o">&amp;</span><span class="n">a</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">p</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">"</span><span class="se">\n</span><span class="s">"</span><span class="p">;</span>
 <span class="w">  </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">"a(1,0,0): "</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="o">&amp;</span><span class="n">a</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">p</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">"</span><span class="se">\n</span><span class="s">"</span><span class="p">;</span>
@@ -964,49 +967,7 @@ MISO の出力ファイル（<code class="docutils literal notranslate"><span cl
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script>
- 
-<script>
-    document.addEventListener("DOMContentLoaded", () => {
-        const currentUrl = window.location.href;
-        const isTranslated = currentUrl.includes(".translate.goog");
-        const translateLink = document.getElementById("translate-link");
-        const originalLink = document.getElementById("original-link");
-
-        // 翻訳URLを生成
-        const translateUrl =
-            "https://translate.google.com/translate?sl=ja&tl=en&u=" +
-            encodeURIComponent(currentUrl);
-
-        if (isTranslated) {
-            // --- 英語版(.translate.goog)にいる場合 ---
-            // English → ページを単にリロード
-            translateLink.removeAttribute("target");
-            translateLink.removeAttribute("href");
-            translateLink.addEventListener("click", (e) => {
-                e.preventDefault();
-                window.location.reload();
-            });
-
-            // 日本語 → 新タブで元URLを開く（翻訳解除）
-            const originalUrl = currentUrl.replace(
-                /^https:\/\/[^/]+\.translate\.goog/,
-                "https://is-isee.github.io"
-            );
-            originalLink.href = originalUrl;
-            originalLink.target = "_blank";
-            originalLink.rel = "noopener";
-        } else {
-            // --- 日本語版にいる場合 ---
-            translateLink.href = translateUrl;
-            translateLink.target = "_blank";
-
-            originalLink.href = currentUrl;
-            originalLink.target = "_self";
-        }
-    });
-</script>
-
+  </script> 
 
 </body>
 </html>

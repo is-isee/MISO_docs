@@ -1,12 +1,12 @@
 
 
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" data-content_root="../">
+<html class="writer-html5" lang="ja" data-content_root="../">
 <head>
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>3. 参照・ポインタと寿命 &mdash; MISO 0.0 documentation</title>
+  <title>3. 参照・ポインタと寿命 &mdash; MISO 0.0 ドキュメント</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=4ae1632d" />
@@ -17,16 +17,17 @@
   
       <script src="../_static/jquery.js?v=5d32c60e"></script>
       <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../_static/documentation_options.js?v=837179f8"></script>
+      <script src="../_static/documentation_options.js?v=1a6bc256"></script>
       <script src="../_static/doctools.js?v=fd6eb6e6"></script>
       <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
       <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
       <script src="../_static/copybutton.js?v=f281be69"></script>
+      <script src="../_static/translations.js?v=4755f45a"></script>
       <script src="../_static/collapsible-lists/js/CollapsibleLists.compressed.js?v=73120307"></script>
       <script src="../_static/collapsible-lists/js/apply-collapsible-lists.js?v=660e4f45"></script>
     <script src="../_static/js/theme.js"></script>
-    <link rel="index" title="Index" href="../genindex.html" />
-    <link rel="search" title="Search" href="../search.html" />
+    <link rel="index" title="索引" href="../genindex.html" />
+    <link rel="search" title="検索" href="../search.html" />
     <link rel="next" title="4. クラス・構造体" href="04_classes_and_structs.html" />
     <link rel="prev" title="2. 変数・関数・制御文" href="02_cpp_basics.html" /> 
 </head>
@@ -103,8 +104,10 @@
       <div class="wy-nav-content">
 <div id="language-links" style="margin-bottom: 1em; font-size: 100%;">
     Language:
-    <a href="#" id="translate-link" target="_blank">English</a> |
-    <a href="#" id="original-link">日本語</a>
+    
+    <a href="../en/education/03_references_and_pointers.html">English</a> |
+    <strong>日本語</strong>
+    
 </div>
 
 
@@ -157,11 +160,11 @@ MISO では、設定や格子を参照で受け取って持ち続けたり、配
 <span id="id4"></span><h3>1.1 値のコピーと参照<a class="headerlink" href="#edu-ch03-reference-basics" title="Link to this heading"></a></h3>
 <p>同じ値から始めることと、同じ変数を使うことを区別します。</p>
 <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">double</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">1.0</span><span class="p">;</span>
-<span class="kt">double</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">a</span><span class="p">;</span><span class="w">   </span><span class="c1">// a の値をコピーした、別の変数 b</span>
-<span class="kt">double</span><span class="w"> </span><span class="o">&amp;</span><span class="n">r</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">a</span><span class="p">;</span><span class="w">  </span><span class="c1">// a の別名 r（参照）</span>
+<span class="kt">double</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">a</span><span class="p">;</span><span class="w">   </span><span class="c1">// b is a separate variable holding a copy of a</span>
+<span class="kt">double</span><span class="w"> </span><span class="o">&amp;</span><span class="n">r</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">a</span><span class="p">;</span><span class="w">  </span><span class="c1">// r is another name (reference) for a</span>
 
-<span class="n">b</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">2.0</span><span class="p">;</span><span class="w">        </span><span class="c1">// b だけが 2.0 になる</span>
-<span class="n">r</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">3.0</span><span class="p">;</span><span class="w">        </span><span class="c1">// r は a そのものなので、a が 3.0 になる</span>
+<span class="n">b</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">2.0</span><span class="p">;</span><span class="w">        </span><span class="c1">// only b becomes 2.0</span>
+<span class="n">r</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">3.0</span><span class="p">;</span><span class="w">        </span><span class="c1">// r is a itself, so a becomes 3.0</span>
 <span class="c1">// a = 3.0, b = 2.0, r = 3.0</span>
 </pre></div>
 </div>
@@ -174,17 +177,17 @@ MISO では、設定や格子を参照で受け取って持ち続けたり、配
 <section id="edu-ch03-pass-by-reference">
 <span id="id5"></span><h3>1.2 参照渡し<a class="headerlink" href="#edu-ch03-pass-by-reference" title="Link to this heading"></a></h3>
 <p>関数の引数を参照にすると、呼び出し元の変数そのものを関数の中で使えます。</p>
-<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span><span class="w"> </span><span class="nf">set_copy</span><span class="p">(</span><span class="kt">double</span><span class="w"> </span><span class="n">value</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">      </span><span class="c1">// 値渡し：value はコピー</span>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span><span class="w"> </span><span class="nf">set_copy</span><span class="p">(</span><span class="kt">double</span><span class="w"> </span><span class="n">value</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">      </span><span class="c1">// pass by value: value is a copy</span>
 <span class="w">  </span><span class="n">value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">5.0</span><span class="p">;</span>
 <span class="p">}</span>
 
-<span class="kt">void</span><span class="w"> </span><span class="nf">set_original</span><span class="p">(</span><span class="kt">double</span><span class="w"> </span><span class="o">&amp;</span><span class="n">value</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="c1">// 参照渡し：value は呼び出し元の変数の別名</span>
+<span class="kt">void</span><span class="w"> </span><span class="nf">set_original</span><span class="p">(</span><span class="kt">double</span><span class="w"> </span><span class="o">&amp;</span><span class="n">value</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="c1">// pass by reference: value is an alias of the caller's variable</span>
 <span class="w">  </span><span class="n">value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">5.0</span><span class="p">;</span>
 <span class="p">}</span>
 
 <span class="kt">double</span><span class="w"> </span><span class="n">c</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">1.0</span><span class="p">;</span>
-<span class="n">set_copy</span><span class="p">(</span><span class="n">c</span><span class="p">);</span><span class="w">      </span><span class="c1">// c は 1.0 のまま</span>
-<span class="n">set_original</span><span class="p">(</span><span class="n">c</span><span class="p">);</span><span class="w">  </span><span class="c1">// c は 5.0 になる</span>
+<span class="n">set_copy</span><span class="p">(</span><span class="n">c</span><span class="p">);</span><span class="w">      </span><span class="c1">// c stays 1.0</span>
+<span class="n">set_original</span><span class="p">(</span><span class="n">c</span><span class="p">);</span><span class="w">  </span><span class="c1">// c becomes 5.0</span>
 </pre></div>
 </div>
 <p>呼び出す側はどちらも <code class="docutils literal notranslate"><span class="pre">set_copy(c)</span></code>・<code class="docutils literal notranslate"><span class="pre">set_original(c)</span></code> と書き、見た目は同じです。
@@ -199,14 +202,14 @@ Fortran で <code class="docutils literal notranslate"><span class="pre">intent(
 <p>関数の戻り値は 1 つですが、参照引数を使えば複数の結果を呼び出し元へ渡せます。
 Fortran のサブルーチンが <code class="docutils literal notranslate"><span class="pre">intent(out)</span></code> の引数に結果を書くのと同じ使い方です。</p>
 <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span><span class="w"> </span><span class="nf">sum_and_difference</span><span class="p">(</span><span class="kt">double</span><span class="w"> </span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="n">b</span><span class="p">,</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="o">&amp;</span><span class="n">total</span><span class="p">,</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="o">&amp;</span><span class="n">difference</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">  </span><span class="n">total</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">b</span><span class="p">;</span><span class="w">       </span><span class="c1">// 呼び出し元の total に書き込む</span>
-<span class="w">  </span><span class="n">difference</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">b</span><span class="p">;</span><span class="w">  </span><span class="c1">// 呼び出し元の difference に書き込む</span>
+<span class="w">  </span><span class="n">total</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">b</span><span class="p">;</span><span class="w">       </span><span class="c1">// writes to the caller's total</span>
+<span class="w">  </span><span class="n">difference</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">b</span><span class="p">;</span><span class="w">  </span><span class="c1">// writes to the caller's difference</span>
 <span class="p">}</span>
 
 <span class="kt">double</span><span class="w"> </span><span class="n">total</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.0</span><span class="p">;</span>
 <span class="kt">double</span><span class="w"> </span><span class="n">difference</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.0</span><span class="p">;</span>
 <span class="n">sum_and_difference</span><span class="p">(</span><span class="mf">3.0</span><span class="p">,</span><span class="w"> </span><span class="mf">1.0</span><span class="p">,</span><span class="w"> </span><span class="n">total</span><span class="p">,</span><span class="w"> </span><span class="n">difference</span><span class="p">);</span>
-<span class="c1">// total は 4.0、difference は 2.0</span>
+<span class="c1">// total is 4.0, difference is 2.0</span>
 </pre></div>
 </div>
 <p><code class="docutils literal notranslate"><span class="pre">a</span></code> と <code class="docutils literal notranslate"><span class="pre">b</span></code> は値渡しで計算に使う値を受け取り、<code class="docutils literal notranslate"><span class="pre">total</span></code> と <code class="docutils literal notranslate"><span class="pre">difference</span></code> は参照で結果を書き込む先を受け取っています。
@@ -236,8 +239,8 @@ Fortran のサブルーチンが <code class="docutils literal notranslate"><spa
 <span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;miso/core.hpp&gt;</span>
 
 <span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
-<span class="w">  </span><span class="k">const</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">i_total</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">8</span><span class="p">;</span><span class="w">   </span><span class="c1">// ゴーストセルを含む格子点数</span>
-<span class="w">  </span><span class="k">const</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">i_margin</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span><span class="w">  </span><span class="c1">// ゴーストセルの幅</span>
+<span class="w">  </span><span class="k">const</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">i_total</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">8</span><span class="p">;</span><span class="w">   </span><span class="c1">// number of grid points including ghost cells</span>
+<span class="w">  </span><span class="k">const</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">i_margin</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span><span class="w">  </span><span class="c1">// width of the ghost cells</span>
 <span class="w">  </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">i_margin</span><span class="p">;</span><span class="w"> </span><span class="o">++</span><span class="n">i</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">i_ghst</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">-1</span><span class="p">;</span>
 <span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">i_trgt</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">-1</span><span class="p">;</span>
@@ -259,8 +262,8 @@ Fortran のサブルーチンが <code class="docutils literal notranslate"><spa
 <span id="edu-ch03-const-reference"></span><h3>1.4 読むための const 参照<a class="headerlink" href="#const" title="Link to this heading"></a></h3>
 <p>元の変数をコピーせずに使いながら、関数の中では書き換えないようにするには、<code class="docutils literal notranslate"><span class="pre">const</span></code> を付けて <code class="docutils literal notranslate"><span class="pre">const</span> <span class="pre">T</span> <span class="pre">&amp;</span></code> と書きます（<code class="docutils literal notranslate"><span class="pre">T</span></code> は型を表す仮の名前です）。</p>
 <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">double</span><span class="w"> </span><span class="nf">twice</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="o">&amp;</span><span class="n">value</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="mf">2.0</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">value</span><span class="p">;</span><span class="w">  </span><span class="c1">// 読むことはできる</span>
-<span class="w">  </span><span class="c1">// value = 5.0;      // エラー：const 参照を通して書き換えることはできない</span>
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="mf">2.0</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">value</span><span class="p">;</span><span class="w">  </span><span class="c1">// reading is allowed</span>
+<span class="w">  </span><span class="c1">// value = 5.0;      // error: cannot modify through a const reference</span>
 <span class="p">}</span>
 </pre></div>
 </div>
@@ -329,8 +332,8 @@ Fortran のサブルーチンが <code class="docutils literal notranslate"><spa
 <section id="edu-ch03-address">
 <span id="id9"></span><h3>2.1 アドレスとポインタ<a class="headerlink" href="#edu-ch03-address" title="Link to this heading"></a></h3>
 <p>変数はメモリ上のどこかに置かれています。その場所を表す値を<strong>アドレス</strong>と呼び、<strong>アドレスを保持する変数をポインタ</strong>（pointer）と呼びます。</p>
-<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">double</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">1.0</span><span class="p">;</span><span class="w">   </span><span class="c1">// 数値を入れる変数</span>
-<span class="kt">double</span><span class="w"> </span><span class="o">*</span><span class="n">p</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&amp;</span><span class="n">a</span><span class="p">;</span><span class="w">   </span><span class="c1">// a のアドレスを保持するポインタ p。「p は a を指す」と言う</span>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">double</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">1.0</span><span class="p">;</span><span class="w">   </span><span class="c1">// variable holding a number</span>
+<span class="kt">double</span><span class="w"> </span><span class="o">*</span><span class="n">p</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&amp;</span><span class="n">a</span><span class="p">;</span><span class="w">   </span><span class="c1">// pointer p holding the address of a; we say "p points to a"</span>
 </pre></div>
 </div>
 <table class="docutils align-default">
@@ -352,8 +355,8 @@ Fortran のサブルーチンが <code class="docutils literal notranslate"><spa
 </tbody>
 </table>
 <p>ポインタが指す先の値を使うには、式の中で <code class="docutils literal notranslate"><span class="pre">*p</span></code> と書きます（<strong>間接参照</strong>）。</p>
-<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">double</span><span class="w"> </span><span class="n">copied</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">*</span><span class="n">p</span><span class="p">;</span><span class="w">  </span><span class="c1">// p が指す a の値を読む。copied は 1.0</span>
-<span class="o">*</span><span class="n">p</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">2.0</span><span class="p">;</span><span class="w">            </span><span class="c1">// p が指す a を書き換える。a は 2.0</span>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">double</span><span class="w"> </span><span class="n">copied</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">*</span><span class="n">p</span><span class="p">;</span><span class="w">  </span><span class="c1">// reads the value of a, which p points to; copied is 1.0</span>
+<span class="o">*</span><span class="n">p</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">2.0</span><span class="p">;</span><span class="w">            </span><span class="c1">// modifies a, which p points to; a becomes 2.0</span>
 </pre></div>
 </div>
 <p><code class="docutils literal notranslate"><span class="pre">a</span></code> は数値 1.0 を、<code class="docutils literal notranslate"><span class="pre">p</span></code> は「その 1.0 が置かれている場所」を持っています。
@@ -365,10 +368,10 @@ C++ のポインタは、<code class="docutils literal notranslate"><span class=
 <span id="id10"></span><h3>2.2 宣言と式で変わる * と &amp;<a class="headerlink" href="#edu-ch03-symbols-in-declaration" title="Link to this heading"></a></h3>
 <p>参照とポインタの両方に <code class="docutils literal notranslate"><span class="pre">&amp;</span></code> と <code class="docutils literal notranslate"><span class="pre">*</span></code> が出てきます。<strong>同じ記号でも、宣言に書く場合と式に書く場合で意味が変わります。</strong></p>
 <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">double</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">1.0</span><span class="p">;</span>
-<span class="kt">double</span><span class="w"> </span><span class="o">&amp;</span><span class="n">r</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">a</span><span class="p">;</span><span class="w">   </span><span class="c1">// 宣言の &amp;：r を a の参照（別名）として作る</span>
-<span class="kt">double</span><span class="w"> </span><span class="o">*</span><span class="n">p</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&amp;</span><span class="n">a</span><span class="p">;</span><span class="w">  </span><span class="c1">// 宣言の *：p をポインタとして作る。式の &amp;a：a のアドレス</span>
-<span class="o">*</span><span class="n">p</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">2.0</span><span class="p">;</span><span class="w">        </span><span class="c1">// 式の *：p が指す先（a）に代入する。a も r も 2.0</span>
-<span class="n">r</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">3.0</span><span class="p">;</span><span class="w">         </span><span class="c1">// a に代入する。a も *p も 3.0</span>
+<span class="kt">double</span><span class="w"> </span><span class="o">&amp;</span><span class="n">r</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">a</span><span class="p">;</span><span class="w">   </span><span class="c1">// &amp; in a declaration: makes r a reference (alias) to a</span>
+<span class="kt">double</span><span class="w"> </span><span class="o">*</span><span class="n">p</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&amp;</span><span class="n">a</span><span class="p">;</span><span class="w">  </span><span class="c1">// * in a declaration: makes p a pointer. &amp; in an expression: address of a</span>
+<span class="o">*</span><span class="n">p</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">2.0</span><span class="p">;</span><span class="w">        </span><span class="c1">// * in an expression: assigns to what p points to (a). a and r are both 2.0</span>
+<span class="n">r</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">3.0</span><span class="p">;</span><span class="w">         </span><span class="c1">// assigns to a. a and *p are both 3.0</span>
 </pre></div>
 </div>
 <table class="docutils align-default">
@@ -404,8 +407,8 @@ C++ のポインタは、<code class="docutils literal notranslate"><span class=
 <p><code class="docutils literal notranslate"><span class="pre">r</span></code> は <code class="docutils literal notranslate"><span class="pre">a</span></code> の別名なので <code class="docutils literal notranslate"><span class="pre">&amp;r</span></code> も <code class="docutils literal notranslate"><span class="pre">a</span></code> のアドレスで、<code class="docutils literal notranslate"><span class="pre">&amp;a</span></code>, <code class="docutils literal notranslate"><span class="pre">&amp;r</span></code>, <code class="docutils literal notranslate"><span class="pre">p</span></code> はすべて同じ場所を表します。
 宣言の <code class="docutils literal notranslate"><span class="pre">double</span> <span class="pre">*p</span></code> は「<code class="docutils literal notranslate"><span class="pre">*p</span></code> と書くと <code class="docutils literal notranslate"><span class="pre">double</span></code> になるような <code class="docutils literal notranslate"><span class="pre">p</span></code>」と読むと、式の <code class="docutils literal notranslate"><span class="pre">*p</span></code> とのつながりが分かります。</p>
 <p>宣言でもう 1 つ注意する点があります。<strong><code class="docutils literal notranslate"><span class="pre">*</span></code> と <code class="docutils literal notranslate"><span class="pre">&amp;</span></code> は型ではなく、それぞれの名前に付きます。</strong></p>
-<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">double</span><span class="w"> </span><span class="o">*</span><span class="n">p</span><span class="p">,</span><span class="w"> </span><span class="n">q</span><span class="p">;</span><span class="w">   </span><span class="c1">// p はポインタ、q はただの double</span>
-<span class="kt">double</span><span class="w"> </span><span class="o">*</span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">nullptr</span><span class="p">,</span><span class="w"> </span><span class="o">*</span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">nullptr</span><span class="p">;</span><span class="w">  </span><span class="c1">// x も y もポインタ</span>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">double</span><span class="w"> </span><span class="o">*</span><span class="n">p</span><span class="p">,</span><span class="w"> </span><span class="n">q</span><span class="p">;</span><span class="w">   </span><span class="c1">// p is a pointer, q is just a double</span>
+<span class="kt">double</span><span class="w"> </span><span class="o">*</span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">nullptr</span><span class="p">,</span><span class="w"> </span><span class="o">*</span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">nullptr</span><span class="p">;</span><span class="w">  </span><span class="c1">// x and y are both pointers</span>
 </pre></div>
 </div>
 <p><strong>MISO の実例</strong> — <code class="docutils literal notranslate"><span class="pre">miso/include/miso/grid.hpp</span></code> の <code class="docutils literal notranslate"><span class="pre">GridView</span></code> は、座標の配列をポインタで持っています（抜粋）。</p>
@@ -419,7 +422,7 @@ C++ のポインタは、<code class="docutils literal notranslate"><span class=
 <summary>コラム：宣言を使い方に似せる C の設計と、参照の & の由来</summary>
 <p><code class="docutils literal notranslate"><span class="pre">double</span> <span class="pre">*p</span></code> の <code class="docutils literal notranslate"><span class="pre">*</span></code> と <code class="docutils literal notranslate"><span class="pre">*p</span></code> の <code class="docutils literal notranslate"><span class="pre">*</span></code> が同じ記号なのは、C の設計者 Ritchie が「宣言は、その変数を式で使うときの形に似せる」と決めたためです。
 <code class="docutils literal notranslate"><span class="pre">double</span> <span class="pre">*p</span></code> は「<code class="docutils literal notranslate"><span class="pre">*p</span></code> が <code class="docutils literal notranslate"><span class="pre">double</span></code> である」という宣言として読めます。
-出典：<a class="reference external" href="https://www.nokia.com/bell-labs/about/dennis-m-ritchie/chist.html">D. M. Ritchie, <em>The Development of the C Language</em></a>（”Embryonic C” の節）。</p>
+出典：<a class="reference external" href="https://www.nokia.com/bell-labs/about/dennis-m-ritchie/chist.html">D. M. Ritchie, <em>The Development of the C Language</em></a>（&quot;Embryonic C&quot; の節）。</p>
 <p>参照は C++ で加わった機能です。Stroustrup は、参照を導入した主な理由として演算子のオーバーロード（行列 <code class="docutils literal notranslate"><span class="pre">A</span> <span class="pre">+</span> <span class="pre">B</span></code> を、大きなデータをコピーせずに書くこと）を挙げています。
 同じ節には、Fortran の関数に値を渡すために const 参照を使う例も出てきます。
 出典：<a class="reference external" href="https://www.stroustrup.com/hopl2.pdf#page=25">B. Stroustrup, <em>A History of C++: 1979–1991</em>, 3.3.4 節</a>。
@@ -435,9 +438,9 @@ MISO は clang-format の設定（<code class="docutils literal notranslate"><sp
 <p>参照と違い、ポインタは後から別の変数を指すように変えられます。</p>
 <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">double</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">1.0</span><span class="p">;</span>
 <span class="kt">double</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">4.0</span><span class="p">;</span>
-<span class="kt">double</span><span class="w"> </span><span class="o">*</span><span class="n">p</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&amp;</span><span class="n">a</span><span class="p">;</span><span class="w">  </span><span class="c1">// p は a を指す</span>
-<span class="n">p</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&amp;</span><span class="n">b</span><span class="p">;</span><span class="w">          </span><span class="c1">// p の指す先を b に変える。a と b の値は変わらない</span>
-<span class="o">*</span><span class="n">p</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">5.0</span><span class="p">;</span><span class="w">        </span><span class="c1">// 今は b を指しているので b が 5.0 になる。a は 1.0 のまま</span>
+<span class="kt">double</span><span class="w"> </span><span class="o">*</span><span class="n">p</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&amp;</span><span class="n">a</span><span class="p">;</span><span class="w">  </span><span class="c1">// p points to a</span>
+<span class="n">p</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&amp;</span><span class="n">b</span><span class="p">;</span><span class="w">          </span><span class="c1">// changes what p points to, to b. The values of a and b do not change</span>
+<span class="o">*</span><span class="n">p</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">5.0</span><span class="p">;</span><span class="w">        </span><span class="c1">// p now points to b, so b becomes 5.0. a stays 1.0</span>
 </pre></div>
 </div>
 <p><code class="docutils literal notranslate"><span class="pre">p</span> <span class="pre">=</span> <span class="pre">&amp;b;</span></code> はポインタが持つアドレスを変える代入、<code class="docutils literal notranslate"><span class="pre">*p</span> <span class="pre">=</span> <span class="pre">5.0;</span></code> は指す先の値を変える代入です。どちらを変えているかを、<code class="docutils literal notranslate"><span class="pre">*</span></code> の有無で見分けます。</p>
@@ -445,8 +448,8 @@ MISO は clang-format の設定（<code class="docutils literal notranslate"><sp
 <section id="nullptr">
 <span id="edu-ch03-nullptr"></span><h3>2.4 nullptr<a class="headerlink" href="#nullptr" title="Link to this heading"></a></h3>
 <p><code class="docutils literal notranslate"><span class="pre">nullptr</span></code>（ヌルポインタ）は、<strong>どこも指していない</strong>ことを表すポインタの値です。Fortran の <code class="docutils literal notranslate"><span class="pre">nullify(p)</span></code> した状態、<code class="docutils literal notranslate"><span class="pre">associated(p)</span></code> が偽の状態に当たります。</p>
-<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">double</span><span class="w"> </span><span class="o">*</span><span class="n">q</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">nullptr</span><span class="p">;</span><span class="w">  </span><span class="c1">// まだ何も指していない</span>
-<span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">q</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="nb">nullptr</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">   </span><span class="c1">// 指す先があるときだけ使う</span>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">double</span><span class="w"> </span><span class="o">*</span><span class="n">q</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">nullptr</span><span class="p">;</span><span class="w">  </span><span class="c1">// points to nothing yet</span>
+<span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">q</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="nb">nullptr</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">   </span><span class="c1">// use it only when it points to something</span>
 <span class="w">  </span><span class="o">*</span><span class="n">q</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">1.0</span><span class="p">;</span>
 <span class="p">}</span>
 </pre></div>
@@ -462,12 +465,12 @@ MISO は clang-format の設定（<code class="docutils literal notranslate"><sp
 <section id="edu-ch03-pointer-arguments">
 <span id="id12"></span><h3>2.5 ポインタを受け取る関数<a class="headerlink" href="#edu-ch03-pointer-arguments" title="Link to this heading"></a></h3>
 <p>関数がポインタを受け取ると、呼び出し元の変数のアドレスを通して値を書き込めます。参照引数と同じ働きを、C の書き方で表したものです。</p>
-<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span><span class="w"> </span><span class="nf">get_rank</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="o">*</span><span class="n">rank</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">  </span><span class="c1">// 書き込む先のアドレスを受け取る</span>
-<span class="w">  </span><span class="o">*</span><span class="n">rank</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">3</span><span class="p">;</span><span class="w">                </span><span class="c1">// 指す先に書き込む</span>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span><span class="w"> </span><span class="nf">get_rank</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="o">*</span><span class="n">rank</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">  </span><span class="c1">// receives the address to write to</span>
+<span class="w">  </span><span class="o">*</span><span class="n">rank</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">3</span><span class="p">;</span><span class="w">                </span><span class="c1">// writes to what it points to</span>
 <span class="p">}</span>
 
 <span class="kt">int</span><span class="w"> </span><span class="n">rank</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">-1</span><span class="p">;</span>
-<span class="n">get_rank</span><span class="p">(</span><span class="o">&amp;</span><span class="n">rank</span><span class="p">);</span><span class="w">            </span><span class="c1">// rank のアドレスを渡す。rank は 3 になる</span>
+<span class="n">get_rank</span><span class="p">(</span><span class="o">&amp;</span><span class="n">rank</span><span class="p">);</span><span class="w">            </span><span class="c1">// pass the address of rank; rank becomes 3</span>
 </pre></div>
 </div>
 <p>参照引数との違いは、呼び出す側で <code class="docutils literal notranslate"><span class="pre">&amp;rank</span></code> とアドレスを明示すること、そして <code class="docutils literal notranslate"><span class="pre">nullptr</span></code> も渡せることです。
@@ -504,13 +507,13 @@ Fortran の <code class="docutils literal notranslate"><span class="pre">call</s
 <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">double</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">1.0</span><span class="p">;</span>
 <span class="kt">double</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">4.0</span><span class="p">;</span>
 
-<span class="k">const</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="o">*</span><span class="n">p</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&amp;</span><span class="n">a</span><span class="p">;</span><span class="w">  </span><span class="c1">// 指す先を読むだけ</span>
-<span class="c1">// *p = 2.0;           // エラー：assignment of read-only location '* p'</span>
-<span class="n">p</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&amp;</span><span class="n">b</span><span class="p">;</span><span class="w">                </span><span class="c1">// できる：p 自身は const ではない</span>
+<span class="k">const</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="o">*</span><span class="n">p</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&amp;</span><span class="n">a</span><span class="p">;</span><span class="w">  </span><span class="c1">// only reads what it points to</span>
+<span class="c1">// *p = 2.0;           // error: assignment of read-only location '* p'</span>
+<span class="n">p</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&amp;</span><span class="n">b</span><span class="p">;</span><span class="w">                </span><span class="c1">// OK: p itself is not const</span>
 
-<span class="kt">double</span><span class="w"> </span><span class="o">*</span><span class="k">const</span><span class="w"> </span><span class="n">q</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&amp;</span><span class="n">a</span><span class="p">;</span><span class="w">  </span><span class="c1">// 指す先を固定</span>
-<span class="o">*</span><span class="n">q</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">2.0</span><span class="p">;</span><span class="w">              </span><span class="c1">// できる：a が 2.0 になる</span>
-<span class="c1">// q = &amp;b;             // エラー：assignment of read-only variable 'q'</span>
+<span class="kt">double</span><span class="w"> </span><span class="o">*</span><span class="k">const</span><span class="w"> </span><span class="n">q</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&amp;</span><span class="n">a</span><span class="p">;</span><span class="w">  </span><span class="c1">// fixes what it points to</span>
+<span class="o">*</span><span class="n">q</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">2.0</span><span class="p">;</span><span class="w">              </span><span class="c1">// OK: a becomes 2.0</span>
+<span class="c1">// q = &amp;b;             // error: assignment of read-only variable 'q'</span>
 </pre></div>
 </div>
 <table class="docutils align-default">
@@ -557,9 +560,9 @@ Fortran の <code class="docutils literal notranslate"><span class="pre">call</s
 <section id="edu-ch03-arrays">
 <span id="id14"></span><h2>4. 配列とポインタ<a class="headerlink" href="#edu-ch03-arrays" title="Link to this heading"></a></h2>
 <p>C++ の組込みの配列は、同じ型の値をメモリ上に連続して並べたものです。</p>
-<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">double</span><span class="w"> </span><span class="n">raw</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="mf">0.0</span><span class="p">,</span><span class="w"> </span><span class="mf">1.0</span><span class="p">,</span><span class="w"> </span><span class="mf">2.0</span><span class="p">,</span><span class="w"> </span><span class="mf">3.0</span><span class="p">};</span><span class="w">  </span><span class="c1">// double を 4 個。添字は 0〜3</span>
-<span class="kt">double</span><span class="w"> </span><span class="o">*</span><span class="n">p</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">raw</span><span class="p">;</span><span class="w">                        </span><span class="c1">// 配列の名前は、先頭要素 raw[0] のアドレスになる</span>
-<span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="o">*</span><span class="p">(</span><span class="n">p</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">2</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">" "</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">p</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">"</span><span class="se">\n</span><span class="s">"</span><span class="p">;</span><span class="w">  </span><span class="c1">// どちらも raw[2] で、2 2</span>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">double</span><span class="w"> </span><span class="n">raw</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="mf">0.0</span><span class="p">,</span><span class="w"> </span><span class="mf">1.0</span><span class="p">,</span><span class="w"> </span><span class="mf">2.0</span><span class="p">,</span><span class="w"> </span><span class="mf">3.0</span><span class="p">};</span><span class="w">  </span><span class="c1">// 4 doubles; indices 0 to 3</span>
+<span class="kt">double</span><span class="w"> </span><span class="o">*</span><span class="n">p</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">raw</span><span class="p">;</span><span class="w">                        </span><span class="c1">// the array name becomes the address of the first element raw[0]</span>
+<span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="o">*</span><span class="p">(</span><span class="n">p</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">2</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">" "</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">p</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">"</span><span class="se">\n</span><span class="s">"</span><span class="p">;</span><span class="w">  </span><span class="c1">// both are raw[2], so 2 2</span>
 </pre></div>
 </div>
 <ul class="simple">
@@ -568,7 +571,7 @@ Fortran の <code class="docutils literal notranslate"><span class="pre">call</s
 <li><p><code class="docutils literal notranslate"><span class="pre">p[i]</span></code> は <code class="docutils literal notranslate"><span class="pre">*(p</span> <span class="pre">+</span> <span class="pre">i)</span></code> と同じ意味です。添字が 0 から始まるのは、先頭が「0 個先」だからです。</p></li>
 </ul>
 <p>そのため、関数に配列を渡すと、実際に渡るのは先頭のアドレスだけで、<strong>要素数は伝わりません</strong>。要素数は別の引数で渡します。</p>
-<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">double</span><span class="w"> </span><span class="nf">sum</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="o">*</span><span class="n">values</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">n</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">  </span><span class="c1">// 先頭のアドレスと要素数</span>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">double</span><span class="w"> </span><span class="nf">sum</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="o">*</span><span class="n">values</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">n</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">  </span><span class="c1">// address of the first element and the number of elements</span>
 <span class="w">  </span><span class="kt">double</span><span class="w"> </span><span class="n">total</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.0</span><span class="p">;</span>
 <span class="w">  </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">n</span><span class="p">;</span><span class="w"> </span><span class="o">++</span><span class="n">i</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="n">total</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">values</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
@@ -577,7 +580,7 @@ Fortran の <code class="docutils literal notranslate"><span class="pre">call</s
 <span class="p">}</span>
 
 <span class="n">sum</span><span class="p">(</span><span class="n">raw</span><span class="p">,</span><span class="w"> </span><span class="mi">4</span><span class="p">);</span><span class="w">      </span><span class="c1">// 0 + 1 + 2 + 3 = 6</span>
-<span class="n">sum</span><span class="p">(</span><span class="n">raw</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">);</span><span class="w">  </span><span class="c1">// raw[1] から 2 個：1 + 2 = 3</span>
+<span class="n">sum</span><span class="p">(</span><span class="n">raw</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">);</span><span class="w">  </span><span class="c1">// 2 elements from raw[1]: 1 + 2 = 3</span>
 </pre></div>
 </div>
 <p><code class="docutils literal notranslate"><span class="pre">raw</span> <span class="pre">+</span> <span class="pre">1</span></code> を渡すと、配列の途中から始まる部分を渡せます。Fortran で <code class="docutils literal notranslate"><span class="pre">call</span> <span class="pre">sub(a(2),</span> <span class="pre">2)</span></code> と書いて途中から渡す使い方に似ています。
@@ -585,8 +588,8 @@ Fortran の <code class="docutils literal notranslate"><span class="pre">call</s
 <p>範囲を「先頭のアドレス」と「最後の要素の 1 つ後ろのアドレス」の組で表すこともよくあります。<code class="docutils literal notranslate"><span class="pre">p</span></code> から <code class="docutils literal notranslate"><span class="pre">p</span> <span class="pre">+</span> <span class="pre">n</span></code> までは <code class="docutils literal notranslate"><span class="pre">0</span> <span class="pre">&lt;=</span> <span class="pre">i</span> <span class="pre">&lt;</span> <span class="pre">n</span></code> と同じ範囲です。</p>
 <p><code class="docutils literal notranslate"><span class="pre">std::vector</span></code> も要素を連続して並べており、<code class="docutils literal notranslate"><span class="pre">v.data()</span></code> で先頭のアドレスを得られます。</p>
 <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;algorithm&gt;</span><span class="w">  </span><span class="c1">// std::fill</span>
-<span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;</span><span class="w"> </span><span class="n">v</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span><span class="w"> </span><span class="mf">1.0</span><span class="p">);</span><span class="w">                  </span><span class="c1">// 1.0 を 5 個</span>
-<span class="n">std</span><span class="o">::</span><span class="n">fill</span><span class="p">(</span><span class="n">v</span><span class="p">.</span><span class="n">data</span><span class="p">(),</span><span class="w"> </span><span class="n">v</span><span class="p">.</span><span class="n">data</span><span class="p">()</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">v</span><span class="p">.</span><span class="n">size</span><span class="p">(),</span><span class="w"> </span><span class="mf">0.0</span><span class="p">);</span><span class="w">  </span><span class="c1">// [先頭, 先頭 + 5) を 0.0 で埋める</span>
+<span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;</span><span class="w"> </span><span class="n">v</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span><span class="w"> </span><span class="mf">1.0</span><span class="p">);</span><span class="w">                  </span><span class="c1">// 5 copies of 1.0</span>
+<span class="n">std</span><span class="o">::</span><span class="n">fill</span><span class="p">(</span><span class="n">v</span><span class="p">.</span><span class="n">data</span><span class="p">(),</span><span class="w"> </span><span class="n">v</span><span class="p">.</span><span class="n">data</span><span class="p">()</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">v</span><span class="p">.</span><span class="n">size</span><span class="p">(),</span><span class="w"> </span><span class="mf">0.0</span><span class="p">);</span><span class="w">  </span><span class="c1">// fills [begin, begin + 5) with 0.0</span>
 </pre></div>
 </div>
 <p><strong>MISO の実例 1</strong> — <code class="docutils literal notranslate"><span class="pre">miso/include/miso/utility.hpp</span></code> の <code class="docutils literal notranslate"><span class="pre">util::clear_array</span></code> は、配列を 0 で埋めます（<code class="docutils literal notranslate"><span class="pre">template</span></code> と <code class="docutils literal notranslate"><span class="pre">using</span> <span class="pre">T</span> <span class="pre">=</span> <span class="pre">...</span></code> の行は <a class="reference internal" href="06_templates.html#edu-ch06"><span class="std std-ref">第 6 章</span></a> の内容なので、<code class="docutils literal notranslate"><span class="pre">T</span></code> を <code class="docutils literal notranslate"><span class="pre">Real</span></code> と読みます）。</p>
@@ -623,12 +626,12 @@ Fortran の <code class="docutils literal notranslate"><span class="pre">call</s
 <span id="id15"></span><h2>5. 変数の寿命とスコープ<a class="headerlink" href="#edu-ch03-lifetime" title="Link to this heading"></a></h2>
 <p>関数の中で宣言した変数は、宣言した場所から、その変数を囲む <code class="docutils literal notranslate"><span class="pre">{</span> <span class="pre">...</span> <span class="pre">}</span></code> の終わりまで使えます。この範囲を<strong>スコープ</strong>と呼びます。
 そして、通常の変数の実体は、そのブロックを抜けるときに消えます。変数が存在する期間を<strong>寿命</strong>と呼びます。</p>
-<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">double</span><span class="w"> </span><span class="o">*</span><span class="n">p</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">nullptr</span><span class="p">;</span><span class="w">   </span><span class="c1">// p は外側のブロックにある</span>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">double</span><span class="w"> </span><span class="o">*</span><span class="n">p</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">nullptr</span><span class="p">;</span><span class="w">   </span><span class="c1">// p is in the outer block</span>
 <span class="p">{</span>
-<span class="w">  </span><span class="kt">double</span><span class="w"> </span><span class="n">local</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">1.0</span><span class="p">;</span><span class="w">  </span><span class="c1">// local はこのブロックの中だけに存在する</span>
-<span class="w">  </span><span class="n">p</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&amp;</span><span class="n">local</span><span class="p">;</span><span class="w">          </span><span class="c1">// p に local のアドレスを保存する</span>
-<span class="p">}</span><span class="w">                      </span><span class="c1">// local の寿命が終わる。p は残る</span>
-<span class="c1">// ここで *p を読み書きしてはいけない</span>
+<span class="w">  </span><span class="kt">double</span><span class="w"> </span><span class="n">local</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">1.0</span><span class="p">;</span><span class="w">  </span><span class="c1">// local exists only inside this block</span>
+<span class="w">  </span><span class="n">p</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&amp;</span><span class="n">local</span><span class="p">;</span><span class="w">          </span><span class="c1">// stores the address of local in p</span>
+<span class="p">}</span><span class="w">                      </span><span class="c1">// the lifetime of local ends. p remains</span>
+<span class="c1">// do not read or write *p here</span>
 </pre></div>
 </div>
 <p>ポインタや参照が残っていても、<strong>指す先の寿命は延びません</strong>。寿命が終わった変数を指すポインタや参照を、<strong>ぶら下がりポインタ</strong>・<strong>ぶら下がり参照</strong>（dangling pointer / reference）と呼びます。
@@ -637,7 +640,7 @@ Fortran の <code class="docutils literal notranslate"><span class="pre">call</s
 <p>関数の中の変数への参照やポインタを返すのも、同じ誤りです。</p>
 <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">double</span><span class="w"> </span><span class="o">&amp;</span><span class="nf">bad</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
 <span class="w">  </span><span class="kt">double</span><span class="w"> </span><span class="n">local</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">1.0</span><span class="p">;</span>
-<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="n">local</span><span class="p">;</span><span class="w">  </span><span class="c1">// 関数を抜けると local は消える</span>
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="n">local</span><span class="p">;</span><span class="w">  </span><span class="c1">// local is destroyed when the function returns</span>
 <span class="p">}</span>
 </pre></div>
 </div>
@@ -679,11 +682,11 @@ MISO では、格子を作った後に座標の要素数を変えないので、
 <p>ブロックの寿命に縛られず、必要な大きさのメモリを実行時に確保したいことがあります。
 C++ の基本の道具は <code class="docutils literal notranslate"><span class="pre">new</span></code> と <code class="docutils literal notranslate"><span class="pre">delete</span></code> です。Fortran の <code class="docutils literal notranslate"><span class="pre">allocate</span></code> と <code class="docutils literal notranslate"><span class="pre">deallocate</span></code> に当たります。</p>
 <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">int</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">4</span><span class="p">;</span>
-<span class="kt">double</span><span class="w"> </span><span class="o">*</span><span class="n">raw</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="kt">double</span><span class="p">[</span><span class="n">n</span><span class="p">];</span><span class="w">  </span><span class="c1">// double を n 個確保し、先頭のアドレスを raw に入れる</span>
+<span class="kt">double</span><span class="w"> </span><span class="o">*</span><span class="n">raw</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="kt">double</span><span class="p">[</span><span class="n">n</span><span class="p">];</span><span class="w">  </span><span class="c1">// allocates n doubles and puts the address of the first one in raw</span>
 <span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">n</span><span class="p">;</span><span class="w"> </span><span class="o">++</span><span class="n">i</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
 <span class="w">  </span><span class="n">raw</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">i</span><span class="p">;</span>
 <span class="p">}</span>
-<span class="k">delete</span><span class="p">[]</span><span class="w"> </span><span class="n">raw</span><span class="p">;</span><span class="w">                 </span><span class="c1">// 自分で解放する（配列には delete[]）</span>
+<span class="k">delete</span><span class="p">[]</span><span class="w"> </span><span class="n">raw</span><span class="p">;</span><span class="w">                 </span><span class="c1">// release it yourself (delete[] for arrays)</span>
 <span class="n">raw</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">nullptr</span><span class="p">;</span>
 </pre></div>
 </div>
@@ -703,14 +706,14 @@ C++ の基本の道具は <code class="docutils literal notranslate"><span class
 <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;memory&gt;</span>
 
 <span class="kt">int</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">4</span><span class="p">;</span>
-<span class="n">std</span><span class="o">::</span><span class="n">unique_ptr</span><span class="o">&lt;</span><span class="kt">double</span><span class="p">[]</span><span class="o">&gt;</span><span class="w"> </span><span class="n">u</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">make_unique</span><span class="o">&lt;</span><span class="kt">double</span><span class="p">[]</span><span class="o">&gt;</span><span class="p">(</span><span class="n">n</span><span class="p">);</span><span class="w">  </span><span class="c1">// n 個、0 で初期化</span>
+<span class="n">std</span><span class="o">::</span><span class="n">unique_ptr</span><span class="o">&lt;</span><span class="kt">double</span><span class="p">[]</span><span class="o">&gt;</span><span class="w"> </span><span class="n">u</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">make_unique</span><span class="o">&lt;</span><span class="kt">double</span><span class="p">[]</span><span class="o">&gt;</span><span class="p">(</span><span class="n">n</span><span class="p">);</span><span class="w">  </span><span class="c1">// n elements, initialized to 0</span>
 <span class="n">u</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">1.5</span><span class="p">;</span>
 
 <span class="n">std</span><span class="o">::</span><span class="n">shared_ptr</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;</span><span class="w"> </span><span class="n">s1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">make_shared</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;</span><span class="p">(</span><span class="mf">2.0</span><span class="p">);</span>
-<span class="n">std</span><span class="o">::</span><span class="n">shared_ptr</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;</span><span class="w"> </span><span class="n">s2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">s1</span><span class="p">;</span><span class="w">   </span><span class="c1">// 同じ double を共有する</span>
-<span class="o">*</span><span class="n">s2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">3.0</span><span class="p">;</span><span class="w">                         </span><span class="c1">// *s1 も 3.0</span>
-<span class="c1">// s1.use_count() は 2（持ち主が 2 つ）</span>
-<span class="c1">// ブロックの終わりで u, s1, s2 は自動で解放される。delete は書かない</span>
+<span class="n">std</span><span class="o">::</span><span class="n">shared_ptr</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;</span><span class="w"> </span><span class="n">s2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">s1</span><span class="p">;</span><span class="w">   </span><span class="c1">// shares the same double</span>
+<span class="o">*</span><span class="n">s2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">3.0</span><span class="p">;</span><span class="w">                         </span><span class="c1">// *s1 is also 3.0</span>
+<span class="c1">// s1.use_count() is 2 (two owners)</span>
+<span class="c1">// u, s1, s2 are released automatically at the end of the block. No delete needed</span>
 </pre></div>
 </div>
 <p><code class="docutils literal notranslate"><span class="pre">&lt;double[]&gt;</span></code> などの <code class="docutils literal notranslate"><span class="pre">&lt;&gt;</span></code> はテンプレート引数（<a class="reference internal" href="06_templates.html#edu-ch06"><span class="std std-ref">第 6 章</span></a>）です。<code class="docutils literal notranslate"><span class="pre">make_unique</span></code>・<code class="docutils literal notranslate"><span class="pre">make_shared</span></code> は、確保とポインタの作成を一度に行う関数です。</p>
@@ -773,7 +776,7 @@ GPU 用の <code class="docutils literal notranslate"><span class="pre">Array1D&
 <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;vector&gt;</span>
 
 <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">make_counts</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">n</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">  </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">counts</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">);</span><span class="w">  </span><span class="c1">// n 個、すべて 0</span>
+<span class="w">  </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">counts</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">);</span><span class="w">  </span><span class="c1">// n elements, all 0</span>
 <span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="n">counts</span><span class="p">;</span>
 <span class="p">}</span>
 </pre></div>
@@ -871,49 +874,7 @@ GPU 用の <code class="docutils literal notranslate"><span class="pre">Array1D&
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script>
- 
-<script>
-    document.addEventListener("DOMContentLoaded", () => {
-        const currentUrl = window.location.href;
-        const isTranslated = currentUrl.includes(".translate.goog");
-        const translateLink = document.getElementById("translate-link");
-        const originalLink = document.getElementById("original-link");
-
-        // 翻訳URLを生成
-        const translateUrl =
-            "https://translate.google.com/translate?sl=ja&tl=en&u=" +
-            encodeURIComponent(currentUrl);
-
-        if (isTranslated) {
-            // --- 英語版(.translate.goog)にいる場合 ---
-            // English → ページを単にリロード
-            translateLink.removeAttribute("target");
-            translateLink.removeAttribute("href");
-            translateLink.addEventListener("click", (e) => {
-                e.preventDefault();
-                window.location.reload();
-            });
-
-            // 日本語 → 新タブで元URLを開く（翻訳解除）
-            const originalUrl = currentUrl.replace(
-                /^https:\/\/[^/]+\.translate\.goog/,
-                "https://is-isee.github.io"
-            );
-            originalLink.href = originalUrl;
-            originalLink.target = "_blank";
-            originalLink.rel = "noopener";
-        } else {
-            // --- 日本語版にいる場合 ---
-            translateLink.href = translateUrl;
-            translateLink.target = "_blank";
-
-            originalLink.href = currentUrl;
-            originalLink.target = "_self";
-        }
-    });
-</script>
-
+  </script> 
 
 </body>
 </html>

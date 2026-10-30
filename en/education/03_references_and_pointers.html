@@ -1,0 +1,805 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>3. References, Pointers, and Lifetime &mdash; MISO 0.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=4ae1632d" />
+      <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../_static/collapsible-lists/css/tree_view.css?v=a885cde7" />
+      <link rel="stylesheet" type="text/css" href="../_static/custom.css" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=837179f8"></script>
+      <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../_static/copybutton.js?v=f281be69"></script>
+      <script src="../_static/collapsible-lists/js/CollapsibleLists.compressed.js?v=73120307"></script>
+      <script src="../_static/collapsible-lists/js/apply-collapsible-lists.js?v=660e4f45"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="4. Classes and Structs" href="04_classes_and_structs.html" />
+    <link rel="prev" title="2. Variables, Functions, and Control Flow" href="02_cpp_basics.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            MISO
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../quickstart.html">Quick Start</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../demo/index.html">Test Problems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../customization/index.html">Customization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../miso/index.html">MISO C++ documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../pymiso/index.html">pymiso Documentation</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">MISO education</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="index.html#id1">Main text</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html#id2">Reference material to consult when needed</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="01_environment_setup.html">1. Development Environment and CMake</a></li>
+<li class="toctree-l3"><a class="reference internal" href="02_cpp_basics.html">2. Variables, Functions, and Control Flow</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">3. References, Pointers, and Lifetime</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id2">Contents</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#edu-ch03-references">1. Copies and references</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#edu-ch03-pointers">2. Pointers</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#edu-ch03-const-position">3. Position of const</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#edu-ch03-arrays">4. Arrays and pointers</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#edu-ch03-lifetime">5. Variable lifetime and scope</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#newdelete">6. new, delete, and smart pointers</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#edu-ch03-exercises">7. Exercises</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#edu-ch03-summary">8. Summary of symbols</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="04_classes_and_structs.html">4. Classes and Structs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="05_inheritance.html">5. Inheritance and CRTP</a></li>
+<li class="toctree-l3"><a class="reference internal" href="06_templates.html">6. Templates</a></li>
+<li class="toctree-l3"><a class="reference internal" href="07_arrays_and_parallel.html">7. Arrays, Lambdas, and Parallel Loops on the CPU</a></li>
+<li class="toctree-l3"><a class="reference internal" href="08_mpi.html">8. Domain Decomposition with MPI</a></li>
+<li class="toctree-l3"><a class="reference internal" href="09_gpu.html">9. Computing and Transferring Data on a GPU (CUDA)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="10_heat1d.html">10. Heat Conduction Calculation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="11_reading_miso.html">11. Reading MISO’s Time Evolution</a></li>
+<li class="toctree-l3"><a class="reference internal" href="practice/index.html">Practice List</a></li>
+<li class="toctree-l3"><a class="reference internal" href="reference/index.html">Reference Materials</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../references.html">References</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">MISO</a>
+      </nav>
+
+      <div class="wy-nav-content">
+<div id="language-links" style="margin-bottom: 1em; font-size: 100%;">
+    Language:
+    
+    <strong>English</strong> |
+    <a href="../../education/03_references_and_pointers.html">日本語</a>
+    
+</div>
+
+
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">MISO education</a></li>
+      <li class="breadcrumb-item active">3. References, Pointers, and Lifetime</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/education/03_references_and_pointers.md.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section class="tex2jax_ignore mathjax_ignore" id="edu-ch03">
+<span id="id1"></span><h1>3. References, Pointers, and Lifetime<a class="headerlink" href="#edu-ch03" title="Link to this heading"></a></h1>
+<p>In <a class="reference internal" href="02_cpp_basics.html#edu-ch02"><span class="std std-ref">Chapter 2</span></a>, you learned how to pass a copy of a value to a function (pass by value). In this chapter, you will learn references and pointers, which let you <strong>use the original variable</strong> without making a copy, so that you can trace which variable is being read or written and how long that variable remains usable. In MISO, configuration and grids are received by reference and kept, and lightweight “Views” that hold the location of an array through a pointer are passed to computations.</p>
+<p>If you only want to check what the symbols mean, you can also use the <a class="reference internal" href="reference/cpp_reference.html#edu-ref-cpp"><span class="std std-ref">Symbol Quick Reference</span></a>.</p>
+<section id="id2">
+<h2>Contents<a class="headerlink" href="#id2" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p><a class="reference internal" href="#edu-ch03-references"><span class="std std-ref">1. Copies and references</span></a></p>
+<ul>
+<li><p><a class="reference internal" href="#edu-ch03-reference-basics"><span class="std std-ref">1.1 Copying a value and references</span></a> / <a class="reference internal" href="#edu-ch03-pass-by-reference"><span class="std std-ref">1.2 Pass by reference</span></a> / <a class="reference internal" href="#edu-ch03-output-arguments"><span class="std std-ref">1.3 Output parameters</span></a></p></li>
+<li><p><a class="reference internal" href="#edu-ch03-const-reference"><span class="std std-ref">1.4 const references for reading</span></a> / <a class="reference internal" href="#edu-ch03-argument-choice"><span class="std std-ref">1.5 Choosing how to receive parameters</span></a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#edu-ch03-pointers"><span class="std std-ref">2. Pointers</span></a></p>
+<ul>
+<li><p><a class="reference internal" href="#edu-ch03-address"><span class="std std-ref">2.1 Addresses and pointers</span></a> / <a class="reference internal" href="#edu-ch03-symbols-in-declaration"><span class="std std-ref">2.2 * and &amp; change meaning between declarations and expressions</span></a> / <a class="reference internal" href="#edu-ch03-rebinding"><span class="std std-ref">2.3 Re-pointing</span></a> / <a class="reference internal" href="#edu-ch03-nullptr"><span class="std std-ref">2.4 nullptr</span></a> / <a class="reference internal" href="#edu-ch03-pointer-arguments"><span class="std std-ref">2.5 Functions that take pointers</span></a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#edu-ch03-const-position"><span class="std std-ref">3. Position of const</span></a></p></li>
+<li><p><a class="reference internal" href="#edu-ch03-arrays"><span class="std std-ref">4. Arrays and pointers</span></a></p></li>
+<li><p><a class="reference internal" href="#edu-ch03-lifetime"><span class="std std-ref">5. Variable lifetime and scope</span></a></p></li>
+<li><p><a class="reference internal" href="#edu-ch03-dynamic-memory"><span class="std std-ref">6. new, delete, and smart pointers</span></a></p></li>
+<li><p><a class="reference internal" href="#edu-ch03-exercises"><span class="std std-ref">7. Exercises</span></a></p></li>
+<li><p><a class="reference internal" href="#edu-ch03-summary"><span class="std std-ref">8. Summary of symbols</span></a></p></li>
+</ul>
+</section>
+<section id="edu-ch03-references">
+<span id="id3"></span><h2>1. Copies and references<a class="headerlink" href="#edu-ch03-references" title="Link to this heading"></a></h2>
+<section id="edu-ch03-reference-basics">
+<span id="id4"></span><h3>1.1 Copying a value and references<a class="headerlink" href="#edu-ch03-reference-basics" title="Link to this heading"></a></h3>
+<p>Distinguish between starting from the same value and using the same variable.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">double</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">1.0</span><span class="p">;</span>
+<span class="kt">double</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">a</span><span class="p">;</span><span class="w">   </span><span class="c1">// b is a separate variable holding a copy of a</span>
+<span class="kt">double</span><span class="w"> </span><span class="o">&amp;</span><span class="n">r</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">a</span><span class="p">;</span><span class="w">  </span><span class="c1">// r is another name (reference) for a</span>
+
+<span class="n">b</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">2.0</span><span class="p">;</span><span class="w">        </span><span class="c1">// only b becomes 2.0</span>
+<span class="n">r</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">3.0</span><span class="p">;</span><span class="w">        </span><span class="c1">// r is a itself, so a becomes 3.0</span>
+<span class="c1">// a = 3.0, b = 2.0, r = 3.0</span>
+</pre></div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">r</span></code> in <code class="docutils literal notranslate"><span class="pre">double</span> <span class="pre">&amp;r</span> <span class="pre">=</span> <span class="pre">a;</span></code> is not a new <code class="docutils literal notranslate"><span class="pre">double</span></code> variable; it is <strong>another name given to <code class="docutils literal notranslate"><span class="pre">a</span></code></strong>. Such an alias is called a <strong>reference</strong>, and in a declaration you put <code class="docutils literal notranslate"><span class="pre">&amp;</span></code> after the type. <code class="docutils literal notranslate"><span class="pre">double&amp;</span> <span class="pre">r</span></code> and <code class="docutils literal notranslate"><span class="pre">double</span> <span class="pre">&amp;r</span></code> mean the same thing, and the MISO source consistently uses the <code class="docutils literal notranslate"><span class="pre">double</span> <span class="pre">&amp;r</span></code> style (<code class="docutils literal notranslate"><span class="pre">&amp;</span></code> next to the name).</p>
+<p>A reference must be bound to its target when it is declared. You cannot create one without a target, as in <code class="docutils literal notranslate"><span class="pre">double</span> <span class="pre">&amp;r;</span></code>. Also, <strong>you cannot rebind it to a different variable later</strong>. If you write <code class="docutils literal notranslate"><span class="pre">r</span> <span class="pre">=</span> <span class="pre">b;</span></code> in the state above, it only assigns the value of <code class="docutils literal notranslate"><span class="pre">b</span></code> to <code class="docutils literal notranslate"><span class="pre">a</span></code>.</p>
+</section>
+<section id="edu-ch03-pass-by-reference">
+<span id="id5"></span><h3>1.2 Pass by reference<a class="headerlink" href="#edu-ch03-pass-by-reference" title="Link to this heading"></a></h3>
+<p>If you make a function parameter a reference, the function can use the caller’s variable itself.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span><span class="w"> </span><span class="nf">set_copy</span><span class="p">(</span><span class="kt">double</span><span class="w"> </span><span class="n">value</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">      </span><span class="c1">// pass by value: value is a copy</span>
+<span class="w">  </span><span class="n">value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">5.0</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kt">void</span><span class="w"> </span><span class="nf">set_original</span><span class="p">(</span><span class="kt">double</span><span class="w"> </span><span class="o">&amp;</span><span class="n">value</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="c1">// pass by reference: value is an alias of the caller's variable</span>
+<span class="w">  </span><span class="n">value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">5.0</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kt">double</span><span class="w"> </span><span class="n">c</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">1.0</span><span class="p">;</span>
+<span class="n">set_copy</span><span class="p">(</span><span class="n">c</span><span class="p">);</span><span class="w">      </span><span class="c1">// c stays 1.0</span>
+<span class="n">set_original</span><span class="p">(</span><span class="n">c</span><span class="p">);</span><span class="w">  </span><span class="c1">// c becomes 5.0</span>
+</pre></div>
+</div>
+<p>The caller writes <code class="docutils literal notranslate"><span class="pre">set_copy(c)</span></code> and <code class="docutils literal notranslate"><span class="pre">set_original(c)</span></code>, which look the same. The difference lies in <strong><code class="docutils literal notranslate"><span class="pre">double</span> <span class="pre">value</span></code> versus <code class="docutils literal notranslate"><span class="pre">double</span> <span class="pre">&amp;value</span></code> on the side that defines the function</strong>. Receiving a parameter by reference in this way is called <strong>pass by reference</strong>.</p>
+<p>In Fortran, arguments are normally treated as the caller’s variable itself, and assigning to one inside a subroutine changes the caller’s variable. <strong>A Fortran argument is closer to C++ pass by reference than to pass by value.</strong> Just as you distinguish <code class="docutils literal notranslate"><span class="pre">intent(in)</span></code>, <code class="docutils literal notranslate"><span class="pre">intent(out)</span></code>, and <code class="docutils literal notranslate"><span class="pre">intent(inout)</span></code> in Fortran, in C++ you express how an argument is received through its type (<a class="reference internal" href="#edu-ch03-argument-choice"><span class="std std-ref">Section 1.5</span></a>).</p>
+</section>
+<section id="edu-ch03-output-arguments">
+<span id="id6"></span><h3>1.3 Output parameters<a class="headerlink" href="#edu-ch03-output-arguments" title="Link to this heading"></a></h3>
+<p>A function has only one return value, but reference parameters let you pass multiple results back to the caller. This is the same usage as a Fortran subroutine writing its results to <code class="docutils literal notranslate"><span class="pre">intent(out)</span></code> arguments.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span><span class="w"> </span><span class="nf">sum_and_difference</span><span class="p">(</span><span class="kt">double</span><span class="w"> </span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="n">b</span><span class="p">,</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="o">&amp;</span><span class="n">total</span><span class="p">,</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="o">&amp;</span><span class="n">difference</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="n">total</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">b</span><span class="p">;</span><span class="w">       </span><span class="c1">// writes to the caller's total</span>
+<span class="w">  </span><span class="n">difference</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">b</span><span class="p">;</span><span class="w">  </span><span class="c1">// writes to the caller's difference</span>
+<span class="p">}</span>
+
+<span class="kt">double</span><span class="w"> </span><span class="n">total</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.0</span><span class="p">;</span>
+<span class="kt">double</span><span class="w"> </span><span class="n">difference</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.0</span><span class="p">;</span>
+<span class="n">sum_and_difference</span><span class="p">(</span><span class="mf">3.0</span><span class="p">,</span><span class="w"> </span><span class="mf">1.0</span><span class="p">,</span><span class="w"> </span><span class="n">total</span><span class="p">,</span><span class="w"> </span><span class="n">difference</span><span class="p">);</span>
+<span class="c1">// total is 4.0, difference is 2.0</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">a</span></code> and <code class="docutils literal notranslate"><span class="pre">b</span></code> receive the values used in the computation by value, and <code class="docutils literal notranslate"><span class="pre">total</span></code> and <code class="docutils literal notranslate"><span class="pre">difference</span></code> receive, by reference, the places where the results are written. A parameter that receives a result is called an <strong>output parameter</strong>.</p>
+<p><strong>A real MISO example</strong> — the whole of <code class="docutils literal notranslate"><span class="pre">symmetric_index</span></code> in <code class="docutils literal notranslate"><span class="pre">miso/include/miso/boundary_condition.hpp</span></code>, which we saw with <code class="docutils literal notranslate"><span class="pre">switch</span></code> in <a class="reference internal" href="02_cpp_basics.html#edu-ch02"><span class="std std-ref">Chapter 2</span></a>.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">__host__</span><span class="w"> </span><span class="n">__device__</span><span class="w"> </span><span class="kr">inline</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="n">symmetric_index</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">i_total</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">i_margin</span><span class="p">,</span>
+<span class="w">                                                </span><span class="kt">int</span><span class="w"> </span><span class="o">&amp;</span><span class="n">i_ghst</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="o">&amp;</span><span class="n">i_trgt</span><span class="p">,</span>
+<span class="w">                                                </span><span class="n">Side</span><span class="w"> </span><span class="n">side</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">switch</span><span class="w"> </span><span class="p">(</span><span class="n">side</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">case</span><span class="w"> </span><span class="no">Side</span><span class="o">::</span><span class="no">INNER</span><span class="p">:</span>
+<span class="w">    </span><span class="n">i_ghst</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">i</span><span class="p">;</span>
+<span class="w">    </span><span class="n">i_trgt</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">i_margin</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<span class="w">    </span><span class="k">break</span><span class="p">;</span>
+<span class="w">  </span><span class="k">case</span><span class="w"> </span><span class="no">Side</span><span class="o">::</span><span class="no">OUTER</span><span class="p">:</span>
+<span class="w">    </span><span class="n">i_ghst</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">i_total</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">i_margin</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">i</span><span class="p">;</span>
+<span class="w">    </span><span class="n">i_trgt</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">i_total</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">i_margin</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<span class="w">    </span><span class="k">break</span><span class="p">;</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>The leading <code class="docutils literal notranslate"><span class="pre">__host__</span> <span class="pre">__device__</span></code> is a marker that the function can be called from both CPU and GPU (<a class="reference internal" href="09_gpu.html#edu-ch09"><span class="std std-ref">Chapter 9</span></a>), and in a CPU build it is replaced by nothing (the preprocessor, in <a class="reference internal" href="02_cpp_basics.html#edu-ch02"><span class="std std-ref">Chapter 2</span></a>). <code class="docutils literal notranslate"><span class="pre">i</span></code>, <code class="docutils literal notranslate"><span class="pre">i_total</span></code>, <code class="docutils literal notranslate"><span class="pre">i_margin</span></code>, and <code class="docutils literal notranslate"><span class="pre">side</span></code> are inputs passed by value, and <code class="docutils literal notranslate"><span class="pre">int</span> <span class="pre">&amp;i_ghst</span></code> and <code class="docutils literal notranslate"><span class="pre">int</span> <span class="pre">&amp;i_trgt</span></code> are output parameters. The index of the ghost cell and the index of the cell whose value is copied are written into the two <code class="docutils literal notranslate"><span class="pre">int</span></code> variables prepared by the caller.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;iostream&gt;</span>
+
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;miso/core.hpp&gt;</span>
+
+<span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">const</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">i_total</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">8</span><span class="p">;</span><span class="w">   </span><span class="c1">// number of grid points including ghost cells</span>
+<span class="w">  </span><span class="k">const</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">i_margin</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span><span class="w">  </span><span class="c1">// width of the ghost cells</span>
+<span class="w">  </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">i_margin</span><span class="p">;</span><span class="w"> </span><span class="o">++</span><span class="n">i</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">i_ghst</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">-1</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">i_trgt</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">-1</span><span class="p">;</span>
+<span class="w">    </span><span class="n">miso</span><span class="o">::</span><span class="n">boundary_condition</span><span class="o">::</span><span class="n">symmetric_index</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="w"> </span><span class="n">i_total</span><span class="p">,</span><span class="w"> </span><span class="n">i_margin</span><span class="p">,</span><span class="w"> </span><span class="n">i_ghst</span><span class="p">,</span>
+<span class="w">                                              </span><span class="n">i_trgt</span><span class="p">,</span><span class="w"> </span><span class="n">miso</span><span class="o">::</span><span class="n">Side</span><span class="o">::</span><span class="n">OUTER</span><span class="p">);</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">": i_ghst = "</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">i_ghst</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">", i_trgt = "</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">i_trgt</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">"</span><span class="se">\n</span><span class="s">"</span><span class="p">;</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>0: i_ghst = 6, i_trgt = 5
+1: i_ghst = 7, i_trgt = 4
+</pre></div>
+</div>
+<p>You can build this with the CMake setup from <a class="reference internal" href="01_environment_setup.html#edu-ch01"><span class="std std-ref">Chapter 1</span></a> that links <code class="docutils literal notranslate"><span class="pre">MISO::MISO</span></code> (because <code class="docutils literal notranslate"><span class="pre">miso/core.hpp</span></code> includes the MPI and yaml-cpp headers). You can see that at the outer boundary, the values at positions 5 and 4, mirrored across the boundary, are copied into ghost cells 6 and 7.</p>
+</section>
+<section id="const">
+<span id="edu-ch03-const-reference"></span><h3>1.4 const references for reading<a class="headerlink" href="#const" title="Link to this heading"></a></h3>
+<p>To use the original variable without copying it while making sure the function does not modify it, add <code class="docutils literal notranslate"><span class="pre">const</span></code> and write <code class="docutils literal notranslate"><span class="pre">const</span> <span class="pre">T</span> <span class="pre">&amp;</span></code> (<code class="docutils literal notranslate"><span class="pre">T</span></code> is a placeholder name that stands for a type).</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">double</span><span class="w"> </span><span class="nf">twice</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="o">&amp;</span><span class="n">value</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="mf">2.0</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">value</span><span class="p">;</span><span class="w">  </span><span class="c1">// reading is allowed</span>
+<span class="w">  </span><span class="c1">// value = 5.0;      // error: cannot modify through a const reference</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">const</span> <span class="pre">double</span> <span class="pre">&amp;value</span></code> is “a reference only for reading a <code class="docutils literal notranslate"><span class="pre">double</span></code>.” It corresponds to Fortran’s <code class="docutils literal notranslate"><span class="pre">intent(in)</span></code>. What is forbidden is <strong>modification through this reference</strong>; it does not make the caller’s variable itself read-only. You can also pass a number directly to a <code class="docutils literal notranslate"><span class="pre">const</span></code> reference, as in <code class="docutils literal notranslate"><span class="pre">twice(1.0)</span></code> (<a class="reference internal" href="#edu-ch03-lifetime"><span class="std std-ref">Section 5</span></a>). You cannot pass a number to a <code class="docutils literal notranslate"><span class="pre">double</span> <span class="pre">&amp;</span></code> meant for modification.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">catch</span> <span class="pre">(const</span> <span class="pre">std::runtime_error</span> <span class="pre">&amp;e)</span></code> in <a class="reference internal" href="02_cpp_basics.html#edu-ch02-exceptions"><span class="std std-ref">Chapter 2</span></a> is also a way of receiving the caught exception by const reference.</p>
+<p><strong>A real MISO example</strong> — <code class="docutils literal notranslate"><span class="pre">merge_yaml</span></code> in <code class="docutils literal notranslate"><span class="pre">miso/include/miso/config.hpp</span></code> is a function that adds the missing items from the defaults <code class="docutils literal notranslate"><span class="pre">defaults</span></code> to the contents of the configuration file <code class="docutils literal notranslate"><span class="pre">target</span></code> (the declaration).</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kr">inline</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">merge_yaml</span><span class="p">(</span><span class="n">YAML</span><span class="o">::</span><span class="n">Node</span><span class="w"> </span><span class="o">&amp;</span><span class="n">target</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">YAML</span><span class="o">::</span><span class="n">Node</span><span class="w"> </span><span class="o">&amp;</span><span class="n">defaults</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">YAML::Node</span></code> is a yaml-cpp type that represents a YAML tree. <code class="docutils literal notranslate"><span class="pre">target</span></code>, the destination being added to, is a <code class="docutils literal notranslate"><span class="pre">YAML::Node</span> <span class="pre">&amp;</span></code> (modified), and the default values <code class="docutils literal notranslate"><span class="pre">defaults</span></code> are a <code class="docutils literal notranslate"><span class="pre">const</span> <span class="pre">YAML::Node</span> <span class="pre">&amp;</span></code> (read only). The declaration alone tells you which parameter changes.</p>
+<p><code class="docutils literal notranslate"><span class="pre">Time</span></code> in <code class="docutils literal notranslate"><span class="pre">miso/include/miso/time.hpp</span></code> receives the configuration as <code class="docutils literal notranslate"><span class="pre">const</span> <span class="pre">Config</span> <span class="pre">&amp;config</span></code> and reads the end time and other values from it (this uses a mechanism called a class constructor, explained in <a class="reference internal" href="04_classes_and_structs.html#edu-ch04"><span class="std std-ref">Chapter 4</span></a>).</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">Time</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">Config</span><span class="w"> </span><span class="o">&amp;</span><span class="n">config</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="edu-ch03-argument-choice">
+<span id="id7"></span><h3>1.5 Choosing how to receive parameters<a class="headerlink" href="#edu-ch03-argument-choice" title="Link to this heading"></a></h3>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>What the function needs to do</p></th>
+<th class="head"><p>Declaration</p></th>
+<th class="head"><p>Closest in Fortran</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Use a value that is cheap to copy, such as a single number</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">T</span> <span class="pre">value</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">intent(in)</span></code> (only uses the value)</p></td>
+</tr>
+<tr class="row-odd"><td><p>Read data that is expensive to copy</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">const</span> <span class="pre">T</span> <span class="pre">&amp;value</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">intent(in)</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p>Modify the caller’s variable</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">T</span> <span class="pre">&amp;value</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">intent(out)</span></code>, <code class="docutils literal notranslate"><span class="pre">intent(inout)</span></code></p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>If you only read a single <code class="docutils literal notranslate"><span class="pre">int</span></code> or <code class="docutils literal notranslate"><span class="pre">double</span></code>, pass by value is the basic choice.</strong> Copying one number is cheap, and using a reference does not necessarily make it faster. If you only read a type whose contents can be large, such as <code class="docutils literal notranslate"><span class="pre">std::string</span></code>, <code class="docutils literal notranslate"><span class="pre">std::vector</span></code>, or <code class="docutils literal notranslate"><span class="pre">Config</span></code>, use <code class="docutils literal notranslate"><span class="pre">const</span> <span class="pre">T</span> <span class="pre">&amp;</span></code>. If you modify it, use <code class="docutils literal notranslate"><span class="pre">T</span> <span class="pre">&amp;</span></code> even for a single number. This division is also recommended in <a class="reference external" href="https://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines#rf-in">C++ Core Guidelines F.16</a> and <a class="reference external" href="https://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines#rf-inout">F.17</a>.</p>
+<p>You can also add <code class="docutils literal notranslate"><span class="pre">const</span></code> to a pass-by-value parameter, as in <code class="docutils literal notranslate"><span class="pre">const</span> <span class="pre">T</span> <span class="pre">value</span></code>. This is a marker that “this copy is not modified inside the function” and has no effect on the caller.</p>
+<p><strong>A real MISO example</strong> — <code class="docutils literal notranslate"><span class="pre">Time::update</span></code> in <code class="docutils literal notranslate"><span class="pre">miso/include/miso/time.hpp</span></code> receives the time step <code class="docutils literal notranslate"><span class="pre">dt</span></code> as <code class="docutils literal notranslate"><span class="pre">const</span> <span class="pre">Real</span> <span class="pre">dt</span></code> (a copy that is not modified).</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span><span class="w"> </span><span class="nf">update</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">Real</span><span class="w"> </span><span class="n">dt</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="n">time</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">dt</span><span class="p">;</span>
+<span class="w">  </span><span class="n">n_step</span><span class="o">++</span><span class="p">;</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">Model</span></code> in <code class="docutils literal notranslate"><span class="pre">demo/mhd2d_vortex/src/main.cpp</span></code> receives the configuration as <code class="docutils literal notranslate"><span class="pre">Config</span> <span class="pre">&amp;config</span></code>.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">Model</span><span class="p">(</span><span class="n">Config</span><span class="w"> </span><span class="o">&amp;</span><span class="n">config</span><span class="p">)</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">ModelBase</span><span class="p">(</span><span class="n">config</span><span class="p">),</span><span class="w"> </span><span class="n">eos</span><span class="p">(</span><span class="n">config</span><span class="p">),</span><span class="w"> </span><span class="n">ic</span><span class="p">(</span><span class="n">eos</span><span class="p">),</span><span class="w"> </span><span class="n">bc</span><span class="p">(),</span><span class="w"> </span><span class="n">src</span><span class="p">()</span><span class="w"> </span><span class="p">{}</span>
+</pre></div>
+</div>
+<p>It has no <code class="docutils literal notranslate"><span class="pre">const</span></code> because it passes the received <code class="docutils literal notranslate"><span class="pre">config</span></code> to the base class <code class="docutils literal notranslate"><span class="pre">ModelBase</span></code> (<a class="reference internal" href="05_inheritance.html#edu-ch05"><span class="std std-ref">Chapter 5</span></a>) and keeps it there as a modifiable reference (<a class="reference internal" href="#edu-ch03-lifetime"><span class="std std-ref">Section 5</span></a>). The list after <code class="docutils literal notranslate"><span class="pre">:</span></code> is member initialization (<a class="reference internal" href="04_classes_and_structs.html#edu-ch04"><span class="std std-ref">Chapter 4</span></a>). For now, it is enough to read it as “pass <code class="docutils literal notranslate"><span class="pre">config</span></code> along as it is, without copying.”</p>
+</section>
+</section>
+<section id="edu-ch03-pointers">
+<span id="id8"></span><h2>2. Pointers<a class="headerlink" href="#edu-ch03-pointers" title="Link to this heading"></a></h2>
+<section id="edu-ch03-address">
+<span id="id9"></span><h3>2.1 Addresses and pointers<a class="headerlink" href="#edu-ch03-address" title="Link to this heading"></a></h3>
+<p>A variable is placed somewhere in memory. The value that represents that location is called an <strong>address</strong>, and a <strong>variable that holds an address is called a pointer</strong>.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">double</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">1.0</span><span class="p">;</span><span class="w">   </span><span class="c1">// variable holding a number</span>
+<span class="kt">double</span><span class="w"> </span><span class="o">*</span><span class="n">p</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&amp;</span><span class="n">a</span><span class="p">;</span><span class="w">   </span><span class="c1">// pointer p holding the address of a; we say "p points to a"</span>
+</pre></div>
+</div>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Part</p></th>
+<th class="head"><p>Meaning</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">double</span> <span class="pre">*</span></code></p></td>
+<td><p>The type “pointer to <code class="docutils literal notranslate"><span class="pre">double</span></code>”</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">p</span></code></p></td>
+<td><p>The name of the pointer variable</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">&amp;a</span></code></p></td>
+<td><p>An expression that takes the address of <code class="docutils literal notranslate"><span class="pre">a</span></code></p></td>
+</tr>
+</tbody>
+</table>
+<p>To use the value that a pointer points to, write <code class="docutils literal notranslate"><span class="pre">*p</span></code> in an expression (<strong>dereference</strong>).</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">double</span><span class="w"> </span><span class="n">copied</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">*</span><span class="n">p</span><span class="p">;</span><span class="w">  </span><span class="c1">// reads the value of a, which p points to; copied is 1.0</span>
+<span class="o">*</span><span class="n">p</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">2.0</span><span class="p">;</span><span class="w">            </span><span class="c1">// modifies a, which p points to; a becomes 2.0</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">a</span></code> holds the number 1.0, and <code class="docutils literal notranslate"><span class="pre">p</span></code> holds “the location where that 1.0 is placed.” You do not need to memorize the numerical value of an address; just trace <strong>which variable it points to</strong>.</p>
+<p>Fortran also has the <code class="docutils literal notranslate"><span class="pre">pointer</span></code> attribute, but a Fortran pointer simply refers to the target value when you write its name. A C++ pointer is an address when you write <code class="docutils literal notranslate"><span class="pre">p</span></code> and the target value when you write <code class="docutils literal notranslate"><span class="pre">*p</span></code>, and you must distinguish between the two.</p>
+</section>
+<section id="edu-ch03-symbols-in-declaration">
+<span id="id10"></span><h3>2.2 * and &amp; change meaning between declarations and expressions<a class="headerlink" href="#edu-ch03-symbols-in-declaration" title="Link to this heading"></a></h3>
+<p>Both <code class="docutils literal notranslate"><span class="pre">&amp;</span></code> and <code class="docutils literal notranslate"><span class="pre">*</span></code> appear in references and pointers. <strong>The same symbol means different things in a declaration and in an expression.</strong></p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">double</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">1.0</span><span class="p">;</span>
+<span class="kt">double</span><span class="w"> </span><span class="o">&amp;</span><span class="n">r</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">a</span><span class="p">;</span><span class="w">   </span><span class="c1">// &amp; in a declaration: makes r a reference (alias) to a</span>
+<span class="kt">double</span><span class="w"> </span><span class="o">*</span><span class="n">p</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&amp;</span><span class="n">a</span><span class="p">;</span><span class="w">  </span><span class="c1">// * in a declaration: makes p a pointer. &amp; in an expression: address of a</span>
+<span class="o">*</span><span class="n">p</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">2.0</span><span class="p">;</span><span class="w">        </span><span class="c1">// * in an expression: assigns to what p points to (a). a and r are both 2.0</span>
+<span class="n">r</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">3.0</span><span class="p">;</span><span class="w">         </span><span class="c1">// assigns to a. a and *p are both 3.0</span>
+</pre></div>
+</div>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Where it is written</p></th>
+<th class="head"><p>Example</p></th>
+<th class="head"><p>Meaning</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">&amp;</span></code> in a declaration</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">double</span> <span class="pre">&amp;r</span> <span class="pre">=</span> <span class="pre">a;</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">r</span></code> is a reference to <code class="docutils literal notranslate"><span class="pre">a</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">&amp;</span></code> in an expression</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">&amp;a</span></code></p></td>
+<td><p>The address of <code class="docutils literal notranslate"><span class="pre">a</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">*</span></code> in a declaration</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">double</span> <span class="pre">*p</span> <span class="pre">=</span> <span class="pre">&amp;a;</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">p</span></code> is a pointer to <code class="docutils literal notranslate"><span class="pre">double</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">*</span></code> in an expression</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">*p</span></code></p></td>
+<td><p>The value that <code class="docutils literal notranslate"><span class="pre">p</span></code> points to</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">*</span></code>, <code class="docutils literal notranslate"><span class="pre">&amp;</span></code> between two values</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">a</span> <span class="pre">*</span> <span class="pre">b</span></code>, <code class="docutils literal notranslate"><span class="pre">i</span> <span class="pre">&amp;</span> <span class="pre">1</span></code></p></td>
+<td><p>Multiplication, bitwise AND</p></td>
+</tr>
+</tbody>
+</table>
+<p><code class="docutils literal notranslate"><span class="pre">r</span></code> is another name for <code class="docutils literal notranslate"><span class="pre">a</span></code>, so <code class="docutils literal notranslate"><span class="pre">&amp;r</span></code> is also the address of <code class="docutils literal notranslate"><span class="pre">a</span></code>, and <code class="docutils literal notranslate"><span class="pre">&amp;a</span></code>, <code class="docutils literal notranslate"><span class="pre">&amp;r</span></code>, and <code class="docutils literal notranslate"><span class="pre">p</span></code> all represent the same location. If you read the <code class="docutils literal notranslate"><span class="pre">double</span> <span class="pre">*p</span></code> in a declaration as “a <code class="docutils literal notranslate"><span class="pre">p</span></code> such that writing <code class="docutils literal notranslate"><span class="pre">*p</span></code> gives a <code class="docutils literal notranslate"><span class="pre">double</span></code>,” you can see the connection with <code class="docutils literal notranslate"><span class="pre">*p</span></code> in an expression.</p>
+<p>There is one more point to note in declarations. <strong><code class="docutils literal notranslate"><span class="pre">*</span></code> and <code class="docutils literal notranslate"><span class="pre">&amp;</span></code> attach to each name, not to the type.</strong></p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">double</span><span class="w"> </span><span class="o">*</span><span class="n">p</span><span class="p">,</span><span class="w"> </span><span class="n">q</span><span class="p">;</span><span class="w">   </span><span class="c1">// p is a pointer, q is just a double</span>
+<span class="kt">double</span><span class="w"> </span><span class="o">*</span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">nullptr</span><span class="p">,</span><span class="w"> </span><span class="o">*</span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">nullptr</span><span class="p">;</span><span class="w">  </span><span class="c1">// x and y are both pointers</span>
+</pre></div>
+</div>
+<p><strong>A real MISO example</strong> — <code class="docutils literal notranslate"><span class="pre">GridView</span></code> in <code class="docutils literal notranslate"><span class="pre">miso/include/miso/grid.hpp</span></code> holds the coordinate arrays through pointers (excerpt).</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="c1">/// @brief coordinate in x/y/z direction</span>
+<span class="n">Real</span><span class="w"> </span><span class="o">*</span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">nullptr</span><span class="p">,</span><span class="w"> </span><span class="o">*</span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">nullptr</span><span class="p">,</span><span class="w"> </span><span class="o">*</span><span class="n">z</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">nullptr</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>All three are <code class="docutils literal notranslate"><span class="pre">Real</span> <span class="pre">*</span></code>, and <code class="docutils literal notranslate"><span class="pre">*</span></code> is written for each name. <code class="docutils literal notranslate"><span class="pre">nullptr</span></code> is explained in <a class="reference internal" href="#edu-ch03-nullptr"><span class="std std-ref">Section 2.4</span></a>. What <code class="docutils literal notranslate"><span class="pre">GridView</span></code> points to is covered in <a class="reference internal" href="#edu-ch03-arrays"><span class="std std-ref">Section 4</span></a>.</p>
+::<p>The <code class="docutils literal notranslate"><span class="pre">*</span></code> in <code class="docutils literal notranslate"><span class="pre">double</span> <span class="pre">*p</span></code> and the <code class="docutils literal notranslate"><span class="pre">*</span></code> in <code class="docutils literal notranslate"><span class="pre">*p</span></code> are the same symbol because Ritchie, the designer of C, decided that “a declaration should resemble the form in which the variable is used in an expression.” <code class="docutils literal notranslate"><span class="pre">double</span> <span class="pre">*p</span></code> can be read as the declaration “<code class="docutils literal notranslate"><span class="pre">*p</span></code> is a <code class="docutils literal notranslate"><span class="pre">double</span></code>.” Source: <a class="reference external" href="https://www.nokia.com/bell-labs/about/dennis-m-ritchie/chist.html">D. M. Ritchie, <em>The Development of the C Language</em></a> (the “Embryonic C” section).</p>
+<p>References are a feature added in C++. Stroustrup gives operator overloading (writing a matrix expression <code class="docutils literal notranslate"><span class="pre">A</span> <span class="pre">+</span> <span class="pre">B</span></code> without copying large data) as the main reason for introducing references. The same section also gives an example of using a const reference to pass a value to a Fortran function. Source: <a class="reference external" href="https://www.stroustrup.com/hopl2.pdf#page=25">B. Stroustrup, <em>A History of C++: 1979–1991</em>, Section 3.3.4</a>. However, we found no explanation by the designer in these sources of why <code class="docutils literal notranslate"><span class="pre">&amp;</span></code> was chosen as the symbol for references. That the existing <code class="docutils literal notranslate"><span class="pre">&amp;</span></code> was used because the feature is closely related to addresses is a guess.</p>
+<p>Whether you attach the <code class="docutils literal notranslate"><span class="pre">*</span></code> of a declaration to the type, as in <code class="docutils literal notranslate"><span class="pre">double*</span> <span class="pre">p</span></code>, or to the name, as in <code class="docutils literal notranslate"><span class="pre">double</span> <span class="pre">*p</span></code>, is a matter of formatting style, and the meaning is the same. Stroustrup says he prefers <code class="docutils literal notranslate"><span class="pre">int*</span> <span class="pre">p</span></code>, which emphasizes the type, and recommends declaring one variable per line. Source: <a class="reference external" href="https://www.stroustrup.com/bs_faq2.html#whitespace">Stroustrup, <em>C++ Style and Technique FAQ</em></a>. MISO uses the <code class="docutils literal notranslate"><span class="pre">double</span> <span class="pre">*p</span></code> form through its clang-format configuration (<code class="docutils literal notranslate"><span class="pre">.clang-format</span></code>).</p>
+</details>
+</section>
+<section id="edu-ch03-rebinding">
+<span id="id11"></span><h3>2.3 Re-pointing<a class="headerlink" href="#edu-ch03-rebinding" title="Link to this heading"></a></h3>
+<p>Unlike a reference, a pointer can later be changed to point to a different variable.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">double</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">1.0</span><span class="p">;</span>
+<span class="kt">double</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">4.0</span><span class="p">;</span>
+<span class="kt">double</span><span class="w"> </span><span class="o">*</span><span class="n">p</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&amp;</span><span class="n">a</span><span class="p">;</span><span class="w">  </span><span class="c1">// p points to a</span>
+<span class="n">p</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&amp;</span><span class="n">b</span><span class="p">;</span><span class="w">          </span><span class="c1">// changes what p points to, to b. The values of a and b do not change</span>
+<span class="o">*</span><span class="n">p</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">5.0</span><span class="p">;</span><span class="w">        </span><span class="c1">// p now points to b, so b becomes 5.0. a stays 1.0</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">p</span> <span class="pre">=</span> <span class="pre">&amp;b;</span></code> is an assignment that changes the address the pointer holds, and <code class="docutils literal notranslate"><span class="pre">*p</span> <span class="pre">=</span> <span class="pre">5.0;</span></code> is an assignment that changes the value it points to. You can tell which one is being changed by the presence of <code class="docutils literal notranslate"><span class="pre">*</span></code>.</p>
+</section>
+<section id="nullptr">
+<span id="edu-ch03-nullptr"></span><h3>2.4 nullptr<a class="headerlink" href="#nullptr" title="Link to this heading"></a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">nullptr</span></code> (the null pointer) is a pointer value that means <strong>it points nowhere</strong>. It corresponds to the state after <code class="docutils literal notranslate"><span class="pre">nullify(p)</span></code> in Fortran, in which <code class="docutils literal notranslate"><span class="pre">associated(p)</span></code> is false.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">double</span><span class="w"> </span><span class="o">*</span><span class="n">q</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">nullptr</span><span class="p">;</span><span class="w">  </span><span class="c1">// points to nothing yet</span>
+<span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">q</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="nb">nullptr</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">   </span><span class="c1">// use it only when it points to something</span>
+<span class="w">  </span><span class="o">*</span><span class="n">q</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">1.0</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>You must not read or write <code class="docutils literal notranslate"><span class="pre">*q</span></code> while it is <code class="docutils literal notranslate"><span class="pre">nullptr</span></code>. The result is <strong>undefined behavior</strong> (the language does not guarantee what happens); the program does not necessarily stop immediately, and the computation may continue with wrong values. A pointer declared in a function with just <code class="docutils literal notranslate"><span class="pre">double</span> <span class="pre">*q;</span></code> does not automatically become <code class="docutils literal notranslate"><span class="pre">nullptr</span></code>. If you cannot decide an initial value, initialize it with <code class="docutils literal notranslate"><span class="pre">nullptr</span></code>.</p>
+<p><strong>A real MISO example</strong> — <code class="docutils literal notranslate"><span class="pre">Array3DView</span></code> in <code class="docutils literal notranslate"><span class="pre">miso/include/miso/array3d.hpp</span></code> initializes the pointer to the data with <code class="docutils literal notranslate"><span class="pre">nullptr</span></code> (excerpt).</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">T</span><span class="w"> </span><span class="o">*</span><span class="n">data_</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">nullptr</span><span class="p">;</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">T</span></code> is a template argument that represents the element type (such as <code class="docutils literal notranslate"><span class="pre">Real</span></code>) (<a class="reference internal" href="06_templates.html#edu-ch06"><span class="std std-ref">Chapter 6</span></a>). Here you can read it as <code class="docutils literal notranslate"><span class="pre">Real</span> <span class="pre">*data_</span> <span class="pre">=</span> <span class="pre">nullptr;</span></code>.</p>
+</section>
+<section id="edu-ch03-pointer-arguments">
+<span id="id12"></span><h3>2.5 Functions that take pointers<a class="headerlink" href="#edu-ch03-pointer-arguments" title="Link to this heading"></a></h3>
+<p>When a function receives a pointer, it can write a value through the address of the caller’s variable. This does the same job as a reference parameter, expressed in the C style.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span><span class="w"> </span><span class="nf">get_rank</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="o">*</span><span class="n">rank</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">  </span><span class="c1">// receives the address to write to</span>
+<span class="w">  </span><span class="o">*</span><span class="n">rank</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">3</span><span class="p">;</span><span class="w">                </span><span class="c1">// writes to what it points to</span>
+<span class="p">}</span>
+
+<span class="kt">int</span><span class="w"> </span><span class="n">rank</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">-1</span><span class="p">;</span>
+<span class="n">get_rank</span><span class="p">(</span><span class="o">&amp;</span><span class="n">rank</span><span class="p">);</span><span class="w">            </span><span class="c1">// pass the address of rank; rank becomes 3</span>
+</pre></div>
+</div>
+<p>The differences from a reference parameter are that the caller explicitly gives the address as <code class="docutils literal notranslate"><span class="pre">&amp;rank</span></code>, and that you can also pass <code class="docutils literal notranslate"><span class="pre">nullptr</span></code>. For a function newly written in C++, the basic choice is a reference parameter if the destination always exists.</p>
+<p><strong>A real MISO example</strong> — MPI was designed as C functions, so it returns results through pointer parameters. The following is an excerpt from <code class="docutils literal notranslate"><span class="pre">mpi::Env::setup</span></code> in <code class="docutils literal notranslate"><span class="pre">miso/include/miso/env.hpp</span></code>.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">int</span><span class="w"> </span><span class="n">is_mpi_initialized</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">false</span><span class="p">;</span>
+<span class="n">MPI_Initialized</span><span class="p">(</span><span class="o">&amp;</span><span class="n">is_mpi_initialized</span><span class="p">);</span>
+<span class="c1">// ...</span>
+<span class="n">MPI_Comm_rank</span><span class="p">(</span><span class="n">world</span><span class="o">::</span><span class="n">comm</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">world</span><span class="o">::</span><span class="n">rank</span><span class="p">);</span>
+<span class="n">MPI_Comm_size</span><span class="p">(</span><span class="n">world</span><span class="o">::</span><span class="n">comm</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">world</span><span class="o">::</span><span class="n">size</span><span class="p">);</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">MPI_Comm_rank</span></code> writes its own rank number to the address passed as the second argument. <code class="docutils literal notranslate"><span class="pre">&amp;world::rank</span></code> is the address of the variable <code class="docutils literal notranslate"><span class="pre">rank</span></code> in the namespace <code class="docutils literal notranslate"><span class="pre">miso::mpi::world</span></code> that we saw in <a class="reference internal" href="02_cpp_basics.html#edu-ch02-namespaces"><span class="std std-ref">Chapter 2</span></a>. In Fortran’s <code class="docutils literal notranslate"><span class="pre">call</span> <span class="pre">MPI_Comm_rank(comm,</span> <span class="pre">rank,</span> <span class="pre">ierr)</span></code>, the argument is modified as it is, but in C MPI you pass an address (MPI is covered in <a class="reference internal" href="08_mpi.html#edu-ch08"><span class="std std-ref">Chapter 8</span></a>).</p>
+<p><code class="docutils literal notranslate"><span class="pre">mpi::Env</span></code> in the same file has the following two lines (these are class constructors, explained in <a class="reference internal" href="04_classes_and_structs.html#edu-ch04"><span class="std std-ref">Chapter 4</span></a>).</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">Env</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">setup</span><span class="p">(</span><span class="nb">nullptr</span><span class="p">,</span><span class="w"> </span><span class="nb">nullptr</span><span class="p">);</span><span class="w"> </span><span class="p">}</span>
+<span class="n">Env</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="o">&amp;</span><span class="n">argc</span><span class="p">,</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">**&amp;</span><span class="n">argv</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">setup</span><span class="p">(</span><span class="o">&amp;</span><span class="n">argc</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">argv</span><span class="p">);</span><span class="w"> </span><span class="p">}</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">setup</span></code> is declared as <code class="docutils literal notranslate"><span class="pre">void</span> <span class="pre">setup(int</span> <span class="pre">*argc,</span> <span class="pre">char</span> <span class="pre">***argv)</span></code> and passes its arguments as they are to <code class="docutils literal notranslate"><span class="pre">MPI_Init(argc,</span> <span class="pre">argv)</span></code>. When the object is created without arguments, <code class="docutils literal notranslate"><span class="pre">nullptr</span></code> expresses that “there are no command-line arguments”; when it receives <code class="docutils literal notranslate"><span class="pre">argc</span></code> and <code class="docutils literal notranslate"><span class="pre">argv</span></code> of <code class="docutils literal notranslate"><span class="pre">main</span></code>, it passes their addresses. <code class="docutils literal notranslate"><span class="pre">char</span> <span class="pre">**&amp;argv</span></code> is “a reference to the variable <code class="docutils literal notranslate"><span class="pre">argv</span></code> of type <code class="docutils literal notranslate"><span class="pre">char</span> <span class="pre">**</span></code>.” <code class="docutils literal notranslate"><span class="pre">char</span> <span class="pre">**</span></code> is covered in <a class="reference internal" href="#edu-ch03-arrays"><span class="std std-ref">Section 4</span></a>.</p>
+</section>
+</section>
+<section id="edu-ch03-const-position">
+<span id="id13"></span><h2>3. Position of const<a class="headerlink" href="#edu-ch03-const-position" title="Link to this heading"></a></h2>
+<p>A pointer involves two things, <strong>the pointer itself (where it points)</strong> and <strong>the value it points to</strong>, and <code class="docutils literal notranslate"><span class="pre">const</span></code> lets you choose which one is fixed. Using <code class="docutils literal notranslate"><span class="pre">*</span></code> as the dividing line, look at whether <code class="docutils literal notranslate"><span class="pre">const</span></code> is on the left or the right.</p>
+<ul class="simple">
+<li><p><strong>A <code class="docutils literal notranslate"><span class="pre">const</span></code> to the left of <code class="docutils literal notranslate"><span class="pre">*</span></code> applies to the target.</strong> <code class="docutils literal notranslate"><span class="pre">const</span> <span class="pre">double</span> <span class="pre">*p</span></code> is “a pointer to a <code class="docutils literal notranslate"><span class="pre">double</span></code> that is only for reading,” and <code class="docutils literal notranslate"><span class="pre">*p</span> <span class="pre">=</span> <span class="pre">2.0;</span></code> is not allowed.</p></li>
+<li><p><strong>A <code class="docutils literal notranslate"><span class="pre">const</span></code> to the right of <code class="docutils literal notranslate"><span class="pre">*</span></code> applies to the pointer itself.</strong> <code class="docutils literal notranslate"><span class="pre">double</span> <span class="pre">*const</span> <span class="pre">p</span></code> is “a pointer whose target cannot be changed,” and <code class="docutils literal notranslate"><span class="pre">p</span> <span class="pre">=</span> <span class="pre">&amp;b;</span></code> is not allowed.</p></li>
+</ul>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">double</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">1.0</span><span class="p">;</span>
+<span class="kt">double</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">4.0</span><span class="p">;</span>
+
+<span class="k">const</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="o">*</span><span class="n">p</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&amp;</span><span class="n">a</span><span class="p">;</span><span class="w">  </span><span class="c1">// only reads what it points to</span>
+<span class="c1">// *p = 2.0;           // error: assignment of read-only location '* p'</span>
+<span class="n">p</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&amp;</span><span class="n">b</span><span class="p">;</span><span class="w">                </span><span class="c1">// OK: p itself is not const</span>
+
+<span class="kt">double</span><span class="w"> </span><span class="o">*</span><span class="k">const</span><span class="w"> </span><span class="n">q</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&amp;</span><span class="n">a</span><span class="p">;</span><span class="w">  </span><span class="c1">// fixes what it points to</span>
+<span class="o">*</span><span class="n">q</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">2.0</span><span class="p">;</span><span class="w">              </span><span class="c1">// OK: a becomes 2.0</span>
+<span class="c1">// q = &amp;b;             // error: assignment of read-only variable 'q'</span>
+</pre></div>
+</div>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Declaration</p></th>
+<th class="head"><p><code class="docutils literal notranslate"><span class="pre">*p</span> <span class="pre">=</span> <span class="pre">2.0;</span></code> (change the target’s value)</p></th>
+<th class="head"><p><code class="docutils literal notranslate"><span class="pre">p</span> <span class="pre">=</span> <span class="pre">&amp;b;</span></code> (change the target)</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">double</span> <span class="pre">*p</span></code></p></td>
+<td><p>Allowed</p></td>
+<td><p>Allowed</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">const</span> <span class="pre">double</span> <span class="pre">*p</span></code></p></td>
+<td><p>Not allowed</p></td>
+<td><p>Allowed</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">double</span> <span class="pre">*const</span> <span class="pre">p</span></code></p></td>
+<td><p>Allowed</p></td>
+<td><p>Not allowed</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">const</span> <span class="pre">double</span> <span class="pre">*const</span> <span class="pre">p</span></code></p></td>
+<td><p>Not allowed</p></td>
+<td><p>Not allowed</p></td>
+</tr>
+</tbody>
+</table>
+<p><code class="docutils literal notranslate"><span class="pre">const</span> <span class="pre">double</span> <span class="pre">*p</span></code> and <code class="docutils literal notranslate"><span class="pre">double</span> <span class="pre">const</span> <span class="pre">*p</span></code> mean the same thing (in both, <code class="docutils literal notranslate"><span class="pre">const</span></code> is to the left of <code class="docutils literal notranslate"><span class="pre">*</span></code>). <code class="docutils literal notranslate"><span class="pre">const</span> <span class="pre">double</span> <span class="pre">&amp;r</span></code> means “read only through this reference,” just like <code class="docutils literal notranslate"><span class="pre">const</span> <span class="pre">double</span> <span class="pre">*p</span></code>. A reference cannot be rebound in the first place, so there is nothing corresponding to a <code class="docutils literal notranslate"><span class="pre">const</span></code> on the right side. In every case, directly modifying the original variable <code class="docutils literal notranslate"><span class="pre">a</span></code> with <code class="docutils literal notranslate"><span class="pre">a</span> <span class="pre">=</span> <span class="pre">5.0;</span></code> is not prohibited.</p>
+<p><strong>A real MISO example</strong> — <code class="docutils literal notranslate"><span class="pre">Array1DView</span></code> in <code class="docutils literal notranslate"><span class="pre">miso/include/miso/array1d.hpp</span></code> has two functions that return the beginning of the data (excerpt).</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="c1">/// @brief Return pointer to the data.</span>
+<span class="n">__host__</span><span class="w"> </span><span class="n">__device__</span><span class="w"> </span><span class="n">T</span><span class="w"> </span><span class="o">*</span><span class="n">data</span><span class="p">()</span><span class="w"> </span><span class="k">noexcept</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">data_</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+
+<span class="c1">/// @brief Return const pointer to the data.</span>
+<span class="n">__host__</span><span class="w"> </span><span class="n">__device__</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">T</span><span class="w"> </span><span class="o">*</span><span class="n">data</span><span class="p">()</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="k">noexcept</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">data_</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+</pre></div>
+</div>
+<p>The first returns a pointer <code class="docutils literal notranslate"><span class="pre">T</span> <span class="pre">*</span></code> that may be used for modification, and the second returns a read-only pointer <code class="docutils literal notranslate"><span class="pre">const</span> <span class="pre">T</span> <span class="pre">*</span></code>. There are two with the same name, and the second is chosen in read-only contexts. The trailing <code class="docutils literal notranslate"><span class="pre">const</span></code> that decides which one is chosen is covered in <a class="reference internal" href="04_classes_and_structs.html#edu-ch04"><span class="std std-ref">Chapter 4</span></a>, and <code class="docutils literal notranslate"><span class="pre">noexcept</span></code> (a marker that the function does not throw exceptions) is also covered in <a class="reference internal" href="04_classes_and_structs.html#edu-ch04"><span class="std std-ref">Chapter 4</span></a>. For now, it is enough to read the difference between the return types <code class="docutils literal notranslate"><span class="pre">T</span> <span class="pre">*</span></code> and <code class="docutils literal notranslate"><span class="pre">const</span> <span class="pre">T</span> <span class="pre">*</span></code> as the difference between “can be modified” and “read only.”</p>
+</section>
+<section id="edu-ch03-arrays">
+<span id="id14"></span><h2>4. Arrays and pointers<a class="headerlink" href="#edu-ch03-arrays" title="Link to this heading"></a></h2>
+<p>A built-in C++ array is a sequence of values of the same type placed contiguously in memory.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">double</span><span class="w"> </span><span class="n">raw</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="mf">0.0</span><span class="p">,</span><span class="w"> </span><span class="mf">1.0</span><span class="p">,</span><span class="w"> </span><span class="mf">2.0</span><span class="p">,</span><span class="w"> </span><span class="mf">3.0</span><span class="p">};</span><span class="w">  </span><span class="c1">// 4 doubles; indices 0 to 3</span>
+<span class="kt">double</span><span class="w"> </span><span class="o">*</span><span class="n">p</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">raw</span><span class="p">;</span><span class="w">                        </span><span class="c1">// the array name becomes the address of the first element raw[0]</span>
+<span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="o">*</span><span class="p">(</span><span class="n">p</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">2</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">" "</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">p</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">"</span><span class="se">\n</span><span class="s">"</span><span class="p">;</span><span class="w">  </span><span class="c1">// both are raw[2], so 2 2</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>When you use the array name <code class="docutils literal notranslate"><span class="pre">raw</span></code> in an expression, in most situations it becomes the address of the first element (<code class="docutils literal notranslate"><span class="pre">&amp;raw[0]</span></code>).</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">p</span> <span class="pre">+</span> <span class="pre">2</span></code> is “the address 2 elements past <code class="docutils literal notranslate"><span class="pre">p</span></code>” (<strong>pointer arithmetic</strong>). It counts in numbers of elements, not bytes.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">p[i]</span></code> means the same as <code class="docutils literal notranslate"><span class="pre">*(p</span> <span class="pre">+</span> <span class="pre">i)</span></code>. Indices start from 0 because the first element is “0 places ahead.”</p></li>
+</ul>
+<p>Therefore, when you pass an array to a function, what is actually passed is only the address of the first element, and <strong>the number of elements is not conveyed</strong>. Pass the number of elements as a separate parameter.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">double</span><span class="w"> </span><span class="nf">sum</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="o">*</span><span class="n">values</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">n</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">  </span><span class="c1">// address of the first element and the number of elements</span>
+<span class="w">  </span><span class="kt">double</span><span class="w"> </span><span class="n">total</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.0</span><span class="p">;</span>
+<span class="w">  </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">n</span><span class="p">;</span><span class="w"> </span><span class="o">++</span><span class="n">i</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">total</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">values</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="n">total</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="n">sum</span><span class="p">(</span><span class="n">raw</span><span class="p">,</span><span class="w"> </span><span class="mi">4</span><span class="p">);</span><span class="w">      </span><span class="c1">// 0 + 1 + 2 + 3 = 6</span>
+<span class="n">sum</span><span class="p">(</span><span class="n">raw</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">);</span><span class="w">  </span><span class="c1">// 2 elements from raw[1]: 1 + 2 = 3</span>
+</pre></div>
+</div>
+<p>If you pass <code class="docutils literal notranslate"><span class="pre">raw</span> <span class="pre">+</span> <span class="pre">1</span></code>, you can pass the part that starts in the middle of the array. This is similar to writing <code class="docutils literal notranslate"><span class="pre">call</span> <span class="pre">sub(a(2),</span> <span class="pre">2)</span></code> in Fortran to pass from the middle. Because it is a <code class="docutils literal notranslate"><span class="pre">const</span> <span class="pre">double</span> <span class="pre">*</span></code>, <code class="docutils literal notranslate"><span class="pre">sum</span></code> cannot modify the array.</p>
+<p>It is also common to represent a range by a pair of “the address of the first element” and “the address one past the last element.” The range from <code class="docutils literal notranslate"><span class="pre">p</span></code> to <code class="docutils literal notranslate"><span class="pre">p</span> <span class="pre">+</span> <span class="pre">n</span></code> is the same as <code class="docutils literal notranslate"><span class="pre">0</span> <span class="pre">&lt;=</span> <span class="pre">i</span> <span class="pre">&lt;</span> <span class="pre">n</span></code>.</p>
+<p><code class="docutils literal notranslate"><span class="pre">std::vector</span></code> also stores its elements contiguously, and <code class="docutils literal notranslate"><span class="pre">v.data()</span></code> gives the address of the first one.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;algorithm&gt;</span><span class="w">  </span><span class="c1">// std::fill</span>
+<span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;</span><span class="w"> </span><span class="n">v</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span><span class="w"> </span><span class="mf">1.0</span><span class="p">);</span><span class="w">                  </span><span class="c1">// 5 copies of 1.0</span>
+<span class="n">std</span><span class="o">::</span><span class="n">fill</span><span class="p">(</span><span class="n">v</span><span class="p">.</span><span class="n">data</span><span class="p">(),</span><span class="w"> </span><span class="n">v</span><span class="p">.</span><span class="n">data</span><span class="p">()</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">v</span><span class="p">.</span><span class="n">size</span><span class="p">(),</span><span class="w"> </span><span class="mf">0.0</span><span class="p">);</span><span class="w">  </span><span class="c1">// fills [begin, begin + 5) with 0.0</span>
+</pre></div>
+</div>
+<p><strong>A real MISO example 1</strong> — <code class="docutils literal notranslate"><span class="pre">util::clear_array</span></code> in <code class="docutils literal notranslate"><span class="pre">miso/include/miso/utility.hpp</span></code> fills an array with 0 (the <code class="docutils literal notranslate"><span class="pre">template</span></code> and <code class="docutils literal notranslate"><span class="pre">using</span> <span class="pre">T</span> <span class="pre">=</span> <span class="pre">...</span></code> lines belong to <a class="reference internal" href="06_templates.html#edu-ch06"><span class="std std-ref">Chapter 6</span></a>, so read <code class="docutils literal notranslate"><span class="pre">T</span></code> as <code class="docutils literal notranslate"><span class="pre">Real</span></code>).</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="c1">// @brief Clear array (zero-fill)</span>
+<span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">VectorLike</span><span class="o">&gt;</span><span class="w"> </span><span class="kr">inline</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="n">clear_array</span><span class="p">(</span><span class="n">VectorLike</span><span class="w"> </span><span class="o">&amp;</span><span class="n">arr</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">using</span><span class="w"> </span><span class="n">T</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">decay_t</span><span class="o">&lt;</span><span class="k">decltype</span><span class="p">(</span><span class="o">*</span><span class="n">arr</span><span class="p">.</span><span class="n">data</span><span class="p">())</span><span class="o">&gt;</span><span class="p">;</span>
+<span class="w">  </span><span class="n">std</span><span class="o">::</span><span class="n">fill</span><span class="p">(</span><span class="n">arr</span><span class="p">.</span><span class="n">data</span><span class="p">(),</span><span class="w"> </span><span class="n">arr</span><span class="p">.</span><span class="n">data</span><span class="p">()</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">arr</span><span class="p">.</span><span class="n">size</span><span class="p">(),</span><span class="w"> </span><span class="n">T</span><span class="p">(</span><span class="mi">0</span><span class="p">));</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>It fills the range from <code class="docutils literal notranslate"><span class="pre">arr.data()</span></code> to <code class="docutils literal notranslate"><span class="pre">arr.data()</span> <span class="pre">+</span> <span class="pre">arr.size()</span></code> with <code class="docutils literal notranslate"><span class="pre">T(0)</span></code> (the value 0 as the element type). It has the same form as the <code class="docutils literal notranslate"><span class="pre">std::vector</span></code> example above.</p>
+<p><strong>A real MISO example 2</strong> — <code class="docutils literal notranslate"><span class="pre">Array3DView</span></code> in <code class="docutils literal notranslate"><span class="pre">miso/include/miso/array3d.hpp</span></code> represents a three-dimensional array with a pointer <code class="docutils literal notranslate"><span class="pre">data_</span></code> to the beginning of one-dimensionally arranged data and the size in each direction, <code class="docutils literal notranslate"><span class="pre">shape_[3]</span></code>. The part that returns an element when you write <code class="docutils literal notranslate"><span class="pre">a(i0,</span> <span class="pre">i1,</span> <span class="pre">i2)</span></code> is as follows (the mechanism of <code class="docutils literal notranslate"><span class="pre">operator()</span></code> is in <a class="reference internal" href="04_classes_and_structs.html#edu-ch04"><span class="std std-ref">Chapter 4</span></a>; the <code class="docutils literal notranslate"><span class="pre">assert</span></code> line is omitted).</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">return</span><span class="w"> </span><span class="n">data_</span><span class="p">[(</span><span class="n">i0</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">shape_</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">i1</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">shape_</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">i2</span><span class="p">];</span>
+</pre></div>
+</div>
+<p>From the three indices, it computes “how many elements from the beginning” and reads the one-dimensional data with <code class="docutils literal notranslate"><span class="pre">data_[...]</span></code>. When the last index <code class="docutils literal notranslate"><span class="pre">i2</span></code> increases by 1, the element is 1 place away, and when <code class="docutils literal notranslate"><span class="pre">i1</span></code> increases by 1, it is <code class="docutils literal notranslate"><span class="pre">shape_[2]</span></code> places away. Elements are contiguous along the last index, which is the opposite of Fortran (contiguous along the first index). How this layout affects computation speed is covered in <a class="reference internal" href="07_arrays_and_parallel.html#edu-ch07"><span class="std std-ref">Chapter 7</span></a>.</p>
+<p><strong>A real MISO example 3</strong> — <code class="docutils literal notranslate"><span class="pre">Grid::view</span></code> in <code class="docutils literal notranslate"><span class="pre">miso/include/miso/grid.hpp</span></code> passes the address <code class="docutils literal notranslate"><span class="pre">x.data()</span></code> of the first element of the <code class="docutils literal notranslate"><span class="pre">std::vector</span></code> coordinates <code class="docutils literal notranslate"><span class="pre">x</span></code> (<a class="reference internal" href="02_cpp_basics.html#edu-ch02-stdlib"><span class="std std-ref">Chapter 2</span></a>) to <code class="docutils literal notranslate"><span class="pre">GridView</span></code> (excerpt).</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">return</span><span class="w"> </span><span class="n">GridView</span><span class="o">&lt;</span><span class="n">Real</span><span class="o">&gt;</span><span class="p">(</span><span class="n">i_total</span><span class="p">,</span><span class="w"> </span><span class="n">j_total</span><span class="p">,</span><span class="w"> </span><span class="n">k_total</span><span class="p">,</span><span class="w"> </span><span class="n">is</span><span class="p">,</span><span class="w"> </span><span class="n">js</span><span class="p">,</span><span class="w"> </span><span class="n">ks</span><span class="p">,</span><span class="w"> </span><span class="n">i_margin</span><span class="p">,</span>
+<span class="w">                      </span><span class="n">j_margin</span><span class="p">,</span><span class="w"> </span><span class="n">k_margin</span><span class="p">,</span><span class="w"> </span><span class="n">min_dxyz</span><span class="p">,</span><span class="w"> </span><span class="n">x</span><span class="p">.</span><span class="n">data</span><span class="p">(),</span><span class="w"> </span><span class="n">y</span><span class="p">.</span><span class="n">data</span><span class="p">(),</span>
+<span class="w">                      </span><span class="n">z</span><span class="p">.</span><span class="n">data</span><span class="p">(),</span><span class="w"> </span><span class="n">dx</span><span class="p">.</span><span class="n">data</span><span class="p">(),</span><span class="w"> </span><span class="n">dy</span><span class="p">.</span><span class="n">data</span><span class="p">(),</span><span class="w"> </span><span class="n">dz</span><span class="p">.</span><span class="n">data</span><span class="p">(),</span><span class="w"> </span><span class="n">dxi</span><span class="p">.</span><span class="n">data</span><span class="p">(),</span>
+<span class="w">                      </span><span class="n">dyi</span><span class="p">.</span><span class="n">data</span><span class="p">(),</span><span class="w"> </span><span class="n">dzi</span><span class="p">.</span><span class="n">data</span><span class="p">());</span>
+</pre></div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">x</span></code> of <code class="docutils literal notranslate"><span class="pre">GridView</span></code> is the <code class="docutils literal notranslate"><span class="pre">Real</span> <span class="pre">*x</span></code> we saw in <a class="reference internal" href="#edu-ch03-symbols-in-declaration"><span class="std std-ref">Section 2.2</span></a>. The <code class="docutils literal notranslate"><span class="pre">grid.x[i]</span></code> that we wrote in the initial condition in <a class="reference internal" href="02_cpp_basics.html#edu-ch02-nested"><span class="std std-ref">Chapter 2</span></a> therefore indexed this pointer to read elements of the <code class="docutils literal notranslate"><span class="pre">std::vector</span></code> held by <code class="docutils literal notranslate"><span class="pre">Grid</span></code>. <code class="docutils literal notranslate"><span class="pre">GridView</span></code> does not hold a copy of the coordinates; it is a lightweight type that holds only their location. In MISO, a type that holds only a location without owning the data is called a <strong>View</strong> (<a class="reference internal" href="04_classes_and_structs.html#edu-ch04"><span class="std std-ref">Chapter 4</span></a>).</p>
+<p><strong><code class="docutils literal notranslate"><span class="pre">char</span> <span class="pre">**argv</span></code> of <code class="docutils literal notranslate"><span class="pre">main</span></code></strong> — <code class="docutils literal notranslate"><span class="pre">char</span> <span class="pre">*</span></code> is a pointer to the first character and represents a C string (a sequence of characters with a terminating character <code class="docutils literal notranslate"><span class="pre">'\0'</span></code> at the end). <code class="docutils literal notranslate"><span class="pre">char</span> <span class="pre">**argv</span></code> is “a pointer to <code class="docutils literal notranslate"><span class="pre">char</span> <span class="pre">*</span></code>,” that is, the beginning of an array of strings. <code class="docutils literal notranslate"><span class="pre">argv[i]</span></code> is the string of the <code class="docutils literal notranslate"><span class="pre">i</span></code>-th command-line argument. In <code class="docutils literal notranslate"><span class="pre">parse_config_filepath</span></code> in <a class="reference internal" href="02_cpp_basics.html#edu-ch02-jumps"><span class="std std-ref">Chapter 2</span></a>, <code class="docutils literal notranslate"><span class="pre">std::string_view</span> <span class="pre">arg(argv[i]);</span></code> read the <code class="docutils literal notranslate"><span class="pre">i</span></code>-th argument.</p>
+</section>
+<section id="edu-ch03-lifetime">
+<span id="id15"></span><h2>5. Variable lifetime and scope<a class="headerlink" href="#edu-ch03-lifetime" title="Link to this heading"></a></h2>
+<p>A variable declared inside a function can be used from the place of declaration to the end of the enclosing <code class="docutils literal notranslate"><span class="pre">{</span> <span class="pre">...</span> <span class="pre">}</span></code>. This range is called its <strong>scope</strong>. The object behind an ordinary variable disappears when execution leaves that block. The period during which a variable exists is called its <strong>lifetime</strong>.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">double</span><span class="w"> </span><span class="o">*</span><span class="n">p</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">nullptr</span><span class="p">;</span><span class="w">   </span><span class="c1">// p is in the outer block</span>
+<span class="p">{</span>
+<span class="w">  </span><span class="kt">double</span><span class="w"> </span><span class="n">local</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">1.0</span><span class="p">;</span><span class="w">  </span><span class="c1">// local exists only inside this block</span>
+<span class="w">  </span><span class="n">p</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&amp;</span><span class="n">local</span><span class="p">;</span><span class="w">          </span><span class="c1">// stores the address of local in p</span>
+<span class="p">}</span><span class="w">                      </span><span class="c1">// the lifetime of local ends. p remains</span>
+<span class="c1">// do not read or write *p here</span>
+</pre></div>
+</div>
+<p>Even if a pointer or reference remains, <strong>the lifetime of its target is not extended</strong>. A pointer or reference to a variable whose lifetime has ended is called a <strong>dangling pointer</strong> or <strong>dangling reference</strong>. Reading or writing through it is undefined behavior. Because it may happen to read a plausible value, it is a hard-to-notice mistake.</p>
+<p>In Fortran as well, the values of a subroutine’s local variables (those without the <code class="docutils literal notranslate"><span class="pre">save</span></code> attribute) are not guaranteed after the subroutine returns. In C++, the same thing happens in a block inside a <code class="docutils literal notranslate"><span class="pre">for</span></code> or <code class="docutils literal notranslate"><span class="pre">if</span></code>.</p>
+<p>Returning a reference or pointer to a variable inside a function is the same mistake.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">double</span><span class="w"> </span><span class="o">&amp;</span><span class="nf">bad</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="kt">double</span><span class="w"> </span><span class="n">local</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">1.0</span><span class="p">;</span>
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="n">local</span><span class="p">;</span><span class="w">  </span><span class="c1">// local is destroyed when the function returns</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>warning: reference to local variable 'local' returned [-Wreturn-local-addr]
+</pre></div>
+</div>
+<p>g++ gives a warning with <code class="docutils literal notranslate"><span class="pre">-Wall</span></code>, but it cannot detect every case. When you bring a value back, <strong>return it by value</strong>, as in <code class="docutils literal notranslate"><span class="pre">double</span> <span class="pre">good()</span></code> (<a class="reference external" href="https://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines#rf-dangle">C++ Core Guidelines F.43</a>).</p>
+<p>If you pass a number or a computed result to a <code class="docutils literal notranslate"><span class="pre">const</span></code> reference parameter, a temporary object holding that value is created. The <code class="docutils literal notranslate"><span class="pre">1.0</span></code> in <code class="docutils literal notranslate"><span class="pre">twice(1.0)</span></code> exists until the end of that statement (up to the <code class="docutils literal notranslate"><span class="pre">;</span></code>). Do not save that reference somewhere inside the function to use it later.</p>
+<p>Variables declared in the same block disappear <strong>in the reverse order of declaration</strong>. Variables declared later disappear first, so it is safe for a later variable to hold a reference to an earlier variable.</p>
+<p><strong>A real MISO example 1</strong> — <code class="docutils literal notranslate"><span class="pre">ModelBase</span></code> in <code class="docutils literal notranslate"><span class="pre">miso/include/miso/mhd_model_base.hpp</span></code> keeps the configuration <code class="docutils literal notranslate"><span class="pre">Config</span></code> as a reference member (excerpt).</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">Config</span><span class="w"> </span><span class="o">&amp;</span><span class="n">config</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>A variable of a type that has a reference member must not outlive the referent (here, the <code class="docutils literal notranslate"><span class="pre">Config</span></code> variable). In <code class="docutils literal notranslate"><span class="pre">main</span></code> in <code class="docutils literal notranslate"><span class="pre">demo/mhd2d_vortex/src/main.cpp</span></code>, <code class="docutils literal notranslate"><span class="pre">config</span></code> is declared first and <code class="docutils literal notranslate"><span class="pre">model</span></code> later (<a class="reference internal" href="02_cpp_basics.html#edu-ch02-program"><span class="std std-ref">Chapter 2</span></a>).</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">Config</span><span class="w"> </span><span class="n">config</span><span class="p">(</span><span class="n">config_path</span><span class="p">.</span><span class="n">value_or</span><span class="p">(</span><span class="s">"./config.yaml"</span><span class="p">));</span>
+
+<span class="c1">// Run simulation</span>
+<span class="n">Model</span><span class="w"> </span><span class="nf">model</span><span class="p">(</span><span class="n">config</span><span class="p">);</span>
+<span class="n">model</span><span class="p">.</span><span class="n">run</span><span class="p">();</span>
+</pre></div>
+</div>
+<p>At the end of <code class="docutils literal notranslate"><span class="pre">main</span></code>, <code class="docutils literal notranslate"><span class="pre">model</span></code>, declared later, disappears first, and then <code class="docutils literal notranslate"><span class="pre">config</span></code> disappears. While <code class="docutils literal notranslate"><span class="pre">model</span></code> is using it, <code class="docutils literal notranslate"><span class="pre">config</span></code> always exists.</p>
+<p><strong>A real MISO example 2</strong> — <code class="docutils literal notranslate"><span class="pre">Integrator</span></code> in <code class="docutils literal notranslate"><span class="pre">miso/include/miso/mhd_integrator_host.hpp</span></code> also holds the grid as a reference member (excerpt).</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="c1">/// @brief Spatial grid</span>
+<span class="n">Grid</span><span class="o">&lt;</span><span class="n">Real</span><span class="p">,</span><span class="w"> </span><span class="n">backend</span><span class="o">::</span><span class="n">Host</span><span class="o">&gt;</span><span class="w"> </span><span class="o">&amp;</span><span class="n">grid</span><span class="p">;</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">Integrator</span></code> uses the grid at every time integration step but does not hold a copy of it. The grid itself is <code class="docutils literal notranslate"><span class="pre">grid</span></code> in <code class="docutils literal notranslate"><span class="pre">ModelBase</span></code>, and <code class="docutils literal notranslate"><span class="pre">Integrator</span></code> is placed so that it does not outlive it. <code class="docutils literal notranslate"><span class="pre">&lt;Real,</span> <span class="pre">backend::Host&gt;</span></code> are template arguments (<a class="reference internal" href="06_templates.html#edu-ch06"><span class="std std-ref">Chapter 6</span></a>).</p>
+<p><strong>A real MISO example 3</strong> — <code class="docutils literal notranslate"><span class="pre">GridView</span></code> in <a class="reference internal" href="#edu-ch03-arrays"><span class="std std-ref">Section 4</span></a> only holds pointers to the elements of the <code class="docutils literal notranslate"><span class="pre">std::vector</span></code> in <code class="docutils literal notranslate"><span class="pre">Grid</span></code>. Therefore, a <code class="docutils literal notranslate"><span class="pre">GridView</span></code> can be used only while the original <code class="docutils literal notranslate"><span class="pre">Grid</span></code> exists. Also, when the number of elements of a <code class="docutils literal notranslate"><span class="pre">std::vector</span></code> is increased (with <code class="docutils literal notranslate"><span class="pre">push_back</span></code> and so on), it may be reallocated to a different place, after which the old <code class="docutils literal notranslate"><span class="pre">data()</span></code> address can no longer be used. MISO does not change the number of coordinate elements after creating the grid, so this problem does not occur. The relationship between an array that owns data and a View that points to it is covered in detail in <a class="reference internal" href="04_classes_and_structs.html#edu-ch04"><span class="std std-ref">Chapter 4</span></a>.</p>
+</section>
+<section id="newdelete">
+<span id="edu-ch03-dynamic-memory"></span><h2>6. new, delete, and smart pointers<a class="headerlink" href="#newdelete" title="Link to this heading"></a></h2>
+<p>Sometimes you want to allocate memory of the required size at run time, free from the lifetime of a block. The basic C++ tools are <code class="docutils literal notranslate"><span class="pre">new</span></code> and <code class="docutils literal notranslate"><span class="pre">delete</span></code>. They correspond to Fortran’s <code class="docutils literal notranslate"><span class="pre">allocate</span></code> and <code class="docutils literal notranslate"><span class="pre">deallocate</span></code>.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">int</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">4</span><span class="p">;</span>
+<span class="kt">double</span><span class="w"> </span><span class="o">*</span><span class="n">raw</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="kt">double</span><span class="p">[</span><span class="n">n</span><span class="p">];</span><span class="w">  </span><span class="c1">// allocates n doubles and puts the address of the first one in raw</span>
+<span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">n</span><span class="p">;</span><span class="w"> </span><span class="o">++</span><span class="n">i</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="n">raw</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">i</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="k">delete</span><span class="p">[]</span><span class="w"> </span><span class="n">raw</span><span class="p">;</span><span class="w">                 </span><span class="c1">// release it yourself (delete[] for arrays)</span>
+<span class="n">raw</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">nullptr</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>Memory allocated with <code class="docutils literal notranslate"><span class="pre">new</span></code> remains until you <code class="docutils literal notranslate"><span class="pre">delete</span></code> it. Writing these directly makes the following mistakes likely.</p>
+<ul class="simple">
+<li><p>Forgetting to free (a <strong>memory leak</strong>). If you <code class="docutils literal notranslate"><span class="pre">return</span></code> midway or an exception is thrown, execution never reaches the <code class="docutils literal notranslate"><span class="pre">delete</span></code> line.</p></li>
+<li><p>Using memory after it has been freed, or freeing the same memory twice.</p></li>
+<li><p>Using <code class="docutils literal notranslate"><span class="pre">delete</span></code> (without <code class="docutils literal notranslate"><span class="pre">[]</span></code>) on memory allocated with <code class="docutils literal notranslate"><span class="pre">new[]</span></code>.</p></li>
+</ul>
+<p>A Fortran <code class="docutils literal notranslate"><span class="pre">allocatable</span></code> array is freed automatically when it leaves its scope, but C++ pointers have no such mechanism. For that reason, <strong>in modern C++ the basic approach is not to write <code class="docutils literal notranslate"><span class="pre">new</span></code> and <code class="docutils literal notranslate"><span class="pre">delete</span></code> directly but to use types that free memory automatically</strong> (<a class="reference external" href="https://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines#rr-newdelete">C++ Core Guidelines R.11</a>).</p>
+<ul class="simple">
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">std::vector</span></code></strong>: If you just want a sequence of elements, use this first (<a class="reference internal" href="02_cpp_basics.html#edu-ch02-stdlib"><span class="std std-ref">Chapter 2</span></a>).</p></li>
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">std::unique_ptr</span></code></strong> (<code class="docutils literal notranslate"><span class="pre">&lt;memory&gt;</span></code>): a pointer that is the sole owner of the allocated memory. When the lifetime of the <code class="docutils literal notranslate"><span class="pre">unique_ptr</span></code> variable ends, it automatically calls <code class="docutils literal notranslate"><span class="pre">delete</span></code>. It cannot be copied.</p></li>
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">std::shared_ptr</span></code></strong> (<code class="docutils literal notranslate"><span class="pre">&lt;memory&gt;</span></code>): a pointer shared by multiple owners. It counts the owners and calls <code class="docutils literal notranslate"><span class="pre">delete</span></code> when the last owner disappears.</p></li>
+</ul>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;memory&gt;</span>
+
+<span class="kt">int</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">4</span><span class="p">;</span>
+<span class="n">std</span><span class="o">::</span><span class="n">unique_ptr</span><span class="o">&lt;</span><span class="kt">double</span><span class="p">[]</span><span class="o">&gt;</span><span class="w"> </span><span class="n">u</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">make_unique</span><span class="o">&lt;</span><span class="kt">double</span><span class="p">[]</span><span class="o">&gt;</span><span class="p">(</span><span class="n">n</span><span class="p">);</span><span class="w">  </span><span class="c1">// n elements, initialized to 0</span>
+<span class="n">u</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">1.5</span><span class="p">;</span>
+
+<span class="n">std</span><span class="o">::</span><span class="n">shared_ptr</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;</span><span class="w"> </span><span class="n">s1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">make_shared</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;</span><span class="p">(</span><span class="mf">2.0</span><span class="p">);</span>
+<span class="n">std</span><span class="o">::</span><span class="n">shared_ptr</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;</span><span class="w"> </span><span class="n">s2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">s1</span><span class="p">;</span><span class="w">   </span><span class="c1">// shares the same double</span>
+<span class="o">*</span><span class="n">s2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">3.0</span><span class="p">;</span><span class="w">                         </span><span class="c1">// *s1 is also 3.0</span>
+<span class="c1">// s1.use_count() is 2 (two owners)</span>
+<span class="c1">// u, s1, s2 are released automatically at the end of the block. No delete needed</span>
+</pre></div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">&lt;&gt;</span></code> in <code class="docutils literal notranslate"><span class="pre">&lt;double[]&gt;</span></code> and similar forms holds template arguments (<a class="reference internal" href="06_templates.html#edu-ch06"><span class="std std-ref">Chapter 6</span></a>). <code class="docutils literal notranslate"><span class="pre">make_unique</span></code> and <code class="docutils literal notranslate"><span class="pre">make_shared</span></code> are functions that perform the allocation and the creation of the pointer in one step.</p>
+<p><strong>A real MISO example</strong> — MISO’s arrays <code class="docutils literal notranslate"><span class="pre">Array1D</span></code> to <code class="docutils literal notranslate"><span class="pre">Array4D</span></code> use <code class="docutils literal notranslate"><span class="pre">new[]</span></code> and <code class="docutils literal notranslate"><span class="pre">delete[]</span></code> internally. The following is an excerpt from <code class="docutils literal notranslate"><span class="pre">Array1D&lt;T,</span> <span class="pre">backend::Host&gt;</span></code> in <code class="docutils literal notranslate"><span class="pre">miso/include/miso/array1d.hpp</span></code>.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">Array1D</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">nx0</span><span class="p">)</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">size_</span><span class="p">(</span><span class="n">nx0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="n">assert</span><span class="p">(</span><span class="n">size_</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">0</span><span class="p">);</span>
+<span class="w">  </span><span class="n">data_</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">T</span><span class="p">[</span><span class="n">size_</span><span class="p">];</span>
+<span class="p">}</span>
+
+<span class="o">~</span><span class="n">Array1D</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">delete</span><span class="p">[]</span><span class="w"> </span><span class="n">data_</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+</pre></div>
+</div>
+<p>The first is the part executed when the array is created (the constructor), and it allocates <code class="docutils literal notranslate"><span class="pre">nx0</span></code> elements. The second is the part executed automatically when the lifetime of the array variable ends (the destructor), and it frees the allocated memory. By enclosing the pair of <code class="docutils literal notranslate"><span class="pre">new</span></code> and <code class="docutils literal notranslate"><span class="pre">delete</span></code> inside the array type, the user does not have to write <code class="docutils literal notranslate"><span class="pre">delete</span></code>, and, as with <code class="docutils literal notranslate"><span class="pre">std::vector</span></code>, the memory is freed when the lifetime ends. This mechanism (RAII) is covered in <a class="reference internal" href="04_classes_and_structs.html#edu-ch04"><span class="std std-ref">Chapter 4</span></a>. In <code class="docutils literal notranslate"><span class="pre">Array1D&lt;T,</span> <span class="pre">backend::CUDA&gt;</span></code> for the GPU, GPU memory is allocated and freed at the same places (<a class="reference internal" href="09_gpu.html#edu-ch09"><span class="std std-ref">Chapter 9</span></a>).</p>
+<p>The MISO library does not use <code class="docutils literal notranslate"><span class="pre">std::unique_ptr</span></code>. <code class="docutils literal notranslate"><span class="pre">std::shared_ptr</span></code> is used in just one place, <code class="docutils literal notranslate"><span class="pre">miso/include/miso/mhd_resistivity.hpp</span></code>, which holds the work area for reduction on the GPU. Memory allocation is gathered in the array types, and everywhere else, data is handed over through references and Views.</p>
+</section>
+<section id="edu-ch03-exercises">
+<span id="id16"></span><h2>7. Exercises<a class="headerlink" href="#edu-ch03-exercises" title="Link to this heading"></a></h2>
+<p><strong>Exercise 1</strong> After running the following code in order, write the values of <code class="docutils literal notranslate"><span class="pre">a</span></code>, <code class="docutils literal notranslate"><span class="pre">b</span></code>, <code class="docutils literal notranslate"><span class="pre">r</span></code>, and <code class="docutils literal notranslate"><span class="pre">*p</span></code>. Also explain which lines changed <code class="docutils literal notranslate"><span class="pre">a</span></code>.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">double</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">1.0</span><span class="p">;</span>
+<span class="kt">double</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">a</span><span class="p">;</span>
+<span class="kt">double</span><span class="w"> </span><span class="o">&amp;</span><span class="n">r</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">a</span><span class="p">;</span>
+<span class="kt">double</span><span class="w"> </span><span class="o">*</span><span class="n">p</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&amp;</span><span class="n">a</span><span class="p">;</span>
+<span class="n">b</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">2.0</span><span class="p">;</span>
+<span class="n">r</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">3.0</span><span class="p">;</span>
+<span class="o">*</span><span class="n">p</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">4.0</span><span class="p">;</span>
+<span class="n">p</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&amp;</span><span class="n">b</span><span class="p">;</span>
+<span class="o">*</span><span class="n">p</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">5.0</span><span class="p">;</span>
+</pre></div>
+</div>
+<p><strong>Exercise 2</strong> In <code class="docutils literal notranslate"><span class="pre">symmetric_index</span></code> in <code class="docutils literal notranslate"><span class="pre">miso/include/miso/boundary_condition.hpp</span></code>, explain what happens to the output of the check program in <a class="reference internal" href="#edu-ch03-output-arguments"><span class="std std-ref">Section 1.3</span></a> if you change <code class="docutils literal notranslate"><span class="pre">int</span> <span class="pre">&amp;i_ghst</span></code> to <code class="docutils literal notranslate"><span class="pre">int</span> <span class="pre">i_ghst</span></code> (you do not need to actually make the change).</p>
+<p><strong>Exercise 3</strong> Explain the following three function declarations in terms of what each can do through its parameters (read, modify, or change the target).</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span><span class="w"> </span><span class="nf">f1</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="o">*</span><span class="n">values</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">n</span><span class="p">);</span>
+<span class="kt">void</span><span class="w"> </span><span class="nf">f2</span><span class="p">(</span><span class="kt">double</span><span class="w"> </span><span class="o">*</span><span class="k">const</span><span class="w"> </span><span class="n">values</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">n</span><span class="p">);</span>
+<span class="kt">void</span><span class="w"> </span><span class="nf">f3</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">YAML</span><span class="o">::</span><span class="n">Node</span><span class="w"> </span><span class="o">&amp;</span><span class="n">defaults</span><span class="p">);</span>
+</pre></div>
+</div>
+<p><strong>Exercise 4</strong> Explain the problem with the following function and fix it correctly.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">int</span><span class="w"> </span><span class="o">*</span><span class="nf">make_counts</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">n</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="kt">int</span><span class="w"> </span><span class="n">counts</span><span class="p">[</span><span class="mi">100</span><span class="p">];</span>
+<span class="w">  </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">n</span><span class="p">;</span><span class="w"> </span><span class="o">++</span><span class="n">i</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">counts</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="n">counts</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+::<p><strong>Exercise 1</strong> In the end, <code class="docutils literal notranslate"><span class="pre">a</span> <span class="pre">=</span> <span class="pre">4.0</span></code>, <code class="docutils literal notranslate"><span class="pre">b</span> <span class="pre">=</span> <span class="pre">5.0</span></code>, <code class="docutils literal notranslate"><span class="pre">r</span> <span class="pre">=</span> <span class="pre">4.0</span></code>, and <code class="docutils literal notranslate"><span class="pre">*p</span> <span class="pre">=</span> <span class="pre">5.0</span></code>. The <code class="docutils literal notranslate"><span class="pre">b</span></code> created by <code class="docutils literal notranslate"><span class="pre">b</span> <span class="pre">=</span> <span class="pre">a;</span></code> is an independent copy. <code class="docutils literal notranslate"><span class="pre">r</span> <span class="pre">=</span> <span class="pre">3.0;</span></code> makes <code class="docutils literal notranslate"><span class="pre">a</span></code> 3.0, and <code class="docutils literal notranslate"><span class="pre">*p</span> <span class="pre">=</span> <span class="pre">4.0;</span></code> makes it 4.0 (because <code class="docutils literal notranslate"><span class="pre">p</span></code> points to <code class="docutils literal notranslate"><span class="pre">a</span></code>). <code class="docutils literal notranslate"><span class="pre">p</span> <span class="pre">=</span> <span class="pre">&amp;b;</span></code> makes <code class="docutils literal notranslate"><span class="pre">p</span></code> point to <code class="docutils literal notranslate"><span class="pre">b</span></code>, and <code class="docutils literal notranslate"><span class="pre">*p</span> <span class="pre">=</span> <span class="pre">5.0;</span></code> changes <code class="docutils literal notranslate"><span class="pre">b</span></code>. <code class="docutils literal notranslate"><span class="pre">r</span></code> is still another name for <code class="docutils literal notranslate"><span class="pre">a</span></code>, so it is 4.0.</p>
+<p><strong>Exercise 2</strong> <code class="docutils literal notranslate"><span class="pre">i_ghst</span></code> is passed by value, so assignments inside the function reach only the copy. The caller’s <code class="docutils literal notranslate"><span class="pre">i_ghst</span></code> stays at its initial value <code class="docutils literal notranslate"><span class="pre">-1</span></code>, and <code class="docutils literal notranslate"><span class="pre">i_ghst</span></code> in the output is <code class="docutils literal notranslate"><span class="pre">-1</span></code> on both lines. <code class="docutils literal notranslate"><span class="pre">i_trgt</span></code> is still a reference, so 5 and 4 are printed.</p>
+<p><strong>Exercise 3</strong> <code class="docutils literal notranslate"><span class="pre">f1</span></code> only reads what <code class="docutils literal notranslate"><span class="pre">values</span></code> points to and cannot modify it (<code class="docutils literal notranslate"><span class="pre">const</span></code> is to the left of <code class="docutils literal notranslate"><span class="pre">*</span></code>). Inside the function, it can change <code class="docutils literal notranslate"><span class="pre">values</span></code> itself to another address (this does not affect the caller). <code class="docutils literal notranslate"><span class="pre">f2</span></code> can modify what it points to but cannot change <code class="docutils literal notranslate"><span class="pre">values</span></code> itself to another address (<code class="docutils literal notranslate"><span class="pre">const</span></code> is to the right of <code class="docutils literal notranslate"><span class="pre">*</span></code>). <code class="docutils literal notranslate"><span class="pre">f3</span></code> only reads <code class="docutils literal notranslate"><span class="pre">defaults</span></code> without copying it. This is the same as the second parameter of <code class="docutils literal notranslate"><span class="pre">merge_yaml</span></code>.</p>
+<p><strong>Exercise 4</strong> <code class="docutils literal notranslate"><span class="pre">counts</span></code> is an array inside the function, so its lifetime ends when the function returns. The returned address becomes a dangling pointer (<a class="reference internal" href="#edu-ch03-lifetime"><span class="std std-ref">Section 5</span></a>). Also, if <code class="docutils literal notranslate"><span class="pre">n</span></code> exceeds 100, it writes outside the array. Fix it to return a <code class="docutils literal notranslate"><span class="pre">std::vector</span></code> by value.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;vector&gt;</span>
+
+<span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">make_counts</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">n</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">counts</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">);</span><span class="w">  </span><span class="c1">// n elements, all 0</span>
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="n">counts</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Even if you return a <code class="docutils literal notranslate"><span class="pre">std::vector</span></code> by value, the elements are normally not copied one by one (it is optimized so that only the contents are moved; moves are covered in <a class="reference internal" href="04_classes_and_structs.html#edu-ch04"><span class="std std-ref">Chapter 4</span></a>).</p>
+</details>
+</section>
+<section id="edu-ch03-summary">
+<span id="id17"></span><h2>8. Summary of symbols<a class="headerlink" href="#edu-ch03-summary" title="Link to this heading"></a></h2>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Notation</p></th>
+<th class="head"><p>Kind</p></th>
+<th class="head"><p>Meaning</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">T</span> <span class="pre">&amp;r</span> <span class="pre">=</span> <span class="pre">a;</span></code></p></td>
+<td><p>Declaration</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">r</span></code> is a reference (alias) to <code class="docutils literal notranslate"><span class="pre">a</span></code>. It cannot be rebound</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">const</span> <span class="pre">T</span> <span class="pre">&amp;r</span> <span class="pre">=</span> <span class="pre">a;</span></code></p></td>
+<td><p>Declaration</p></td>
+<td><p>A reference that only reads through <code class="docutils literal notranslate"><span class="pre">r</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">T</span> <span class="pre">*p</span> <span class="pre">=</span> <span class="pre">&amp;a;</span></code></p></td>
+<td><p>Declaration</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">p</span></code> is a pointer to <code class="docutils literal notranslate"><span class="pre">T</span></code>. <code class="docutils literal notranslate"><span class="pre">&amp;a</span></code> is the address of <code class="docutils literal notranslate"><span class="pre">a</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">*p</span></code></p></td>
+<td><p>Expression</p></td>
+<td><p>The value that <code class="docutils literal notranslate"><span class="pre">p</span></code> points to</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">p[i]</span></code></p></td>
+<td><p>Expression</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">*(p</span> <span class="pre">+</span> <span class="pre">i)</span></code>. The element <code class="docutils literal notranslate"><span class="pre">i</span></code> places past <code class="docutils literal notranslate"><span class="pre">p</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">const</span> <span class="pre">T</span> <span class="pre">*p</span></code></p></td>
+<td><p>Declaration</p></td>
+<td><p>Only reads the target. <code class="docutils literal notranslate"><span class="pre">p</span></code> itself can be re-pointed</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">T</span> <span class="pre">*const</span> <span class="pre">p</span></code></p></td>
+<td><p>Declaration</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">p</span></code> itself cannot be re-pointed. The target can be modified</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">nullptr</span></code></p></td>
+<td><p>Value</p></td>
+<td><p>A pointer that points nowhere</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">void</span> <span class="pre">f(T</span> <span class="pre">v)</span></code></p></td>
+<td><p>Parameter</p></td>
+<td><p>Pass by value (copy)</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">void</span> <span class="pre">f(T</span> <span class="pre">&amp;v)</span></code></p></td>
+<td><p>Parameter</p></td>
+<td><p>Pass by reference. Can modify the caller’s variable</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">void</span> <span class="pre">f(const</span> <span class="pre">T</span> <span class="pre">&amp;v)</span></code></p></td>
+<td><p>Parameter</p></td>
+<td><p>Only reads, without copying</p></td>
+</tr>
+</tbody>
+</table>
+<p>A list that also includes other symbols (<code class="docutils literal notranslate"><span class="pre">::</span></code>, <code class="docutils literal notranslate"><span class="pre">&lt;&gt;</span></code>, <code class="docutils literal notranslate"><span class="pre">-&gt;</span></code>, and so on) is in the <a class="reference internal" href="reference/cpp_reference.html#edu-ref-cpp"><span class="std std-ref">Symbol Quick Reference</span></a>. For details of the rules for references and pointers, see the C++17 draft standard N4659: <a class="reference external" href="https://timsong-cpp.github.io/cppwp/n4659/dcl.ref">references</a>, <a class="reference external" href="https://timsong-cpp.github.io/cppwp/n4659/dcl.ptr">pointers</a>, and <a class="reference external" href="https://timsong-cpp.github.io/cppwp/n4659/dcl.init.ref">initialization of references</a>.</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="02_cpp_basics.html" class="btn btn-neutral float-left" title="2. Variables, Functions, and Control Flow" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="04_classes_and_structs.html" class="btn btn-neutral float-right" title="4. Classes and Structs" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Integrated Studies, ISEE, Nagoya University.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

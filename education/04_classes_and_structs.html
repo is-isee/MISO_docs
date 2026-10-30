@@ -1,12 +1,12 @@
 
 
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" data-content_root="../">
+<html class="writer-html5" lang="ja" data-content_root="../">
 <head>
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>4. クラス・構造体 &mdash; MISO 0.0 documentation</title>
+  <title>4. クラス・構造体 &mdash; MISO 0.0 ドキュメント</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=4ae1632d" />
@@ -17,18 +17,19 @@
   
       <script src="../_static/jquery.js?v=5d32c60e"></script>
       <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../_static/documentation_options.js?v=837179f8"></script>
+      <script src="../_static/documentation_options.js?v=1a6bc256"></script>
       <script src="../_static/doctools.js?v=fd6eb6e6"></script>
       <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
       <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
       <script src="../_static/copybutton.js?v=f281be69"></script>
+      <script src="../_static/translations.js?v=4755f45a"></script>
       <script src="../_static/collapsible-lists/js/CollapsibleLists.compressed.js?v=73120307"></script>
       <script src="../_static/collapsible-lists/js/apply-collapsible-lists.js?v=660e4f45"></script>
       <script>window.MathJax = {"tex": {"macros": {"bm": ["{\\boldsymbol{#1}}", 1]}}, "options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
       <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script src="../_static/js/theme.js"></script>
-    <link rel="index" title="Index" href="../genindex.html" />
-    <link rel="search" title="Search" href="../search.html" />
+    <link rel="index" title="索引" href="../genindex.html" />
+    <link rel="search" title="検索" href="../search.html" />
     <link rel="next" title="5. 継承と CRTP" href="05_inheritance.html" />
     <link rel="prev" title="3. 参照・ポインタと寿命" href="03_references_and_pointers.html" /> 
 </head>
@@ -106,8 +107,10 @@
       <div class="wy-nav-content">
 <div id="language-links" style="margin-bottom: 1em; font-size: 100%;">
     Language:
-    <a href="#" id="translate-link" target="_blank">English</a> |
-    <a href="#" id="original-link">日本語</a>
+    
+    <a href="../en/education/04_classes_and_structs.html">English</a> |
+    <strong>日本語</strong>
+    
 </div>
 
 
@@ -156,7 +159,7 @@
 <span class="w">  </span><span class="kt">int</span><span class="w"> </span><span class="n">nz</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
 
 <span class="w">  </span><span class="kt">int</span><span class="w"> </span><span class="nf">cell_count</span><span class="p">()</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">nx</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">ny</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">nz</span><span class="p">;</span><span class="w">  </span><span class="c1">// 3 方向の格子数を掛けて、セルの総数を返します</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">nx</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">ny</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">nz</span><span class="p">;</span><span class="w">  </span><span class="c1">// multiplies the cell counts in the 3 directions and returns the total number of cells</span>
 <span class="w">  </span><span class="p">}</span>
 <span class="p">};</span>
 </pre></div>
@@ -174,12 +177,12 @@
 </div>
 <p>C++ では、データに加えて、そのデータを使う関数（ここでは <code class="docutils literal notranslate"><span class="pre">cell_count</span></code>）も同じ型の中に書けます。</p>
 <p>型を使って変数を作り、メンバを使う例です。</p>
-<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">GridSize</span><span class="w"> </span><span class="n">a</span><span class="p">{</span><span class="mi">4</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">};</span><span class="w">  </span><span class="c1">// a の nx, ny, nz を 4, 3, 2 で初期化します</span>
-<span class="n">GridSize</span><span class="w"> </span><span class="n">b</span><span class="p">{</span><span class="mi">8</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">};</span><span class="w">  </span><span class="c1">// b は a とは別に、自分の nx, ny, nz を持ちます</span>
-<span class="n">a</span><span class="p">.</span><span class="n">nx</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">5</span><span class="p">;</span><span class="w">             </span><span class="c1">// a.nx だけが 5 になります。b.nx は 8 のままです</span>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">GridSize</span><span class="w"> </span><span class="n">a</span><span class="p">{</span><span class="mi">4</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">};</span><span class="w">  </span><span class="c1">// initializes a's nx, ny, nz to 4, 3, 2</span>
+<span class="n">GridSize</span><span class="w"> </span><span class="n">b</span><span class="p">{</span><span class="mi">8</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">};</span><span class="w">  </span><span class="c1">// b has its own nx, ny, nz, separate from a</span>
+<span class="n">a</span><span class="p">.</span><span class="n">nx</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">5</span><span class="p">;</span><span class="w">             </span><span class="c1">// only a.nx becomes 5. b.nx stays 8</span>
 <span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="n">cell_count</span><span class="p">()</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">" "</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">b</span><span class="p">.</span><span class="n">cell_count</span><span class="p">()</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">"</span><span class="se">\n</span><span class="s">"</span><span class="p">;</span><span class="w">  </span><span class="c1">// 30 48</span>
 
-<span class="n">GridSize</span><span class="w"> </span><span class="n">c</span><span class="p">;</span><span class="w">           </span><span class="c1">// 宣言に書いた初期値 1 を使います。c.cell_count() は 1 です</span>
+<span class="n">GridSize</span><span class="w"> </span><span class="n">c</span><span class="p">;</span><span class="w">           </span><span class="c1">// uses the initial value 1 written in the declaration. c.cell_count() is 1</span>
 </pre></div>
 </div>
 <p><code class="docutils literal notranslate"><span class="pre">a</span></code> と <code class="docutils literal notranslate"><span class="pre">b</span></code> は、それぞれが自分の <code class="docutils literal notranslate"><span class="pre">nx</span></code>, <code class="docutils literal notranslate"><span class="pre">ny</span></code>, <code class="docutils literal notranslate"><span class="pre">nz</span></code> を保存する場所を持っています。
@@ -189,8 +192,8 @@
 <code class="docutils literal notranslate"><span class="pre">b.cell_count()</span></code> なら <code class="docutils literal notranslate"><span class="pre">b.nx</span></code> です。メンバ関数は、どのオブジェクトから呼んだかによって、使うメンバ変数が決まります。
 <code class="docutils literal notranslate"><span class="pre">cell_count()</span></code> の末尾の <code class="docutils literal notranslate"><span class="pre">const</span></code> は「この関数ではメンバ変数を書き換えない」という指定です。<a class="reference internal" href="#edu-ch04-const-member"><span class="std std-ref">4.4 節</span></a> で説明します。</p>
 <p>ポインタからメンバを使うときは、<code class="docutils literal notranslate"><span class="pre">.</span></code> の代わりに <code class="docutils literal notranslate"><span class="pre">-&gt;</span></code> を書きます。</p>
-<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">GridSize</span><span class="w"> </span><span class="o">*</span><span class="n">p</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&amp;</span><span class="n">a</span><span class="p">;</span><span class="w">  </span><span class="c1">// p は a を指します</span>
-<span class="n">p</span><span class="o">-&gt;</span><span class="n">ny</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">6</span><span class="p">;</span><span class="w">         </span><span class="c1">// (*p).ny = 6 と同じです。a.ny が 6 になります</span>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">GridSize</span><span class="w"> </span><span class="o">*</span><span class="n">p</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&amp;</span><span class="n">a</span><span class="p">;</span><span class="w">  </span><span class="c1">// p points to a</span>
+<span class="n">p</span><span class="o">-&gt;</span><span class="n">ny</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">6</span><span class="p">;</span><span class="w">         </span><span class="c1">// same as (*p).ny = 6. a.ny becomes 6</span>
 </pre></div>
 </div>
 <p><code class="docutils literal notranslate"><span class="pre">p-&gt;ny</span></code> は「<code class="docutils literal notranslate"><span class="pre">p</span></code> の指す先のオブジェクトの <code class="docutils literal notranslate"><span class="pre">ny</span></code>」です。
@@ -201,17 +204,17 @@
 <section id="miso-time">
 <h3>MISO の例：時刻を管理する Time<a class="headerlink" href="#miso-time" title="Link to this heading"></a></h3>
 <p><code class="docutils literal notranslate"><span class="pre">miso/include/miso/time.hpp</span></code> の <code class="docutils literal notranslate"><span class="pre">Time</span></code> は、時刻やステップ数をまとめた構造体です。
-メンバ変数の部分を抜き出します（元のコメント <code class="docutils literal notranslate"><span class="pre">///</span> <span class="pre">&#64;brief</span> <span class="pre">...</span></code> を、日本語の短いコメントに置き換えています）。</p>
+メンバ変数の部分を抜き出します（元のコメント <code class="docutils literal notranslate"><span class="pre">///</span> <span class="pre">&#64;brief</span> <span class="pre">...</span></code> を、英語の短いコメントに置き換えています）。</p>
 <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">Real</span><span class="o">&gt;</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">Time</span><span class="w"> </span><span class="p">{</span>
-<span class="w">  </span><span class="n">Real</span><span class="w"> </span><span class="n">time</span><span class="p">;</span><span class="w">                  </span><span class="c1">// 現在の時刻</span>
-<span class="w">  </span><span class="n">Real</span><span class="w"> </span><span class="n">tend</span><span class="p">;</span><span class="w">                  </span><span class="c1">// 終了時刻</span>
-<span class="w">  </span><span class="n">Real</span><span class="w"> </span><span class="n">dt_output</span><span class="p">;</span><span class="w">             </span><span class="c1">// 出力の時間間隔</span>
-<span class="w">  </span><span class="kt">int</span><span class="w"> </span><span class="n">n_step</span><span class="p">;</span><span class="w">                 </span><span class="c1">// 時間ステップの番号</span>
-<span class="w">  </span><span class="kt">int</span><span class="w"> </span><span class="n">n_output</span><span class="p">;</span><span class="w">               </span><span class="c1">// 出力の番号</span>
-<span class="w">  </span><span class="kt">int</span><span class="w"> </span><span class="n">n_output_digits</span><span class="p">;</span><span class="w">        </span><span class="c1">// 出力ファイル名の桁数</span>
-<span class="w">  </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="n">time_save_dir</span><span class="p">;</span><span class="w">  </span><span class="c1">// 時刻のファイルを書くディレクトリ</span>
-<span class="w">  </span><span class="kt">bool</span><span class="w"> </span><span class="n">io_enabled</span><span class="p">;</span><span class="w">            </span><span class="c1">// 入出力をするかどうか</span>
-<span class="w">  </span><span class="c1">// ...（メンバ関数は 4.3 節以降で読みます）</span>
+<span class="w">  </span><span class="n">Real</span><span class="w"> </span><span class="n">time</span><span class="p">;</span><span class="w">                  </span><span class="c1">// current time</span>
+<span class="w">  </span><span class="n">Real</span><span class="w"> </span><span class="n">tend</span><span class="p">;</span><span class="w">                  </span><span class="c1">// end time</span>
+<span class="w">  </span><span class="n">Real</span><span class="w"> </span><span class="n">dt_output</span><span class="p">;</span><span class="w">             </span><span class="c1">// time interval between outputs</span>
+<span class="w">  </span><span class="kt">int</span><span class="w"> </span><span class="n">n_step</span><span class="p">;</span><span class="w">                 </span><span class="c1">// time step number</span>
+<span class="w">  </span><span class="kt">int</span><span class="w"> </span><span class="n">n_output</span><span class="p">;</span><span class="w">               </span><span class="c1">// output number</span>
+<span class="w">  </span><span class="kt">int</span><span class="w"> </span><span class="n">n_output_digits</span><span class="p">;</span><span class="w">        </span><span class="c1">// number of digits in output file names</span>
+<span class="w">  </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="n">time_save_dir</span><span class="p">;</span><span class="w">  </span><span class="c1">// directory where the time file is written</span>
+<span class="w">  </span><span class="kt">bool</span><span class="w"> </span><span class="n">io_enabled</span><span class="p">;</span><span class="w">            </span><span class="c1">// whether to do input/output</span>
+<span class="w">  </span><span class="c1">// ... (member functions are covered from Section 4.3)</span>
 <span class="p">};</span>
 </pre></div>
 </div>
@@ -233,13 +236,13 @@ demo では <code class="docutils literal notranslate"><span class="pre">using</
 格子のセル数と格子間隔は作るときに決め、その後は読むことだけを許します。</p>
 <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">Axis</span><span class="w"> </span><span class="p">{</span>
 <span class="k">public</span><span class="o">:</span>
-<span class="w">  </span><span class="c1">// n 個のセルで区間 [x_min, x_max] を等分します</span>
+<span class="w">  </span><span class="c1">// divides the interval [x_min, x_max] into n equal cells</span>
 <span class="w">  </span><span class="k">explicit</span><span class="w"> </span><span class="n">Axis</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">n</span><span class="p">,</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="n">x_min</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.0</span><span class="p">,</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="n">x_max</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">1.0</span><span class="p">)</span>
 <span class="w">      </span><span class="o">:</span><span class="w"> </span><span class="n">n_</span><span class="p">(</span><span class="n">n</span><span class="p">),</span><span class="w"> </span><span class="n">x_min_</span><span class="p">(</span><span class="n">x_min</span><span class="p">),</span><span class="w"> </span><span class="n">dx_</span><span class="p">((</span><span class="n">x_max</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">x_min</span><span class="p">)</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">n</span><span class="p">)</span><span class="w"> </span><span class="p">{}</span>
 
-<span class="w">  </span><span class="kt">int</span><span class="w"> </span><span class="n">size</span><span class="p">()</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">n_</span><span class="p">;</span><span class="w"> </span><span class="p">}</span><span class="w">      </span><span class="c1">// セル数を読むだけです</span>
-<span class="w">  </span><span class="kt">double</span><span class="w"> </span><span class="n">dx</span><span class="p">()</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">dx_</span><span class="p">;</span><span class="w"> </span><span class="p">}</span><span class="w">    </span><span class="c1">// 格子間隔を読むだけです</span>
-<span class="w">  </span><span class="kt">double</span><span class="w"> </span><span class="n">x</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="p">{</span><span class="w">              </span><span class="c1">// i 番目のセル中心の座標です（i は 0 から）</span>
+<span class="w">  </span><span class="kt">int</span><span class="w"> </span><span class="n">size</span><span class="p">()</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">n_</span><span class="p">;</span><span class="w"> </span><span class="p">}</span><span class="w">      </span><span class="c1">// only reads the number of cells</span>
+<span class="w">  </span><span class="kt">double</span><span class="w"> </span><span class="n">dx</span><span class="p">()</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">dx_</span><span class="p">;</span><span class="w"> </span><span class="p">}</span><span class="w">    </span><span class="c1">// only reads the grid spacing</span>
+<span class="w">  </span><span class="kt">double</span><span class="w"> </span><span class="n">x</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="p">{</span><span class="w">              </span><span class="c1">// coordinate of the center of cell i (i starts from 0)</span>
 <span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">x_min_</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="p">(</span><span class="n">i</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mf">0.5</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">dx_</span><span class="p">;</span>
 <span class="w">  </span><span class="p">}</span>
 
@@ -255,11 +258,11 @@ demo では <code class="docutils literal notranslate"><span class="pre">using</
 先頭の <code class="docutils literal notranslate"><span class="pre">Axis(...)</span></code> で始まる部分はオブジェクトを作るときの処理で、<a class="reference internal" href="#edu-ch04-constructor"><span class="std std-ref">次の節</span></a> で説明します。
 <code class="docutils literal notranslate"><span class="pre">explicit</span></code> は <a class="reference internal" href="#edu-ch04-explicit"><span class="std std-ref">4.3 節の explicit の項</span></a> で説明します。</p>
 <p>使う側では、次のように書きます。</p>
-<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">Axis</span><span class="w"> </span><span class="nf">a</span><span class="p">(</span><span class="mi">4</span><span class="p">);</span><span class="w">              </span><span class="c1">// 区間 [0, 1] を 4 等分します</span>
-<span class="n">Axis</span><span class="w"> </span><span class="nf">b</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="w"> </span><span class="mf">-1.0</span><span class="p">,</span><span class="w"> </span><span class="mf">1.0</span><span class="p">);</span><span class="w">  </span><span class="c1">// 区間 [-1, 1] を 10 等分します</span>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">Axis</span><span class="w"> </span><span class="nf">a</span><span class="p">(</span><span class="mi">4</span><span class="p">);</span><span class="w">              </span><span class="c1">// divides the interval [0, 1] into 4</span>
+<span class="n">Axis</span><span class="w"> </span><span class="nf">b</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="w"> </span><span class="mf">-1.0</span><span class="p">,</span><span class="w"> </span><span class="mf">1.0</span><span class="p">);</span><span class="w">  </span><span class="c1">// divides the interval [-1, 1] into 10</span>
 <span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="n">size</span><span class="p">()</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">" "</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="n">dx</span><span class="p">()</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">" "</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="n">x</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">"</span><span class="se">\n</span><span class="s">"</span><span class="p">;</span><span class="w">  </span><span class="c1">// 4 0.25 0.125</span>
 <span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">b</span><span class="p">.</span><span class="n">size</span><span class="p">()</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">" "</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">b</span><span class="p">.</span><span class="n">dx</span><span class="p">()</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">" "</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">b</span><span class="p">.</span><span class="n">x</span><span class="p">(</span><span class="mi">9</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">"</span><span class="se">\n</span><span class="s">"</span><span class="p">;</span><span class="w">  </span><span class="c1">// 10 0.2 0.9</span>
-<span class="c1">// a.n_ = 8;           // エラー：private のメンバには外から代入できません</span>
+<span class="c1">// a.n_ = 8;           // error: a private member cannot be assigned from outside</span>
 </pre></div>
 </div>
 <p>コメントにした最後の行を有効にすると、g++ は <code class="docutils literal notranslate"><span class="pre">'int</span> <span class="pre">Axis::n_'</span> <span class="pre">is</span> <span class="pre">private</span> <span class="pre">within</span> <span class="pre">this</span> <span class="pre">context</span></code> というエラーを出します。
@@ -333,7 +336,7 @@ C++ では、コンストラクタを書いたクラスのオブジェクトは�
 <span class="w">      </span><span class="o">:</span><span class="w"> </span><span class="n">n_</span><span class="p">(</span><span class="n">n</span><span class="p">),</span><span class="w"> </span><span class="n">x_min_</span><span class="p">(</span><span class="n">x_min</span><span class="p">),</span><span class="w"> </span><span class="n">dx_</span><span class="p">((</span><span class="n">x_max</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">x_min</span><span class="p">)</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">n_</span><span class="p">)</span><span class="w"> </span><span class="p">{}</span>
 
 <span class="k">private</span><span class="o">:</span>
-<span class="w">  </span><span class="kt">double</span><span class="w"> </span><span class="n">dx_</span><span class="p">;</span><span class="w">  </span><span class="c1">// n_ より先に宣言しているので、最初に初期化されます</span>
+<span class="w">  </span><span class="kt">double</span><span class="w"> </span><span class="n">dx_</span><span class="p">;</span><span class="w">  </span><span class="c1">// declared before n_, so it is initialized first</span>
 <span class="w">  </span><span class="kt">int</span><span class="w"> </span><span class="n">n_</span><span class="p">;</span>
 <span class="w">  </span><span class="kt">double</span><span class="w"> </span><span class="n">x_min_</span><span class="p">;</span>
 <span class="p">};</span>
@@ -350,11 +353,11 @@ g++ に <code class="docutils literal notranslate"><span class="pre">-Wall</span
 これらは初期化子リストで値や参照先を決めます。
 コンストラクタの本体 <code class="docutils literal notranslate"><span class="pre">{</span> <span class="pre">...</span> <span class="pre">}</span></code> に入った時点で、メンバの初期化はすでに終わっているからです。</p>
 <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">struct</span><span class="w"> </span><span class="nc">Scaled</span><span class="w"> </span><span class="p">{</span>
-<span class="w">  </span><span class="k">const</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="n">factor</span><span class="p">;</span><span class="w">   </span><span class="c1">// 作った後は変えません</span>
-<span class="w">  </span><span class="kt">double</span><span class="w"> </span><span class="o">&amp;</span><span class="n">target</span><span class="p">;</span><span class="w">        </span><span class="c1">// 外の変数を参照します（第 3 章）</span>
+<span class="w">  </span><span class="k">const</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="n">factor</span><span class="p">;</span><span class="w">   </span><span class="c1">// not changed after construction</span>
+<span class="w">  </span><span class="kt">double</span><span class="w"> </span><span class="o">&amp;</span><span class="n">target</span><span class="p">;</span><span class="w">        </span><span class="c1">// refers to an outside variable (Chapter 3)</span>
 
 <span class="w">  </span><span class="n">Scaled</span><span class="p">(</span><span class="kt">double</span><span class="w"> </span><span class="n">f</span><span class="p">,</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="o">&amp;</span><span class="n">t</span><span class="p">)</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">factor</span><span class="p">(</span><span class="n">f</span><span class="p">),</span><span class="w"> </span><span class="n">target</span><span class="p">(</span><span class="n">t</span><span class="p">)</span><span class="w"> </span><span class="p">{}</span>
-<span class="w">  </span><span class="c1">// Scaled(double f, double &amp;t) { factor = f; target = t; }  // エラー</span>
+<span class="w">  </span><span class="c1">// Scaled(double f, double &amp;t) { factor = f; target = t; }  // error</span>
 <span class="p">};</span>
 </pre></div>
 </div>
@@ -376,7 +379,7 @@ g++ に <code class="docutils literal notranslate"><span class="pre">-Wall</span
 <span class="w">    </span><span class="p">}</span>
 
 <span class="w">    </span><span class="n">initialize</span><span class="p">();</span>
-<span class="w">    </span><span class="c1">// ...（time_save_dir を決めてディレクトリを作ります）</span>
+<span class="w">    </span><span class="c1">// ... (decides time_save_dir and creates the directory)</span>
 <span class="w">  </span><span class="p">}</span>
 </pre></div>
 </div>
@@ -398,9 +401,9 @@ g++ に <code class="docutils literal notranslate"><span class="pre">-Wall</span
 次の 2 行は、<code class="docutils literal notranslate"><span class="pre">explicit</span></code> があるとエラーになり、ないと通ります。</p>
 <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">double</span><span class="w"> </span><span class="nf">length</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">Axis</span><span class="w"> </span><span class="o">&amp;</span><span class="n">axis</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">axis</span><span class="p">.</span><span class="n">size</span><span class="p">()</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">axis</span><span class="p">.</span><span class="n">dx</span><span class="p">();</span><span class="w"> </span><span class="p">}</span>
 
-<span class="c1">// Axis c = 4;   // explicit がなければ、Axis(4) が自動で作られます</span>
-<span class="c1">// length(4);    // explicit がなければ、一時的な Axis(4) が作られて渡されます</span>
-<span class="n">length</span><span class="p">(</span><span class="n">Axis</span><span class="p">(</span><span class="mi">8</span><span class="p">));</span><span class="w">  </span><span class="c1">// 作ることを明示すれば、explicit があっても使えます（1 を返します）</span>
+<span class="c1">// Axis c = 4;   // without explicit, Axis(4) is created automatically</span>
+<span class="c1">// length(4);    // without explicit, a temporary Axis(4) is created and passed</span>
+<span class="n">length</span><span class="p">(</span><span class="n">Axis</span><span class="p">(</span><span class="mi">8</span><span class="p">));</span><span class="w">  </span><span class="c1">// explicitly creating it works even with explicit (returns 1)</span>
 </pre></div>
 </div>
 <p>型を変える処理を自分で書かず、コンパイラに任せる変換を<strong>暗黙の型変換</strong>と呼びます。
@@ -433,8 +436,8 @@ g++ に <code class="docutils literal notranslate"><span class="pre">-Wall</span
 <code class="docutils literal notranslate"><span class="pre">size()</span></code> の中に <code class="docutils literal notranslate"><span class="pre">n_</span> <span class="pre">=</span> <span class="pre">8;</span></code> と書くとコンパイルエラーになります。
 読むだけの関数には末尾に <code class="docutils literal notranslate"><span class="pre">const</span></code> を付け、書き換える関数には付けません。</p>
 <p>この区別は、<code class="docutils literal notranslate"><span class="pre">const</span></code> を付けたオブジェクトや <code class="docutils literal notranslate"><span class="pre">const</span></code> 参照から呼べる関数を決めます。</p>
-<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">const</span><span class="w"> </span><span class="n">Axis</span><span class="w"> </span><span class="nf">a</span><span class="p">(</span><span class="mi">4</span><span class="p">);</span><span class="w">   </span><span class="c1">// 作った後の変更を禁止します</span>
-<span class="kt">int</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="n">size</span><span class="p">();</span><span class="w">  </span><span class="c1">// 末尾が const の関数は呼べます</span>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">const</span><span class="w"> </span><span class="n">Axis</span><span class="w"> </span><span class="nf">a</span><span class="p">(</span><span class="mi">4</span><span class="p">);</span><span class="w">   </span><span class="c1">// forbids changes after construction</span>
+<span class="kt">int</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="n">size</span><span class="p">();</span><span class="w">  </span><span class="c1">// functions with a trailing const can be called</span>
 </pre></div>
 </div>
 <p><code class="docutils literal notranslate"><span class="pre">const</span> <span class="pre">Axis&amp;</span></code> で受け取った引数（前の <code class="docutils literal notranslate"><span class="pre">length</span></code> 関数）からも、末尾が <code class="docutils literal notranslate"><span class="pre">const</span></code> の <code class="docutils literal notranslate"><span class="pre">size()</span></code> と <code class="docutils literal notranslate"><span class="pre">dx()</span></code> だけが呼べます。
@@ -442,12 +445,12 @@ g++ に <code class="docutils literal notranslate"><span class="pre">-Wall</span
 <p><code class="docutils literal notranslate"><span class="pre">miso/include/miso/time.hpp</span></code> の <code class="docutils literal notranslate"><span class="pre">Time</span></code> で、2 種類の関数を比べます（抜粋）。</p>
 <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="w">  </span><span class="c1">/// @brief update time parameters</span>
 <span class="w">  </span><span class="kt">void</span><span class="w"> </span><span class="nf">update</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">Real</span><span class="w"> </span><span class="n">dt</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="n">time</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">dt</span><span class="p">;</span><span class="w">  </span><span class="c1">// メンバを書き換えるので、末尾に const がありません</span>
+<span class="w">    </span><span class="n">time</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">dt</span><span class="p">;</span><span class="w">  </span><span class="c1">// modifies members, so no trailing const</span>
 <span class="w">    </span><span class="n">n_step</span><span class="o">++</span><span class="p">;</span>
 <span class="w">  </span><span class="p">};</span>
 
 <span class="w">  </span><span class="c1">/// @brief Save time parameters to file</span>
-<span class="w">  </span><span class="kt">void</span><span class="w"> </span><span class="nf">save</span><span class="p">()</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="p">{</span><span class="w">  </span><span class="c1">// メンバを読んでファイルに書くだけです</span>
+<span class="w">  </span><span class="kt">void</span><span class="w"> </span><span class="nf">save</span><span class="p">()</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="p">{</span><span class="w">  </span><span class="c1">// only reads members and writes to a file</span>
 <span class="w">    </span><span class="c1">// ...</span>
 <span class="w">  </span><span class="p">}</span>
 </pre></div>
@@ -458,7 +461,7 @@ g++ に <code class="docutils literal notranslate"><span class="pre">-Wall</span
 <p>メンバ関数の中では、メンバ変数の名前をそのまま書いて使えました。
 これは、C++ がメンバ関数に「どのオブジェクトから呼ばれたか」を、<strong><code class="docutils literal notranslate"><span class="pre">this</span></code> という名前のポインタ</strong>で渡しているからです。
 <code class="docutils literal notranslate"><span class="pre">a.size()</span></code> と呼ぶと、<code class="docutils literal notranslate"><span class="pre">size()</span></code> の中の <code class="docutils literal notranslate"><span class="pre">this</span></code> は <code class="docutils literal notranslate"><span class="pre">a</span></code> を指し、<code class="docutils literal notranslate"><span class="pre">n_</span></code> は <code class="docutils literal notranslate"><span class="pre">this-&gt;n_</span></code> の省略です。</p>
-<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">int</span><span class="w"> </span><span class="nf">size</span><span class="p">()</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="k">this</span><span class="o">-&gt;</span><span class="n">n_</span><span class="p">;</span><span class="w"> </span><span class="p">}</span><span class="w">  </span><span class="c1">// return n_; と同じです</span>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">int</span><span class="w"> </span><span class="nf">size</span><span class="p">()</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="k">this</span><span class="o">-&gt;</span><span class="n">n_</span><span class="p">;</span><span class="w"> </span><span class="p">}</span><span class="w">  </span><span class="c1">// same as return n_;</span>
 </pre></div>
 </div>
 <p><code class="docutils literal notranslate"><span class="pre">this</span></code> はポインタなので、指す先のオブジェクトそのものは <code class="docutils literal notranslate"><span class="pre">*this</span></code> と書きます。
@@ -479,11 +482,11 @@ Fortran の <code class="docutils literal notranslate"><span class="pre">allocat
 <span class="k">class</span><span class="w"> </span><span class="nc">Buffer</span><span class="w"> </span><span class="p">{</span>
 <span class="k">public</span><span class="o">:</span>
 <span class="w">  </span><span class="k">explicit</span><span class="w"> </span><span class="n">Buffer</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">n</span><span class="p">)</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">data_</span><span class="p">(</span><span class="k">new</span><span class="w"> </span><span class="kt">double</span><span class="p">[</span><span class="n">n</span><span class="p">]),</span><span class="w"> </span><span class="n">n_</span><span class="p">(</span><span class="n">n</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">printf</span><span class="p">(</span><span class="s">"確保しました（%d 要素）</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span><span class="w"> </span><span class="n">n_</span><span class="p">);</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">printf</span><span class="p">(</span><span class="s">"allocated (%d elements)</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span><span class="w"> </span><span class="n">n_</span><span class="p">);</span>
 <span class="w">  </span><span class="p">}</span>
 <span class="w">  </span><span class="o">~</span><span class="n">Buffer</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">printf</span><span class="p">(</span><span class="s">"解放します（%d 要素）</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span><span class="w"> </span><span class="n">n_</span><span class="p">);</span>
-<span class="w">    </span><span class="k">delete</span><span class="p">[]</span><span class="w"> </span><span class="n">data_</span><span class="p">;</span><span class="w">  </span><span class="c1">// コンストラクタの new[] と対にします</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">printf</span><span class="p">(</span><span class="s">"releasing (%d elements)</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span><span class="w"> </span><span class="n">n_</span><span class="p">);</span>
+<span class="w">    </span><span class="k">delete</span><span class="p">[]</span><span class="w"> </span><span class="n">data_</span><span class="p">;</span><span class="w">  </span><span class="c1">// pairs with new[] in the constructor</span>
 <span class="w">  </span><span class="p">}</span>
 
 <span class="k">private</span><span class="o">:</span>
@@ -492,21 +495,21 @@ Fortran の <code class="docutils literal notranslate"><span class="pre">allocat
 <span class="p">};</span>
 
 <span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
-<span class="w">  </span><span class="n">std</span><span class="o">::</span><span class="n">puts</span><span class="p">(</span><span class="s">"ブロックの前"</span><span class="p">);</span>
+<span class="w">  </span><span class="n">std</span><span class="o">::</span><span class="n">puts</span><span class="p">(</span><span class="s">"before block"</span><span class="p">);</span>
 <span class="w">  </span><span class="p">{</span>
-<span class="w">    </span><span class="n">Buffer</span><span class="w"> </span><span class="n">work</span><span class="p">(</span><span class="mi">100</span><span class="p">);</span><span class="w">  </span><span class="c1">// ここでコンストラクタが呼ばれます</span>
-<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">puts</span><span class="p">(</span><span class="s">"使っている間"</span><span class="p">);</span>
-<span class="w">  </span><span class="p">}</span><span class="w">  </span><span class="c1">// work の寿命が終わり、デストラクタが自動で呼ばれます</span>
-<span class="w">  </span><span class="n">std</span><span class="o">::</span><span class="n">puts</span><span class="p">(</span><span class="s">"ブロックの後"</span><span class="p">);</span>
+<span class="w">    </span><span class="n">Buffer</span><span class="w"> </span><span class="n">work</span><span class="p">(</span><span class="mi">100</span><span class="p">);</span><span class="w">  </span><span class="c1">// the constructor is called here</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">puts</span><span class="p">(</span><span class="s">"while in use"</span><span class="p">);</span>
+<span class="w">  </span><span class="p">}</span><span class="w">  </span><span class="c1">// the lifetime of work ends, and the destructor is called automatically</span>
+<span class="w">  </span><span class="n">std</span><span class="o">::</span><span class="n">puts</span><span class="p">(</span><span class="s">"after block"</span><span class="p">);</span>
 <span class="p">}</span>
 </pre></div>
 </div>
 <p>実行結果は次のとおりです。</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>ブロックの前
-確保しました（100 要素）
-使っている間
-解放します（100 要素）
-ブロックの後
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>before block
+allocated (100 elements)
+while in use
+releasing (100 elements)
+after block
 </pre></div>
 </div>
 <p>デストラクタを呼ぶ行を自分で書く必要はありません。
@@ -529,7 +532,7 @@ Fortran の <code class="docutils literal notranslate"><span class="pre">allocat
 <span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="kt">size_t</span><span class="w"> </span><span class="n">array_size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">static_cast</span><span class="o">&lt;</span><span class="kt">size_t</span><span class="o">&gt;</span><span class="p">(</span><span class="n">shape_</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="w"> </span><span class="o">*</span>
 <span class="w">                                   </span><span class="k">static_cast</span><span class="o">&lt;</span><span class="kt">size_t</span><span class="o">&gt;</span><span class="p">(</span><span class="n">shape_</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span><span class="w"> </span><span class="o">*</span>
 <span class="w">                                   </span><span class="k">static_cast</span><span class="o">&lt;</span><span class="kt">size_t</span><span class="o">&gt;</span><span class="p">(</span><span class="n">shape_</span><span class="p">[</span><span class="mi">2</span><span class="p">]);</span>
-<span class="w">    </span><span class="c1">// ...（array_size が int の範囲に収まることを確かめます）</span>
+<span class="w">    </span><span class="c1">// ... (checks that array_size fits in the range of int)</span>
 <span class="w">    </span><span class="n">data_</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">T</span><span class="p">[</span><span class="n">array_size</span><span class="p">];</span>
 <span class="w">  </span><span class="p">}</span>
 
@@ -590,9 +593,9 @@ MPI の内容は <a class="reference internal" href="08_mpi.html#edu-ch08"><span
 特別なメンバ関数の宣言の後に <strong><code class="docutils literal notranslate"><span class="pre">=</span> <span class="pre">delete</span></code></strong> を書くと、その関数は使えなくなります。</p>
 <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">Buffer</span><span class="w"> </span><span class="p">{</span>
 <span class="k">public</span><span class="o">:</span>
-<span class="w">  </span><span class="c1">// ...（コンストラクタとデストラクタは前と同じ）</span>
-<span class="w">  </span><span class="n">Buffer</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">Buffer</span><span class="w"> </span><span class="o">&amp;</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">delete</span><span class="p">;</span><span class="w">             </span><span class="c1">// コピーして作ることを禁止します</span>
-<span class="w">  </span><span class="n">Buffer</span><span class="w"> </span><span class="o">&amp;</span><span class="k">operator</span><span class="o">=</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">Buffer</span><span class="w"> </span><span class="o">&amp;</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">delete</span><span class="p">;</span><span class="w">  </span><span class="c1">// コピーの代入を禁止します</span>
+<span class="w">  </span><span class="c1">// ... (the constructor and destructor are the same as before)</span>
+<span class="w">  </span><span class="n">Buffer</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">Buffer</span><span class="w"> </span><span class="o">&amp;</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">delete</span><span class="p">;</span><span class="w">             </span><span class="c1">// forbids creating by copy</span>
+<span class="w">  </span><span class="n">Buffer</span><span class="w"> </span><span class="o">&amp;</span><span class="k">operator</span><span class="o">=</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">Buffer</span><span class="w"> </span><span class="o">&amp;</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">delete</span><span class="p">;</span><span class="w">  </span><span class="c1">// forbids copy assignment</span>
 <span class="p">};</span>
 </pre></div>
 </div>
@@ -606,9 +609,9 @@ MPI の内容は <a class="reference internal" href="08_mpi.html#edu-ch08"><span
 <p>コピーを禁止しても、「配列の持ち主を別のオブジェクトへ移す」ことはしたい場合があります。
 関数の中で作った配列を戻り値で返すときなどです。
 これを<strong>ムーブ</strong>（move）と呼びます。<code class="docutils literal notranslate"><span class="pre">Buffer</span></code> にムーブのためのコンストラクタを加えます。</p>
-<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="w">  </span><span class="n">Buffer</span><span class="p">(</span><span class="n">Buffer</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="n">other</span><span class="p">)</span><span class="w"> </span><span class="k">noexcept</span><span class="w">      </span><span class="c1">// ムーブして作ります</span>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="w">  </span><span class="n">Buffer</span><span class="p">(</span><span class="n">Buffer</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="n">other</span><span class="p">)</span><span class="w"> </span><span class="k">noexcept</span><span class="w">      </span><span class="c1">// creates by move</span>
 <span class="w">      </span><span class="o">:</span><span class="w"> </span><span class="n">data_</span><span class="p">(</span><span class="n">other</span><span class="p">.</span><span class="n">data_</span><span class="p">),</span><span class="w"> </span><span class="n">n_</span><span class="p">(</span><span class="n">other</span><span class="p">.</span><span class="n">n_</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="n">other</span><span class="p">.</span><span class="n">data_</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">nullptr</span><span class="p">;</span><span class="w">  </span><span class="c1">// 元のオブジェクトは配列を手放します</span>
+<span class="w">    </span><span class="n">other</span><span class="p">.</span><span class="n">data_</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">nullptr</span><span class="p">;</span><span class="w">  </span><span class="c1">// the source object gives up the array</span>
 <span class="w">    </span><span class="n">other</span><span class="p">.</span><span class="n">n_</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
 <span class="w">  </span><span class="p">}</span>
 </pre></div>
@@ -621,15 +624,15 @@ MPI の内容は <a class="reference internal" href="08_mpi.html#edu-ch08"><span
 <code class="docutils literal notranslate"><span class="pre">std::move</span></code> は <code class="docutils literal notranslate"><span class="pre">#include</span> <span class="pre">&lt;utility&gt;</span></code> で使えます。</p>
 <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
 <span class="w">  </span><span class="n">Buffer</span><span class="w"> </span><span class="n">a</span><span class="p">(</span><span class="mi">10</span><span class="p">);</span>
-<span class="w">  </span><span class="c1">// Buffer b = a;          // エラー：コピーは禁止しています</span>
-<span class="w">  </span><span class="n">Buffer</span><span class="w"> </span><span class="n">c</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">move</span><span class="p">(</span><span class="n">a</span><span class="p">);</span><span class="w">  </span><span class="c1">// a の配列を c へ移します。新しい確保はしません</span>
+<span class="w">  </span><span class="c1">// Buffer b = a;          // error: copying is forbidden</span>
+<span class="w">  </span><span class="n">Buffer</span><span class="w"> </span><span class="n">c</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">move</span><span class="p">(</span><span class="n">a</span><span class="p">);</span><span class="w">  </span><span class="c1">// moves a's array to c. No new allocation</span>
 <span class="w">  </span><span class="n">std</span><span class="o">::</span><span class="n">printf</span><span class="p">(</span><span class="s">"a.size() = %d, c.size() = %d</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="n">size</span><span class="p">(),</span><span class="w"> </span><span class="n">c</span><span class="p">.</span><span class="n">size</span><span class="p">());</span>
 <span class="p">}</span>
 </pre></div>
 </div>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>確保しました（10 要素）
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>allocated (10 elements)
 a.size() = 0, c.size() = 10
-解放します（10 要素）
+releasing (10 elements)
 </pre></div>
 </div>
 <p><code class="docutils literal notranslate"><span class="pre">std::move(a)</span></code> は、<code class="docutils literal notranslate"><span class="pre">a</span></code> を「中身を移してよいオブジェクト」として扱う指定で、それ自体は何も移しません。
@@ -661,7 +664,7 @@ CPU 用の定義の抜粋です。</p>
 
 <span class="w">  </span><span class="n">Fields</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">i_total</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">j_total</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">k_total</span><span class="p">)</span>
 <span class="w">      </span><span class="o">:</span><span class="w"> </span><span class="n">ro</span><span class="p">(</span><span class="n">i_total</span><span class="p">,</span><span class="w"> </span><span class="n">j_total</span><span class="p">,</span><span class="w"> </span><span class="n">k_total</span><span class="p">),</span><span class="w"> </span><span class="n">vx</span><span class="p">(</span><span class="n">i_total</span><span class="p">,</span><span class="w"> </span><span class="n">j_total</span><span class="p">,</span><span class="w"> </span><span class="n">k_total</span><span class="p">),</span>
-<span class="w">        </span><span class="c1">// ...（vy から ph まで同じ）</span>
+<span class="w">        </span><span class="c1">// ... (same from vy to ph)</span>
 <span class="w">        </span><span class="n">ph</span><span class="p">(</span><span class="n">i_total</span><span class="p">,</span><span class="w"> </span><span class="n">j_total</span><span class="p">,</span><span class="w"> </span><span class="n">k_total</span><span class="p">)</span><span class="w"> </span><span class="p">{}</span>
 <span class="w">  </span><span class="c1">// ...</span>
 <span class="w">  </span><span class="c1">// Prohibit copy semantics</span>
@@ -682,11 +685,11 @@ CPU 用の定義の抜粋です。</p>
 抵抗率の配列を作って返し、<code class="docutils literal notranslate"><span class="pre">Model</span></code> のメンバ <code class="docutils literal notranslate"><span class="pre">eta</span></code> を初期化します（抜粋）。</p>
 <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kr">inline</span><span class="w"> </span><span class="n">Array3D</span><span class="o">&lt;</span><span class="n">Real</span><span class="p">,</span><span class="w"> </span><span class="n">Backend</span><span class="o">&gt;</span><span class="w"> </span><span class="n">make_eta</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">Grid</span><span class="o">&lt;</span><span class="n">Real</span><span class="p">,</span><span class="w"> </span><span class="n">backend</span><span class="o">::</span><span class="n">Host</span><span class="o">&gt;</span><span class="w"> </span><span class="o">&amp;</span><span class="n">grid</span><span class="p">,</span>
 <span class="w">                                       </span><span class="k">const</span><span class="w"> </span><span class="n">Parameters</span><span class="w"> </span><span class="o">&amp;</span><span class="n">par</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">  </span><span class="c1">// ...（CPU で値を計算し、Backend の配列 eta へ写します）</span>
+<span class="w">  </span><span class="c1">// ... (computes values on the CPU and copies them to the Backend array eta)</span>
 <span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="n">eta</span><span class="p">;</span>
 <span class="p">}</span>
 
-<span class="c1">// Model のコンストラクタの初期化子リストの一部</span>
+<span class="c1">// part of the member initializer list of the Model constructor</span>
 <span class="w">      </span><span class="n">eta</span><span class="p">(</span><span class="n">make_eta</span><span class="p">(</span><span class="n">grid</span><span class="p">,</span><span class="w"> </span><span class="n">par</span><span class="p">)),</span>
 </pre></div>
 </div>
@@ -714,7 +717,7 @@ Fortran の <code class="docutils literal notranslate"><span class="pre">a(i,</s
 <span class="w">  </span><span class="n">Array2</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">Array2</span><span class="w"> </span><span class="o">&amp;</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">delete</span><span class="p">;</span>
 <span class="w">  </span><span class="n">Array2</span><span class="w"> </span><span class="o">&amp;</span><span class="k">operator</span><span class="o">=</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">Array2</span><span class="w"> </span><span class="o">&amp;</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">delete</span><span class="p">;</span>
 
-<span class="w">  </span><span class="c1">// a(i, j) と書くと、この関数が呼ばれます</span>
+<span class="w">  </span><span class="c1">// writing a(i, j) calls this function</span>
 <span class="w">  </span><span class="kt">double</span><span class="w"> </span><span class="o">&amp;</span><span class="nf">operator</span><span class="p">()(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">j</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">data_</span><span class="p">[</span><span class="n">i</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">n1_</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">j</span><span class="p">];</span><span class="w"> </span><span class="p">}</span>
 
 <span class="w">  </span><span class="kt">int</span><span class="w"> </span><span class="nf">extent</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">dim</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">dim</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="o">?</span><span class="w"> </span><span class="n">n0_</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">n1_</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
@@ -728,11 +731,11 @@ Fortran の <code class="docutils literal notranslate"><span class="pre">a(i,</s
 <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">Array2</span><span class="w"> </span><span class="nf">a</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">);</span>
 <span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="n">extent</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span><span class="w"> </span><span class="o">++</span><span class="n">i</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
 <span class="w">  </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">j</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">j</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="n">extent</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span><span class="w"> </span><span class="o">++</span><span class="n">j</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="n">a</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="w"> </span><span class="n">j</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">10</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">j</span><span class="p">;</span><span class="w">  </span><span class="c1">// 戻り値は参照なので、要素に代入できます</span>
+<span class="w">    </span><span class="n">a</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="w"> </span><span class="n">j</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">10</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">j</span><span class="p">;</span><span class="w">  </span><span class="c1">// the return value is a reference, so an element can be assigned to</span>
 <span class="w">  </span><span class="p">}</span>
 <span class="p">}</span>
 <span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">a</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">"</span><span class="se">\n</span><span class="s">"</span><span class="p">;</span><span class="w">  </span><span class="c1">// 12</span>
-<span class="kt">double</span><span class="w"> </span><span class="o">&amp;</span><span class="n">e</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">a</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">);</span><span class="w">           </span><span class="c1">// 要素 (0, 1) の別名です</span>
+<span class="kt">double</span><span class="w"> </span><span class="o">&amp;</span><span class="n">e</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">a</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">);</span><span class="w">           </span><span class="c1">// alias of element (0, 1)</span>
 <span class="n">e</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">-1.0</span><span class="p">;</span>
 <span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">a</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">"</span><span class="se">\n</span><span class="s">"</span><span class="p">;</span><span class="w">  </span><span class="c1">// -1</span>
 </pre></div>
@@ -791,26 +794,26 @@ Fortran は最初の添字が連続なので、並びが逆です。並びの違
 <p>一方、計算の関数に必要なのは、配列の先頭アドレスと大きさだけです。
 そこで、<strong>先頭アドレスと大きさだけを持ち、確保も解放もしない</strong>軽いクラスを用意し、関数にはそれを渡します。
 これを <strong>View</strong>（ビュー）と呼びます。</p>
-<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="c1">// 所有しない View：先頭のアドレスと大きさだけを持ちます</span>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="c1">// non-owning View: holds only the address of the first element and the size</span>
 <span class="k">struct</span><span class="w"> </span><span class="nc">Array2View</span><span class="w"> </span><span class="p">{</span>
 <span class="w">  </span><span class="kt">double</span><span class="w"> </span><span class="o">*</span><span class="n">data</span><span class="p">;</span>
 <span class="w">  </span><span class="kt">int</span><span class="w"> </span><span class="n">n0</span><span class="p">,</span><span class="w"> </span><span class="n">n1</span><span class="p">;</span>
 <span class="w">  </span><span class="kt">double</span><span class="w"> </span><span class="o">&amp;</span><span class="nf">operator</span><span class="p">()(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">j</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">data</span><span class="p">[</span><span class="n">i</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">n1</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">j</span><span class="p">];</span><span class="w"> </span><span class="p">}</span>
 <span class="p">};</span>
 
-<span class="c1">// 所有する配列：確保と解放を受け持ちます</span>
+<span class="c1">// owning array: handles allocation and release</span>
 <span class="k">class</span><span class="w"> </span><span class="nc">Array2</span><span class="w"> </span><span class="p">{</span>
 <span class="k">public</span><span class="o">:</span>
-<span class="w">  </span><span class="c1">// ...（コンストラクタ、デストラクタ、コピーの禁止は前と同じ）</span>
+<span class="w">  </span><span class="c1">// ... (the constructor, destructor, and copy prohibition are the same as before)</span>
 <span class="w">  </span><span class="n">Array2View</span><span class="w"> </span><span class="n">view</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">Array2View</span><span class="p">{</span><span class="n">data_</span><span class="p">,</span><span class="w"> </span><span class="n">n0_</span><span class="p">,</span><span class="w"> </span><span class="n">n1_</span><span class="p">};</span><span class="w"> </span><span class="p">}</span>
 <span class="w">  </span><span class="c1">// ...</span>
 <span class="p">};</span>
 
-<span class="c1">// View を値で受け取ります。コピーされるのはアドレスと大きさだけです</span>
+<span class="c1">// takes the View by value. Only the address and the size are copied</span>
 <span class="kt">void</span><span class="w"> </span><span class="nf">fill</span><span class="p">(</span><span class="n">Array2View</span><span class="w"> </span><span class="n">v</span><span class="p">,</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="n">value</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
 <span class="w">  </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">v</span><span class="p">.</span><span class="n">n0</span><span class="p">;</span><span class="w"> </span><span class="o">++</span><span class="n">i</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">j</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">j</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">v</span><span class="p">.</span><span class="n">n1</span><span class="p">;</span><span class="w"> </span><span class="o">++</span><span class="n">j</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">      </span><span class="n">v</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="w"> </span><span class="n">j</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">value</span><span class="p">;</span><span class="w">  </span><span class="c1">// 元の Array2 の要素を書き換えます</span>
+<span class="w">      </span><span class="n">v</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="w"> </span><span class="n">j</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">value</span><span class="p">;</span><span class="w">  </span><span class="c1">// modifies elements of the original Array2</span>
 <span class="w">    </span><span class="p">}</span>
 <span class="w">  </span><span class="p">}</span>
 <span class="p">}</span>
@@ -844,9 +847,9 @@ Fortran は最初の添字が連続なので、並びが逆です。並びの違
 <span class="w">      </span><span class="o">:</span><span class="w"> </span><span class="n">data_</span><span class="p">(</span><span class="n">data</span><span class="p">),</span><span class="w"> </span><span class="n">shape_</span><span class="p">{</span><span class="n">nx0</span><span class="p">,</span><span class="w"> </span><span class="n">nx1</span><span class="p">,</span><span class="w"> </span><span class="n">nx2</span><span class="p">}</span><span class="w"> </span><span class="p">{}</span>
 
 <span class="k">public</span><span class="o">:</span>
-<span class="w">  </span><span class="c1">// ...（data(), extent(), size(), operator[]）</span>
+<span class="w">  </span><span class="c1">// ... (data(), extent(), size(), operator[])</span>
 <span class="w">  </span><span class="n">__host__</span><span class="w"> </span><span class="n">__device__</span><span class="w"> </span><span class="n">T</span><span class="w"> </span><span class="o">&amp;</span><span class="k">operator</span><span class="p">()(</span><span class="kt">int</span><span class="w"> </span><span class="n">i0</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">i1</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">i2</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="k">noexcept</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="c1">// ...（assert による検査）</span>
+<span class="w">    </span><span class="c1">// ... (check with assert)</span>
 <span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">data_</span><span class="p">[(</span><span class="n">i0</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">shape_</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">i1</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">shape_</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">i2</span><span class="p">];</span>
 <span class="w">  </span><span class="p">}</span>
 
@@ -890,7 +893,7 @@ Fortran は最初の添字が連続なので、並びが逆です。並びの違
 
 <span class="k">using</span><span class="w"> </span><span class="n">Real</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kt">float</span><span class="p">;</span>
 
-<span class="c1">// 書き込み用の View を値で受け取り、元の配列の要素を書き換えます</span>
+<span class="c1">// takes a writable View by value and modifies elements of the original array</span>
 <span class="kt">void</span><span class="w"> </span><span class="nf">fill</span><span class="p">(</span><span class="n">miso</span><span class="o">::</span><span class="n">Array3DView</span><span class="o">&lt;</span><span class="n">Real</span><span class="o">&gt;</span><span class="w"> </span><span class="n">a</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
 <span class="w">  </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="n">extent</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span><span class="w"> </span><span class="o">++</span><span class="n">i</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">j</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">j</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="n">extent</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span><span class="w"> </span><span class="o">++</span><span class="n">j</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
@@ -901,24 +904,24 @@ Fortran は最初の添字が連続なので、並びが逆です。並びの違
 <span class="w">  </span><span class="p">}</span>
 <span class="p">}</span>
 
-<span class="c1">// 読み取り専用の View を受け取り、合計を返します</span>
+<span class="c1">// takes a read-only View and returns the sum</span>
 <span class="n">Real</span><span class="w"> </span><span class="nf">total</span><span class="p">(</span><span class="n">miso</span><span class="o">::</span><span class="n">Array3DView</span><span class="o">&lt;</span><span class="k">const</span><span class="w"> </span><span class="n">Real</span><span class="o">&gt;</span><span class="w"> </span><span class="n">a</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
 <span class="w">  </span><span class="n">Real</span><span class="w"> </span><span class="n">s</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
 <span class="w">  </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="n">size</span><span class="p">();</span><span class="w"> </span><span class="o">++</span><span class="n">n</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="n">s</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">a</span><span class="p">[</span><span class="n">n</span><span class="p">];</span>
-<span class="w">    </span><span class="c1">// a[n] = 0;  // エラー：const Real の要素には代入できません</span>
+<span class="w">    </span><span class="c1">// a[n] = 0;  // error: cannot assign to an element of const Real</span>
 <span class="w">  </span><span class="p">}</span>
 <span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="n">s</span><span class="p">;</span>
 <span class="p">}</span>
 
 <span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
-<span class="w">  </span><span class="n">miso</span><span class="o">::</span><span class="n">Array3D</span><span class="o">&lt;</span><span class="n">Real</span><span class="o">&gt;</span><span class="w"> </span><span class="n">a</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="mi">4</span><span class="p">);</span><span class="w">  </span><span class="c1">// 2 x 3 x 4 の配列を確保します</span>
+<span class="w">  </span><span class="n">miso</span><span class="o">::</span><span class="n">Array3D</span><span class="o">&lt;</span><span class="n">Real</span><span class="o">&gt;</span><span class="w"> </span><span class="n">a</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="mi">4</span><span class="p">);</span><span class="w">  </span><span class="c1">// allocates a 2 x 3 x 4 array</span>
 <span class="w">  </span><span class="n">fill</span><span class="p">(</span><span class="n">a</span><span class="p">.</span><span class="n">view</span><span class="p">());</span>
-<span class="w">  </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">a</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">" "</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">a</span><span class="p">[</span><span class="mi">23</span><span class="p">]</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">"</span><span class="se">\n</span><span class="s">"</span><span class="p">;</span><span class="w">  </span><span class="c1">// 同じ要素です</span>
+<span class="w">  </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">a</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">" "</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">a</span><span class="p">[</span><span class="mi">23</span><span class="p">]</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">"</span><span class="se">\n</span><span class="s">"</span><span class="p">;</span><span class="w">  </span><span class="c1">// the same element</span>
 <span class="w">  </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">total</span><span class="p">(</span><span class="n">a</span><span class="p">.</span><span class="n">const_view</span><span class="p">())</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">"</span><span class="se">\n</span><span class="s">"</span><span class="p">;</span>
 
-<span class="w">  </span><span class="c1">// miso::Array3D&lt;Real&gt; b = a;          // エラー：コピーは禁止されています</span>
-<span class="w">  </span><span class="n">miso</span><span class="o">::</span><span class="n">Array3D</span><span class="o">&lt;</span><span class="n">Real</span><span class="o">&gt;</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">move</span><span class="p">(</span><span class="n">a</span><span class="p">);</span><span class="w">  </span><span class="c1">// 配列の持ち主を a から b へ移します</span>
+<span class="w">  </span><span class="c1">// miso::Array3D&lt;Real&gt; b = a;          // error: copying is forbidden</span>
+<span class="w">  </span><span class="n">miso</span><span class="o">::</span><span class="n">Array3D</span><span class="o">&lt;</span><span class="n">Real</span><span class="o">&gt;</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">move</span><span class="p">(</span><span class="n">a</span><span class="p">);</span><span class="w">  </span><span class="c1">// moves ownership of the array from a to b</span>
 <span class="w">  </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="n">extent</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">" "</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">b</span><span class="p">.</span><span class="n">extent</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">"</span><span class="se">\n</span><span class="s">"</span><span class="p">;</span>
 <span class="p">}</span>
 </pre></div>
@@ -948,7 +951,7 @@ Fortran は最初の添字が連続なので、並びが逆です。並びの違
 <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">T</span><span class="o">&gt;</span><span class="w">  </span><span class="c1">// Use T to represent Real or const Real</span>
 <span class="k">struct</span><span class="w"> </span><span class="nc">FieldsView</span><span class="w"> </span><span class="p">{</span>
 <span class="w">  </span><span class="n">Array3DView</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="w"> </span><span class="n">ro</span><span class="p">,</span><span class="w"> </span><span class="n">vx</span><span class="p">,</span><span class="w"> </span><span class="n">vy</span><span class="p">,</span><span class="w"> </span><span class="n">vz</span><span class="p">,</span><span class="w"> </span><span class="n">bx</span><span class="p">,</span><span class="w"> </span><span class="n">by</span><span class="p">,</span><span class="w"> </span><span class="n">bz</span><span class="p">,</span><span class="w"> </span><span class="n">ei</span><span class="p">,</span><span class="w"> </span><span class="n">ph</span><span class="p">;</span>
-<span class="w">  </span><span class="c1">// ...（9 つの View を受け取る explicit なコンストラクタ、extent(), size()）</span>
+<span class="w">  </span><span class="c1">// ... (explicit constructor taking 9 Views, extent(), size())</span>
 <span class="p">};</span>
 </pre></div>
 </div>
@@ -990,13 +993,13 @@ Fortran は最初の添字が連続なので、並びが逆です。並びの違
 <span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">k</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">k</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">grid</span><span class="p">.</span><span class="n">k_total</span><span class="p">;</span><span class="w"> </span><span class="o">++</span><span class="n">k</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
 <span class="w">      </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">j</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">j</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">grid</span><span class="p">.</span><span class="n">j_total</span><span class="p">;</span><span class="w"> </span><span class="o">++</span><span class="n">j</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
 <span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">grid</span><span class="p">.</span><span class="n">i_total</span><span class="p">;</span><span class="w"> </span><span class="o">++</span><span class="n">i</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">          </span><span class="c1">// ...（速度・磁場などを 0 にし、座標 xyz を選びます）</span>
+<span class="w">          </span><span class="c1">// ... (sets velocity, magnetic field, etc. to 0 and selects the coordinates xyz)</span>
 <span class="w">          </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">xyz</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mf">0.5</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
 <span class="w">            </span><span class="n">qq</span><span class="p">.</span><span class="n">ro</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="w"> </span><span class="n">j</span><span class="p">,</span><span class="w"> </span><span class="n">k</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">rol</span><span class="p">;</span>
 <span class="w">            </span><span class="n">qq</span><span class="p">.</span><span class="n">ei</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="w"> </span><span class="n">j</span><span class="p">,</span><span class="w"> </span><span class="n">k</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">prl</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="p">(</span><span class="n">eos</span><span class="p">.</span><span class="n">gm</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mf">1.0</span><span class="p">)</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">qq</span><span class="p">.</span><span class="n">ro</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="w"> </span><span class="n">j</span><span class="p">,</span><span class="w"> </span><span class="n">k</span><span class="p">);</span>
 <span class="w">            </span><span class="n">qq</span><span class="p">.</span><span class="n">vx</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="w"> </span><span class="n">j</span><span class="p">,</span><span class="w"> </span><span class="n">k</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">vvl</span><span class="p">;</span>
 <span class="w">          </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
-<span class="w">            </span><span class="c1">// ...（右側の状態）</span>
+<span class="w">            </span><span class="c1">// ... (right-hand state)</span>
 <span class="w">          </span><span class="p">}</span>
 <span class="w">        </span><span class="p">}</span>
 <span class="w">      </span><span class="p">}</span>
@@ -1148,49 +1151,7 @@ Fortran は最初の添字が連続なので、並びが逆です。並びの違
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script>
- 
-<script>
-    document.addEventListener("DOMContentLoaded", () => {
-        const currentUrl = window.location.href;
-        const isTranslated = currentUrl.includes(".translate.goog");
-        const translateLink = document.getElementById("translate-link");
-        const originalLink = document.getElementById("original-link");
-
-        // 翻訳URLを生成
-        const translateUrl =
-            "https://translate.google.com/translate?sl=ja&tl=en&u=" +
-            encodeURIComponent(currentUrl);
-
-        if (isTranslated) {
-            // --- 英語版(.translate.goog)にいる場合 ---
-            // English → ページを単にリロード
-            translateLink.removeAttribute("target");
-            translateLink.removeAttribute("href");
-            translateLink.addEventListener("click", (e) => {
-                e.preventDefault();
-                window.location.reload();
-            });
-
-            // 日本語 → 新タブで元URLを開く（翻訳解除）
-            const originalUrl = currentUrl.replace(
-                /^https:\/\/[^/]+\.translate\.goog/,
-                "https://is-isee.github.io"
-            );
-            originalLink.href = originalUrl;
-            originalLink.target = "_blank";
-            originalLink.rel = "noopener";
-        } else {
-            // --- 日本語版にいる場合 ---
-            translateLink.href = translateUrl;
-            translateLink.target = "_blank";
-
-            originalLink.href = currentUrl;
-            originalLink.target = "_self";
-        }
-    });
-</script>
-
+  </script> 
 
 </body>
 </html>

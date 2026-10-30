@@ -1,0 +1,22 @@
+
+.. _namespace_miso__mhd__impl_resistivity:
+
+Namespace miso::mhd::impl_resistivity
+=====================================
+
+
+.. contents:: Contents
+   :local:
+   :backlinks: none
+
+
+
+
+
+Classes
+-------
+
+
+- :ref:`exhale_struct_structmiso_1_1mhd_1_1impl__resistivity_1_1ReduceWorkspace`
+
+- :ref:`exhale_struct_structmiso_1_1mhd_1_1impl__resistivity_1_1ReduceWorkspace_3_01Real_00_01backend_1_1CUDA_01_4`

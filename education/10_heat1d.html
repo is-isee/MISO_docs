@@ -1,12 +1,12 @@
 
 
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" data-content_root="../">
+<html class="writer-html5" lang="ja" data-content_root="../">
 <head>
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>10. 熱伝導の計算 &mdash; MISO 0.0 documentation</title>
+  <title>10. 熱伝導の計算 &mdash; MISO 0.0 ドキュメント</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=4ae1632d" />
@@ -17,18 +17,19 @@
   
       <script src="../_static/jquery.js?v=5d32c60e"></script>
       <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../_static/documentation_options.js?v=837179f8"></script>
+      <script src="../_static/documentation_options.js?v=1a6bc256"></script>
       <script src="../_static/doctools.js?v=fd6eb6e6"></script>
       <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
       <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
       <script src="../_static/copybutton.js?v=f281be69"></script>
+      <script src="../_static/translations.js?v=4755f45a"></script>
       <script src="../_static/collapsible-lists/js/CollapsibleLists.compressed.js?v=73120307"></script>
       <script src="../_static/collapsible-lists/js/apply-collapsible-lists.js?v=660e4f45"></script>
       <script>window.MathJax = {"tex": {"macros": {"bm": ["{\\boldsymbol{#1}}", 1]}}, "options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
       <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script src="../_static/js/theme.js"></script>
-    <link rel="index" title="Index" href="../genindex.html" />
-    <link rel="search" title="Search" href="../search.html" />
+    <link rel="index" title="索引" href="../genindex.html" />
+    <link rel="search" title="検索" href="../search.html" />
     <link rel="next" title="11. MISO の時間発展を読む" href="11_reading_miso.html" />
     <link rel="prev" title="9. GPU（CUDA）での計算とデータ転送" href="09_gpu.html" /> 
 </head>
@@ -106,8 +107,10 @@
       <div class="wy-nav-content">
 <div id="language-links" style="margin-bottom: 1em; font-size: 100%;">
     Language:
-    <a href="#" id="translate-link" target="_blank">English</a> |
-    <a href="#" id="original-link">日本語</a>
+    
+    <a href="../en/education/10_heat1d.html">English</a> |
+    <strong>日本語</strong>
+    
 </div>
 
 
@@ -273,9 +276,9 @@ MISO で解く MHD の問題では、多くの場合このような解はあり�
 そこで配列の両端に 1 つずつ余分なセルを足し、そこに境界条件から決まる値を入れておきます。
 この余分なセルを <strong>ゴーストセル</strong>（ghost cell）と呼びます。MISO の格子も、同じ考え方で <code class="docutils literal notranslate"><span class="pre">i_margin</span></code> 個のゴーストセルを持ちます（<a class="reference internal" href="08_mpi.html#edu-ch08"><span class="std std-ref">第 8 章</span></a>）。</p>
 <p>配列の添字は次のようにします。C++ の配列は 0 始まりなので、物理セル <span class="math notranslate nohighlight">\(j\)</span> は配列の添字 <code class="docutils literal notranslate"><span class="pre">i</span> <span class="pre">=</span> <span class="pre">j</span> <span class="pre">+</span> <span class="pre">1</span></code> に入ります。</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>配列の添字 i :   0  |  1   2   ...   N  |  N+1
-               ghost|   物理セル N 個     | ghost
-物理セル   j :      |  0   1   ...  N-1  |
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>array index i :  0  |  1   2   ...   N  |  N+1
+               ghost|  N physical cells | ghost
+cell index j :      |  0   1   ...  N-1  |
 </pre></div>
 </div>
 <p>ゴーストセルの値を先に入れておけば、物理セルの更新は、すべて同じ式</p>
@@ -548,9 +551,9 @@ MPI の基本（ランク、<code class="docutils literal notranslate"><span cla
 <h3>各ランクの格子<a class="headerlink" href="#id20" title="Link to this heading"></a></h3>
 <p>全体のセル数 <span class="math notranslate nohighlight">\(N\)</span> を <span class="math notranslate nohighlight">\(P\)</span> ランクで等分し、各ランクは <span class="math notranslate nohighlight">\(n = N/P\)</span> 個の物理セルを持ちます（<span class="math notranslate nohighlight">\(N\)</span> が <span class="math notranslate nohighlight">\(P\)</span> で割り切れる場合だけを扱います）。
 ランク <span class="math notranslate nohighlight">\(p\)</span> の配列は <code class="docutils literal notranslate"><span class="pre">n</span> <span class="pre">+</span> <span class="pre">2</span></code> 要素で、ローカルな添字 <code class="docutils literal notranslate"><span class="pre">i</span></code>（1〜<code class="docutils literal notranslate"><span class="pre">n</span></code>）の物理セルは、全体の番号 <span class="math notranslate nohighlight">\(j = p\,n + (i - 1)\)</span> にあたります。</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>全体（N = 8, P = 2）:   j = 0 1 2 3 | 4 5 6 7
-ランク 0 の配列      :  [g] 0 1 2 3 [g]      g はゴーストセル
-ランク 1 の配列      :          [g] 4 5 6 7 [g]
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>overall (N = 8, P = 2): j = 0 1 2 3 | 4 5 6 7
+rank 0 array          :  [g] 0 1 2 3 [g]      g is a ghost cell
+rank 1 array          :           [g] 4 5 6 7 [g]
 </pre></div>
 </div>
 <p>初期条件の <span class="math notranslate nohighlight">\(x_j\)</span> は、全体の番号 <span class="math notranslate nohighlight">\(j\)</span> から逐次版と同じ式 <span class="math notranslate nohighlight">\(x_j = (j + 1/2)\Delta x\)</span> で求めます。
@@ -595,7 +598,7 @@ MPI の基本（ランク、<code class="docutils literal notranslate"><span cla
 全体の最大誤差は、それらの最大値です。<code class="docutils literal notranslate"><span class="pre">MPI_Allreduce</span></code> に <code class="docutils literal notranslate"><span class="pre">MPI_MAX</span></code> を指定して求めます。</p>
 <p>ファイルに書き出すときは、<code class="docutils literal notranslate"><span class="pre">MPI_Gather</span></code> で全ランクの物理セルをランク 0 に集めます。
 各ランクが同じ個数（<span class="math notranslate nohighlight">\(n\)</span> 個）を送ると、ランク 0 の受信用の配列にランク番号の順に並ぶので、全体の番号 <span class="math notranslate nohighlight">\(j\)</span> の順になります。</p>
-<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="c1">// 引数: 送る場所, 送る個数, 型, 受け取る場所, 1 ランクから受け取る個数, 型, 受け取るランク, コミュニケータ</span>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="c1">// args: send buffer, send count, type, receive buffer, receive count per rank, type, source rank, communicator</span>
 <span class="n">MPI_Gather</span><span class="p">(</span><span class="o">&amp;</span><span class="n">u</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span><span class="w"> </span><span class="n">n</span><span class="p">,</span><span class="w"> </span><span class="n">MPI_DOUBLE</span><span class="p">,</span><span class="w"> </span><span class="n">u_all</span><span class="p">.</span><span class="n">data</span><span class="p">(),</span><span class="w"> </span><span class="n">n</span><span class="p">,</span><span class="w"> </span><span class="n">MPI_DOUBLE</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="n">comm</span><span class="p">);</span>
 </pre></div>
 </div>
@@ -689,7 +692,7 @@ MISO 本体でも同じことをしています。<code class="docutils literal 
 <p><strong>練習 10.5</strong> 次の構造体のメンバ関数を GPU 版でビルドして実行すると、<code class="docutils literal notranslate"><span class="pre">illegal</span> <span class="pre">memory</span> <span class="pre">access</span></code> で止まります（説明用の例です）。
 原因の行を挙げ、直し方を説明してください。</p>
 <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">struct</span><span class="w"> </span><span class="nc">Boundary</span><span class="w"> </span><span class="p">{</span>
-<span class="w">  </span><span class="kt">int</span><span class="w"> </span><span class="n">n</span><span class="p">;</span><span class="w">  </span><span class="c1">// 物理セル数</span>
+<span class="w">  </span><span class="kt">int</span><span class="w"> </span><span class="n">n</span><span class="p">;</span><span class="w">  </span><span class="c1">// number of physical cells</span>
 <span class="w">  </span><span class="kt">void</span><span class="w"> </span><span class="nf">apply</span><span class="p">(</span><span class="n">Array1D</span><span class="o">&lt;</span><span class="n">Real</span><span class="p">,</span><span class="w"> </span><span class="n">Backend</span><span class="o">&gt;</span><span class="w"> </span><span class="o">&amp;</span><span class="n">u</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="k">auto</span><span class="w"> </span><span class="n">uv</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">u</span><span class="p">.</span><span class="n">view</span><span class="p">();</span>
 <span class="w">    </span><span class="n">for_each</span><span class="p">(</span><span class="n">Backend</span><span class="p">{},</span><span class="w"> </span><span class="n">Range1D</span><span class="p">{</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">},</span><span class="w"> </span><span class="n">MISO_LAMBDA</span><span class="p">(</span><span class="kt">int</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
@@ -791,49 +794,7 @@ GPU 版の中で、ランク数を変えた比較（1 ランクと複数ラン�
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script>
- 
-<script>
-    document.addEventListener("DOMContentLoaded", () => {
-        const currentUrl = window.location.href;
-        const isTranslated = currentUrl.includes(".translate.goog");
-        const translateLink = document.getElementById("translate-link");
-        const originalLink = document.getElementById("original-link");
-
-        // 翻訳URLを生成
-        const translateUrl =
-            "https://translate.google.com/translate?sl=ja&tl=en&u=" +
-            encodeURIComponent(currentUrl);
-
-        if (isTranslated) {
-            // --- 英語版(.translate.goog)にいる場合 ---
-            // English → ページを単にリロード
-            translateLink.removeAttribute("target");
-            translateLink.removeAttribute("href");
-            translateLink.addEventListener("click", (e) => {
-                e.preventDefault();
-                window.location.reload();
-            });
-
-            // 日本語 → 新タブで元URLを開く（翻訳解除）
-            const originalUrl = currentUrl.replace(
-                /^https:\/\/[^/]+\.translate\.goog/,
-                "https://is-isee.github.io"
-            );
-            originalLink.href = originalUrl;
-            originalLink.target = "_blank";
-            originalLink.rel = "noopener";
-        } else {
-            // --- 日本語版にいる場合 ---
-            translateLink.href = translateUrl;
-            translateLink.target = "_blank";
-
-            originalLink.href = currentUrl;
-            originalLink.target = "_self";
-        }
-    });
-</script>
-
+  </script> 
 
 </body>
 </html>

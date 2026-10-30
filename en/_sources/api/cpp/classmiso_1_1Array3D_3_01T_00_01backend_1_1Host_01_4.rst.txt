@@ -1,0 +1,17 @@
+.. _exhale_class_classmiso_1_1Array3D_3_01T_00_01backend_1_1Host_01_4:
+
+Template Class Array3D< T, backend::Host >
+==========================================
+
+- Defined in :ref:`file__home_runner_work_MISO_docs_MISO_docs_MISO_miso_include_miso_array3d.hpp`
+
+
+Class Documentation
+-------------------
+
+
+.. doxygenclass:: miso::Array3D< T, backend::Host >
+   :project: CPP
+   :members:
+   :protected-members:
+   :undoc-members:

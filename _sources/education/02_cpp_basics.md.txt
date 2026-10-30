@@ -35,8 +35,8 @@ MISO の抜粋にこれらが出てきたときは、読み飛ばしてよい部
 #include <iostream>
 
 int main() {
-  double dt = 0.1;  // 時間刻み
-  int n_step = 3;   // ステップ数
+  double dt = 0.1;  // time step
+  int n_step = 3;   // number of steps
   std::cout << "time = " << dt * n_step << std::endl;
 }
 ```
@@ -122,16 +122,16 @@ Fortran の `0.1` が単精度、`0.1d0` が倍精度であるのと逆になっ
 
 ```cpp
 int a = 48;
-int b(48);   // 丸括弧でも初期値は 48
-int c{48};   // 波括弧でも初期値は 48
-int zero{};  // 空の波括弧は 0 で初期化する
+int b(48);   // parentheses also give the initial value 48
+int c{48};   // braces also give the initial value 48
+int zero{};  // empty braces initialize to 0
 ```
 
 波括弧は、値が変わってしまう変換をエラーにします。
 
 ```cpp
-int n = 2.9;   // コンパイルできる。小数部が捨てられて n は 2
-int m{2.9};    // エラー：narrowing conversion of '2.8999999999999999e+0' from 'double' to 'int'
+int n = 2.9;   // compiles; the fractional part is dropped, so n is 2
+int m{2.9};    // error: narrowing conversion of '2.8999999999999999e+0' from 'double' to 'int'
 ```
 
 MISO のソースには 3 つの書き方がすべて出てきます。どれも「作るときに値を入れる」と読めば十分です。
@@ -143,10 +143,10 @@ MISO のソースには 3 つの書き方がすべて出てきます。どれも
 **`const` は、初期化した後に書き換えないための指定**です。Fortran の `parameter` に近いですが、実行時に決まる値でも初期化できます。
 
 ```cpp
-const int nx = 48;  // nx は以後書き換えられない
-int ny = nx;        // nx の値をコピーした別の変数
-ny = 72;            // ny だけが変わる。nx は 48 のまま
-// nx = 64;         // エラー：const の変数には代入できない
+const int nx = 48;  // nx can no longer be modified
+int ny = nx;        // a separate variable holding a copy of nx
+ny = 72;            // only ny changes; nx stays 48
+// nx = 64;         // error: cannot assign to a const variable
 ```
 
 `const int nx` と `int const nx` は同じ意味です。
@@ -155,7 +155,7 @@ ny = 72;            // ny だけが変わる。nx は 48 のまま
 
 ```cpp
 constexpr int n_dim = 3;
-constexpr int n_faces = 2 * n_dim;  // コンパイル時に 6 と決まる
+constexpr int n_faces = 2 * n_dim;  // fixed to 6 at compile time
 ```
 
 `const` は「書き換えない」、`constexpr` は「コンパイル時に決まる（したがって書き換えない）」です。
@@ -226,7 +226,7 @@ std::cout << static_cast<double>(a) / b << "\n";  // 3.5
 ```cpp
 float x = 0.1f;
 double y = 0.1;
-std::cout.precision(17);           // 17 桁で表示する
+std::cout.precision(17);           // print with 17 digits
 std::cout << x << " " << y << "\n";
 ```
 
@@ -251,8 +251,8 @@ MPI の関数に渡すため、`static_cast<int>` で `int` に変換してい�
 `using 新しい名前 = 型;` で、型に別名を付けられます。変数の宣言ではありません。
 
 ```cpp
-using Real = float;  // Real は float の別名
-Real dt = 0.1f;      // float dt = 0.1f; と同じ
+using Real = float;  // Real is an alias for float
+Real dt = 0.1f;      // same as float dt = 0.1f;
 ```
 
 MISO のデモは、ファイルの冒頭で `Real` を決めています。`demo/mhd2d_vortex/src/main.cpp` より抜粋します。
@@ -270,9 +270,9 @@ Fortran で `integer, parameter :: rk = kind(1.0d0)` を決めておき `real(rk
 ```cpp
 using Real = float;
 Real a = 1.0f / 3.0f;
-Real h1 = a * 0.5;        // a を double に変換して double で計算し、結果を float に戻す
-Real h2 = a * Real(0.5);  // float どうしで計算する
-auto h3 = a * 0.5;        // auto なので h3 は double になる
+Real h1 = a * 0.5;        // converts a to double, computes in double, then converts the result back to float
+Real h2 = a * Real(0.5);  // computes in float
+auto h3 = a * 0.5;        // auto, so h3 is double
 ```
 
 `0.5` は `double` なので、`a * 0.5` は `double` で計算されます。
@@ -296,10 +296,10 @@ Real pp = (Real(0.5) + util::copysign(Real(0.5), ra)) *
 決まった選択肢のうちどれかを表す型を、`enum class` で作れます。
 
 ```cpp
-enum class Axis { X, Y, Z };  // 3 つの選択肢を持つ型 Axis
-Axis direction = Axis::Y;     // その 1 つを変数に入れる
+enum class Axis { X, Y, Z };  // type Axis with 3 choices
+Axis direction = Axis::Y;     // store one of them in a variable
 if (direction == Axis::Y) {
-  // y 方向の処理
+  // handle the y direction
 }
 ```
 
@@ -344,7 +344,7 @@ enum class Side { INNER, OUTER };
 
 ```cpp
 double dt = 0.2;
-double limited = (dt > 0.1) ? 0.1 : dt;  // 条件が真なので 0.1
+double limited = (dt > 0.1) ? 0.1 : dt;  // the condition is true, so 0.1
 ```
 
 **MISO の実例** — `miso/include/miso/env.hpp` の `is_root` は、比較の結果（`bool`）をそのまま返します。
@@ -379,12 +379,12 @@ if (arg.size() >= key.size() && arg.compare(0, key.size(), key) == 0) {
 
 ```cpp
 double dt = 0.2;
-if (dt > 0.1) {   // 0.2 > 0.1 なので、こちらを実行する
+if (dt > 0.1) {   // 0.2 > 0.1, so this branch runs
   dt = 0.1;
 } else {
-  dt = 0.05;      // この例では実行されない
+  dt = 0.05;      // not executed in this example
 }
-// dt は 0.1
+// dt is 0.1
 ```
 
 Fortran の `if (...) then ... else ... end if` に当たります。
@@ -408,10 +408,10 @@ if (!(tend > 0)) {
 
 ```cpp
 int total = 0;
-for (int i = 0; i < 3; ++i) {  // i = 0, 1, 2 のときに実行する
-  total += i;                  // total は 0 → 1 → 3
+for (int i = 0; i < 3; ++i) {  // runs for i = 0, 1, 2
+  total += i;                  // total goes 0 -> 1 -> 3
 }
-// total は 3。for の中で宣言した i は、ここでは使えない
+// total is 3. i, declared inside the for, cannot be used here
 ```
 
 丸括弧の中は、`;` で区切った 3 つの部分からなります。
@@ -467,12 +467,12 @@ MISO でも、範囲は `[始点, 終点)` の形で持っています。たと�
 int visits = 0;
 for (int k = 0; k < 2; ++k) {
   for (int j = 0; j < 3; ++j) {
-    for (int i = 0; i < 4; ++i) {  // 最も内側の i が最も速く変わる
+    for (int i = 0; i < 4; ++i) {  // the innermost i changes fastest
       ++visits;
     }
   }
 }
-// visits は 2 × 3 × 4 = 24
+// visits is 2 x 3 x 4 = 24
 ```
 
 Fortran の入れ子の `do` と同じです。通常の `for` を書いただけでは並列には実行されません。並列に計算する書き方は {ref}`第 7 章 <edu-ch07>` で学びます。
@@ -486,7 +486,7 @@ for (int k = 0; k < grid.k_total; ++k) {
       qq.ro(i, j, k) = 1.0;
       qq.vx(i, j, k) = -v0 * util::sin(2.0 * pi<Real> * grid.y[j]);
       qq.vy(i, j, k) = +v0 * util::sin(2.0 * pi<Real> * grid.x[i]);
-      // （以下、他の変数も同様）
+      // (same for the other variables)
     }
   }
 }
@@ -505,11 +505,11 @@ for (int k = 0; k < grid.k_total; ++k) {
 ```cpp
 double residual = 1.0;
 int iterations = 0;
-while (residual > 0.1) {  // 実行する前に毎回条件を調べる
+while (residual > 0.1) {  // check the condition before every iteration
   residual *= 0.5;
   ++iterations;
 }
-// residual は 0.0625、iterations は 4
+// residual is 0.0625, iterations is 4
 ```
 
 ブロックの中で条件に関わる変数を更新しないと、ループが終わりません。
@@ -540,14 +540,14 @@ while (time.time < time.tend) {
 int total = 0;
 for (int i = 0; i < 6; ++i) {
   if (i == 2) {
-    continue;  // 足し込みを飛ばして ++i へ進む
+    continue;  // skip the addition and go to ++i
   }
   if (i == 5) {
-    break;     // ループを終える
+    break;     // exit the loop
   }
-  total += i;  // 足すのは 0, 1, 3, 4
+  total += i;  // adds 0, 1, 3, 4
 }
-// total は 8
+// total is 8
 ```
 
 **C++ の `continue` は Fortran の `continue` 文（何もしない文）とは別物です。** Fortran の `cycle` に当たります。
@@ -595,14 +595,14 @@ switch (axis) {
 case Axis::X:
   n = 64;
   break;
-case Axis::Y:  // ここから実行する
+case Axis::Y:  // execution starts here
   n = 32;
-  break;       // switch を抜ける
+  break;       // leave the switch
 case Axis::Z:
   n = 1;
   break;
 }
-// n は 32
+// n is 32
 ```
 
 **`case` の境目では処理は止まりません。** `break` を書き忘れると、次の `case` の処理も続けて実行します。
@@ -659,9 +659,9 @@ for (int i = 1; i <= 5; i += 2) {
 C++ では、値を返す処理も、Fortran のサブルーチンに当たる処理も、すべて関数として書きます。
 
 ```cpp
-double square(double x);   // 宣言
+double square(double x);   // declaration
 
-double square(double x) {  // 定義
+double square(double x) {  // definition
   return x * x;
 }
 ```
@@ -687,7 +687,7 @@ double square(double x) {  // 定義
 double scale(double x, double factor = 1.0) {
   return x * factor;
 }
-// scale(2.0) は 2.0、scale(2.0, 3.0) は 6.0
+// scale(2.0) is 2.0, scale(2.0, 3.0) is 6.0
 ```
 
 **MISO の実例** — `miso/include/miso/env.hpp` の `rank` は、引数を取らず `int` を返す関数です。
@@ -711,11 +711,11 @@ MPI の準備ができていなければエラーを投げ、できていれば�
 
 ```cpp
 void set_copy(double value) {
-  value = 5.0;  // 関数の中のコピーだけが変わる
+  value = 5.0;  // only the copy inside the function changes
 }
 
 double a = 1.0;
-set_copy(a);    // 呼び出した後も a は 1.0
+set_copy(a);    // a is still 1.0 after the call
 ```
 
 **Fortran では、引数は通常、呼び出し元の変数そのものとして扱われ、サブルーチンの中で書き換えると呼び出し元も変わります。C++ の `double value` という引数はそうなりません。**
@@ -750,8 +750,8 @@ C++ では、**引数の型や数が違えば、同じ名前の関数を複数�
 int square(int x) { return x * x; }
 double square(double x) { return x * x; }
 
-int n = square(3);       // int 版を呼ぶ。n は 9
-double y = square(1.5);  // double 版を呼ぶ。y は 2.25
+int n = square(3);       // calls the int version; n is 9
+double y = square(1.5);  // calls the double version; y is 2.25
 ```
 
 どちらを呼ぶかは、渡した引数の型からコンパイル時に決まります。戻り値の型だけが違う関数は区別できません。
@@ -761,7 +761,7 @@ Fortran では、総称名を `interface` で宣言して個別の関数をま�
 ソースには `MISO_MATH_UTILS(sqrt, sqrtf)` という 1 行しかありませんが、これはマクロ（{ref}`10 節 <edu-ch02-preprocessor>`）で、CPU 向けにビルドすると次の 2 つの関数定義に置き換わります。
 
 ```cpp
-// MISO_MATH_UTILS(sqrt, sqrtf) を展開した結果（説明のため改行を整えた）
+// result of expanding MISO_MATH_UTILS(sqrt, sqrtf) (line breaks adjusted for clarity)
 inline float sqrt(float x) { return std::sqrt(x); }
 inline double sqrt(double x) { return std::sqrt(x); }
 ```
@@ -781,8 +781,8 @@ inline double sqrt(double x) { return std::sqrt(x); }
 int main() {
   using Real = float;
   std::cout << miso::util::zfill(3, 8) << "\n";
-  Real r = miso::util::sqrt(Real(2));    // float 版
-  double d = miso::util::sqrt(2.0);      // double 版
+  Real r = miso::util::sqrt(Real(2));    // float version
+  double d = miso::util::sqrt(2.0);      // double version
   std::cout.precision(10);
   std::cout << r << " " << d << "\n";
   std::cout << miso::pi<Real> << " " << miso::pi<double> << "\n";
@@ -833,8 +833,8 @@ auto e = square(3.0) / 2;
 C++ では、**ほかのファイルから使う宣言や定義をヘッダ（`.hpp`）に書き、使う側で `#include` します**。
 
 ```text
-physics.hpp   関数を書いたヘッダ
-main.cpp      #include "physics.hpp" して関数を使う
+physics.hpp   header with the function
+main.cpp      includes "physics.hpp" and uses the function
 ```
 
 `#include "physics.hpp"` は、コンパイルの前にその位置へファイルの中身をそのまま貼り込む指定です。
@@ -912,7 +912,7 @@ double gamma = 5.0 / 3.0;
 }
 
 namespace grid {
-int gamma = 3;  // 名前は同じでも、eos::gamma とは別の変数
+int gamma = 3;  // same name, but a different variable from eos::gamma
 }
 
 int main() {
@@ -977,20 +977,20 @@ C++ に付属する部品群を**標準ライブラリ**と呼びます。数値
 
 int main() {
   std::string name = "mhd";
-  std::string file = name + ".00000003.bin";  // + で連結する
-  std::cout << file << " (" << file.size() << " 文字)\n";
+  std::string file = name + ".00000003.bin";  // concatenate with +
+  std::cout << file << " (" << file.size() << " chars)\n";
 
-  std::vector<double> x(4);  // double を 4 個。すべて 0.0
+  std::vector<double> x(4);  // 4 doubles, all 0.0
   for (int i = 0; i < static_cast<int>(x.size()); ++i) {
-    x[i] = 0.5 * i;           // 添字は 0 から 3
+    x[i] = 0.5 * i;           // indices run from 0 to 3
   }
-  x.push_back(2.0);           // 末尾に追加して 5 個
+  x.push_back(2.0);           // append to the end, making 5
   std::cout << x.size() << " " << x[4] << "\n";
 }
 ```
 
 ```text
-mhd.00000003.bin (16 文字)
+mhd.00000003.bin (16 chars)
 5 2
 ```
 
@@ -1050,9 +1050,9 @@ double checked_dt(double dt) {
 ```cpp
 try {
   checked_dt(0.1);
-  checked_dt(-1.0);  // ここで例外が投げられる
-  std::cout << "ここは表示されません\n";
-} catch (const std::runtime_error &e) {  // const と & は第 3 章で説明する
+  checked_dt(-1.0);  // an exception is thrown here
+  std::cout << "not printed\n";
+} catch (const std::runtime_error &e) {  // const and & are explained in Chapter 3
   std::cout << "error: " << e.what() << "\n";
 }
 ```
@@ -1176,7 +1176,7 @@ GPU 用にコンパイルするときは CUDA のヘッダを読み、CPU 用（
 同じ形の関数を何組も書く手間を、マクロで省いています。
 
 (edu-ch02-demo-main)=
-## 11. 練習：demo の main.cpp の冒頭を読む
+## 11. 練習：demo の `main.cpp` の冒頭を読む
 
 `demo/mhd2d_vortex/src/main.cpp` の冒頭は次のとおりです。各行（または各まとまり）が何をしているかを、この章の用語を使って説明してください。
 

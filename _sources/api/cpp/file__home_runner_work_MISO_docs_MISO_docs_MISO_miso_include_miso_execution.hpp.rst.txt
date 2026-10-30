@@ -83,31 +83,31 @@ Functions
 
 - :ref:`exhale_function_namespacemiso_1a72847b086b3343f8caff3639abcbe07a`
 
-- :ref:`exhale_function_namespacemiso_1a917f5afb8870f7b6c4e6f5b5e0ef54ec`
-
-- :ref:`exhale_function_namespacemiso_1a0a2497280e69c02d6e9c7700c9265add`
-
 - :ref:`exhale_function_namespacemiso_1a07407f9a0acb70bd244f9930799dc967`
 
 - :ref:`exhale_function_namespacemiso_1a52265a89a67234c07931684ecd29d166`
+
+- :ref:`exhale_function_namespacemiso_1a917f5afb8870f7b6c4e6f5b5e0ef54ec`
+
+- :ref:`exhale_function_namespacemiso_1a0a2497280e69c02d6e9c7700c9265add`
 
 - :ref:`exhale_function_namespacemiso_1a326640ac4963336ac9505fdee481eaa9`
 
 - :ref:`exhale_function_namespacemiso_1a7c9ac735508606039d4c8b87ee303581`
 
+- :ref:`exhale_function_namespacemiso_1a3b222e90d66c6c7fab40853d4abdabe6`
+
 - :ref:`exhale_function_namespacemiso_1a50f0ac3415ea12a4a315aff5aaa637f1`
 
 - :ref:`exhale_function_namespacemiso_1a9ee0239f882504c106b6452dd9b1ee65`
 
-- :ref:`exhale_function_namespacemiso_1a7fb26a5285a25b5ac05cc7ce836325b7`
-
 - :ref:`exhale_function_namespacemiso_1aaae57bbab7373f67a6626829f47ff36d`
 
-- :ref:`exhale_function_namespacemiso_1a5a8ad7275b9c93438c48737b7b71e146`
-
-- :ref:`exhale_function_namespacemiso_1a3b222e90d66c6c7fab40853d4abdabe6`
+- :ref:`exhale_function_namespacemiso_1a7fb26a5285a25b5ac05cc7ce836325b7`
 
 - :ref:`exhale_function_namespacemiso_1a71ca1793fb11f93049380312534ec2ad`
+
+- :ref:`exhale_function_namespacemiso_1a5a8ad7275b9c93438c48737b7b71e146`
 
 - :ref:`exhale_function_namespacemiso_1a298b5c3830fcba67ed6f3663b36e4299`
 
