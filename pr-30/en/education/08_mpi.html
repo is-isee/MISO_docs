@@ -1008,7 +1008,7 @@ time =   0.02;  n_step =        9;  n_output =        2
 <li><p>Whether a boundary is physical is checked with <code class="docutils literal notranslate"><span class="pre">is_physical_boundary</span></code>, and only the ghost cells at physical boundaries are filled by the boundary condition.</p></li>
 <li><p>The time step is synchronized to the minimum over all ranks with <code class="docutils literal notranslate"><span class="pre">MPI_Allreduce</span></code> (<code class="docutils literal notranslate"><span class="pre">MPI_MIN</span></code>). All ranks call collective communication in the same order.</p></li>
 </ul>
-<p>The halo exchange when using a GPU, and the mapping between ranks and GPUs, are covered in Chapter 9. If you proceed with the CPU only, in the heat conduction practice of Chapter 10 you will write the one-dimensional halo exchange and the <code class="docutils literal notranslate"><span class="pre">MPI_Allreduce</span></code> of this chapter yourself.</p>
+<p>The halo exchange when using a GPU, and the mapping between ranks and GPUs, are covered in Chapter 9. If you proceed with the CPU only, in the heat conduction Practice of Chapter 10 you will write the one-dimensional halo exchange and the <code class="docutils literal notranslate"><span class="pre">MPI_Allreduce</span></code> of this chapter yourself.</p>
 </section>
 </section>
 
