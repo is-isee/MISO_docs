@@ -1,0 +1,552 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2025, Integrated Studies, ISEE, Nagoya University
+# This file is distributed under the same license as the MISO package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: MISO \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-10-29 13:33+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: en\n"
+"Language-Team: en <LL@li.org>\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.18.0\n"
+
+msgid "テストと計算結果の比較"
+msgstr "Testing and Comparing Results"
+
+#, python-brace-format
+msgid "MISO を変更したときに、壊していないことを確かめる方法をまとめます。 前半は MISO のユニットテスト（doctest と ctest）の実行と読み方、後半はデモの出力を比べる方法と、`float` の丸め誤差の目安です。 ビルドの手順は {ref}`第 1 章 <edu-ch01>` を前提にします。"
+msgstr "This page collects ways to confirm that you have not broken anything when you change MISO. The first half covers running and reading MISO's unit tests (doctest and ctest); the second half covers how to compare demo output and a rule of thumb for `float` rounding error. It assumes the build procedure of {ref}`Chapter 1 <edu-ch01>`."
+
+#, python-brace-format
+msgid "{ref}`比較する対象 <edu-ref-testing-targets>`"
+msgstr "{ref}`What to compare <edu-ref-testing-targets>`"
+
+#, python-brace-format
+msgid "{ref}`ユニットテストを実行する <edu-ref-testing-run>`"
+msgstr "{ref}`Running the unit tests <edu-ref-testing-run>`"
+
+#, python-brace-format
+msgid "{ref}`テストの読み方 <edu-ref-testing-read>`"
+msgstr "{ref}`Reading a test <edu-ref-testing-read>`"
+
+#, python-brace-format
+msgid "{ref}`デモの出力を比べる <edu-ref-testing-compare>`"
+msgstr "{ref}`Comparing demo output <edu-ref-testing-compare>`"
+
+#, python-brace-format
+msgid "{ref}`float の丸め誤差の目安 <edu-ref-testing-rounding>`"
+msgstr "{ref}`Rule of thumb for float rounding error <edu-ref-testing-rounding>`"
+
+#, python-brace-format
+msgid "{ref}`比較条件の記録 <edu-ref-testing-record>`"
+msgstr "{ref}`Recording the comparison conditions <edu-ref-testing-record>`"
+
+msgid "比較する対象"
+msgstr "What to compare"
+
+msgid "何を比べるかによって、期待する一致の程度が変わります。"
+msgstr "The degree of agreement you expect depends on what you compare."
+
+msgid "比較"
+msgstr "Comparison"
+
+msgid "確かめる内容"
+msgstr "What it checks"
+
+msgid "期待する一致"
+msgstr "Expected agreement"
+
+msgid "部品の結果と、式や手計算から求めた期待値"
+msgstr "The result of a component versus the expected value from a formula or hand calculation"
+
+msgid "添字、係数、境界の扱い"
+msgstr "Indices, coefficients, and boundary handling"
+
+msgid "整数なら完全に一致。実数なら丸め誤差程度"
+msgstr "Exact for integers. About the rounding error for real numbers"
+
+msgid "同じ実行ファイル・同じ設定での 2 回の実行"
+msgstr "Two runs with the same executable and the same settings"
+
+msgid "結果が実行ごとに変わらないこと"
+msgstr "That the result does not change from run to run"
+
+msgid "ビット単位で同一"
+msgstr "Bit-for-bit identical"
+
+msgid "変更前と変更後（計算を変えないはずの変更）"
+msgstr "Before and after a change (a change that should not alter the computation)"
+
+msgid "書き換えで計算が変わっていないこと"
+msgstr "That the rewrite did not change the computation"
+
+msgid "ビット単位で同一、または丸め誤差程度"
+msgstr "Bit-for-bit identical, or about the rounding error"
+
+msgid "MPI の分割数・分割方向を変えた実行"
+msgstr "Runs with a different number or direction of MPI decomposition"
+
+msgid "領域分割と通信"
+msgstr "Domain decomposition and communication"
+
+msgid "全体の配列として比べてビット単位で同一、または丸め誤差程度"
+msgstr "Bit-for-bit identical as a whole array, or about the rounding error"
+
+msgid "CPU 版と GPU 版、コンパイラや最適化の違い"
+msgstr "The CPU and GPU versions, and differences in compiler or optimization"
+
+msgid "演算の順序や命令の違いの影響"
+msgstr "The effect of differences in the order of operations or in instructions"
+
+msgid "丸め誤差程度（時間発展とともに増えます）"
+msgstr "About the rounding error (it grows with time evolution)"
+
+msgid "数値解と厳密解"
+msgstr "Numerical and exact solutions"
+
+msgid "離散化（格子・時間刻み）の誤差"
+msgstr "The discretization (grid and time step) error"
+
+msgid "格子を細かくすると小さくなること"
+msgstr "That it becomes smaller as the grid is refined"
+
+msgid "MISO の PR では、数値結果への影響を「ビット単位で同一」「丸め誤差程度」「離散化誤差」「物理的に変わる」のどれかで書きます（MISO の `dev/notes/rules_ai.md`）。 この資料の方法は、そのどれに当たるかを判断する材料になります。"
+msgstr "In a MISO PR, describe the effect on numerical results as one of \"bit-for-bit identical\", \"about the rounding error\", \"discretization error\", or \"physically changed\" (MISO's `dev/notes/rules_ai.md`). The methods on this page give you the material to judge which one applies."
+
+msgid "期待値は、確かめたい関数をそのまま使わずに、式や別の簡単な計算から求めます。 同じ関数で期待値を作ると、関数の誤りが期待値にも入り、比較で見つけられません。"
+msgstr "Compute the expected value from a formula or a separate simple computation, without using the function you want to check as it is. If you build the expected value with the same function, the function's mistake also enters the expected value, and the comparison cannot find it."
+
+msgid "ユニットテストを実行する"
+msgstr "Running the unit tests"
+
+msgid "まとめて実行する（ctest）"
+msgstr "Running them all together (ctest)"
+
+msgid "MISO のユニットテストは `miso/tests/` にあり、MISO 単独でビルドすると一緒に作られます（`ENABLE_TESTING` が既定で `ON`）。 ビルドフォルダは MISO のフォルダの外でも構いません。"
+msgstr "MISO's unit tests are in `miso/tests/`, and they are built together when you build MISO by itself (`ENABLE_TESTING` is `ON` by default). The build folder may be outside the MISO folder."
+
+msgid "テストの数と名前は MISO の版によって変わります。 `--output-on-failure` は、失敗したテストの出力だけを表示する指定です。成功したテストの出力は表示しません。"
+msgstr "The number and names of the tests change with the MISO version. `--output-on-failure` shows only the output of failed tests. It does not show the output of passing tests."
+
+msgid "`名前=値 コマンド` の形で書いた環境変数は、そのコマンドの間だけ有効です。2 つの環境変数は Open MPI の動作を変えます。"
+msgstr "An environment variable written in the form `NAME=value command` is in effect only during that command. The two environment variables change the behavior of Open MPI."
+
+msgid "環境変数"
+msgstr "Environment variable"
+
+msgid "意味"
+msgstr "Meaning"
+
+msgid "`OMPI_MCA_btl_vader_single_copy_mechanism=none`"
+msgstr ""
+
+msgid "同じ計算機の中のプロセス間通信で、コンテナなどでは使えないことがあるメモリコピーの仕組みを使わないようにします"
+msgstr "Avoids a memory-copy mechanism for communication between processes on the same machine, which may be unavailable in containers and the like"
+
+msgid "`OMPI_MCA_rmaps_base_oversubscribe=yes`"
+msgstr ""
+
+msgid "CPU のコア数より多いプロセスの起動を許します。2 プロセスのテストを、コアの少ない計算機でも動かせます"
+msgstr "Allows launching more processes than there are CPU cores. This lets you run the 2-process tests even on a machine with few cores"
+
+msgid "手元の計算機で付けなくても動く場合がありますが、MISO の手順（`dev/notes/usage_ai.md`）と GitHub の CI はこの形で実行しています。 複数プロセスのテストは、さらに `miso/shared/mpiexec_with_env.sh` を通して起動され、`miso/shared/openmpi_config.env` の設定も読み込みます。"
+msgstr "It may work on your own machine without them, but MISO's procedure (`dev/notes/usage_ai.md`) and GitHub CI run in this form. Multi-process tests are also launched through `miso/shared/mpiexec_with_env.sh`, which also loads the settings in `miso/shared/openmpi_config.env`."
+
+msgid "テストを選ぶ"
+msgstr "Selecting tests"
+
+msgid "コマンド"
+msgstr "Command"
+
+msgid "行うこと"
+msgstr "What it does"
+
+msgid "`ctest -N`"
+msgstr ""
+
+msgid "実行せずに、登録されたテストの一覧を表示します"
+msgstr "Lists the registered tests without running them"
+
+msgid "`ctest -R array`"
+msgstr ""
+
+msgid "名前に `array` を含むテストだけを実行します（正規表現）"
+msgstr "Runs only the tests whose names contain `array` (a regular expression)"
+
+msgid "`ctest -R execution -V`"
+msgstr ""
+
+msgid "選んだテストを、実行コマンドと出力をすべて表示して実行します"
+msgstr "Runs the selected tests, showing the run command and all of the output"
+
+msgid "ctest に登録されているテストの名前は、ソースのファイル名に `_cpp`（GPU 版は `_cu`）を付けたものです。 `miso/tests/serial/CMakeLists.txt` と `miso/tests/parallel/CMakeLists.txt` は、`test_*.cpp` に当たるファイルを集めて自動で登録します。 新しいテストのファイルを `serial/` に置けば、次の設定のときに登録されます。"
+msgstr "The name of a test registered with ctest is the source file name followed by `_cpp` (`_cu` for the GPU version). `miso/tests/serial/CMakeLists.txt` and `miso/tests/parallel/CMakeLists.txt` collect the files matching `test_*.cpp` and register them automatically. If you put a new test file in `serial/`, it is registered the next time you run the configuration."
+
+msgid "テストの実行ファイルを直接動かす"
+msgstr "Running a test executable directly"
+
+msgid "各テストは独立した実行ファイルで、`build_miso/tests/serial/` と `build_miso/tests/parallel/` にあります。 直接動かすと、doctest のオプションで中身をさらに絞れます。"
+msgstr "Each test is an independent executable, located in `build_miso/tests/serial/` and `build_miso/tests/parallel/`. If you run it directly, you can narrow down what runs further with doctest options."
+
+msgid "オプション"
+msgstr "Option"
+
+msgid "`--list-test-cases`"
+msgstr ""
+
+msgid "ファイルに含まれるテストケースの名前を表示します"
+msgstr "Lists the names of the test cases contained in the file"
+
+msgid "`--test-case=名前`"
+msgstr "`--test-case=name`"
+
+msgid "名前が一致するテストケースだけを実行します。`*` を使えます（例：`\"Test reduce*\"`）"
+msgstr "Runs only the test cases whose names match. You can use `*` (example: `\"Test reduce*\"`)"
+
+msgid "`--success`"
+msgstr ""
+
+msgid "成功した確認も表示します"
+msgstr "Also shows the successful checks"
+
+msgid "`--no-colors`"
+msgstr ""
+
+msgid "文字色の制御文字を出しません。ログをファイルに残すときに使います"
+msgstr "Suppresses the control characters for text color. Use it when you save the log to a file"
+
+msgid "`parallel/` のテストは MPI の複数プロセスで動かします。ctest と同じ形で起動するには次のようにします。"
+msgstr "The tests in `parallel/` run with multiple MPI processes. To launch one in the same form as ctest, do the following."
+
+msgid "各プロセスが自分の結果の要約を表示するので、要約が 2 回出ます。すべてのプロセスの要約を確かめます。"
+msgstr "Each process prints a summary of its own results, so the summary appears twice. Check the summaries of all the processes."
+
+#, python-brace-format
+msgid "GPU 版のテスト（`*.cu`）は `-DMISO_USE_CUDA=ON` のときだけ作られます。{ref}`第 9 章 <edu-ch09>` を参照してください。"
+msgstr "The GPU tests (`*.cu`) are built only with `-DMISO_USE_CUDA=ON`. See {ref}`Chapter 9 <edu-ch09>`."
+
+msgid "テストの読み方"
+msgstr "Reading a test"
+
+msgid "MISO のユニットテストは **doctest** というテスト用のライブラリで書かれています。 doctest はヘッダ 1 つでできていて、ビルドの設定のときに `miso/tests/CMakeLists.txt` の `FetchContent` が GitHub から取得します。"
+msgstr "MISO's unit tests are written with a testing library called **doctest**. doctest consists of a single header, and `FetchContent` in `miso/tests/CMakeLists.txt` fetches it from GitHub at configuration time."
+
+msgid "`miso/tests/serial/test_execution.cpp` の最初のテストを読みます（抜粋）。"
+msgstr "Let us read the first test in `miso/tests/serial/test_execution.cpp` (excerpt)."
+
+msgid "書き方"
+msgstr "Syntax"
+
+msgid "`#define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN`"
+msgstr ""
+
+msgid "doctest に `main` 関数を作らせる指定です。テストのファイルには `main` を書きません"
+msgstr "This tells doctest to create the `main` function. You do not write `main` in the test file"
+
+msgid "`TEST_CASE(\"名前\" * doctest::test_suite(\"組\"))`"
+msgstr "`TEST_CASE(\"name\" * doctest::test_suite(\"suite\"))`"
+
+#, python-brace-format
+msgid "テストケースを 1 つ定義します。`{ }` の中が、そのテストで実行される処理です。`test_suite` はテストケースをまとめる組の名前です"
+msgstr "Defines one test case. What is inside `{ }` is the processing executed by that test. `test_suite` is the name of the suite that groups test cases"
+
+msgid "`REQUIRE(条件)`"
+msgstr "`REQUIRE(condition)`"
+
+msgid "条件が成り立たなければ失敗とし、そのテストケースの残りを実行しません"
+msgstr "If the condition does not hold, it counts as a failure and the rest of that test case is not executed"
+
+msgid "`CHECK(条件)`"
+msgstr "`CHECK(condition)`"
+
+msgid "条件が成り立たなければ失敗として記録し、続きも実行します"
+msgstr "If the condition does not hold, it is recorded as a failure, and execution continues"
+
+#, python-brace-format
+msgid "このテストは、添字 2 と 3 だけに `i * i` を入れる `for_each` を実行し、その 2 つの値を確かめています。 整数の計算なので、`==` でぴったり一致することを求めます。 `for_each`、`Range1D`、`Array1D` とラムダ式は {ref}`第 7 章 <edu-ch07>` で説明します。"
+msgstr "This test runs a `for_each` that puts `i * i` only into indices 2 and 3, and checks those two values. It is an integer computation, so it requires an exact match with `==`. `for_each`, `Range1D`, `Array1D`, and lambda expressions are explained in {ref}`Chapter 7 <edu-ch07>`."
+
+msgid "実数を比べる：`doctest::Approx`"
+msgstr "Comparing real numbers: `doctest::Approx`"
+
+#, python-brace-format
+msgid "実数の計算では、数学的に同じ式でも、計算の順序によって末尾の桁が変わります（{ref}`後の節 <edu-ref-testing-rounding>`）。 そのため実数の比較には、`==` ではなく `doctest::Approx` を使って「十分近い」ことを確かめます。"
+msgstr "In real-number computations, even mathematically equivalent expressions can differ in the last digits depending on the order of computation ({ref}`a later section <edu-ref-testing-rounding>`). For this reason, to compare real numbers, use `doctest::Approx`, not `==`, to check that they are \"close enough\"."
+
+msgid "次は、`float` で 0.1 を 10 回足した結果を、2 つの方法で確かめる例です。 doctest のヘッダは、MISO のテストをビルドしたフォルダの `_deps/doctest-src/` にあります。"
+msgstr "The following is an example that checks, in two ways, the result of adding 0.1 ten times in `float`. The doctest header is in `_deps/doctest-src/` in the folder where you built MISO's tests."
+
+msgid "`Approx` の確認は成功し、`==` の確認は失敗します。`s` は `1.00000012` で、1 とは最後の 1 桁だけ違います。 失敗の表示 `values: CHECK( 1 == 1 )` では両辺が同じに見えますが、これは表示の桁数が少ないためです。 実数の比較が失敗したときは、自分で桁数を増やして値を表示して確かめます。 テストが 1 つでも失敗すると、実行ファイルは 0 以外の終了コードを返し、ctest はそのテストを `Failed` と表示します。"
+msgstr "The `Approx` check succeeds, and the `==` check fails. `s` is `1.00000012`, which differs from 1 only in the last digit. In the failure message `values: CHECK( 1 == 1 )`, both sides look the same, but this is because the display has few digits. When a comparison of real numbers fails, increase the number of digits yourself and print the values to check. If even one test fails, the executable returns a nonzero exit code, and ctest shows that test as `Failed`."
+
+msgid "`a == doctest::Approx(b)` は、次の条件が成り立つときに成功します（doctest 2.4.12 の実装）。"
+msgstr "`a == doctest::Approx(b)` succeeds when the following condition holds (the implementation in doctest 2.4.12)."
+
+msgid ""
+"\n"
+"|a - b| < \\varepsilon \\, \\bigl(s + \\max(|a|, |b|)\\bigr)\n"
+msgstr ""
+
+#, python-brace-format
+msgid "$\\varepsilon$ は `.epsilon(値)` で、$s$ は `.scale(値)` で指定します。 既定は $\\varepsilon$ が `float` の計算機イプシロンの 100 倍（約 $1.2\\times10^{-5}$）、$s = 0$ で、相対誤差で比べることになります。 `.scale(1.0)` とすると、0 に近い値では $\\varepsilon$ を絶対誤差の許容値として比べます。 期待値が 0 の点で相対誤差を使うと、どんな小さな差も失敗になるためです。"
+msgstr "You specify $\\varepsilon$ with `.epsilon(value)` and $s$ with `.scale(value)`. By default, $\\varepsilon$ is 100 times the machine epsilon of `float` (about $1.2\\times10^{-5}$) and $s = 0$, so the comparison uses the relative error. With `.scale(1.0)`, for values near 0 the comparison uses $\\varepsilon$ as the tolerance of the absolute error. This is because, at a point where the expected value is 0, using a relative error makes any small difference a failure."
+
+msgid "MISO の統合テストの例"
+msgstr "An example of an integration test in MISO"
+
+msgid "`miso/tests/parallel/test_hd1d_shock_tube.cpp` は、MISO で 1 次元の衝撃波管（Sod の問題）を実際に時間発展させるテストです。 2 種類の比較をしています（抜粋）。"
+msgstr "`miso/tests/parallel/test_hd1d_shock_tube.cpp` is a test that actually evolves a 1D shock tube (Sod's problem) in time with MISO. It makes two kinds of comparison (excerpt)."
+
+msgid "1 つ目は厳密解との比較です。差の絶対値の和を値の和で割った量が 5% 未満であることを確かめます。 厳密解との差には離散化の誤差が含まれるので、許容値は大きめです。"
+msgstr "The first is a comparison with the exact solution. It checks that the sum of the absolute differences divided by the sum of the values is less than 5%. The difference from the exact solution includes the discretization error, so the tolerance is fairly large."
+
+#, python-brace-format
+msgid "2 つ目は、同じ問題を x・y・z の方向に置いた計算どうしの比較です。数学的には同じ計算なので、 丸め誤差程度（$\\varepsilon = 10^{-5}$）の一致を求めています。"
+msgstr "The second is a comparison between computations of the same problem placed along the x, y, and z directions. Mathematically these are the same computation, so it requires agreement to about the rounding error ($\\varepsilon = 10^{-5}$)."
+
+msgid "デモの出力を比べる"
+msgstr "Comparing demo output"
+
+msgid "MISO の変更が計算結果を変えていないかは、変更前と変更後でデモを実行し、出力を比べて確かめます。"
+msgstr "To check whether a change to MISO has altered the computed results, run the demo before and after the change and compare the output."
+
+msgid "比べるための実行"
+msgstr "Runs for comparison"
+
+msgid "デモの出力先 `io.save_dir`（既定は `data/`）は、`config.yaml` のあるフォルダからの相対パスです。 そこで、実行ごとに別のフォルダを作って `config.yaml` を写し、`--config` でそのファイルを指定すると、出力を分けられます。 `demo/mhd2d_vortex` をビルド済みとして、2 回実行する例です。"
+msgstr "The output destination of a demo, `io.save_dir` (`data/` by default), is a path relative to the folder containing `config.yaml`. So if you create a separate folder for each run, copy `config.yaml` into it, and specify that file with `--config`, you can keep the outputs separate. This is an example of running twice, assuming `demo/mhd2d_vortex` has been built."
+
+msgid "`set -a` から `set +a` までは、`openmpi_config.env` に書かれた環境変数を、このターミナルで有効にする操作です（`app_run.sh` も同じことをしています）。"
+msgstr "From `set -a` to `set +a`, you make the environment variables written in `openmpi_config.env` take effect in this terminal (`app_run.sh` does the same thing)."
+
+msgid "デモの `config.yaml` は `io.continue: true` なので、出力先にすでに結果があると、その続きから計算します。 比べるための実行は、毎回空のフォルダで行います。"
+msgstr "The demo's `config.yaml` has `io.continue: true`, so if results already exist in the output destination, the run continues from them. Do each run for comparison in an empty folder."
+
+msgid "変更前と変更後を比べるときは、それぞれの MISO でビルドした実行ファイルを使います。 同じ MISO のフォルダで比べる場合は、変更前の実行ファイルを別の名前で写しておくか、ビルドフォルダを分けます。"
+msgstr "When comparing before and after a change, use the executables built from the respective versions of MISO. If you compare within the same MISO folder, either copy the pre-change executable under another name, or use separate build folders."
+
+msgid "ビット単位の比較（`cmp`, `diff -rq`）"
+msgstr "Bit-for-bit comparison (`cmp`, `diff -rq`)"
+
+msgid "2 つのファイルが 1 バイトも違わないかは `cmp` で確かめます。"
+msgstr "Check whether two files differ by even one byte with `cmp`."
+
+msgid "同じなら何も表示せず、違えば最初に違うバイトの位置を表示します。フォルダ全体は `diff -rq` で比べられます。"
+msgstr "If they are the same it prints nothing; if they differ it prints the position of the first differing byte. You can compare whole folders with `diff -rq`."
+
+msgid "何も表示されなければ、すべての出力がビット単位で同一です。"
+msgstr "If nothing is printed, all the outputs are bit-for-bit identical."
+
+msgid "ビット単位の比較は、出力の並びが同じときだけ使えます。 MPI の分割数や分割方向を変えると、各ランクのファイル（`mhd.<n_output>.<rank>.bin`）が受け持つ範囲が変わるので、 中身の値が同じでもファイルは一致しません。その場合は、次のように全体の配列に組み立ててから比べます。"
+msgstr "Bit-for-bit comparison can be used only when the layout of the output is the same. If you change the number or direction of the MPI decomposition, the range covered by each rank's file (`mhd.<n_output>.<rank>.bin`) changes, so the files do not match even when the values inside are the same. In that case, assemble them into a whole array as follows and then compare."
+
+msgid "全体の配列で比べる（pymiso）"
+msgstr "Comparing as a whole array (pymiso)"
+
+msgid "`pymiso.Data` は、各ランクのファイルを読んで全体の配列に組み立てます（ゴーストセルは除かれます）。 次のスクリプトは、2 つの出力の最後の出力番号どうしで、変数ごとに差の最大値を代表値（その変数の絶対値の最大）で割った量を表示します。 期待値が 0 になる点もあるので、点ごとの相対誤差ではなく、代表値で割っています。"
+msgstr "`pymiso.Data` reads the file of each rank and assembles them into a whole array (the ghost cells are removed). The following script takes the last output numbers of the two outputs and, for each variable, prints the maximum difference divided by a representative value (the maximum absolute value of that variable). Some points have an expected value of 0, so we divide by the representative value, not use a pointwise relative error."
+
+#, python-brace-format
+msgid "`compare.py` として保存し、{ref}`第 1 章 <edu-ch01-demo>` で pymiso を入れた仮想環境で実行します。"
+msgstr "Save it as `compare.py` and run it in the virtual environment where you installed pymiso in {ref}`Chapter 1 <edu-ch01-demo>`."
+
+msgid "`a.time` は時刻のファイルを扱うオブジェクトで、時刻の値は `a.time.time` です。 差は `float64` に直してから計算します。`float32` のまま引き算すると、差そのものにも丸めが入るためです。 `vz` と `bz` は 2 次元のこの問題ではすべて 0 なので、代表値で割れません。"
+msgstr "`a.time` is an object that handles the time file, and the time value is `a.time.time`. Convert the differences to `float64` before computing. If you subtract in `float32`, rounding also enters the difference itself. `vz` and `bz` are all 0 in this 2D problem, so they cannot be divided by the representative value."
+
+msgid "比較の例"
+msgstr "Examples of comparison"
+
+msgid "`demo/mhd2d_vortex` の既定の設定（128×128、時刻 0.8 まで 354 ステップ、`Real` は `float`）で、条件を変えて比べた結果です （Ubuntu 24.04、GCC 13.3、Open MPI 4.1）。"
+msgstr "These are the results of comparing under different conditions with the default settings of `demo/mhd2d_vortex` (128×128, 354 steps up to time 0.8, `Real` is `float`) (Ubuntu 24.04, GCC 13.3, Open MPI 4.1)."
+
+msgid "比べたもの"
+msgstr "What was compared"
+
+msgid "`diff -rq`"
+msgstr ""
+
+msgid "`compare.py`（時刻 0.8）"
+msgstr "`compare.py` (time 0.8)"
+
+msgid "同じ実行ファイルで 2 回実行"
+msgstr "Two runs with the same executable"
+
+msgid "差なし"
+msgstr "No difference"
+
+msgid "すべて 0"
+msgstr "All 0"
+
+msgid "Release と Debug でビルドした実行ファイル"
+msgstr "Executables built as Release and Debug"
+
+msgid "MPI の分割を x 方向 2 つから y 方向 2 つに変更"
+msgstr "Changing the MPI decomposition from 2 in the x direction to 2 in the y direction"
+
+msgid "`mhd.*.bin` がすべて違う（`mpi/coords.csv` も）"
+msgstr "All `mhd.*.bin` differ (and `mpi/coords.csv` too)"
+
+msgid "`-DCMAKE_CXX_FLAGS=-march=native` でビルドした実行ファイル"
+msgstr "Executable built with `-DCMAKE_CXX_FLAGS=-march=native`"
+
+msgid "初期値（出力番号 0）以外の `mhd.*.bin` と、一部の時刻のファイルが違う"
+msgstr "`mhd.*.bin` other than the initial values (output number 0), and the files of some times, differ"
+
+#, python-brace-format
+msgid "変数によって $1.7\\times10^{-6}$〜$5.7\\times10^{-6}$"
+msgstr "$1.7\\times10^{-6}$ to $5.7\\times10^{-6}$ depending on the variable"
+
+msgid "分割を変えた計算は、ファイルとしては違っても、全体の配列としてはビット単位で同一でした。 `-march=native` は、使っている CPU 固有の命令（積和演算をまとめる FMA など）をコンパイラに使わせる指定です。 演算の丸め方が変わるため、結果は丸め誤差程度だけ変わります。CFL 条件で決まる時間刻みも末尾の桁が変わり、出力の時刻が 7 桁目で違うものがありました。この比較での差の時間変化は次のとおりでした。"
+msgstr "The computation with a changed decomposition differed as files, but was bit-for-bit identical as a whole array. `-march=native` tells the compiler to use instructions specific to the CPU in use (such as FMA, which merges multiply and add). Because the rounding of operations changes, the result changes by about the rounding error. The time step determined by the CFL condition also changes in its last digits, and some output times differed in the 7th digit. The change of the difference with time in this comparison was as follows."
+
+msgid "出力番号"
+msgstr "Output number"
+
+msgid "時刻"
+msgstr "Time"
+
+msgid "`ro` の差（`compare.py` の値）"
+msgstr "Difference in `ro` (the value from `compare.py`)"
+
+msgid "1"
+msgstr ""
+
+msgid "0.01"
+msgstr ""
+
+#, python-brace-format
+msgid "$5.9\\times10^{-7}$"
+msgstr ""
+
+msgid "10"
+msgstr ""
+
+msgid "0.10"
+msgstr ""
+
+#, python-brace-format
+msgid "$9.3\\times10^{-7}$"
+msgstr ""
+
+msgid "40"
+msgstr ""
+
+msgid "0.40"
+msgstr ""
+
+#, python-brace-format
+msgid "$1.6\\times10^{-6}$"
+msgstr ""
+
+msgid "80"
+msgstr ""
+
+msgid "0.80"
+msgstr ""
+
+#, python-brace-format
+msgid "$1.7\\times10^{-6}$"
+msgstr ""
+
+msgid "Release と Debug が一致するかどうかは、コンパイラや計算機によって変わります。上の結果は一例です。"
+msgstr "Whether Release and Debug agree depends on the compiler and the machine. The result above is one example."
+
+msgid "float の丸め誤差の目安"
+msgstr "Rule of thumb for float rounding error"
+
+msgid "MISO のデモとテストは `using Real = float;`（単精度）で計算しています。 実数は有限の桁で表すので、計算のたびに結果が表せる値に丸められます。 1 と、その次に大きい表せる数との差を**計算機イプシロン**（machine epsilon）と呼びます。"
+msgstr "MISO's demos and tests compute with `using Real = float;` (single precision). Real numbers are represented with a finite number of digits, so each computation rounds the result to a representable value. The difference between 1 and the next larger representable number is called the **machine epsilon**."
+
+msgid "型"
+msgstr "Type"
+
+msgid "計算機イプシロン"
+msgstr "Machine epsilon"
+
+msgid "10 進でおよその有効桁"
+msgstr "Approximate significant decimal digits"
+
+msgid "`float`（単精度）"
+msgstr "`float` (single precision)"
+
+#, python-brace-format
+msgid "$2^{-23} \\approx 1.19\\times10^{-7}$"
+msgstr ""
+
+msgid "7 桁"
+msgstr "7 digits"
+
+msgid "`double`（倍精度）"
+msgstr "`double` (double precision)"
+
+#, python-brace-format
+msgid "$2^{-52} \\approx 2.22\\times10^{-16}$"
+msgstr ""
+
+msgid "16 桁"
+msgstr "16 digits"
+
+#, python-brace-format
+msgid "1 回の四則演算での丸めの誤差は、相対的に計算機イプシロンの半分以下です。 上の例の `0.1f` を 10 回足した結果は `1.00000012` で、1 との差 $1.19\\times10^{-7}$ は `float` の計算機イプシロン 1 つ分です。"
+msgstr "The rounding error of one arithmetic operation is at most half the machine epsilon in relative terms. The result of adding `0.1f` ten times in the example above is `1.00000012`, and its difference from 1, $1.19\\times10^{-7}$, is one machine epsilon of `float`."
+
+msgid "差を判断するときの目安は次のとおりです。"
+msgstr "The following is a rule of thumb for judging a difference."
+
+msgid "相対的な差"
+msgstr "Relative difference"
+
+msgid "判断の目安（`float` の場合）"
+msgstr "How to judge it (for `float`)"
+
+msgid "0"
+msgstr ""
+
+msgid "ビット単位で同一。計算の順序も変わっていません"
+msgstr "Bit-for-bit identical. The order of computation has not changed either"
+
+#, python-brace-format
+msgid "$10^{-7}$〜$10^{-5}$ 程度"
+msgstr "About $10^{-7}$ to $10^{-5}$"
+
+msgid "丸め誤差程度。演算の順序や命令の違い（加算の順序、FMA、数学関数の実装、CPU と GPU の違い）で起こります"
+msgstr "About the rounding error. It arises from differences in the order of operations or in instructions (the order of addition, FMA, the implementation of math functions, the difference between CPU and GPU)"
+
+msgid "それより大きい"
+msgstr "Larger than that"
+
+msgid "計算の内容が変わった可能性があります。入力、格子、時間刻み、境界条件、変更した式を確かめます"
+msgstr "The content of the computation may have changed. Check the input, the grid, the time step, the boundary conditions, and the expressions you changed"
+
+msgid "これは目安で、決まった許容値ではありません。 丸め誤差は時間発展のステップごとに積み重なり、乱流のように小さな差が育つ流れでは、長い時間の後に大きな差になることがあります。 そのような比較では、早い時刻で差が丸め誤差程度であることを確かめ、差が時間とともにどう増えるかも見ます。 桁落ち（近い値どうしの引き算で有効桁が減ること）のある式では、差が計算機イプシロンより大きくなることもあります。"
+msgstr "This is a rule of thumb, not a fixed tolerance. Rounding errors accumulate at each time-evolution step, and in a flow where small differences grow, such as turbulence, the difference can become large after a long time. In such a comparison, check that the difference is about the rounding error at an early time, and also look at how the difference grows with time. In an expression with cancellation (the loss of significant digits in a subtraction of nearby values), the difference can become larger than the machine epsilon."
+
+msgid "比較条件の記録"
+msgstr "Recording the comparison conditions"
+
+msgid "後で同じ比較をやり直せるように、次を記録しておきます。"
+msgstr "So that you can redo the same comparison later, record the following."
+
+msgid "MISO の版（`git log -1 --oneline` の表示）と、変更の内容"
+msgstr "The MISO version (the output of `git log -1 --oneline`) and the content of the change"
+
+msgid "コンパイラとその版、ビルド種別、CPU 版か GPU 版か"
+msgstr "The compiler and its version, the build type, and whether it is the CPU or the GPU version"
+
+msgid "使ったデモと `config.yaml`、MPI のプロセス数と分割"
+msgstr "The demo and `config.yaml` you used, and the number of MPI processes and the decomposition"
+
+msgid "比べた出力番号と変数、比較の方法（`cmp`、`compare.py` など）と得られた値"
+msgstr "The output numbers and variables compared, the comparison method (`cmp`, `compare.py`, and so on), and the values obtained"
+
+msgid "MISO に PR を出すときは、実行したコマンドと比べた数値を PR の本文に書きます（MISO の `dev/notes/rules_ai.md`）。"
+msgstr "When you open a PR for MISO, write the commands you ran and the numbers you compared in the body of the PR (MISO's `dev/notes/rules_ai.md`)."
+

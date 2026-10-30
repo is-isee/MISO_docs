@@ -50,16 +50,16 @@ CPU で MISO を並列に動かす手段は、この章で扱う MPI だけで�
 #include <mpi.h>
 
 int main(int argc, char **argv) {
-  MPI_Init(&argc, &argv);  // MPI を使い始める（全ランクが呼ぶ）
+  MPI_Init(&argc, &argv);  // start using MPI (called by all ranks)
 
-  int rank = 0;  // 自分の番号
-  int size = 0;  // 全体のランク数
-  MPI_Comm_rank(MPI_COMM_WORLD, &rank);  // rank に書き込まれる
-  MPI_Comm_size(MPI_COMM_WORLD, &size);  // size に書き込まれる
+  int rank = 0;  // own rank number
+  int size = 0;  // total number of ranks
+  MPI_Comm_rank(MPI_COMM_WORLD, &rank);  // written to rank
+  MPI_Comm_size(MPI_COMM_WORLD, &size);  // written to size
 
   std::cout << "rank " << rank << " / size " << size << std::endl;
 
-  MPI_Finalize();  // MPI を使い終える（全ランクが呼ぶ）
+  MPI_Finalize();  // finish using MPI (called by all ranks)
   return 0;
 }
 ```
@@ -125,7 +125,7 @@ int main(int argc, char **argv) {
 `MPI_Init` も `MPI_Finalize` も、ここには現れません。
 どちらも `Env` が受け持ちます（`miso/include/miso/env.hpp`）。
 MPI の部分は `miso::mpi::Env` です。抜粋します。
-この章の抜粋で `// ...（説明）` の形のコメントは、省いた部分を示すためにこの教材で足したものです。
+この章の抜粋で `// ...(description)` の形のコメントは、省いた部分を示すためにこの教材で足したものです。
 
 ```cpp
 struct Env {
@@ -141,15 +141,15 @@ struct Env {
     world::comm = MPI_COMM_WORLD;
     MPI_Comm_rank(world::comm, &world::rank);
     MPI_Comm_size(world::comm, &world::size);
-    // ...（ノード内のランクを調べる処理。第 9 章で使います）
+    // ...(finds the ranks within the node; used in Chapter 9)
     world::is_initialized = true;
   }
 
   Env(int &argc, char **&argv) { setup(&argc, &argv); }
-  // ...（引数のないコンストラクタもある）
+  // ...(there is also a constructor with no arguments)
 
   ~Env() noexcept {
-    // ...（ノード内のコミュニケータを解放する処理）
+    // ...(frees the intra-node communicator)
     int is_mpi_finalized = false;
     MPI_Finalized(&is_mpi_finalized);
     if (owns_mpi && !is_mpi_finalized) {
@@ -186,7 +186,7 @@ CPU ビルドでは `mpi::Env` だけが動きます。`cuda::Env` は第 9 章�
 (edu-ch08-shape)=
 ## 3. ランクの並びと隣のランク：mpi::Shape
 
-### config.yaml の mpi セクション
+### `config.yaml` の mpi セクション
 
 MISO は 3 次元の格子を、x, y, z の各方向に何個ずつ分けるかを設定ファイルで指定します。
 `demo/mhd2d_vortex/config.yaml` の該当部分です。
@@ -235,7 +235,7 @@ domain:
     MPI_Cart_create(MPI_COMM_WORLD, ndims, dims, periods, 0, &cart_comm);
     MPI_Comm_rank(cart_comm, &myrank);
     MPI_Comm_size(cart_comm, &n_procs);
-    // ...（プロセス数の確認）
+    // ...(check the number of processes)
 
     MPI_Cart_coords(cart_comm, myrank, ndims, coord);
     MISO_MPI_CHECK(MPI_Cart_shift(cart_comm, 0, 1, &x_procs_neg, &x_procs_pos));
@@ -295,8 +295,8 @@ rank,x,y,z
 1 次元で考えます。全体 16 セルを 2 ランクで分けると、各ランクは 8 セルを担当します。
 
 ```text
-全体の添字   0  1  2  3  4  5  6  7 | 8  9 10 11 12 13 14 15
-担当                ランク 0         |         ランク 1
+global index 0  1  2  3  4  5  6  7 | 8  9 10 11 12 13 14 15
+owner               rank 0          |         rank 1
 ```
 
 MISO の空間微分は 4 次の中心差分で、セル `i` の微分に `i-2` から `i+2` までの値を使います。
@@ -307,9 +307,9 @@ MISO の空間微分は 4 次の中心差分で、セル `i` の微分に `i-2` 
 `margin: 2` のとき、ランク 1 の x 方向の配列は次のようになります。
 
 ```text
-ランク 1 のローカルの添字  0  1 | 2  3  4  5  6  7  8  9 | 10 11
-役割                     ゴースト |     担当する 8 セル     | ゴースト
-全体の添字               6  7 | 8  9 10 11 12 13 14 15 | 16 17
+rank 1 local index         0  1 | 2  3  4  5  6  7  8  9 | 10 11
+role                      ghost |     8 owned cells     | ghost
+global index               6  7 | 8  9 10 11 12 13 14 15 | 16 17
 ```
 
 右端のゴーストの全体の添字 16, 17 は、周期境界ならランク 0 の 0, 1 にあたります。
@@ -323,7 +323,7 @@ MISO の `Grid<Real, backend::Host>`（`miso/include/miso/grid.hpp`）は、**�
 ```cpp
     const int margin = config["grid"]["margin"].as<int>();
     const int i_size_g = config["grid"]["i_size"].as<int>();
-    // ...（j_size_g, k_size_g も同様）
+    // ...(same for j_size_g, k_size_g)
 
     i_size = i_size_g / mpi_shape.x_procs;
     j_size = j_size_g / mpi_shape.y_procs;
@@ -382,16 +382,16 @@ using namespace miso;
 using Real = float;
 
 int main(int argc, char **argv) {
-  Env env(argc, argv);                // MPI_Init（デストラクタで MPI_Finalize）
-  Config config("shape_check.yaml");  // 設定ファイルを読む
-  mpi::Shape mpi_shape(config);       // ランクの並びと隣のランク
-  Grid<Real, backend::Host> grid(config, mpi_shape);  // このランクの格子
+  Env env(argc, argv);                // MPI_Init (MPI_Finalize in the destructor)
+  Config config("shape_check.yaml");  // read the configuration file
+  mpi::Shape mpi_shape(config);       // rank layout and neighboring ranks
+  Grid<Real, backend::Host> grid(config, mpi_shape);  // grid of this rank
 
   namespace bc = miso::boundary_condition;
   const bool x_inner = bc::is_physical_boundary(Direction::X, Side::INNER, mpi_shape);
   const bool y_inner = bc::is_physical_boundary(Direction::Y, Side::INNER, mpi_shape);
 
-  for (int r = 0; r < mpi::size(); ++r) {  // 表示が混ざらないよう 1 ランクずつ
+  for (int r = 0; r < mpi::size(); ++r) {  // one rank at a time so the output does not interleave
     if (r == mpi::rank()) {
       std::cout << "rank " << mpi::rank() << ": coord = (" << mpi_shape.coord[0]
                 << ", " << mpi_shape.coord[1] << ")"
@@ -527,21 +527,21 @@ int main(int argc, char **argv) {
   MPI_Comm_rank(MPI_COMM_WORLD, &rank);
   MPI_Comm_size(MPI_COMM_WORLD, &size);
 
-  const int n = 4;                    // 各ランクが担当するセル数
-  std::vector<double> u(n + 2, -1.0); // u[0] と u[n+1] がゴーストセル
+  const int n = 4;                    // number of cells owned by each rank
+  std::vector<double> u(n + 2, -1.0); // u[0] and u[n+1] are ghost cells
   for (int i = 1; i <= n; ++i) {
-    u[i] = rank * n + (i - 1);        // 値 = 全体の添字
+    u[i] = rank * n + (i - 1);        // value = global index
   }
 
-  // 周期境界での左右の隣
+  // left and right neighbors under periodic boundaries
   const int left = (rank - 1 + size) % size;
   const int right = (rank + 1) % size;
 
-  // (1) 右へ u[n] を送り、左から u[0] へ受け取る
+  // (1) send u[n] to the right, receive into u[0] from the left
   MPI_Sendrecv(&u[n], 1, MPI_DOUBLE, right, 100,
                &u[0], 1, MPI_DOUBLE, left, 100,
                MPI_COMM_WORLD, MPI_STATUS_IGNORE);
-  // (2) 左へ u[1] を送り、右から u[n+1] へ受け取る
+  // (2) send u[1] to the left, receive into u[n+1] from the right
   MPI_Sendrecv(&u[1], 1, MPI_DOUBLE, left, 200,
                &u[n + 1], 1, MPI_DOUBLE, right, 200,
                MPI_COMM_WORLD, MPI_STATUS_IGNORE);
@@ -638,7 +638,7 @@ MISO のハロー交換は `MPI_Sendrecv` ではなく、`MPI_Isend`、`MPI_Irec
   MPI_Irecv(&u[0], 1, MPI_DOUBLE, left, 100, MPI_COMM_WORLD, &reqs[1]);
   MPI_Isend(&u[1], 1, MPI_DOUBLE, left, 200, MPI_COMM_WORLD, &reqs[2]);
   MPI_Irecv(&u[n + 1], 1, MPI_DOUBLE, right, 200, MPI_COMM_WORLD, &reqs[3]);
-  // ここまでは「始めた」だけ。u[0], u[n+1] はまだ読まない
+  // only started so far; do not read u[0], u[n+1] yet
   MPI_Waitall(4, reqs, MPI_STATUSES_IGNORE);
 ```
 
@@ -667,7 +667,7 @@ Host 版は、送受信用のバッファを方向と向きごとに持ちます
 template <typename Real> struct HaloExchanger<Real, backend::Host> {
   // MPI communication buffers
   Array4D<Real> recv_x_pos, recv_x_neg;
-  // ...（y, z と send_* も同様）
+  // ...(same for y, z and send_*)
 
   Grid<Real, backend::Host> &grid;
   mpi::Shape &mpi_shape;
@@ -735,7 +735,7 @@ x 方向に送るのは端の `i_margin` 枚の面で、それを 9 つの変数
 
     // positive x-direction
     if (mpi_shape.x_procs_pos != MPI_PROC_NULL && grid.i_size > 1) {
-      // ...（v, i, j, k の 4 重ループ）
+      // ...(4-level loop over v, i, j, k)
               (*vars[v])(grid.i_total - grid.i_margin + i, j, k) =
                   recv_x_pos(i, j, k, v);
 ```
@@ -802,7 +802,7 @@ bool is_physical_boundary(const Direction direction, const Side side,
   case Direction::X:
     return (side == Side::INNER) ? (mpi_shape.x_procs_neg == MPI_PROC_NULL)
                                  : (mpi_shape.x_procs_pos == MPI_PROC_NULL);
-  // ...（Y, Z も同様）
+  // ...(same for Y, Z)
   }
   return false;
 }
@@ -821,7 +821,7 @@ y 方向が周期でない `demo/hd2d_kelvin_helmholtz/src/main.cpp` の境界�
 
     if (bc::is_physical_boundary(Direction::Y, Side::INNER, mpi_shape)) {
       bc::symmetric(btag, qq.ro, grid, Sign::Pos, Direction::Y, Side::INNER);
-      // ...（他の 8 変数も同様。Side::OUTER の側も同じ形）
+      // ...(same for the other 8 variables; the Side::OUTER side has the same form)
     }
   }
 ```
@@ -870,7 +870,7 @@ int main(int argc, char **argv) {
   MPI_Comm_rank(MPI_COMM_WORLD, &rank);
   MPI_Comm_size(MPI_COMM_WORLD, &size);
 
-  // 各ランクが自分の領域で求めた時間刻みの候補（ここでは作り物の値）
+  // each rank's time step candidate from its own region (dummy values here)
   double dt_local = 0.1 / (rank + 1);
   double dt_global = 0.0;
   MPI_Allreduce(&dt_local, &dt_global, 1, MPI_DOUBLE, MPI_MIN, MPI_COMM_WORLD);
@@ -936,7 +936,7 @@ rank 3: dt_local = 0.025, dt_global = 0.025, count = 4
       MPI_Allreduce(&dt_src, &dt_src_g, 1, mpi::data_type<Real>(), MPI_MIN,
                     mpi::comm());
       if (dt_src_g <= Real(0)) {
-        throw std::runtime_error(/* ...（エラーの説明）... */);
+        throw std::runtime_error(/* ...(error description)... */);
       }
 ```
 
@@ -966,7 +966,7 @@ MISO では他に、`Config` のコンストラクタ（`miso/include/miso/confi
 (edu-ch08-run)=
 ## 10. MISO のデモを MPI で動かす
 
-### app_run.sh と OpenMPI の環境変数
+### `app_run.sh` と OpenMPI の環境変数
 
 デモのビルドと実行の基本は第 1 章で扱いました。
 `demo/mhd2d_vortex/app_run.sh` の実行部分を見ると、MPI での起動の仕方が分かります（抜粋）。
@@ -1039,7 +1039,7 @@ time =   0.02;  n_step =        9;  n_output =        2
 
 ### 出力ファイルとランク
 
-`data/` の下の `mhd/mhd.<出力番号>.<ランク>.bin`（例：`mhd.00000001.00000000.bin`）は、ランクごとの MHD 変数です。各ランクは自分の配列（ゴーストセル込み）だけを書きます。
+`data/` の下の `mhd/mhd.<n_output>.<rank>.bin`（例：`mhd.00000001.00000000.bin`）は、ランクごとの MHD 変数です。各ランクは自分の配列（ゴーストセル込み）だけを書きます。
 `grid.bin` は全体の格子で、ランク 0 だけが書きます。
 `mpi/coords.csv` は、{ref}`3 節 <edu-ch08-shape>` で見たランクと位置の対応で、`x_procs: 2` なら `0,0,0,0` と `1,1,0,0` の 2 行が並びます。
 `pymiso.Data` は `coords.csv` と各ランクのファイルを読み、ゴーストを除いて全体の配列（`ro` など）を組み立てます。

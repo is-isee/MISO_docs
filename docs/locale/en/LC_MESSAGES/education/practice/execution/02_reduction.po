@@ -1,0 +1,101 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2025, Integrated Studies, ISEE, Nagoya University
+# This file is distributed under the same license as the MISO package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: MISO \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-10-29 09:37+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: en\n"
+"Language-Team: en <LL@li.org>\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.18.0\n"
+
+msgid "02. 縮約：二乗和と最大値"
+msgstr "02\\. Reduction: Sum of Squares and Maximum"
+
+#, python-brace-format
+msgid "前の課題の設定を使い、`reduce` で配列の二乗和と最大値を求めます。 {ref}`第 7 章 <edu-ch07>`の総和の例を、二乗和と最大値の 2 つに広げます。"
+msgstr "Using the setup from the previous assignment, compute the sum of squares and the maximum of an array with `reduce`. You extend the sum example from {ref}`Chapter 7 <edu-ch07>` to two cases: the sum of squares and the maximum."
+
+msgid "実装する内容"
+msgstr "What to implement"
+
+msgid "長さ `N` の配列 `x` を `for_each` で `x[i] = util::sin(0.001 * i)` と初期化し、次の 2 つを求めます。"
+msgstr "Initialize an array `x` of length `N` with `for_each` as `x[i] = util::sin(0.001 * i)`, and compute the following two quantities."
+
+msgid "二乗和 `Σ x[i]²`"
+msgstr "Sum of squares `Σ x[i]²`"
+
+msgid "最大値 `max x[i]`"
+msgstr "Maximum `max x[i]`"
+
+msgid "MISO の `reduce` は 1 回の呼び出しで 1 つの値を返すので、`reduce` を 2 回呼びます。 それぞれについて、次の 3 つを決めて書きます。"
+msgstr "MISO's `reduce` returns one value per call, so you call `reduce` twice. For each, decide and write the following three things."
+
+msgid "二乗和"
+msgstr "Sum of squares"
+
+msgid "最大値"
+msgstr "Maximum"
+
+msgid "各点の値を返すラムダ式（`map`）"
+msgstr "A lambda that returns the value at each point (`map`)"
+
+msgid "`x[i] * x[i]`"
+msgstr ""
+
+msgid "`x[i]`"
+msgstr ""
+
+msgid "2 つの値をまとめるラムダ式（`op`）"
+msgstr "A lambda that combines two values (`op`)"
+
+msgid "和"
+msgstr "Sum"
+
+msgid "大きい方"
+msgstr "The larger one"
+
+msgid "初期値（`init`）"
+msgstr "Initial value (`init`)"
+
+msgid "`0.0`"
+msgstr ""
+
+msgid "`std::numeric_limits<double>::lowest()`"
+msgstr ""
+
+msgid "初期値は、まとめても結果を変えない値（単位元）にします。 `std::numeric_limits` には `<limits>` を読み込みます。 大きい方を選ぶ処理には `util::fmax(a, b)` を使えます。 `util::max2` は `double` を `float` に丸めるので（MISO #189）、ここでは使いません。"
+msgstr "Use an initial value that does not change the result when combined (the identity element). For `std::numeric_limits`, include `<limits>`. To pick the larger value, you can use `util::fmax(a, b)`. `util::max2` rounds a `double` to a `float` (MISO #189), so we do not use it here."
+
+msgid "まず `N = 1000`、次に `N = 1000000` で確かめてください。"
+msgstr "Check first with `N = 1000`, then with `N = 1000000`."
+
+msgid "結果の確認"
+msgstr "Checking the result"
+
+msgid "`x` を `copy_from` でホスト側の配列へ写し、その同じ配列から通常の `for` 文で期待値を求めます。 最大値は比べて選ぶだけなので、この配列に NaN（数として表せない値）がなければ完全一致で確かめられます。"
+msgstr "Copy `x` into a host-side array with `copy_from`, and compute the expected values from that same array with an ordinary `for` loop. The maximum only compares and selects values, so if this array contains no NaN (a value that cannot be represented as a number), you can check it for an exact match."
+
+msgid "二乗和は、足す順序によって末尾の桁が変わります。 ホスト側の期待値は、各要素を `long double` に変換してから二乗し、`long double` で足します。 `long double` が `double` より多い桁を持つかは環境によります。 今回の入力と上の `N` では、`1e-12 * max(1, |期待値|)` 以下の差を許容する比較を使い、実際の差も表示してください。 別の入力や大きさへ変えるときは、同じ許容誤差を無条件に使わず、足す回数と丸め誤差を考えて決めます。"
+msgstr "For the sum of squares, the last digits change with the order of addition. For the host-side expected value, convert each element to `long double`, square it, and add in `long double`. Whether `long double` has more digits than `double` depends on the environment. For this input and the `N` above, use a comparison that allows differences up to `1e-12 * max(1, |expected|)`, and also print the actual difference. When you change to another input or size, do not reuse the same tolerance unconditionally; decide it by considering the number of additions and the rounding error."
+
+#, python-brace-format
+msgid "CPU で確認できたら、{ref}`1 次元移流 <edu-practice-execution-03>`へ進めます。"
+msgstr "Once this is confirmed on the CPU, move on to {ref}`1D advection <edu-practice-execution-03>`."
+
+msgid "GPU で実行する段階"
+msgstr "Running on the GPU"
+
+#, python-brace-format
+msgid "{ref}`第 9 章 <edu-ch09>`を読んだ後、CUDA でも同じ課題を実行します。 GPU で作った配列をホスト側へ写し、その配列から求めた期待値と比べます。 CPU と GPU で二乗和の値がどれだけ違うかも記録します。 初期化に使う数学関数の実装と、`reduce` の足す順序は、どちらも差の原因になり得ます。"
+msgstr "After reading {ref}`Chapter 9 <edu-ch09>`, run the same assignment with CUDA. Copy the array built on the GPU to the host and compare it with the expected value computed from that array. Also record how much the sum of squares differs between the CPU and the GPU. Both the implementation of the math functions used for initialization and the order of addition in `reduce` can cause the difference."
+

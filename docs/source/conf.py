@@ -62,6 +62,14 @@ exhale_args = {
     "createTreeView": True,
 }
 
+# 原文は日本語で書き、英語版は gettext の訳（locale/en/LC_MESSAGES/*.po）で
+# `-D language=en` を付けてビルドする（make html-en）。
+language = "ja"
+locale_dirs = ["../locale/"]
+gettext_compact = False  # ページごとに .po を分ける
+gettext_location = False  # .po に行番号を書かない（原文の行がずれるたびに差分が出るのを防ぐ）
+gettext_additional_targets = ["raw"]  # <details><summary>…</summary> などの生の HTML も訳す
+
 templates_path = ["_templates"]
 exclude_patterns = ["education/maintainers/**"]
 

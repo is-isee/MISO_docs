@@ -1,0 +1,104 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2025, Integrated Studies, ISEE, Nagoya University
+# This file is distributed under the same license as the MISO package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: MISO \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-10-29 13:10+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: en\n"
+"Language-Team: en <LL@li.org>\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.18.0\n"
+
+msgid "1D MHD Test: Magnetized Sod's Shock Tube"
+msgstr ""
+
+#, python-brace-format
+msgid "1次元の磁気流体力学的衝撃波管問題 {cite}`bri_1988JCoPh..75..400B` です。この問題は、磁気流体の方程式を解く数値スキームの検証によく用いられます。"
+msgstr "This is the 1D magnetohydrodynamic shock tube problem {cite}`bri_1988JCoPh..75..400B`. This problem is often used to verify numerical schemes that solve the magnetohydrodynamic equations."
+
+msgid "MISOで提供しているテスト問題では、$x$, $y$, $z$の各方向に1次元問題を実施していますが、本ページでは$x$方向の問題のみを説明します。"
+msgstr "The test problems provided in MISO run the 1D problem in each of the $x$, $y$, and $z$ directions, but this page describes only the problem in the $x$ direction."
+
+msgid "Location"
+msgstr ""
+
+msgid "`demo/mhd1d_shock_tube/`"
+msgstr ""
+
+msgid "Geometry"
+msgstr ""
+
+msgid "$0 \\leq x \\leq 1$."
+msgstr ""
+
+msgid "Initial Conditions"
+msgstr ""
+
+#, python-brace-format
+msgid "初期条件は、 $x=0.5$ で分離された左側と右側の状態と$B_x=0.75\\sqrt{4\\pi}$の軸方向の磁場で記述されます。比熱比は$\\gamma = 2$とします。"
+msgstr "The initial condition is described by the left and right states separated at $x=0.5$ and an axial magnetic field $B_x=0.75\\sqrt{4\\pi}$. The ratio of specific heats is $\\gamma = 2$."
+
+#, python-brace-format
+msgid ""
+"\n"
+"\\begin{align*}\n"
+"\\begin{pmatrix}\n"
+"\\rho_\\mathrm{L} \\\\\n"
+"p_\\mathrm{L} \\\\\n"
+"v_\\mathrm{L} \\\\\n"
+"B_\\mathrm{L}\n"
+"\\end{pmatrix}\n"
+"&=\n"
+"\\begin{pmatrix}\n"
+"1.0 \\\\\n"
+"1.0 \\\\\n"
+"0.0 \\\\\n"
+"-\\sqrt{4\\pi}\n"
+"\\end{pmatrix} \\\\\n"
+"\\begin{pmatrix}\n"
+"\\rho_\\mathrm{R} \\\\\n"
+"p_\\mathrm{R} \\\\\n"
+"v_\\mathrm{R} \\\\\n"
+"B_\\mathrm{R}\n"
+"\\end{pmatrix}\n"
+"&=\n"
+"\\begin{pmatrix}\n"
+"0.125 \\\\\n"
+"0.1 \\\\\n"
+"0.0 \\\\\n"
+"\\sqrt{4\\pi}\n"
+"\\end{pmatrix} \\\\\n"
+"\\end{align*}\n"
+msgstr ""
+
+#, python-brace-format
+msgid "ここで、$B_\\mathrm{L}$と$B_\\mathrm{R}$は横方向の磁場（$y$方向）です。"
+msgstr "Here, $B_\\mathrm{L}$ and $B_\\mathrm{R}$ are the transverse magnetic field (in the $y$ direction)."
+
+msgid "Boundary Conditions"
+msgstr ""
+
+msgid "すべての物理量について、対称境界条件を設定します。"
+msgstr "A symmetric boundary condition is imposed on all variables."
+
+msgid "Results"
+msgstr ""
+
+msgid "Pythonを用いて可視化し、$x$, $y$, $z$方向の結果を比較できます。 画像ファイルは`demo/mhd1d_shock_tube/figs`に保存されます。"
+msgstr "You can visualize the results with Python and compare the results in the $x$, $y$, and $z$ directions. The image files are saved in `demo/mhd1d_shock_tube/figs`."
+
+msgid "![mhd1d_shock_tube](../_static/images/mhd_shock_tube_1d.png)"
+msgstr ""
+
+msgid "mhd1d_shock_tube"
+msgstr ""
+

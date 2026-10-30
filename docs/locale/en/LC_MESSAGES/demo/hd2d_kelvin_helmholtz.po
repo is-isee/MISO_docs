@@ -1,0 +1,96 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2025, Integrated Studies, ISEE, Nagoya University
+# This file is distributed under the same license as the MISO package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: MISO \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-10-29 09:37+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: en\n"
+"Language-Team: en <LL@li.org>\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.18.0\n"
+
+msgid "2D HD Test: Kelvin-Helmholtz Instability"
+msgstr ""
+
+msgid "ケルビン・ヘルムホルツ不安定性問題。設定した境界面を挟んで、上下で異なる速度を持つ流れが接しているときに発生する不安定性です。可視化のために、上下で密度を変えています。"
+msgstr "The Kelvin-Helmholtz instability problem. This instability occurs when flows with different velocities above and below a given interface are in contact. For visualization, the density is different above and below."
+
+msgid "Location"
+msgstr ""
+
+msgid "`demo/hd2d_kelvin_helmholtz/`"
+msgstr ""
+
+msgid "Geometry"
+msgstr ""
+
+msgid "$-0.5 \\leq x \\leq 0.5$"
+msgstr ""
+
+msgid "$-0.5 \\leq y \\leq 0.5$."
+msgstr ""
+
+msgid "Initial Conditions"
+msgstr ""
+
+msgid "初期条件は、$y=0.0$で分離された上側と下側の状態と一定の圧力$p=2.5$で記述されます。比熱比は$\\gamma = 1.4$とします。"
+msgstr "The initial condition is described by the upper and lower states separated at $y=0.0$ and a uniform pressure $p=2.5$. The ratio of specific heats is $\\gamma = 1.4$."
+
+#, python-brace-format
+msgid ""
+"\n"
+"\\begin{align*}\n"
+"\\begin{pmatrix}\n"
+"\\rho_\\mathrm{U} \\\\\n"
+"v_\\mathrm{U}\n"
+"\\end{pmatrix}\n"
+"&=\n"
+"\\begin{pmatrix}\n"
+"1.0 \\\\\n"
+"0.5\n"
+"\\end{pmatrix} \\\\\n"
+"\\begin{pmatrix}\n"
+"\\rho_\\mathrm{L} \\\\\n"
+"v_\\mathrm{L}\n"
+"\\end{pmatrix}\n"
+"&=\n"
+"\\begin{pmatrix}\n"
+"2.0 \\\\\n"
+"-0.5\n"
+"\\end{pmatrix}\n"
+"\\end{align*}\n"
+msgstr ""
+
+msgid "Boundary Conditions"
+msgstr ""
+
+msgid "$x$方向に周期境界条件を、$y$方向に対しては全ての物理量に対して対称境界条件を設定します。 `config.yaml`において、$x$方向の周期境界条件フラグをtrueに設定すると、対称境界条件が機能しなくなることに注意してください。"
+msgstr "A periodic boundary condition is imposed in the $x$ direction, and a symmetric boundary condition is imposed on all variables in the $y$ direction. Note that if you set the periodic boundary flag in the $x$ direction to true in `config.yaml`, the symmetric boundary condition no longer works."
+
+msgid "Results"
+msgstr ""
+
+msgid "可視化用のPythonスクリプトが用意されています。 結果のプロットは `demo/hd2d_kelvin_helmholtz/figs` に保存されます。"
+msgstr "A Python script for visualization is provided. The plots of the results are saved in `demo/hd2d_kelvin_helmholtz/figs`."
+
+msgid "![hd2d_kelvin_helmholtz](../_static/images/kelvin_helmholtz.gif)"
+msgstr ""
+
+msgid "hd2d_kelvin_helmholtz"
+msgstr ""
+
+msgid "3D Version"
+msgstr ""
+
+msgid "3次元への拡張は、設定ファイル`config.yaml`で`k_size`を1より大きく設定するだけで実現できます。"
+msgstr "The extension to 3D is achieved simply by setting `k_size` to a value larger than 1 in the configuration file `config.yaml`."
+

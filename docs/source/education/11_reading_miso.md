@@ -76,7 +76,7 @@ $$
 どちらも `for_each` で全格子点を処理します（{ref}`第 7 章 <edu-ch07>`）。
 
 ```cpp
-// miso/include/miso/eos.hpp の IdealEOS::gas_pressure（抜粋）
+// miso/include/miso/eos.hpp: IdealEOS::gas_pressure (excerpt)
 template <typename Backend>
 void gas_pressure(Backend btag, mhd::FieldsView<const Real> qq,
                   Array3DView<Real> pr) const {
@@ -148,7 +148,7 @@ struct Model : public mhd::ModelBase<Model, Real, Backend> {
 (edu-ch11-config)=
 ## 3. 設定ファイルと既定値
 
-### 3.1 config.yaml のセクション
+### 3.1 `config.yaml` のセクション
 
 `demo/mhd2d_vortex/config.yaml` には、次のセクションがあります。
 
@@ -170,7 +170,7 @@ struct Model : public mhd::ModelBase<Model, Real, Backend> {
 すべてのキーを毎回書かなくてよいように、MISO は既定値を `miso/include/miso/config_defaults.hpp` に YAML の文字列として持っています。
 
 ```cpp
-// miso/include/miso/config_defaults.hpp（抜粋。コメントの一部を省略）
+// miso/include/miso/config_defaults.hpp(excerpt; some comments omitted)
 inline constexpr const char *config_default_yaml = R"yaml(
 io:
   enabled: true
@@ -213,10 +213,10 @@ inline void merge_yaml(YAML::Node &target, const YAML::Node &defaults) {
 
     if (default_value.IsMap()) {
       YAML::Node child = target[key];
-      merge_yaml(child, default_value);  // 入れ子のセクションは再帰的に補う
+      merge_yaml(child, default_value);  // fill nested sections recursively
       target[key] = child;
     } else {
-      if (!target[key]) {               // ユーザーが書いていないキーだけ補う
+      if (!target[key]) {               // fill only keys the user did not write
         target[key] = default_value;
       }
     }
@@ -236,7 +236,7 @@ inline void merge_yaml(YAML::Node &target, const YAML::Node &defaults) {
 `miso/include/miso/mhd_model_base.hpp` の `ModelBase` は、次のメンバを持ちます。
 
 ```cpp
-// miso/include/miso/mhd_model_base.hpp（抜粋）
+// miso/include/miso/mhd_model_base.hpp(excerpt)
 template <class Derived, class Real, class Backend> class ModelBase {
 public:
   Config &config;
@@ -267,7 +267,7 @@ public:
 `mhd` の型 `MHD` は `miso/include/miso/mhd_solver.hpp` にあります。
 
 ```cpp
-// miso/include/miso/mhd_solver.hpp（抜粋）
+// miso/include/miso/mhd_solver.hpp(excerpt)
 template <typename Real, typename Backend> struct MHD {
   Grid<Real, Backend> grid;
   Fields<Real, Backend> qq;
@@ -292,7 +292,7 @@ template <typename Real, typename Backend> struct MHD {
 ### 4.2 run()：時間ループ
 
 ```cpp
-// miso/include/miso/mhd_model_base.hpp（抜粋）
+// miso/include/miso/mhd_model_base.hpp(excerpt)
 void run() {
   // Ensure to call methods in the derived class
   auto &d = derived();
@@ -335,7 +335,7 @@ void run() {
 ### 4.3 update()：1 ステップの入口
 
 ```cpp
-// miso/include/miso/mhd_model_base.hpp（抜粋）
+// miso/include/miso/mhd_model_base.hpp(excerpt)
 void update() {
   auto &d = derived();
   using Source = decltype(d.src);
@@ -390,19 +390,19 @@ void update(Real dt, const EOS &eos, const BoundaryCondition &bc,
 
 ```text
 ModelBase::update
-├─ MHD::cfl → Integrator::cfl                      時間刻み dt（6 節）
+├─ MHD::cfl → Integrator::cfl                      time step dt (section 6)
 ├─ MHD::update → Integrator::update
-│   ├─ divb_parameters_set(dt)                     c_h と τ を決める
-│   ├─ runge_kutta_4step                           4 段の時間積分（7 節）
-│   │   ├─ update_sc4(dt/4) → 境界条件とハロー交換
-│   │   ├─ update_sc4(dt/3) → 境界条件とハロー交換
-│   │   ├─ update_sc4(dt/2) → 境界条件とハロー交換
-│   │   └─ update_sc4(dt)   → 境界条件とハロー交換
-│   └─ apply_artificial_viscosity                   人工粘性（10 節）
-│       ├─ x 方向 → 境界条件とハロー交換
-│       ├─ y 方向 → 境界条件とハロー交換
-│       └─ z 方向 → 境界条件とハロー交換
-└─ Time::update                                    時刻を進める
+│   ├─ divb_parameters_set(dt)                     set c_h and τ
+│   ├─ runge_kutta_4step                           4-stage time integration (section 7)
+│   │   ├─ update_sc4(dt/4) → boundary conditions and halo exchange
+│   │   ├─ update_sc4(dt/3) → boundary conditions and halo exchange
+│   │   ├─ update_sc4(dt/2) → boundary conditions and halo exchange
+│   │   └─ update_sc4(dt)   → boundary conditions and halo exchange
+│   └─ apply_artificial_viscosity                   artificial viscosity (section 10)
+│       ├─ x direction → boundary conditions and halo exchange
+│       ├─ y direction → boundary conditions and halo exchange
+│       └─ z direction → boundary conditions and halo exchange
+└─ Time::update                                    advance the time
 ```
 
 `divb_parameters_set` は、発散クリーニングの速さ $c_h$ と減衰時間 $\tau$ を、時間刻みに合わせて決めます。
@@ -444,7 +444,7 @@ $$
 $C$ は設定の `mhd.cfl_number`、$c_A$ は Alfvén 速度です。
 
 ```cpp
-// miso/include/miso/mhd_integrator_host.hpp の Integrator::cfl（抜粋）
+// miso/include/miso/mhd_integrator_host.hpp: Integrator::cfl (excerpt)
 Real dt = 1.e10;
 eos.sound_speed(backend::Host{}, qq.const_view(), cs.view());
 for (int i = grid.i_margin; i < grid.i_total - grid.i_margin; ++i) {
@@ -535,19 +535,19 @@ $$
 次の短いプログラムは、$dq/dt = -q$ を同じ 4 段で $t = 1$ まで解き、厳密解 $e^{-1}$ との差を表示します。
 
 ```cpp
-// rk4_linear.cpp: MISO と同じ 4 段の係数で dq/dt = -q を解く（説明用の例）
+// rk4_linear.cpp: solve dq/dt = -q with the same 4-stage coefficients as MISO (illustrative example)
 #include <cmath>
 #include <iostream>
 
 double solve(int n_step) {
   const double dt = 1.0 / n_step;
-  double q = 1.0;                       // 時刻 t の値（MISO の qq）
+  double q = 1.0;                       // value at time t (qq in MISO)
   for (int n = 0; n < n_step; ++n) {
-    double q_argm = q;                  // 右辺を評価する値（MISO の qq_argm）
-    q_argm = q + dt / 4.0 * (-q_argm);  // 1 段目
-    q_argm = q + dt / 3.0 * (-q_argm);  // 2 段目
-    q_argm = q + dt / 2.0 * (-q_argm);  // 3 段目
-    q = q + dt * (-q_argm);             // 4 段目で q を更新する
+    double q_argm = q;                  // value used to evaluate the right-hand side (qq_argm in MISO)
+    q_argm = q + dt / 4.0 * (-q_argm);  // stage 1
+    q_argm = q + dt / 3.0 * (-q_argm);  // stage 2
+    q_argm = q + dt / 2.0 * (-q_argm);  // stage 3
+    q = q + dt * (-q_argm);             // stage 4 updates q
   }
   return q;
 }
@@ -638,7 +638,7 @@ space_centered_4th(Array3DView<const Real> qq, Real dxyzi, int i, int j, int k,
 `update_sc4` は、最初に右辺で何度も使う量を配列に用意します。
 
 ```cpp
-// miso/include/miso/mhd_integrator_host.hpp の update_sc4（抜粋。式を省略し、説明のコメントを足した）
+// miso/include/miso/mhd_integrator_host.hpp: update_sc4 (excerpt; formulas omitted, explanatory comments added)
 eos.gas_pressure(backend::Host{}, qq_argm.const_view(), pr.view());
 
 for (int i = 0; i < grid.i_total; ++i) {
@@ -646,7 +646,7 @@ for (int i = 0; i < grid.i_total; ++i) {
     for (int k = 0; k < grid.k_total; ++k) {
       bb(i, j, k) = ...;  // B^2
       ht(i, j, k) = ...;  // ρe + p + B^2/4π + ρv^2/2
-      vb(i, j, k) = ...;  // v・B
+      vb(i, j, k) = ...;  // v·B
     }
   }
 }
@@ -671,7 +671,7 @@ for (int i = 0; i < grid.i_total; ++i) {
 **連続の式**
 
 ```cpp
-// miso/include/miso/mhd_integrator_host.hpp の update_sc4（抜粋）
+// miso/include/miso/mhd_integrator_host.hpp: update_sc4 (excerpt)
 qq_rslt.ro(i, j, k) = qq_orgn.ro(i, j, k) + dt * (
 -space_centered_4th(c_ro, c_vx, dxi, i, j, k, grid.is, 0, 0)
 -space_centered_4th(c_ro, c_vy, dyi, i, j, k, 0, grid.js, 0)
@@ -689,7 +689,7 @@ $$
 **運動方程式（$x$ 成分）**
 
 ```cpp
-// miso/include/miso/mhd_integrator_host.hpp の update_sc4（抜粋）
+// miso/include/miso/mhd_integrator_host.hpp: update_sc4 (excerpt)
 qq_rslt.vx(i, j, k) = (
     qq_orgn.ro(i, j, k) * qq_orgn.vx(i, j, k) + dt * (
     -space_centered_4th(c_ro, c_vx, c_vx, dxi, i, j, k, grid.is, 0, 0)
@@ -720,7 +720,7 @@ $$
 **誘導方程式（$x$ 成分）**
 
 ```cpp
-// miso/include/miso/mhd_integrator_host.hpp の update_sc4（抜粋）
+// miso/include/miso/mhd_integrator_host.hpp: update_sc4 (excerpt)
 qq_rslt.bx(i, j, k) = qq_orgn.bx(i, j, k) + dt * (
     -space_centered_4th(c_vy, c_bx, dyi, i, j, k, 0, grid.js, 0)
     -space_centered_4th(c_vz, c_bx, dzi, i, j, k, 0, 0, grid.ks)
@@ -750,13 +750,13 @@ $-c_h^2\nabla\cdot\boldsymbol{B}$ の項を差分で進め、減衰の項 $-\phi
 **エネルギーの式**
 
 ```cpp
-// miso/include/miso/mhd_integrator_host.hpp の update_sc4（抜粋。一部を ... で省略）
+// miso/include/miso/mhd_integrator_host.hpp: update_sc4 (excerpt; parts elided with ...)
 // Et: total energy per unit volume
 // ei: is the internal energy per unit mass
 const Real Et =
     + qq_orgn.ro(i,j,k)*qq_orgn.ei(i,j,k)
-    + 0.5*qq_orgn.ro(i, j, k)*( ... )   // qq_orgn の v^2
-    + pii8<Real>*( ... );               // qq_orgn の B^2
+    + 0.5*qq_orgn.ro(i, j, k)*( ... )   // v^2 of qq_orgn
+    + pii8<Real>*( ... );               // B^2 of qq_orgn
 
 qq_rslt.ei(i, j, k) = ( Et + dt * (
     -space_centered_4th(c_ht, c_vx, dxi, i, j, k, grid.is, 0, 0)
@@ -768,8 +768,8 @@ qq_rslt.ei(i, j, k) = ( Et + dt * (
         +space_centered_4th(c_vb, c_bz, dzi, i, j, k, 0, 0, grid.ks)
         )
     )
-    -0.5*qq_rslt.ro(i, j, k)*( ... )   // qq_rslt の v^2（新しい運動エネルギーを引く）
-    - pii8<Real>*( ... )               // qq_rslt の B^2（新しい磁気エネルギーを引く）
+    -0.5*qq_rslt.ro(i, j, k)*( ... )   // v^2 of qq_rslt (subtract the new kinetic energy)
+    - pii8<Real>*( ... )               // B^2 of qq_rslt (subtract the new magnetic energy)
     + dt * source_ei(src, c_qq, i, j, k)
 )/qq_rslt.ro(i, j, k);
 ```
@@ -792,7 +792,7 @@ $$
 次は、マクロが `vy` について作る関数の本体を、マクロの引数 `name` を `vy` に置き換えて示したものです（説明のために展開しました）。
 
 ```cpp
-// miso/include/miso/mhd_integrator.hpp の MISO_MHD_DEFINE_SOURCE_TERM を vy で展開したもの（抜粋）
+// miso/include/miso/mhd_integrator.hpp: MISO_MHD_DEFINE_SOURCE_TERM expanded for vy (excerpt)
 if constexpr (impl_source::has_vy<Source, Real>::value) {
   return src.vy(qq, i, j, k);
 } else {
@@ -855,7 +855,7 @@ CPU 版の `apply` は、$x$ → $y$ → $z$ の順に、方向ごとに次を�
 `demo/hd2d_rayleigh_taylor/src/main.cpp` の `BoundaryCondition` は、$y$ 方向の両端に対称境界を置きます。
 
 ```cpp
-// demo/hd2d_rayleigh_taylor/src/main.cpp の BoundaryCondition::apply（抜粋）
+// demo/hd2d_rayleigh_taylor/src/main.cpp: BoundaryCondition::apply (excerpt)
 namespace bc = miso::boundary_condition;
 Backend btag{};
 
@@ -883,7 +883,7 @@ MISO は、RK4 のあとに人工粘性（人工拡散）を 1 回かけて、�
 ### 10.1 方向ごとの更新
 
 ```cpp
-// miso/include/miso/mhd_integrator_host.hpp（抜粋）
+// miso/include/miso/mhd_integrator_host.hpp(excerpt)
 template <typename EOS, typename BoundaryCondition>
 void apply_artificial_viscosity(const Real dt, const EOS &eos,
                                 const BoundaryCondition &bc,
@@ -895,7 +895,7 @@ void apply_artificial_viscosity(const Real dt, const EOS &eos,
   qq.copy_from(qq_rslt);
   apply_boundary_condition(bc, qq);
 
-  ...  // y, z 方向も同じ 3 行（Direction::Y, Direction::Z）
+  ...  // same 3 lines for y and z (Direction::Y, Direction::Z)
 }
 ```
 
@@ -960,7 +960,7 @@ time =   0.03;  n_step =       13;  n_output =        3
 | `mpi/coords.csv` | `mpi::Shape::save` | ランクごとの MPI 座標 |
 | `time/time.NNNNNNNN.txt` | `Time::save`（`miso/include/miso/time.hpp`） | 時刻、出力番号、ステップ数を 1 行ずつ |
 | `time/n_output.txt` | `Time::save` | 最新の出力番号 |
-| `mhd/mhd.<出力番号>.<ランク>.bin` | `Checkpoint::save`（`miso/include/miso/mhd_checkpoint.hpp`） | ランクごとの 9 変数 |
+| `mhd/mhd.<n_output>.<rank>.bin` | `Checkpoint::save`（`miso/include/miso/mhd_checkpoint.hpp`） | ランクごとの 9 変数 |
 
 `Checkpoint::save` は、計算場所の `qq` を CPU 上の配列へ写し（`copy_from`）、先頭に要素の大きさ（`float` なら 4）を `std::uint32_t` で書いてから、`ro, vx, vy, vz, bx, by, bz, ei, ph` の順に、ゴーストセルを含む配列をそのまま書き出します。
 並びは `Array3D` のメモリ上の並び（最後の添字 `k` が連続）です。
@@ -970,7 +970,7 @@ Python では `pymiso.Data` で読みます（{ref}`第 1 章 <edu-ch01>`）。
 ### 11.3 再開
 
 `io.continue` が真（既定値も真）で、`time/n_output.txt` が残っていれば、`run()` は初期条件を作ったあとで `load_state()` を呼び、最新の出力から計算を続けます。
-`Time::load` はランク 0 で時刻ファイルを読んで `MPI_Bcast` で配り、`Checkpoint::load` は各ランクが自分の `mhd.<出力番号>.<ランク>.bin` を読みます。
+`Time::load` はランク 0 で時刻ファイルを読んで `MPI_Bcast` で配り、`Checkpoint::load` は各ランクが自分の `mhd.<n_output>.<rank>.bin` を読みます。
 出力をそのまま再開用のデータ（チェックポイント）として使う設計です。最初から計算し直すときは、`data/` を消すか `io.continue: false` にします。
 
 (edu-ch11-customize)=
@@ -1021,7 +1021,7 @@ Python では `pymiso.Data` で読みます（{ref}`第 1 章 <edu-ch01>`）。
 `MPI_Allreduce` は、`Integrator::cfl` で 1 回です。ソース項が `dt_limit()` を持つ場合は、`ModelBase::update` でもう 1 回呼ばれます。
 
 回数は、`apply` の中で呼び出し回数を数える境界条件を `bc` に使い、`update()` を直接呼んでも確かめられます。
-`apply` は `const` のメンバ関数なので、数える変数はメンバの外（たとえば `main.cpp` の外側の変数）に置きます。
+`apply` は `const` のメンバ関数なので、中でメンバ変数を書き換えられません。数える変数は境界条件の構造体の外（たとえば `main.cpp` で関数の外に宣言した変数）に置きます。
 この方法で数えると、初期条件で 1、1 ステップで 7、さらに 2 ステップで 14 になります。
 
 </details>
@@ -1081,7 +1081,7 @@ $\rho$ は `c_qq`、つまりその段の `qq_argm` の値で、RK4 の 4 段の
 全エネルギーを保存させるには、`ei` で $-g\rho v_y$ を返します。
 
 ```cpp
-// ei のソース項の例（説明用）
+// example of the source term for ei (illustrative)
 __host__ __device__ inline Real ei(mhd::FieldsView<const Real> qq, int i, int j,
                                    int k) const noexcept {
   return -g_grav * qq.ro(i, j, k) * qq.vy(i, j, k);

@@ -1,0 +1,186 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2025, Integrated Studies, ISEE, Nagoya University
+# This file is distributed under the same license as the MISO package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: MISO \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-10-29 09:37+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: en\n"
+"Language-Team: en <LL@li.org>\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.18.0\n"
+
+msgid "2D MHD Test: Petschek Reconnection"
+msgstr ""
+
+#, python-brace-format
+msgid "低ベータプラズマ中の磁気リコネクションで、アウトフロー (ジェット) の先端にできるプラズモイドのショック構造を調べる問題です。{cite}`zenitani_2015PhPl...22c2114Z` の run 2 ($\\beta_\\mathrm{up} = 0.2$) の設定を使います。"
+msgstr "This problem investigates the shock structure of the plasmoid that forms at the tip of the outflow (jet) in magnetic reconnection in a low-beta plasma. We use the setup of run 2 ($\\beta_\\mathrm{up} = 0.2$) in {cite}`zenitani_2015PhPl...22c2114Z`."
+
+msgid "X 点の近くだけ電気抵抗を大きくすると、ペチェック型の速いリコネクションが起き、X 点から斜めに伸びるペチェックのスローショックに挟まれたアウトフローができます。このアウトフローがプラズマとリコネクションした磁力線を掃き集めて、ジェットの先端に1つの大きなプラズモイドを作ります。低ベータでは、プラズモイドを押すアウトフローの速さ (上流のアルフベン速度程度) が音速を超えるので、プラズモイドの周りにいくつものショックができます。これらのショックや不連続面を捉えられるかが、このテスト問題の見どころです。"
+msgstr "When the resistivity is increased only near the X-point, Petschek-type fast reconnection occurs, and an outflow forms between the Petschek slow shocks extending obliquely from the X-point. This outflow sweeps up the plasma and the reconnected magnetic field lines, and forms one large plasmoid at the tip of the jet. At low beta, the speed of the outflow pushing the plasmoid (about the upstream Alfvén speed) exceeds the sound speed, so several shocks form around the plasmoid. Whether these shocks and discontinuities can be captured is the highlight of this test problem."
+
+msgid "抵抗はソース項 `mhd::ResistiveSource` で与えます。誘導方程式に抵抗による拡散項が、全エネルギー$e$の式にそれに対応するエネルギー流束が加わります (ガウス単位系)。ジュール加熱の分は内部エネルギーに入ります。"
+msgstr "The resistivity is given by the source term `mhd::ResistiveSource`. A diffusion term due to the resistivity is added to the induction equation, and the corresponding energy flux is added to the equation for the total energy $e$ (in Gaussian units). The Joule heating goes into the internal energy."
+
+msgid ""
+"\n"
+"\\begin{align*}\n"
+"\\frac{\\partial \\bm{B}}{\\partial t} &= [...] - \\nabla \\times \\left(\\eta \\nabla \\times \\bm{B}\\right), \\\\\n"
+"\\frac{\\partial e}{\\partial t} &= [...] - \\nabla \\cdot \\left[\\frac{\\eta}{4\\pi} \\left(\\nabla \\times \\bm{B}\\right) \\times \\bm{B}\\right]\n"
+"\\end{align*}\n"
+msgstr ""
+
+msgid "Location"
+msgstr ""
+
+msgid "`demo/mhd2d_reconnection/`"
+msgstr ""
+
+msgid "Geometry"
+msgstr ""
+
+msgid "$0 \\leq x \\leq 150$"
+msgstr ""
+
+msgid "$0 \\leq z \\leq 30$"
+msgstr ""
+
+msgid "論文と同じく$x$-$z$面で解きます ($x$: アウトフロー方向、$z$: インフロー方向、$y$: 面外方向)。X 点を原点に置き、対称性を使って第1象限だけを計算します。既定の格子は $1500 \\times 300$ (格子幅 $0.1$) です。論文は $[0, 200] \\times [0, 150]$ の領域を $12000 \\times 9000$ 格子 (格子幅 $1/60$) で計算しているので、それよりも領域は小さく、解像度も低い設定です。"
+msgstr "As in the paper, we solve in the $x$-$z$ plane ($x$: outflow direction, $z$: inflow direction, $y$: out-of-plane direction). We place the X-point at the origin and, using symmetry, compute only the first quadrant. The default grid is $1500 \\times 300$ (grid spacing $0.1$). The paper computes the region $[0, 200] \\times [0, 150]$ with $12000 \\times 9000$ grid points (grid spacing $1/60$), so our domain is smaller and the resolution is lower."
+
+msgid "Initial Conditions"
+msgstr ""
+
+#, python-brace-format
+msgid "以下の式は論文の単位で書いています。MISOはガウス単位系を使うので、コードの中では磁場を$\\sqrt{4\\pi}$倍しています。比熱比は$\\gamma = 5/3$とします。"
+msgstr "The equations below are written in the units of the paper. MISO uses Gaussian units, so the magnetic field is multiplied by $\\sqrt{4\\pi}$ in the code. The ratio of specific heats is $\\gamma = 5/3$."
+
+msgid "初期状態はハリス電流シートです。"
+msgstr "The initial state is a Harris current sheet."
+
+msgid ""
+"\n"
+"\\begin{align*}\n"
+"\\rho &= 1 + \\frac{\\cosh^{-2} z}{\\beta_\\mathrm{up}}, \\\\\n"
+"p &= \\frac{1}{2}\\left(\\beta_\\mathrm{up} + \\cosh^{-2} z\\right), \\\\\n"
+"\\bm{v} &= 0, \\\\\n"
+"B_x &= \\tanh z,\n"
+"\\end{align*}\n"
+msgstr ""
+
+#, python-brace-format
+msgid "ここで$\\beta_\\mathrm{up} = 0.2$は上流のプラズマベータです。リコネクションを始めるために、ベクトルポテンシャル$A_y$に摂動"
+msgstr "Here $\\beta_\\mathrm{up} = 0.2$ is the upstream plasma beta. To start the reconnection, we add the following perturbation to the vector potential $A_y$:"
+
+#, python-brace-format
+msgid ""
+"\n"
+"\\delta A_y = -a \\exp\\left(-\\frac{x^2 + z^2}{4}\\right)\n"
+msgstr ""
+
+#, python-brace-format
+msgid "を加えます ($a = 0.06$)。$\\delta \\bm{B} = \\nabla \\times (\\delta A_y \\bm{e}_y)$ より"
+msgstr "where $a = 0.06$. From $\\delta \\bm{B} = \\nabla \\times (\\delta A_y \\bm{e}_y)$, we obtain"
+
+#, python-brace-format
+msgid ""
+"\n"
+"\\begin{align*}\n"
+"\\delta B_x &= -\\frac{a}{2} z \\exp\\left(-\\frac{x^2 + z^2}{4}\\right), \\\\\n"
+"\\delta B_z &= \\frac{a}{2} x \\exp\\left(-\\frac{x^2 + z^2}{4}\\right).\n"
+"\\end{align*}\n"
+msgstr ""
+
+msgid "電気抵抗は原点付近に局在させます。"
+msgstr "The resistivity is localized near the origin."
+
+#, python-brace-format
+msgid ""
+"\n"
+"\\eta = \\eta_0 + \\left(\\eta_1 - \\eta_0\\right) \\cosh^{-2} \\sqrt{x^2 + z^2}\n"
+msgstr ""
+
+#, python-brace-format
+msgid "ここで$\\eta_0 = 1/1000$、$\\eta_1 = 1/60$です。$\\beta_\\mathrm{up}$、$\\eta_0$、$\\eta_1$、$a$は `config.yaml` の `reconnection` セクションで変更できます。"
+msgstr "Here $\\eta_0 = 1/1000$ and $\\eta_1 = 1/60$. $\\beta_\\mathrm{up}$, $\\eta_0$, $\\eta_1$, and $a$ can be changed in the `reconnection` section of `config.yaml`."
+
+msgid "Boundary Conditions"
+msgstr ""
+
+msgid "すべての境界で、密度と内部エネルギーは対称 (偶) とします。ほかの物理量の偶奇は、下の表のとおりです。"
+msgstr "At all boundaries, the density and internal energy are symmetric (even). The parity of the other variables is given in the table below."
+
+#, python-brace-format
+msgid "$x = 0$、$x = 150$、$z = 0$: 鏡映対称な境界。境界に垂直な速度、境界に平行な磁場 (擬ベクトル)、GLMのポテンシャル$\\psi$ ($\\nabla \\cdot \\bm{B}$に比例) を反対称 (奇) にします。"
+msgstr "$x = 0$, $x = 150$, $z = 0$: mirror-symmetric boundaries. The velocity normal to the boundary, the magnetic field parallel to the boundary (a pseudovector), and the GLM potential $\\psi$ (proportional to $\\nabla \\cdot \\bm{B}$) are antisymmetric (odd)."
+
+msgid "$z = 30$: 完全導体の壁。境界に垂直な速度と磁場を反対称にします。"
+msgstr "$z = 30$: a perfectly conducting wall. The velocity and magnetic field normal to the boundary are antisymmetric."
+
+msgid "Boundary"
+msgstr ""
+
+msgid "$v_x$"
+msgstr ""
+
+msgid "$v_y$"
+msgstr ""
+
+msgid "$v_z$"
+msgstr ""
+
+msgid "$B_x$"
+msgstr ""
+
+msgid "$B_y$"
+msgstr ""
+
+msgid "$B_z$"
+msgstr ""
+
+msgid "$\\psi$"
+msgstr ""
+
+msgid "$x = 0$, $x = 150$"
+msgstr ""
+
+msgid "odd"
+msgstr ""
+
+msgid "even"
+msgstr ""
+
+msgid "$z = 0$"
+msgstr ""
+
+msgid "$z = 30$"
+msgstr ""
+
+msgid "Results"
+msgstr ""
+
+msgid "可視化用のPythonスクリプトが用意されています。 結果の動画と最終時刻の図は `demo/mhd2d_reconnection/figs` に保存されます。"
+msgstr "A Python script for visualization is provided. The movie of the results and the figure at the final time are saved in `demo/mhd2d_reconnection/figs`."
+
+#, python-brace-format
+msgid "{cite}`zenitani_2015PhPl...22c2114Z` の Fig. 1 と同じく、上半分 ($z > 0$) に$v_x$、下半分に$z$を反転させて$\\nabla \\cdot \\bm{v}$を描きます。見やすくするため、$z$方向を2倍に引き伸ばしています。ショックは圧縮する層なので、$\\nabla \\cdot \\bm{v} < 0$ (青) の線として見えます。論文では、ペチェックのスローショック、プラズモイドの後ろ側にできる逆向きのファストショック、プラズモイドの後ろ側と前側にできる縦向きのスローショックが示されています。"
+msgstr "As in Fig. 1 of {cite}`zenitani_2015PhPl...22c2114Z`, we plot $v_x$ in the upper half ($z > 0$) and $\\nabla \\cdot \\bm{v}$ in the lower half with $z$ flipped. For readability, the $z$ direction is stretched by a factor of 2. Shocks are compressive layers, so they appear as lines of $\\nabla \\cdot \\bm{v} < 0$ (blue). The paper shows the Petschek slow shocks, the reverse fast shocks behind the plasmoid, and the vertical slow shocks behind and in front of the plasmoid."
+
+msgid "下の動画は、格子幅を既定の 1/3 ($0.033$、$4500 \\times 900$ 格子) にして計算した $t = 0$ から $250$ までの時間発展です。ショックの幅は格子 3〜4 個分なので、既定の解像度 (格子幅 $0.1$) ではもっと太く見えます。論文 (格子幅 $1/60$) はさらに細かい計算です。"
+msgstr "The movie below shows the time evolution from $t = 0$ to $250$, computed with the grid spacing reduced to 1/3 of the default ($0.033$, $4500 \\times 900$ grid points). The shock width is 3 to 4 grid cells, so at the default resolution (grid spacing $0.1$) the shocks look thicker. The paper (grid spacing $1/60$) uses an even finer grid."
+
+msgid "![mhd2d_reconnection](../_static/images/reconnection.gif)"
+msgstr ""
+
+msgid "mhd2d_reconnection"
+msgstr ""
+

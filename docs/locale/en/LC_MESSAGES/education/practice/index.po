@@ -1,0 +1,59 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2025, Integrated Studies, ISEE, Nagoya University
+# This file is distributed under the same license as the MISO package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: MISO \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-10-29 09:37+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: en\n"
+"Language-Team: en <LL@li.org>\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.18.0\n"
+
+msgid "実習一覧"
+msgstr "Practice List"
+
+msgid "本文で学んだ内容を使って、自分で小さなプログラムを書きます。 各課題のページに、作る計算、手順、結果の確認方法を記しています。"
+msgstr "Using what you learned in the main text, you write small programs yourself. Each assignment page describes the computation to build, the steps, and how to check the results."
+
+msgid "本文"
+msgstr "Main text"
+
+msgid "課題"
+msgstr "Assignment"
+
+#, python-brace-format
+msgid "{ref}`第 7 章：配列・ラムダと CPU での並列ループ <edu-ch07>`"
+msgstr "{ref}`Chapter 7: Arrays, Lambdas, and Parallel Loops on the CPU <edu-ch07>`"
+
+#, python-brace-format
+msgid "{ref}`ベクトル加算・縮約・1 次元移流 <edu-practice-execution>`"
+msgstr "{ref}`Vector Addition, Reduction, and 1D Advection <edu-practice-execution>`"
+
+#, python-brace-format
+msgid "{ref}`第 9 章：GPU（CUDA）での計算とデータ転送 <edu-ch09>`"
+msgstr "{ref}`Chapter 9: Computing and Transferring Data on a GPU (CUDA) <edu-ch09>`"
+
+msgid "第 7 章と同じ課題を GPU で動かします"
+msgstr "Run the same assignments as in Chapter 7 on the GPU"
+
+#, python-brace-format
+msgid "{ref}`第 10 章：熱伝導の計算 <edu-ch10>`"
+msgstr "{ref}`Chapter 10: Heat Conduction Calculation <edu-ch10>`"
+
+#, python-brace-format
+msgid "{ref}`逐次計算から MPI・GPU への拡張 <edu-practice-heat1d>`"
+msgstr "{ref}`Extending a Serial Computation to MPI and the GPU <edu-practice-heat1d>`"
+
+#, python-brace-format
+msgid "準備は {ref}`第 1 章 <edu-ch01>` を参照してください。"
+msgstr "For the setup, see {ref}`Chapter 1 <edu-ch01>`."
+

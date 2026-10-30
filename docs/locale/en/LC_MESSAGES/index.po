@@ -1,0 +1,35 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2025, Integrated Studies, ISEE, Nagoya University
+# This file is distributed under the same license as the MISO package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: MISO \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-10-29 13:22+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: en\n"
+"Language-Team: en <LL@li.org>\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.18.0\n"
+
+msgid "Contents:"
+msgstr ""
+
+msgid "MISO documentation"
+msgstr ""
+
+msgid "MISO (Mhd ISee Open source code)は、磁気流体力学(MHD)シミュレーションを実行するためのオープンソースソフトウェアです。"
+msgstr "MISO (Mhd ISee Open source code) is open-source software for magnetohydrodynamic (MHD) simulations."
+
+msgid "名古屋大学宇宙地球環境研究所 総合解析研究部/CIDASを中心に開発されています。"
+msgstr "It is developed mainly by the Division for Integrated Studies / CIDAS, Institute for Space-Earth Environmental Research (ISEE), Nagoya University."
+
+msgid "Last update : |today|"
+msgstr ""
+

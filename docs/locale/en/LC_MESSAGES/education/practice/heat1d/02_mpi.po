@@ -1,0 +1,186 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2025, Integrated Studies, ISEE, Nagoya University
+# This file is distributed under the same license as the MISO package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: MISO \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-10-29 09:37+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: en\n"
+"Language-Team: en <LL@li.org>\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.18.0\n"
+
+msgid "02. MPI 版：領域を分けて解く"
+msgstr "02\\. MPI Version: Dividing the Domain"
+
+#, python-brace-format
+msgid "{ref}`01. 逐次版 <edu-practice-heat1d-01>` のプログラムを、$P$ ランクで分担する `heat1d_mpi` に広げます。 領域分割とゴーストセルの交換の考え方は {ref}`第 10 章 <edu-ch10>`、MPI の関数は {ref}`第 8 章 <edu-ch08>` で説明しています。"
+msgstr "You extend the program of the {ref}`01. serial version <edu-practice-heat1d-01>` into `heat1d_mpi`, which shares the work among $P$ ranks. The ideas of domain decomposition and ghost-cell exchange are explained in {ref}`Chapter 10 <edu-ch10>`, and the MPI functions in {ref}`Chapter 8 <edu-ch08>`."
+
+msgid "使うもの"
+msgstr "What you use"
+
+msgid "逐次版のものに加えて、次を使います。"
+msgstr "In addition to what the serial version uses, you use the following."
+
+msgid "もの"
+msgstr "Item"
+
+msgid "ヘッダ"
+msgstr "Header"
+
+msgid "`miso::Env`（`MPI_Init` と `MPI_Finalize`）、`miso::mpi::rank()`、`mpi::size()`、`mpi::comm()`"
+msgstr "`miso::Env` (`MPI_Init` and `MPI_Finalize`), `miso::mpi::rank()`, `mpi::size()`, `mpi::comm()`"
+
+msgid "`miso/env.hpp`"
+msgstr ""
+
+msgid "`MPI_Sendrecv`、`MPI_Allreduce`、`MPI_Gather`、`MPI_Abort`、`MPI_PROC_NULL`"
+msgstr ""
+
+msgid "`mpi.h`"
+msgstr ""
+
+msgid "`main` の最初で `Env env(argc, argv);` を作ると MPI が初期化され、`main` を抜けるときに終了処理が行われます。"
+msgstr "If you create `Env env(argc, argv);` at the start of `main`, MPI is initialized, and the finalization is performed when you leave `main`."
+
+msgid "作るもの"
+msgstr "What you build"
+
+msgid "各ランクの格子"
+msgstr "The grid of each rank"
+
+msgid "全体のセル数 $N$ をランク数 $P$ で割り、各ランクの物理セル数を $n = N/P$ とします。 $N$ が $P$ で割り切れないときは、ランク 0 が理由を表示し、`MPI_Abort` で全ランクを終了します。"
+msgstr "Divide the total number of cells $N$ by the number of ranks $P$, and let the number of physical cells of each rank be $n = N/P$. If $N$ is not divisible by $P$, rank 0 prints the reason and ends all ranks with `MPI_Abort`."
+
+msgid "配列は `Array1D<Real> u(n + 2)` と `u_new(n + 2)` です。"
+msgstr "The arrays are `Array1D<Real> u(n + 2)` and `u_new(n + 2)`."
+
+msgid "ランク $p$ の配列の添字 `i`（1〜`n`）は、全体の番号 $j = p\\,n + (i - 1)$ にあたります。 初期条件と誤差の計算では、この $j$ から $x_j = (j + 1/2)\\Delta x$ を求めます。"
+msgstr "Index `i` (1 to `n`) of the array on rank $p$ corresponds to the global index $j = p\\,n + (i - 1)$. In the initial condition and the error computation, obtain $x_j = (j + 1/2)\\Delta x$ from this $j$."
+
+#, python-brace-format
+msgid "$\\Delta x$、$n_\\mathrm{steps}$、$\\Delta t$、$r$ は全体の $N$ から逐次版と同じ式で求めます。"
+msgstr "Obtain $\\Delta x$, $n_\\mathrm{steps}$, $\\Delta t$, and $r$ from the global $N$ with the same expressions as in the serial version."
+
+msgid "隣のランク"
+msgstr "Neighboring ranks"
+
+msgid "左隣は `rank - 1`、右隣は `rank + 1` です。"
+msgstr "The left neighbor is `rank - 1`, and the right neighbor is `rank + 1`."
+
+msgid "ランク 0 の左隣と、ランク $P - 1$ の右隣は `MPI_PROC_NULL` にします。"
+msgstr "Set the left neighbor of rank 0 and the right neighbor of rank $P - 1$ to `MPI_PROC_NULL`."
+
+msgid "各ステップ"
+msgstr "Each step"
+
+msgid "次の 2 回の `MPI_Sendrecv` でゴーストセルを埋めます。型は `MPI_DOUBLE`、要素数は 1、コミュニケータは `mpi::comm()` です。"
+msgstr "Fill the ghost cells with the following two calls to `MPI_Sendrecv`. The type is `MPI_DOUBLE`, the number of elements is 1, and the communicator is `mpi::comm()`."
+
+msgid "呼び出し"
+msgstr "Call"
+
+msgid "送る値 → 相手"
+msgstr "Value to send → partner"
+
+msgid "受け取る場所 ← 相手"
+msgstr "Where to receive ← partner"
+
+msgid "タグ"
+msgstr "Tag"
+
+msgid "1 回目"
+msgstr "First"
+
+msgid "`u[1]` → 左隣"
+msgstr "`u[1]` → left neighbor"
+
+msgid "`u[n+1]` ← 右隣"
+msgstr "`u[n+1]` ← right neighbor"
+
+msgid "0"
+msgstr ""
+
+msgid "2 回目"
+msgstr "Second"
+
+msgid "`u[n]` → 右隣"
+msgstr "`u[n]` → right neighbor"
+
+msgid "`u[0]` ← 左隣"
+msgstr "`u[0]` ← left neighbor"
+
+msgid "1"
+msgstr ""
+
+msgid "受信の状態は使わないので、最後の引数には `MPI_STATUS_IGNORE` を渡します。"
+msgstr "The receive status is not used, so pass `MPI_STATUS_IGNORE` as the last argument."
+
+msgid "左隣が `MPI_PROC_NULL` のランクは `u[0] = -u[1]` を、右隣が `MPI_PROC_NULL` のランクは `u[n+1] = -u[n]` を入れます。"
+msgstr "A rank whose left neighbor is `MPI_PROC_NULL` sets `u[0] = -u[1]`, and a rank whose right neighbor is `MPI_PROC_NULL` sets `u[n+1] = -u[n]`."
+
+#, python-brace-format
+msgid "逐次版と同じ式で、物理セル（`Range1D{1, n + 1}`）を更新し、`u` と `u_new` を入れ替えます。"
+msgstr "With the same expression as in the serial version, update the physical cells (`Range1D{1, n + 1}`) and swap `u` and `u_new`."
+
+msgid "誤差と出力"
+msgstr "Error and output"
+
+msgid "各ランクで `reduce` により自分の物理セルの最大誤差を求め、`MPI_Allreduce`（`MPI_MAX`）で全体の最大誤差にします。"
+msgstr "On each rank, use `reduce` to compute the maximum error over its own physical cells, and turn it into the global maximum error with `MPI_Allreduce` (`MPI_MAX`)."
+
+msgid "`MPI_Gather` で各ランクの物理セル $n$ 個（`&u[1]` から）をランク 0 に集めます。ランク 0 は $N$ 要素の受信用の配列（`std::vector<Real>`）を用意します。"
+msgstr "With `MPI_Gather`, collect the $n$ physical cells of each rank (starting from `&u[1]`) on rank 0. Rank 0 prepares a receive array (`std::vector<Real>`) of $N$ elements."
+
+msgid "ランク 0 だけが、逐次版と同じ 3 行（1 行目は `N = 64, P = 2, steps = 1024, r = 0.4000` のように $P$ も表示）を表示し、 結果を `result_N<N>_P<P>.txt`（たとえば `result_N64_P2.txt`）に書き出します。"
+msgstr "Only rank 0 prints the same 3 lines as the serial version (the first line also shows $P$, as in `N = 64, P = 2, steps = 1024, r = 0.4000`), and writes the result to `result_N<N>_P<P>.txt` (for example `result_N64_P2.txt`)."
+
+msgid "確かめること"
+msgstr "What to check"
+
+msgid "逐次版を実行したのと同じフォルダで、次を実行します。"
+msgstr "In the same folder where you ran the serial version, run the following."
+
+msgid "**表示**：$P = 1, 2, 4$ のどれでも、表示される 2 つの誤差が逐次版と同じ値になります。"
+msgstr "**Printed output**: For any of $P = 1, 2, 4$, the two printed errors have the same values as in the serial version."
+
+msgid "**ビット単位の一致**：`cmp` が何も表示しない（ファイルが 1 バイトも違わない）ことを確かめます。"
+msgstr "**Bit-for-bit agreement**: Check that `cmp` prints nothing (the files do not differ by even one byte)."
+
+msgid "**割り切れない分割**：`mpiexec -np 3 ./build/heat1d_mpi 64` で、理由を表示して終了することを確かめます。"
+msgstr "**Non-divisible decomposition**: With `mpiexec -np 3 ./build/heat1d_mpi 64`, check that the program prints the reason and exits."
+
+msgid "**3 ランク**：$N = 120$ で $P = 1, 2, 3, 4$ を実行し、すべて逐次版の `result_N120_serial.txt` と一致することを確かめます。 このとき `max error (exact)` は `2.941414e-05` です。"
+msgstr "**Three ranks**: Run $P = 1, 2, 3, 4$ with $N = 120$, and check that all agree with the serial `result_N120_serial.txt`. In this case, `max error (exact)` is `2.941414e-05`."
+
+msgid "逐次版と一致しないときは、次の順に調べます。"
+msgstr "If it does not agree with the serial version, check in the following order."
+
+msgid "$P = 1$ でも違うなら、初期条件の $x_j$（全体の番号 $j$ の求め方）、$\\Delta t$ の求め方を調べます。"
+msgstr "If it differs even for $P = 1$, check $x_j$ in the initial condition (how you compute the global index $j$) and how you compute $\\Delta t$."
+
+msgid "$P = 1$ では一致し、$P = 2$ で違うなら、`MPI_Sendrecv` の送る値・受け取る場所・相手・タグを、上の表と見比べます。"
+msgstr "If it agrees for $P = 1$ but differs for $P = 2$, compare the value to send, the place to receive, the partner, and the tag of `MPI_Sendrecv` with the table above."
+
+msgid "端のセルだけ違うなら、物理境界の値を入れる条件（どのランクが入れるか）を調べます。"
+msgstr "If only the end cells differ, check the condition for putting in the physical-boundary values (which rank puts them in)."
+
+msgid "ファイルのどの行から違うかは、`diff result_N64_serial.txt result_N64_P2.txt | head` で分かります。 行番号から全体の番号 $j$（行番号 − 1）が分かり、どのランクの、どの端の値がおかしいかを絞り込めます。"
+msgstr "You can find the line where the files first differ with `diff result_N64_serial.txt result_N64_P2.txt | head`. From the line number you get the global index $j$ (line number − 1), which narrows down which end of which rank has the wrong value."
+
+msgid "次へ進む目安"
+msgstr "Criteria for moving on"
+
+#, python-brace-format
+msgid "複数のランク数で逐次版とビット単位で一致したら、{ref}`03. GPU 版 <edu-practice-heat1d-03>` へ進みます。 GPU がなくても、課題 3 の CPU 用ビルドまで進められます。"
+msgstr "Once the results match the serial version bit for bit for several numbers of ranks, move on to the {ref}`03. GPU version <edu-practice-heat1d-03>`. Even without a GPU, you can go as far as the CPU build of Assignment 3."
+

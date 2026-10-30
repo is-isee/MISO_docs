@@ -24,9 +24,9 @@ C++ では、同じ記号が**宣言**（新しい名前を作る文）と**式*
 
 ```cpp
 double a = 1.0;
-double *p = &a;  // 宣言の * : p は「double を指すポインタ」。式の & : a のアドレス
-*p = 2.0;        // 式の * : p の指す先（a）に 2.0 を書きます
-double &r = a;   // 宣言の & : r は a の別名（参照）
+double *p = &a;  // * in a declaration: p is a "pointer to double". & in an expression: address of a
+*p = 2.0;        // * in an expression: write 2.0 to what p points to (a)
+double &r = a;   // & in a declaration: r is an alias (reference) of a
 ```
 
 以下の表では、`a`・`b` を `double` の変数、`p` を `double *` 型のポインタ、`T` をテンプレート引数の型として読みます。

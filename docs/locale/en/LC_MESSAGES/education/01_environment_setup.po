@@ -1,0 +1,849 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2025, Integrated Studies, ISEE, Nagoya University
+# This file is distributed under the same license as the MISO package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: MISO \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-10-29 13:55+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: en\n"
+"Language-Team: en <LL@li.org>\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.18.0\n"
+
+msgid "1. 開発環境と CMake"
+msgstr "1\\. Development Environment and CMake"
+
+#, python-brace-format
+msgid "この章では、手元の計算機で C++ のプログラムをコンパイルして動かし、MISO をビルドして実行できるようにします。 Ubuntu と Mac で道具を揃え、コンパイルとリンクの仕組み、CMake の使い方、MISO のビルド・テスト・デモの実行、 自分のプログラムから MISO を使う設定までを順に確かめます。 C++ の文法は {ref}`第 2 章 <edu-ch02>` から学びます。この章のプログラムは、文法を気にせずそのまま保存して構いません。"
+msgstr "In this chapter, you will compile and run C++ programs on your own computer, and learn to build and run MISO. We set up the tools on Ubuntu and Mac, then work through how compiling and linking work, how to use CMake, how to build MISO, run its tests and run its demos, and how to configure a project that uses MISO from your own program. You will learn C++ syntax starting from {ref}`Chapter 2 <edu-ch02>`. For the programs in this chapter, you can save them as they are without worrying about the syntax."
+
+#, python-brace-format
+msgid "{ref}`必要な道具 <edu-ch01-tools>`"
+msgstr "{ref}`Required tools <edu-ch01-tools>`"
+
+#, python-brace-format
+msgid "{ref}`Ubuntu での準備 <edu-ch01-ubuntu>`"
+msgstr "{ref}`Setup on Ubuntu <edu-ch01-ubuntu>`"
+
+#, python-brace-format
+msgid "{ref}`Mac での準備 <edu-ch01-mac>`"
+msgstr "{ref}`Setup on Mac <edu-ch01-mac>`"
+
+#, python-brace-format
+msgid "{ref}`MISO を取得する <edu-ch01-get-miso>`"
+msgstr "{ref}`Getting MISO <edu-ch01-get-miso>`"
+
+#, python-brace-format
+msgid "{ref}`コンパイルとリンク <edu-ch01-compile>`"
+msgstr "{ref}`Compiling and linking <edu-ch01-compile>`"
+
+#, python-brace-format
+msgid "{ref}`CMake の仕組み <edu-ch01-cmake>`"
+msgstr "{ref}`How CMake works <edu-ch01-cmake>`"
+
+#, python-brace-format
+msgid "{ref}`MISO のビルドとユニットテスト <edu-ch01-miso-build>`"
+msgstr "{ref}`Building MISO and running the unit tests <edu-ch01-miso-build>`"
+
+#, python-brace-format
+msgid "{ref}`デモの実行と出力の読み込み <edu-ch01-demo>`"
+msgstr "{ref}`Running a demo and reading its output <edu-ch01-demo>`"
+
+#, python-brace-format
+msgid "{ref}`自分のプログラムから MISO を使う <edu-ch01-own-project>`"
+msgstr "{ref}`Using MISO from your own program <edu-ch01-own-project>`"
+
+#, python-brace-format
+msgid "{ref}`うまくいかないとき <edu-ch01-trouble>`"
+msgstr "{ref}`When things go wrong <edu-ch01-trouble>`"
+
+#, python-brace-format
+msgid "{ref}`GPU を使う段階になったら <edu-ch01-gpu>`"
+msgstr "{ref}`When you start using GPUs <edu-ch01-gpu>`"
+
+msgid "必要な道具"
+msgstr "Required tools"
+
+msgid "この教材は CPU だけで進められます。GPU がなくても、C++ の練習、MISO の配列と並列ループ、MPI による領域分割、 1 次元熱伝導の実習、MISO のデモの実行まで行えます。"
+msgstr "You can work through this course with a CPU alone. Even without a GPU, you can practice C++, use MISO's arrays and parallel loops, decompose the domain with MPI, do the 1D heat conduction Practice, and run MISO's demos."
+
+msgid "道具"
+msgstr "Tool"
+
+msgid "この教材での役割"
+msgstr "Role in this course"
+
+msgid "C++ コンパイラ（`g++` または `clang++`）"
+msgstr "C++ compiler (`g++` or `clang++`)"
+
+msgid "C++ のソースを機械語に翻訳します。MISO は C++17 を使います"
+msgstr "Translates C++ source into machine code. MISO uses C++17"
+
+msgid "CMake"
+msgstr ""
+
+msgid "作るもの・使うソース・必要なライブラリを `CMakeLists.txt` から読み、ビルドの手順を作ります。MISO は 3.18 以上を求めます"
+msgstr "Reads from `CMakeLists.txt` what to build, which sources to use, and which libraries are needed, and generates the build procedure. MISO requires version 3.18 or later"
+
+msgid "MPI（Open MPI）"
+msgstr ""
+
+msgid "複数のプロセスでデータをやり取りするライブラリと、実行コマンド `mpiexec` です"
+msgstr "A library for exchanging data among multiple processes, and the run command `mpiexec`"
+
+msgid "yaml-cpp"
+msgstr ""
+
+msgid "設定ファイル `config.yaml`（YAML 形式）を読むライブラリです"
+msgstr "A library that reads the configuration file `config.yaml` (YAML format)"
+
+msgid "git"
+msgstr ""
+
+msgid "MISO を取得し、更新を取り込みます"
+msgstr "Gets MISO and pulls in updates"
+
+msgid "Python と pymiso"
+msgstr "Python and pymiso"
+
+msgid "計算結果を読み込んで図にします。pymiso は MISO に含まれる Python パッケージです"
+msgstr "Read the simulation results and plot them. pymiso is a Python package included in MISO"
+
+#, python-brace-format
+msgid "**MPI**（Message Passing Interface）は、同じプログラムを複数のプロセスで動かし、プロセスの間でデータを送受信するための規格です。 MISO は計算領域を分けて各プロセスに担当させるために MPI を使います。詳しくは {ref}`第 8 章 <edu-ch08>` で説明します。 1 台の計算機の中で複数のプロセスを起動して練習できます。"
+msgstr "**MPI** (Message Passing Interface) is a standard for running the same program as multiple processes and sending and receiving data between them. MISO uses MPI to divide the computational domain and assign each part to a process. We explain it in detail in {ref}`Chapter 8 <edu-ch08>`. You can practice by starting multiple processes on a single computer."
+
+msgid "Ubuntu での準備"
+msgstr "Setup on Ubuntu"
+
+msgid "Ubuntu 24.04 LTS を基準に説明します。「端末」を開き、次を実行してください。"
+msgstr "The explanation is based on Ubuntu 24.04 LTS. Open a terminal and run the following."
+
+msgid "`sudo` は、管理者の権限でソフトウェアを入れるためのコマンドです。パスワードを入力しても画面には文字が出ません。 共有の計算機でインストールの権限がない場合は、管理者が用意した同等の環境を使います。"
+msgstr "`sudo` is a command for installing software with administrator privileges. When you type your password, no characters appear on the screen. On a shared computer where you do not have permission to install software, use an equivalent environment prepared by the administrator."
+
+msgid "パッケージ"
+msgstr "Package"
+
+msgid "入るもの"
+msgstr "What it provides"
+
+msgid "`build-essential`"
+msgstr ""
+
+msgid "C++ コンパイラ GCC（`g++`）と、ビルドに使う `make` など"
+msgstr "The C++ compiler GCC (`g++`), and tools used for building such as `make`"
+
+msgid "`cmake`"
+msgstr ""
+
+msgid "`git`"
+msgstr ""
+
+msgid "`openmpi-bin`・`libopenmpi-dev`"
+msgstr "`openmpi-bin`, `libopenmpi-dev`"
+
+msgid "MPI の実行コマンド（`mpiexec`）と、コンパイルに必要なヘッダ・ライブラリ"
+msgstr "The MPI run command (`mpiexec`), and the headers and libraries needed for compiling"
+
+msgid "`libyaml-cpp-dev`"
+msgstr ""
+
+msgid "yaml-cpp のヘッダとライブラリ"
+msgstr "The yaml-cpp headers and library"
+
+msgid "`python3`・`python3-venv`"
+msgstr "`python3`, `python3-venv`"
+
+msgid "Python と、Python の仮想環境（後述）を作る機能"
+msgstr "Python, and the feature for creating Python virtual environments (described later)"
+
+msgid "入ったことを確かめます。"
+msgstr "Check that the tools are installed."
+
+msgid "GCC、CMake、Open MPI のバージョンが表示されれば準備完了です。"
+msgstr "If the versions of GCC, CMake, and Open MPI are displayed, you are ready."
+
+msgid "Mac での準備"
+msgstr "Setup on Mac"
+
+msgid "Homebrew が対応している macOS を使います。Apple Silicon と Intel Mac では Homebrew の保存先が違うため、 以下では `brew --prefix` で自分の環境の場所を調べます。"
+msgstr "Use a macOS version that Homebrew supports. The Homebrew installation location differs between Apple Silicon and Intel Macs, so below we look up the location for your environment with `brew --prefix`."
+
+msgid "コマンドライン開発ツール"
+msgstr "Command line developer tools"
+
+msgid "「ターミナル」を開き、次を実行します。画面の案内に沿ってインストールを終えます。 「すでにインストールされています」と表示された場合は、そのまま次へ進めます。"
+msgstr "Open Terminal and run the following. Follow the on-screen instructions to finish the installation. If it says the tools are already installed, you can go on to the next step."
+
+msgid "これで Apple の C++ コンパイラ（Clang、コマンド名 `clang++`。`c++` や `g++` という名前でも呼べます）が入ります。 MISO の CPU 版は、このコンパイラでビルドします。"
+msgstr "This installs Apple's C++ compiler (Clang, with the command name `clang++`; it can also be called `c++` or `g++`). MISO's CPU version is built with this compiler."
+
+msgid "Homebrew で道具を入れる"
+msgstr "Installing tools with Homebrew"
+
+msgid "Homebrew は、開発用のソフトウェアをまとめて入れ・更新する道具です。`brew --version` が動かない場合は、 [Homebrew 公式サイト](https://brew.sh/) に掲載されているインストールコマンドを実行し、 終了時に表示される **Next steps** のコマンドも実行してください（ターミナルから `brew` を見つけられるようにする設定です）。 その後、次を実行します。"
+msgstr "Homebrew is a tool for installing and updating development software in bulk. If `brew --version` does not work, run the installation command listed on the [Homebrew website](https://brew.sh/), and also run the commands shown under **Next steps** at the end (this setting lets Terminal find `brew`). Then run the following."
+
+msgid "Homebrew で入れたライブラリは `brew --prefix` が表示する場所（Apple Silicon では通常 `/opt/homebrew`）の下にあります。 CMake は、`PATH` に入っている Homebrew の `bin` から、この場所も探します。"
+msgstr "Libraries installed with Homebrew are under the location printed by `brew --prefix` (usually `/opt/homebrew` on Apple Silicon). CMake also searches this location, starting from the Homebrew `bin` that is in your `PATH`."
+
+msgid "MISO を取得する"
+msgstr "Getting MISO"
+
+msgid "作業用のフォルダを決め、MISO を取得します。以下では `$HOME/miso-work` を使いますが、別の場所でも構いません。"
+msgstr "Choose a working folder and get MISO. Below we use `$HOME/miso-work`, but you may use another location."
+
+msgid "これで `$HOME/miso-work/MISO` ができます。この教材では、MISO を置いたフォルダを `/path/to/MISO` と書きます。 コマンドを入力するときは、自分の保存先の**絶対パス**（`/` で始まるパス。この例では `$HOME/miso-work/MISO`）に置き換えてください。"
+msgstr "This creates `$HOME/miso-work/MISO`. In this course, we write `/path/to/MISO` for the folder where you placed MISO. When you type commands, replace it with the **absolute path** of your own location (a path starting with `/`; in this example, `$HOME/miso-work/MISO`)."
+
+msgid "MISO のフォルダの主な中身は次のとおりです。"
+msgstr "The main contents of the MISO folder are as follows."
+
+msgid "場所"
+msgstr "Location"
+
+msgid "中身"
+msgstr "Contents"
+
+msgid "`miso/include/miso/`"
+msgstr ""
+
+msgid "MISO 本体のヘッダファイル（`.hpp`）。計算の部品はすべてここにあります"
+msgstr "MISO's own header files (`.hpp`). All the computational components are here"
+
+msgid "`miso/CMakeLists.txt`"
+msgstr ""
+
+msgid "MISO 本体と、そのユニットテストのビルド設定"
+msgstr "Build settings for MISO itself and its unit tests"
+
+msgid "`miso/tests/`"
+msgstr ""
+
+msgid "ユニットテスト（`serial/` は 1 プロセス、`parallel/` は MPI の複数プロセス）"
+msgstr "Unit tests (`serial/` is for one process, `parallel/` for multiple MPI processes)"
+
+msgid "`demo/`"
+msgstr ""
+
+msgid "デモ問題。`demo/mhd2d_vortex/` などの問題ごとのフォルダに、`src/main.cpp` と `config.yaml` があります"
+msgstr "Demo problems. Each problem folder, such as `demo/mhd2d_vortex/`, contains `src/main.cpp` and `config.yaml`"
+
+msgid "`pymiso/`"
+msgstr ""
+
+msgid "計算結果を読む Python パッケージ"
+msgstr "Python package for reading simulation results"
+
+msgid "`dev/notes/`"
+msgstr ""
+
+msgid "開発のルールと手順"
+msgstr "Development rules and procedures"
+
+msgid "コンパイルとリンク"
+msgstr "Compiling and Linking"
+
+msgid "コンパイラで実行ファイルを作る"
+msgstr "Building an executable with a compiler"
+
+msgid "Fortran と同じく、C++ のソースはコンパイラで**実行ファイル**に変換してから動かします。 作業用のフォルダを作り、次の内容を `hello.cpp` という名前で保存してください。"
+msgstr "As in Fortran, C++ source is converted into an **executable** by a compiler before it runs. Create a working folder and save the following content as `hello.cpp`."
+
+msgid "`main` はプログラムの入口となる関数で、Fortran の `program` に当たります。 コンパイルして実行します（Mac では `g++` を `clang++` に置き換えます）。"
+msgstr "`main` is the function that serves as the entry point of the program, and corresponds to `program` in Fortran. Compile and run it (on a Mac, replace `g++` with `clang++`)."
+
+msgid "`-std=c++17` は C++17 の規格で翻訳する指定、`-O2` は最適化の強さ、`-o hello` は実行ファイルの名前です。"
+msgstr "`-std=c++17` specifies translating according to the C++17 standard, `-O2` is the optimization level, and `-o hello` is the name of the executable."
+
+msgid "コンパイルとリンクの 2 段階"
+msgstr "The two stages of compiling and linking"
+
+msgid "上のコマンドは、実際には 2 つの段階をまとめて行っています。"
+msgstr "The command above actually performs two stages together."
+
+msgid "**コンパイル**：`.cpp` を 1 つずつ翻訳し、**オブジェクトファイル**（`.o`）を作ります。"
+msgstr "**Compile**: Translate each `.cpp` file one by one and create **object files** (`.o`)."
+
+msgid "**リンク**：オブジェクトファイルと、使っているライブラリの中身を結び付け、実行ファイルを作ります。"
+msgstr "**Link**: Combine the object files with the contents of the libraries you use to create the executable."
+
+msgid "段階を分けて実行することもできます。`-c` は「コンパイルだけを行う」指定です。"
+msgstr "You can also run the stages separately. `-c` specifies \"compile only.\""
+
+msgid "ここでの「オブジェクトファイル」はコンパイル結果のファイルを指す用語で、クラスの実体（オブジェクト）とは別の意味です。"
+msgstr "Here, \"object file\" is a term for the file produced by compiling. It has a different meaning from the object (instance) of a class."
+
+msgid "ヘッダと `#include`"
+msgstr "Headers and `#include`"
+
+msgid "`#include <cmath>` は、`cmath` という**ヘッダファイル**の中身をその場所に読み込む指示です。 ヘッダには、関数や型の**宣言**（名前と引数の型など、使い方の情報）が書かれています。 コンパイラは宣言を見て、`std::sqrt(x)` の呼び出しが正しいかを確かめます。 Fortran で `use` したモジュールの情報を見て引数を確かめるのに近い役割です。"
+msgstr "`#include <cmath>` is an instruction to read the contents of the **header file** `cmath` at that point. A header contains **declarations** of functions and types (information on how to use them, such as names and argument types). The compiler looks at the declarations to check whether the call to `std::sqrt(x)` is correct. This plays a role similar to checking arguments using the information of a module you `use` in Fortran."
+
+msgid "ヘッダは決まったフォルダから探されます。標準ライブラリのヘッダはコンパイラが場所を知っていますが、 それ以外のヘッダは `-I フォルダ` で探す場所を足します。たとえば MISO のヘッダは `#include <miso/core.hpp>` のように書くので、 `/path/to/MISO/miso/include` を `-I` で渡すと `miso/core.hpp` が見つかります。"
+msgstr "Headers are searched for in set folders. The compiler knows where the standard library headers are, but for any other headers you add the search location with `-I folder`. For example, MISO headers are written like `#include <miso/core.hpp>`, so if you pass `/path/to/MISO/miso/include` with `-I`, `miso/core.hpp` is found."
+
+msgid "宣言だけでは、関数の**実体**（計算の中身）はありません。実体がライブラリの中にある場合は、リンクの段階でそのライブラリを指定します。 yaml-cpp を使う短いプログラムで確かめます。次を `yaml_check.cpp` として保存してください。"
+msgstr "A declaration alone does not contain the **definition** of a function (the body of the computation). When the definition is in a library, you specify that library at the link stage. Let us check with a short program that uses yaml-cpp. Save the following as `yaml_check.cpp`."
+
+msgid "`-lyaml-cpp` は「リンクのときに `libyaml-cpp` というライブラリを使う」指定です。"
+msgstr "`-lyaml-cpp` specifies \"use the library `libyaml-cpp` when linking.\""
+
+msgid "Mac では Homebrew の場所を `-I` と `-L`（ライブラリを探すフォルダ）で教えます。"
+msgstr "On a Mac, you tell the compiler the Homebrew locations with `-I` and `-L` (the folder in which to search for libraries)."
+
+msgid "MISO は**ヘッダオンリー**のライブラリです。計算の部品はすべてヘッダ（`miso/include/miso/*.hpp`）に実体ごと書かれていて、 MISO 自身を前もってライブラリにコンパイルしておく必要はありません。 ただし、MISO が使う MPI と yaml-cpp は、ヘッダの場所とリンクするライブラリの指定が必要です。 MPI については、Open MPI が用意する `mpicxx` というコマンドが、MPI のヘッダとライブラリの指定を足して `g++`（Mac では `clang++`）を呼びます。 `mpicxx --showme` で、足される指定を表示できます（Open MPI の場合）。"
+msgstr "MISO is a **header-only** library. All the computational components are written, with their definitions, in headers (`miso/include/miso/*.hpp`), so MISO itself does not need to be compiled into a library beforehand. However, for MPI and yaml-cpp, which MISO uses, you need to specify the header location and the libraries to link. For MPI, the command `mpicxx` provided by Open MPI adds the MPI header and library options and calls `g++` (`clang++` on a Mac). With `mpicxx --showme`, you can display the options it adds (for Open MPI)."
+
+msgid "練習 1-1"
+msgstr "Exercise 1-1"
+
+msgid "`yaml_check.cpp` を、`-lyaml-cpp` を付けずにビルドしてください。 エラーがコンパイルとリンクのどちらの段階で起きたかを、表示から判断して説明してください。"
+msgstr "Build `yaml_check.cpp` without `-lyaml-cpp`. From the output, determine and explain whether the error occurred at the compile stage or the link stage."
+
+msgid ""
+"<details>\n"
+"<summary>解答・解説</summary>\n"
+msgstr ""
+"<details>\n"
+"<summary>Answer and explanation</summary>\n"
+
+msgid "Ubuntu では次のような表示が出ます（一部を抜粋）。"
+msgstr "On Ubuntu, you see output like the following (excerpt)."
+
+msgid "`undefined reference`（未定義の参照）は**リンク**の段階のエラーです。 `#include <yaml-cpp/yaml.h>` で宣言は見えているので、コンパイルは通ります。 リンクのときに `YAML::Load` の実体を持つライブラリが指定されていないため、実行ファイルを作れません。 Mac の Clang では `Undefined symbols for architecture ...` と表示されます。これもリンクのエラーです。"
+msgstr "`undefined reference` is an error at the **link** stage. The declaration is visible through `#include <yaml-cpp/yaml.h>`, so compiling succeeds. At link time, however, the library that contains the definition of `YAML::Load` was not specified, so the executable cannot be created. With Clang on a Mac, `Undefined symbols for architecture ...` is displayed. This is also a link error."
+
+msgid "一方、ヘッダが見つからないときは `fatal error: yaml-cpp/yaml.h: No such file or directory` のように表示されます。 これはコンパイルの段階のエラーで、`-I` の指定かパッケージのインストールを確かめます。"
+msgstr "On the other hand, when a header cannot be found, the output looks like `fatal error: yaml-cpp/yaml.h: No such file or directory`. This is a compile-stage error; check the `-I` option or the package installation."
+
+msgid "</details>\n"
+msgstr ""
+
+msgid "CMake の仕組み"
+msgstr "How CMake Works"
+
+msgid "設定・ビルド・実行の 3 段階"
+msgstr "The three stages: configure, build, run"
+
+msgid "ソースやライブラリが増えると、コンパイルとリンクのコマンドを手で書くのは大変です。 Fortran でも使われる `make` は、`Makefile` に書かれた手順に従ってビルドします。 **CMake** は、作るもの・使うソース・必要なライブラリを `CMakeLists.txt` に書くと、その計算機に合った `Makefile` などを生成します。 CMake はビルドの手順を組み立てる道具で、C++ の翻訳そのものは GCC や Clang が行います。"
+msgstr "As the number of sources and libraries grows, writing compile and link commands by hand becomes tedious. `make`, which is also used with Fortran, builds by following the procedure written in a `Makefile`. With **CMake**, you write what to build, which sources to use, and which libraries are needed in `CMakeLists.txt`, and it generates a `Makefile` or similar suited to that computer. CMake is a tool that assembles the build procedure; the translation of C++ itself is done by GCC or Clang."
+
+msgid "段階"
+msgstr "Stage"
+
+msgid "コマンドの形"
+msgstr "Command form"
+
+msgid "行うこと"
+msgstr "What it does"
+
+msgid "設定・生成"
+msgstr "Configure and generate"
+
+msgid "`cmake -S . -B build`"
+msgstr ""
+
+msgid "`CMakeLists.txt` を読み、コンパイラやライブラリを探し、ビルドの手順を `build/` に生成します"
+msgstr "Reads `CMakeLists.txt`, finds the compiler and libraries, and generates the build procedure in `build/`"
+
+msgid "ビルド"
+msgstr "Build"
+
+msgid "`cmake --build build`"
+msgstr ""
+
+msgid "生成した手順でコンパイルとリンクを行います"
+msgstr "Compiles and links using the generated procedure"
+
+msgid "実行"
+msgstr "Run"
+
+msgid "`./build/hello`"
+msgstr ""
+
+msgid "できた実行ファイルを動かします"
+msgstr "Runs the executable that was created"
+
+msgid "`-S .` は「ソース（`CMakeLists.txt`）は今いるフォルダにある」、`-B build` は「生成物は `build/` に置く」という指定です。 生成物をソースと別のフォルダに置くので、`build/` を消せばいつでもやり直せます。 設定の結果は `build/CMakeCache.txt` に記録され、次のビルドでも使われます。"
+msgstr "`-S .` means \"the source (`CMakeLists.txt`) is in the current folder,\" and `-B build` means \"put the generated files in `build/`.\" Because generated files go in a folder separate from the source, you can always start over by deleting `build/`. The configuration result is recorded in `build/CMakeCache.txt` and is used by later builds as well."
+
+msgid "最小の `CMakeLists.txt`"
+msgstr "A minimal `CMakeLists.txt`"
+
+msgid "`hello.cpp` と `yaml_check.cpp` を保存したフォルダに、次の `CMakeLists.txt` を保存します。"
+msgstr "In the folder where you saved `hello.cpp` and `yaml_check.cpp`, save the following `CMakeLists.txt`."
+
+msgid "`CMakeLists.txt` は CMake 用の言語で、`命令(引数 ...)` の形で書きます。"
+msgstr "`CMakeLists.txt` is written in CMake's own language, in the form `command(argument ...)`."
+
+msgid "命令"
+msgstr "Command"
+
+msgid "役割"
+msgstr "Role"
+
+msgid "`cmake_minimum_required`"
+msgstr ""
+
+msgid "必要な CMake の最低バージョンを指定します"
+msgstr "Specifies the minimum required version of CMake"
+
+msgid "`project(... LANGUAGES CXX)`"
+msgstr ""
+
+msgid "プロジェクトに名前を付け、C++ のコンパイラを使うことを伝えます"
+msgstr "Names the project and tells CMake that a C++ compiler is used"
+
+msgid "`find_package(yaml-cpp REQUIRED)`"
+msgstr ""
+
+msgid "yaml-cpp を探し、その使い方（ヘッダの場所、ライブラリ）を取り込みます。`REQUIRED` は「見つからなければ止める」指定です"
+msgstr "Finds yaml-cpp and brings in how to use it (the header location and the library). `REQUIRED` means \"stop if it is not found\""
+
+msgid "`add_executable(hello hello.cpp)`"
+msgstr ""
+
+msgid "`hello.cpp` から実行ファイル `hello` を作る**ターゲット**を定義します"
+msgstr "Defines a **target** that builds the executable `hello` from `hello.cpp`"
+
+msgid "`target_compile_features(... cxx_std_17)`"
+msgstr ""
+
+msgid "このターゲットに C++17 以上が必要だと伝えます"
+msgstr "Tells CMake that this target requires C++17 or later"
+
+msgid "`target_link_libraries(yaml_check PRIVATE yaml-cpp::yaml-cpp)`"
+msgstr ""
+
+msgid "`yaml_check` に yaml-cpp を結び付けます"
+msgstr "Links yaml-cpp to `yaml_check`"
+
+msgid "**ターゲット**（target）は、実行ファイルやライブラリなど、ビルドで作るものに付ける名前です。 ソースや設定をターゲットごとにまとめるので、1 つの `CMakeLists.txt` で複数のプログラムを区別して作れます。"
+msgstr "A **target** is the name given to something the build creates, such as an executable or a library. Sources and settings are grouped by target, so a single `CMakeLists.txt` can build multiple programs separately."
+
+msgid "`yaml-cpp::yaml-cpp` は `find_package` が用意するターゲットで、ライブラリの場所だけでなく、ヘッダの場所などの情報も持っています。 このため `target_link_libraries` は、リンクの指定に加えて、コンパイルに必要な `-I` などもまとめて伝えます。 手で `-I` や `-l` を並べる必要がなくなるのが、CMake を使う大きな利点です。"
+msgstr "`yaml-cpp::yaml-cpp` is a target provided by `find_package`, and it holds not only the library location but also information such as the header location. For this reason, `target_link_libraries` conveys not only the link options but also the `-I` and other options needed for compiling. A major advantage of using CMake is that you no longer need to list `-I` and `-l` by hand."
+
+#, python-brace-format
+msgid "`PRIVATE` は、その設定をこのターゲット自身だけに使う指定です。 ライブラリ側のターゲットで `PUBLIC` や `INTERFACE` を使うと、そのライブラリを使う側のターゲットにも設定が伝わります（MISO はこの仕組みを使います）。 C++ のクラスの `private`・`public`（{ref}`第 4 章 <edu-ch04>`）とは別のものです。"
+msgstr "`PRIVATE` means the setting is used only by this target itself. If you use `PUBLIC` or `INTERFACE` on a library target, the settings are also passed on to the targets that use that library (MISO uses this mechanism). It is unrelated to `private` and `public` of C++ classes ({ref}`Chapter 4 <edu-ch04>`)."
+
+msgid "設定・ビルド・実行します。"
+msgstr "Configure, build, and run."
+
+msgid "`--parallel 4` はコンパイルを最大 4 つ同時に進める指定で、計算を実行するときのプロセス数とは関係ありません。 `cmake --build build --verbose` とすると、CMake が実際に呼んだコンパイラのコマンドが表示されます。"
+msgstr "`--parallel 4` specifies compiling up to four files at the same time, and has nothing to do with the number of processes used when running a simulation. With `cmake --build build --verbose`, the compiler commands that CMake actually called are displayed."
+
+msgid "ビルド種別"
+msgstr "Build type"
+
+msgid "**ビルド種別**（build type）は、最適化やデバッグ情報の付け方をまとめて選ぶ設定です。設定の段階で `-D` を使って渡します。"
+msgstr "The **build type** is a setting that selects, as a set, how optimization and debug information are applied. You pass it with `-D` at the configure stage."
+
+msgid "種別"
+msgstr "Type"
+
+msgid "GCC・Clang に渡る主な指定"
+msgstr "Main options passed to GCC and Clang"
+
+msgid "使う場面"
+msgstr "When to use"
+
+msgid "`Release`"
+msgstr ""
+
+msgid "`-O3 -DNDEBUG`"
+msgstr ""
+
+msgid "計算の実行。速さを優先します"
+msgstr "Running simulations. Prioritizes speed"
+
+msgid "`Debug`"
+msgstr ""
+
+msgid "`-g`"
+msgstr ""
+
+msgid "不具合を調べるとき。最適化をせず、デバッガで変数を見られるようにします"
+msgstr "Investigating bugs. Disables optimization so that you can inspect variables in a debugger"
+
+msgid "`-D名前=値` は、CMake の設定項目（**キャッシュ変数**）に値を渡す書き方です。 ビルド種別を何も指定しないと、上の `hello` のような CMake のプロジェクトは最適化の指定なしでビルドされます。 MISO とデモの `CMakeLists.txt` は、指定がなければ `Release` を選ぶように書かれています。"
+msgstr "`-DNAME=VALUE` is the way to pass a value to a CMake setting (a **cache variable**). If you specify no build type, a CMake project such as `hello` above is built without optimization options. The `CMakeLists.txt` of MISO and the demos are written to select `Release` when nothing is specified."
+
+msgid "`-DNDEBUG` が付くと、C++ の `assert`（条件が成り立たなければ止める確認）は取り除かれます。 MISO の既定は `Release` なので、`assert` による確認は既定のビルドでは働きません。"
+msgstr "When `-DNDEBUG` is given, C++ `assert` (a check that stops the program if a condition does not hold) is removed. MISO's default is `Release`, so checks by `assert` do not work in the default build."
+
+msgid "種別やコンパイラを変えるときは、`build_debug` のように別のビルドフォルダを使います。 同じフォルダで設定を変えると、前の設定が `CMakeCache.txt` に残って混ざることがあります。"
+msgstr "When you change the build type or the compiler, use a separate build folder such as `build_debug`. If you change the settings in the same folder, the previous settings remain in `CMakeCache.txt` and may get mixed in."
+
+msgid "ソースを変更したときのビルド"
+msgstr "Building after changing the source"
+
+msgid "ソースを編集したら、`cmake --build build` をもう一度実行します。 変更されたファイルと、それを `#include` しているファイルだけが翻訳し直されます。 `CMakeLists.txt` を変更した場合も、次の `cmake --build` のときに CMake が自動で設定をやり直します。 生成された `build/Makefile` を手で直すことはありません。"
+msgstr "After editing the source, run `cmake --build build` again. Only the changed files and the files that `#include` them are translated again. If you change `CMakeLists.txt`, CMake also automatically reconfigures at the next `cmake --build`. You never edit the generated `build/Makefile` by hand."
+
+msgid "MISO のビルドとユニットテスト"
+msgstr "Building MISO and Running the Unit Tests"
+
+msgid "`miso/CMakeLists.txt` の中身"
+msgstr "Contents of `miso/CMakeLists.txt`"
+
+msgid "MISO 本体のビルド設定は `miso/CMakeLists.txt` にあります。主な部分を抜粋します（説明のため一部を省略しています）。"
+msgstr "The build settings for MISO itself are in `miso/CMakeLists.txt`. Here are the main parts (some are omitted for explanation)."
+
+msgid "設定"
+msgstr "Setting"
+
+msgid "意味"
+msgstr "Meaning"
+
+msgid "`add_library(MISO INTERFACE)`"
+msgstr ""
+
+msgid "中身をコンパイルしないライブラリのターゲット `MISO` を作ります。ヘッダオンリーなので、コンパイルするものがありません"
+msgstr "Creates a library target `MISO` whose contents are not compiled. It is header-only, so there is nothing to compile"
+
+msgid "`add_library(MISO::MISO ALIAS MISO)`"
+msgstr ""
+
+msgid "`MISO` に `MISO::MISO` という別名を付けます。使う側はこの名前でリンクします"
+msgstr "Gives `MISO` the alias `MISO::MISO`. Code that uses MISO links with this name"
+
+msgid "`target_include_directories(MISO INTERFACE .../include)`"
+msgstr ""
+
+msgid "`MISO::MISO` を使うターゲットに、`miso/include` を `-I` で渡します"
+msgstr "Passes `miso/include` with `-I` to targets that use `MISO::MISO`"
+
+msgid "`target_link_libraries(MISO INTERFACE MPI::MPI_CXX)`"
+msgstr ""
+
+msgid "`MISO::MISO` を使うターゲットに、MPI のヘッダとライブラリも伝えます"
+msgstr "Also passes the MPI headers and library to targets that use `MISO::MISO`"
+
+msgid "`find_package(yaml-cpp QUIET)` と `FetchContent`"
+msgstr "`find_package(yaml-cpp QUIET)` and `FetchContent`"
+
+msgid "計算機に yaml-cpp があればそれを使い、なければ GitHub から取得して一緒にビルドします"
+msgstr "If yaml-cpp is on the computer, it is used; if not, it is fetched from GitHub and built together"
+
+msgid "`option(MISO_USE_CUDA ... OFF)`"
+msgstr ""
+
+msgid "GPU（CUDA）を使うかどうかの切り替えです。既定は使いません"
+msgstr "A switch for whether to use a GPU (CUDA). The default is not to use one"
+
+msgid "`option(ENABLE_TESTING ... ON)`"
+msgstr ""
+
+msgid "ユニットテストもビルドするかどうかの切り替えです。既定はビルドします"
+msgstr "A switch for whether to also build the unit tests. The default is to build them"
+
+msgid "`INTERFACE` は「`MISO::MISO` を使う側のターゲットに伝える」という指定です。 このため、`target_link_libraries(自分のプログラム PRIVATE MISO::MISO)` と 1 行書くだけで、 MISO のヘッダの場所、MPI、yaml-cpp の指定がまとめて自分のプログラムに伝わります。"
+msgstr "`INTERFACE` specifies \"pass this to the targets that use `MISO::MISO`.\" For this reason, by writing just one line, `target_link_libraries(my_program PRIVATE MISO::MISO)`, the MISO header location, MPI, and yaml-cpp settings are all passed on to your program."
+
+#, python-brace-format
+msgid "**FetchContent** は、必要なソースを CMake の設定の段階でインターネットから取得する仕組みです。 yaml-cpp を入れていない場合や、ユニットテスト用の doctest（{ref}`テストと計算結果の比較 <edu-ref-testing>` で説明します）を取得する場合に使われるので、 最初の設定にはインターネットへの接続が必要です。"
+msgstr "**FetchContent** is a mechanism that fetches the needed sources from the internet at the CMake configure stage. It is used when yaml-cpp is not installed, and when fetching doctest for the unit tests (explained in {ref}`Testing and Comparing Results <edu-ref-testing>`), so the first configuration requires an internet connection."
+
+msgid "ビルドとテストの実行"
+msgstr "Building and running the tests"
+
+msgid "ビルドフォルダは MISO のフォルダの外に作っても構いません。ここでは `$HOME/miso-work/build_miso` を使います。"
+msgstr "You may create the build folder outside the MISO folder. Here we use `$HOME/miso-work/build_miso`."
+
+msgid "`-S` には `miso/CMakeLists.txt` のあるフォルダ（`/path/to/MISO/miso`）を渡します。 テストの実行ファイルがいくつも作られ、数分かかることがあります。"
+msgstr "For `-S`, pass the folder that contains `miso/CMakeLists.txt` (`/path/to/MISO/miso`). Many test executables are built, which can take several minutes."
+
+msgid "ビルドが終わったら、**ユニットテスト**を実行します。ユニットテストは、配列や並列ループなどの部品ごとに、期待どおりに動くかを確かめるプログラムです。 **ctest** は、CMake に登録されたテストをまとめて実行する道具です。"
+msgstr "When the build finishes, run the **unit tests**. A unit test is a program that checks, component by component (arrays, parallel loops, and so on), whether the code behaves as expected. **ctest** is a tool that runs the tests registered with CMake all at once."
+
+msgid "最後に次のように表示されれば成功です（テストの数は MISO の版によって変わります）。"
+msgstr "The run succeeded if the following is displayed at the end (the number of tests depends on the MISO version)."
+
+#, python-brace-format
+msgid "先頭の 2 行は、このコマンドの間だけ Open MPI の動作を変える**環境変数**です。 テストの一部は MPI の 2 プロセスで動くため、CPU のコア数が少ない計算機やコンテナでも実行できるようにしています。 意味と、テストの読み方、テストを絞って実行する方法は {ref}`テストと計算結果の比較 <edu-ref-testing>` にまとめています。"
+msgstr "The first two lines are **environment variables** that change the behavior of Open MPI only for this command. Some of the tests run with two MPI processes, so these settings let them run even on computers or containers with few CPU cores. The meaning, how to read the tests, and how to run only selected tests are covered in {ref}`Testing and Comparing Results <edu-ref-testing>`."
+
+msgid "デモの実行と出力の読み込み"
+msgstr "Running a Demo and Reading Its Output"
+
+msgid "デモをビルドして実行する"
+msgstr "Building and running a demo"
+
+msgid "MISO の `demo/` には、問題ごとのデモがあります。2 次元の Orszag–Tang 渦（`demo/mhd2d_vortex`）を動かします。 デモの `CMakeLists.txt` は、MISO 本体（`../../miso`）を取り込んで `src/main.cpp` から実行ファイルを作ります。"
+msgstr "MISO's `demo/` contains a demo for each problem. We run the 2D Orszag-Tang vortex (`demo/mhd2d_vortex`). The demo's `CMakeLists.txt` brings in MISO itself (`../../miso`) and builds an executable from `src/main.cpp`."
+
+msgid "デモでは GPU の切り替えを `USE_CUDA` という名前で渡します（MISO 本体の `MISO_USE_CUDA` とは名前が違います）。 `app_run.sh` は、Open MPI 用の環境変数を `demo/shared/openmpi_config.env` から読み込み、2 プロセスで計算を実行するスクリプトです。 実行するコマンドを表示してから計算を始めます。"
+msgstr "In the demos, the GPU switch is passed with the name `USE_CUDA` (different from `MISO_USE_CUDA` in MISO itself). `app_run.sh` is a script that reads the Open MPI environment variables from `demo/shared/openmpi_config.env` and runs the simulation with two processes. It prints the command it runs before starting the computation."
+
+msgid "計算の条件は `demo/mhd2d_vortex/config.yaml` に書かれています。格子点数、終了時刻（`time.tend`）、出力の間隔（`time.dt_output`）、 MPI での分割数（`mpi.x_procs` など）を変えられます。"
+msgstr "The simulation conditions are written in `demo/mhd2d_vortex/config.yaml`. You can change the number of grid points, the end time (`time.tend`), the output interval (`time.dt_output`), and the number of MPI divisions (`mpi.x_procs` and so on)."
+
+msgid "出力されるファイル"
+msgstr "Output files"
+
+msgid "結果は `config.yaml` と同じフォルダの `data/` に書かれます（`config.yaml` の `io.save_dir` で変えられます）。"
+msgstr "The results are written to `data/` in the same folder as `config.yaml` (you can change this with `io.save_dir` in `config.yaml`)."
+
+msgid "ファイル"
+msgstr "File"
+
+msgid "`data/config.yaml`"
+msgstr ""
+
+msgid "既定値を補った、実際に使った設定"
+msgstr "The configuration actually used, with default values filled in"
+
+msgid "`data/grid.bin`"
+msgstr ""
+
+msgid "全体の格子の座標"
+msgstr "Coordinates of the whole grid"
+
+msgid "`data/mpi/coords.csv`"
+msgstr ""
+
+msgid "各プロセス（ランク）が担当する領域の位置"
+msgstr "Position of the region each process (rank) is responsible for"
+
+msgid "`data/time/time.NNNNNNNN.txt`"
+msgstr ""
+
+msgid "各出力の時刻、出力番号、ステップ数"
+msgstr "Time, output number, and step number of each output"
+
+msgid "`data/mhd/mhd.<n_output>.<rank>.bin`"
+msgstr ""
+
+msgid "各プロセスが担当する領域の MHD の変数（密度、速度、磁場など 9 つ）"
+msgstr "MHD variables of the region each process is responsible for (nine, including density, velocity, and magnetic field)"
+
+msgid "`mhd.*.bin` はプロセスごとに分かれたバイナリファイルです。 `config.yaml` の `io.continue: true` により、`data/` に結果があると、そこから計算を続けます。 最初からやり直すときは `./app_clean.sh` で `build/`、`data/`、`figs/` を消してから、ビルドと実行をやり直します。"
+msgstr "`mhd.*.bin` are binary files split by process. Because of `io.continue: true` in `config.yaml`, if `data/` contains results, the simulation continues from them. To start over from the beginning, delete `build/`, `data/`, and `figs/` with `./app_clean.sh`, then build and run again."
+
+msgid "pymiso で読み込む"
+msgstr "Reading with pymiso"
+
+msgid "pymiso は、プロセスごとのファイルをつなげて全体の配列として読み込む Python パッケージです。 Python のパッケージは、MISO 用の**仮想環境**（その中に入れたパッケージだけを使う、独立した Python の環境）に入れます。"
+msgstr "pymiso is a Python package that joins the per-process files and reads them as arrays for the whole domain. Install the Python packages in a **virtual environment** for MISO (an independent Python environment that uses only the packages installed in it)."
+
+msgid "`source .../activate` は、このターミナルで仮想環境の Python を使うようにするコマンドです。 新しいターミナルを開いたら、もう一度実行します。 `pip install -e \".[viz]\"` は、MISO のフォルダにある pymiso と、図を描くための matplotlib などを入れます。"
+msgstr "`source .../activate` is a command that makes this terminal use the Python of the virtual environment. Run it again whenever you open a new terminal. `pip install -e \".[viz]\"` installs pymiso, which is in the MISO folder, and matplotlib and other packages for plotting."
+
+msgid "デモには図を描くスクリプト `plot_data.py` があります。"
+msgstr "The demo has a script `plot_data.py` that draws figures."
+
+msgid "`figs/` に、各時刻の密度の図（`py_00000000.png` など）が保存されます。 `plot_data.py` の中では、次のように結果を読み込んでいます（`demo/mhd2d_vortex/plot_data.py` から抜粋。`...` は省略した部分です）。"
+msgstr "The density plot for each time (such as `py_00000000.png`) is saved in `figs/`. Inside `plot_data.py`, the results are read as follows (excerpt from `demo/mhd2d_vortex/plot_data.py`; `...` marks omitted parts)."
+
+#, python-brace-format
+msgid "`pymiso.Data` に `data/` の場所を渡し、`d.load(n)` で出力番号 `n` の結果を読みます。 `d.ro` が密度、`d.x`・`d.y` が座標の NumPy 配列です。 ほかのデモ、設定の変え方、GPU 版の実行方法は、MISO_docs の {doc}`Quick Start </quickstart>` にまとめられています。"
+msgstr "Pass the location of `data/` to `pymiso.Data`, and read the result for output number `n` with `d.load(n)`. `d.ro` is the density, and `d.x` and `d.y` are the coordinate NumPy arrays. Other demos, how to change the settings, and how to run the GPU version are covered in the MISO_docs {doc}`Quick Start </quickstart>`."
+
+msgid "自分のプログラムから MISO を使う"
+msgstr "Using MISO from Your Own Program"
+
+msgid "第 7 章と第 10 章の実習では、MISO のフォルダの外に自分のフォルダを作り、MISO の部品を使うプログラムを書きます。 そのための最小の CMake の設定を作り、MISO が使えることを確かめます。"
+msgstr "In the Practice of Chapter 7 and Chapter 10, you create your own folder outside the MISO folder and write programs that use MISO components. Here we create the minimal CMake configuration for that and check that MISO works."
+
+msgid "作るもの"
+msgstr "What to create"
+
+msgid "MISO のフォルダの外に、作業用のフォルダを作ります。"
+msgstr "Create a working folder outside the MISO folder."
+
+msgid "このフォルダに、確認用のプログラム `main.cpp` と `CMakeLists.txt` を保存します。"
+msgstr "In this folder, save the check program `main.cpp` and `CMakeLists.txt`."
+
+#, python-brace-format
+msgid "`main.cpp` は、MPI を始め、MISO の配列に 0〜99 を入れて合計を求めるプログラムです。 `miso::Array1D`、`miso::for_each`、`miso::reduce`、`MISO_LAMBDA` は {ref}`第 7 章 <edu-ch07>` で説明します。ここではそのまま保存してください。"
+msgstr "`main.cpp` is a program that starts MPI, puts 0 to 99 into a MISO array, and computes the sum. `miso::Array1D`, `miso::for_each`, `miso::reduce`, and `MISO_LAMBDA` are explained in {ref}`Chapter 7 <edu-ch07>`. For now, save it as it is."
+
+msgid "`#include <miso/core.hpp>` は、配列・並列ループ・MPI の環境など、MISO の共通の部品をまとめて読み込むヘッダ（`miso/include/miso/core.hpp`）です。"
+msgstr "`#include <miso/core.hpp>` is a header (`miso/include/miso/core.hpp`) that reads in MISO's common components, such as arrays, parallel loops, and the MPI environment, all at once."
+
+msgid "`CMakeLists.txt`"
+msgstr ""
+
+msgid "`set(MISO_DIR \"\" CACHE PATH ...)`"
+msgstr ""
+
+#, python-brace-format
+msgid "MISO を置いた場所を入れる設定項目 `MISO_DIR` を用意します。値は設定のときに `-DMISO_DIR=...` で渡します。`${MISO_DIR}` は変数の値を取り出す書き方です"
+msgstr "Provides a setting `MISO_DIR` that holds the location of MISO. You pass the value with `-DMISO_DIR=...` at configure time. `${MISO_DIR}` is the way to get the value of a variable"
+
+msgid "`if(NOT EXISTS ...)` と `message(FATAL_ERROR ...)`"
+msgstr "`if(NOT EXISTS ...)` and `message(FATAL_ERROR ...)`"
+
+msgid "`MISO_DIR` の下に `miso/CMakeLists.txt` がなければ、説明を表示して止めます"
+msgstr "If `miso/CMakeLists.txt` is not under `MISO_DIR`, prints an explanation and stops"
+
+msgid "`set(ENABLE_TESTING OFF CACHE BOOL ...)`"
+msgstr ""
+
+msgid "MISO のユニットテストをビルドしないようにします。`add_subdirectory` より前に書きます"
+msgstr "Prevents MISO's unit tests from being built. Write it before `add_subdirectory`"
+
+#, python-brace-format
+msgid "`add_subdirectory(\"${MISO_DIR}/miso\" miso)`"
+msgstr ""
+
+msgid "MISO の `miso/CMakeLists.txt` を読み込み、`MISO::MISO` を使えるようにします。2 つ目の `miso` は、MISO 用の生成物を置く `build/` の中のフォルダ名です"
+msgstr "Reads MISO's `miso/CMakeLists.txt` and makes `MISO::MISO` available. The second `miso` is the name of the folder inside `build/` where MISO's generated files go"
+
+msgid "`add_executable(miso_check main.cpp)`"
+msgstr ""
+
+msgid "`main.cpp` から実行ファイル `miso_check` を作ります"
+msgstr "Builds the executable `miso_check` from `main.cpp`"
+
+msgid "`target_link_libraries(miso_check PRIVATE MISO::MISO)`"
+msgstr ""
+
+msgid "MISO のヘッダの場所、MPI、yaml-cpp をまとめて `miso_check` に伝えます"
+msgstr "Passes the MISO header location, MPI, and yaml-cpp settings together to `miso_check`"
+
+msgid "`add_subdirectory` は、別のフォルダの `CMakeLists.txt` を、自分のプロジェクトの一部として読み込む命令です。 MISO のフォルダがプロジェクトの外にあるときは、2 つ目の引数（生成物の置き場）が必要です。"
+msgstr "`add_subdirectory` is a command that reads the `CMakeLists.txt` of another folder as part of your own project. When the MISO folder is outside the project, the second argument (the location for generated files) is required."
+
+#, python-brace-format
+msgid "`ENABLE_TESTING` を `OFF` にするのは、自分のプログラムだけを速くビルドするためです。 MISO のユニットテストは、{ref}`前の節 <edu-ch01-miso-build>` のように MISO 単独のビルドで実行します。 `option(ENABLE_TESTING ...)` は、同じ名前の設定項目がすでにあればその値を使うので、先に `OFF` を入れておくとテストが外れます。"
+msgstr "We set `ENABLE_TESTING` to `OFF` so that only your own program is built quickly. Run MISO's unit tests in a standalone MISO build, as in the {ref}`previous section <edu-ch01-miso-build>`. `option(ENABLE_TESTING ...)` uses the existing value if a setting of the same name already exists, so putting `OFF` first removes the tests."
+
+msgid "ビルド種別を指定しなければ、MISO の `CMakeLists.txt` が `Release` を選びます。"
+msgstr "If you do not specify a build type, MISO's `CMakeLists.txt` selects `Release`."
+
+msgid "ビルドと実行"
+msgstr "Building and running"
+
+msgid "`/path/to/MISO` を、MISO を置いた場所の絶対パスに置き換えて設定します。"
+msgstr "Configure by replacing `/path/to/MISO` with the absolute path of the location where you placed MISO."
+
+msgid "`mpiexec -np 2` は、同じプログラムを 2 つのプロセスで起動するコマンドです。次の表示が出れば準備完了です。"
+msgstr "`mpiexec -np 2` is a command that starts the same program as two processes. You are ready if the following is displayed."
+
+msgid "どちらのプロセスも同じ計算をしますが、表示は 1 つのプロセス（ランク 0）だけが行います。"
+msgstr "Both processes perform the same computation, but only one process (rank 0) prints the output."
+
+msgid "MISO のデモの `CMakeLists.txt` は、`add_subdirectory` の代わりに `FetchContent_Declare(MISO SOURCE_DIR ...)` と `FetchContent_MakeAvailable(MISO)` で MISO を取り込んでいます。 手元のフォルダを指定する使い方では、どちらも `miso/CMakeLists.txt` を読み込んで `MISO::MISO` を作る点は同じです。"
+msgstr "The demos' `CMakeLists.txt` brings in MISO with `FetchContent_Declare(MISO SOURCE_DIR ...)` and `FetchContent_MakeAvailable(MISO)` instead of `add_subdirectory`. When you point to a local folder, both read `miso/CMakeLists.txt` and create `MISO::MISO`, so they are the same in that respect."
+
+msgid "練習 1-2"
+msgstr "Exercise 1-2"
+
+msgid "`-DMISO_DIR=...` を付けずに、新しいビルドフォルダ `build_nodir` で設定してください。 表示されたメッセージを確かめ、設定・ビルド・実行のどの段階で止まったかと、その理由を `CMakeLists.txt` の行と対応づけて説明してください。"
+msgstr "Configure in a new build folder `build_nodir` without `-DMISO_DIR=...`. Check the message that is displayed, and explain at which stage (configure, build, or run) it stopped and why, relating it to lines of `CMakeLists.txt`."
+
+#, python-brace-format
+msgid "**設定**の段階で止まります。`MISO_DIR` の値は空のままなので、`\"${MISO_DIR}/miso/CMakeLists.txt\"` は `/miso/CMakeLists.txt` になり、 `if(NOT EXISTS ...)` の条件が成り立ちます。その中の `message(FATAL_ERROR ...)` が説明を表示して設定を止めます。 この確認がないと、`add_subdirectory` が「フォルダがない」という分かりにくいエラーを出します。 確かめたら、`build_nodir` は消して構いません。"
+msgstr "It stops at the **configure** stage. The value of `MISO_DIR` stays empty, so `\"${MISO_DIR}/miso/CMakeLists.txt\"` becomes `/miso/CMakeLists.txt`, and the condition of `if(NOT EXISTS ...)` holds. The `message(FATAL_ERROR ...)` inside it prints an explanation and stops the configuration. Without this check, `add_subdirectory` would give a confusing error saying the folder does not exist. After checking, you may delete `build_nodir`."
+
+msgid "練習 1-3"
+msgstr "Exercise 1-3"
+
+msgid "`miso_check` を `Debug` 種別で、`build_debug` という別のビルドフォルダに作ってください。 `cmake -L -N build_debug` で設定項目の一覧を表示し、`CMAKE_BUILD_TYPE`、`MISO_DIR`、`ENABLE_TESTING`、`MISO_USE_CUDA` の値を確かめてください。"
+msgstr "Build `miso_check` with the `Debug` build type in a separate build folder named `build_debug`. Display the list of settings with `cmake -L -N build_debug`, and check the values of `CMAKE_BUILD_TYPE`, `MISO_DIR`, `ENABLE_TESTING`, and `MISO_USE_CUDA`."
+
+msgid "`-L` は設定項目の一覧を表示し、`-N` は設定をやり直さずに `CMakeCache.txt` を読むだけにする指定です。 `MISO_USE_CUDA` は `MISO` 側の `option` が既定値 `OFF` で作った項目です。 `cmake --build build_debug --verbose` で、コンパイルのコマンドに `-g` が付き、`-O3` が付いていないことも確かめられます。 `build`（Release）と `build_debug`（Debug）はフォルダが別なので、互いの設定は混ざりません。"
+msgstr "`-L` displays the list of settings, and `-N` means to only read `CMakeCache.txt` without reconfiguring. `MISO_USE_CUDA` is a setting created by the `option` on the `MISO` side with the default value `OFF`. With `cmake --build build_debug --verbose`, you can also confirm that `-g` is added to the compile command and `-O3` is not. `build` (Release) and `build_debug` (Debug) are separate folders, so their settings do not get mixed."
+
+msgid "手でコンパイルする場合との対応"
+msgstr "Correspondence with compiling by hand"
+
+msgid "CMake が行っていることを、手で書いたコマンドと比べておきます。Ubuntu では次のコマンドでも `miso_check` を作れます。"
+msgstr "Let us compare what CMake does with commands written by hand. On Ubuntu, you can also build `miso_check` with the following command."
+
+msgid "`mpicxx` が MPI の指定を足し、`-I` が MISO のヘッダの場所、`-lyaml-cpp` が yaml-cpp を指定します。 `MISO::MISO` をリンクすると、これらを CMake がまとめて指定します。 GPU 用のビルドや計算機ごとの違いがあっても `CMakeLists.txt` を変えずに済むので、この教材では CMake を使います。"
+msgstr "`mpicxx` adds the MPI options, `-I` gives the location of the MISO headers, and `-lyaml-cpp` specifies yaml-cpp. When you link `MISO::MISO`, CMake specifies all of these together. Because we do not have to change `CMakeLists.txt` even for GPU builds or differences between computers, this course uses CMake."
+
+msgid "うまくいかないとき"
+msgstr "When Things Go Wrong"
+
+msgid "最初のエラーから順に確かめます。設定が成功してからビルドし、ビルドが成功してから実行します。"
+msgstr "Check from the first error onward. Build after the configuration succeeds, and run after the build succeeds."
+
+msgid "表示・症状"
+msgstr "Output or symptom"
+
+msgid "確かめること"
+msgstr "What to check"
+
+msgid "`Could NOT find MPI`"
+msgstr ""
+
+msgid "Ubuntu では `libopenmpi-dev`、Mac では `open-mpi` が入っているかを確かめます。Mac では `-DMPI_CXX_COMPILER=\"$(brew --prefix open-mpi)/bin/mpicxx\"` を設定のコマンドに足すと、使う MPI を明示できます"
+msgstr "Check whether `libopenmpi-dev` is installed on Ubuntu, or `open-mpi` on a Mac. On a Mac, you can specify the MPI to use explicitly by adding `-DMPI_CXX_COMPILER=\"$(brew --prefix open-mpi)/bin/mpicxx\"` to the configure command"
+
+msgid "`yaml-cpp not found; fetching with FetchContent` の後に取得の失敗"
+msgstr "A fetch failure after `yaml-cpp not found; fetching with FetchContent`"
+
+msgid "yaml-cpp が見つからず、インターネットから取得しようとしています。yaml-cpp を入れる（Ubuntu は `libyaml-cpp-dev`、Mac は `yaml-cpp`）か、ネットワークの接続を確かめます"
+msgstr "yaml-cpp was not found, and CMake is trying to fetch it from the internet. Install yaml-cpp (`libyaml-cpp-dev` on Ubuntu, `yaml-cpp` on a Mac), or check your network connection"
+
+msgid "ユニットテストの設定で doctest の取得に失敗する"
+msgstr "Fetching doctest fails when configuring the unit tests"
+
+msgid "doctest はいつもインターネットから取得します。接続を確かめます"
+msgstr "doctest is always fetched from the internet. Check your connection"
+
+msgid "`fatal error: miso/core.hpp: No such file or directory`"
+msgstr ""
+
+msgid "`MISO::MISO` をリンクしているか、`-DMISO_DIR` が MISO のフォルダの根（`miso/` を含むフォルダ）を指しているかを確かめます"
+msgstr "Check whether you link `MISO::MISO`, and whether `-DMISO_DIR` points to the root of the MISO folder (the folder that contains `miso/`)"
+
+msgid "`fatal error: mpi.h: No such file or directory`"
+msgstr ""
+
+msgid "手でコンパイルするときは `g++` ではなく `mpicxx` を使います。CMake では `MISO::MISO` が MPI の指定を伝えます"
+msgstr "When compiling by hand, use `mpicxx` instead of `g++`. With CMake, `MISO::MISO` passes the MPI settings"
+
+msgid "`undefined reference to 'YAML::...'`"
+msgstr ""
+
+msgid "yaml-cpp がリンクされていません。手でコンパイルするときは `-lyaml-cpp` を付けます"
+msgstr "yaml-cpp is not linked. When compiling by hand, add `-lyaml-cpp`"
+
+msgid "`There are not enough slots available`"
+msgstr ""
+
+msgid "CPU のコア数より多いプロセスを起動しようとしています。動作確認だけなら `mpiexec --oversubscribe -np 2 ...` とします"
+msgstr "You are trying to start more processes than the number of CPU cores. For a simple check, use `mpiexec --oversubscribe -np 2 ...`"
+
+msgid "`CMakeLists.txt` が見つからない"
+msgstr "`CMakeLists.txt` is not found"
+
+msgid "`pwd` と `ls` で、ファイルを保存したフォルダにいるかを確かめます"
+msgstr "Use `pwd` and `ls` to check that you are in the folder where you saved the file"
+
+msgid "コンパイラを変えたのに前のコンパイラが使われる"
+msgstr "The previous compiler is used even though you changed the compiler"
+
+msgid "前の設定が `CMakeCache.txt` に残っています。別のビルドフォルダで設定し直します"
+msgstr "The previous settings remain in `CMakeCache.txt`. Configure again in a different build folder"
+
+msgid "GPU を使う段階になったら"
+msgstr "When You Start Using GPUs"
+
+#, python-brace-format
+msgid "MISO は NVIDIA の GPU で計算する CUDA 版も作れます。 MISO 本体では `-DMISO_USE_CUDA=ON`、デモでは `-DUSE_CUDA=ON` を設定のときに渡します。 CUDA の開発環境（CUDA Toolkit と対応するドライバ）が必要で、Mac の GPU では動きません。 GPU 用のビルドと、自分のプログラムを GPU で動かす設定は {ref}`第 9 章 <edu-ch09>` で説明します。"
+msgstr "MISO can also be built as a CUDA version that computes on NVIDIA GPUs. Pass `-DMISO_USE_CUDA=ON` for MISO itself, or `-DUSE_CUDA=ON` for the demos, at configure time. You need a CUDA development environment (the CUDA Toolkit and a matching driver), and it does not run on Mac GPUs. We explain the GPU build and the settings for running your own program on a GPU in {ref}`Chapter 9 <edu-ch09>`."
+
+msgid "次に読むところ"
+msgstr "What to Read Next"
+
+#, python-brace-format
+msgid "準備ができたら、{ref}`第 2 章：変数・関数・制御文 <edu-ch02>` へ進みます。 この章で作った `miso_check` のフォルダと `CMakeLists.txt` の形は、{ref}`第 7 章 <edu-ch07>` と {ref}`第 10 章 <edu-ch10>` の実習で使います。"
+msgstr "When you are ready, go on to {ref}`Chapter 2: Variables, Functions, and Control Flow <edu-ch02>`. The folder of `miso_check` that you created in this chapter and the form of its `CMakeLists.txt` will be used in the Practice of {ref}`Chapter 7 <edu-ch07>` and {ref}`Chapter 10 <edu-ch10>`."
+

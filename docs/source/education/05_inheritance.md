@@ -40,12 +40,12 @@ class Simulation {
 public:
   explicit Simulation(double tend) : tend(tend) {}
 
-  double time = 0.0;  // 現在の時刻
-  double tend;        // 終了時刻
-  int n_step = 0;     // 進めたステップ数
+  double time = 0.0;  // current time
+  double tend;        // end time
+  int n_step = 0;     // number of steps advanced
 
 protected:
-  void advance(double dt) {  // 時刻とステップ数を進めます
+  void advance(double dt) {  // advances the time and the step count
     time += dt;
     ++n_step;
   }
@@ -53,13 +53,13 @@ protected:
 
 class Decay : public Simulation {
 public:
-  double u;  // Decay で追加するメンバ
+  double u;  // member added in Decay
 
   Decay(double tend, double u0) : Simulation(tend), u(u0) {}
 
   void step(double dt) {
-    u -= dt * u;   // du/dt = -u をオイラー法で 1 ステップ進めます
-    advance(dt);   // 基底クラスの protected な関数を呼べます
+    u -= dt * u;   // advances du/dt = -u by one step with the Euler method
+    advance(dt);   // can call the protected function of the base class
   }
 };
 ```
@@ -74,9 +74,9 @@ d.step(0.125);
 d.step(0.125);
 std::cout << d.time << " " << d.n_step << " " << d.u << "\n";  // 0.25 2 0.765625
 
-Simulation &s = d;  // d の Simulation の部分を参照します
+Simulation &s = d;  // refers to the Simulation part of d
 std::cout << s.time << " " << s.tend << "\n";                  // 0.25 1
-// s.u = 2.0;       // エラー：Simulation には u がありません
+// s.u = 2.0;       // error: Simulation has no u
 ```
 
 `d.time` のように、引き継いだメンバは `Decay` のメンバと同じように使えます。
@@ -146,11 +146,11 @@ public:
   double tend;
   int n_step = 0;
 
-  void update() { advance(0.25); }  // 既定の 1 ステップ：時刻だけを進めます
+  void update() { advance(0.25); }  // default single step: advances only the time
 
   void run() {
     while (time < tend) {
-      update();  // どの update() が呼ばれるかに注意します
+      update();  // note which update() is called
     }
   }
 
@@ -167,7 +167,7 @@ public:
 
   Decay(double tend, double u0) : Simulation(tend), u(u0) {}
 
-  void update() {  // 基底クラスと同じ名前の関数を定義します
+  void update() {  // defines a function with the same name as in the base class
     const double dt = 0.125;
     u -= dt * u;
     advance(dt);
@@ -177,12 +177,12 @@ public:
 
 ```cpp
 Decay a(1.0, 1.0);
-a.update();              // Decay::update() が呼ばれます
-a.Simulation::update();  // 基底クラスの update() を名指しで呼びます
+a.update();              // Decay::update() is called
+a.Simulation::update();  // calls the base class update() by name
 std::cout << a.time << " " << a.n_step << " " << a.u << "\n";  // 0.375 2 0.875
 
 Decay b(1.0, 1.0);
-b.run();                 // run() の中の update() は Simulation::update() です
+b.run();                 // update() inside run() is Simulation::update()
 std::cout << b.time << " " << b.n_step << " " << b.u << "\n";  // 1 4 1
 ```
 
@@ -212,16 +212,16 @@ MISO は CRTP を使っています。比較のため、先に仮想関数を短
 class Simulation {
 public:
   // ...
-  virtual void update() { advance(0.25); }  // virtual を付けます
-  virtual ~Simulation() = default;          // virtual なデストラクタを加えます
-  // ...（run() と advance() は同じ）
+  virtual void update() { advance(0.25); }  // add virtual
+  virtual ~Simulation() = default;          // add a virtual destructor
+  // ... (run() and advance() are the same)
 };
 
 class Decay : public Simulation {
 public:
   // ...
-  void update() override {  // override を付けます
-    // ...（中身は同じ）
+  void update() override {  // add override
+    // ... (the body is the same)
   }
 };
 ```
@@ -256,7 +256,7 @@ MISO で必要なのは「demo ごとに、コンパイルするときに決ま�
 型を後から渡す仕組みには、テンプレート（{ref}`第 6 章 <edu-ch06>`）を使います。
 
 ```cpp
-template <class Derived>  // Derived は、後から指定する派生クラスの型です
+template <class Derived>  // Derived is the type of the derived class, specified later
 class Simulation {
 public:
   explicit Simulation(double tend) : tend(tend) {}
@@ -265,11 +265,11 @@ public:
   double tend;
   int n_step = 0;
 
-  void update() { advance(0.25); }  // 既定の 1 ステップ
+  void update() { advance(0.25); }  // default single step
 
   void run() {
     while (time < tend) {
-      derived().update();  // 派生クラスの update() を呼びます
+      derived().update();  // calls the derived class's update()
     }
   }
 
@@ -279,11 +279,11 @@ protected:
     ++n_step;
   }
 
-  // *this を派生クラスの参照として扱います
+  // treats *this as a reference to the derived class
   Derived &derived() { return static_cast<Derived &>(*this); }
 };
 
-class Decay : public Simulation<Decay> {  // 自分自身の型を基底に渡します
+class Decay : public Simulation<Decay> {  // passes its own type to the base
 public:
   double u;
 
@@ -296,7 +296,7 @@ public:
   }
 };
 
-class Clock : public Simulation<Clock> {  // update() を定義しません
+class Clock : public Simulation<Clock> {  // does not define update()
 public:
   explicit Clock(double tend) : Simulation(tend) {}
 };
@@ -304,11 +304,11 @@ public:
 
 ```cpp
 Decay d(1.0, 1.0);
-d.run();  // Decay::update() が 8 回呼ばれます
+d.run();  // Decay::update() is called 8 times
 std::cout << d.time << " " << d.n_step << " " << d.u << "\n";  // 1 8 0.343609
 
 Clock c(1.0);
-c.run();  // 基底の update() が 4 回呼ばれます
+c.run();  // the base update() is called 4 times
 std::cout << c.time << " " << c.n_step << "\n";                // 1 4
 ```
 
@@ -367,7 +367,7 @@ public:
       : config(cfg), mpi_shape(cfg), time(cfg), grid(cfg, mpi_shape),
         exec_ctx(mpi_shape, grid), mhd(cfg, grid, exec_ctx) {}
 
-  // ...（update(), save_metadata(), save_state(), load_state(), save_if_needed()）
+  // ... (update(), save_metadata(), save_state(), load_state(), save_if_needed())
 
   void run() {
     // Ensure to call methods in the derived class
@@ -376,7 +376,7 @@ public:
     // Assert that d has eos, ic, bc, and src as member variables.
     static_assert(has_eos<Derived>::value,
                   "Derived must have member variable 'eos'.");
-    // ...（ic, bc, src についても同じ検査）
+    // ... (the same check for ic, bc, and src)
 
     mhd.apply_initial_condition(d.ic, d.bc);
     if (config["io"]["continue"].template as<bool>() &&
@@ -488,9 +488,9 @@ template <typename Real> struct EmptyBoundaryCondition {
   /// @details The derived class may provide its own `update()` method.
   void update() {
     auto &d = derived();
-    // ...（ソース項の型を調べる準備と検査）
+    // ... (preparation and checks for detecting the source term type)
     auto dt = mhd.cfl(d.eos);
-    // ...（ソース項が時間刻みの上限 dt_limit() を持てば、dt をそれ以下にします）
+    // ... (if the source term has the time step upper limit dt_limit(), limits dt to at most that)
     mhd.update(dt, d.eos, d.bc, d.src);
     time.update(dt);
   }
@@ -568,7 +568,7 @@ struct Model : public mhd::ModelBase<Model, Real, Backend> {
 
 ```cpp
   void update() {
-    ModelBase::update();  // 既定の 1 ステップ（dt の計算、MHD の更新、時刻）
+    ModelBase::update();  // default single step (computes dt, updates MHD, advances time)
     if (time.n_step % 10 == 0) {
       std::cout << "n_step = " << time.n_step << ", time = " << time.time << "\n";
     }

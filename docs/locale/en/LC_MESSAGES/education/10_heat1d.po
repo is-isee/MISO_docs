@@ -1,0 +1,847 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2025, Integrated Studies, ISEE, Nagoya University
+# This file is distributed under the same license as the MISO package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: MISO \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-10-29 13:55+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: en\n"
+"Language-Team: en <LL@li.org>\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.18.0\n"
+
+msgid "10. 熱伝導の計算"
+msgstr "10\\. Heat Conduction Calculation"
+
+#, python-brace-format
+msgid "ここまでに学んだ配列、`for_each`・`reduce`、MPI、GPU を、1 次元の熱伝導の計算に組み合わせます。 この章では、方程式を差分で解く手順と、結果が正しいかを確かめる方法を説明します。 プログラムは {ref}`実習 heat1d <edu-practice-heat1d>` の仕様に沿って、自分で書きます。"
+msgstr "In this chapter, you combine the arrays, `for_each` and `reduce`, MPI, and GPUs you have learned so far into a 1D heat conduction calculation. The chapter explains how to solve the equation with finite differences and how to check that the result is correct. You write the program yourself, following the specification of the {ref}`Practice heat1d <edu-practice-heat1d>`."
+
+msgid "作る順番は次の 3 段階です。"
+msgstr "You build the program in the following three stages."
+
+msgid "逐次版：1 プロセスの CPU で、`Array1D` と `backend::Host` の `for_each`・`reduce` を使って解きます。"
+msgstr "Serial version: solve the problem on the CPU in a single process, using `Array1D` and the `for_each` and `reduce` of `backend::Host`."
+
+msgid "MPI 版：領域を分け、隣のランクとゴーストセルの値を `MPI_Sendrecv` で交換します。"
+msgstr "MPI version: divide the domain and exchange ghost cell values with the neighboring ranks using `MPI_Sendrecv`."
+
+msgid "GPU 版：配列を `Array1D<Real, backend::CUDA>` に、ループを `backend::CUDA` の `for_each` に置き換えます。"
+msgstr "GPU version: replace the arrays with `Array1D<Real, backend::CUDA>` and the loops with the `for_each` of `backend::CUDA`."
+
+msgid "1 と 2 は Ubuntu・Mac の CPU だけで完了できます。3 も、GPU がなければ同じソースを CPU 用にビルドして、構成が正しいことまで確かめられます。"
+msgstr "Stages 1 and 2 can be completed on the CPU of an Ubuntu or Mac machine. For stage 3, if you have no GPU, you can build the same source for the CPU and still check that the structure is correct."
+
+msgid "目次"
+msgstr "Contents"
+
+#, python-brace-format
+msgid "{ref}`edu-ch10-equation`"
+msgstr ""
+
+#, python-brace-format
+msgid "{ref}`edu-ch10-discretization`"
+msgstr ""
+
+#, python-brace-format
+msgid "{ref}`edu-ch10-stability`"
+msgstr ""
+
+#, python-brace-format
+msgid "{ref}`edu-ch10-boundary`"
+msgstr ""
+
+#, python-brace-format
+msgid "{ref}`edu-ch10-verification`"
+msgstr ""
+
+#, python-brace-format
+msgid "{ref}`edu-ch10-serial`"
+msgstr ""
+
+#, python-brace-format
+msgid "{ref}`edu-ch10-mpi`"
+msgstr ""
+
+#, python-brace-format
+msgid "{ref}`edu-ch10-gpu`"
+msgstr ""
+
+#, python-brace-format
+msgid "{ref}`edu-ch10-miso`"
+msgstr ""
+
+msgid "熱伝導方程式と解析解"
+msgstr "The heat equation and its analytical solution"
+
+msgid "温度 $u(x, t)$ が拡散してなだらかになる様子は、次の **熱伝導方程式**（heat equation）で表されます。"
+msgstr "The way the temperature $u(x, t)$ diffuses and becomes smooth is described by the following **heat equation**."
+
+#, python-brace-format
+msgid "\\frac{\\partial u}{\\partial t} = \\kappa\\,\\frac{\\partial^2 u}{\\partial x^2}"
+msgstr ""
+
+msgid "$\\kappa$ は正の定数（熱拡散率）です。この章では、次の問題を解きます。"
+msgstr "$\\kappa$ is a positive constant (the thermal diffusivity). In this chapter, we solve the following problem."
+
+msgid "項目"
+msgstr "Item"
+
+msgid "設定"
+msgstr "Setting"
+
+msgid "領域"
+msgstr "Domain"
+
+msgid "$0 < x < 1$"
+msgstr ""
+
+msgid "境界条件"
+msgstr "Boundary condition"
+
+msgid "両端で $u = 0$（温度を固定）"
+msgstr "$u = 0$ at both ends (fixed temperature)"
+
+msgid "初期条件"
+msgstr "Initial condition"
+
+msgid "$u(x, 0) = \\sin(\\pi x)$"
+msgstr ""
+
+msgid "定数"
+msgstr "Constant"
+
+msgid "$\\kappa = 1$"
+msgstr ""
+
+msgid "終了時刻"
+msgstr "End time"
+
+#, python-brace-format
+msgid "$t_\\mathrm{end} = 0.1$"
+msgstr ""
+
+msgid "この問題には式で書ける解（**解析解**、analytical solution）があります。"
+msgstr "This problem has a solution that can be written as a formula (the **analytical solution**)."
+
+#, python-brace-format
+msgid "u(x, t) = e^{-\\pi^2 \\kappa t}\\sin(\\pi x)"
+msgstr ""
+
+#, python-brace-format
+msgid "$u = e^{-\\pi^2\\kappa t}\\sin(\\pi x)$ を方程式に代入すると、左辺も右辺も $-\\pi^2\\kappa u$ になり、両端で $u = 0$ も満たします。 形は $\\sin(\\pi x)$ のまま、振幅だけが指数関数的に減ります。$t = 0.1$ での振幅は $e^{-\\pi^2 \\times 0.1} \\approx 0.3727$ です。"
+msgstr "Substituting $u = e^{-\\pi^2\\kappa t}\\sin(\\pi x)$ into the equation makes both the left and right sides equal to $-\\pi^2\\kappa u$, and it also satisfies $u = 0$ at both ends. The shape stays $\\sin(\\pi x)$, and only the amplitude decays exponentially. The amplitude at $t = 0.1$ is $e^{-\\pi^2 \\times 0.1} \\approx 0.3727$."
+
+msgid "解析解があるので、計算した値がどれだけ正しいかを数値で比べられます。 MISO で解く MHD の問題では、多くの場合このような解はありません。 そのため、解析解のある簡単な問題で、プログラムの部品（差分、境界、通信）が正しいことを先に確かめておきます。"
+msgstr "Because an analytical solution exists, you can measure numerically how accurate the computed values are. For the MHD problems solved with MISO, such a solution usually does not exist. We therefore first check that the parts of the program (finite differences, boundaries, communication) are correct on a simple problem that has an analytical solution."
+
+msgid "格子と差分"
+msgstr "Grid and finite differences"
+
+msgid "セルと格子幅"
+msgstr "Cells and grid spacing"
+
+msgid "領域 $[0, 1]$ を $N$ 個の等しい区間（**セル**、cell）に分けます。セルの幅（格子幅）は $\\Delta x = 1/N$ です。 値はセルの中心で持ちます。$j$ 番目のセル（$j = 0, 1, \\dots, N-1$）の中心は次の位置です。"
+msgstr "We divide the domain $[0, 1]$ into $N$ equal intervals (**cells**). The cell width (the grid spacing) is $\\Delta x = 1/N$. Values are stored at the cell centers. The center of the $j$-th cell ($j = 0, 1, \\dots, N-1$) is at the following position."
+
+msgid "x_j = \\left(j + \\tfrac12\\right)\\Delta x"
+msgstr ""
+
+msgid "MISO の格子も、値をセルの中心で持ちます。境界（$x = 0$ と $x = 1$）は、端のセルの面にあたります。"
+msgstr "The MISO grid also stores values at cell centers. The boundaries ($x = 0$ and $x = 1$) lie on the faces of the end cells."
+
+msgid "2 階微分の中心差分"
+msgstr "Central difference for the second derivative"
+
+msgid "2 階微分 $\\partial^2 u/\\partial x^2$ を、隣どうしの値の差で近似します。 $u_j$ をセル $j$ の値とすると、次の **中心差分**（central difference）を使います。"
+msgstr "We approximate the second derivative $\\partial^2 u/\\partial x^2$ using differences between neighboring values. Letting $u_j$ be the value in cell $j$, we use the following **central difference**."
+
+msgid "\\left.\\frac{\\partial^2 u}{\\partial x^2}\\right|_{x_j} \\approx \\frac{u_{j-1} - 2u_j + u_{j+1}}{\\Delta x^2}"
+msgstr ""
+
+#, python-brace-format
+msgid "テイラー展開すると、この近似の誤差は $\\Delta x^2$ に比例します（2 次精度）。 左右 1 つずつの隣を使うので、端のセル（$j = 0$ と $j = N-1$）では、領域の外の値が 1 つずつ必要になります。 これは {ref}`edu-ch10-boundary` で扱います。"
+msgstr "A Taylor expansion shows that the error of this approximation is proportional to $\\Delta x^2$ (second-order accuracy). Because it uses one neighbor on each side, the end cells ($j = 0$ and $j = N-1$) each need one value from outside the domain. We deal with this in {ref}`edu-ch10-boundary`."
+
+msgid "時間方向の陽解法"
+msgstr "Explicit method in time"
+
+#, python-brace-format
+msgid "時刻を $t^n = n\\,\\Delta t$ と刻み、時刻 $t^n$ の値を $u_j^n$ と書きます。 時間微分を前進差分 $(u_j^{n+1} - u_j^n)/\\Delta t$ で近似すると、次の更新式になります。"
+msgstr "We discretize time as $t^n = n\\,\\Delta t$ and write the value at time $t^n$ as $u_j^n$. Approximating the time derivative with the forward difference $(u_j^{n+1} - u_j^n)/\\Delta t$ gives the following update formula."
+
+#, python-brace-format
+msgid "u_j^{n+1} = u_j^n + r\\left(u_{j-1}^n - 2u_j^n + u_{j+1}^n\\right),\\qquad r = \\frac{\\kappa\\,\\Delta t}{\\Delta x^2}"
+msgstr ""
+
+msgid "右辺は時刻 $n$ の値だけで計算できるので、新しい値を順に求められます。 このような方法を **陽解法**（explicit method）と呼び、この時間方向の近似を前進オイラー法（forward Euler method）と呼びます。 $r$ は拡散数（diffusion number）と呼ばれる無次元の数で、次節の安定条件に現れます。"
+msgstr "The right-hand side can be computed from the values at time $n$ alone, so the new values can be obtained one after another. Such a method is called an **explicit method**, and this approximation in time is called the forward Euler method. $r$ is a dimensionless number called the diffusion number, and it appears in the stability condition in the next section."
+
+msgid "Fortran で書くと、1 ステップは次のようになります（説明用の例です）。"
+msgstr "In Fortran, one step looks like the following (an example for illustration)."
+
+msgid "右辺で読む `u` と、左辺に書く `u_new` を別の配列にしています。 同じ配列に上書きすると、`u(j)` を更新した後で `u(j+1)` を計算するときに、更新済みの `u(j)` を読んでしまいます。 すると全セルが同じ時刻の値から計算されたことにならず、上の更新式とは違う計算になります。 **読む配列と書く配列を分けること**は、逐次でも並列でも必要です。並列に実行すると、どのセルが先に更新されるかが決まらないので、なおさら重要です。"
+msgstr "The `u` read on the right-hand side and the `u_new` written on the left-hand side are separate arrays. If you overwrite the same array, then when you compute `u(j+1)` after updating `u(j)`, you read the already updated `u(j)`. The cells are then no longer all computed from values at the same time, and the calculation differs from the update formula above. **Separating the array you read from the array you write** is necessary in both serial and parallel code. It matters even more in parallel execution, because the order in which cells are updated is not determined."
+
+msgid "陽解法の安定条件"
+msgstr "Stability condition of the explicit method"
+
+msgid "陽解法では、$\\Delta t$ を大きくしすぎると、値が振動しながら増えて計算が壊れます。 どこまで大きくしてよいかを調べます。"
+msgstr "In an explicit method, if $\\Delta t$ is too large, the values grow while oscillating and the calculation breaks down. Let us find how large it can be."
+
+#, python-brace-format
+msgid "いちばん細かい波、つまりセルごとに符号が入れ替わる分布 $u_j = (-1)^j$ を考えます。 $u_{j-1} - 2u_j + u_{j+1} = -4u_j$ なので、1 ステップで次のようになります。"
+msgstr "Consider the shortest wave, that is, the distribution $u_j = (-1)^j$ whose sign alternates from cell to cell. Since $u_{j-1} - 2u_j + u_{j+1} = -4u_j$, one step gives the following."
+
+#, python-brace-format
+msgid "u_j^{n+1} = (1 - 4r)\\,u_j^n"
+msgstr ""
+
+msgid "1 ステップごとに $(1 - 4r)$ 倍されるので、$|1 - 4r| \\le 1$、すなわち"
+msgstr "This component is multiplied by $(1 - 4r)$ at every step, so we need $|1 - 4r| \\le 1$, that is,"
+
+#, python-brace-format
+msgid "r = \\frac{\\kappa\\,\\Delta t}{\\Delta x^2} \\le \\frac12"
+msgstr ""
+
+#, python-brace-format
+msgid "でないと、この成分は増え続けます。これが前進オイラー法と中心差分を組み合わせたときの **安定条件**（stability condition）です。 他の波長の成分は、この成分ほど速く増えないので、この条件で全体が安定になります。 1 ステップで掛かる係数を **増幅率**（amplification factor）と呼びます。一般の波長については {ref}`edu-ch10-verification` で求めます。"
+msgstr "Otherwise this component keeps growing. This is the **stability condition** for the forward Euler method combined with the central difference. Components of other wavelengths do not grow as fast as this one, so this condition makes the whole solution stable. The factor applied in one step is called the **amplification factor**. We derive it for a general wavelength in {ref}`edu-ch10-verification`."
+
+msgid "格子幅を半分にすると、$\\Delta t$ の上限は 4 分の 1 になります。 同じ終了時刻まで進めるには、ステップ数が 4 倍、セル数が 2 倍なので、計算量は 8 倍になります。"
+msgstr "If you halve the grid spacing, the upper limit of $\\Delta t$ becomes one quarter. To reach the same end time, the number of steps becomes 4 times larger and the number of cells 2 times larger, so the amount of computation becomes 8 times larger."
+
+#, python-brace-format
+msgid "実習では、$r$ の上限を $r_\\mathrm{max} = 0.4$ とし、終了時刻にちょうど着くように $\\Delta t$ を決めます。"
+msgstr "In the Practice, we set the upper limit of $r$ to $r_\\mathrm{max} = 0.4$ and choose $\\Delta t$ so that the run ends exactly at the end time."
+
+msgid "n_\\mathrm{steps} = \\left\\lceil \\frac{t_\\mathrm{end}}{r_\\mathrm{max}\\,\\Delta x^2/\\kappa} \\right\\rceil,\\qquad \\Delta t = \\frac{t_\\mathrm{end}}{n_\\mathrm{steps}}"
+msgstr ""
+
+#, python-brace-format
+msgid "$\\lceil\\ \\rceil$ は切り上げ（C++ の `std::ceil`）です。こうすると $r \\le r_\\mathrm{max}$ が保たれます。"
+msgstr "$\\lceil\\ \\rceil$ means rounding up (`std::ceil` in C++). This keeps $r \\le r_\\mathrm{max}$."
+
+#, python-brace-format
+msgid "**練習 10.1** $N = 64$、$r_\\mathrm{max} = 0.4$ のとき、$n_\\mathrm{steps}$ と $r$ を求めてください。 また、$r_\\mathrm{max} = 0.6$ にすると何が起きるかを、上の増幅率から説明してください。"
+msgstr "**Exercise 10.1** For $N = 64$ and $r_\\mathrm{max} = 0.4$, find $n_\\mathrm{steps}$ and $r$. Also, explain from the amplification factor above what happens if you set $r_\\mathrm{max} = 0.6$."
+
+msgid ""
+"<details>\n"
+"<summary>解答・解説</summary>\n"
+msgstr ""
+"<details>\n"
+"<summary>Answer and explanation</summary>\n"
+
+#, python-brace-format
+msgid "$\\Delta x = 1/64$、$\\Delta x^2 = 1/4096$ なので、$r_\\mathrm{max}\\Delta x^2/\\kappa = 0.4/4096$ です。 $n_\\mathrm{steps} = \\lceil 0.1 \\times 4096 / 0.4 \\rceil = 1024$、$\\Delta t = 0.1/1024$、$r = 0.4$ です。"
+msgstr "Since $\\Delta x = 1/64$ and $\\Delta x^2 = 1/4096$, we have $r_\\mathrm{max}\\Delta x^2/\\kappa = 0.4/4096$. Then $n_\\mathrm{steps} = \\lceil 0.1 \\times 4096 / 0.4 \\rceil = 1024$, $\\Delta t = 0.1/1024$, and $r = 0.4$."
+
+#, python-brace-format
+msgid "$r_\\mathrm{max} = 0.6$ では $n_\\mathrm{steps} = 683$、$r \\approx 0.5997$ になり、セルごとに符号が入れ替わる成分の増幅率は $1 - 4r \\approx -1.4$ です。 初期条件 $\\sin(\\pi x)$ にはこの成分はほとんど含まれませんが、丸め誤差（$10^{-16}$ 程度）として必ず混ざります。 それが 1 ステップごとに 1.4 倍され、683 ステップ後には $1.4^{683} \\approx 10^{100}$ 倍になるので、計算が壊れます。 実際に実習の逐次版で `r = 0.6` を与えると、最大誤差は $10^{82}$ 程度になります。"
+msgstr "With $r_\\mathrm{max} = 0.6$, we get $n_\\mathrm{steps} = 683$ and $r \\approx 0.5997$, and the amplification factor of the sign-alternating component is $1 - 4r \\approx -1.4$. The initial condition $\\sin(\\pi x)$ contains almost none of this component, but it is always mixed in as rounding error (about $10^{-16}$). It is multiplied by 1.4 at every step, and after 683 steps it has grown by a factor of $1.4^{683} \\approx 10^{100}$, so the calculation breaks down. In fact, if you give `r = 0.6` to the serial version of the Practice, the maximum error becomes about $10^{82}$."
+
+msgid "</details>\n"
+msgstr ""
+
+msgid "境界条件とゴーストセル"
+msgstr "Boundary conditions and ghost cells"
+
+msgid "ゴーストセル"
+msgstr "Ghost cells"
+
+#, python-brace-format
+msgid "端のセル $j = 0$ の差分には $u_{-1}$ が、$j = N-1$ の差分には $u_N$ が必要です。 そこで配列の両端に 1 つずつ余分なセルを足し、そこに境界条件から決まる値を入れておきます。 この余分なセルを **ゴーストセル**（ghost cell）と呼びます。MISO の格子も、同じ考え方で `i_margin` 個のゴーストセルを持ちます（{ref}`第 8 章 <edu-ch08>`）。"
+msgstr "The difference at the end cell $j = 0$ needs $u_{-1}$, and the difference at $j = N-1$ needs $u_N$. So we add one extra cell at each end of the array and fill it with a value determined by the boundary condition. These extra cells are called **ghost cells**. The MISO grid follows the same idea and has `i_margin` ghost cells ({ref}`Chapter 8 <edu-ch08>`)."
+
+msgid "配列の添字は次のようにします。C++ の配列は 0 始まりなので、物理セル $j$ は配列の添字 `i = j + 1` に入ります。"
+msgstr "The array indices are assigned as follows. C++ arrays start at 0, so the physical cell $j$ is stored at the array index `i = j + 1`."
+
+msgid "ゴーストセルの値を先に入れておけば、物理セルの更新は、すべて同じ式"
+msgstr "If the ghost cell values are filled in beforehand, the update of every physical cell can be written with the same formula,"
+
+msgid "で書けます。端のセルだけ別の式を書く必要がなくなります。"
+msgstr "so you no longer need to write a separate formula for the end cells."
+
+msgid "$u = 0$ の境界条件"
+msgstr "The boundary condition $u = 0$"
+
+msgid "境界 $x = 0$ は、ゴーストセル（中心 $x = -\\Delta x/2$）と最初の物理セル（中心 $x = \\Delta x/2$）のちょうど中間にあります。 2 つの値を直線でつないだとき、中間で 0 になるようにするには、ゴーストセルに符号を反転した値を入れます。"
+msgstr "The boundary $x = 0$ lies exactly midway between the ghost cell (center $x = -\\Delta x/2$) and the first physical cell (center $x = \\Delta x/2$). To make the straight line connecting the two values equal 0 at the midpoint, put the sign-reversed value into the ghost cell."
+
+#, python-brace-format
+msgid "u_\\mathrm{ghost,\\,left} = -u_0,\\qquad u_\\mathrm{ghost,\\,right} = -u_{N-1}"
+msgstr ""
+
+msgid "配列の添字で書けば `u[0] = -u[1]`、`u[N+1] = -u[N]` です。 ゴーストセルの値は、物理セルの値が変わるたびに入れ直す必要があります。**各ステップの差分の前に**ゴーストセルを埋めます。"
+msgstr "In terms of array indices, this is `u[0] = -u[1]` and `u[N+1] = -u[N]`. The ghost cell values must be refilled every time the physical cell values change. Fill the ghost cells **before the finite difference of each step**."
+
+msgid "**練習 10.2** 初期条件 $\\sin(\\pi x)$ では、ゴーストセルに $-u_0$ を入れることが、$\\sin(\\pi x)$ を $x = -\\Delta x/2$ で評価した値とちょうど等しくなります。 このことを確かめてください。右端についても同様に確かめてください。"
+msgstr "**Exercise 10.2** For the initial condition $\\sin(\\pi x)$, putting $-u_0$ into the ghost cell gives exactly the value of $\\sin(\\pi x)$ evaluated at $x = -\\Delta x/2$. Verify this. Verify the same for the right end."
+
+msgid "左端：$\\sin(\\pi \\cdot (-\\Delta x/2)) = -\\sin(\\pi\\Delta x/2) = -u_0$ です（$\\sin$ は奇関数）。"
+msgstr "Left end: $\\sin(\\pi \\cdot (-\\Delta x/2)) = -\\sin(\\pi\\Delta x/2) = -u_0$ ($\\sin$ is an odd function)."
+
+#, python-brace-format
+msgid "右端：ゴーストセルの中心は $x = 1 + \\Delta x/2$ です。$\\sin(\\pi + \\theta) = -\\sin\\theta$、$\\sin(\\pi - \\theta) = \\sin\\theta$ より、 $\\sin(\\pi(1 + \\Delta x/2)) = -\\sin(\\pi\\Delta x/2) = -\\sin(\\pi(1 - \\Delta x/2)) = -u_{N-1}$ です。"
+msgstr "Right end: the center of the ghost cell is $x = 1 + \\Delta x/2$. Since $\\sin(\\pi + \\theta) = -\\sin\\theta$ and $\\sin(\\pi - \\theta) = \\sin\\theta$, we have $\\sin(\\pi(1 + \\Delta x/2)) = -\\sin(\\pi\\Delta x/2) = -\\sin(\\pi(1 - \\Delta x/2)) = -u_{N-1}$."
+
+msgid "つまり $\\sin(\\pi x)$ は、ゴーストセルまで含めて同じ式で表せます。次節で、このことを使って差分の結果を式で求めます。"
+msgstr "In other words, $\\sin(\\pi x)$ can be expressed by the same formula including the ghost cells. In the next section, we use this to derive the result of the finite difference as a formula."
+
+msgid "計算結果を期待値と比べる方法"
+msgstr "How to compare the results with expected values"
+
+msgid "計算した値の正しさは、次の 3 つの比較で確かめます。目的が違うので、一致の基準も違います。"
+msgstr "We check the correctness of the computed values with the following three comparisons. Each has a different purpose, so the criterion for agreement also differs."
+
+msgid "比較"
+msgstr "Comparison"
+
+msgid "確かめること"
+msgstr "What it checks"
+
+msgid "期待される差"
+msgstr "Expected difference"
+
+msgid "離散解との比較"
+msgstr "Comparison with the discrete solution"
+
+msgid "差分・境界・時間積分を式どおりに計算できているか"
+msgstr "Whether the finite difference, boundary, and time integration are computed exactly as the formulas say"
+
+msgid "丸め誤差程度"
+msgstr "About the rounding error"
+
+msgid "解析解との比較と収束次数"
+msgstr "Comparison with the analytical solution and the order of convergence"
+
+msgid "差分の近似が正しい精度を持つか"
+msgstr "Whether the finite-difference approximation has the correct accuracy"
+
+msgid "格子を 2 倍にすると約 1/4"
+msgstr "About 1/4 when the number of grid points is doubled"
+
+msgid "ランク数・計算場所を変えた比較"
+msgstr "Comparison across different numbers of ranks and compute locations"
+
+msgid "領域分割、通信、GPU への置き換えが正しいか"
+msgstr "Whether the domain decomposition, communication, and the move to the GPU are correct"
+
+msgid "0（ビット単位で一致）または丸め誤差程度"
+msgstr "0 (bitwise identical) or about the rounding error"
+
+msgid "$\\sin(\\pi x_j)$ に中心差分を当てはめると、三角関数の加法定理 $\\sin(a - b) + \\sin(a + b) = 2\\sin a\\cos b$ から"
+msgstr "Applying the central difference to $\\sin(\\pi x_j)$ and using the trigonometric addition formula $\\sin(a - b) + \\sin(a + b) = 2\\sin a\\cos b$, we get"
+
+#, python-brace-format
+msgid "\\sin(\\pi x_{j-1}) - 2\\sin(\\pi x_j) + \\sin(\\pi x_{j+1}) = -4\\sin^2\\!\\left(\\frac{\\pi\\Delta x}{2}\\right)\\sin(\\pi x_j)"
+msgstr ""
+
+msgid "となり、形は $\\sin(\\pi x_j)$ のまま、一定の係数が掛かります。 練習 10.2 のとおり境界でもこの関係が成り立つので、更新式の 1 ステップで、全セルの値に同じ係数"
+msgstr "so the shape stays $\\sin(\\pi x_j)$ and only a constant factor is applied. As Exercise 10.2 shows, this relation also holds at the boundaries, so one step of the update formula multiplies the values in all cells by the same factor"
+
+#, python-brace-format
+msgid "G = 1 - 4r\\sin^2\\!\\left(\\frac{\\pi\\Delta x}{2}\\right)"
+msgstr ""
+
+msgid "が掛かります。これが $\\sin(\\pi x)$ の成分に対する増幅率です。$n$ ステップ後の値は、次の式で計算できます。"
+msgstr "This is the amplification factor for the $\\sin(\\pi x)$ component. The value after $n$ steps can be computed as follows."
+
+msgid "u_j^n = G^n \\sin(\\pi x_j)"
+msgstr ""
+
+#, python-brace-format
+msgid "これを **離散解** と呼ぶことにします。差分と時間積分を式どおりに計算していれば、数値解と離散解の違いは丸め誤差だけです。 倍精度（`double`）で数千ステップ程度なら、全セルの最大の差は $10^{-12}$ 程度以下になります。 添字を 1 つずらした、ゴーストセルを埋め忘れた、といった誤りがあると、この差は丸め誤差よりずっと大きくなります。"
+msgstr "We call this the **discrete solution**. If the finite difference and time integration are computed exactly as the formulas say, the only difference between the numerical solution and the discrete solution is rounding error. In double precision (`double`) with a few thousand steps, the maximum difference over all cells is about $10^{-12}$ or less. If there is a mistake, such as an index shifted by one or a forgotten ghost cell fill, this difference becomes much larger than the rounding error."
+
+msgid "解析解との差には、差分による近似の誤差（打ち切り誤差、truncation error）が含まれます。 全セルの最大の差"
+msgstr "The difference from the analytical solution includes the approximation error of the finite difference (the truncation error). We compute the maximum difference over all cells,"
+
+msgid "E_N = \\max_j \\left| u_j^{n_\\mathrm{steps}} - e^{-\\pi^2\\kappa t_\\mathrm{end}}\\sin(\\pi x_j)\\right|"
+msgstr ""
+
+msgid "を、$N$ を 2 倍ずつ変えて計算します。 空間は 2 次精度、時間は 1 次精度ですが、$\\Delta t \\propto \\Delta x^2$ としているので、時間の誤差も $\\Delta x^2$ に比例します。 したがって、$N$ を 2 倍にすると誤差は約 1/4 になるはずです。 2 つの格子での誤差の比から、**収束次数**（order of convergence）$p$ を次の式で求めます。"
+msgstr "doubling $N$ each time. The scheme is second-order accurate in space and first-order accurate in time, but since we set $\\Delta t \\propto \\Delta x^2$, the error in time is also proportional to $\\Delta x^2$. Therefore, doubling $N$ should reduce the error to about 1/4. From the ratio of the errors on two grids, we obtain the **order of convergence** $p$ with the following formula."
+
+msgid "p = \\log_2\\frac{E_N}{E_{2N}}"
+msgstr ""
+
+#, python-brace-format
+msgid "$p \\approx 2$ になれば、差分の近似が期待どおりの精度を持っていることになります。 実習の条件（$r_\\mathrm{max} = 0.4$）での値は次のとおりです。"
+msgstr "If $p \\approx 2$, the finite-difference approximation has the expected accuracy. The values under the Practice conditions ($r_\\mathrm{max} = 0.4$) are as follows."
+
+msgid "$N$"
+msgstr ""
+
+#, python-brace-format
+msgid "$n_\\mathrm{steps}$"
+msgstr ""
+
+msgid "$E_N$"
+msgstr ""
+
+#, python-brace-format
+msgid "$E_{N/2}/E_N$"
+msgstr ""
+
+msgid "$p$"
+msgstr ""
+
+msgid "32"
+msgstr ""
+
+msgid "256"
+msgstr ""
+
+#, python-brace-format
+msgid "$4.1368 \\times 10^{-4}$"
+msgstr ""
+
+msgid "—"
+msgstr ""
+
+msgid "64"
+msgstr ""
+
+msgid "1024"
+msgstr ""
+
+#, python-brace-format
+msgid "$1.0341 \\times 10^{-4}$"
+msgstr ""
+
+msgid "4.0004"
+msgstr ""
+
+msgid "2.0001"
+msgstr ""
+
+msgid "128"
+msgstr ""
+
+msgid "4096"
+msgstr ""
+
+#, python-brace-format
+msgid "$2.5852 \\times 10^{-5}$"
+msgstr ""
+
+msgid "4.0001"
+msgstr ""
+
+msgid "2.0000"
+msgstr ""
+
+msgid "16384"
+msgstr ""
+
+#, python-brace-format
+msgid "$6.4630 \\times 10^{-6}$"
+msgstr ""
+
+msgid "4.0000"
+msgstr ""
+
+msgid "512"
+msgstr ""
+
+msgid "65536"
+msgstr ""
+
+#, python-brace-format
+msgid "$1.6158 \\times 10^{-6}$"
+msgstr ""
+
+msgid "誤差は丸め誤差よりずっと大きいので、離散解との比較のように丸め誤差程度の一致は求めません。 見るのは「格子を細かくすると、決まった割合で誤差が減るか」です。"
+msgstr "The error is much larger than the rounding error, so we do not require agreement at the rounding-error level as in the comparison with the discrete solution. What we check is whether the error decreases at a fixed rate as the grid is refined."
+
+#, python-brace-format
+msgid "**練習 10.3** 表の $N = 32$ と $N = 64$ の $E_N$ から、収束次数 $p$ を計算してください。 また、誤差を $10^{-6}$ 以下にするには、$N$ をおよそいくつにすればよいかを、表から見積もってください。"
+msgstr "**Exercise 10.3** Compute the order of convergence $p$ from $E_N$ for $N = 32$ and $N = 64$ in the table. Also, estimate from the table roughly what $N$ is needed to bring the error down to $10^{-6}$ or less."
+
+#, python-brace-format
+msgid "$E_{32}/E_{64} = 4.1368\\times10^{-4} / 1.0341\\times10^{-4} \\approx 4.0004$、$p = \\log_2 4.0004 \\approx 2.000$ です。"
+msgstr "$E_{32}/E_{64} = 4.1368\\times10^{-4} / 1.0341\\times10^{-4} \\approx 4.0004$, and $p = \\log_2 4.0004 \\approx 2.000$."
+
+#, python-brace-format
+msgid "$E_N \\propto N^{-2}$ なので、$E_{512} = 1.6\\times10^{-6}$ から $10^{-6}$ にするには $N$ を $\\sqrt{1.6} \\approx 1.27$ 倍、つまり $N \\approx 650$ 程度にします。 このときステップ数は $N^2$ に比例して増え、計算量は $N^3$ に比例します。"
+msgstr "Since $E_N \\propto N^{-2}$, going from $E_{512} = 1.6\\times10^{-6}$ to $10^{-6}$ requires multiplying $N$ by $\\sqrt{1.6} \\approx 1.27$, that is, $N \\approx 650$. The number of steps then grows in proportion to $N^2$, and the amount of computation grows in proportion to $N^3$."
+
+msgid ""
+"<details>\n"
+"<summary>コラム：誤差の主要項と r = 1/6</summary>\n"
+msgstr ""
+"<details>\n"
+"<summary>Column: The leading error term and r = 1/6</summary>\n"
+
+msgid "離散解 $G^n\\sin(\\pi x_j)$ と解析解の振幅の違いを $\\Delta x$ について展開すると、主要な項は次のようになります（$\\kappa = 1$ の場合）。"
+msgstr "Expanding the difference in amplitude between the discrete solution $G^n\\sin(\\pi x_j)$ and the analytical solution in powers of $\\Delta x$, the leading term is as follows (for $\\kappa = 1$)."
+
+msgid "E_N \\approx t_\\mathrm{end}\\,\\pi^4\\,\\Delta x^2\\left(\\frac{r}{2} - \\frac{1}{12}\\right)e^{-\\pi^2 t_\\mathrm{end}}"
+msgstr ""
+
+#, python-brace-format
+msgid "$-1/12$ は空間の中心差分の誤差、$r/2$ は前進オイラー法の誤差から来ます。 $r = 0.4$、$N = 32$ を代入すると $4.136\\times10^{-4}$ となり、上の表とよく合います。"
+msgstr "The term $-1/12$ comes from the error of the central difference in space, and $r/2$ from the error of the forward Euler method. Substituting $r = 0.4$ and $N = 32$ gives $4.136\\times10^{-4}$, which agrees well with the table above."
+
+#, python-brace-format
+msgid "2 つの項は符号が逆なので、$r = 1/6$ にすると主要項が打ち消し合い、誤差は $\\Delta x^4$ に比例するようになります。 実習の逐次版で `r = 0.16666666666666667` を与えると、$N = 64$ で誤差は $1.6\\times10^{-8}$ 程度まで下がります （$n_\\mathrm{steps}$ を切り上げるので $r$ がわずかに 1/6 からずれ、きれいな 4 次にはなりません）。 この打ち消しは、この方程式と差分の組み合わせに特有のもので、一般の問題では期待できません。"
+msgstr "The two terms have opposite signs, so with $r = 1/6$ the leading terms cancel and the error becomes proportional to $\\Delta x^4$. If you give `r = 0.16666666666666667` to the serial version of the Practice, the error drops to about $1.6\\times10^{-8}$ at $N = 64$ (because $n_\\mathrm{steps}$ is rounded up, $r$ deviates slightly from 1/6, and you do not get a clean fourth-order behavior). This cancellation is specific to this combination of equation and difference scheme, and you cannot expect it for general problems."
+
+msgid "MPI 版では、全体の格子、初期条件、$\\Delta t$、更新式を、ランク数によらず同じにします。 各セルの更新は、そのセルと左右の隣の値だけで決まり、計算の順番（足し算の順序）も変わりません。 そのため、ゴーストセルに正しい値が届いていれば、**ランク数を変えても結果はビット単位で一致します**。 逐次版とも一致します。"
+msgstr "In the MPI version, the global grid, the initial condition, $\\Delta t$, and the update formula are the same regardless of the number of ranks. The update of each cell is determined only by that cell and its left and right neighbors, and the order of the computation (the order of the additions) does not change either. Therefore, as long as the correct values reach the ghost cells, **the results are bitwise identical even if you change the number of ranks**. They also match the serial version."
+
+msgid "一致を確かめるには、全セルの値を 17 桁で書き出したファイルどうしを比べます。 `cmp` はファイルが 1 バイトでも違えば、最初に違う場所を表示します。何も表示されなければ一致です。"
+msgstr "To check agreement, compare files in which the values of all cells are written with 17 digits. If the files differ by even one byte, `cmp` shows the first place where they differ. If nothing is printed, they match."
+
+msgid "最大誤差の比較だけでは、ずれがあっても気づかないことがあります。全セルの値を比べてください。"
+msgstr "Comparing only the maximum error can miss a discrepancy. Compare the values of all cells."
+
+#, python-brace-format
+msgid "GPU 版と CPU 版の比較では、ビット単位の一致は保証されません。 GPU のコンパイラは掛け算と足し算を 1 回の丸めで計算する命令（FMA、fused multiply-add）を使うことがあり、`sin` などの数学関数の実装も CPU と違います。 最後の桁が違うことがあるので、全セルの最大の差を見て、値の大きさに対して $10^{-12}$ 程度以下なら一致とみなします。 最大の差は、たとえば次のように `awk` で求められます（2 つのファイルとも 1 列目が $x$、2 列目が $u$）。"
+msgstr "When comparing the GPU version with the CPU version, bitwise agreement is not guaranteed. The GPU compiler may use an instruction that computes a multiplication and an addition with a single rounding (FMA, fused multiply-add), and the implementations of mathematical functions such as `sin` also differ from those on the CPU. The last digit may differ, so look at the maximum difference over all cells and regard the results as matching if it is about $10^{-12}$ or less relative to the size of the values. You can compute the maximum difference with `awk`, for example, as follows (in both files, column 1 is $x$ and column 2 is $u$)."
+
+#, python-brace-format
+msgid "計算結果の比べ方は {ref}`参考資料「テストと結果の比較」 <edu-ref-testing>` にもまとめています。"
+msgstr "How to compare computed results is also summarized in the {ref}`reference material \"Testing and Comparing Results\" <edu-ref-testing>`."
+
+msgid "逐次版の組み立て"
+msgstr "Building the serial version"
+
+#, python-brace-format
+msgid "{ref}`実習 01 <edu-practice-heat1d-01>` では、ここまでの式を MISO の `Array1D`・`for_each`・`reduce` で書きます。 配列とループの基本は {ref}`第 7 章 <edu-ch07>` で説明したとおりです。ここでは、この実習で気をつける点を説明します。"
+msgstr "In {ref}`Practice 01 <edu-practice-heat1d-01>`, you write the formulas so far using MISO's `Array1D`, `for_each`, and `reduce`. The basics of arrays and loops were explained in {ref}`Chapter 7 <edu-ch07>`. Here we explain the points to watch for in this Practice."
+
+msgid "値の型"
+msgstr "Value type"
+
+#, python-brace-format
+msgid "`using Real = double;` として倍精度で計算します。 MISO のデモは `using Real = float;`（単精度）で動かしていますが、単精度の丸め誤差は $10^{-7}$ 程度あり、 離散解との比較（$10^{-12}$ 程度）や、$N = 512$ での誤差（$10^{-6}$ 程度）を見分けられません。"
+msgstr "Use `using Real = double;` to compute in double precision. The MISO demos run with `using Real = float;` (single precision), but the rounding error of single precision is about $10^{-7}$, which is too large to resolve the comparison with the discrete solution (about $10^{-12}$) or the error at $N = 512$ (about $10^{-6}$)."
+
+msgid "配列とビュー"
+msgstr "Arrays and views"
+
+msgid "物理セル $N$ 個とゴーストセル 2 個で、`Array1D<Real> u(N + 2)` を確保します。更新先の `u_new` も同じ大きさで別に確保します。"
+msgstr "Allocate `Array1D<Real> u(N + 2)` for $N$ physical cells and 2 ghost cells. Allocate the destination `u_new` separately with the same size."
+
+msgid "`for_each` に渡すラムダの中では、`Array1D` そのものではなく、`view()` で取り出したビューを使います。 `MISO_LAMBDA` は値のコピーで変数を取り込む（`[=]`）ので、`Array1D` を直接使うと、コピーが禁止された `Array1D` をコピーしようとしてコンパイルエラーになります。"
+msgstr "Inside the lambda passed to `for_each`, use a view obtained with `view()`, not the `Array1D` itself. `MISO_LAMBDA` captures variables by value (`[=]`), so using an `Array1D` directly tries to copy an `Array1D`, whose copying is prohibited, and causes a compile error."
+
+#, python-brace-format
+msgid "ビューは、データの場所（ポインタ）と大きさだけを持つ軽いオブジェクトなので、コピーしても配列の中身は複製されません（{ref}`第 4 章 <edu-ch04>`）。"
+msgstr "A view is a lightweight object that holds only the location of the data (a pointer) and its size, so copying it does not duplicate the contents of the array ({ref}`Chapter 4 <edu-ch04>`)."
+
+msgid "1 ステップの流れ"
+msgstr "Flow of one step"
+
+msgid "1 ステップは次の順に進めます。"
+msgstr "Proceed through one step in the following order."
+
+msgid "ゴーストセルに境界条件の値を入れる（`u[0] = -u[1]`、`u[N+1] = -u[N]`）。"
+msgstr "Fill the ghost cells with the boundary condition values (`u[0] = -u[1]`, `u[N+1] = -u[N]`)."
+
+#, python-brace-format
+msgid "物理セル（添字 `1` から `N`）について、`u` を読んで `u_new` に書く（`for_each`、範囲は `Range1D{1, N + 1}`）。"
+msgstr "For the physical cells (indices `1` to `N`), read `u` and write to `u_new` (`for_each`, with the range `Range1D{1, N + 1}`)."
+
+msgid "`u` と `u_new` を入れ替える。"
+msgstr "Swap `u` and `u_new`."
+
+#, python-brace-format
+msgid "ゴーストセルの 2 つの値は、逐次版では `u[0] = ...` と直接書いても動きます。 ただし後で GPU に移すときは、GPU 上の配列にホストから添字で書き込めません。 はじめから `Range1D{0, 1}`（1 回だけ回るループ）の `for_each` の中で書いておくと、GPU 版にそのまま移せます。"
+msgstr "In the serial version, writing the two ghost cell values directly as `u[0] = ...` works. However, when you later move to the GPU, you cannot write to an array on the GPU by index from the host. If you write them from the start inside a `for_each` over `Range1D{0, 1}` (a loop that runs only once), you can carry the code over to the GPU version as it is."
+
+msgid "3 の入れ替えには `std::swap(u, u_new);`（`<utility>`）が使えます。 `Array1D` はムーブ（中身のポインタの付け替え）ができるので、要素をコピーせずに 2 つの配列の中身が入れ替わります。 ビューは入れ替え前のデータを指したままなので、**入れ替えの後は、次のステップでビューを取り直します**。 ステップのループの中で毎回 `view()` を呼べば、この間違いは起きません。"
+msgstr "For the swap in step 3, you can use `std::swap(u, u_new);` (`<utility>`). `Array1D` supports move (reassigning the pointers to the contents), so the contents of the two arrays are exchanged without copying elements. A view still points to the data from before the swap, so **after the swap, obtain the views again in the next step**. If you call `view()` every time inside the step loop, this mistake does not happen."
+
+msgid "最大誤差を reduce で求める"
+msgstr "Finding the maximum error with reduce"
+
+#, python-brace-format
+msgid "全セルの最大誤差は `reduce` で求めます。初期値 `Real(0)`、各セルの値を返すラムダ、2 つの値から大きい方を返すラムダを渡します。 誤差は 0 以上なので、`Real(0)` が最大値の単位元の代わりになります（{ref}`第 7 章 <edu-ch07-reduce>`）。"
+msgstr "Find the maximum error over all cells with `reduce`. Pass the initial value `Real(0)`, a lambda that returns the value of each cell, and a lambda that returns the larger of two values. The error is 0 or greater, so `Real(0)` serves as the identity element of the maximum ({ref}`Chapter 7 <edu-ch07-reduce>`)."
+
+msgid "各セルの値を返すラムダでは、$x_j$ と解析解（または離散解）を計算し、差の絶対値を返します。 数学関数は `miso::util::sin`、`miso::util::exp`、`miso::util::fabs`（`miso/include/miso/utility.hpp`）を使うと、GPU 版でも同じ書き方で使えます。 円周率は `miso::pi<Real>`（`miso/include/miso/constants.hpp`）です。"
+msgstr "In the lambda that returns the value of each cell, compute $x_j$ and the analytical solution (or the discrete solution), and return the absolute value of the difference. If you use `miso::util::sin`, `miso::util::exp`, and `miso::util::fabs` (`miso/include/miso/utility.hpp`) for the mathematical functions, you can write the same code for the GPU version. The constant pi is `miso::pi<Real>` (`miso/include/miso/constants.hpp`)."
+
+msgid "MISO の実例として、`miso/include/miso/execution.hpp` の Host 版の `for_each` と `reduce` をもう一度見ておきます。 どちらも、ただの `for` 文でラムダを呼んでいるだけです。"
+msgstr "As a real example from MISO, look again at the Host versions of `for_each` and `reduce` in `miso/include/miso/execution.hpp`. Both simply call the lambda inside a plain `for` statement."
+
+msgid "部分ごとに確かめる"
+msgstr "Checking part by part"
+
+msgid "一度に全体を書いてから動かすと、どこが間違っているのか分かりにくくなります。次の順に、確かめながら進めます。"
+msgstr "If you write everything at once and then run it, it is hard to tell where the mistake is. Proceed in the following order, checking as you go."
+
+msgid "作る段階"
+msgstr "Stage"
+
+msgid "物理セルの値を書き出し、$\\sin(\\pi x_j)$ になっていること"
+msgstr "Write out the physical cell values and confirm that they equal $\\sin(\\pi x_j)$"
+
+msgid "1 ステップ"
+msgstr "One step"
+
+msgid "離散解 $G\\sin(\\pi x_j)$ との最大の差が丸め誤差程度であること"
+msgstr "The maximum difference from the discrete solution $G\\sin(\\pi x_j)$ is about the rounding error"
+
+#, python-brace-format
+msgid "$n_\\mathrm{steps}$ ステップ"
+msgstr "$n_\\mathrm{steps}$ steps"
+
+#, python-brace-format
+msgid "離散解 $G^{n}\\sin(\\pi x_j)$ との差が $10^{-12}$ 程度以下、解析解との差が上の表と合うこと"
+msgstr "The difference from the discrete solution $G^{n}\\sin(\\pi x_j)$ is about $10^{-12}$ or less, and the difference from the analytical solution agrees with the table above"
+
+msgid "$N$ を変える"
+msgstr "Varying $N$"
+
+msgid "収束次数が 2 に近いこと"
+msgstr "The order of convergence is close to 2"
+
+msgid "MPI 版：領域分割とゴーストセルの交換"
+msgstr "MPI version: domain decomposition and ghost cell exchange"
+
+#, python-brace-format
+msgid "{ref}`実習 02 <edu-practice-heat1d-02>` では、逐次版を $P$ ランクで分担します。 MPI の基本（ランク、`MPI_Sendrecv`、`MPI_Allreduce`）は {ref}`第 8 章 <edu-ch08>` で説明しました。 この実習では、MISO の `mpi::Shape` は使わず、1 次元の分割と交換を自分で書きます。"
+msgstr "In {ref}`Practice 02 <edu-practice-heat1d-02>`, you split the serial version across $P$ ranks. The basics of MPI (ranks, `MPI_Sendrecv`, `MPI_Allreduce`) were explained in {ref}`Chapter 8 <edu-ch08>`. In this Practice, you do not use MISO's `mpi::Shape`; you write the 1D decomposition and exchange yourself."
+
+msgid "各ランクの格子"
+msgstr "Grid on each rank"
+
+msgid "全体のセル数 $N$ を $P$ ランクで等分し、各ランクは $n = N/P$ 個の物理セルを持ちます（$N$ が $P$ で割り切れる場合だけを扱います）。 ランク $p$ の配列は `n + 2` 要素で、ローカルな添字 `i`（1〜`n`）の物理セルは、全体の番号 $j = p\\,n + (i - 1)$ にあたります。"
+msgstr "Divide the total number of cells $N$ equally among $P$ ranks, so that each rank has $n = N/P$ physical cells (we only treat the case where $N$ is divisible by $P$). The array on rank $p$ has `n + 2` elements, and the physical cell with local index `i` (1 to `n`) corresponds to the global number $j = p\\,n + (i - 1)$."
+
+#, python-brace-format
+msgid "初期条件の $x_j$ は、全体の番号 $j$ から逐次版と同じ式 $x_j = (j + 1/2)\\Delta x$ で求めます。 $\\Delta x$、$\\Delta t$、$n_\\mathrm{steps}$ も全体の $N$ から決め、ランク数によって変えません。"
+msgstr "Compute $x_j$ for the initial condition from the global number $j$ using the same formula as the serial version, $x_j = (j + 1/2)\\Delta x$. Also determine $\\Delta x$, $\\Delta t$, and $n_\\mathrm{steps}$ from the global $N$, and do not change them with the number of ranks."
+
+msgid "隣のランクとゴーストセルの交換"
+msgstr "Exchanging ghost cells with neighboring ranks"
+
+msgid "ランク $p$ の左隣はランク $p - 1$、右隣はランク $p + 1$ です。 領域の左端（ランク 0）の左と、右端（ランク $P - 1$）の右には隣がありません。 そこでは隣のランク番号の代わりに `MPI_PROC_NULL` を使います。 `MPI_PROC_NULL` を相手にした送受信は何もせずにすぐ終わり、受信用の場所の値も変わりません。 こうすると、端のランクも他のランクと同じ呼び出しを書けます。"
+msgstr "The left neighbor of rank $p$ is rank $p - 1$ and its right neighbor is rank $p + 1$. There is no neighbor to the left of the left end of the domain (rank 0) or to the right of the right end (rank $P - 1$). There, use `MPI_PROC_NULL` in place of the neighbor's rank number. A send or receive with `MPI_PROC_NULL` as the partner does nothing and returns immediately, and the values in the receive location do not change. This way, the end ranks can make the same calls as the other ranks."
+
+msgid "各ステップの差分の前に、次の 2 回の `MPI_Sendrecv` で、左右のゴーストセルを埋めます。"
+msgstr "Before the finite difference of each step, fill the left and right ghost cells with the following two `MPI_Sendrecv` calls."
+
+msgid "呼び出し"
+msgstr "Call"
+
+msgid "送る値 → 相手"
+msgstr "Value sent → partner"
+
+msgid "受け取る場所 ← 相手"
+msgstr "Receive location ← partner"
+
+msgid "1 回目（タグ 0）"
+msgstr "First (tag 0)"
+
+msgid "最初の物理セル `u[1]` → 左隣"
+msgstr "First physical cell `u[1]` → left neighbor"
+
+msgid "右のゴーストセル `u[n+1]` ← 右隣"
+msgstr "Right ghost cell `u[n+1]` ← right neighbor"
+
+msgid "2 回目（タグ 1）"
+msgstr "Second (tag 1)"
+
+msgid "最後の物理セル `u[n]` → 右隣"
+msgstr "Last physical cell `u[n]` → right neighbor"
+
+msgid "左のゴーストセル `u[0]` ← 左隣"
+msgstr "Left ghost cell `u[0]` ← left neighbor"
+
+msgid "1 回目では、全ランクがそろって「左へ送り、右から受け取る」ので、ランク $p$ が左へ送った値は、ランク $p - 1$ の右のゴーストセルに入ります。 `MPI_Sendrecv` は送信と受信を組にして行うので、全ランクが同時に送信だけを始めて互いに待ち合う（デッドロック）ことがありません。"
+msgstr "In the first call, all ranks together \"send to the left and receive from the right,\" so the value that rank $p$ sends to the left goes into the right ghost cell of rank $p - 1$. `MPI_Sendrecv` performs the send and the receive as a pair, so it does not happen that all ranks start only sending at the same time and wait for each other (deadlock)."
+
+msgid "交換の後、領域の端を持つランクだけが、物理境界の値（`u[0] = -u[1]` または `u[n+1] = -u[n]`）を入れます。 左隣が `MPI_PROC_NULL` かどうかで、自分が左端を持つかを判断できます。 内部の境界（ランクとランクの間）では隣から受け取った値を、物理境界では境界条件の値を使う、という区別は MISO 本体でも同じです。"
+msgstr "After the exchange, only the ranks that hold an end of the domain fill in the physical boundary value (`u[0] = -u[1]` or `u[n+1] = -u[n]`). You can tell whether a rank holds the left end by checking whether its left neighbor is `MPI_PROC_NULL`. The distinction of using the value received from the neighbor at an internal boundary (between ranks) and the boundary condition value at a physical boundary is the same in MISO itself."
+
+msgid "`Array1D<Real>`（ホストの配列）の要素のアドレスは `&u[1]` のように取れるので、それをそのまま `MPI_Sendrecv` に渡せます。"
+msgstr "The address of an element of `Array1D<Real>` (a host array) can be taken as `&u[1]`, so you can pass it directly to `MPI_Sendrecv`."
+
+msgid "誤差の集計と結果の収集"
+msgstr "Aggregating errors and gathering results"
+
+msgid "各ランクは、自分の物理セルについて `reduce` で最大誤差を求めます。 全体の最大誤差は、それらの最大値です。`MPI_Allreduce` に `MPI_MAX` を指定して求めます。"
+msgstr "Each rank finds the maximum error over its own physical cells with `reduce`. The global maximum error is the maximum of these. Obtain it by calling `MPI_Allreduce` with `MPI_MAX`."
+
+msgid "ファイルに書き出すときは、`MPI_Gather` で全ランクの物理セルをランク 0 に集めます。 各ランクが同じ個数（$n$ 個）を送ると、ランク 0 の受信用の配列にランク番号の順に並ぶので、全体の番号 $j$ の順になります。"
+msgstr "When writing to a file, gather the physical cells of all ranks onto rank 0 with `MPI_Gather`. If every rank sends the same number of elements ($n$), they are arranged in the receive array on rank 0 in rank order, which is the order of the global number $j$."
+
+msgid "受け取る場所 `u_all` は、ランク 0 だけが $N$ 要素を用意すれば足ります（他のランクでは使われません）。 なお、実習で $N$ が $P$ で割り切れない場合に使う `MPI_Abort(comm, 1)` は、そのコミュニケータのすべてのプロセスを終了させる関数です。"
+msgstr "For the receive location `u_all`, only rank 0 needs to prepare $N$ elements (it is not used on the other ranks). Note that `MPI_Abort(comm, 1)`, which the Practice uses when $N$ is not divisible by $P$, is a function that terminates all processes in that communicator."
+
+msgid "**練習 10.4** MPI 版で、全体の最大誤差はランク数によらず逐次版とビット単位で一致します。 一方、全セルの値の合計（$\\sum_j u_j$）を各ランクで計算して `MPI_Allreduce`（`MPI_SUM`）で足し合わせると、ランク数によって最後の桁が変わることがあります。 この違いが生じる理由を説明してください。"
+msgstr "**Exercise 10.4** In the MPI version, the global maximum error matches the serial version bitwise regardless of the number of ranks. On the other hand, if each rank computes the sum of the values over all cells ($\\sum_j u_j$) and you add them up with `MPI_Allreduce` (`MPI_SUM`), the last digit may change with the number of ranks. Explain why this difference occurs."
+
+#, python-brace-format
+msgid "各セルの値そのものはランク数によらずビット単位で一致します（{ref}`edu-ch10-verification`）。"
+msgstr "The value in each cell itself is bitwise identical regardless of the number of ranks ({ref}`edu-ch10-verification`)."
+
+msgid "最大値は、どの順に比べても同じ値が選ばれ、比べるときに丸めも起きません。したがって集計の順序によらず同じ結果になります。"
+msgstr "For the maximum, the same value is chosen in whatever order you compare, and no rounding occurs in the comparison. The result is therefore the same regardless of the order of aggregation."
+
+msgid "合計は、浮動小数点の足し算が結合法則を満たさない（$(a + b) + c$ と $a + (b + c)$ の丸めが違う）ため、足す順序で結果が変わります。 逐次版は $u_0$ から順に足しますが、MPI 版は各ランクの部分和を先に作ってから足すので、ランク数が変わると足す順序が変わります。 その差は丸め誤差程度です。ランク数を変えた比較で合計を使うときは、ビット単位の一致を求めず、丸め誤差程度の差を許します。"
+msgstr "For the sum, floating-point addition is not associative (the rounding of $(a + b) + c$ and $a + (b + c)$ differs), so the result changes with the order of addition. The serial version adds from $u_0$ in order, whereas the MPI version first forms the partial sum on each rank and then adds them, so the order of addition changes when the number of ranks changes. The difference is about the size of the rounding error. When you use the sum in a comparison across different numbers of ranks, do not require bitwise agreement; allow a difference at the rounding-error level."
+
+msgid "GPU 版：配列とループを GPU へ"
+msgstr "GPU version: moving arrays and loops to the GPU"
+
+#, python-brace-format
+msgid "{ref}`実習 03 <edu-practice-heat1d-03>` では、MPI 版の配列とループを GPU へ移します。 ホストとデバイスのメモリ、`MISO_LAMBDA`、`this` の取り込みについては {ref}`第 9 章 <edu-ch09>` で説明しました。 GPU がない場合も、同じソースを CPU 用にビルドして MPI 版と同じ結果になることを確かめられます。"
+msgstr "In {ref}`Practice 03 <edu-practice-heat1d-03>`, you move the arrays and loops of the MPI version to the GPU. Host and device memory, `MISO_LAMBDA`, and capturing `this` were explained in {ref}`Chapter 9 <edu-ch09>`. Even without a GPU, you can build the same source for the CPU and check that it gives the same result as the MPI version."
+
+msgid "計算場所を型で選ぶ"
+msgstr "Choosing the compute location by type"
+
+msgid "MISO のデモと同じく、計算場所を表す型 `Backend` を 1 か所で決めます。"
+msgstr "As in the MISO demos, decide the type `Backend`, which represents the compute location, in one place."
+
+#, python-brace-format
+msgid "`__CUDACC__` は、ソースを CUDA のコンパイラ（`nvcc`）でコンパイルしているときにだけ定義されるマクロです。 配列は `Array1D<Real, Backend>`、ループは `for_each(Backend{}, ...)`、縮約は `reduce(Backend{}, ...)` と書きます。 `g++` でビルドすれば `Backend` は `backend::Host` になり、MPI 版と同じ計算をします。 ラムダを書く `MISO_LAMBDA` も、`miso/include/miso/execution.hpp` で同じように切り替わります（CUDA では `[=] __host__ __device__`、CPU では `[=]`）。"
+msgstr "`__CUDACC__` is a macro that is defined only when the source is compiled with the CUDA compiler (`nvcc`). Write the array as `Array1D<Real, Backend>`, the loop as `for_each(Backend{}, ...)`, and the reduction as `reduce(Backend{}, ...)`. If you build with `g++`, `Backend` becomes `backend::Host` and the program performs the same calculation as the MPI version. `MISO_LAMBDA`, which you use to write lambdas, is switched in the same way in `miso/include/miso/execution.hpp` (`[=] __host__ __device__` for CUDA and `[=]` for the CPU)."
+
+msgid "GPU 上の配列への読み書き"
+msgstr "Reading and writing arrays on the GPU"
+
+msgid "`Array1D<Real, backend::CUDA>` の中身は GPU のメモリにあります。 ホストの配列と違って `operator[]` を持たないので、ホストのコードから `u[i]` と書くとコンパイルエラーになります。 GPU 上の値を読み書きする方法は 2 つです。"
+msgstr "The contents of `Array1D<Real, backend::CUDA>` are in GPU memory. Unlike the host array, it has no `operator[]`, so writing `u[i]` in host code causes a compile error. There are two ways to read and write values on the GPU."
+
+msgid "`for_each` のラムダの中で、ビューを通して読み書きする（ラムダは GPU で実行されます）。"
+msgstr "Read and write through a view inside the lambda of `for_each` (the lambda runs on the GPU)."
+
+msgid "ホストの `Array1D<Real>` との間で `copy_from` で丸ごと写す。"
+msgstr "Copy the whole array to or from a host `Array1D<Real>` with `copy_from`."
+
+msgid "`miso/include/miso/array1d.hpp` の `Array1D<T, backend::CUDA>::copy_from` は、ホストの配列から GPU へ `cudaMemcpy` で写します。"
+msgstr "`Array1D<T, backend::CUDA>::copy_from` in `miso/include/miso/array1d.hpp` copies from a host array to the GPU with `cudaMemcpy`."
+
+msgid "逆向き（GPU からホストへ）は、ホストの配列の `copy_from` に GPU の配列を渡します。 初期条件、境界条件、更新、誤差の計算は、すべて `for_each`・`reduce` の中で GPU 上で行います。 ホストへ写すのは、ゴーストセルの交換に使う値と、最後に書き出す結果だけです。"
+msgstr "For the opposite direction (from the GPU to the host), pass the GPU array to `copy_from` of the host array. The initial condition, boundary conditions, update, and error computation are all done on the GPU inside `for_each` and `reduce`. The only things copied to the host are the values used for the ghost cell exchange and the final result to be written out."
+
+msgid "ゴーストセルの交換"
+msgstr "Ghost cell exchange"
+
+msgid "`MPI_Sendrecv` に GPU のメモリのアドレスを渡せるかは、MPI が GPU に対応しているか（CUDA-aware MPI、第 9 章）によります。 この実習では、どの MPI でも動くように、送受信する値をいったんホストの配列に写します。"
+msgstr "Whether you can pass a GPU memory address to `MPI_Sendrecv` depends on whether the MPI supports GPUs (CUDA-aware MPI, Chapter 9). In this Practice, so that it works with any MPI, we first copy the values to be sent and received to host arrays."
+
+msgid "送る 2 つの値（最初と最後の物理セル）を、`for_each` で GPU 上の小さな配列 `send`（2 要素）に詰める。"
+msgstr "Pack the two values to send (the first and last physical cells) into a small array `send` (2 elements) on the GPU with `for_each`."
+
+msgid "`send` をホストの配列 `h_send` へ `copy_from` で写す。"
+msgstr "Copy `send` to the host array `h_send` with `copy_from`."
+
+msgid "`h_send` と `h_recv`（ホスト、2 要素）で、MPI 版と同じ 2 回の `MPI_Sendrecv` を行う。"
+msgstr "Perform the same two `MPI_Sendrecv` calls as in the MPI version, using `h_send` and `h_recv` (host, 2 elements)."
+
+msgid "`h_recv` を GPU の配列 `recv` へ `copy_from` で写す。"
+msgstr "Copy `h_recv` to the GPU array `recv` with `copy_from`."
+
+msgid "`for_each` で、`recv` の値（隣がない側は境界条件の値）をゴーストセルに入れる。"
+msgstr "With `for_each`, put the values of `recv` (the boundary condition value on a side with no neighbor) into the ghost cells."
+
+msgid "ストリームを指定しない `copy_from`（`cudaMemcpy`）は、それより前に起動した GPU の処理が終わってから写し、写し終わるまで戻りません。 そのため、1 で詰めた値が 2 で写される前に変わることはありません。"
+msgstr "A `copy_from` (`cudaMemcpy`) with no stream specified starts copying after the GPU work launched before it has finished, and does not return until the copy is complete. Therefore, the values packed in step 1 cannot change before they are copied in step 2."
+
+msgid "this を取り込まない"
+msgstr "Do not capture this"
+
+msgid "交換の手順を構造体のメンバ関数にまとめると、メンバ変数（物理セル数 `n` など）をラムダの中で使いたくなります。 しかしラムダの中でメンバ変数 `n` を使うと、実際には `this->n` として、`this`（ホストのメモリにある構造体を指すポインタ）が取り込まれます。 GPU はそのポインタの先を読めないので、実行時に失敗します。 エラーはラムダの場所ではなく、その後の CUDA の呼び出し（たとえば次の `copy_from`）で、次のように報告されます。"
+msgstr "If you gather the exchange procedure into a member function of a struct, you will want to use member variables (such as the number of physical cells `n`) inside the lambda. However, if you use the member variable `n` inside a lambda, it is actually read as `this->n`, and `this` (a pointer to the struct in host memory) is captured. The GPU cannot read what that pointer points to, so the program fails at run time. The error is reported not at the lambda but at a later CUDA call (for example, the next `copy_from`), as follows."
+
+msgid "メンバ変数は、ラムダの前でローカル変数にコピーしてから使います。 MISO 本体でも同じことをしています。`miso/include/miso/mhd_integrator_cuda.cuh` の `Integrator<Real, backend::CUDA>::cfl` から抜粋します。"
+msgstr "Copy member variables into local variables before the lambda and then use those. MISO itself does the same. The following is an excerpt from `Integrator<Real, backend::CUDA>::cfl` in `miso/include/miso/mhd_integrator_cuda.cuh`."
+
+msgid "**練習 10.5** 次の構造体のメンバ関数を GPU 版でビルドして実行すると、`illegal memory access` で止まります（説明用の例です）。 原因の行を挙げ、直し方を説明してください。"
+msgstr "**Exercise 10.5** If you build and run the member function of the following struct in the GPU version, it stops with `illegal memory access` (an example for illustration). Identify the line that causes it and explain how to fix it."
+
+msgid "`uv[n + 1] = -uv[n];` の行です。`n` はメンバ変数なので、ラムダの中では `this->n` として読まれ、`this` が取り込まれます。 GPU で実行されるラムダが、ホストのメモリにある構造体を読もうとして失敗します。"
+msgstr "It is the line `uv[n + 1] = -uv[n];`. Since `n` is a member variable, it is read as `this->n` inside the lambda, and `this` is captured. The lambda running on the GPU tries to read the struct in host memory and fails."
+
+msgid "`uv` はローカル変数（ビュー）なので、値のコピーで取り込まれ、問題ありません。"
+msgstr "`uv` is a local variable (a view), so it is captured by value and is not a problem."
+
+msgid "ラムダの前に `const int n_ = n;` を置き、ラムダの中では `n_` を使います。"
+msgstr "Put `const int n_ = n;` before the lambda and use `n_` inside the lambda."
+
+msgid "CPU 用にビルドしたときは `this` の先をそのまま読めるので、この誤りに気づきません。 GPU 用に書き換えるときは、ラムダの中にメンバ変数がないかを確かめてください。"
+msgstr "When built for the CPU, the memory that `this` points to can be read directly, so you do not notice this mistake. When you rewrite the code for the GPU, check whether any member variables appear inside lambdas."
+
+msgid "CPU と GPU の比較"
+msgstr "Comparing the CPU and the GPU"
+
+#, python-brace-format
+msgid "GPU 版を、MPI 版と同じ $N$ とランク数で実行し、全セルの値を比べます。 {ref}`edu-ch10-verification` で述べたとおり、最後の桁が違うことがあるので、最大の差が $10^{-12}$ 程度以下なら一致とみなします。 GPU 版の中で、ランク数を変えた比較（1 ランクと複数ランク）は、MPI 版と同じくビット単位で一致します。"
+msgstr "Run the GPU version with the same $N$ and number of ranks as the MPI version, and compare the values of all cells. As described in {ref}`edu-ch10-verification`, the last digit may differ, so regard the results as matching if the maximum difference is about $10^{-12}$ or less. Within the GPU version, a comparison across different numbers of ranks (one rank versus several ranks) is bitwise identical, as in the MPI version."
+
+#, python-brace-format
+msgid "GPU 版をビルドするには、CMake に `-DMISO_USE_CUDA=ON` を与え、ソースを CUDA としてコンパイルさせます。 設定の詳細は実習の仕様に書いています。GPU で困ったときは {ref}`参考資料「GPU で困ったとき」 <edu-ref-gpu-troubleshooting>` を参照してください。"
+msgstr "To build the GPU version, give CMake `-DMISO_USE_CUDA=ON` so that the source is compiled as CUDA. The details of the configuration are in the Practice specification. If you run into trouble with the GPU, see the {ref}`reference material \"GPU Troubleshooting\" <edu-ref-gpu-troubleshooting>`."
+
+msgid "MISO 本体との対応"
+msgstr "Correspondence with MISO itself"
+
+msgid "この章で書いた処理は、MISO 本体では次の場所にあります。"
+msgstr "The processing you wrote in this chapter is found in MISO itself in the following places."
+
+msgid "この章の処理"
+msgstr "Processing in this chapter"
+
+msgid "MISO 本体"
+msgstr "MISO itself"
+
+msgid "配列 `u` と `u_new`"
+msgstr "Arrays `u` and `u_new`"
+
+msgid "`Array3D` をまとめた `mhd::Fields`（`miso/include/miso/mhd_fields.hpp`）"
+msgstr "`mhd::Fields`, which bundles `Array3D` arrays (`miso/include/miso/mhd_fields.hpp`)"
+
+msgid "各ステップのゴーストセルの交換"
+msgstr "Ghost cell exchange in each step"
+
+msgid "`mhd::HaloExchanger::apply`（`miso/include/miso/mhd_halo_exchange.hpp`）"
+msgstr "`mhd::HaloExchanger::apply` (`miso/include/miso/mhd_halo_exchange.hpp`)"
+
+msgid "隣がないときの `MPI_PROC_NULL`"
+msgstr "`MPI_PROC_NULL` when there is no neighbor"
+
+msgid "`mpi::Shape` の `x_procs_pos` などが `MPI_PROC_NULL` かを調べてから送受信する"
+msgstr "Check whether `x_procs_pos` and the like of `mpi::Shape` are `MPI_PROC_NULL` before sending and receiving"
+
+msgid "物理境界の値"
+msgstr "Physical boundary values"
+
+msgid "境界条件（`miso/include/miso/boundary_condition.hpp` と各デモの境界条件）"
+msgstr "Boundary conditions (`miso/include/miso/boundary_condition.hpp` and the boundary conditions of each demo)"
+
+msgid "`reduce` と `MPI_Allreduce` による集計"
+msgstr "Aggregation with `reduce` and `MPI_Allreduce`"
+
+msgid "`Integrator::cfl`（$\\Delta t$ を、CUDA 版は `reduce`、Host 版は `for` 文で求め、`MPI_MIN` で全体の最小値を取る）"
+msgstr "`Integrator::cfl` (finds $\\Delta t$ with `reduce` in the CUDA version and with a `for` statement in the Host version, and takes the global minimum with `MPI_MIN`)"
+
+msgid "ホストを経由した交換"
+msgstr "Exchange via the host"
+
+msgid "MISO の GPU 版は、GPU のメモリのアドレスをそのまま MPI に渡す（CUDA-aware MPI を使う）"
+msgstr "The GPU version of MISO passes GPU memory addresses directly to MPI (using CUDA-aware MPI)"
+
+msgid "MISO の `HaloExchanger::apply` は、`MPI_Sendrecv` の代わりに `MPI_Isend`・`MPI_Irecv` と `MPI_Waitall` を使い、 3 方向・9 つの変数をまとめて送ります。送る値をバッファに詰め、受け取った値をゴーストセルに戻す流れは、この章の GPU 版と同じです。"
+msgstr "MISO's `HaloExchanger::apply` uses `MPI_Isend`, `MPI_Irecv`, and `MPI_Waitall` instead of `MPI_Sendrecv`, and sends 9 variables in 3 directions together. The flow of packing the values to send into a buffer and returning the received values to the ghost cells is the same as in the GPU version in this chapter."
+
+#, python-brace-format
+msgid "{ref}`第 11 章 <edu-ch11>` では、MISO の時間発展を `main()` から順に読み、ここで書いた処理と本体のクラス・関数を対応づけます。"
+msgstr "In {ref}`Chapter 11 <edu-ch11>`, we read MISO's time evolution in order starting from `main()`, and relate the processing you wrote here to the classes and functions of MISO itself."
+

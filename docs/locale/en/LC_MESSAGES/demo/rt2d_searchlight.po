@@ -1,0 +1,97 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2025, Integrated Studies, ISEE, Nagoya University
+# This file is distributed under the same license as the MISO package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: MISO \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-10-30 17:19+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: en\n"
+"Language-Team: en <LL@li.org>\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.18.0\n"
+
+msgid "2D RT Test: Searchlight Beam"
+msgstr ""
+
+#, python-brace-format
+msgid "サーチライト問題は、輻射輸送 (RT) ソルバの標準的なテスト問題です。境界の一部から細い光束 (サーチライト) を計算領域に入射させ、光束がどの程度広がらずに伝わるかを見ることで、短い特性法(short characteristics) {cite}`kunasz_1988JQSRT..39...67K` の数値拡散の大きさを確認します。"
+msgstr "The searchlight problem is a standard test problem for radiative transfer (RT) solvers. A thin beam of light (the searchlight) is injected into the computational domain from part of the boundary, and we check the amount of numerical diffusion of the short characteristics method {cite}`kunasz_1988JQSRT..39...67K` by seeing how little the beam spreads as it propagates."
+
+msgid "MISOのRTソルバは、離散化した方向ごとに輻射輸送方程式"
+msgstr "The RT solver of MISO integrates the radiative transfer equation"
+
+#, python-brace-format
+msgid ""
+"\n"
+"\\frac{dI}{ds} = -\\kappa \\left(I - S\\right)\n"
+msgstr ""
+
+msgid "を短い特性法で積分します。ここで$I$は輻射強度、$s$は光線に沿った距離、$\\kappa$は吸収係数、$S$は源泉関数です。角度積分にはCarlsonのA4求積 (24方向) を用います。"
+msgstr "for each discretized direction with the short characteristics method. Here $I$ is the intensity, $s$ is the distance along the ray, $\\kappa$ is the absorption coefficient, and $S$ is the source function. For the angular integration we use Carlson's A4 quadrature (24 directions)."
+
+msgid "Location"
+msgstr ""
+
+msgid "`demo/rt2d_searchlight/`"
+msgstr ""
+
+msgid "Geometry"
+msgstr ""
+
+msgid "$-0.5 \\leq x \\leq 0.5$"
+msgstr ""
+
+msgid "$-0.5 \\leq y \\leq 0.5$"
+msgstr ""
+
+msgid "$z$方向は1格子点のみで、2次元問題として扱います。"
+msgstr "There is only one grid point in the $z$ direction, so the problem is treated as a 2D problem."
+
+msgid "Setup"
+msgstr ""
+
+msgid "計算領域全体で吸収係数と源泉関数を一様に"
+msgstr "We set the absorption coefficient and the source function uniformly over the whole computational domain to"
+
+msgid ""
+"\n"
+"\\kappa = 1, \\quad S = 0.5\n"
+msgstr ""
+
+msgid "とします。`config.yaml` の `searchlight` セクションで変更できます。"
+msgstr "They can be changed in the `searchlight` section of `config.yaml`."
+
+msgid "Boundary Conditions"
+msgstr ""
+
+#, python-brace-format
+msgid "$x$方向内側の境界 ($x = -0.5$) のうち $\\sqrt{y^2 + z^2} \\leq 0.2$ の範囲から、内向きの全方向に強度 $I = 1$ の輻射を入射させます。それ以外の境界からの入射強度は $0$ です。$y$方向と$z$方向は周期境界条件です。"
+msgstr "From the part of the inner boundary in the $x$ direction ($x = -0.5$) with $\\sqrt{y^2 + z^2} \\leq 0.2$, radiation of intensity $I = 1$ is injected in all inward directions. The incident intensity from the other boundaries is $0$. The $y$ and $z$ directions have periodic boundary conditions."
+
+msgid "入射させる境界面 (`boundary_face`)、半径 (`radius`)、入射強度 (`incoming_intensity`) は `config.yaml` で変更できます。"
+msgstr "The boundary face of incidence (`boundary_face`), the radius (`radius`), and the incident intensity (`incoming_intensity`) can be changed in `config.yaml`."
+
+msgid "Results"
+msgstr ""
+
+msgid "このデモは時間発展を行わず、輻射場が収束するまで反復して1回だけ出力します。可視化用のPythonスクリプトが用意されています。結果のプロットは `demo/rt2d_searchlight/figs` に保存されます。"
+msgstr "This demo does not evolve in time; it iterates until the radiation field converges and writes the output only once. A Python script for visualization is provided. The plots of the results are saved in `demo/rt2d_searchlight/figs`."
+
+#, python-brace-format
+msgid "平均強度 $J = \\sum_r w_r I_r$ と輻射流束 $\\bm{F} = 4\\pi \\sum_r w_r \\bm{\\mu}_r I_r$ の3成分を$x$-$y$面に描きます。ここで$w_r$、$\\bm{\\mu}_r$はそれぞれ方向$r$の重みと方向余弦です。境界から入った光束が、離散化した方向に沿って分かれて進む様子と、吸収によって減衰しながら源泉関数の値 $S = 0.5$ に近づく様子が見えます。2次元問題なので $F_z$ は丸め誤差程度の値になります。"
+msgstr "We plot the mean intensity $J = \\sum_r w_r I_r$ and the three components of the radiative flux $\\bm{F} = 4\\pi \\sum_r w_r \\bm{\\mu}_r I_r$ in the $x$-$y$ plane. Here $w_r$ and $\\bm{\\mu}_r$ are the weight and the direction cosine of direction $r$, respectively. You can see the beam entering from the boundary split and travel along the discretized directions, and approach the source function value $S = 0.5$ while being attenuated by absorption. Because this is a 2D problem, $F_z$ is at the level of rounding error."
+
+msgid "![rt2d_searchlight](../_static/images/rt_searchlight_2d.png)"
+msgstr ""
+
+msgid "rt2d_searchlight"
+msgstr ""
+

@@ -1,0 +1,993 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2025, Integrated Studies, ISEE, Nagoya University
+# This file is distributed under the same license as the MISO package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: MISO \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-10-29 13:55+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: en\n"
+"Language-Team: en <LL@li.org>\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.18.0\n"
+
+msgid "9. GPU（CUDA）での計算とデータ転送"
+msgstr "9\\. Computing and Transferring Data on a GPU (CUDA)"
+
+msgid "第 7 章で書いた `for_each` と `reduce` を、NVIDIA の GPU で動かすための考え方を学びます。 計算する場所と配列を置く場所を区別し、CUDA のカーネル、メモリの確保と転送、 MISO の `for_each`・`reduce` の CUDA 版、MPI との組み合わせの順に進みます。"
+msgstr "We learn the ideas for running the `for_each` and `reduce` that we wrote in Chapter 7 on an NVIDIA GPU. We distinguish where to compute from where to place arrays, and proceed through CUDA kernels, allocating and transferring memory, the CUDA versions of MISO's `for_each` and `reduce`, and the combination with MPI."
+
+#, python-brace-format
+msgid "GPU がなくても、この章は読めます。動かして確かめる例には、CPU での出力と GPU での出力を並べて載せています。 CPU だけで進める場合は、この章を読んだあと {ref}`第 10 章 <edu-ch10>` の逐次・MPI 部分へ進み、 GPU を使える環境を用意できた段階で GPU 版を追加してください。"
+msgstr "You can read this chapter even without a GPU. The examples to run list the CPU output and the GPU output side by side. If you proceed with the CPU only, after reading this chapter go on to the serial and MPI parts of {ref}`Chapter 10 <edu-ch10>`, and add the GPU version once you have an environment where you can use a GPU."
+
+msgid "目次"
+msgstr "Contents"
+
+#, python-brace-format
+msgid "{ref}`1. ホストとデバイス <edu-ch09-host-device>`"
+msgstr "{ref}`1. Host and device <edu-ch09-host-device>`"
+
+#, python-brace-format
+msgid "{ref}`2. CUDA のカーネル <edu-ch09-kernel>`"
+msgstr "{ref}`2. CUDA kernels <edu-ch09-kernel>`"
+
+#, python-brace-format
+msgid "{ref}`3. デバイスメモリの確保と転送 <edu-ch09-memory>`"
+msgstr "{ref}`3. Allocating and transferring device memory <edu-ch09-memory>`"
+
+#, python-brace-format
+msgid "{ref}`4. for_each の CUDA 版 <edu-ch09-for-each>`"
+msgstr "{ref}`4. The CUDA version of for_each <edu-ch09-for-each>`"
+
+#, python-brace-format
+msgid "{ref}`5. this キャプチャの落とし穴 <edu-ch09-this-capture>`"
+msgstr "{ref}`5. The pitfall of capturing this <edu-ch09-this-capture>`"
+
+#, python-brace-format
+msgid "{ref}`6. reduce の CUDA 版 <edu-ch09-reduce>`"
+msgstr "{ref}`6. The CUDA version of reduce <edu-ch09-reduce>`"
+
+#, python-brace-format
+msgid "{ref}`7. 同期とエラーの見つけ方 <edu-ch09-sync>`"
+msgstr "{ref}`7. Synchronization and finding errors <edu-ch09-sync>`"
+
+#, python-brace-format
+msgid "{ref}`8. GPU の選択と MPI <edu-ch09-mpi>`"
+msgstr "{ref}`8. Selecting a GPU and MPI <edu-ch09-mpi>`"
+
+#, python-brace-format
+msgid "{ref}`9. MISO を GPU 向けにビルドする <edu-ch09-build>`"
+msgstr "{ref}`9. Building MISO for a GPU <edu-ch09-build>`"
+
+#, python-brace-format
+msgid "{ref}`10. CPU で作ったプログラムを GPU で動かす <edu-ch09-practice>`"
+msgstr "{ref}`10. Running a program made on a CPU on a GPU <edu-ch09-practice>`"
+
+msgid "1. ホストとデバイス"
+msgstr "1\\. Host and Device"
+
+msgid "GPU を使うプログラムでも、プログラム全体を進めるのは CPU です。 CPU は設定ファイルを読み、配列を用意し、時間ステップのループを回します。 その途中で、格子点ごとの計算を GPU へ依頼します。"
+msgstr "Even in a program that uses a GPU, it is the CPU that drives the whole program. The CPU reads the configuration file, prepares the arrays, and runs the time-step loop. In the course of this, it asks the GPU to do the computation for each grid point."
+
+msgid "CUDA では、CPU 側を**ホスト**（host）、GPU 側を**デバイス**（device）と呼びます。 2 つは別々のメモリを持っています。"
+msgstr "In CUDA, the CPU side is called the **host** and the GPU side is called the **device**. The two have separate memories."
+
+msgid "ホスト（CPU）"
+msgstr "Host (CPU)"
+
+msgid "デバイス（GPU）"
+msgstr "Device (GPU)"
+
+msgid "メモリ"
+msgstr "Memory"
+
+msgid "主記憶"
+msgstr "Main memory"
+
+msgid "GPU に載ったメモリ"
+msgstr "Memory mounted on the GPU"
+
+msgid "同時に動く処理"
+msgstr "Concurrent execution"
+
+msgid "コア数ぶん"
+msgstr "As many as the number of cores"
+
+msgid "数千〜数万のスレッド"
+msgstr "Thousands to tens of thousands of threads"
+
+msgid "MISO のバックエンド"
+msgstr "MISO backend"
+
+msgid "`backend::Host`"
+msgstr ""
+
+msgid "`backend::CUDA`"
+msgstr ""
+
+msgid "ここで大切なのは、**ホストのメモリにある配列は、そのままではデバイスから読めない**ことと、 **デバイスのメモリにある配列は、そのままではホストから読めない**ことです。 Fortran の配列は、宣言すればどのループからでも読み書きできました。 GPU では、配列をどちらのメモリに置いたかを、プログラムを書く側が管理します。"
+msgstr "What matters here is that **an array in host memory cannot be read from the device as it is**, and that **an array in device memory cannot be read from the host as it is**. In Fortran, once an array was declared, any loop could read and write it. On a GPU, the programmer manages which memory an array is placed in."
+
+msgid "ホストとデバイスの間の転送は、デバイス内のメモリの読み書きに比べてずっと遅い経路です。 そのため MISO では、物理量の配列を最初にデバイスへ置き、時間発展の間はデバイスの中で計算を続けます。 ホストへ写すのは、出力するときなど必要なときだけです。"
+msgstr "Transfers between the host and the device go through a path that is much slower than reading and writing memory within the device. For this reason, MISO first places the arrays of physical quantities on the device and continues the computation inside the device during the time evolution. It copies to the host only when necessary, such as for output."
+
+msgid "2. CUDA のカーネル"
+msgstr "2\\. CUDA Kernels"
+
+msgid "2.1 関数の指定子"
+msgstr "2.1 Function specifiers"
+
+msgid "GPU で実行される関数を**カーネル**（kernel）と呼びます。 CUDA は C++ を拡張した言語で、関数の前に付ける指定子で、どこで実行される関数かを表します。"
+msgstr "A function that runs on the GPU is called a **kernel**. CUDA is a language that extends C++, and a specifier placed before a function indicates where the function runs."
+
+msgid "指定子"
+msgstr "Specifier"
+
+msgid "実行する場所"
+msgstr "Runs on"
+
+msgid "呼び出す場所"
+msgstr "Called from"
+
+msgid "例"
+msgstr "Example"
+
+msgid "`__global__`"
+msgstr ""
+
+msgid "デバイス"
+msgstr "Device"
+
+msgid "ホスト（`<<< >>>` で起動）"
+msgstr "Host (launched with `<<< >>>`)"
+
+msgid "カーネル。戻り値は `void`"
+msgstr "A kernel. The return type is `void`"
+
+msgid "`__device__`"
+msgstr ""
+
+msgid "デバイス（カーネルや他の `__device__` 関数）"
+msgstr "Device (a kernel or other `__device__` functions)"
+
+msgid "カーネルから呼ぶ小さな関数"
+msgstr "A small function called from a kernel"
+
+msgid "`__host__`"
+msgstr ""
+
+msgid "ホスト"
+msgstr "Host"
+
+msgid "普通の C++ の関数（何も付けないのと同じ）"
+msgstr "An ordinary C++ function (the same as having no specifier)"
+
+msgid "`__host__ __device__`"
+msgstr ""
+
+msgid "両方"
+msgstr "Both"
+
+msgid "ホストでもデバイスでも使う関数"
+msgstr "A function used on both the host and the device"
+
+msgid "`__host__ __device__` を付けた関数は、ホスト用とデバイス用の 2 通りにコンパイルされます。 MISO の小さな関数の多くはこの形です。たとえば `miso/include/miso/utility.hpp` の `util::sqrt` や `util::min2` は `__host__ __device__` が付いているので、CPU のループからも GPU のカーネルからも呼べます。"
+msgstr "A function marked `__host__ __device__` is compiled twice, once for the host and once for the device. Many of MISO's small functions have this form. For example, `util::sqrt` and `util::min2` in `miso/include/miso/utility.hpp` are marked `__host__ __device__`, so they can be called from both a CPU loop and a GPU kernel."
+
+msgid "CUDA のコードは、NVIDIA の CUDA Toolkit に含まれるコンパイラ `nvcc` でコンパイルします。 `nvcc` は、ホスト用の部分を普段の C++ コンパイラ（g++ など）に渡し、デバイス用の部分を自分で GPU の命令に変換します。"
+msgstr "CUDA code is compiled with the compiler `nvcc`, which is included in NVIDIA's CUDA Toolkit. `nvcc` passes the host part to the usual C++ compiler (such as g++) and converts the device part into GPU instructions by itself."
+
+msgid "2.2 スレッドとブロック"
+msgstr "2.2 Threads and blocks"
+
+msgid "カーネルは、多数の**スレッド**（thread）で同時に実行されます。 どのスレッドも同じカーネルの命令を実行しますが、自分の番号を使って、担当する要素を変えます。"
+msgstr "A kernel is executed simultaneously by many **threads**. Every thread executes the same kernel instructions, but each uses its own number to change which element it handles."
+
+msgid "スレッドは**ブロック**（block）という組にまとめられ、ブロックを並べたものを**グリッド**（grid）と呼びます。 カーネルを起動するときに、グリッドのブロック数とブロックあたりのスレッド数を `<<<グリッド, ブロック>>>` で指定します。 カーネルの中では、次の組み込み変数で自分の位置が分かります。"
+msgstr "Threads are grouped into sets called **blocks**, and an arrangement of blocks is called a **grid**. When launching a kernel, you specify the number of blocks in the grid and the number of threads per block with `<<<grid, block>>>`. Inside the kernel, the following built-in variables tell you your own position."
+
+msgid "変数"
+msgstr "Variable"
+
+msgid "意味"
+msgstr "Meaning"
+
+msgid "`blockIdx.x`"
+msgstr ""
+
+msgid "自分のブロックの番号（0 始まり）"
+msgstr "The number of your own block (starting from 0)"
+
+msgid "`blockDim.x`"
+msgstr ""
+
+msgid "ブロックあたりのスレッド数"
+msgstr "The number of threads per block"
+
+msgid "`threadIdx.x`"
+msgstr ""
+
+msgid "ブロックの中での自分の番号（0 始まり）"
+msgstr "Your own number within the block (starting from 0)"
+
+msgid "1 次元の配列なら、通し番号は `blockIdx.x * blockDim.x + threadIdx.x` です。 要素数 1000 を、ブロックあたり 256 スレッドで覆うと次のようになります。"
+msgstr "For a one-dimensional array, the serial index is `blockIdx.x * blockDim.x + threadIdx.x`. Covering 1000 elements with 256 threads per block gives the following."
+
+msgid "スレッドはブロック単位で起動するので、全スレッド数は要素数ちょうどにはなりません。 はみ出したスレッドが配列の外を書かないよう、カーネルの中で `if (i < n)` と調べます。"
+msgstr "Threads are launched in units of blocks, so the total number of threads does not exactly equal the number of elements. To keep the extra threads from writing outside the array, the kernel checks `if (i < n)`."
+
+msgid "`.x` は、ブロックやグリッドを 3 次元（`.x`, `.y`, `.z`）にも並べられるためです。 3 次元の並べ方は 2.4 で MISO の実物を見ます。"
+msgstr "The `.x` is there because blocks and grids can also be arranged in three dimensions (`.x`, `.y`, `.z`). We will see the real three-dimensional arrangement in MISO in Section 2.4."
+
+msgid "2.3 ベクトル加算のカーネル"
+msgstr "2.3 A vector-addition kernel"
+
+msgid "`c[i] = a[i] + b[i]` を GPU で計算する、MISO を使わない CUDA だけの例です。 デバイスメモリを扱う関数（`cudaMalloc`, `cudaMemcpy`, `cudaFree`）は次節で説明します。 ここではカーネルの定義と起動の形を見てください。"
+msgstr "This is a CUDA-only example, without MISO, that computes `c[i] = a[i] + b[i]` on the GPU. The functions that handle device memory (`cudaMalloc`, `cudaMemcpy`, `cudaFree`) are explained in the next section. Here, look at the form of defining and launching a kernel."
+
+msgid "ファイル名を `vecadd.cu` として、次のようにコンパイル・実行します。 `.cu` は CUDA のソースを表す拡張子です。 `-arch=sm_89` は、どの世代の GPU 向けの命令を作るかの指定で、使う GPU に合わせます（9 節）。"
+msgstr "Name the file `vecadd.cu`, and compile and run it as follows. `.cu` is the extension for CUDA source. `-arch=sm_89` specifies which generation of GPU to generate instructions for, and you match it to the GPU you use (Section 9)."
+
+msgid "カーネルの中身は、Fortran の次のループの「1 回分」にあたります。"
+msgstr "The body of the kernel corresponds to \"one iteration\" of the following Fortran loop."
+
+msgid "ループの `do` に相当するものはカーネルの中にありません。 「どの `i` を誰が計算するか」は、`<<<grid, block>>>` で起動したスレッドの番号が決めます。 そのため、各 `i` の計算は互いに独立である必要があります。 `c(i)` を計算するのに `c(i-1)` の新しい値を使う漸化式は、このままでは GPU に渡せません。 これは第 7 章の `for_each` に渡すラムダと同じ条件です。"
+msgstr "There is nothing in the kernel that corresponds to the `do` of the loop. \"Who computes which `i`\" is determined by the number of each thread launched with `<<<grid, block>>>`. Therefore, the computation for each `i` must be independent of the others. A recurrence that uses the new value of `c(i-1)` to compute `c(i)` cannot be handed to the GPU as it is. This is the same condition as for the lambda passed to `for_each` in Chapter 7."
+
+msgid "2.4 MISO の手書きカーネル"
+msgstr "2.4 MISO's hand-written kernels"
+
+msgid "MISO の MHD の時間発展は、ほとんどを `__global__` のカーネルとして直接書いています。 `miso/include/miso/mhd_integrator_cuda.cuh` の `bb_ht_vb_kernel` の冒頭です。"
+msgstr "Most of MISO's MHD time evolution is written directly as `__global__` kernels. This is the beginning of `bb_ht_vb_kernel` in `miso/include/miso/mhd_integrator_cuda.cuh`."
+
+msgid "ブロックとグリッドを 3 次元に並べ、`i`, `j`, `k` をそれぞれの方向の番号から作っています。 `return` で、格子の外にはみ出したスレッドを終わらせます。 引数は、配列を所有する `Array3D` ではなく、軽い `Array3DView` や `FieldsView` です（第 4 章）。 カーネルの引数は値でデバイスへ渡される（3.3 で説明します）ので、ポインタと大きさだけを持つ View を渡します。"
+msgstr "The blocks and the grid are arranged in three dimensions, and `i`, `j`, and `k` are built from the numbers in each direction. `return` ends the threads that stick out beyond the grid. The arguments are not `Array3D`, which owns the array, but the lightweight `Array3DView` and `FieldsView` (Chapter 4). Kernel arguments are passed to the device by value (explained in Section 3.3), so we pass Views, which hold only a pointer and sizes."
+
+msgid "ブロックの形は `miso/include/miso/cuda_util.cuh` の `KernelShape3D` で、8×8×8 = 512 スレッドに決めています。 起動側は `Integrator<Real, backend::CUDA>::update_sc4` にあります。"
+msgstr "The shape of a block is determined by `KernelShape3D` in `miso/include/miso/cuda_util.cuh` as 8×8×8 = 512 threads. The launching side is in `Integrator<Real, backend::CUDA>::update_sc4`."
+
+msgid "`MISO_CUDA_CHECK` は、CUDA の関数が返すエラーを調べるマクロです（7 節）。"
+msgstr "`MISO_CUDA_CHECK` is a macro that checks the error returned by a CUDA function (Section 7)."
+
+msgid "練習 1：ブロック数とはみ出しの判定"
+msgstr "Exercise 1: Number of blocks and the out-of-range check"
+
+msgid "要素数 `n = 300` を、ブロックあたり 128 スレッドで処理します。 ブロック数と起動される全スレッド数を求め、`if (i < n)` がない場合に何が起きるかを説明してください。"
+msgstr "We process `n = 300` elements with 128 threads per block. Find the number of blocks and the total number of launched threads, and explain what happens without `if (i < n)`."
+
+msgid ""
+"<details>\n"
+"<summary>解答・解説</summary>\n"
+msgstr ""
+"<details>\n"
+"<summary>Answer and explanation</summary>\n"
+
+msgid "ブロック数は `(300 + 128 - 1) / 128 = 427 / 128 = 3`（整数の割り算）で、全スレッド数は 3 × 128 = 384 です。 通し番号 `i` は 0〜383 になり、300〜383 の 84 個のスレッドは配列の外を指します。"
+msgstr "The number of blocks is `(300 + 128 - 1) / 128 = 427 / 128 = 3` (integer division), and the total number of threads is 3 × 128 = 384. The serial index `i` runs from 0 to 383, and the 84 threads from 300 to 383 point outside the array."
+
+msgid "`if (i < n)` がないと、この 84 個のスレッドが `c[300]`〜`c[383]` を書きます。 `cudaMalloc` で確保した 300 要素の外なので、他の配列を壊すか、不正なメモリアクセスとしてプログラムが止まります。 Fortran で配列の上限を超えて書いた場合と同じ種類の誤りですが、GPU では多数のスレッドが同時に書くので、 結果がどこに現れるかを追いにくくなります。"
+msgstr "Without `if (i < n)`, these 84 threads write `c[300]` to `c[383]`. That is outside the 300 elements allocated with `cudaMalloc`, so it either corrupts other arrays or stops the program as an illegal memory access. It is the same kind of mistake as writing beyond the upper bound of an array in Fortran, but on a GPU many threads write at the same time, so it becomes hard to trace where the result shows up."
+
+msgid "</details>\n"
+msgstr ""
+
+msgid "3. デバイスメモリの確保と転送"
+msgstr "3\\. Allocating and Transferring Device Memory"
+
+msgid "3.1 cudaMalloc と cudaMemcpy"
+msgstr "3.1 cudaMalloc and cudaMemcpy"
+
+msgid "デバイスのメモリは、CUDA の関数で確保・転送・解放します。"
+msgstr "Device memory is allocated, transferred, and freed with CUDA functions."
+
+msgid "関数"
+msgstr "Function"
+
+msgid "役割"
+msgstr "Role"
+
+msgid "Fortran・C++ で近いもの"
+msgstr "Closest in Fortran and C++"
+
+msgid "`cudaMalloc(&p, バイト数)`"
+msgstr "`cudaMalloc(&p, bytes)`"
+
+msgid "デバイスにメモリを確保し、その番地を `p` に入れる"
+msgstr "Allocate memory on the device and put its address into `p`"
+
+msgid "`allocate`、`new`"
+msgstr ""
+
+msgid "`cudaMemcpy(先, 元, バイト数, 向き)`"
+msgstr "`cudaMemcpy(dst, src, bytes, direction)`"
+
+msgid "メモリの内容を写す"
+msgstr "Copy the contents of memory"
+
+msgid "配列の代入"
+msgstr "Array assignment"
+
+msgid "`cudaFree(p)`"
+msgstr ""
+
+msgid "デバイスのメモリを解放する"
+msgstr "Free device memory"
+
+msgid "`deallocate`、`delete[]`"
+msgstr ""
+
+msgid "`cudaMemcpy` の向きは、4 番目の引数で指定します。"
+msgstr "The direction of `cudaMemcpy` is specified by the fourth argument."
+
+msgid "向き"
+msgstr "Direction"
+
+msgid "写す方向"
+msgstr "Copy direction"
+
+msgid "`cudaMemcpyHostToDevice`"
+msgstr ""
+
+msgid "ホスト → デバイス"
+msgstr "Host to device"
+
+msgid "`cudaMemcpyDeviceToHost`"
+msgstr ""
+
+msgid "デバイス → ホスト"
+msgstr "Device to host"
+
+msgid "`cudaMemcpyDeviceToDevice`"
+msgstr ""
+
+msgid "デバイス内"
+msgstr "Within the device"
+
+msgid "`cudaMalloc` が返すのはデバイスの番地です。型は普通のポインタ `float *` ですが、 ホストのコードで `a_d[0]` のように読むことはできません（ホストのメモリの番地ではないためです）。 逆に、`std::vector` の `a.data()` のようなホストの番地をカーネルへ渡しても、デバイスからは読めません。 **ポインタの型だけでは、それがどちらのメモリを指すかは区別されません。** 2.3 の例で、 デバイス側の変数に `_d` を付けたのはそのためです。"
+msgstr "What `cudaMalloc` returns is a device address. Its type is an ordinary pointer, `float *`, but you cannot read it in host code like `a_d[0]` (because it is not an address in host memory). Conversely, if you pass a host address, such as `a.data()` of a `std::vector`, to a kernel, the device cannot read it. **The type of a pointer alone does not tell which memory it points to.** This is why, in the example of Section 2.3, we added `_d` to the variables on the device side."
+
+msgid "3.2 MISO の Array3D\\<T, backend::CUDA\\>"
+msgstr "3.2 MISO's Array3D\\<T, backend::CUDA\\>"
+
+msgid "MISO では、`cudaMalloc` などを直接書く代わりに、配列クラスの 2 つ目のテンプレート引数でメモリの場所を選びます（第 6 章）。"
+msgstr "In MISO, instead of writing `cudaMalloc` and the like directly, the second template argument of the array class selects where the memory is (Chapter 6)."
+
+msgid "`miso/include/miso/array3d.hpp` の CUDA 版のコンストラクタとデストラクタです。"
+msgstr "These are the constructor and destructor of the CUDA version in `miso/include/miso/array3d.hpp`."
+
+msgid "ホスト版が `new T[...]` と `delete[]` を使うところを、`cudaMalloc` と `cudaFree` に替えています。 第 4 章の RAII と同じく、変数の寿命が終わると自動で解放されます。"
+msgstr "Where the host version uses `new T[...]` and `delete[]`, this version uses `cudaMalloc` and `cudaFree`. As with the RAII of Chapter 4, the memory is released automatically when the variable's lifetime ends."
+
+msgid "転送は `copy_from` というメンバ関数が受け持ちます。 引数の型（どちらのバックエンドの配列か）で、`cudaMemcpy` の向きが決まります。"
+msgstr "The member function `copy_from` takes care of transfers. The type of the argument (which backend's array it is) determines the direction of `cudaMemcpy`."
+
+msgid "呼び出し"
+msgstr "Call"
+
+msgid "中で使う向き"
+msgstr "Direction used inside"
+
+msgid "`a_dev.copy_from(a_host)`"
+msgstr ""
+
+msgid "`a_host.copy_from(a_dev)`"
+msgstr ""
+
+msgid "`a_dev.copy_from(b_dev)`"
+msgstr ""
+
+msgid "`a_host.copy_from(b_host)`"
+msgstr ""
+
+msgid "ホスト内"
+msgstr "Within the host"
+
+msgid "`std::copy`"
+msgstr ""
+
+msgid "これは第 6 章で学んだオーバーロードの選択です。 ホスト版の `Array3D<T, backend::Host>` にも、`#ifdef __CUDACC__` の中に「CUDA 版から写す」`copy_from` が用意されています。 `__CUDACC__` は `nvcc` がコンパイルしているときだけ定義されるマクロです。"
+msgstr "This is the overload selection that we learned in Chapter 6. The host version `Array3D<T, backend::Host>` also has a `copy_from` that \"copies from the CUDA version\" inside `#ifdef __CUDACC__`. `__CUDACC__` is a macro defined only while `nvcc` is compiling."
+
+msgid "`Array1D`〜`Array4D` のすべてに同じ形の CUDA 版があります。"
+msgstr "All of `Array1D` to `Array4D` have a CUDA version of the same form."
+
+msgid "3.3 CUDA 版の配列で添字が使えない理由"
+msgstr "3.3 Why the CUDA version of an array cannot be indexed"
+
+msgid "ホスト版の `Array3D` には `a(i, j, k)` と書くための `operator()` がありますが、CUDA 版にはありません。 `a_dev(i, j, k)` をホストのコードに書いても、ホストからはデバイスのメモリを読めないためです。"
+msgstr "The host version of `Array3D` has an `operator()` so that you can write `a(i, j, k)`, but the CUDA version does not. This is because even if you wrote `a_dev(i, j, k)` in host code, the host cannot read device memory."
+
+msgid "デバイスの要素は、カーネルの中で View を通して読み書きします。 `Array3DView` のメンバ関数には `__host__ __device__` が付いています。"
+msgstr "Device elements are read and written through a View inside a kernel. The member functions of `Array3DView` are marked `__host__ __device__`."
+
+msgid "View は、ポインタと各方向の大きさだけを持つ小さな値です。 カーネルの引数や次節のラムダに値として渡すと、この数個の値だけがデバイスへ写ります。 要素はすでにデバイスのメモリにあり、View はその番地を指しているだけです。 つまり、CUDA 版の `Array3D` はホストのコードで確保・解放・`copy_from`・`view()` に使い、 要素の読み書きはカーネルの中で View を通して行う、という役割分担になります。"
+msgstr "A View is a small value that holds only a pointer and the size in each direction. When you pass it by value to a kernel argument or to the lambda of the next section, only these few values are copied to the device. The elements are already in device memory, and the View just points to their address. In other words, the roles are divided as follows: the CUDA version of `Array3D` is used in host code for allocating, freeing, `copy_from`, and `view()`, and the elements are read and written through a View inside kernels."
+
+msgid "練習 2：配列の場所と転送の向き"
+msgstr "Exercise 2: Where an array lives and the direction of transfer"
+
+msgid "`demo/mhd2d_vortex/src/main.cpp` の `InitialCondition::apply` は、普通の `for` 文で `qq.ro(i, j, k) = 1.0;` のように初期値を書いています。 CUDA ビルドでは物理量の配列がデバイスにあるので、このループからデバイスの配列を直接書くことはできません。 `ModelBase::run()`（`miso/include/miso/mhd_model_base.hpp`）から呼ばれる `MHD::apply_initial_condition`（`miso/include/miso/mhd_solver.hpp`）を読み、 初期条件がどの配列に書かれ、どのようにデバイスへ届くかを説明してください。"
+msgstr "`InitialCondition::apply` in `demo/mhd2d_vortex/src/main.cpp` writes the initial values, like `qq.ro(i, j, k) = 1.0;`, with a plain `for` loop. In a CUDA build the arrays of physical quantities are on the device, so this loop cannot write the device arrays directly. Read `MHD::apply_initial_condition` (`miso/include/miso/mhd_solver.hpp`), which is called from `ModelBase::run()` (`miso/include/miso/mhd_model_base.hpp`), and explain which array the initial condition is written to and how it reaches the device."
+
+msgid "`apply_initial_condition` は、ホストの格子 `grid_h`（`Grid<Real, backend::Host>`）と ホストの配列 `qq_h`（`Fields<Real, backend::Host>`）をローカル変数として作ります。 `ic.apply(qq_h.view(), grid_h.const_view())` で、`InitialCondition::apply` の `for` 文がホストの配列に初期値を書きます。 その後 `qq.copy_from(qq_h)` で、計算用の配列 `qq`（`Fields<Real, Backend>`）へ写します。"
+msgstr "`apply_initial_condition` creates the host grid `grid_h` (`Grid<Real, backend::Host>`) and the host array `qq_h` (`Fields<Real, backend::Host>`) as local variables. With `ic.apply(qq_h.view(), grid_h.const_view())`, the `for` loop of `InitialCondition::apply` writes the initial values to the host array. Then `qq.copy_from(qq_h)` copies them to the array `qq` for computation (`Fields<Real, Backend>`)."
+
+msgid "`Backend` が `backend::CUDA` なら、この `copy_from` は 3.2 の表の「ホスト → デバイス」で、中では `cudaMemcpyHostToDevice` が使われます。 `Backend` が `backend::Host` なら「ホスト内」の写しです。 どちらのビルドでも、初期条件はホストで書き、計算用の配列へ写すという同じ手順になります。 `qq_h` と `grid_h` はローカル変数なので、関数を抜けると解放されます。"
+msgstr "If `Backend` is `backend::CUDA`, this `copy_from` is the \"host to device\" case of the table in Section 3.2, and `cudaMemcpyHostToDevice` is used inside. If `Backend` is `backend::Host`, it is a \"within the host\" copy. In either build, the procedure is the same: write the initial condition on the host and copy it to the array for computation. `qq_h` and `grid_h` are local variables, so they are freed when the function exits."
+
+msgid "出力は逆向きです。`miso/include/miso/mhd_checkpoint.hpp` の `Checkpoint::save` は、 ホストの配列 `qq` に `qq.copy_from(qq_)` でデバイスの値を写してから、ファイルに書き出します。"
+msgstr "Output goes in the opposite direction. `Checkpoint::save` in `miso/include/miso/mhd_checkpoint.hpp` copies the device values into the host array `qq` with `qq.copy_from(qq_)` and then writes them to a file."
+
+msgid "4. for_each の CUDA 版"
+msgstr "4\\. The CUDA Version of for_each"
+
+msgid "4.1 同じラムダを GPU で動かす"
+msgstr "4.1 Running the same lambda on a GPU"
+
+msgid "第 7 章では、`for_each` にラムダを渡して格子点ごとの計算を書きました。 Host 版の `for_each` は、ラムダ `f` を `for` 文の中で `f(i)` と呼ぶだけでした。 CUDA 版では、同じラムダをカーネルの引数として GPU へ渡し、各スレッドが `f(i)` を呼びます。 `miso/include/miso/execution.hpp` の 1 次元の CUDA 版です。"
+msgstr "In Chapter 7, we passed a lambda to `for_each` to write the computation for each grid point. The Host version of `for_each` merely called the lambda `f` as `f(i)` inside a `for` loop. In the CUDA version, the same lambda is passed to the GPU as a kernel argument, and each thread calls `f(i)`. This is the one-dimensional CUDA version in `miso/include/miso/execution.hpp`."
+
+msgid "2.3 のベクトル加算と同じ形です。違いは、計算の中身 `c[i] = a[i] + b[i]` が、カーネルの中に直接書かれず、 引数 `f` として外から渡されることです。 `range.unravel(idx)` は通し番号 `idx`（0 始まり）を、範囲の始まり `range.begin` からの番号 `i` に直します。"
+msgstr "It has the same form as the vector addition of Section 2.3. The difference is that the body of the computation, `c[i] = a[i] + b[i]`, is not written directly in the kernel but passed in from outside as the argument `f`. `range.unravel(idx)` converts the serial index `idx` (starting from 0) into the index `i` counted from the start of the range, `range.begin`."
+
+msgid "第 7 章で、ラムダは「取り込んだ値をメンバに持つ小さな構造体」と考えられることを学びました。 カーネルの引数は値渡しなので、この構造体がまるごとデバイスへ写ります。"
+msgstr "In Chapter 7, we learned that a lambda can be thought of as \"a small struct that has the captured values as its members\". Kernel arguments are passed by value, so this whole struct is copied to the device."
+
+msgid "デバイスへ写るのは、ラムダが取り込んだ値（View のポインタと大きさ、`dx` などの数値）だけです。 View が指す配列の要素は、もともとデバイスのメモリにあります。 そのため、**ラムダが取り込む View は、デバイスの配列（`Array1D<Real, backend::CUDA>` など）から作ったもの**でなければなりません。 ホストの配列の View を CUDA 版の `for_each` へ渡すと、デバイスからホストの番地を読むことになり、実行時のエラーになります。"
+msgstr "What is copied to the device is only the values the lambda captured (the pointers and sizes of Views, and numbers such as `dx`). The elements of the arrays that the Views point to are in device memory from the start. For that reason, **the Views that a lambda captures must be made from device arrays (such as `Array1D<Real, backend::CUDA>`)**. If you pass a View of a host array to the CUDA version of `for_each`, the device would read a host address, which causes a run-time error."
+
+msgid "3 次元の `for_each(backend::CUDA, Range3D, f)` も、スレッドを 1 次元に並べて起動します。 `Range3D::unravel` が通し番号を `(i0, i1, i2)` に直し、最後の添字が最も速く変わる順に割り当てます。 メモリ上で隣り合う要素を、隣り合うスレッドが読むようにするためです。"
+msgstr "The three-dimensional `for_each(backend::CUDA, Range3D, f)` also launches the threads arranged in one dimension. `Range3D::unravel` converts the serial index into `(i0, i1, i2)`, assigning them in the order in which the last index changes fastest. This is so that adjacent threads read elements that are adjacent in memory."
+
+msgid "4.2 MISO_LAMBDA と \\_\\_host\\_\\_ \\_\\_device\\_\\_"
+msgstr "4.2 MISO_LAMBDA and \\_\\_host\\_\\_ \\_\\_device\\_\\_"
+
+msgid "デバイスで呼ぶラムダには、関数と同じく `__device__` の指定が必要です。 `MISO_LAMBDA` は、それをビルドに合わせて付けるマクロです（`miso/include/miso/execution.hpp`）。"
+msgstr "A lambda called on the device needs the `__device__` specifier, just like a function. `MISO_LAMBDA` is a macro that adds it according to the build (`miso/include/miso/execution.hpp`)."
+
+msgid "`nvcc` でコンパイルするときは `[=] __host__ __device__`、g++ などでコンパイルするときは `[=]` になります。 `[=]` は第 7 章で学んだ「使う外側の変数を値で取り込む」指定です。 参照で取り込む `[&]` は使いません。参照はホストの変数を指すので、デバイスからは読めないためです。"
+msgstr "When compiling with `nvcc` it becomes `[=] __host__ __device__`, and when compiling with g++ or the like it becomes `[=]`. `[=]` is the specification we learned in Chapter 7 for \"capturing the outer variables it uses by value\". We do not use `[&]`, which captures by reference, because a reference points to a host variable and cannot be read from the device."
+
+msgid "`__host__ __device__` を付けたラムダは、CUDA では**拡張ラムダ**（extended lambda）と呼ばれる機能で、 `nvcc` に `--expt-extended-lambda` オプションを付けたときだけ使えます。 MISO は `miso/CMakeLists.txt` でこのオプションを付けています。"
+msgstr "A lambda marked `__host__ __device__` is, in CUDA, a feature called an **extended lambda**, and it can be used only when the `--expt-extended-lambda` option is given to `nvcc`. MISO adds this option in `miso/CMakeLists.txt`."
+
+msgid "`$<$<COMPILE_LANGUAGE:CUDA>:...>` は「CUDA としてコンパイルするファイルにだけ付ける」という CMake の書き方です。 `MISO::MISO` をリンクすると、自分のプログラムにもこのオプションが付きます。"
+msgstr "`$<$<COMPILE_LANGUAGE:CUDA>:...>` is CMake notation meaning \"add this only to files compiled as CUDA\". When you link `MISO::MISO`, this option is added to your own program as well."
+
+msgid "CPU だけでビルドするとき、`__host__` と `__device__` は g++ が知らない語です。 `miso/include/miso/cuda_compat.hpp` が、そのときは空の語として定義します。"
+msgstr "When building with the CPU only, `__host__` and `__device__` are words that g++ does not know. `miso/include/miso/cuda_compat.hpp` defines them as empty words in that case."
+
+msgid "そのため、`__host__ __device__` を付けた関数や View は、CPU ビルドでは普通の C++ として使えます。 一方、`__global__` は定義していません。カーネルと `<<< >>>` の起動は CPU ビルドに意味がないので、 CUDA 版の `for_each`・`reduce` や手書きのカーネルは `#ifdef __CUDACC__` の中に置いてあります。"
+msgstr "Because of this, functions and Views marked `__host__ __device__` can be used as ordinary C++ in a CPU build. On the other hand, `__global__` is not defined. Kernels and `<<< >>>` launches are meaningless in a CPU build, so the CUDA versions of `for_each` and `reduce` and the hand-written kernels are placed inside `#ifdef __CUDACC__`."
+
+msgid "4.3 CPU と GPU で同じ `main.cpp` を動かす"
+msgstr "4.3 Running the same `main.cpp` on a CPU and a GPU"
+
+msgid "`for_each` と `reduce` を使い、$\\int_0^1 x^2\\,dx = 1/3$ を中点則で計算する例です。 `Backend` を切り替えるだけで、同じコードが CPU でも GPU でも動きます。 `reduce` の CUDA 版の仕組みは 6 節で説明します。ここでは呼び方が Host 版と同じであることを見てください。"
+msgstr "This is an example that uses `for_each` and `reduce` to compute $\\int_0^1 x^2\\,dx = 1/3$ with the midpoint rule. Just by switching `Backend`, the same code runs on both a CPU and a GPU. How the CUDA version of `reduce` works is explained in Section 6. Here, note that the way of calling it is the same as for the Host version."
+
+msgid "読むときの要点です。"
+msgstr "Here are the key points for reading it."
+
+msgid "`fv` と `dx` はラムダの外で用意したローカル変数です。ラムダはこの 2 つを値で取り込みます。"
+msgstr "`fv` and `dx` are local variables prepared outside the lambda. The lambda captures these two by value."
+
+msgid "`f` そのもの（`Array1D`）はラムダの中で使っていません。所有する配列はホストに置いたまま、View だけを渡します。"
+msgstr "`f` itself (an `Array1D`) is not used inside the lambda. The owning array stays on the host, and only the View is passed."
+
+msgid "縮約の演算 `op`（2 つ目のラムダ）もデバイスで呼ばれるので、`MISO_LAMBDA` で書きます。"
+msgstr "The reduction operation `op` (the second lambda) is also called on the device, so we write it with `MISO_LAMBDA`."
+
+msgid "結果をホストで表示するには、`f_host.copy_from(f)` でホストへ写します。"
+msgstr "To display the result on the host, copy it to the host with `f_host.copy_from(f)`."
+
+msgid "`USE_CUDA` は、自分の CMake 設定で CUDA ビルドのときに定義するマクロです（MISO の demo と同じ名前にしています）。"
+msgstr "`USE_CUDA` is a macro that your own CMake configuration defines for CUDA builds (we gave it the same name as in MISO's demos)."
+
+msgid "CPU ビルドと、GPU ビルドの出力です（GPU は RTX 4090 で確かめました）。"
+msgstr "These are the outputs of the CPU build and the GPU build (the GPU was an RTX 4090)."
+
+msgid "`f[999]` は一致していますが、`integral` は最後の桁が違います。 `float` の足し算は、足す順序で丸め誤差が変わります。Host 版は `i = 0, 1, 2, ...` の順に足しますが、 CUDA 版は 6 節で見るように、木の形に組んで足します。 **CPU と GPU の結果は、ビット単位では一致しないことがある**と考えて、比較のしかたを決めます。"
+msgstr "`f[999]` matches, but `integral` differs in the last digit. The rounding error of `float` addition changes with the order of addition. The Host version adds in the order `i = 0, 1, 2, ...`, but the CUDA version adds by combining in a tree shape, as we will see in Section 6. Decide how to compare results by assuming that **the results of a CPU and a GPU may not match bit for bit**."
+
+msgid "4.4 CMake の設定"
+msgstr "4.4 CMake configuration"
+
+msgid "このプログラムを CUDA でビルドするには、第 1 章で書いた CMake の設定に、次のことを足します。 MISO の demo の `CMakeLists.txt`（`demo/mhd2d_vortex/CMakeLists.txt`）が同じことをしているので、抜粋で示します。"
+msgstr "To build this program with CUDA, add the following to the CMake configuration we wrote in Chapter 1. The `CMakeLists.txt` of MISO's demos (`demo/mhd2d_vortex/CMakeLists.txt`) does the same thing, so we show an excerpt."
+
+msgid "`enable_language(CUDA)` で CMake に `nvcc` を探させます。`CMAKE_CUDA_ARCHITECTURES`（9 節）はその前に決めます。 `set_source_files_properties(... LANGUAGE CUDA)` は、拡張子が `.cpp` のファイルを g++ ではなく `nvcc` でコンパイルさせる指定です。 CPU ビルドと GPU ビルドで同じファイルを使うためです。 `target_compile_definitions(... USE_CUDA)` で、ソースの `#ifdef USE_CUDA` が有効になります。 さらに demo は、MISO を読み込む前に MISO 側のオプション `MISO_USE_CUDA` を ON にし、MISO に CUDA の実行時ライブラリと `--expt-extended-lambda` を付けさせます。 `add_subdirectory` で MISO を読み込む場合も、その前に `set(MISO_USE_CUDA ON CACHE BOOL \"...\")` とします。 ビルドフォルダは CPU 用と GPU 用で分けます。"
+msgstr "`enable_language(CUDA)` makes CMake look for `nvcc`. `CMAKE_CUDA_ARCHITECTURES` (Section 9) is decided before that. `set_source_files_properties(... LANGUAGE CUDA)` makes a file with the extension `.cpp` be compiled by `nvcc` instead of g++. This is so that the same file is used for the CPU build and the GPU build. `target_compile_definitions(... USE_CUDA)` enables the `#ifdef USE_CUDA` in the source. In addition, before loading MISO, the demo turns ON MISO's own option `MISO_USE_CUDA`, which makes MISO attach the CUDA run-time library and `--expt-extended-lambda`. When you load MISO with `add_subdirectory`, you likewise write `set(MISO_USE_CUDA ON CACHE BOOL \"...\")` before it. Use separate build folders for the CPU and the GPU."
+
+msgid "練習 3：ラムダが取り込むもの"
+msgstr "Exercise 3: What the lambda captures"
+
+msgid "4.3 の例で、`for_each` に渡したラムダが取り込む変数を挙げ、それぞれがデバイスへ写るときに何バイト程度かを見積もってください。 `Array1DView<Real>` は、ポインタ 1 つと `int` 1 つを持ちます（`miso/include/miso/array1d.hpp`）。 また、ラムダの中で `fv[i]` の代わりに `f.view()[i]` と書くと、どこが問題になるかを説明してください。"
+msgstr "In the example of Section 4.3, list the variables captured by the lambda passed to `for_each`, and estimate roughly how many bytes each takes when copied to the device. `Array1DView<Real>` has one pointer and one `int` (`miso/include/miso/array1d.hpp`). Also explain what goes wrong if you write `f.view()[i]` instead of `fv[i]` inside the lambda."
+
+#, python-brace-format
+msgid "取り込むのは `fv`（`Array1DView<Real>`）と `dx`（`Real` = `float`）の 2 つです。 `fv` はポインタ 8 バイトと `int` 4 バイトで、構造体の詰め物を含めて 16 バイト程度、`dx` は 4 バイトです。 合わせて 20〜24 バイト程度で、配列の要素 1000 個（4000 バイト）は写りません。 `n` は `Range1D{0, n}` を作るのに使っただけで、ラムダの中では使っていないので取り込まれません。"
+msgstr "It captures two things: `fv` (`Array1DView<Real>`) and `dx` (`Real` = `float`). `fv` is an 8-byte pointer and a 4-byte `int`, about 16 bytes including the struct padding, and `dx` is 4 bytes. In total this is about 20 to 24 bytes, and the 1000 elements of the array (4000 bytes) are not copied. `n` was used only to build `Range1D{0, n}` and is not used inside the lambda, so it is not captured."
+
+msgid "ラムダの中で `f.view()` と書くと、`f`（所有する `Array1D<Real, backend::CUDA>`）を取り込もうとします。 `Array1D` はコピーが禁止されている（第 4 章の `= delete`）ので、`[=]` で値として取り込めず、コンパイルエラーになります （`nvcc` では `... cannot be referenced -- it is a deleted function` と表示されます）。 仮に取り込めたとしても、`view()` には `__device__` が付いていないので、デバイスから呼ぶことはできません。 所有する配列はホストのコードで扱い、ラムダへは View だけを渡す、という役割分担を守ります。"
+msgstr "If you write `f.view()` inside the lambda, it tries to capture `f` (the owning `Array1D<Real, backend::CUDA>`). `Array1D` is not copyable (the `= delete` of Chapter 4), so it cannot be captured by value with `[=]`, which gives a compile error (`nvcc` displays `... cannot be referenced -- it is a deleted function`). Even if it could be captured, `view()` is not marked `__device__`, so it cannot be called from the device. Keep to the division of roles: handle owning arrays in host code, and pass only Views to lambdas."
+
+msgid "5. this キャプチャの落とし穴"
+msgstr "5\\. The Pitfall of Capturing this"
+
+msgid "5.1 メンバ変数を使うと this が取り込まれる"
+msgstr "5.1 Using a member variable captures this"
+
+msgid "クラスのメンバ関数の中でラムダを書き、その中でメンバ変数を使う場合に、CPU では動くのに GPU では止まる誤りが起きます。"
+msgstr "When you write a lambda inside a member function of a class and use a member variable in it, a mistake can occur that works on a CPU but stops on a GPU."
+
+msgid "第 4 章で学んだとおり、メンバ関数の中でメンバ変数 `factor` と書くのは、`this->factor` の省略です。 `this` は、メンバ関数を呼び出したオブジェクトを指すポインタです。 C++ の規則では、ラムダの中でメンバ変数を使うと、`[=]` でも `factor` の値ではなく **`this` というポインタ**が取り込まれます（第 7 章）。"
+msgstr "As we learned in Chapter 4, writing the member variable `factor` inside a member function is shorthand for `this->factor`. `this` is a pointer to the object on which the member function was called. By the rules of C++, when you use a member variable inside a lambda, what is captured, even with `[=]`, is not the value of `factor` but **the pointer `this`** (Chapter 7)."
+
+msgid "GPU では、これが問題になります。`this` はホストのメモリにあるオブジェクトの番地です。 ラムダと一緒に `this` の値（番地）はデバイスへ写りますが、その番地が指すオブジェクトは写りません。 デバイスのスレッドが `this->factor` を読もうとすると、ホストの番地を読むことになります。"
+msgstr "On a GPU, this becomes a problem. `this` is the address of an object in host memory. The value of `this` (an address) is copied to the device together with the lambda, but the object that address points to is not. When a device thread tries to read `this->factor`, it ends up reading a host address."
+
+msgid "次の例は、同じことをする 2 つのメンバ関数を比べています（説明用のコードです）。"
+msgstr "The following example compares two member functions that do the same thing (code for explanation)."
+
+msgid "`main` で `apply_right` と `apply_wrong` を順に呼び、それぞれの後に `a_host.copy_from(a)` でホストへ写して `a[3]` を表示しました。"
+msgstr "In `main`, we called `apply_right` and `apply_wrong` in turn, copied to the host with `a_host.copy_from(a)` after each, and displayed `a[3]`."
+
+msgid "CPU ではホストとデバイスの区別がないので、`this` を取り込んでも正しく動きます。 そのため、**CPU のテストが通っても、この誤りは見つかりません**。 GPU では `apply_wrong` のカーネルが不正なメモリアクセスで止まります。 エラーが報告された場所が `array1d.hpp`（`copy_from` の中の `cudaMemcpy`）になっている理由は 7 節で説明します。"
+msgstr "On a CPU there is no distinction between host and device, so it works correctly even if `this` is captured. Therefore, **this mistake is not found even if the CPU tests pass**. On a GPU, the kernel of `apply_wrong` stops with an illegal memory access. The reason the reported location of the error is `array1d.hpp` (the `cudaMemcpy` inside `copy_from`) is explained in Section 7."
+
+msgid "`apply_right` では、ラムダの直前で `factor` をローカル変数 `factor_` へコピーしています。 ラムダはローカル変数 `factor_` の値（`float` 1 つ）を取り込むので、`this` は取り込まれません。 `a` は関数の引数（View の値）なので、そのまま使えます。"
+msgstr "In `apply_right`, `factor` is copied to the local variable `factor_` just before the lambda. The lambda captures the value of the local variable `factor_` (one `float`), so `this` is not captured. `a` is a function argument (the value of a View), so it can be used as it is."
+
+msgid "5.2 MISO での書き方"
+msgstr "5.2 How to write it in MISO"
+
+msgid "MISO の `dev/notes/usage_ai.md` には、この規則が例とともに書かれています。"
+msgstr "MISO's `dev/notes/usage_ai.md` describes this rule with examples."
+
+msgid "実物は `miso/include/miso/eos.hpp` の `IdealEOS::gas_pressure` です。"
+msgstr "The real code is `IdealEOS::gas_pressure` in `miso/include/miso/eos.hpp`."
+
+msgid "`gm`（比熱比）は `IdealEOS` のメンバ変数なので、ラムダの前で `gm_` へコピーします。 `qq` と `pr` は関数の引数（View）なので、そのまま取り込めます。 `Integrator<Real, backend::CUDA>::cfl`（`miso/include/miso/mhd_integrator_cuda.cuh`）でも、 メンバ変数 `cfl_number` を `cfl_number_` へコピーし、配列も `qq_v`, `grid_v`, `cs_v` というローカルの View にしてからラムダを書いています。"
+msgstr "`gm` (the ratio of specific heats) is a member variable of `IdealEOS`, so it is copied to `gm_` before the lambda. `qq` and `pr` are function arguments (Views), so they can be captured as they are. In `Integrator<Real, backend::CUDA>::cfl` (`miso/include/miso/mhd_integrator_cuda.cuh`) as well, the member variable `cfl_number` is copied to `cfl_number_`, and the arrays are also turned into local Views `qq_v`, `grid_v`, and `cs_v` before the lambda is written."
+
+msgid "この規則は、MISO の issue #170（<https://github.com/is-isee/MISO/issues/170>）で見つかった不具合から来ています。 `eos.hpp`、`cfl`、`table_interpolator.hpp`、`demo/mhd3d_magnetosphere` のラムダがメンバ変数を使っていて `this` を取り込み、 RTX 4090 の環境で `mhd2d_vortex` と `mhd3d_magnetosphere` が `illegal memory access` で止まりました。 一方、別の環境では偶然動いていました。HMM（Heterogeneous Memory Management）という、 デバイスからホストのメモリを読めるようにする仕組みが有効な環境では、ホストの番地を読んでも止まらないためです。 ラムダの直前でメンバをローカル変数にコピーする形に直し、磁気圏デモが 2 GPU で動き、CPU と `float` の精度の範囲で一致することを確かめています。"
+msgstr "This rule comes from a bug found in MISO's issue #170 (<https://github.com/is-isee/MISO/issues/170>). The lambdas in `eos.hpp`, `cfl`, `table_interpolator.hpp`, and `demo/mhd3d_magnetosphere` used member variables and captured `this`, and on an RTX 4090 environment `mhd2d_vortex` and `mhd3d_magnetosphere` stopped with `illegal memory access`. On the other hand, they happened to work in another environment. In an environment where HMM (Heterogeneous Memory Management), a mechanism that lets the device read host memory, is enabled, reading a host address does not stop the program. After we fixed them to copy the members into local variables just before the lambda, we confirmed that the magnetosphere demo runs on 2 GPUs and agrees with the CPU within the precision of `float`."
+
+msgid "「ある GPU 環境で動いた」ことも、`this` を取り込んでいないことの確認にはなりません。 ラムダを書いたら、中で使っている名前が「ローカル変数か引数か」を、宣言まで戻って確かめます。"
+msgstr "\"It worked on some GPU environment\" is not a confirmation that `this` is not captured, either. After writing a lambda, go back to the declarations and check whether each name used inside is a local variable or an argument."
+
+msgid "練習 4：ラムダが使う名前の確認"
+msgstr "Exercise 4: Checking the names a lambda uses"
+
+msgid "`miso/include/miso/eos.hpp` の `IdealEOS::sound_speed` を読み、ラムダの中で使っている名前を 「ローカル変数」「関数の引数」「メンバ変数」に分けてください。 また、`const Real gm_ = gm;` の行を消してラムダの中を `gm` に戻した場合、CPU ビルドと GPU ビルドでそれぞれどうなるかを説明してください。"
+msgstr "Read `IdealEOS::sound_speed` in `miso/include/miso/eos.hpp`, and classify the names used inside the lambda into \"local variables\", \"function arguments\", and \"member variables\". Also explain what happens in the CPU build and the GPU build if you delete the line `const Real gm_ = gm;` and change the inside of the lambda back to `gm`."
+
+msgid "`sound_speed` のラムダは `cs[i] = util::sqrt(gm_ * (gm_ - Real(1)) * qq.ei[i]);` を計算します。"
+msgstr "The lambda of `sound_speed` computes `cs[i] = util::sqrt(gm_ * (gm_ - Real(1)) * qq.ei[i]);`."
+
+msgid "名前"
+msgstr "Name"
+
+msgid "種類"
+msgstr "Kind"
+
+msgid "`gm_`"
+msgstr ""
+
+msgid "ローカル変数（メンバ `gm` の写し）"
+msgstr "Local variable (a copy of the member `gm`)"
+
+msgid "`qq`"
+msgstr ""
+
+msgid "関数の引数（`mhd::FieldsView<const Real>`）"
+msgstr "Function argument (`mhd::FieldsView<const Real>`)"
+
+msgid "`cs`"
+msgstr ""
+
+msgid "関数の引数（`Array3DView<Real>`）"
+msgstr "Function argument (`Array3DView<Real>`)"
+
+msgid "`i`"
+msgstr ""
+
+msgid "ラムダの引数"
+msgstr "Lambda argument"
+
+msgid "`util::sqrt` は関数名で、変数ではないので取り込まれません。`__host__ __device__` が付いているのでデバイスから呼べます。 ラムダの中にメンバ変数はありません。"
+msgstr "`util::sqrt` is a function name, not a variable, so it is not captured. It is marked `__host__ __device__`, so it can be called from the device. There are no member variables inside the lambda."
+
+msgid "`gm_` をやめて `gm` と書くと、`gm` は `this->gm` の意味になり、ラムダは `this` を取り込みます。 CPU ビルドでは `this` が指すオブジェクトをそのまま読めるので、正しく動きます。 GPU ビルドでは、コンパイルは通りますが、実行するとデバイスがホストの番地を読み、 `illegal memory access` で止まります（HMM が有効な環境では偶然動くこともあります）。"
+msgstr "If you drop `gm_` and write `gm`, `gm` means `this->gm`, and the lambda captures `this`. In the CPU build, the object that `this` points to can be read as it is, so it works correctly. In the GPU build, it compiles, but when run the device reads a host address and stops with `illegal memory access` (in an environment with HMM enabled, it may happen to work)."
+
+msgid "6. reduce の CUDA 版"
+msgstr "6\\. The CUDA Version of reduce"
+
+msgid "6.1 多数のスレッドで 1 つの値を作る"
+msgstr "6.1 Producing one value with many threads"
+
+msgid "`reduce` は、配列全体から最小値や合計などの 1 つの値を作る処理でした（第 7 章）。 Host 版は、変数 `acc = init` に `acc = op(acc, map(i))` で 1 つずつ合わせていくだけです。 GPU で同じことをするには工夫が要ります。 数千のスレッドが 1 つの変数 `acc` を同時に書き換えると、互いの書き込みを上書きして正しい値になりません。 そこで MISO の CUDA 版は、**ブロックの中で値を半分ずつにまとめていく**方法を使います。 スポーツのトーナメントのように、2 つずつ組にして勝者（合計なら和、最小値なら小さい方）を残し、1 つになるまで繰り返します。"
+msgstr "`reduce` was the operation that produces a single value, such as the minimum or the sum, from a whole array (Chapter 7). The Host version simply combines the elements one at a time into a variable, `acc = init`, with `acc = op(acc, map(i))`. Doing the same on a GPU takes some care. If thousands of threads rewrite the single variable `acc` at the same time, they overwrite each other's writes and the value is not correct. So MISO's CUDA version uses a method that **combines values by halves inside a block**. Like a sports tournament, it pairs the values two by two, keeps the winner (the sum for a total, the smaller one for a minimum), and repeats until one remains."
+
+msgid "6.2 共有メモリとブロック内の縮約"
+msgstr "6.2 Shared memory and reduction within a block"
+
+msgid "ブロックの中のスレッドは、**共有メモリ**（shared memory）という小さく速いメモリを共有できます。 共有メモリはブロックごとに別々にあり、他のブロックからは見えません。"
+msgstr "The threads in a block can share a small, fast memory called **shared memory**. Shared memory exists separately for each block and cannot be seen from other blocks."
+
+msgid "1 ブロックのスレッド数を 8 として、8 個の値の合計を求める様子です。"
+msgstr "This shows how the sum of 8 values is found with 8 threads per block."
+
+msgid "8 個の値は 3 段（$\\log_2 8$）で 1 つになります。 各段で働くスレッドは前の段の半分です。"
+msgstr "The 8 values become 1 in 3 stages ($\\log_2 8$). In each stage, half as many threads work as in the previous stage."
+
+msgid "`__syncthreads()` は、ブロックの中の全スレッドがその地点に着くまで待つ命令です。 これがないと、あるスレッドが `s[tid + offset]` を読むときに、その値を書くはずのスレッドがまだ書いていない、ということが起こります。"
+msgstr "`__syncthreads()` is an instruction that waits until all threads in the block reach that point. Without it, when one thread reads `s[tid + offset]`, the thread that is supposed to write that value may not have written it yet."
+
+msgid "MISO の実物は `miso/include/miso/execution.hpp` の `block_reduce_shared` です。"
+msgstr "The real code is `block_reduce_shared` in `miso/include/miso/execution.hpp`."
+
+msgid "`>> 1` は 2 で割る（右へ 1 ビットずらす）演算で、`(n + 1) >> 1` は $n/2$ の切り上げです。 切り上げにしているのは、スレッド数 `n` が 2 の累乗でなくても使えるようにするためです。 `tid + offset < n` の条件で、相手がいないスレッドは何もしません。"
+msgstr "`>> 1` is the operation of dividing by 2 (shifting right by one bit), and `(n + 1) >> 1` is $n/2$ rounded up. We round up so that it works even when the number of threads `n` is not a power of 2. With the condition `tid + offset < n`, a thread that has no partner does nothing."
+
+msgid "6.3 ブロックの結果をさらにまとめる"
+msgstr "6.3 Combining the block results further"
+
+msgid "1 ブロックの縮約で得られるのは、そのブロックの担当分の結果です。 ブロックが 64 個あれば、64 個の値が残ります。MISO の `reduce` は、これを 1 つになるまでカーネルを繰り返して縮約します。"
+msgstr "What a one-block reduction gives is the result for that block's share. If there are 64 blocks, 64 values remain. MISO's `reduce` repeats the kernel to reduce these until one remains."
+
+msgid "段階 1 の `reduce_stage_kernel`（`miso/include/miso/execution.hpp`）では、範囲の中のスレッドが `map` で自分の値を作り、 範囲の外のスレッドは `init` を、それぞれ共有メモリ `s[tid]` に書きます。 そのあと `block_reduce_shared` を呼び、スレッド 0 がブロックの結果を `out[blockIdx.x]` に書きます。 1 次元と 3 次元の範囲で `map` の呼び方を変えるのに、第 6 章の `if constexpr` を使っています。"
+msgstr "In `reduce_stage_kernel` of stage 1 (`miso/include/miso/execution.hpp`), the threads inside the range make their own values with `map`, and the threads outside the range write `init`, each into the shared memory `s[tid]`. Then `block_reduce_shared` is called, and thread 0 writes the block's result to `out[blockIdx.x]`. To change how `map` is called for one-dimensional and three-dimensional ranges, it uses the `if constexpr` of Chapter 6."
+
+msgid "途中の結果を置く `buf0`, `buf1` はデバイスのメモリで、`ReduceHelper<T>` が `cudaMalloc` で確保して持っています。 `reduce` を呼ぶたびに確保・解放すると時間がかかるので、何度も呼ぶ場所では `ReduceHelper` を用意して使い回します。 `Integrator<Real, backend::CUDA>` は、時間刻みを求める `cfl` のために `ReduceHelper<Real> cfl_helper;` をメンバに持っています。"
+msgstr "`buf0` and `buf1`, which hold intermediate results, are device memory that `ReduceHelper<T>` allocates with `cudaMalloc` and keeps. Allocating and freeing them on every call of `reduce` takes time, so in places where it is called many times, you prepare a `ReduceHelper` and reuse it. `Integrator<Real, backend::CUDA>` has `ReduceHelper<Real> cfl_helper;` as a member, for `cfl`, which finds the time step."
+
+msgid "最後の引数 `cfl_helper` を省いた形もあり、そのときは `reduce` の中で一時的な `ReduceHelper` を作ります。"
+msgstr "There is also a form that omits the last argument `cfl_helper`, in which case a temporary `ReduceHelper` is created inside `reduce`."
+
+msgid "6.4 初期値は op の単位元にする"
+msgstr "6.4 Make the initial value the identity element of op"
+
+msgid "CUDA 版では、範囲の外のスレッドが `init` を共有メモリに書き、それも縮約に加わります。 そのため `init` は、`op` で合わせても相手の値を変えない値（**単位元**）にします。"
+msgstr "In the CUDA version, the threads outside the range write `init` to shared memory, and it also takes part in the reduction. Therefore `init` must be a value that does not change the partner's value when combined with `op` (the **identity element**)."
+
+msgid "縮約"
+msgstr "Reduction"
+
+msgid "`op`"
+msgstr ""
+
+msgid "`init`"
+msgstr ""
+
+msgid "合計"
+msgstr "Sum"
+
+msgid "`a + b`"
+msgstr ""
+
+msgid "`0`"
+msgstr ""
+
+msgid "最小値"
+msgstr "Minimum"
+
+msgid "`util::min2(a, b)`"
+msgstr ""
+
+msgid "十分大きな値（`cfl` では `1.e10`）"
+msgstr "A sufficiently large value (`1.e10` in `cfl`)"
+
+msgid "最大値"
+msgstr "Maximum"
+
+msgid "`util::max2(a, b)`"
+msgstr ""
+
+msgid "十分小さな値"
+msgstr "A sufficiently small value"
+
+msgid "Host 版の `init` は「最初の値」として 1 回だけ加わるので、単位元でなくても動きます。 同じ呼び出しでも、Host 版と CUDA 版で結果が変わることを確かめました（10 個の要素がすべて 1 で、合計を求める例）。"
+msgstr "In the Host version, `init` takes part just once as the \"first value\", so it works even if it is not the identity element. We confirmed that the same call gives different results in the Host version and the CUDA version (an example that sums 10 elements that are all 1)."
+
+msgid "6.5 縮約の順序と丸め誤差"
+msgstr "6.5 Order of reduction and rounding error"
+
+#, python-brace-format
+msgid "Host 版は前から順に、CUDA 版はトーナメントの形で合わせます。 最小値・最大値なら順序によらず同じ値になりますが、浮動小数点の合計は順序で丸め誤差が変わります。 4.3 の例で `integral` の最後の桁が CPU と GPU で違ったのはこのためです。 CPU と GPU の結果を比べるときは、{ref}`テストと計算結果の比較 <edu-ref-testing>` を参照して、許す誤差を決めます。"
+msgstr "The Host version combines from the front in order, and the CUDA version combines in a tournament shape. For a minimum or a maximum the value is the same regardless of order, but for a floating-point sum the rounding error changes with the order. This is why the last digit of `integral` differed between the CPU and the GPU in the example of Section 4.3. When you compare CPU and GPU results, decide on the tolerance by referring to {ref}`Testing and Comparing Results <edu-ref-testing>`."
+
+msgid ""
+"<details>\n"
+"<summary>コラム：extern __shared__ は型によらず 1 つの実体になる</summary>\n"
+msgstr ""
+"<details>\n"
+"<summary>Column: extern __shared__ becomes a single entity regardless of type</summary>\n"
+
+msgid "ブロック内の縮約で使う共有メモリの大きさ（スレッド数 × `sizeof(T)`）は、起動のたびに変わります。 このような共有メモリは、カーネルの中で大きさを書かずに `extern __shared__` で宣言し、 起動時の `<<<グリッド, ブロック, バイト数>>>` の 3 つ目で大きさを渡します。 MISO の `reduce` が `<<<grid, block, helper.shmem, stream>>>` と 4 つの値で起動しているのはそのためです（4 つ目は 7 節のストリームです）。"
+msgstr "The size of the shared memory used in the reduction within a block (number of threads × `sizeof(T)`) changes with each launch. Shared memory of this kind is declared inside the kernel with `extern __shared__` without writing its size, and the size is passed as the third value in `<<<grid, block, bytes>>>` at launch. This is why MISO's `reduce` launches with four values, `<<<grid, block, helper.shmem, stream>>>` (the fourth is the stream of Section 7)."
+
+msgid "以前の MISO は、テンプレートのカーネルの中で次のように宣言していました。"
+msgstr "Earlier versions of MISO declared it as follows inside a template kernel."
+
+msgid "`T` ごとに別の配列ができるように見えますが、`extern __shared__` の配列は、テンプレートの型によらず、同じ名前の 1 つの実体として扱われます。 そのため、同じファイルで `int` の `reduce` と `double` の `reduce` を使うと、「同じ `s` が違う型で宣言された」というコンパイルエラーになりました（MISO issue #190、<https://github.com/is-isee/MISO/issues/190>）。 （`error: declaration is incompatible with previous \"s\"` というエラーです。） 現在の MISO は、共有メモリを型を持たないバイト列として 1 回だけ宣言し、使う側で `T *` に読み替えています。"
+msgstr "It looks as if a separate array is made for each `T`, but an `extern __shared__` array is treated as a single entity with the same name regardless of the template type. Therefore, using the `reduce` for `int` and the `reduce` for `double` in the same file produced a compile error saying \"the same `s` was declared with different types\" (MISO issue #190, <https://github.com/is-isee/MISO/issues/190>). (The error is `error: declaration is incompatible with previous \"s\"`.) The current MISO declares the shared memory just once as an untyped sequence of bytes, and the using side reinterprets it as `T *`."
+
+msgid "`__align__(16)` は、先頭の番地を 16 の倍数にそろえる指定です。 `double` などを置くには、番地が型の大きさに合った倍数になっている必要があるためです。 `static_assert` は、それより厳しいそろえ方を要求する型が使われたら、コンパイル時に止めます（第 6 章）。 `miso/tests/serial/test_execution.cu` には、`int` と `double` の `reduce` を同じファイルで使うテストがあります。"
+msgstr "`__align__(16)` aligns the starting address to a multiple of 16. This is because, to place a `double` and the like, the address must be a multiple that fits the size of the type. `static_assert` stops the compilation if a type that requires stricter alignment is used (Chapter 6). `miso/tests/serial/test_execution.cu` has a test that uses the `reduce` for `int` and `double` in the same file."
+
+msgid "`extern __shared__` の扱いは、NVIDIA の CUDA C++ Programming Guide（<https://docs.nvidia.com/cuda/cuda-c-programming-guide/index.html>）の共有メモリの節に説明があります。"
+msgstr "How `extern __shared__` is handled is explained in the section on shared memory in NVIDIA's CUDA C++ Programming Guide (<https://docs.nvidia.com/cuda/cuda-c-programming-guide/index.html>)."
+
+msgid "練習 5：縮約の段数を数える"
+msgstr "Exercise 5: Counting the reduction stages"
+
+msgid "`mhd2d_vortex` の既定の設定（`demo/mhd2d_vortex/config.yaml`）で、`i_size: 128`, `j_size: 128`, `k_size: 1`、MPI は x 方向に 2 分割です。 各ランクで `cfl` の `reduce` が扱う要素数（ゴーストセルを除いた内部の格子点数）を求め、 ブロックあたり 256 スレッドのとき、段階 1 のブロック数と、段階 2 以降のカーネルの起動回数を求めてください。"
+msgstr "In the default configuration of `mhd2d_vortex` (`demo/mhd2d_vortex/config.yaml`), `i_size: 128`, `j_size: 128`, `k_size: 1`, and MPI divides into two in the x direction. Find the number of elements that the `reduce` of `cfl` handles on each rank (the number of interior grid points, excluding ghost cells), and, with 256 threads per block, find the number of blocks in stage 1 and the number of kernel launches in stage 2 and after."
+
+msgid "x 方向に 2 分割なので、各ランクの内部は 64 × 128 × 1 = 8192 点です。 `cfl` の範囲 `Range3D` は `i_margin` から `i_total - i_margin` までなど、内部の格子点だけを指します。"
+msgstr "It is divided into two in the x direction, so the interior of each rank is 64 × 128 × 1 = 8192 points. The range `Range3D` of `cfl` covers only the interior grid points, such as from `i_margin` to `i_total - i_margin`."
+
+msgid "段階 1 のブロック数は `(8192 + 255) / 256 = 32` です。段階 1 で 32 個の値が `buf0` に残ります。 段階 2 では `cur_n = 32` に対して `g = (32 + 255) / 256 = 1` ブロックで起動し、1 個になります。 したがって段階 2 以降の起動は 1 回で、`reduce` 全体ではカーネルを 2 回起動します。 最後に 1 個の値をホストへ写し、各ランクの値を `MPI_Allreduce` の `MPI_MIN` で全体の最小値にします（第 8 章）。"
+msgstr "The number of blocks in stage 1 is `(8192 + 255) / 256 = 32`. After stage 1, 32 values remain in `buf0`. In stage 2, for `cur_n = 32` it launches with `g = (32 + 255) / 256 = 1` block, which leaves 1 value. Therefore the launch in stage 2 and after happens once, and the whole `reduce` launches kernels twice. Finally, one value is copied to the host, and the values of the ranks are turned into the global minimum with `MPI_Allreduce` and `MPI_MIN` (Chapter 8)."
+
+msgid "7. 同期とエラーの見つけ方"
+msgstr "7\\. Synchronization and Finding Errors"
+
+msgid "7.1 カーネルの起動は待たない"
+msgstr "7.1 Kernel launches do not wait"
+
+msgid "`<<< >>>` でカーネルを起動すると、ホストは**カーネルの終了を待たずに**次の行へ進みます。 GPU に仕事を預けて、CPU は先へ進むという動きです。この性質を**非同期**（asynchronous）と呼びます。"
+msgstr "When you launch a kernel with `<<< >>>`, the host moves on to the next line **without waiting for the kernel to finish**. This is a behavior in which you hand the work to the GPU and the CPU goes ahead. This property is called **asynchronous**."
+
+msgid "GPU への仕事は、**ストリーム**（stream）という待ち行列に入り、ストリームの中では入れた順に実行されます。 `<<< >>>` の 4 つ目の値や、`cudaMemcpyAsync` の最後の引数がストリームの指定で、省略すると既定のストリームが使われます。 MISO の `for_each` と `reduce` は、既定ではどちらも既定のストリームを使うので、`for_each` の結果を次の `reduce` が読むときに順序は守られます。"
+msgstr "Work for the GPU goes into a queue called a **stream**, and within a stream it is executed in the order it was put in. The fourth value of `<<< >>>` and the last argument of `cudaMemcpyAsync` specify the stream, and if omitted the default stream is used. MISO's `for_each` and `reduce` both use the default stream by default, so the order is preserved when the next `reduce` reads the result of a `for_each`."
+
+msgid "ホストが GPU の結果を使う前には、仕事の完了を待つ（**同期**する）必要があります。"
+msgstr "Before the host uses a result from the GPU, it must wait for the work to complete (**synchronize**)."
+
+msgid "待つもの"
+msgstr "What it waits for"
+
+msgid "`cudaMemcpy`"
+msgstr ""
+
+msgid "それまでに既定のストリームに入れた仕事が終わってから写し、写し終えるまで待つ"
+msgstr "It copies after the work already put on the default stream has finished, and waits until the copy is done"
+
+msgid "`cudaDeviceSynchronize()`"
+msgstr ""
+
+msgid "その GPU のすべての仕事"
+msgstr "All work on that GPU"
+
+msgid "`cudaStreamSynchronize(stream)`"
+msgstr ""
+
+msgid "指定したストリームの仕事"
+msgstr "The work on the specified stream"
+
+msgid "`cudaMemcpyAsync`"
+msgstr ""
+
+msgid "待たない。写しをストリームに入れるだけ"
+msgstr "Does not wait. It only puts the copy on the stream"
+
+msgid "4.3 の例で、`for_each` の後にすぐ `f_host.copy_from(f)` を呼べたのは、中の `cudaMemcpy` がカーネルの終了を待つからです。 `reduce` は最後に `cudaStreamSynchronize` で待ってから値を返すので、戻り値はすぐに使えます。"
+msgstr "In the example of Section 4.3, we could call `f_host.copy_from(f)` right after `for_each` because the `cudaMemcpy` inside waits for the kernel to finish. `reduce` waits with `cudaStreamSynchronize` at the end before returning the value, so the return value can be used immediately."
+
+msgid "`copy_from` には、ストリームを引数に取る非同期版（中で `cudaMemcpyAsync` を使う）もあり、その場合は呼び出す側が同期の責任を持ちます。"
+msgstr "`copy_from` also has an asynchronous version that takes a stream as an argument (using `cudaMemcpyAsync` inside), and in that case the caller is responsible for synchronization."
+
+msgid "MISO で `cudaDeviceSynchronize` を明示的に呼んでいるのは、GPU の結果を GPU 以外のものに渡す前です。 8 節のハロー交換では、送るデータを詰めるカーネルの後、`MPI_Isend` の前に呼んでいます。 MPI は CUDA のストリームを知らないので、詰め終わる前のバッファを送らないよう、ここで待つ必要があります。"
+msgstr "MISO calls `cudaDeviceSynchronize` explicitly before handing a GPU result to something other than the GPU. In the halo exchange of Section 8, it is called after the kernel that packs the data to send and before `MPI_Isend`. MPI does not know about CUDA streams, so we need to wait here so that a buffer that has not finished packing is not sent."
+
+msgid "7.2 エラーは後で報告される"
+msgstr "7.2 Errors are reported later"
+
+msgid "非同期であることは、エラーの見つけ方にも影響します。 カーネルの中で起きたエラー（範囲外の読み書きなど）は、起動した時点ではまだ起きていません。 カーネルが実行され、その後にホストが**同期する CUDA の関数を呼んだときに**、その戻り値として報告されます。"
+msgstr "Being asynchronous also affects how errors are found. An error that occurs inside a kernel (such as an out-of-range read or write) has not yet happened at the time of the launch. It is reported as the return value **when the host calls a synchronizing CUDA function** after the kernel has run."
+
+msgid "確かめる方法"
+msgstr "How to check"
+
+msgid "分かること"
+msgstr "What it tells you"
+
+msgid "起動直後の `cudaGetLastError()`"
+msgstr "`cudaGetLastError()` right after the launch"
+
+msgid "起動そのものの失敗（ブロックが大きすぎる、GPU 向けの命令がない、など）"
+msgstr "Failure of the launch itself (the block is too large, there are no instructions for the GPU, and so on)"
+
+msgid "後の `cudaMemcpy`, `cudaDeviceSynchronize` などの戻り値"
+msgstr "The return values of later calls such as `cudaMemcpy` and `cudaDeviceSynchronize`"
+
+msgid "カーネルの実行中に起きたエラー"
+msgstr "Errors that occurred while the kernel was running"
+
+msgid "5.1 の例で、エラーの場所が `array1d.hpp`（`copy_from` の `cudaMemcpy`）と表示されたのはこのためです。 誤っていたのは `apply_wrong` のラムダですが、それが分かるのはホストが次に同期したときでした。"
+msgstr "This is why, in the example of Section 5.1, the location of the error was displayed as `array1d.hpp` (the `cudaMemcpy` in `copy_from`). What was wrong was the lambda of `apply_wrong`, but it became known only when the host next synchronized."
+
+msgid "MISO は CUDA の関数の戻り値を `MISO_CUDA_CHECK` で調べます（`miso/include/miso/cuda_util.cuh`）。"
+msgstr "MISO checks the return values of CUDA functions with `MISO_CUDA_CHECK` (`miso/include/miso/cuda_util.cuh`)."
+
+msgid "`check_error` は、エラーなら `CUDA Error: <内容> <ファイル> <行>` を表示し、MPI が初期化されていれば `MPI_Abort` で全ランクを止めます。 `__FILE__` と `__LINE__` は、その行のファイル名と行番号に置き換わるマクロです。 表示されるのは「エラーに気づいた場所」で、「エラーが起きた場所」とは限らないことに注意します。"
+msgstr "If there is an error, `check_error` displays `CUDA Error: <message> <file> <line>`, and if MPI has been initialized it stops all ranks with `MPI_Abort`. `__FILE__` and `__LINE__` are macros that are replaced by the file name and line number of that line. Note that what is displayed is \"where the error was noticed\", which is not necessarily \"where the error occurred\"."
+
+#, python-brace-format
+msgid "起きた場所を突き止めるには、CUDA Toolkit に含まれる `compute-sanitizer` で実行します。 どのカーネルのどのスレッドが不正な読み書きをしたかが表示されます。 使い方と 5.1 の例での表示は {ref}`GPU で困ったとき <edu-ref-gpu-troubleshooting>` にまとめています。"
+msgstr "To pin down where it occurred, run with `compute-sanitizer`, which is included in the CUDA Toolkit. It displays which thread of which kernel made an illegal read or write. How to use it, and the display for the example of Section 5.1, are summarized in {ref}`GPU Troubleshooting <edu-ref-gpu-troubleshooting>`."
+
+msgid "8. GPU の選択と MPI"
+msgstr "8\\. Selecting a GPU and MPI"
+
+msgid "8.1 ランクごとに GPU を選ぶ"
+msgstr "8.1 Choosing a GPU for each rank"
+
+msgid "1 台の計算機に GPU が複数ある場合、MPI のランクごとに使う GPU を決めます。 MISO では、`main` の最初に作る `Env` がこれを行います（`miso/include/miso/env.hpp`）。"
+msgstr "When a computer has multiple GPUs, you decide which GPU each MPI rank uses. In MISO, the `Env` created at the start of `main` does this (`miso/include/miso/env.hpp`)."
+
+msgid "CUDA ビルドでは、`mpi::Env` で MPI を初期化した後に `cuda::Env` が作られます。 `cuda::Env` のコンストラクタの中心部分です。"
+msgstr "In a CUDA build, `cuda::Env` is created after MPI is initialized by `mpi::Env`. This is the main part of the constructor of `cuda::Env`."
+
+msgid "`mpi::local_rank()` は、同じ計算機（ノード）の中でのランク番号です。 `mpi::Env` が `MPI_Comm_split_type` で、同じノードのプロセスだけの通信グループを作って求めています。 ノード内のランク番号を GPU の数で割った余りを GPU の番号にします。 GPU が 2 つの計算機で 3 ランクを動かし、各ランクの `cuda::device_id()` を表示すると次のようになりました。"
+msgstr "`mpi::local_rank()` is the rank number within the same computer (node). `mpi::Env` obtains it by creating, with `MPI_Comm_split_type`, a communication group of only the processes on the same node. The remainder of dividing the rank number within the node by the number of GPUs becomes the GPU number. When we ran three ranks on a computer with two GPUs and displayed `cuda::device_id()` of each rank, we got the following."
+
+msgid "ランク 2 はランク 0 と同じ GPU を分け合うので、通常はノードあたりのランク数を GPU の数に合わせます。"
+msgstr "Rank 2 shares the same GPU with rank 0, so normally you match the number of ranks per node to the number of GPUs."
+
+msgid "8.2 GPU のメモリを MPI で送る"
+msgstr "8.2 Sending GPU memory with MPI"
+
+msgid "第 8 章のハロー交換では、隣のランクへ送る値をバッファに詰め、`MPI_Isend`・`MPI_Irecv` で送受信しました。 CUDA 版では、物理量の配列がデバイスにあるので、詰める処理もカーネルで行います。 `miso/include/miso/mhd_halo_exchange.hpp` の `HaloExchanger<Real, backend::CUDA>::apply` の x 方向の一部です。"
+msgstr "In the halo exchange of Chapter 8, we packed the values to send to the neighboring rank into a buffer and sent and received them with `MPI_Isend` and `MPI_Irecv`. In the CUDA version, the arrays of physical quantities are on the device, so the packing is also done by a kernel. This is a part of the x direction of `HaloExchanger<Real, backend::CUDA>::apply` in `miso/include/miso/mhd_halo_exchange.hpp`."
+
+msgid "流れは次のとおりです。"
+msgstr "The flow is as follows."
+
+msgid "`pack_x_send` カーネルで、9 つの物理量の端の値を送信バッファ `buff.send_x_pos` に詰める。"
+msgstr "The `pack_x_send` kernel packs the edge values of the nine physical quantities into the send buffer `buff.send_x_pos`."
+
+msgid "`cudaDeviceSynchronize()` で、詰め終わるのを待つ（7.1）。"
+msgstr "`cudaDeviceSynchronize()` waits for the packing to finish (7.1)."
+
+msgid "`MPI_Isend`・`MPI_Irecv` に、**デバイスのメモリにあるバッファの番地をそのまま渡す**。"
+msgstr "**Pass the address of the buffer in device memory as it is** to `MPI_Isend` and `MPI_Irecv`."
+
+msgid "`MPI_Waitall` で送受信の完了を待ってから、`unpack_x_recv` カーネルで受信バッファの値をゴーストセルへ書く。"
+msgstr "After waiting for the sends and receives to complete with `MPI_Waitall`, the `unpack_x_recv` kernel writes the values of the receive buffer into the ghost cells."
+
+msgid "送受信バッファ（`miso/include/miso/mhd_buffers.hpp` の `Buffers<Real, backend::CUDA>`）は `cudaMalloc` で確保したデバイスのメモリです。 デバイスの番地を直接受け取って送受信できる MPI を **CUDA-aware MPI** と呼びます。 MISO の CUDA 版は CUDA-aware MPI を前提にしていて、ホストのバッファを経由して送る経路は持っていません。 GPU で複数ランクを動かすには、CUDA に対応してビルドされた MPI（NVIDIA HPC SDK に含まれる Open MPI など）を使います。"
+msgstr "The send and receive buffers (`Buffers<Real, backend::CUDA>` in `miso/include/miso/mhd_buffers.hpp`) are device memory allocated with `cudaMalloc`. An MPI that can send and receive directly from device addresses is called **CUDA-aware MPI**. MISO's CUDA version assumes CUDA-aware MPI and has no path that goes through host buffers. To run multiple ranks on GPUs, use an MPI built with CUDA support (such as the Open MPI included in the NVIDIA HPC SDK)."
+
+msgid "GPU の計算の完了待ち（`cudaDeviceSynchronize`）と、MPI の通信の完了待ち（`MPI_Waitall`）は別のものです。 送る前には GPU の完了を、受け取った値を使う前には MPI の完了を待ちます。"
+msgstr "Waiting for the GPU computation to finish (`cudaDeviceSynchronize`) and waiting for the MPI communication to finish (`MPI_Waitall`) are different things. Before sending, you wait for the GPU to finish; before using received values, you wait for MPI to finish."
+
+msgid "8.3 実行"
+msgstr "8.3 Running"
+
+msgid "GPU ビルドの実行も、CPU ビルドと同じく `mpiexec` で行います。 MISO の demo の `app_run.sh` は、`demo/shared/openmpi_config.env` の環境変数を読み込んでから 2 ランクで実行します。"
+msgstr "As with the CPU build, a GPU build is run with `mpiexec`. The `app_run.sh` of MISO's demos loads the environment variables of `demo/shared/openmpi_config.env` and then runs with 2 ranks."
+
+msgid "`mhd2d_vortex` を GPU 2 枚・2 ランクで実行すると、CPU ビルドと同じ形式で時刻と出力番号が表示され、`tend: 0.8` まで進みます。"
+msgstr "When `mhd2d_vortex` is run with 2 GPUs and 2 ranks, the time and the output number are displayed in the same format as the CPU build, and the run proceeds to `tend: 0.8`."
+
+msgid "9. MISO を GPU 向けにビルドする"
+msgstr "9\\. Building MISO for a GPU"
+
+msgid "9.1 CUDA Toolkit と GPU の世代"
+msgstr "9.1 The CUDA Toolkit and the GPU generation"
+
+msgid "GPU 向けにビルドするには、CPU 用の道具（第 1 章）に加えて、NVIDIA の CUDA Toolkit（`nvcc` と CUDA の実行時ライブラリ）が必要です。 Mac には NVIDIA の GPU がないので、GPU ビルドは NVIDIA の GPU を積んだ Linux の計算機で行います。"
+msgstr "To build for a GPU, in addition to the CPU tools (Chapter 1), you need NVIDIA's CUDA Toolkit (`nvcc` and the CUDA run-time library). A Mac has no NVIDIA GPU, so GPU builds are done on a Linux computer with an NVIDIA GPU."
+
+msgid "`nvcc` は、GPU の世代（**compute capability**）ごとに異なる命令を作ります。 CMake では `CMAKE_CUDA_ARCHITECTURES` に、compute capability から小数点を除いた数を指定します。"
+msgstr "`nvcc` generates different instructions for each GPU generation (**compute capability**). In CMake, you give `CMAKE_CUDA_ARCHITECTURES` the compute capability with the decimal point removed."
+
+msgid "GPU の例"
+msgstr "Example GPUs"
+
+msgid "compute capability"
+msgstr ""
+
+msgid "`CMAKE_CUDA_ARCHITECTURES`"
+msgstr ""
+
+msgid "V100"
+msgstr ""
+
+msgid "7.0"
+msgstr ""
+
+msgid "`70`"
+msgstr ""
+
+msgid "A100"
+msgstr ""
+
+msgid "8.0"
+msgstr ""
+
+msgid "`80`"
+msgstr ""
+
+msgid "RTX 4090、L40"
+msgstr ""
+
+msgid "8.9"
+msgstr ""
+
+msgid "`89`"
+msgstr ""
+
+msgid "H100"
+msgstr ""
+
+msgid "9.0"
+msgstr ""
+
+msgid "`90`"
+msgstr ""
+
+msgid "手元の GPU の値は、次のコマンドで分かります（新しめのドライバの場合）。"
+msgstr "You can find the value for the GPU at hand with the following command (for a reasonably recent driver)."
+
+msgid "MISO の `miso/CMakeLists.txt` は、`CMAKE_CUDA_ARCHITECTURES` を指定しなければ `native`（ビルドする計算機の GPU に合わせる）にします。 ビルドする計算機に GPU がない場合（ログインノードでビルドして計算ノードで実行する場合など）は、使う GPU の値を明示します。 コメントにあるとおり、この指定は `enable_language(CUDA)` より前に決める必要があります。 後から決めると、CMake が既定の古い値を先に使ってしまうためです。"
+msgstr "MISO's `miso/CMakeLists.txt` sets `CMAKE_CUDA_ARCHITECTURES` to `native` (matched to the GPU of the computer doing the build) if you do not specify it. If the computer doing the build has no GPU (for example, when building on a login node and running on a compute node), specify the value for the GPU you will use. As the comment says, this setting must be decided before `enable_language(CUDA)`. If it is decided afterward, CMake uses the default old value first."
+
+#, python-brace-format
+msgid "使う GPU に合わない値でビルドすると、ビルドは通っても実行時にカーネルの起動が失敗します（{ref}`GPU で困ったとき <edu-ref-gpu-troubleshooting>`）。"
+msgstr "If you build with a value that does not match the GPU you use, the build succeeds but the kernel launch fails at run time ({ref}`GPU Troubleshooting <edu-ref-gpu-troubleshooting>`)."
+
+msgid "9.2 ユニットテストと demo"
+msgstr "9.2 Unit tests and demos"
+
+msgid "MISO のユニットテストを GPU 向けにビルドするには、`-DMISO_USE_CUDA=ON` を付けます。 `miso/tests/` の `*.cu` のテスト（`test_execution.cu` など）は、このときだけビルドされます。"
+msgstr "To build MISO's unit tests for a GPU, add `-DMISO_USE_CUDA=ON`. The `*.cu` tests in `miso/tests/` (such as `test_execution.cu`) are built only in this case."
+
+msgid "demo は `-DUSE_CUDA=ON` です（4.4 の CMake 設定）。"
+msgstr "For the demos, use `-DUSE_CUDA=ON` (the CMake configuration of Section 4.4)."
+
+msgid "demo の `app_run.sh` は `build/` の中の実行ファイルを使います。 CPU 版から GPU 版へ切り替えるときは、CMake のキャッシュに前の設定が残らないよう、`build/` を消してから作り直します（`app_clean.sh` は `build/` と一緒に出力の `data/` と `figs/` も消します）。"
+msgstr "The demo's `app_run.sh` uses the executable inside `build/`. When switching from the CPU version to the GPU version, delete `build/` and rebuild so that the previous settings do not remain in the CMake cache (`app_clean.sh` deletes the output `data/` and `figs/` along with `build/`)."
+
+msgid "10. CPU で作ったプログラムを GPU で動かす"
+msgstr "10\\. Running a Program Made on a CPU on a GPU"
+
+#, python-brace-format
+msgid "第 7 章で作った {ref}`配列計算の実習 <edu-practice-execution>`（ベクトル加算、縮約、1 次元移流）を、GPU 用のビルドフォルダでビルドして動かします。 4.4 の CMake 設定を自分の `CMakeLists.txt` に足します。`Backend` は、{ref}`実習の入口 <edu-practice-execution>`の `#ifdef __CUDACC__` で切り替えます（4.3 の `USE_CUDA` で切り替えても結果は同じです）。 書き直すときは、次の点を確かめてください。"
+msgstr "Build and run the {ref}`array computation Practice <edu-practice-execution>` from Chapter 7 (vector addition, reduction, and one-dimensional advection) in a build folder for the GPU. Add the CMake configuration of Section 4.4 to your own `CMakeLists.txt`. Switch `Backend` with the `#ifdef __CUDACC__` of the {ref}`entrance to the Practice <edu-practice-execution>` (switching with the `USE_CUDA` of Section 4.3 gives the same result). When you rewrite it, check the following points."
+
+msgid "`for_each`・`reduce` に渡すラムダは `MISO_LAMBDA` で書き、`[&]` を使っていない。"
+msgstr "The lambdas passed to `for_each` and `reduce` are written with `MISO_LAMBDA`, and `[&]` is not used."
+
+msgid "ラムダが取り込む配列は、`Backend` の配列から作った View である。所有する配列そのものを取り込んでいない。"
+msgstr "The arrays that a lambda captures are Views made from arrays of `Backend`. The owning arrays themselves are not captured."
+
+msgid "ラムダの中で使う名前は、ローカル変数か引数である。クラスの中に書いた場合、メンバ変数を直接使っていない（5 節）。"
+msgstr "The names used inside a lambda are local variables or arguments. When written inside a class, member variables are not used directly (Section 5)."
+
+msgid "`reduce` の `init` は `op` の単位元である（6.4）。"
+msgstr "The `init` of `reduce` is the identity element of `op` (6.4)."
+
+msgid "結果を表示する前に、`backend::Host` の配列へ `copy_from` で写している。"
+msgstr "Before displaying the result, it has been copied with `copy_from` into an array of `backend::Host`."
+
+msgid "CPU と GPU で同じ入力を与え、ベクトルの各要素、総和、移流後の分布を比べます。 各要素の値は一致することが多いですが、総和は加算の順序の違いで最後の桁が変わることがあります（6.5）。"
+msgstr "Give the CPU and the GPU the same input, and compare each element of the vector, the total, and the distribution after advection. The values of the elements often match, but the last digit of the total may change because of the difference in the order of addition (6.5)."
+
+#, python-brace-format
+msgid "GPU 環境がまだない場合は、比較を後で追加することにして、{ref}`第 10 章 <edu-ch10>` へ進めます。 CPU で熱伝導の逐次版と MPI 版を作り、GPU 版はこの章の内容を使って後から加えます。"
+msgstr "If you do not have a GPU environment yet, add the comparison later and go on to {ref}`Chapter 10 <edu-ch10>`. Build the serial and MPI versions of heat conduction on the CPU, and add the GPU version later using what you learned in this chapter."
+

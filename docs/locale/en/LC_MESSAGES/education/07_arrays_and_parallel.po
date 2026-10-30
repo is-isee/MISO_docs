@@ -1,0 +1,721 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2025, Integrated Studies, ISEE, Nagoya University
+# This file is distributed under the same license as the MISO package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: MISO \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-10-29 13:55+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: en\n"
+"Language-Team: en <LL@li.org>\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.18.0\n"
+
+msgid "7. 配列・ラムダと CPU での並列ループ"
+msgstr "7\\. Arrays, Lambdas, and Parallel Loops on the CPU"
+
+msgid "Fortran で配列を確保し、各格子点の値をループで計算する処理を考えます。 MISO では、この処理を次の 3 つに分けて書きます。"
+msgstr "Consider allocating an array in Fortran and computing the value at each grid point in a loop. In MISO, this processing is split into the following three parts."
+
+msgid "配列のメモリを用意します。これを担当するのが `Array1D`〜`Array4D` です。"
+msgstr "Prepare the array's memory. `Array1D` through `Array4D` handle this."
+
+msgid "計算に渡すための、軽い「配列の窓口」を取り出します。これが View（`Array3DView` など）です。"
+msgstr "Take out a lightweight \"window onto the array\" to pass to the computation. This is a View (`Array3DView` and so on)."
+
+msgid "各格子点で行う処理を**ラムダ式**で書き、添字の範囲と一緒に `for_each` へ渡します。"
+msgstr "Write the processing to be done at each grid point as a **lambda expression**, and pass it to `for_each` together with the range of indices."
+
+#, python-brace-format
+msgid "3 つに分けるのは、同じ計算を CPU でも GPU でも実行できるようにするためです。 計算する場所は、{ref}`第 6 章 <edu-ch06>`で学んだタグ型 `backend::Host`（CPU）と `backend::CUDA`（GPU）で選びます。 この章では `backend::Host` だけを使い、CPU で配列を計算して結果を確かめるところまで進みます。 GPU で同じ計算を動かす方法は {ref}`第 9 章 <edu-ch09>`で説明します。"
+msgstr "The reason for splitting into three is so that the same computation can run on both the CPU and the GPU. The place to compute is selected with the tag types `backend::Host` (CPU) and `backend::CUDA` (GPU) that you learned in {ref}`Chapter 6 <edu-ch06>`. This chapter uses only `backend::Host`, and goes as far as computing on arrays on the CPU and checking the results. How to run the same computation on the GPU is explained in {ref}`Chapter 9 <edu-ch09>`."
+
+msgid "この章の例は、MISO のヘッダだけを使います。 `miso/include` を検索先に加えれば、次のように `g++` で直接ビルドできます（`/path/to/MISO` は自分が MISO を置いた場所に置き換えます）。"
+msgstr "The examples in this chapter use only MISO's headers. If you add `miso/include` to the search path, you can build directly with `g++` as follows (replace `/path/to/MISO` with the place where you put MISO)."
+
+#, python-brace-format
+msgid "この章で読み込むヘッダ（`array1d.hpp`, `array3d.hpp`, `execution.hpp`, `utility.hpp`）は、MPI や yaml-cpp を必要としません。 CMake から MISO を使う設定は、章末の実習で {ref}`第 1 章 <edu-ch01>`の設定を使います。"
+msgstr "The headers read in this chapter (`array1d.hpp`, `array3d.hpp`, `execution.hpp`, and `utility.hpp`) do not require MPI or yaml-cpp. For the CMake setup to use MISO, the end-of-chapter Practice uses the setup from {ref}`Chapter 1 <edu-ch01>`."
+
+msgid "目次"
+msgstr "Contents"
+
+#, python-brace-format
+msgid "{ref}`1. 配列 Array1D〜Array4D <edu-ch07-arrays>`"
+msgstr "{ref}`1. Arrays Array1D through Array4D <edu-ch07-arrays>`"
+
+#, python-brace-format
+msgid "{ref}`1.1 確保と添字 <edu-ch07-allocate>`"
+msgstr "{ref}`1.1 Allocation and indices <edu-ch07-allocate>`"
+
+#, python-brace-format
+msgid "{ref}`1.2 メモリ上の並び <edu-ch07-layout>`"
+msgstr "{ref}`1.2 Layout in memory <edu-ch07-layout>`"
+
+#, python-brace-format
+msgid "{ref}`1.3 View を取り出す <edu-ch07-view>`"
+msgstr "{ref}`1.3 Taking out a View <edu-ch07-view>`"
+
+#, python-brace-format
+msgid "{ref}`2. ラムダ式 <edu-ch07-lambda>`"
+msgstr "{ref}`2. Lambda expressions <edu-ch07-lambda>`"
+
+#, python-brace-format
+msgid "{ref}`2.1 名前のない関数 <edu-ch07-lambda-basics>`"
+msgstr "{ref}`2.1 Unnamed functions <edu-ch07-lambda-basics>`"
+
+#, python-brace-format
+msgid "{ref}`2.2 キャプチャ：[=] と [&] <edu-ch07-capture>`"
+msgstr "{ref}`2.2 Capture: [=] and [&] <edu-ch07-capture>`"
+
+#, python-brace-format
+msgid "{ref}`2.3 値を抱えた小さな構造体 <edu-ch07-lambda-struct>`"
+msgstr "{ref}`2.3 A small struct that holds values <edu-ch07-lambda-struct>`"
+
+#, python-brace-format
+msgid "{ref}`2.4 メンバ変数と this <edu-ch07-this>`"
+msgstr "{ref}`2.4 Member variables and this <edu-ch07-this>`"
+
+#, python-brace-format
+msgid "{ref}`2.5 ラムダを関数に渡す <edu-ch07-pass-lambda>`"
+msgstr "{ref}`2.5 Passing a lambda to a function <edu-ch07-pass-lambda>`"
+
+#, python-brace-format
+msgid "{ref}`3. MISO_LAMBDA <edu-ch07-miso-lambda>`"
+msgstr ""
+
+#, python-brace-format
+msgid "{ref}`4. for_each による並列ループ <edu-ch07-for-each>`"
+msgstr "{ref}`4. Parallel loops with for_each <edu-ch07-for-each>`"
+
+#, python-brace-format
+msgid "{ref}`5. reduce による縮約 <edu-ch07-reduce>`"
+msgstr "{ref}`5. Reduction with reduce <edu-ch07-reduce>`"
+
+#, python-brace-format
+msgid "{ref}`6. 小さなプログラムを書く <edu-ch07-practice>`"
+msgstr "{ref}`6. Writing a small program <edu-ch07-practice>`"
+
+msgid "1. 配列 Array1D〜Array4D"
+msgstr "1\\. Arrays Array1D through Array4D"
+
+msgid "1.1 確保と添字"
+msgstr "1.1 Allocation and Indices"
+
+#, python-brace-format
+msgid "{ref}`第 4 章 <edu-ch04>`で、`Array3D` が配列を所有するクラスであることを学びました。 MISO には次元ごとに 4 つの配列クラスがあります。"
+msgstr "In {ref}`Chapter 4 <edu-ch04>`, you learned that `Array3D` is a class that owns an array. MISO has four array classes, one for each number of dimensions."
+
+msgid "クラス"
+msgstr "Class"
+
+msgid "ヘッダ"
+msgstr "Header"
+
+msgid "要素の指定"
+msgstr "Element access"
+
+msgid "`Array1D<T, Backend>`"
+msgstr ""
+
+msgid "`miso/include/miso/array1d.hpp`"
+msgstr ""
+
+msgid "`a[i]`"
+msgstr ""
+
+msgid "`Array2D<T, Backend>`"
+msgstr ""
+
+msgid "`miso/include/miso/array2d.hpp`"
+msgstr ""
+
+msgid "`a(i, j)`、通し番号 `a[n]`"
+msgstr "`a(i, j)`, sequential index `a[n]`"
+
+msgid "`Array3D<T, Backend>`"
+msgstr ""
+
+msgid "`miso/include/miso/array3d.hpp`"
+msgstr ""
+
+msgid "`a(i, j, k)`、通し番号 `a[n]`"
+msgstr "`a(i, j, k)`, sequential index `a[n]`"
+
+msgid "`Array4D<T, Backend>`"
+msgstr ""
+
+msgid "`miso/include/miso/array4d.hpp`"
+msgstr ""
+
+msgid "`a(i, j, k, l)`、通し番号 `a[n]`"
+msgstr "`a(i, j, k, l)`, sequential index `a[n]`"
+
+msgid "`T` は要素の型、`Backend` は配列を置く場所です。 `Backend` を省くと `backend::Host` になります（`array3d.hpp` の先頭の宣言 `template <typename T, typename Backend = backend::Host> class Array3D;`）。 1 次元の `Array1D` だけは丸括弧を持たず、角括弧 `a[i]` で要素を指定します。"
+msgstr "`T` is the element type, and `Backend` is where the array is placed. If you omit `Backend`, it becomes `backend::Host` (the declaration at the top of `array3d.hpp`, `template <typename T, typename Backend = backend::Host> class Array3D;`). Only the one-dimensional `Array1D` has no parentheses, and specifies elements with square brackets, `a[i]`."
+
+msgid "添字はどの方向も 0 から始まり、最後は「大きさ − 1」です。 Fortran の `real(8) :: ro(0:15, 0:31, 0:7)` に当たります。"
+msgstr "Indices start from 0 in every direction, and the last one is \"size − 1.\" This corresponds to Fortran's `real(8) :: ro(0:15, 0:31, 0:7)`."
+
+#, python-brace-format
+msgid "**確保した要素は初期化されません。** Host 版のコンストラクタは `data_ = new T[array_size];` で確保するだけで、0 を入れません（{ref}`第 3 章 <edu-ch03>`の `new`）。 Fortran の `allocate` と同じく、値を読む前に必ず代入します。"
+msgstr "**Allocated elements are not initialized.** The constructor of the Host version only allocates with `data_ = new T[array_size];` and does not put in 0 (`new` from {ref}`Chapter 3 <edu-ch03>`). As with Fortran's `allocate`, always assign a value before reading."
+
+msgid "1.2 メモリ上の並び"
+msgstr "1.2 Layout in Memory"
+
+msgid "3 次元の配列も、メモリ上では 1 列に並んでいます。 `a(i, j, k)` がその列の何番目にあるかは、`array3d.hpp` の `operator()` に書かれています。"
+msgstr "A three-dimensional array is also laid out as a single line in memory. Where `a(i, j, k)` falls in that line is written in `operator()` in `array3d.hpp`."
+
+#, python-brace-format
+msgid "`shape_` は各方向の大きさ `{nx0, nx1, nx2}` です。 大きさ `(nx, ny, nz)` の配列なら、`a(i, j, k)` は先頭から `(i * ny + j) * nz + k` 番目です。 最後の添字 `k` が 1 増えると 1 つ隣、`j` が 1 増えると `nz` 先、`i` が 1 増えると `ny * nz` 先へ進みます。 つまり **最後の添字 `k` がメモリ上で連続しています。**"
+msgstr "`shape_` holds the sizes `{nx0, nx1, nx2}` in each direction. For an array of size `(nx, ny, nz)`, `a(i, j, k)` is at position `(i * ny + j) * nz + k` from the start. When the last index `k` increases by 1, you move to the next element; when `j` increases by 1, you advance `nz`; and when `i` increases by 1, you advance `ny * nz`. In other words, **the last index `k` is contiguous in memory.**"
+
+msgid "Fortran は逆で、最初の添字 `i` が連続します（列優先）。 C++ の多次元配列や MISO の配列のように最後の添字が連続する並びを、行優先と呼びます。"
+msgstr "Fortran is the opposite: the first index `i` is contiguous (column-major). A layout in which the last index is contiguous, as in C++ multidimensional arrays and MISO's arrays, is called row-major."
+
+#, python-brace-format
+msgid "次のプログラムで確かめます。 `a[n]` は先頭から `n` 番目の要素を直接読む書き方です。 `&a(0, 0, 1) - &a(0, 0, 0)` は、2 つの要素のアドレスの差を要素の個数で表します（{ref}`第 3 章 <edu-ch03>`のポインタ演算）。"
+msgstr "We check with the following program. `a[n]` is a way of directly reading the `n`-th element from the start. `&a(0, 0, 1) - &a(0, 0, 0)` expresses the difference between the addresses of two elements as a number of elements (the pointer arithmetic from {ref}`Chapter 3 <edu-ch03>`)."
+
+msgid "先頭から `a(0,0,0)`, `a(0,0,1)`, `a(0,0,2)`, `a(0,0,3)`, `a(0,1,0)`, `a(0,1,1)` の順に並んでいます。"
+msgstr "From the start, the order is `a(0,0,0)`, `a(0,0,1)`, `a(0,0,2)`, `a(0,0,3)`, `a(0,1,0)`, `a(0,1,1)`."
+
+msgid "CPU は、メモリ上で近くにある値をまとめて読み込みます。 そのため、連続した要素を順に処理するループが速くなります。 Fortran では最も内側のループを `i` にしましたが、MISO の配列では **最も内側のループを `k`** にします。 MISO の `Integrator::cfl`（`miso/include/miso/mhd_integrator_host.hpp`）も、外側から `i`, `j`, `k` の順にループを重ねています。"
+msgstr "The CPU reads nearby values in memory together. For that reason, loops that process contiguous elements in order are faster. In Fortran, the innermost loop was over `i`, but with MISO arrays you make **the innermost loop over `k`**. MISO's `Integrator::cfl` (`miso/include/miso/mhd_integrator_host.hpp`) also nests the loops in the order `i`, `j`, `k` from the outside."
+
+msgid "`Array2D` の `a(i, j)` は `i * ny + j` 番目、`Array4D` の `a(i, j, k, l)` は最後の `l` が連続します。"
+msgstr "For `Array2D`, `a(i, j)` is at position `i * ny + j`, and for `Array4D`, the last index `l` of `a(i, j, k, l)` is contiguous."
+
+msgid "練習 7-1：`miso::Array3D<double> a(4, 5, 6);` で、`a(1, 2, 3)` がメモリの先頭から何番目にあるかを求めてください。 また、`a(1, 2, 3)` のすぐ隣（1 つ前と 1 つ後）にある要素を答えてください。"
+msgstr "Exercise 7-1: For `miso::Array3D<double> a(4, 5, 6);`, find the position of `a(1, 2, 3)` from the start of memory. Also give the elements immediately adjacent to `a(1, 2, 3)` (the one before and the one after)."
+
+msgid ""
+"<details>\n"
+"<summary>解答・解説</summary>\n"
+msgstr ""
+"<details>\n"
+"<summary>Answer and explanation</summary>\n"
+
+msgid "大きさは `(nx, ny, nz) = (4, 5, 6)` なので、`(i * ny + j) * nz + k = (1 * 5 + 2) * 6 + 3 = 45` 番目です（0 番目から数えます）。 連続しているのは最後の添字 `k` なので、すぐ隣は `a(1, 2, 2)`（44 番目）と `a(1, 2, 4)`（46 番目）です。 `a(0, 2, 3)` や `a(2, 2, 3)` は `ny * nz = 30` 要素離れています。"
+msgstr "The size is `(nx, ny, nz) = (4, 5, 6)`, so the position is `(i * ny + j) * nz + k = (1 * 5 + 2) * 6 + 3 = 45` (counting from 0). The last index `k` is the contiguous one, so the immediate neighbors are `a(1, 2, 2)` (position 44) and `a(1, 2, 4)` (position 46). `a(0, 2, 3)` and `a(2, 2, 3)` are `ny * nz = 30` elements away."
+
+msgid "</details>\n"
+msgstr ""
+
+msgid "1.3 View を取り出す"
+msgstr "1.3 Taking Out a View"
+
+#, python-brace-format
+msgid "{ref}`第 4 章 <edu-ch04>`で見たとおり、`Array3D` はコピーを禁止しています（`Array3D(const Array3D &) = delete;`）。 コピーすると、同じメモリを 2 つのオブジェクトが解放しようとするためです。 一方、次節以降で学ぶ並列ループには、配列を**値で渡す**必要があります。 そこで、配列から所有しない軽い窓口である View を取り出して渡します。"
+msgstr "As seen in {ref}`Chapter 4 <edu-ch04>`, `Array3D` prohibits copying (`Array3D(const Array3D &) = delete;`). This is because if it were copied, two objects would try to release the same memory. On the other hand, the parallel loops you will learn in the following sections require **passing the array by value**. So we take out a View, a lightweight non-owning window, from the array and pass that."
+
+msgid "`Array3DView` が持つのは、先頭のポインタ `data_` と大きさ `shape_[3]` だけです。 コピーしても要素は複製されず、コピーした View も同じ要素を指します。 添字の計算は `Array3D` と同じ `(i0 * shape_[1] + i1) * shape_[2] + i2` です。 View はメモリを解放しないので、**View を使っている間は元の `Array3D` を残しておく**必要があります。"
+msgstr "`Array3DView` holds only the start pointer `data_` and the size `shape_[3]`. Copying it does not duplicate the elements, and the copied View points to the same elements. The index calculation is the same as for `Array3D`, `(i0 * shape_[1] + i1) * shape_[2] + i2`. A View does not release memory, so **you must keep the original `Array3D` alive while you are using the View**."
+
+msgid "`Array1D` から取り出すのは `Array1DView` です。`Array2DView`, `Array4DView` もあります。 MISO の物理量（密度、速度、磁場など 9 つ）をまとめた `mhd::FieldsView` は、`Array3DView` を 9 つ並べた構造体です（`miso/include/miso/mhd_fields.hpp`）。"
+msgstr "What you take out of an `Array1D` is an `Array1DView`. There are also `Array2DView` and `Array4DView`. `mhd::FieldsView`, which bundles MISO's physical variables (nine, such as density, velocity, and magnetic field), is a struct with nine `Array3DView`s (`miso/include/miso/mhd_fields.hpp`)."
+
+#, python-brace-format
+msgid "View の `operator()` と `operator[]` には `const` が付いていますが、戻り値は `T &` です。 {ref}`第 3 章 <edu-ch03>`の `double* const` と同じで、View 自身（ポインタと大きさ）は変えられなくても、指す先の要素は書き換えられます。 この性質は、次節のラムダ式で使います。"
+msgstr "`operator()` and `operator[]` of a View have `const`, but the return value is `T &`. As with `double* const` in {ref}`Chapter 3 <edu-ch03>`, even though the View itself (the pointer and size) cannot be changed, the elements it points to can be rewritten. We use this property in the lambda expressions of the next section."
+
+msgid "2. ラムダ式"
+msgstr "2\\. Lambda Expressions"
+
+msgid "`for_each` には「各格子点で行う処理」を渡します。 処理を値のように渡すために、C++ では**ラムダ式**を使います。 MISO の並列計算はすべてラムダ式で書かれているので、この節で順を追って説明します。"
+msgstr "To `for_each`, you pass \"the processing to be done at each grid point.\" To pass processing as if it were a value, C++ uses **lambda expressions**. All of MISO's parallel computation is written with lambda expressions, so this section explains them step by step."
+
+msgid "2.1 名前のない関数"
+msgstr "2.1 Unnamed Functions"
+
+msgid "Fortran では、サブルーチンの中だけで使う短い関数を `contains` の後に内部手続きとして書けます。"
+msgstr "In Fortran, a short function used only inside a subroutine can be written as an internal procedure after `contains`."
+
+msgid "C++ では、関数の中の**式の位置**に、その場で関数を書けます。これがラムダ式です。"
+msgstr "In C++, you can write a function on the spot at an **expression position** inside a function. This is a lambda expression."
+
+msgid "部分"
+msgstr "Part"
+
+msgid "意味"
+msgstr "Meaning"
+
+msgid "`[]`"
+msgstr ""
+
+msgid "キャプチャの指定（次節）。ここでは外の変数を使わないので空です"
+msgstr "The capture specification (next section). Here it is empty because no outside variables are used"
+
+msgid "`(double x)`"
+msgstr ""
+
+msgid "引数の並び。普通の関数と同じです"
+msgstr "The argument list. The same as an ordinary function"
+
+#, python-brace-format
+msgid "`{ return x * x; }`"
+msgstr ""
+
+msgid "処理の本体。普通の関数と同じです"
+msgstr "The body of the processing. The same as an ordinary function"
+
+msgid "戻り値の型は書いていません。`return` の式から、コンパイラが `double` と決めます。"
+msgstr "The return type is not written. The compiler decides `double` from the `return` expression."
+
+#, python-brace-format
+msgid "内部手続きの `scaled` には名前がありました。ラムダ式の関数そのものには名前がありません。 上の例では、ラムダ式が作った「呼び出せるオブジェクト」を変数 `square` に入れ、`square(3.0)` で呼んでいます。 このオブジェクトの型はコンパイラが付ける名前のない型なので、変数の宣言には `auto` を使います。 変数に入れずに、関数の引数としてその場で書くこともできます。`for_each` ではこの書き方をします（{ref}`4 節 <edu-ch07-for-each>`）。"
+msgstr "The internal procedure `scaled` had a name. The function of a lambda expression itself has no name. In the example above, the \"callable object\" made by the lambda expression is put in the variable `square` and called with `square(3.0)`. The type of this object is an unnamed type given by the compiler, so `auto` is used to declare the variable. You can also write it on the spot as a function argument without putting it in a variable. `for_each` uses this style ({ref}`Section 4 <edu-ch07-for-each>`)."
+
+msgid "2.2 キャプチャ：[=] と [&]"
+msgstr "2.2 Capture: [=] and [&]"
+
+msgid "Fortran の内部手続き `scaled` は、親の手続きの変数 `factor` をそのまま使えました（ホスト結合）。 ラムダ式で外側の変数を使うには、`[]` の中で**どう取り込むか**を指定します。 外側の変数を取り込むことを**キャプチャ**（capture）と呼びます。"
+msgstr "The Fortran internal procedure `scaled` could use the parent procedure's variable `factor` as is (host association). To use outside variables in a lambda expression, you specify **how to take them in** inside `[]`. Taking in outside variables is called **capture**."
+
+msgid "書き方"
+msgstr "Notation"
+
+msgid "取り込み方"
+msgstr "How it captures"
+
+msgid "`[=]`"
+msgstr ""
+
+msgid "本体で使う外側の変数を、ラムダ式を作った時点の**値のコピー**として取り込みます"
+msgstr "Captures the outside variables used in the body as **copies of the values** at the time the lambda expression was created"
+
+msgid "`[&]`"
+msgstr ""
+
+#, python-brace-format
+msgid "本体で使う外側の変数を、**参照**（{ref}`第 3 章 <edu-ch03>`）として取り込みます"
+msgstr "Captures the outside variables used in the body as **references** ({ref}`Chapter 3 <edu-ch03>`)"
+
+msgid "何も取り込みません。外側のローカル変数を使うとコンパイルエラーです"
+msgstr "Captures nothing. Using an outside local variable is a compile error"
+
+msgid "違いは、ラムダ式を作った後で外側の変数を変えると分かります。"
+msgstr "The difference shows when you change an outside variable after creating the lambda expression."
+
+msgid "`by_value` は作った時点の `2.0` を持ち続けるので `6`、`by_ref` は変更後の `factor` を読むので `30` です。 Fortran の内部手続きのホスト結合は、`[&]` に近い動きです。"
+msgstr "`by_value` keeps holding the `2.0` from when it was created, so the result is `6`, and `by_ref` reads the changed `factor`, so the result is `30`. The host association of a Fortran internal procedure behaves like `[&]`."
+
+msgid "`[=]` で取り込んだコピーは、本体の中では書き換えられません。"
+msgstr "A copy captured with `[=]` cannot be rewritten inside the body."
+
+#, python-brace-format
+msgid "外側の変数そのものを更新したいときは `[&]` を使います。 ただし MISO の並列ループでは `[=]` を使います（{ref}`3 節 <edu-ch07-miso-lambda>`）。 `[=]` で配列の要素を書き換えられるのは、取り込むのが View だからです。"
+msgstr "When you want to update the outside variable itself, use `[&]`. However, MISO's parallel loops use `[=]` ({ref}`Section 3 <edu-ch07-miso-lambda>`). The reason you can rewrite array elements with `[=]` is that what is captured is a View."
+
+#, python-brace-format
+msgid "コピーした `av` は元の `av` と同じ要素を指すので、`av[i] = 1.0` は `a` の要素を書き換えます。 変えられないのは `av` 自身（ポインタと大きさ）です。{ref}`1.3 節 <edu-ch07-view>`の `const` と `T &` の関係です。"
+msgstr "The copied `av` points to the same elements as the original `av`, so `av[i] = 1.0` rewrites the elements of `a`. What cannot be changed is `av` itself (the pointer and size). This is the relationship between `const` and `T &` in {ref}`Section 1.3 <edu-ch07-view>`."
+
+msgid "練習 7-2：次のプログラムが表示する 2 つの数を答えてください。"
+msgstr "Exercise 7-2: Give the two numbers that the following program prints."
+
+msgid "`10 20` と表示します。 `f` は作った時点の `n`（1）のコピーを持つので `10`、`g` は `n` への参照を持ち、呼んだ時点の `n`（2）を読むので `20` です。 引数がないラムダ式も、`()` を付けて呼びます。"
+msgstr "It prints `10 20`. `f` holds a copy of `n` (1) from when it was created, so `10`, and `g` holds a reference to `n` and reads `n` (2) at the time of the call, so `20`. A lambda expression with no arguments is also called by adding `()`."
+
+msgid "2.3 値を抱えた小さな構造体"
+msgstr "2.3 A Small Struct That Holds Values"
+
+#, python-brace-format
+msgid "ラムダ式は、コンパイラが自動で作る**小さな構造体**と考えると、動きを正確に追えます。 `[=](double x) { return factor * x; }` は、次の構造体とほぼ同じ働きをします。"
+msgstr "If you think of a lambda expression as a **small struct** that the compiler creates automatically, you can trace its behavior accurately. `[=](double x) { return factor * x; }` works almost the same as the following struct."
+
+#, python-brace-format
+msgid "{ref}`第 4 章 <edu-ch04>`で学んだとおり、`operator()` を持つ構造体は `by_value(3.0)` と関数のように呼べます。 ラムダ式との対応は次のとおりです。"
+msgstr "As you learned in {ref}`Chapter 4 <edu-ch04>`, a struct with `operator()` can be called like a function, as in `by_value(3.0)`. The correspondence with the lambda expression is as follows."
+
+msgid "ラムダ式"
+msgstr "Lambda expression"
+
+msgid "構造体"
+msgstr "Struct"
+
+msgid "キャプチャした変数"
+msgstr "Captured variables"
+
+msgid "メンバ変数（`[=]` なら値、`[&]` なら参照）"
+msgstr "Member variables (values for `[=]`, references for `[&]`)"
+
+msgid "引数と本体"
+msgstr "Arguments and body"
+
+msgid "`operator()` の引数と本体"
+msgstr "Arguments and body of `operator()`"
+
+msgid "ラムダ式を書いた場所"
+msgstr "The place where the lambda expression is written"
+
+msgid "その時点の値でメンバを初期化して、オブジェクトを作る"
+msgstr "Create an object, initializing the members with the values at that point"
+
+msgid "`[=]` のコピーを書き換えられない"
+msgstr "Copies from `[=]` cannot be rewritten"
+
+msgid "`operator()` に `const` が付いている"
+msgstr "`operator()` has `const`"
+
+msgid "このモデルから、次のことが分かります。"
+msgstr "This model tells us the following."
+
+msgid "ラムダ式をコピーすると、抱えているメンバもコピーされます。`[=]` で View を抱えたラムダ式なら、ポインタと大きさがコピーされます。"
+msgstr "When you copy a lambda expression, the members it holds are also copied. For a lambda expression that holds a View with `[=]`, the pointer and size are copied."
+
+#, python-brace-format
+msgid "`[&]` で作ったラムダ式は、外の変数のアドレスを抱えています。外の変数が消えた後に呼ぶと、{ref}`第 3 章 <edu-ch03>`のぶら下がり参照になります。"
+msgstr "A lambda expression made with `[&]` holds the addresses of outside variables. Calling it after the outside variable is gone gives the dangling reference of {ref}`Chapter 3 <edu-ch03>`."
+
+msgid "`[=]` は本体で**実際に使った変数だけ**を取り込みます。関数内の変数すべてをコピーするわけではありません。"
+msgstr "`[=]` captures **only the variables actually used** in the body. It does not copy all the variables in the function."
+
+#, python-brace-format
+msgid "GPU で計算するときは、このラムダ式のオブジェクトが GPU へコピーされます。 GPU から CPU のメモリは読めないので、`[&]` のような CPU 上のアドレスを抱えたラムダ式は GPU では使えません。 詳しくは {ref}`第 9 章 <edu-ch09>`で説明します。"
+msgstr "When computing on the GPU, this lambda expression object is copied to the GPU. The GPU cannot read CPU memory, so a lambda expression that holds addresses on the CPU, such as one made with `[&]`, cannot be used on the GPU. The details are explained in {ref}`Chapter 9 <edu-ch09>`."
+
+msgid "2.4 メンバ変数と this"
+msgstr "2.4 Member Variables and this"
+
+msgid "クラスのメンバ関数の中でラムダ式を書き、その本体でメンバ変数を使う場合を考えます。 `[=]` は「値のコピー」と説明しましたが、**メンバ変数はコピーされません。** メンバ関数の中では、メンバ変数 `gm` は「自分自身のオブジェクトの `gm`」、つまり `this->gm` の省略形です。 `this` は、そのメンバ関数を呼んだオブジェクトを指すポインタです。 `[=]` が取り込むのは、このポインタ `this` のコピーです。"
+msgstr "Consider writing a lambda expression inside a member function of a class and using member variables in its body. We said `[=]` makes \"copies of values,\" but **member variables are not copied.** Inside a member function, the member variable `gm` means \"the `gm` of the object itself,\" that is, shorthand for `this->gm`. `this` is a pointer to the object that called that member function. What `[=]` captures is a copy of this pointer `this`."
+
+msgid "次の例で確かめます。 `Gas` は比熱比 `gm` をメンバに持ち、圧力を計算するラムダ式を作って返します。 戻り値の型を `auto` にすると、`return` の式からコンパイラが型を決めます。"
+msgstr "We check with the following example. `Gas` has the ratio of specific heats `gm` as a member, and creates and returns a lambda expression that computes pressure. If you make the return type `auto`, the compiler decides the type from the `return` expression."
+
+msgid "`f` は `gm` の値ではなく `this`（`gas` のアドレス）を抱えているので、`gas.gm` を変えると結果が変わります。 `g` はローカル変数 `gm_` の値 `1.4` をコピーして抱えているので、結果は変わりません。 構造体のモデルで書くと、`f` は `const Gas *self;` を、`g` は `double gm_;` をメンバに持つ構造体です。"
+msgstr "`f` holds not the value of `gm` but `this` (the address of `gas`), so changing `gas.gm` changes the result. `g` holds a copy of the value `1.4` of the local variable `gm_`, so the result does not change. In the struct model, `f` is a struct with the member `const Gas *self;`, and `g` is a struct with the member `double gm_;`."
+
+#, python-brace-format
+msgid "CPU だけで計算する場合、この違いは「後で値を変えたときにどちらが見えるか」の違いです。 GPU では、`this` が CPU のメモリを指すことが問題になります。 そのため MISO では、ラムダ式の直前でメンバ変数をローカル変数にコピーしてから使います。 理由と、守らなかったときに起こることは {ref}`第 9 章 <edu-ch09>`で説明します。"
+msgstr "When computing only on the CPU, this difference is merely a matter of \"which one sees a value changed later.\" On the GPU, the problem is that `this` points to CPU memory. For that reason, MISO copies member variables into local variables just before the lambda expression and then uses them. The reason, and what happens if you do not follow this, are explained in {ref}`Chapter 9 <edu-ch09>`."
+
+msgid "MISO の実物では、理想気体の状態方程式 `eos::IdealEOS` の `gas_pressure` がこの形です。"
+msgstr "In the real MISO code, `gas_pressure` of the ideal-gas equation of state `eos::IdealEOS` has this form."
+
+msgid "コメントの「device lambdas must not capture `this`」は、「GPU で動かすラムダ式は `this` を取り込んではいけない」という意味です。 `for_each`, `Range1D`, `MISO_LAMBDA` は、この後の節で順に説明します。"
+msgstr "The comment \"device lambdas must not capture `this`\" means \"lambda expressions that run on the GPU must not capture `this`.\" `for_each`, `Range1D`, and `MISO_LAMBDA` are explained in order in the following sections."
+
+msgid "練習 7-3：`gas_pressure` の `const Real gm_ = gm;` を消して、ラムダ式の中で `gm` を直接使ったとします。 このとき、ラムダ式が抱える値は何になるかを説明してください。"
+msgstr "Exercise 7-3: Suppose you delete `const Real gm_ = gm;` from `gas_pressure` and use `gm` directly inside the lambda expression. Explain what value the lambda expression then holds."
+
+#, python-brace-format
+msgid "ラムダ式の中の `gm` は `this->gm` の省略形なので、`[=]` は `gm` の値ではなく、`IdealEOS` オブジェクトを指すポインタ `this` をコピーして抱えます。 ラムダ式の本体は、呼ばれるたびに `this` が指すオブジェクトから `gm` を読みます。 `pr`, `qq` は関数の引数（ローカル変数）なので、これまでどおり値（View）がコピーされます。 CPU では計算結果は変わりませんが、GPU では `this` が CPU のメモリを指すため問題になります（{ref}`第 9 章 <edu-ch09>`）。"
+msgstr "`gm` inside the lambda expression is shorthand for `this->gm`, so `[=]` copies and holds not the value of `gm` but the pointer `this` to the `IdealEOS` object. Each time the body of the lambda expression is called, it reads `gm` from the object that `this` points to. `pr` and `qq` are function arguments (local variables), so their values (Views) are copied as before. On the CPU the computed result does not change, but on the GPU it becomes a problem because `this` points to CPU memory ({ref}`Chapter 9 <edu-ch09>`)."
+
+msgid "2.5 ラムダを関数に渡す"
+msgstr "2.5 Passing a Lambda to a Function"
+
+#, python-brace-format
+msgid "ラムダ式のオブジェクトの型には名前がないので、受け取る関数は{ref}`第 6 章 <edu-ch06>`の関数テンプレートで書きます。"
+msgstr "The type of a lambda expression object has no name, so the function that receives it is written as a function template from {ref}`Chapter 6 <edu-ch06>`."
+
+msgid "`F` は、渡したラムダ式の型にコンパイラが決めます。 引数 `F f` は値渡しなので、ラムダ式のオブジェクト（抱えている View など）がコピーされて渡ります。 コンパイラは渡されたラムダ式の型ごとに `apply_to_all` を作ります。最適化を有効にしたビルドでは `f(i)` の中身がループの中に展開されるので、関数を呼ぶ手間はほとんど残りません。 次の 2 節で見る MISO の `for_each` は、ちょうどこの形をしています。"
+msgstr "`F` is decided by the compiler as the type of the lambda expression passed in. The argument `F f` is passed by value, so the lambda expression object (including the Views it holds) is copied and passed. The compiler creates `apply_to_all` for each type of lambda expression passed. In builds with optimization enabled, the contents of `f(i)` are expanded inside the loop, so almost no function call overhead remains. MISO's `for_each`, which we see in the next two sections, has exactly this form."
+
+msgid "3. MISO_LAMBDA"
+msgstr ""
+
+#, python-brace-format
+msgid "MISO では、`for_each` などへ渡すラムダ式を `[=]` と書かずに `MISO_LAMBDA` と書きます。 `MISO_LAMBDA` は `miso/include/miso/execution.hpp` で定義されたマクロ（{ref}`第 2 章 <edu-ch02>`の `#define`）です。"
+msgstr "In MISO, the lambda expressions passed to `for_each` and others are written `MISO_LAMBDA` instead of `[=]`. `MISO_LAMBDA` is a macro defined in `miso/include/miso/execution.hpp` (the `#define` of {ref}`Chapter 2 <edu-ch02>`)."
+
+#, python-brace-format
+msgid "`__CUDACC__` は、CUDA のコンパイラ `nvcc` がコンパイルするときだけ定義される名前です。 `g++` でコンパイルする CPU ビルドでは、`MISO_LAMBDA(int i) { ... }` は `[=](int i) { ... }` に置き換わります。 つまり CPU ビルドでは、`MISO_LAMBDA` は値のキャプチャ `[=]` そのものです。"
+msgstr "`__CUDACC__` is a name defined only when the CUDA compiler `nvcc` compiles. In CPU builds compiled with `g++`, `MISO_LAMBDA(int i) { ... }` is replaced with `[=](int i) { ... }`. In other words, in CPU builds, `MISO_LAMBDA` is exactly the value capture `[=]`."
+
+#, python-brace-format
+msgid "CUDA ビルドでは、`__host__ __device__` が加わります。 これは「この関数は CPU（host）でも GPU（device）でも実行できる」という CUDA の指定です（{ref}`第 9 章 <edu-ch09>`）。 CPU ビルドでは、`miso/include/miso/cuda_compat.hpp` が `__host__` と `__device__` を空の文字列として定義します。"
+msgstr "In CUDA builds, `__host__ __device__` is added. This is a CUDA specification meaning \"this function can run on both the CPU (host) and the GPU (device)\" ({ref}`Chapter 9 <edu-ch09>`). In CPU builds, `miso/include/miso/cuda_compat.hpp` defines `__host__` and `__device__` as empty strings."
+
+msgid "このため、MISO のヘッダにある `__host__ __device__ int size() const` のような関数も、CPU ビルドでは普通の関数としてコンパイルされます。 自分でラムダ式の中から呼ぶ関数を書くときも、後で GPU で使う予定があれば `__host__ __device__` を付けておきます。 数学関数は、`std::sqrt` ではなく `miso::util::sqrt`、`util::exp`、`util::sin` などを使います（`miso/include/miso/utility.hpp`）。 `util` の関数は CPU と GPU の両方で使え、`float` と `double` の両方を受け取ります。"
+msgstr "For this reason, functions in MISO's headers such as `__host__ __device__ int size() const` are also compiled as ordinary functions in CPU builds. When you write a function to be called from inside a lambda expression yourself, add `__host__ __device__` if you plan to use it on the GPU later. For math functions, use `miso::util::sqrt`, `util::exp`, `util::sin`, and so on instead of `std::sqrt` (`miso/include/miso/utility.hpp`). The `util` functions work on both CPU and GPU, and accept both `float` and `double`."
+
+#, python-brace-format
+msgid "`MISO_LAMBDA` を使うのは、CPU と GPU で同じソースをコンパイルするためです。 `[=]` を使い、`[&]` を使わないのは、{ref}`2.3 節 <edu-ch07-lambda-struct>`で見たとおり GPU では CPU 上のアドレスを抱えたラムダ式が使えないためです。"
+msgstr "We use `MISO_LAMBDA` so that the same source is compiled for both CPU and GPU. We use `[=]` and not `[&]` because, as seen in {ref}`Section 2.3 <edu-ch07-lambda-struct>`, lambda expressions that hold addresses on the CPU cannot be used on the GPU."
+
+msgid "MISO のユニットテスト `miso/tests/serial/test_execution.cpp` には、CPU 専用のテストで `[&]` を使っている箇所があります。 CPU（`backend::Host`）ではこれも動きますが、GPU と共用するコードでは `MISO_LAMBDA` を使います。"
+msgstr "MISO's unit test `miso/tests/serial/test_execution.cpp` uses `[&]` in some places in CPU-only tests. This also works on the CPU (`backend::Host`), but in code shared with the GPU, use `MISO_LAMBDA`."
+
+msgid "4. for_each による並列ループ"
+msgstr "4\\. Parallel Loops with for_each"
+
+msgid "範囲を表す Range1D と Range3D"
+msgstr "Range1D and Range3D, which represent ranges"
+
+msgid "`for_each` に渡す添字の範囲は、`Range1D` と `Range3D` で表します（`miso/include/miso/execution.hpp`）。"
+msgstr "The range of indices passed to `for_each` is represented by `Range1D` and `Range3D` (`miso/include/miso/execution.hpp`)."
+
+#, python-brace-format
+msgid "`Range1D` は開始 `begin` と終わり `end` を持つ構造体です。 **`begin` を含み、`end` を含みません**（{ref}`第 2 章 <edu-ch02>`の `for (int i = 0; i < n; ++i)` と同じ）。 開始を含み終わりを含まない範囲を半開区間と呼び、`[begin, end)` と書くこともあります。 `Range3D` は、3 方向の `Range1D` を並べたものです。"
+msgstr "`Range1D` is a struct with a start `begin` and an end `end`. It **includes `begin` and does not include `end`** (the same as `for (int i = 0; i < n; ++i)` in {ref}`Chapter 2 <edu-ch02>`). A range that includes the start and excludes the end is called a half-open interval, and is sometimes written `[begin, end)`. `Range3D` is the `Range1D`s for the three directions lined up."
+
+#, python-brace-format
+msgid "`Range1D{0, n}` は、構造体のメンバを宣言の順に `begin = 0`, `end = n` で初期化する書き方です。 Fortran の `do i = 0, n - 1` に当たります。上限の書き方が 1 違うことに注意します。"
+msgstr "`Range1D{0, n}` is the notation that initializes the struct's members in declaration order, with `begin = 0` and `end = n`. It corresponds to Fortran's `do i = 0, n - 1`. Note that the upper limit is written differently by 1."
+
+msgid "for_each の Host 版"
+msgstr "The Host version of for_each"
+
+msgid "`for_each` は、範囲と各点の処理を受け取って、範囲のすべての点で処理を呼びます。 Host 版の定義は、ただの `for` 文です。"
+msgstr "`for_each` receives a range and the processing for each point, and calls the processing at every point in the range. The definition of the Host version is just a `for` statement."
+
+#, python-brace-format
+msgid "{ref}`2.5 節 <edu-ch07-pass-lambda>`の `apply_to_all` と同じ形です。 最初の引数 `backend::Host` は{ref}`第 6 章 <edu-ch06>`のタグ型で、引数名がありません。 中身は使わず、型だけで Host 版と CUDA 版の `for_each` を選び分けます。 Host 版は CPU の 1 つのスレッドで順に実行します。 3 次元の版は、{ref}`1.2 節 <edu-ch07-layout>`のメモリの並びに合わせて、最後の添字 `i2` を最も内側で回します。"
+msgstr "It has the same form as `apply_to_all` in {ref}`Section 2.5 <edu-ch07-pass-lambda>`. The first argument `backend::Host` is the tag type from {ref}`Chapter 6 <edu-ch06>` and has no argument name. Its contents are not used, and only its type selects between the Host and CUDA versions of `for_each`. The Host version runs in order on a single CPU thread. The three-dimensional version loops over the last index `i2` innermost, to match the memory layout of {ref}`Section 1.2 <edu-ch07-layout>`."
+
+msgid "呼ぶ側は、次のように書きます。"
+msgstr "The caller writes as follows."
+
+msgid "役割"
+msgstr "Role"
+
+#, python-brace-format
+msgid "`backend::Host{}`"
+msgstr ""
+
+#, python-brace-format
+msgid "計算する場所。タグ型のオブジェクトを `{}` で作って渡します"
+msgstr "The place to compute. Create a tag-type object with `{}` and pass it"
+
+msgid "`range`"
+msgstr ""
+
+msgid "3 方向の範囲。各方向とも上限を含みません"
+msgstr "The ranges in the three directions. None of the directions includes its upper limit"
+
+#, python-brace-format
+msgid "`MISO_LAMBDA(int i, int j, int k) { ... }`"
+msgstr ""
+
+msgid "各点で実行する処理。`Range3D` なら引数は 3 つ、`Range1D` なら 1 つです"
+msgstr "The processing to run at each point. For `Range3D` there are three arguments, and for `Range1D` there is one"
+
+msgid "ラムダ式は `rov`（View）を値で抱えます。`ro`（`Array3D`）はコピーできないので、ラムダ式の中で直接使いません。 Fortran で書くと、次の計算に当たります。"
+msgstr "The lambda expression holds `rov` (a View) by value. `ro` (an `Array3D`) cannot be copied, so it is not used directly inside the lambda expression. Written in Fortran, it corresponds to the following computation."
+
+msgid "実行順に頼らない"
+msgstr "Do not depend on the execution order"
+
+#, python-brace-format
+msgid "Host 版は添字の順に実行しますが、CUDA 版は多数のスレッドで**同時に**実行し、順番は決まっていません（{ref}`第 9 章 <edu-ch09>`）。 `for_each` に渡す処理は、各点を同時に実行しても結果が変わらないように書きます。 具体的には、次の 2 つを守ります。"
+msgstr "The Host version runs in index order, but the CUDA version runs on many threads **at the same time**, and the order is not fixed ({ref}`Chapter 9 <edu-ch09>`). Write the processing passed to `for_each` so that the result does not change even when the points are executed simultaneously. Specifically, follow these two rules."
+
+msgid "ある点の処理で書き込んだ要素を、別の点の処理で読まない。読む配列と書く配列を分けます。"
+msgstr "Do not read, in the processing of one point, an element written by the processing of another point. Separate the arrays you read from the arrays you write."
+
+msgid "異なる点の処理から、同じ要素へ書き込まない。"
+msgstr "Do not write to the same element from the processing of different points."
+
+msgid "たとえば `av[i] = av[i - 1] + 1.0` は、`i - 1` の結果を `i` で読むので、Host 版では動いても GPU では結果が変わります。"
+msgstr "For example, `av[i] = av[i - 1] + 1.0` reads the result of `i - 1` at `i`, so it works on the Host version but gives different results on the GPU."
+
+msgid "MISO の実例：gas_pressure"
+msgstr "A MISO example: gas_pressure"
+
+#, python-brace-format
+msgid "{ref}`2.4 節 <edu-ch07-this>`の `eos::IdealEOS::gas_pressure` を、もう一度読みます。"
+msgstr "Let us read `eos::IdealEOS::gas_pressure` from {ref}`Section 2.4 <edu-ch07-this>` once more."
+
+#, python-brace-format
+msgid "`btag` は関数の引数で、`backend::Host{}` か `backend::CUDA{}` です。`gas_pressure` は `Backend` を型引数に持つ関数テンプレートなので、同じコードが CPU と GPU の両方で使われます。"
+msgstr "`btag` is a function argument and is either `backend::Host{}` or `backend::CUDA{}`. `gas_pressure` is a function template with `Backend` as a type argument, so the same code is used on both CPU and GPU."
+
+msgid "`qq` は 9 つの物理量の View をまとめた `mhd::FieldsView`、`pr` は圧力を書く `Array3DView` です。"
+msgstr "`qq` is an `mhd::FieldsView` bundling the Views of the nine physical variables, and `pr` is an `Array3DView` to which the pressure is written."
+
+#, python-brace-format
+msgid "3 次元の配列ですが、`Range1D{0, qq.size()}` で通し番号 `i` の 1 次元ループにしています。各点の圧力はその点の密度 `ro` と内部エネルギー `ei` だけで決まるので、3 つの添字に分ける必要がありません。範囲はゴーストセル（{ref}`第 8 章 <edu-ch08>`）を含む全要素です。"
+msgstr "Although the arrays are three-dimensional, `Range1D{0, qq.size()}` makes it a one-dimensional loop over the sequential index `i`. The pressure at each point is determined only by the density `ro` and internal energy `ei` at that point, so there is no need to split it into three indices. The range is all elements, including ghost cells ({ref}`Chapter 8 <edu-ch08>`)."
+
+msgid "`Real(1)` は、型 `Real` の 1 です。`Real` が `float` のときに `double` の定数を混ぜないための書き方です。"
+msgstr "`Real(1)` is 1 of type `Real`. It is a way of writing that avoids mixing in a `double` constant when `Real` is `float`."
+
+msgid "各点の処理は `pr[i]` に書き、`qq.ro[i]`, `qq.ei[i]` を読むだけなので、どの順で実行しても結果は同じです。"
+msgstr "The processing at each point writes to `pr[i]` and only reads `qq.ro[i]` and `qq.ei[i]`, so the result is the same in whatever order it runs."
+
+msgid "練習 7-4：次の Fortran のループを、`Array1D<double>` の `a` と `b`（大きさ `n`）、`for_each`、`MISO_LAMBDA` で書いてください。 配列は `a(0:n-1)`, `b(0:n-1)` と宣言されているとします。"
+msgstr "Exercise 7-4: Write the following Fortran loop using `a` and `b` (size `n`) of `Array1D<double>`, `for_each`, and `MISO_LAMBDA`. Assume the arrays are declared as `a(0:n-1)` and `b(0:n-1)`."
+
+msgid "また、この処理を `b` ではなく `a(i)` へ書き込むように変えると、`for_each` では正しく計算できない理由を説明してください。"
+msgstr "Also explain why, if you change this processing to write to `a(i)` instead of `b`, `for_each` cannot compute it correctly."
+
+msgid "Fortran の `do i = 1, n - 2` は `n - 2` を含むので、`Range1D` の上限は 1 大きい `n - 1` です。 ラムダ式に渡すのは View の `av`, `bv` です。 `a(i) = 0.5 * (a(i-1) + a(i+1))` のように同じ配列へ書くと、点 `i` の処理が `a(i-1)` を読むときに、点 `i-1` の処理がすでに書き換えているかどうかが実行順で変わります。 Host 版では順に実行するので Fortran と同じ結果になりますが、GPU のように同時に実行すると結果が変わります。 更新前の値を読む配列と、結果を書く配列を分けます。"
+msgstr "Fortran's `do i = 1, n - 2` includes `n - 2`, so the upper limit of `Range1D` is `n - 1`, which is larger by 1. What you pass to the lambda expression are the Views `av` and `bv`. If you write to the same array, as in `a(i) = 0.5 * (a(i-1) + a(i+1))`, then when the processing of point `i` reads `a(i-1)`, whether the processing of point `i-1` has already rewritten it depends on the execution order. The Host version runs in order, so it gives the same result as Fortran, but when run simultaneously, as on a GPU, the result changes. Separate the array you read the pre-update values from and the array you write the result to."
+
+msgid "5. reduce による縮約"
+msgstr "5\\. Reduction with reduce"
+
+msgid "縮約とは"
+msgstr "What is a reduction"
+
+msgid "配列の全要素から、総和・最大値・最小値のような 1 つの値を求める操作を**縮約**（reduction）と呼びます。 Fortran の `sum`, `maxval`, `minval` に当たります。 MISO では `reduce` を使います（`miso/include/miso/execution.hpp`）。"
+msgstr "An operation that finds a single value, such as a sum, maximum, or minimum, from all the elements of an array is called a **reduction**. It corresponds to Fortran's `sum`, `maxval`, and `minval`. MISO uses `reduce` (`miso/include/miso/execution.hpp`)."
+
+msgid "引数"
+msgstr "Argument"
+
+msgid "`backend::Host`"
+msgstr ""
+
+msgid "計算する場所"
+msgstr "The place to compute"
+
+msgid "範囲。`Range1D` と `Range3D` の版があります"
+msgstr "The range. There are versions for `Range1D` and `Range3D`"
+
+msgid "`init`"
+msgstr ""
+
+msgid "初期値。結果の型 `T` もこの引数から決まります"
+msgstr "The initial value. The result type `T` is also determined from this argument"
+
+msgid "`map`"
+msgstr ""
+
+msgid "各点の値を返すラムダ式。`Range1D` なら `map(i)`、`Range3D` なら `map(i, j, k)`"
+msgstr "A lambda expression that returns the value at each point. `map(i)` for `Range1D` and `map(i, j, k)` for `Range3D`"
+
+msgid "`op`"
+msgstr ""
+
+msgid "2 つの値を 1 つにまとめるラムダ式。和なら `a + b`、最小値なら小さい方を返します"
+msgstr "A lambda expression that combines two values into one. For a sum, `a + b`; for a minimum, it returns the smaller one"
+
+msgid "`for_each` と違い、`map` は配列へ書き込まず、その点の値を `return` で返します。 Host 版は、`acc = op(acc, map(i))` を順に繰り返すだけです。 結果は `reduce` の戻り値として受け取ります。"
+msgstr "Unlike `for_each`, `map` does not write to arrays, and returns the value at that point with `return`. The Host version just repeats `acc = op(acc, map(i))` in order. You receive the result as the return value of `reduce`."
+
+msgid "ラムダ式を `value`, `plus` という変数に入れてから渡しています。 `reduce` の呼び出しの中に直接書いてもかまいません。"
+msgstr "The lambda expressions are put in the variables `value` and `plus` before being passed. You may also write them directly inside the call to `reduce`."
+
+msgid "初期値は単位元にする"
+msgstr "Make the initial value the identity element"
+
+msgid "上の例の 2 番目の呼び出しでは、初期値 `100.0` が結果に足されて `105` になりました。 Host 版は初期値を 1 回だけ使いますが、CUDA 版は範囲の外のスレッドの値として初期値を何回も使います（`execution.hpp` の `reduce_stage_kernel`）。 そのため、初期値は**まとめても値を変えないもの**（単位元）にします。"
+msgstr "In the second call in the example above, the initial value `100.0` was added to the result, giving `105`. The Host version uses the initial value only once, but the CUDA version uses the initial value many times, as the values of threads outside the range (`reduce_stage_kernel` in `execution.hpp`). For that reason, make the initial value something that **does not change the value when combined** (the identity element)."
+
+msgid "求めるもの"
+msgstr "What you want"
+
+msgid "初期値"
+msgstr "Initial value"
+
+msgid "総和"
+msgstr "Sum"
+
+msgid "`a + b`"
+msgstr ""
+
+msgid "`0.0`"
+msgstr ""
+
+msgid "最小値"
+msgstr "Minimum"
+
+msgid "小さい方"
+msgstr "The smaller one"
+
+msgid "十分大きな値（`std::numeric_limits<double>::max()` など）"
+msgstr "A sufficiently large value (such as `std::numeric_limits<double>::max()`)"
+
+msgid "最大値"
+msgstr "Maximum"
+
+msgid "大きい方"
+msgstr "The larger one"
+
+msgid "十分小さな値（`std::numeric_limits<double>::lowest()` など）"
+msgstr "A sufficiently small value (such as `std::numeric_limits<double>::lowest()`)"
+
+msgid "`std::numeric_limits` は `<limits>` で使える、型の最大値・最小値などを返す標準ライブラリの機能です。 `lowest()` は最も小さい（負で絶対値が最大の）値、`max()` は最も大きい値です。"
+msgstr "`std::numeric_limits` is a standard library feature, available with `<limits>`, that returns a type's maximum and minimum values and so on. `lowest()` is the smallest value (negative, with the largest absolute value), and `max()` is the largest value."
+
+msgid "結果の型 `T` は初期値の型で決まります。 総和の初期値を `0.0` でなく `0` と書くと `T` は `int` になり、途中の和が毎回整数に切り捨てられます。 上の配列で試すと、`5` ではなく `4` が返ります。浮動小数点数の縮約では、初期値を `0.0` のように書きます。"
+msgstr "The result type `T` is determined by the type of the initial value. If you write the initial value of a sum as `0` rather than `0.0`, `T` becomes `int`, and each partial sum is truncated to an integer. Trying it with the array above returns `4` instead of `5`. For reductions of floating-point numbers, write the initial value like `0.0`."
+
+msgid "最大値・最小値をまとめる関数として、`utility.hpp` には `util::max2`, `util::min2` があります。 2026 年 10 月の MISO の main では、これらは `double` を受け取っても `float` に丸めて比べます（MISO の issue #189）。 `double` の配列では、`util::fmax`, `util::fmin` を使うか、`a < b ? b : a` のように自分で書きます。"
+msgstr "For functions that combine maxima and minima, `utility.hpp` has `util::max2` and `util::min2`. In MISO's main as of October 2026, these round to `float` before comparing even when given `double` (MISO issue #189). For `double` arrays, use `util::fmax` and `util::fmin`, or write it yourself, such as `a < b ? b : a`."
+
+msgid "和は足す順序で変わる"
+msgstr "The sum changes with the order of addition"
+
+msgid "浮動小数点数の和は、足す順序によって末尾の桁が変わります。 Host 版は添字の順に足しますが、CUDA 版はスレッドのまとまりごとに部分和を作ってから足し合わせます。 そのため、CPU と GPU で総和のビット列が一致するとは限りません。 結果を比較するときは、完全一致を求めるのか、許容誤差を使うのかを区別します。 最大値・最小値は比べて選ぶだけなので、配列が同じなら一致します。"
+msgstr "The sum of floating-point numbers changes in the trailing digits depending on the order of addition. The Host version adds in index order, but the CUDA version makes partial sums for each group of threads and then adds them together. For that reason, the bit patterns of the sums on CPU and GPU do not necessarily match. When comparing results, distinguish whether you require an exact match or use a tolerance. Maxima and minima are chosen just by comparison, so they match if the arrays are the same."
+
+msgid "MISO の実例：Integrator::cfl"
+msgstr "A MISO example: Integrator::cfl"
+
+msgid "時間刻み `dt` は、CFL 条件から全格子点の最小値として求めます。 CUDA 版の `Integrator::cfl` は `reduce` を使っています。 GPU がなくても、`reduce` の使い方として読めます。"
+msgstr "The time step `dt` is found from the CFL condition as the minimum over all grid points. The CUDA version of `Integrator::cfl` uses `reduce`. Even without a GPU, you can read it as an example of how to use `reduce`."
+
+#, python-brace-format
+msgid "ラムダ式の前で、物理量・格子・音速の View（`qq_v`, `grid_v`, `cs_v`）と、メンバ変数 `cfl_number` のコピー `cfl_number_` を用意しています（{ref}`2.4 節 <edu-ch07-this>`）。"
+msgstr "Before the lambda expression, it prepares the Views of the physical variables, grid, and sound speed (`qq_v`, `grid_v`, `cs_v`) and the copy `cfl_number_` of the member variable `cfl_number` ({ref}`Section 2.4 <edu-ch07-this>`)."
+
+#, python-brace-format
+msgid "範囲は `Range3D` で、ゴーストセルを除く内側の格子点です（`i_margin` は {ref}`第 8 章 <edu-ch08>`で説明します）。"
+msgstr "The range is a `Range3D` covering the interior grid points, excluding ghost cells (`i_margin` is explained in {ref}`Chapter 8 <edu-ch08>`)."
+
+msgid "`f` は各点の「その点で許される時間刻み」を返し、`op` は小さい方を返します。初期値 `1.e10` は、実際の時間刻みより十分大きな値として単位元の代わりに使っています。"
+msgstr "`f` returns the \"time step allowed at that point\" for each point, and `op` returns the smaller one. The initial value `1.e10` is used in place of the identity element, as a value sufficiently larger than any actual time step."
+
+#, python-brace-format
+msgid "最後の `cfl_helper` は、CUDA 版だけが使う作業用の領域です（{ref}`第 9 章 <edu-ch09>`）。"
+msgstr "The last `cfl_helper` is a workspace used only by the CUDA version ({ref}`Chapter 9 <edu-ch09>`)."
+
+#, python-brace-format
+msgid "`pii4<Real>` は{ref}`第 6 章 <edu-ch06>`の変数テンプレートです。"
+msgstr "`pii4<Real>` is the variable template from {ref}`Chapter 6 <edu-ch06>`."
+
+#, python-brace-format
+msgid "Host 版の `Integrator::cfl`（`miso/include/miso/mhd_integrator_host.hpp`）は、`reduce` を使わず、同じ計算を `i`, `j`, `k` の 3 重の `for` 文と `util::min2` で書いています。 どちらも、最後に `MPI_Allreduce` で全プロセスの最小値をとります（{ref}`第 8 章 <edu-ch08>`）。"
+msgstr "The Host version of `Integrator::cfl` (`miso/include/miso/mhd_integrator_host.hpp`) does not use `reduce`, and writes the same computation with a triple `for` statement over `i`, `j`, and `k` and `util::min2`. In both, the minimum over all processes is finally taken with `MPI_Allreduce` ({ref}`Chapter 8 <edu-ch08>`)."
+
+msgid "練習 7-5：`Array1D<double>` の配列 `a`（大きさ `n`）の最小値を、`reduce` で求めるコードを書いてください。 初期値に何を選ぶかと、その理由も説明してください。"
+msgstr "Exercise 7-5: Write code that finds the minimum of an `Array1D<double>` array `a` (size `n`) with `reduce`. Also explain what you choose for the initial value and why."
+
+msgid "`std::numeric_limits` を使うので、`<limits>` を読み込んでおきます。"
+msgstr "Since it uses `std::numeric_limits`, include `<limits>`."
+
+msgid "初期値は、どの要素と比べても選ばれない値にします。`double` で最も大きな値 `std::numeric_limits<double>::max()` なら、配列の値と比べたときに必ず配列の値が残ります。 `0.0` を初期値にすると、配列の値がすべて正のときに結果が `0` になってしまいます。 `util::min2` は `double` を `float` に丸めるので（MISO #189）、ここでは条件演算子で小さい方を選んでいます。"
+msgstr "Make the initial value a value that is never chosen when compared with any element. If you use the largest `double` value, `std::numeric_limits<double>::max()`, the array's value always remains when compared with the array's values. If you use `0.0` as the initial value, the result becomes `0` when all the array's values are positive. `util::min2` rounds `double` to `float` (MISO #189), so here we pick the smaller one with the conditional operator."
+
+msgid "6. 小さなプログラムを書く"
+msgstr "6\\. Writing a Small Program"
+
+#, python-brace-format
+msgid "{ref}`配列と並列ループの実習 <edu-practice-execution>`で、ベクトル加算、縮約、1 次元移流の順に取り組みます。 CMake の設定は、{ref}`第 1 章 <edu-ch01>`の「自分のプログラムから MISO を使う最小の CMake 設定」を使います。 この段階では `backend::Host` で動かします。 GPU で同じ課題を動かすのは、{ref}`第 9 章 <edu-ch09>`を読んだ後です。"
+msgstr "In {ref}`Practice: Arrays and Parallel Loops <edu-practice-execution>`, you work on vector addition, reduction, and one-dimensional advection, in that order. For the CMake setup, use \"the minimal CMake setup for using MISO from your own program\" in {ref}`Chapter 1 <edu-ch01>`. At this stage, run with `backend::Host`. Running the same assignments on the GPU comes after reading {ref}`Chapter 9 <edu-ch09>`."
+
+#, python-brace-format
+msgid "CPU で配列計算を確かめたら、{ref}`第 8 章 <edu-ch08>`で複数のプロセスによる領域分割へ進みます。 時間発展を先に書いてみたい場合は、{ref}`第 10 章 <edu-ch10>`の逐次計算にも取り組めます。"
+msgstr "Once you have checked array computations on the CPU, move on to domain decomposition with multiple processes in {ref}`Chapter 8 <edu-ch08>`. If you would like to write the time evolution first, you can also work on the serial computation in {ref}`Chapter 10 <edu-ch10>`."
+
+msgid ""
+"<details>\n"
+"<summary>コラム：MISO は OpenMP を使っていない</summary>\n"
+msgstr ""
+"<details>\n"
+"<summary>Column: MISO does not use OpenMP</summary>\n"
+
+#, python-brace-format
+msgid "Fortran のコードでは、`!$omp parallel do` で CPU の複数のスレッドにループを分ける OpenMP をよく使います。 MISO の `for_each` の Host 版は、{ref}`4 節 <edu-ch07-for-each>`で見たとおりただの `for` 文で、OpenMP を使っていません。 MISO のソース（`miso/`, `demo/`）には `#pragma omp` がなく、CMake も OpenMP を探しません。"
+msgstr "In Fortran code, OpenMP is often used, splitting loops among multiple CPU threads with `!$omp parallel do`. The Host version of MISO's `for_each` is just a `for` statement, as seen in {ref}`Section 4 <edu-ch07-for-each>`, and does not use OpenMP. MISO's source (`miso/` and `demo/`) has no `#pragma omp`, and CMake does not look for OpenMP either."
+
+#, python-brace-format
+msgid "MISO の並列化は、CPU では MPI による領域分割（{ref}`第 8 章 <edu-ch08>`）、GPU では CUDA（{ref}`第 9 章 <edu-ch09>`）が担います。 CPU で複数のコアを使うときは、コアの数だけ MPI のプロセスを起動します。"
+msgstr "MISO's parallelization is handled by domain decomposition with MPI on the CPU ({ref}`Chapter 8 <edu-ch08>`) and by CUDA on the GPU ({ref}`Chapter 9 <edu-ch09>`). To use multiple cores on the CPU, launch as many MPI processes as there are cores."
+
+msgid "それでも Host 版を `for_each` で書いておく利点は、同じソースのまま CUDA 版へ切り替えられることです。 Host 版に OpenMP を加える場合も、変えるのは `execution.hpp` の `for_each` と `reduce` の中身だけで、呼び出す側は変わりません。 これは MISO の設計からの推測で、MISO の文書に書かれた方針ではありません。"
+msgstr "Even so, the advantage of writing the Host version with `for_each` is that you can switch to the CUDA version with the same source. If you added OpenMP to the Host version, you would change only the contents of `for_each` and `reduce` in `execution.hpp`, and the calling side would not change. This is an inference from MISO's design, not a policy written in MISO's documentation."
+

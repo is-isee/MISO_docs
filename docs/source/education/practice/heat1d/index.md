@@ -34,7 +34,7 @@ Ubuntu・Mac の CPU だけで、課題 1・2 と、課題 3 の CPU 用ビル�
 ```bash
 ./heat1d_serial          # N = 64, r_max = 0.4
 ./heat1d_serial 128      # N = 128
-./heat1d_serial 64 0.6   # 安定条件を超える r で試す
+./heat1d_serial 64 0.6   # try an r that exceeds the stability condition
 ```
 
 各課題のプログラムは、最後に次を表示します。

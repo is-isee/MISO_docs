@@ -8,7 +8,7 @@ MISO documentation
 
 MISO (Mhd ISee Open source code)は、磁気流体力学(MHD)シミュレーションを実行するためのオープンソースソフトウェアです。
 
-名古屋大学宇宙地球環境研究所(ISEE) 総合解析研究部(Integrated Studies Division)/CIDASを中心に開発されています。
+名古屋大学宇宙地球環境研究所 総合解析研究部/CIDASを中心に開発されています。
 
 .. toctree::
    :maxdepth: 2

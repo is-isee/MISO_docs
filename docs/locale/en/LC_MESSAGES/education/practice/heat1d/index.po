@@ -1,0 +1,156 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2025, Integrated Studies, ISEE, Nagoya University
+# This file is distributed under the same license as the MISO package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: MISO \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-10-29 09:37+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: en\n"
+"Language-Team: en <LL@li.org>\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.18.0\n"
+
+msgid "実習 heat1d：熱伝導の計算"
+msgstr "Practice heat1d: Heat Conduction"
+
+#, python-brace-format
+msgid "{ref}`第 10 章 <edu-ch10>` で説明した 1 次元熱伝導の計算を、自分で書きます。 前の課題で書いたプログラムを、次の課題へ広げます。"
+msgstr "You write the 1D heat conduction computation described in {ref}`Chapter 10 <edu-ch10>` yourself. You extend the program from the previous assignment into the next one."
+
+#, python-brace-format
+msgid "{ref}`逐次版：CPU で熱伝導を解く <edu-practice-heat1d-01>`"
+msgstr "{ref}`Serial Version: Solving Heat Conduction on the CPU <edu-practice-heat1d-01>`"
+
+#, python-brace-format
+msgid "{ref}`MPI 版：領域を分けて解く <edu-practice-heat1d-02>`"
+msgstr "{ref}`MPI Version: Dividing the Domain <edu-practice-heat1d-02>`"
+
+#, python-brace-format
+msgid "{ref}`GPU 版：配列とループを GPU へ移す <edu-practice-heat1d-03>`"
+msgstr "{ref}`GPU Version: Moving Arrays and Loops to the GPU <edu-practice-heat1d-03>`"
+
+#, python-brace-format
+msgid "式と確かめ方の考え方は第 10 章、配列と `for_each`・`reduce` は {ref}`第 7 章 <edu-ch07>`、 MPI は {ref}`第 8 章 <edu-ch08>`、GPU は {ref}`第 9 章 <edu-ch09>` を参照してください。 Ubuntu・Mac の CPU だけで、課題 1・2 と、課題 3 の CPU 用ビルドまで進められます。"
+msgstr "For the ideas behind the equations and the checks, see Chapter 10; for arrays, `for_each`, and `reduce`, see {ref}`Chapter 7 <edu-ch07>`; for MPI, see {ref}`Chapter 8 <edu-ch08>`; and for the GPU, see {ref}`Chapter 9 <edu-ch09>`. With only the CPU on Ubuntu or Mac, you can work through Assignments 1 and 2, and the CPU build of Assignment 3."
+
+msgid "共通の設定"
+msgstr "Common setup"
+
+msgid "3 つの課題で、次の問題と入力を使います。"
+msgstr "The three assignments use the following problem and inputs."
+
+msgid "項目"
+msgstr "Item"
+
+msgid "値"
+msgstr "Value"
+
+msgid "方程式"
+msgstr "Equation"
+
+msgid "$\\partial u/\\partial t = \\kappa\\,\\partial^2 u/\\partial x^2$、$\\kappa = 1$"
+msgstr ""
+
+msgid "領域と境界条件"
+msgstr "Domain and boundary conditions"
+
+msgid "$0 < x < 1$、両端で $u = 0$"
+msgstr "$0 < x < 1$, $u = 0$ at both ends"
+
+msgid "初期条件"
+msgstr "Initial condition"
+
+msgid "$u(x, 0) = \\sin(\\pi x)$"
+msgstr ""
+
+msgid "解析解"
+msgstr "Analytical solution"
+
+#, python-brace-format
+msgid "$u(x, t) = e^{-\\pi^2\\kappa t}\\sin(\\pi x)$"
+msgstr ""
+
+msgid "終了時刻"
+msgstr "End time"
+
+#, python-brace-format
+msgid "$t_\\mathrm{end} = 0.1$"
+msgstr ""
+
+msgid "格子"
+msgstr "Grid"
+
+msgid "セル数 $N$（既定 64）、$\\Delta x = 1/N$、セル中心 $x_j = (j + 1/2)\\Delta x$"
+msgstr "Number of cells $N$ (default 64), $\\Delta x = 1/N$, cell centers $x_j = (j + 1/2)\\Delta x$"
+
+msgid "ゴーストセル"
+msgstr "Ghost cells"
+
+msgid "両端に 1 つずつ（配列の大きさは物理セル数 + 2）"
+msgstr "One at each end (the array size is the number of physical cells + 2)"
+
+msgid "時間刻み"
+msgstr "Time step"
+
+#, python-brace-format
+msgid "$n_\\mathrm{steps} = \\lceil t_\\mathrm{end}/(r_\\mathrm{max}\\Delta x^2/\\kappa)\\rceil$、$\\Delta t = t_\\mathrm{end}/n_\\mathrm{steps}$、$r_\\mathrm{max}$ の既定は 0.4"
+msgstr "$n_\\mathrm{steps} = \\lceil t_\\mathrm{end}/(r_\\mathrm{max}\\Delta x^2/\\kappa)\\rceil$, $\\Delta t = t_\\mathrm{end}/n_\\mathrm{steps}$, default $r_\\mathrm{max}$ is 0.4"
+
+msgid "値の型"
+msgstr "Value type"
+
+msgid "`using Real = double;`"
+msgstr ""
+
+#, python-brace-format
+msgid "プログラムは、コマンドライン引数で $N$ と $r_\\mathrm{max}$ を受け取れるようにします（省略したら 64 と 0.4）。 `main(int argc, char **argv)` の `argv[1]` を `std::atoi`、`argv[2]` を `std::atof`（`<cstdlib>`）で数に直します。"
+msgstr "Make the program accept $N$ and $r_\\mathrm{max}$ as command-line arguments (defaulting to 64 and 0.4 if omitted). Convert `argv[1]` of `main(int argc, char **argv)` to a number with `std::atoi`, and `argv[2]` with `std::atof` (`<cstdlib>`)."
+
+msgid "各課題のプログラムは、最後に次を表示します。"
+msgstr "At the end, the program of each assignment prints the following."
+
+#, python-brace-format
+msgid "`max error (discrete)` は離散解 $G^{n}\\sin(\\pi x_j)$（$G = 1 - 4r\\sin^2(\\pi\\Delta x/2)$）との、 `max error (exact)` は解析解との、全物理セルでの最大の差です。"
+msgstr "`max error (discrete)` is the maximum difference over all physical cells from the discrete solution $G^{n}\\sin(\\pi x_j)$ ($G = 1 - 4r\\sin^2(\\pi\\Delta x/2)$), and `max error (exact)` is the maximum difference from the analytical solution."
+
+msgid "さらに、全物理セルの $x_j$ と $u_j$ を 1 行に 1 セルずつ、空白で区切ってファイルに書き出します。 ファイルどうしをビット単位で比べるため、17 桁で書きます。 `std::ofstream`（`<fstream>`）に `std::scientific` と `std::setprecision(17)`（`<iomanip>`）を指定すると、`1.23456789012345678e-01` の形で書けます。"
+msgstr "In addition, write $x_j$ and $u_j$ of all physical cells to a file, one cell per line, separated by a space. To compare files bit by bit, write them with 17 digits. If you set `std::scientific` and `std::setprecision(17)` (`<iomanip>`) on a `std::ofstream` (`<fstream>`), it writes in the form `1.23456789012345678e-01`."
+
+msgid "ビルドの設定"
+msgstr "Build setup"
+
+#, python-brace-format
+msgid "{ref}`第 1 章 <edu-ch01>` の「自分のプログラムから MISO を使う最小の CMake 設定」を使います。 作業用のフォルダ（たとえば `heat1d/`）に `CMakeLists.txt` とソースを置き、MISO の場所を `-DMISO_DIR=/path/to/MISO` で渡します。"
+msgstr "Use the \"minimal CMake configuration for using MISO from your own program\" in {ref}`Chapter 1 <edu-ch01>`. Put `CMakeLists.txt` and the sources in a working folder (for example `heat1d/`), and pass the location of MISO with `-DMISO_DIR=/path/to/MISO`."
+
+#, python-brace-format
+msgid "実行ファイルは課題ごとに 1 つずつ（`heat1d_serial`、`heat1d_mpi`、`heat1d_gpu`）作り、それぞれ `MISO::MISO` をリンクします。 MISO を `add_subdirectory` で取り込むと MPI と yaml-cpp も一緒にリンクされるので、MPI のための設定を別に足す必要はありません。 GPU 用のビルドに必要な追加の設定は {ref}`課題 3 <edu-practice-heat1d-03>` で説明します。"
+msgstr "Build one executable per assignment (`heat1d_serial`, `heat1d_mpi`, `heat1d_gpu`), and link each to `MISO::MISO`. When you bring in MISO with `add_subdirectory`, MPI and yaml-cpp are linked together with it, so you do not need to add any separate configuration for MPI. The extra settings needed for the GPU build are explained in {ref}`Assignment 3 <edu-practice-heat1d-03>`."
+
+#, python-brace-format
+msgid "MPI のプログラムは `mpiexec -np 2 ./build/heat1d_mpi` のように実行します。 コンテナの中などで OpenMPI がエラーを出すときは、{ref}`第 8 章 <edu-ch08>` で説明した環境変数（`demo/shared/openmpi_config.env`）を設定します。"
+msgstr "Run the MPI program like `mpiexec -np 2 ./build/heat1d_mpi`. If OpenMPI reports errors, for example inside a container, set the environment variables described in {ref}`Chapter 8 <edu-ch08>` (`demo/shared/openmpi_config.env`)."
+
+msgid "記録すること"
+msgstr "What to record"
+
+msgid "各課題で、次を記録しておくと、後の課題で比べられます。"
+msgstr "For each assignment, record the following so that you can compare them in later assignments."
+
+msgid "$N$ ごとの `max error (exact)` と、そこから求めた収束次数"
+msgstr "`max error (exact)` for each $N$, and the order of convergence computed from it"
+
+msgid "`max error (discrete)` の大きさ"
+msgstr "The size of `max error (discrete)`"
+
+msgid "書き出したファイル（逐次版の結果は、MPI 版・GPU 版と比べるときに使います）"
+msgstr "The files you wrote (use the results of the serial version when comparing with the MPI and GPU versions)"
+
